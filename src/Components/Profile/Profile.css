@@ -1,0 +1,21 @@
+.ProfileContainerClaro {
+    --ProfileContainer-Backgrond: var(--Background);
+}
+
+.ProfileContainerEscuro {
+    --ProfileContainer-Backgrond: var(--BackgroundDark);
+}
+
+
+.ProfileContainer {
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    max-height: 100%;
+    overflow-y: scroll;
+    background-color: var(--ProfileContainer-Backgrond);
+}
+
+.ProfileContainer::-webkit-scrollbar {
+    display: none;
+}

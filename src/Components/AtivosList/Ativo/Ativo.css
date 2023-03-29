@@ -1,0 +1,173 @@
+.AtivoContainrClaro {
+    --AtivoContainr-Background: white;
+    --AtivoContainr-Border: transparent;
+
+    --AtivoContainr-LocalArmazenamento-Background: var(--PrimaryBackground);
+    --AtivoContainr-LocalArmazenamento-Color: white;
+
+    --AtivoContainr-Tipo-Background: var(--SecondaryBackground);
+    --AtivoContainr-Tipo-Color: white;
+
+    --AtivoContainr-Name-Color: var(--ComplementaryColor);
+    --AtivoContainr-Email-Color: var(--SecondaryBackground);
+
+}
+
+.AtivoContainrEscuro {
+    --AtivoContainr-Background: var(--BackgroundDark);
+    --AtivoContainr-Border: var(--ComplementaryColor);
+
+    --AtivoContainr-LocalArmazenamento-Background: var(--PrimaryBackground);
+    --AtivoContainr-LocalArmazenamento-Color: white;
+
+    --AtivoContainr-Tipo-Background: var(--SecondaryBackground);
+    --AtivoContainr-Tipo-Color: white;
+
+    --AtivoContainr-Name-Color: var(--ComplementaryColor);
+    --AtivoContainr-Email-Color: white;
+}
+
+
+
+
+
+
+
+
+
+
+.AtivoContainr {
+    display: grid;
+    grid-template-columns: 40% 20% 20% 20%;
+    gap: .5rem;
+    align-items: center;
+    margin-bottom: .3rem;
+    padding: .7rem .5rem;
+    cursor: pointer;
+    background-color: var(--AtivoContainr-Background);
+    border: 1px solid var(--AtivoContainr-Border);
+    user-select: none;
+    border-radius: .5rem;
+
+}
+
+.AtivoContainrColumn {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: var(--Fonte);
+    font-size: .9rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.AtivoContainrColumn>img {
+    width: 50%;
+    border-radius: 50%;
+}
+
+.LocalArmazenamentoColumn {
+    background-color: var(--AtivoContainr-LocalArmazenamento-Background);
+    color: var(--AtivoContainr-LocalArmazenamento-Color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: .2rem .4rem;
+    border-radius: 1rem;
+    font-size: .7rem;
+}
+
+.AtivoTypeColumn {
+    background-color: var(--AtivoContainr-Tipo-Background);
+    color: var(--AtivoContainr-Tipo-Color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: .2rem .4rem;
+    border-radius: 1rem;
+    font-size: .7rem;
+}
+
+.AtivoNameColumn {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: .3rem;
+    color: var(--AtivoContainr-Name-Color);
+    font-size: .9rem;
+}
+
+.AtivoNameColumn>span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.AtivoNameColumnIcon {
+    padding: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--ComplementaryColor);
+    color: white;
+    font-size: .9rem;
+}
+
+.AtivoNameColumn>svg {
+    width: 1rem;
+}
+
+.TipoDeUsoColumn {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: .1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: .8rem;
+    color: var(--AtivoContainr-Email-Color);
+}
+
+.TipoDeUsoColumn>svg {
+    width: .9rem;
+}
+
+
+
+@media (max-width: 750px) {
+
+    .AtivoContainr {
+        display: grid;
+        grid-template-columns: 50% 25% 25%;
+    }
+
+    .LocalArmazenamentoColumn {
+        font-size: .6rem;
+    }
+
+    .AtivoTypeColumn {
+        font-size: .6rem;
+    }
+
+    .AtivoNameColumn>svg {
+        display: none;
+    }
+
+    .TipoDeUsoColumnContainer {
+        display: none;
+    }
+
+    .TipoDeUsoColumn {
+        display: none;
+    }
+}

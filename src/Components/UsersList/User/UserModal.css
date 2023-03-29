@@ -1,0 +1,792 @@
+.UserModal-ModalClaro {
+
+    --UserModal-Backgound: white;
+    --UserModal-Border: white;
+    --UserModal-SectionTitleColor: var(--ComplementaryColor);
+
+
+    --UserModal-IconeELabe-Input: var(--ComplementaryColor);
+    --UserModal-Borda-Input: var(--PrimaryBackGroundFaded50);
+    --UserModal-Color-Input: var(--SecondaryBackground);
+    --UserModal-Background-Input: transparent;
+
+    --UserModal-ListTittle-Background: var(--ComplementaryColor);
+    --UserModal-ListTittle-Color: white;
+    --UserModal-ListTittle-Item-Background: transparent;
+    --UserModal-ListTittle-Item-Color: var(--ComplementaryColor);
+    --UserModal-ListTittle-Item-Border: var(--ComplementaryColor);
+    --UserModal-ListTittle-Item-Background-Hover: var(--ComplementaryColor);
+    --UserModal-ListTittle-Item-Color-Hover: white;
+    --UserModal-ListTittle-Item-Border-Hover: var(--ComplementaryColor);
+
+    --UserModal-Header-Name-Color: var(--ComplementaryColor);
+    --UserModal-Header-Setor-Background: var(--SecondaryBackground);
+    --UserModal-Header-Setor-Color: white;
+    --UserModal-Header-Tipo-Background: var(--PrimaryBackground);
+    --UserModal-Header-Tipo-Color: white;
+
+    --UserModal-Sidebar-Item-Background: var(--PrimaryBackGroundFaded2);
+    --UserModal-Sidebar-Item-Border: var(--PrimaryBackGroundFaded2);
+    --UserModal-Sidebar-Item-Color: var(--PrimaryBackground);
+    --UserModal-Sidebar-Item-Background-Active: var(--PrimaryBackground);
+    --UserModal-Sidebar-Item-Border-Active: var(--PrimaryBackground);
+    --UserModal-Sidebar-Item-Color-Active: white;
+    --UserModal-Sidebar-Item-Background-Hover: var(--PrimaryBackground);
+    --UserModal-Sidebar-Item-Border-Hover: var(--PrimaryBackground);
+    --UserModal-Sidebar-Item-Color-Hover: white;
+
+    --UserModal-Sidebar-Button-Secondary-Border: var(--ComplementaryColor);
+    --UserModal-Sidebar-Button-Secondary-Color: var(--ComplementaryColor);
+
+    --UserModal-Sidebar-Button-Delete-Background: #d9534f;
+    --UserModal-Sidebar-Button-Delete-Border: #d9534f;
+    --UserModal-Sidebar-Button-Delete-Color: white;
+}
+
+
+
+.UserModal-ModalEscuro {
+
+    --UserModal-Backgound: var(--BackgroundDark);
+    --UserModal-Border: rgb(127, 126, 126);
+    --UserModal-SectionTitleColor: var(--ComplementaryColor);
+
+    --UserModal-IconeELabe-Input: var(--ComplementaryColor);
+    --UserModal-Borda-Input: var(--PrimaryBackGroundFaded50);
+    --UserModal-Color-Input: white;
+    --UserModal-Background-Input: transparent;
+
+    --UserModal-ListTittle-Background: var(--ComplementaryColor);
+    --UserModal-ListTittle-Color: white;
+    --UserModal-ListTittle-Item-Background: transparent;
+    --UserModal-ListTittle-Item-Color: var(--ComplementaryColor);
+    --UserModal-ListTittle-Item-Border: var(--ComplementaryColor);
+    --UserModal-ListTittle-Item-Background-Hover: var(--ComplementaryColor);
+    --UserModal-ListTittle-Item-Color-Hover: white;
+    --UserModal-ListTittle-Item-Border-Hover: var(--ComplementaryColor);
+
+    --UserModal-Header-Name-Color: var(--ComplementaryColor);
+    --UserModal-Header-Setor-Background: var(--SecondaryBackground);
+    --UserModal-Header-Setor-Color: white;
+    --UserModal-Header-Tipo-Background: var(--PrimaryBackground);
+    --UserModal-Header-Tipo-Color: white;
+
+    --UserModal-Sidebar-Item-Background: var(--PrimaryBackGroundFaded2);
+    --UserModal-Sidebar-Item-Border: var(--PrimaryBackGroundFaded2);
+    --UserModal-Sidebar-Item-Color: var(--PrimaryBackground);
+    --UserModal-Sidebar-Item-Background-Active: var(--PrimaryBackground);
+    --UserModal-Sidebar-Item-Border-Active: var(--PrimaryBackground);
+    --UserModal-Sidebar-Item-Color-Active: white;
+    --UserModal-Sidebar-Item-Background-Hover: var(--PrimaryBackground);
+    --UserModal-Sidebar-Item-Border-Hover: var(--PrimaryBackground);
+    --UserModal-Sidebar-Item-Color-Hover: white;
+
+
+    --UserModal-Sidebar-Button-Secondary-Border: var(--ComplementaryColor);
+    --UserModal-Sidebar-Button-Secondary-Color: var(--ComplementaryColor);
+
+    --UserModal-Sidebar-Button-Delete-Background: #d9534f;
+    --UserModal-Sidebar-Button-Delete-Border: #d9534f;
+    --UserModal-Sidebar-Button-Delete-Color: white;
+
+
+}
+
+
+/* blurred background modal for bootstrap v4 */
+.modal-open> :not(.modal) {}
+
+@media (max-width: 760px) {
+    .modal-open> :not(.modal) {
+        -webkit-filter: none;
+        -moz-filter: none;
+        -o-filter: none;
+        -ms-filter: none;
+        filter: none;
+    }
+}
+
+.UserModal {
+    z-index: 0 !important;
+}
+
+
+.UserModal-Modal .modal-content {
+    background-color: var(--UserModal-Backgound) !important;
+    border: 1px solid var(--UserModal-Border) !important;
+}
+
+
+.UserModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    max-height: 85vh;
+    min-height: 85vh;
+    overflow-y: scroll;
+}
+
+
+.UserModal::-webkit-scrollbar {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+
+    .UserModal {
+        max-height: none;
+        overflow-y: auto;
+    }
+
+    .UserModal::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+
+
+/* ======== HEADER  ============== */
+
+.UserModalHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 3rem;
+    padding-top: 1rem;
+    padding-right: .5rem;
+    padding-bottom: 1rem;
+}
+
+@media (max-width: 1000px) {
+    .UserModalHeader {
+        padding: .3rem;
+        margin-bottom: 2rem;
+    }
+
+}
+
+
+
+.UserModalHeader-Left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+}
+
+@media (max-width: 1000px) {
+    .UserModalHeader-Left {
+        width: 30%;
+    }
+}
+
+.UserModalHeader-Left-Photo>img {
+    width: 70%;
+    border-radius: 50%;
+    -webkit-box-shadow: 3px 2px 7px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 3px 2px 7px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 3px 2px 7px 0px rgba(0, 0, 0, 0.75);
+}
+
+
+.UserModalHeader-Right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: stretch;
+    gap: .5rem;
+    width: 100%;
+    flex-shrink: 1;
+    user-select: none;
+}
+
+
+.UserModalHeader-Right-Name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-family: var(--Fonte);
+    font-size: 1.3rem;
+    color: var(--UserModal-Header-Name-Color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.UserModalHeader-Right-Name span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.UserModalHeader-Right-Close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+}
+
+.UserModalHeader-Right-Close:hover {
+    transform: scale(1.1);
+}
+
+
+
+
+.UserModalHeader-Right-Setor {
+    border-radius: 1rem;
+    padding: .1rem 1rem;
+    font-family: var(--Fonte);
+    font-size: .8rem;
+    color: var(--UserModal-Header-Setor-Color);
+    background-color: var(--UserModal-Header-Setor-Background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.UserModalHeader-Right-Tipo {
+    border-radius: 1rem;
+    padding: .1rem 1rem;
+    font-family: var(--Fonte);
+    font-size: .8rem;
+    color: var(--UserModal-Header-Tipo-Color);
+    background-color: var(--UserModal-Header-Tipo-Background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+@media (max-width: 1000px) {
+    .UserModalHeader-Right-Tipo {
+        font-size: .7rem;
+    }
+
+    .UserModalHeader-Right-Setor {
+        font-size: .7rem;
+    }
+}
+
+/* ======== HEADER  ============== */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ======== BODY  ============== */
+
+.UserModalBody {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
+
+    padding-top: 1rem;
+    padding-right: .5rem;
+}
+
+
+@media (max-width: 1000px) {
+    .UserModalBody {
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        padding: .3rem;
+    }
+
+}
+
+.UserModalBody-Sidebar {
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: .5rem;
+    width: 30%;
+
+}
+
+@media (max-width: 1000px) {
+    .UserModalBody-Sidebar {
+        margin-bottom: 2.5rem;
+        width: 100%;
+    }
+
+}
+
+
+.UserModalBody-Sidebar-Item {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem;
+    padding: .6rem 1.7rem;
+    color: var(--UserModal-Sidebar-Item-Color);
+    font-weight: 500;
+    text-decoration: none;
+    font-family: var(--Fonte);
+    font-size: .9rem;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border-radius: 1REM;
+    background-color: var(--UserModal-Sidebar-Item-Background);
+    border: 1px solid var(--UserModal-Sidebar-Item-Border);
+}
+
+
+
+.UserModalBody-Sidebar-ActiveItem {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem;
+    padding: .6rem 1.7rem;
+    font-weight: 500;
+    text-decoration: none;
+    font-family: var(--Fonte);
+    font-size: .9rem;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border-radius: 1REM;
+    border: 1px solid var(--UserModal-Sidebar-Item-Border-Active);
+    color: var(--UserModal-Sidebar-Item-Color-Active);
+    background-color: var(--UserModal-Sidebar-Item-Background-Active);
+}
+
+
+
+
+.UserModalBody-Sidebar-Item:hover {
+    border: 1px solid var(--UserModal-Sidebar-Item-Border-Hover);
+    color: var(--UserModal-Sidebar-Item-Color-Hover);
+    background-color: var(--UserModal-Sidebar-Item-Background-Hover);
+}
+
+
+
+.UserModalBody-UserInfo {}
+
+
+
+
+
+
+
+
+/* ============== INFO FORM =================== */
+
+.UserModalBody-UserInfo {
+    padding: 0rem 1rem 1rem 3rem;
+    width: 100%;
+
+}
+
+
+@media (max-width: 1000px) {
+    .UserModalBody-UserInfo {
+        padding: .3rem;
+    }
+}
+
+
+
+.UserModalBody-UserInfoForm form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+
+.UserModalBody-UserInfoForm-OneLine {
+    width: 100%;
+}
+
+.UserModalBody-UserInfoForm-Group {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: .1rem;
+}
+
+.UserModalBody-UserInfoForm-Group>span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .5rem;
+    font-family: var(--Fonte);
+    color: var(--UserModal-IconeELabe-Input);
+    font-size: .9rem;
+}
+
+.UserModalBody-UserInfoForm-Group>span>svg {
+    width: 1rem;
+}
+
+@media (max-width: 1000px) {
+    .UserModalBody-UserInfoForm-Group>span {
+        font-size: .8rem;
+    }
+
+    .UserModalBody-UserInfoForm-Group>span>svg {
+        width: 1rem;
+    }
+}
+
+.UserModalBody-UserInfoForm-SectionTitle {
+    font-family: var(--Fonte);
+    color: var(--UserModal-SectionTitleColor);
+}
+
+.UserModalBody-UserInfoForm-ConfirMessage {
+    font-family: var(--Fonte);
+    color: var(--UserModal-SectionTitleColor);
+    text-align: center;
+}
+
+.UserModalBody-UserInfoForm-Group>input {
+    border-radius: .5rem;
+    outline: none;
+    border: 1px solid var(--UserModal-Borda-Input);
+    padding: .5rem .8rem;
+    color: var(--UserModal-Color-Input);
+    font-family: var(--Fonte);
+    font-size: .9rem;
+    background-color: var(--UserModal-Background-Input);
+}
+
+.UserModalBody-UserInfoForm-PhoneInput-Container {
+    border-radius: .5rem !important;
+    outline: none !important;
+    border: 1px solid var(--UserModal-Borda-Input) !important;
+
+    font-family: var(--Fonte) !important;
+    font-size: .9rem !important;
+    box-shadow: none !important;
+}
+
+.UserModalBody-UserInfoForm-PhoneInput {
+    border-radius: .5rem !important;
+    outline: none !important;
+    border: none !important;
+    color: var(--UserModal-Color-Input) !important;
+    font-family: var(--Fonte) !important;
+    font-size: .9rem !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    background-color: var(--UserModal-Background-Input) !important;
+}
+
+.UserModalBody-UserInfoForm-PhoneInput-Button {
+    background-color: var(--UserModal-Background-Input) !important;
+    border: none !important;
+}
+
+.UserModalBody-UserInfoForm-PhoneInput-Button:hover {
+    background-color: var(--UserModal-Background-Input) !important;
+    border: none !important;
+}
+
+.UserModalBody-UserInfoForm-PhoneInput-Button:active {
+    background-color: var(--UserModal-Background-Input) !important;
+    border: none !important;
+}
+
+.UserModalBody-UserInfoForm-LocationSelect {
+    flex-grow: 1 !important;
+    font-family: var(--Fonte) !important;
+    font-size: .9rem !important;
+    width: 100% !important;
+}
+
+.UserModalBody-UserInfoForm-PhoneInput-Dropdown {
+
+    overflow-y: scroll !important;
+}
+
+.UserModalBody-UserInfoForm-PhoneInput-Dropdown::-webkit-scrollbar {
+    display: none !important;
+
+}
+
+@media (max-width: 1000px) {
+    .UserModalBody-UserInfoForm-Group>input {
+        font-size: .8rem;
+    }
+}
+
+
+.UserModalBody-UserInfoForm-TwoLine {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 49% 49%;
+    gap: 1rem;
+}
+
+@media (max-width: 1000px) {
+    .UserModalBody-UserInfoForm-TwoLine {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+
+.UserModalBody-UserInfoForm-TwoLine>.UserModalBody-UserInfoForm-Group {
+    flex-grow: 1;
+}
+
+
+.UserModalBody-UserInfoForm-Button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    min-height: 2.5rem;
+    margin-top: 1.5rem;
+    gap: 1rem;
+}
+
+.UserModalBody-UserInfoForm-Button>button {
+    padding: .5rem 1rem;
+    font-family: var(--Fonte);
+    background-color: var(--ComplementaryColor);
+    border: 1px solid var(--ComplementaryColor);
+    color: var(--PrimaryColor);
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    align-items: center;
+}
+
+@media (max-width: 760px) {
+    .UserModalBody-UserInfoForm-Button>button {
+        font-size: .8rem;
+    }
+}
+
+
+.UserModalBody-UserInfoForm-Button-Delete {
+    background-color: var(--UserModal-Sidebar-Button-Delete-Background) !important;
+    border: 1px solid var(--UserModal-Sidebar-Button-Delete-Border) !important;
+    color: var(--UserModal-Sidebar-Button-Delete-Color) !important;
+}
+
+.UserModalBody-UserInfoForm-Button>.UserModalBody-UserInfoForm-Button-Secondary {
+    padding: .5rem 1rem;
+    font-family: var(--Fonte);
+    background-color: transparent !important;
+    border: 1px solid var(--UserModal-Sidebar-Button-Secondary-Border);
+    color: var(--UserModal-Sidebar-Button-Secondary-Color);
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    align-items: center;
+}
+
+.UserModalBody-UserInfoForm-Button>button>svg {
+    width: 1.2rem;
+}
+
+.UserModalBody-UserInfoForm-Button>button:hover {
+    transform: scale(1.1);
+}
+
+.UserModalBody-UserInfoForm-Button>button:active {
+    transform: scale(.9);
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ======================================== LISTA DE SETORES MODAL =========================================================================== */
+
+.UserModalBody-UserInfoForm-SetorList {
+
+    display: flex;
+    flex-direction: column;
+}
+
+.UserModalBody-UserInfoForm-SetorList-Title {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: .5rem;
+    padding: .5rem;
+    font-family: var(--Fonte);
+    background-color: var(--UserModal-ListTittle-Background);
+    color: var(--UserModal-ListTittle-Color);
+    border-top-right-radius: .5rem;
+    border-top-left-radius: .5rem;
+}
+
+.UserModalBody-UserInfoForm-SetorList-Item:last-child {
+    border-bottom-right-radius: .5rem;
+    border-bottom-left-radius: .5rem;
+}
+
+.UserModalBody-UserInfoForm-SetorList-Item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: .5rem;
+    padding: .5rem;
+    font-family: var(--Fonte);
+    border-bottom: 1px solid var(--UserModal-ListTittle-Item-Border);
+    border-right: 1px solid var(--UserModal-ListTittle-Item-Border);
+    border-left: 1px solid var(--UserModal-ListTittle-Item-Border);
+    color: var(--UserModal-ListTittle-Item-Color);
+    cursor: pointer;
+    font-size: .9rem;
+    background-color: var(--UserModal-ListTittle-Item-Background);
+}
+
+
+.UserModalBody-UserInfoForm-SetorList-ItemActive {
+    background-color: var(--ComplementaryColor);
+    color: var(--PrimaryColor);
+    border-bottom: 1px solid var(--ComplementaryColor);
+    border-right: 1px solid var(--ComplementaryColor);
+    border-left: 1px solid var(--ComplementaryColor);
+
+}
+
+.UserModalBody-UserInfoForm-SetorList-Item:hover {
+    background-color: var(--UserModal-ListTittle-Item-Background-Hover);
+    color: var(--UserModal-ListTittle-Item-Color-Hover);
+    border-bottom: 1px solid var(--UserModal-ListTittle-Item-Border-Hover);
+    border-right: 1px solid var(--UserModal-ListTittle-Item-Border-Hover);
+    border-left: 1px solid var(--UserModal-ListTittle-Item-Border-Hover);
+}
+
+
+
+.UserModalBody-UserInfoForm-SetorList-Item>svg {
+    width: .9rem;
+}
+
+
+
+/* ======================================== LISTA DE SETORES MODAL ===================================================================== */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ======================================== LISTA DE TIPOS DE USUARIOS MODAL =========================================================================== */
+
+.UserModalBody-UserInfoForm-TiposUserList {
+
+    display: flex;
+    flex-direction: column;
+}
+
+.UserModalBody-UserInfoForm-TiposUserList-Title {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: .5rem;
+    padding: .5rem;
+    font-family: var(--Fonte);
+    background-color: var(--UserModal-ListTittle-Background);
+    color: var(--UserModal-ListTittle-Color);
+    border-top-right-radius: .5rem;
+    border-top-left-radius: .5rem;
+}
+
+.UserModalBody-UserInfoForm-TiposUserList-Item:last-child {
+    border-bottom-right-radius: .5rem;
+    border-bottom-left-radius: .5rem;
+}
+
+.UserModalBody-UserInfoForm-TiposUserList-Item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: .5rem;
+    padding: .5rem;
+    font-family: var(--Fonte);
+    border-bottom: 1px solid var(--UserModal-ListTittle-Item-Border);
+    border-right: 1px solid var(--UserModal-ListTittle-Item-Border);
+    border-left: 1px solid var(--UserModal-ListTittle-Item-Border);
+    color: var(--UserModal-ListTittle-Item-Color);
+    cursor: pointer;
+    font-size: .9rem;
+    background-color: var(--UserModal-ListTittle-Item-Background);
+}
+
+.UserModalBody-UserInfoForm-TiposUserList-ItemActive {
+    background-color: var(--ComplementaryColor);
+    color: var(--PrimaryColor);
+    border-bottom: 1px solid var(--ComplementaryColor);
+    border-right: 1px solid var(--ComplementaryColor);
+    border-left: 1px solid var(--ComplementaryColor);
+}
+
+
+.UserModalBody-UserInfoForm-TiposUserList-Item:hover {
+    background-color: var(--UserModal-ListTittle-Item-Background-Hover);
+    color: var(--UserModal-ListTittle-Item-Color-Hover);
+    border-bottom: 1px solid var(--UserModal-ListTittle-Item-Border-Hover);
+    border-right: 1px solid var(--UserModal-ListTittle-Item-Border-Hover);
+    border-left: 1px solid var(--UserModal-ListTittle-Item-Border-Hover);
+}
+
+
+
+.UserModalBody-UserInfoForm-TiposUserList-Item>svg {
+    width: 1rem;
+}
+
+
+
+/* ======================================== LISTA DE TIPOS DE USUARIOS MODAL ===================================================================== */

@@ -1,0 +1,130 @@
+/* =========== ESTILO TELA USUARIOS ==================== */
+
+.UsersContainer {
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    max-height: 100%;
+    overflow-y: scroll;
+   
+}
+
+.UsersContainerClaro {   
+    background-color: var(--Background);
+}
+.UsersContainerEscuro {   
+    background-color: var(--BackgroundDark);
+}
+
+@media (max-width: 750px) {
+    .UsersContainer {
+
+        padding: .5rem;
+
+    }
+
+}
+
+.active {
+    background-color: transparent !important;
+    cursor: auto !important;
+}
+
+.UsersContainer::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+
+
+
+
+/* =========== ESTILO TABS TELA  ==================== */
+.TabsTitle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem;
+}
+
+.TabsTitle>svg {
+    width: 1.1rem;
+}
+
+/* =========== ESTILO TABS TELA  ==================== */
+
+
+
+
+
+
+
+/* =========== TABS BUTTONS ==================== */
+
+ 
+.TabsContainerClaro {
+    --TabsContainer-Background: #eceff1;
+    --TabsContainer-Button-Background:  var(--PrimaryBackGroundFaded2);
+    --TabsContainer-Button-Border:  var(--PrimaryBackGroundFaded2);
+    --TabsContainer-Button-Color: var(--PrimaryBackground);
+    --TabsContainer-Button-Background-Active: var(--PrimaryBackground);
+    --TabsContainer-Button-Border-Active: var(--PrimaryBackground);
+    --TabsContainer-Button-Color-Active: white;
+    --TabsContainer-Button-Background-Hover: var(--PrimaryBackground);
+    --TabsContainer-Button-Border-Hover: var(--PrimaryBackground);
+    --TabsContainer-Button-Color-Hover: white;
+}
+
+.TabsContainerEscuro {
+    --TabsContainer-Background: var(--BackgroundDark);
+    --TabsContainer-Button-Background:  var(--PrimaryBackGroundFaded2);
+    --TabsContainer-Button-Border:  var(--PrimaryBackGroundFaded50);
+    --TabsContainer-Button-Color: var(--PrimaryBackground);
+    --TabsContainer-Button-Background-Active: var(--PrimaryBackground);
+    --TabsContainer-Button-Border-Active: var(--PrimaryBackground);
+    --TabsContainer-Button-Color-Active: white;
+    --TabsContainer-Button-Background-Hover: var(--PrimaryBackground);
+    --TabsContainer-Button-Border-Hover: var(--PrimaryBackground);
+    --TabsContainer-Button-Color-Hover: white;
+}
+
+
+.TabsContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    background-color: var(--TabsContainer-Background);
+}
+
+.TabsContainer>button {
+    border-radius: .5rem;
+    border: 1px solid var(--TabsContainer-Button-Border);
+    padding: .5rem 1.5rem;
+    font-family: var(--Fonte);
+    background-color: var(--TabsContainer-Button-Background);
+    color: var(--TabsContainer-Button-Color);
+}
+
+.TabsContainer>button:hover {
+    background-color: var(--TabsContainer-Button-Background-Hover) !important;
+    color: var(--TabsContainer-Button-Color-Hover) !important;
+    border: 1px solid var(--TabsContainer-Button-Border-Hover);
+}
+
+.TabsButtonActive {
+    background-color: var(--TabsContainer-Button-Background-Active) !important;
+    color: var(--TabsContainer-Button-Color-Active) !important;
+    border: 1px solid var(--TabsContainer-Button-Border-Active);
+}
+
+
+@media (max-width: 650px) {
+    .TabsContainer {
+        flex-direction: column;
+        gap: .5rem;
+        margin-top: .5rem;
+    }
+}
+
+/* =========== TABS BUTTONS ==================== */

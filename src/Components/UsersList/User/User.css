@@ -1,0 +1,173 @@
+.UserContainerClaro {
+    --UserContainer-Background: white;
+    --UserContainer-Border: transparent;
+
+    --UserContainer-Setor-Background: var(--PrimaryBackground);
+    --UserContainer-Setor-Color: white;
+
+    --UserContainer-Tipo-Background: var(--SecondaryBackground);
+    --UserContainer-Tipo-Color: white;
+
+    --UserContainer-Name-Color: var(--ComplementaryColor);
+    --UserContainer-Email-Color: var(--SecondaryBackground);
+
+}
+
+.UserContainerEscuro {
+    --UserContainer-Background: var(--BackgroundDark);
+    --UserContainer-Border: var(--ComplementaryColor);
+
+    --UserContainer-Setor-Background: var(--PrimaryBackground);
+    --UserContainer-Setor-Color: white;
+
+    --UserContainer-Tipo-Background: var(--SecondaryBackground);
+    --UserContainer-Tipo-Color: white;
+
+    --UserContainer-Name-Color: var(--ComplementaryColor);
+    --UserContainer-Email-Color: white;
+}
+
+
+
+
+
+
+
+
+
+
+.UserContainer {
+    display: grid;
+    grid-template-columns: 25% 35% 20% 20%;
+    gap: .5rem;
+    align-items: center;
+    margin-bottom: .3rem;
+    padding: .7rem .5rem;
+    cursor: pointer;
+    background-color: var(--UserContainer-Background);
+    border: 1px solid var(--UserContainer-Border);
+    user-select: none;
+    border-radius: .5rem;
+
+}
+
+.UserContainerColumn {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: var(--Fonte);
+    font-size: .9rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.UserContainerColumn>img {
+    width: 50%;
+    border-radius: 50%;
+}
+
+.SetorColumn {
+    background-color: var(--UserContainer-Setor-Background);
+    color: var(--UserContainer-Setor-Color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: .2rem .4rem;
+    border-radius: 1rem;
+    font-size: .7rem;
+}
+
+.TypeColumn {
+    background-color: var(--UserContainer-Tipo-Background);
+    color: var(--UserContainer-Tipo-Color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: .2rem .4rem;
+    border-radius: 1rem;
+    font-size: .7rem;
+}
+
+.NameColumn {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: .3rem;
+    color: var(--UserContainer-Name-Color);
+    font-size: .9rem;
+}
+
+.NameColumn>span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.NameColumnIcon {
+    padding: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--ComplementaryColor);
+    color: white;
+    font-size: .9rem;
+}
+
+.NameColumn>svg {
+    width: 1rem;
+}
+
+.EmailColumn {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: .1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: .8rem;
+    color: var(--UserContainer-Email-Color);
+}
+
+.EmailColumn>svg {
+    width: .9rem;
+}
+
+
+
+@media (max-width: 750px) {
+
+    .UserContainer {
+        display: grid;
+        grid-template-columns: 50% 25% 25%;
+    }
+
+    .SetorColumn {
+        font-size: .6rem;
+    }
+
+    .TypeColumn {
+        font-size: .6rem;
+    }
+
+    .NameColumn>svg {
+        display: none;
+    }
+
+    .EmailColumnContainer {
+        display: none;
+    }
+
+    .EmailColumn {
+        display: none;
+    }
+}

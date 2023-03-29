@@ -1,0 +1,58 @@
+.AtivosContainerClaro {
+    --AtivosContainer-Background: #eceff1;
+    --AtivosContainer-NoAtivos-Color: var(--ComplementaryColor);
+}
+
+.AtivosContainerEscuro {
+    --AtivosContainer-Background:  var(--BackgroundDark);
+    --AtivosContainer-NoAtivos-Color: var(--ComplementaryColor);
+}
+
+
+
+
+.AtivosContainer {
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    max-height: 100%;
+    overflow-y: scroll;
+    background-color: var(--AtivosContainer-Background) !important;
+}
+
+.AtivosContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.AtivoTabTitle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem;
+}
+
+
+.NoAtivosRegistered {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    font-family: var(--Fonte);
+}
+
+.NoAtivosRegistered>p {
+    font-size: 1.2rem;
+    width: 100%;
+    color: var(--AtivosContainer-NoAtivos-Color);
+    font-weight: 500;
+}
+
+@media (max-width: 900px) {
+    .AtivosContainer {
+
+        padding: .5rem;
+
+    }
+}

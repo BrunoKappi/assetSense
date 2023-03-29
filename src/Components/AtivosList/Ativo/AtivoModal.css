@@ -1,0 +1,792 @@
+.AtivoModal-ModalClaro {
+
+    --AtivoModal-Backgound: white; 
+    --AtivoModal-Border: white;
+    --AtivoModal-SectionTitleColor: var(--ComplementaryColor);
+
+
+    --AtivoModal-IconeELabe-Input: var(--ComplementaryColor);
+    --AtivoModal-Borda-Input: var(--PrimaryBackGroundFaded50);
+    --AtivoModal-Color-Input: var(--SecondaryBackground);
+    --AtivoModal-Background-Input: transparent;
+
+    --AtivoModal-ListTittle-Background: var(--ComplementaryColor);
+    --AtivoModal-ListTittle-Color: white;
+    --AtivoModal-ListTittle-Item-Background: transparent;
+    --AtivoModal-ListTittle-Item-Color: var(--ComplementaryColor);
+    --AtivoModal-ListTittle-Item-Border: var(--ComplementaryColor);
+    --AtivoModal-ListTittle-Item-Background-Hover: var(--ComplementaryColor);
+    --AtivoModal-ListTittle-Item-Color-Hover: white;
+    --AtivoModal-ListTittle-Item-Border-Hover: var(--ComplementaryColor);
+
+    --AtivoModal-Header-Name-Color: var(--ComplementaryColor);
+    --AtivoModal-Header-Setor-Background: var(--SecondaryBackground);
+    --AtivoModal-Header-Setor-Color: white;
+    --AtivoModal-Header-Tipo-Background: var(--PrimaryBackground);
+    --AtivoModal-Header-Tipo-Color: white;
+
+    --AtivoModal-Sidebar-Item-Background: var(--PrimaryBackGroundFaded2);
+    --AtivoModal-Sidebar-Item-Border: var(--PrimaryBackGroundFaded2);
+    --AtivoModal-Sidebar-Item-Color: var(--PrimaryBackground);
+    --AtivoModal-Sidebar-Item-Background-Active: var(--PrimaryBackground);
+    --AtivoModal-Sidebar-Item-Border-Active: var(--PrimaryBackground);
+    --AtivoModal-Sidebar-Item-Color-Active: white;
+    --AtivoModal-Sidebar-Item-Background-Hover: var(--PrimaryBackground);
+    --AtivoModal-Sidebar-Item-Border-Hover: var(--PrimaryBackground);
+    --AtivoModal-Sidebar-Item-Color-Hover: white;
+
+    --AtivoModal-Sidebar-Button-Secondary-Border: var(--ComplementaryColor);
+    --AtivoModal-Sidebar-Button-Secondary-Color: var(--ComplementaryColor);
+
+    --AtivoModal-Sidebar-Button-Delete-Background: #d9534f;
+    --AtivoModal-Sidebar-Button-Delete-Border: #d9534f;
+    --AtivoModal-Sidebar-Button-Delete-Color: white;
+}
+
+
+
+.AtivoModal-ModalEscuro {
+
+    --AtivoModal-Backgound: var(--BackgroundDark);
+    --AtivoModal-Border: rgb(127, 126, 126);
+    --AtivoModal-SectionTitleColor: var(--ComplementaryColor);
+
+    --AtivoModal-IconeELabe-Input: var(--ComplementaryColor);
+    --AtivoModal-Borda-Input: var(--PrimaryBackGroundFaded50);
+    --AtivoModal-Color-Input: white;
+    --AtivoModal-Background-Input: transparent;
+
+    --AtivoModal-ListTittle-Background: var(--ComplementaryColor);
+    --AtivoModal-ListTittle-Color: white;
+    --AtivoModal-ListTittle-Item-Background: transparent;
+    --AtivoModal-ListTittle-Item-Color: var(--ComplementaryColor);
+    --AtivoModal-ListTittle-Item-Border: var(--ComplementaryColor);
+    --AtivoModal-ListTittle-Item-Background-Hover: var(--ComplementaryColor);
+    --AtivoModal-ListTittle-Item-Color-Hover: white;
+    --AtivoModal-ListTittle-Item-Border-Hover: var(--ComplementaryColor);
+
+    --AtivoModal-Header-Name-Color: var(--ComplementaryColor);
+    --AtivoModal-Header-Setor-Background: var(--SecondaryBackground);
+    --AtivoModal-Header-Setor-Color: white;
+    --AtivoModal-Header-Tipo-Background: var(--PrimaryBackground);
+    --AtivoModal-Header-Tipo-Color: white;
+
+    --AtivoModal-Sidebar-Item-Background: var(--PrimaryBackGroundFaded2);
+    --AtivoModal-Sidebar-Item-Border: var(--PrimaryBackGroundFaded2);
+    --AtivoModal-Sidebar-Item-Color: var(--PrimaryBackground);
+    --AtivoModal-Sidebar-Item-Background-Active: var(--PrimaryBackground);
+    --AtivoModal-Sidebar-Item-Border-Active: var(--PrimaryBackground);
+    --AtivoModal-Sidebar-Item-Color-Active: white;
+    --AtivoModal-Sidebar-Item-Background-Hover: var(--PrimaryBackground);
+    --AtivoModal-Sidebar-Item-Border-Hover: var(--PrimaryBackground);
+    --AtivoModal-Sidebar-Item-Color-Hover: white;
+
+
+    --AtivoModal-Sidebar-Button-Secondary-Border: var(--ComplementaryColor);
+    --AtivoModal-Sidebar-Button-Secondary-Color: var(--ComplementaryColor);
+
+    --AtivoModal-Sidebar-Button-Delete-Background: #d9534f;
+    --AtivoModal-Sidebar-Button-Delete-Border: #d9534f;
+    --AtivoModal-Sidebar-Button-Delete-Color: white;
+
+
+}
+
+
+/* blurred background modal for bootstrap v4 */
+.modal-open> :not(.modal) {}
+
+@media (max-width: 760px) {
+    .modal-open> :not(.modal) {
+        -webkit-filter: none;
+        -moz-filter: none;
+        -o-filter: none;
+        -ms-filter: none;
+        filter: none;
+    }
+}
+
+.AtivoModal {
+    z-index: 0 !important;
+}
+
+
+.AtivoModal-Modal .modal-content {
+    background-color: var(--AtivoModal-Backgound) !important;
+    border: 1px solid var(--AtivoModal-Border) !important;
+}
+
+
+.AtivoModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    max-height: 85vh;
+    min-height: 85vh;
+    overflow-y: scroll;
+}
+
+
+.AtivoModal::-webkit-scrollbar {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+
+    .AtivoModal {
+        max-height: none;
+        overflow-y: auto;
+    }
+
+    .AtivoModal::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+
+
+/* ======== HEADER  ============== */
+
+.AtivoModalHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 3rem;
+    padding-top: 1rem;
+    padding-right: .5rem;
+    padding-bottom: 1rem;
+}
+
+@media (max-width: 1000px) {
+    .AtivoModalHeader {
+        padding: .3rem;
+        margin-bottom: 2rem;
+    }
+
+}
+
+
+
+.AtivoModalHeader-Left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+}
+
+@media (max-width: 1000px) {
+    .AtivoModalHeader-Left {
+        width: 30%;
+    }
+}
+
+.AtivoModalHeader-Left-Photo>img {
+    width: 70%;
+    border-radius: 50%;
+    -webkit-box-shadow: 3px 2px 7px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 3px 2px 7px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 3px 2px 7px 0px rgba(0, 0, 0, 0.75);
+}
+
+
+.AtivoModalHeader-Right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: stretch;
+    gap: .5rem;
+    width: 100%;
+    flex-shrink: 1;
+    user-select: none;
+}
+
+
+.AtivoModalHeader-Right-Name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-family: var(--Fonte);
+    font-size: 1.3rem;
+    color: var(--AtivoModal-Header-Name-Color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.AtivoModalHeader-Right-Name span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.AtivoModalHeader-Right-Close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+}
+
+.AtivoModalHeader-Right-Close:hover {
+    transform: scale(1.1);
+}
+
+
+
+
+.AtivoModalHeader-Right-Setor {
+    border-radius: 1rem;
+    padding: .1rem 1rem;
+    font-family: var(--Fonte);
+    font-size: .8rem;
+    color: var(--AtivoModal-Header-Setor-Color);
+    background-color: var(--AtivoModal-Header-Setor-Background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.AtivoModalHeader-Right-Tipo {
+    border-radius: 1rem;
+    padding: .1rem 1rem;
+    font-family: var(--Fonte);
+    font-size: .8rem;
+    color: var(--AtivoModal-Header-Tipo-Color);
+    background-color: var(--AtivoModal-Header-Tipo-Background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+@media (max-width: 1000px) {
+    .AtivoModalHeader-Right-Tipo {
+        font-size: .7rem;
+    }
+
+    .AtivoModalHeader-Right-Setor {
+        font-size: .7rem;
+    }
+}
+
+/* ======== HEADER  ============== */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ======== BODY  ============== */
+
+.AtivoModalBody {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
+
+    padding-top: 1rem;
+    padding-right: .5rem;
+}
+
+
+@media (max-width: 1000px) {
+    .AtivoModalBody {
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        padding: .3rem;
+    }
+
+}
+
+.AtivoModalBody-Sidebar {
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: .5rem;
+    width: 30%;
+
+}
+
+@media (max-width: 1000px) {
+    .AtivoModalBody-Sidebar {
+        margin-bottom: 2.5rem;
+        width: 100%;
+    }
+
+}
+
+
+.AtivoModalBody-Sidebar-Item {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem;
+    padding: .6rem 1.7rem;
+    color: var(--AtivoModal-Sidebar-Item-Color);
+    font-weight: 500;
+    text-decoration: none;
+    font-family: var(--Fonte);
+    font-size: .9rem;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border-radius: 1REM;
+    background-color: var(--AtivoModal-Sidebar-Item-Background);
+    border: 1px solid var(--AtivoModal-Sidebar-Item-Border);
+}
+
+
+
+.AtivoModalBody-Sidebar-ActiveItem {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem;
+    padding: .6rem 1.7rem;
+    font-weight: 500;
+    text-decoration: none;
+    font-family: var(--Fonte);
+    font-size: .9rem;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border-radius: 1REM;
+    border: 1px solid var(--AtivoModal-Sidebar-Item-Border-Active);
+    color: var(--AtivoModal-Sidebar-Item-Color-Active);
+    background-color: var(--AtivoModal-Sidebar-Item-Background-Active);
+}
+
+
+
+
+.AtivoModalBody-Sidebar-Item:hover {
+    border: 1px solid var(--AtivoModal-Sidebar-Item-Border-Hover);
+    color: var(--AtivoModal-Sidebar-Item-Color-Hover);
+    background-color: var(--AtivoModal-Sidebar-Item-Background-Hover);
+}
+
+
+
+.AtivoModalBody-AtivoInfo {}
+
+
+
+
+
+
+
+
+/* ============== INFO FORM =================== */
+
+.AtivoModalBody-AtivoInfo {
+    padding: 0rem 1rem 1rem 3rem;
+    width: 100%;
+
+}
+
+
+@media (max-width: 1000px) {
+    .AtivoModalBody-AtivoInfo {
+        padding: .3rem;
+    }
+}
+
+
+
+.AtivoModalBody-AtivoInfoForm form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+
+.AtivoModalBody-AtivoInfoForm-OneLine {
+    width: 100%;
+}
+
+.AtivoModalBody-AtivoInfoForm-Group {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: .1rem;
+}
+
+.AtivoModalBody-AtivoInfoForm-Group>span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .5rem;
+    font-family: var(--Fonte);
+    color: var(--AtivoModal-IconeELabe-Input);
+    font-size: .9rem;
+}
+
+.AtivoModalBody-AtivoInfoForm-Group>span>svg {
+    width: 1rem;
+}
+
+@media (max-width: 1000px) {
+    .AtivoModalBody-AtivoInfoForm-Group>span {
+        font-size: .8rem;
+    }
+
+    .AtivoModalBody-AtivoInfoForm-Group>span>svg {
+        width: 1rem;
+    }
+}
+
+.AtivoModalBody-AtivoInfoForm-SectionTitle {
+    font-family: var(--Fonte);
+    color: var(--AtivoModal-SectionTitleColor);
+}
+
+.AtivoModalBody-AtivoInfoForm-ConfirMessage {
+    font-family: var(--Fonte);
+    color: var(--AtivoModal-SectionTitleColor);
+    text-align: center;
+}
+
+.AtivoModalBody-AtivoInfoForm-Group>input {
+    border-radius: .5rem;
+    outline: none;
+    border: 1px solid var(--AtivoModal-Borda-Input);
+    padding: .5rem .8rem;
+    color: var(--AtivoModal-Color-Input);
+    font-family: var(--Fonte);
+    font-size: .9rem;
+    background-color: var(--AtivoModal-Background-Input);
+}
+
+.AtivoModalBody-AtivoInfoForm-PhoneInput-Container {
+    border-radius: .5rem !important;
+    outline: none !important;
+    border: 1px solid var(--AtivoModal-Borda-Input) !important;
+
+    font-family: var(--Fonte) !important;
+    font-size: .9rem !important;
+    box-shadow: none !important;
+}
+
+.AtivoModalBody-AtivoInfoForm-PhoneInput {
+    border-radius: .5rem !important;
+    outline: none !important;
+    border: none !important;
+    color: var(--AtivoModal-Color-Input) !important;
+    font-family: var(--Fonte) !important;
+    font-size: .9rem !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    background-color: var(--AtivoModal-Background-Input) !important;
+}
+
+.AtivoModalBody-AtivoInfoForm-PhoneInput-Button {
+    background-color: var(--AtivoModal-Background-Input) !important;
+    border: none !important;
+}
+
+.AtivoModalBody-AtivoInfoForm-PhoneInput-Button:hover {
+    background-color: var(--AtivoModal-Background-Input) !important;
+    border: none !important;
+}
+
+.AtivoModalBody-AtivoInfoForm-PhoneInput-Button:active {
+    background-color: var(--AtivoModal-Background-Input) !important;
+    border: none !important;
+}
+
+.AtivoModalBody-AtivoInfoForm-LocationSelect {
+    flex-grow: 1 !important;
+    font-family: var(--Fonte) !important;
+    font-size: .9rem !important;
+    width: 100% !important;
+}
+
+.AtivoModalBody-AtivoInfoForm-PhoneInput-Dropdown {
+
+    overflow-y: scroll !important;
+}
+
+.AtivoModalBody-AtivoInfoForm-PhoneInput-Dropdown::-webkit-scrollbar {
+    display: none !important;
+
+}
+
+@media (max-width: 1000px) {
+    .AtivoModalBody-AtivoInfoForm-Group>input {
+        font-size: .8rem;
+    }
+}
+
+
+.AtivoModalBody-AtivoInfoForm-TwoLine {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 49% 49%;
+    gap: 1rem;
+}
+
+@media (max-width: 1000px) {
+    .AtivoModalBody-AtivoInfoForm-TwoLine {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+
+.AtivoModalBody-AtivoInfoForm-TwoLine>.AtivoModalBody-AtivoInfoForm-Group {
+    flex-grow: 1;
+}
+
+
+.AtivoModalBody-AtivoInfoForm-Button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    min-height: 2.5rem;
+    margin-top: 1.5rem;
+    gap: 1rem;
+}
+
+.AtivoModalBody-AtivoInfoForm-Button>button {
+    padding: .5rem 1rem;
+    font-family: var(--Fonte);
+    background-color: var(--ComplementaryColor);
+    border: 1px solid var(--ComplementaryColor);
+    color: var(--PrimaryColor);
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    align-items: center;
+}
+
+@media (max-width: 760px) {
+    .AtivoModalBody-AtivoInfoForm-Button>button {
+        font-size: .8rem;
+    }
+}
+
+
+.AtivoModalBody-AtivoInfoForm-Button-Delete {
+    background-color: var(--AtivoModal-Sidebar-Button-Delete-Background) !important;
+    border: 1px solid var(--AtivoModal-Sidebar-Button-Delete-Border) !important;
+    color: var(--AtivoModal-Sidebar-Button-Delete-Color) !important;
+}
+
+.AtivoModalBody-AtivoInfoForm-Button>.AtivoModalBody-AtivoInfoForm-Button-Secondary {
+    padding: .5rem 1rem;
+    font-family: var(--Fonte);
+    background-color: transparent !important;
+    border: 1px solid var(--AtivoModal-Sidebar-Button-Secondary-Border);
+    color: var(--AtivoModal-Sidebar-Button-Secondary-Color);
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    align-items: center;
+}
+
+.AtivoModalBody-AtivoInfoForm-Button>button>svg {
+    width: 1.2rem;
+}
+
+.AtivoModalBody-AtivoInfoForm-Button>button:hover {
+    transform: scale(1.1);
+}
+
+.AtivoModalBody-AtivoInfoForm-Button>button:active {
+    transform: scale(.9);
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ======================================== LISTA DE SETORES MODAL =========================================================================== */
+
+.AtivoModalBody-AtivoInfoForm-LocalList {
+
+    display: flex;
+    flex-direction: column;
+}
+
+.AtivoModalBody-AtivoInfoForm-LocalList-Title {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: .5rem;
+    padding: .5rem;
+    font-family: var(--Fonte);
+    background-color: var(--AtivoModal-ListTittle-Background);
+    color: var(--AtivoModal-ListTittle-Color);
+    border-top-right-radius: .5rem;
+    border-top-left-radius: .5rem;
+}
+
+.AtivoModalBody-AtivoInfoForm-LocalList-Item:last-child {
+    border-bottom-right-radius: .5rem;
+    border-bottom-left-radius: .5rem;
+}
+
+.AtivoModalBody-AtivoInfoForm-LocalList-Item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: .5rem;
+    padding: .5rem;
+    font-family: var(--Fonte);
+    border-bottom: 1px solid var(--AtivoModal-ListTittle-Item-Border);
+    border-right: 1px solid var(--AtivoModal-ListTittle-Item-Border);
+    border-left: 1px solid var(--AtivoModal-ListTittle-Item-Border);
+    color: var(--AtivoModal-ListTittle-Item-Color);
+    cursor: pointer;
+    font-size: .9rem;
+    background-color: var(--AtivoModal-ListTittle-Item-Background);
+}
+
+
+.AtivoModalBody-AtivoInfoForm-LocalList-ItemActive {
+    background-color: var(--ComplementaryColor);
+    color: var(--PrimaryColor);
+    border-bottom: 1px solid var(--ComplementaryColor);
+    border-right: 1px solid var(--ComplementaryColor);
+    border-left: 1px solid var(--ComplementaryColor);
+
+}
+
+.AtivoModalBody-AtivoInfoForm-LocalList-Item:hover {
+    background-color: var(--AtivoModal-ListTittle-Item-Background-Hover);
+    color: var(--AtivoModal-ListTittle-Item-Color-Hover);
+    border-bottom: 1px solid var(--AtivoModal-ListTittle-Item-Border-Hover);
+    border-right: 1px solid var(--AtivoModal-ListTittle-Item-Border-Hover);
+    border-left: 1px solid var(--AtivoModal-ListTittle-Item-Border-Hover);
+}
+
+
+
+.AtivoModalBody-AtivoInfoForm-LocalList-Item>svg {
+    width: .9rem;
+}
+
+
+
+/* ======================================== LISTA DE SETORES MODAL ===================================================================== */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ======================================== LISTA DE TIPOS DE USUARIOS MODAL =========================================================================== */
+
+.AtivoModalBody-AtivoInfoForm-TiposAtivosList {
+
+    display: flex;
+    flex-direction: column;
+}
+
+.AtivoModalBody-AtivoInfoForm-TiposAtivosList-Title {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: .5rem;
+    padding: .5rem;
+    font-family: var(--Fonte);
+    background-color: var(--AtivoModal-ListTittle-Background);
+    color: var(--AtivoModal-ListTittle-Color);
+    border-top-right-radius: .5rem;
+    border-top-left-radius: .5rem;
+}
+
+.AtivoModalBody-AtivoInfoForm-TiposAtivosList-Item:last-child {
+    border-bottom-right-radius: .5rem;
+    border-bottom-left-radius: .5rem;
+}
+
+.AtivoModalBody-AtivoInfoForm-TiposAtivosList-Item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: .5rem;
+    padding: .5rem;
+    font-family: var(--Fonte);
+    border-bottom: 1px solid var(--AtivoModal-ListTittle-Item-Border);
+    border-right: 1px solid var(--AtivoModal-ListTittle-Item-Border);
+    border-left: 1px solid var(--AtivoModal-ListTittle-Item-Border);
+    color: var(--AtivoModal-ListTittle-Item-Color);
+    cursor: pointer;
+    font-size: .9rem;
+    background-color: var(--AtivoModal-ListTittle-Item-Background);
+}
+
+.AtivoModalBody-AtivoInfoForm-TiposAtivosList-ItemActive {
+    background-color: var(--ComplementaryColor);
+    color: var(--PrimaryColor);
+    border-bottom: 1px solid var(--ComplementaryColor);
+    border-right: 1px solid var(--ComplementaryColor);
+    border-left: 1px solid var(--ComplementaryColor);
+}
+
+
+.AtivoModalBody-AtivoInfoForm-TiposAtivosList-Item:hover {
+    background-color: var(--AtivoModal-ListTittle-Item-Background-Hover);
+    color: var(--AtivoModal-ListTittle-Item-Color-Hover);
+    border-bottom: 1px solid var(--AtivoModal-ListTittle-Item-Border-Hover);
+    border-right: 1px solid var(--AtivoModal-ListTittle-Item-Border-Hover);
+    border-left: 1px solid var(--AtivoModal-ListTittle-Item-Border-Hover);
+}
+
+
+
+.AtivoModalBody-AtivoInfoForm-TiposAtivosList-Item>svg {
+    width: 1rem;
+}
+
+
+
+/* ======================================== LISTA DE TIPOS DE USUARIOS MODAL ===================================================================== */

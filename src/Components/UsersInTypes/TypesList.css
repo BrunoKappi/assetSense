@@ -1,0 +1,222 @@
+.nav-tabs .nav-link {
+
+    color: var(--PrimaryBackground) !important;
+    font-family: var(--Fonte) !important;
+
+}
+
+.nav-tabs {
+    border-bottom: none !important;
+}
+
+
+.nav-tabs .nav-link.active {
+    border-top: 1px solid var(--PrimaryBackGroundFaded50) !important;
+    border-right: 1px solid var(--PrimaryBackGroundFaded50) !important;
+    border-left: 1px solid var(--PrimaryBackGroundFaded50) !important;
+    border-bottom: 1px solid var(--Background) !important;
+}
+
+.nav-tabs .nav-link:hover {
+    border-top: 1px solid var(--PrimaryBackGroundFaded50) !important;
+    border-right: 1px solid var(--PrimaryBackGroundFaded50) !important;
+    border-left: 1px solid var(--PrimaryBackGroundFaded50) !important;
+    border-bottom: 1px solid var(--Background) !important;
+}
+
+
+
+
+
+
+
+.UserTypesShowOnlyCustomGroupListClaro {
+    --UserTypes-Title-Backround: var(--PrimaryBackground);
+    --UserTypes-Title-Color: white;
+
+    --UserTypes-Item-Backround: white;
+    --UserTypes-Item-Border: rgb(205, 205, 205);
+    --UserTypes-Item-Border-LR: rgb(205, 205, 205);
+    --UserTypes-Item-Icon-Color: var(--PrimaryBackground);
+    --UserTypes-Item-Span-Color: var(--SecondaryBackground);
+}
+
+
+.UserTypesShowOnlyCustomGroupListEscuro {
+    --UserTypes-Title-Backround: var(--PrimaryBackground);
+    --UserTypes-Title-Color: white;
+
+    --UserTypes-Item-Backround: var(--BackgroundDark);
+    --UserTypes-Item-Border: rgb(88, 86, 86);
+    --UserTypes-Item-Border-LR: rgb(88, 86, 86);
+    --UserTypes-Item-Icon-Color: var(--ComplementaryColor);
+    --UserTypes-Item-Span-Color: white;
+}
+
+
+
+
+
+
+
+.UserTypesShowOnlyCustomGroupList {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.UserTypesShowOnlyCustomGroupList span {
+    cursor: pointer;
+}
+
+.UserTypesShowOnlyCustomGroupList .list-group-item {
+    background-color: var(--UserTypes-Item-Backround);
+    border-bottom: 1px solid var(--UserTypes-Item-Border);
+    border-left: 1px solid var(--UserTypes-Item-Border-LR);
+    border-right: 1px solid var(--UserTypes-Item-Border-LR);
+}
+
+
+.UserTypesShowOnlyCustomGroupListItem {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+}
+
+.UserTypesShowOnlyCustomGroupListItem span {
+    font-family: var(--Fonte);
+    font-size: 12px;
+    color: var(--UserTypes-Item-Span-Color);
+}
+
+.UserTypesShowOnlyCustomGroupListItem>svg {
+    font-family: var(--Fonte);
+    font-size: .9rem;
+    margin-right: .3rem;
+}
+
+
+.UserTypesShowOnlyCustomGroupListItem svg {
+    float: right;
+    margin-left: .6rem;
+    font-size: .9rem;
+    width: 1rem !important;
+}
+
+.UserTypesShowOnlyCustomGroupIcon {
+    font-family: var(--Fonte);
+    font-size: .9rem;
+    margin-right: .3rem;
+    color: var(--UserTypes-Item-Icon-Color);
+}
+
+.UserTypesShowOnlyCustomGroupIcon>svg {
+    width: .4rem !important;
+}
+
+.UserTypesShowOnlyCustomGroupListCheckbox {
+    color: var(--PrimaryColor);
+    cursor: pointer;
+}
+
+
+.UserTypesShowOnlyCustomGroupListItem input {
+    padding: 4px 12px;
+    border: none;
+    outline: none;
+    font-family: var(--Fonte);
+    color: var(--Dark);
+    font-size: 14px;
+    background-color: var(--FundoTransparente);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+.UserTypesShowOnlyCustomGroupListItem span {
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.UserTypesShowOnlyCustomGroupListItem button {
+    border: none;
+    background-color: var(--FundoTransparente);
+    padding: 5px;
+}
+
+.UserTypesShowOnlyCustomGroupListItem form button svg {
+    color: var(--Dark) !important;
+}
+
+
+.UserTypesShowOnlyCustomGroupListInput {
+    padding: 0 !important;
+    margin: 0 !important;
+    font-family: var(--Fonte) !important;
+    font-size: 13px !important;
+    margin-right: 1rem !important;
+}
+
+
+.UserTypesShowOnlyCustomGroupList .list-group-item {
+    padding: .2rem .7rem !important;
+}
+
+.UserTypesShowOnlyCustomGroupListTitle.list-group-item {
+    padding: .6rem .7rem !important;
+}
+
+
+
+.Tilt {
+    transform: scale(1.2) !important;
+    background-color: aqua !important;
+}
+
+.UserTypesShowOnlyCustomGroupListTitle {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    font-family: var(--Fonte) !important;
+    background-color: var(--UserTypes-Title-Backround) !important;
+    color: var(--UserTypes-Title-Color) !important;
+    user-select: none;
+}
+
+.UserTypesShowOnlyCustomGroupListTitleSpan {
+    white-space: nowrap;
+    /* Evita que o texto seja quebrado */
+    overflow: hidden;
+    /* Esconde o conteúdo que ultrapassa o limite do elemento */
+    text-overflow: ellipsis;
+    /* Adiciona reticências no final do texto que ultrapassa o limite do elemento */
+    display: flex;
+    /* Permite que o ícone e o texto fiquem na mesma linha */
+    align-items: center;
+    /* Alinha verticalmente o ícone e o texto */
+    gap: .5rem;
+    color: var(--UserTypes-Title-Color);
+}
+
+.UserTypesShowOnlyCustomGroupListTitleSpan>svg {
+    width: 1.1rem;
+    color: var(--UserTypes-Title-Color);
+}
+
+.MarginBottom {
+    margin-bottom: 2.5rem;
+}

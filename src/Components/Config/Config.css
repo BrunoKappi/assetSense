@@ -1,0 +1,69 @@
+.ConfigContainerClaro {
+    --Config-Container-Background: #eceff1;
+}
+
+.ConfigContainerEscuro {
+    --Config-Container-Background: var(--BackgroundDark);
+}
+
+
+
+
+
+.ConfigContainer {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    overflow-y: scroll;
+    padding: 2rem;
+    background-color: var(--Config-Container-Background);
+}
+
+.ConfigContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.ListItensContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: stretch;
+}
+
+.my-masonry-grid {
+    display: -webkit-box;
+    /* Not needed if autoprefixing */
+    display: -ms-flexbox;
+    /* Not needed if autoprefixing */
+    display: flex;
+    width: 100%;
+}
+
+.my-masonry-grid_column {
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+    /* gutter size */
+    background-clip: padding-box;
+    margin-right: 1rem;
+}
+
+@media (max-width: 750px) {
+
+    .ConfigContainer {
+        padding: 1rem;
+    }
+
+    .ListItensContainer {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 2rem;
+        align-items: stretch;
+        padding: 0;
+    }
+
+    .my-masonry-grid_column {
+        margin-right: 0;
+    }
+}

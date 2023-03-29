@@ -1,0 +1,188 @@
+.SetoresShowOnlyCustomGroupListClaro {
+    --Setores-Title-Backround: var(--PrimaryBackground);
+    --Setores-Title-Color: white;
+
+    --Setores-Item-Backround: white;
+    --Setores-Item-Border: rgb(205, 205, 205);
+    --Setores-Item-Border-LR: rgb(205, 205, 205);
+    --Setores-Item-Icon-Color: var(--PrimaryBackground);
+    --Setores-Item-Span-Color: var(--SecondaryBackground);
+}
+
+
+.SetoresShowOnlyCustomGroupListEscuro {
+    --Setores-Title-Backround: var(--PrimaryBackground);
+    --Setores-Title-Color: white;
+
+    --Setores-Item-Backround:  var(--BackgroundDark);
+    --Setores-Item-Border: rgb(88, 86, 86);
+    --Setores-Item-Border-LR: rgb(88, 86, 86);
+    --Setores-Item-Icon-Color: var(--ComplementaryColor);
+    --Setores-Item-Span-Color: white;
+}
+
+
+
+
+
+.SetoresShowOnlyCustomGroupList {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.SetoresShowOnlyCustomGroupList span {
+    cursor: pointer;
+}
+
+.SetoresShowOnlyCustomGroupList .list-group-item {
+    background-color: var(--Setores-Item-Backround);
+    border-bottom: 1px solid var(--Setores-Item-Border);
+    border-left: 1px solid var(--Setores-Item-Border-LR);
+    border-right: 1px solid var(--Setores-Item-Border-LR);
+}
+
+
+.SetoresShowOnlyCustomGroupListItem {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+}
+
+.SetoresShowOnlyCustomGroupListItem span {
+    font-family: var(--Fonte);
+    font-size: 12px;
+    color: var(--Setores-Item-Span-Color);
+}
+
+.SetoresShowOnlyCustomGroupListItem>svg {
+    font-family: var(--Fonte);
+    font-size: .9rem;
+    margin-right: .3rem;
+}
+
+
+.SetoresShowOnlyCustomGroupListItem svg {
+    float: right;
+    margin-left: .6rem;
+    font-size: .9rem;
+    width: 1rem !important;
+}
+
+.SetoresShowOnlyCustomGroupIcon {
+    font-family: var(--Fonte);
+    font-size: .9rem;
+    margin-right: .3rem;
+    color: var(--Setores-Item-Icon-Color);
+}
+
+.SetoresShowOnlyCustomGroupIcon>svg {
+    width: .4rem !important;
+}
+
+.SetoresShowOnlyCustomGroupListCheckbox {
+    color: var(--PrimaryColor);
+    cursor: pointer;
+}
+
+
+.SetoresShowOnlyCustomGroupListItem input {
+    padding: 4px 12px;
+    border: none;
+    outline: none;
+    font-family: var(--Fonte);
+    color: var(--Dark);
+    font-size: 14px;
+    background-color: var(--FundoTransparente);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+.SetoresShowOnlyCustomGroupListItem span {
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.SetoresShowOnlyCustomGroupListItem button {
+    border: none;
+    background-color: var(--FundoTransparente);
+    padding: 5px;
+}
+
+.SetoresShowOnlyCustomGroupListItem form button svg {
+    color: var(--Dark) !important;
+}
+
+
+.SetoresShowOnlyCustomGroupListInput {
+    padding: 0 !important;
+    margin: 0 !important;
+    font-family: var(--Fonte) !important;
+    font-size: 13px !important;
+    margin-right: 1rem !important;
+}
+
+
+.SetoresShowOnlyCustomGroupList .list-group-item {
+    padding: .2rem .7rem !important;
+}
+
+.SetoresShowOnlyCustomGroupListTitle.list-group-item {
+    padding: .6rem .7rem !important;
+}
+
+
+
+.Tilt {
+    transform: scale(1.2) !important;
+    background-color: aqua !important;
+}
+
+.SetoresShowOnlyCustomGroupListTitle {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    font-family: var(--Fonte) !important;
+    background-color: var(--Setores-Title-Backround) !important;
+    color: var(--Setores-Title-Color) !important;
+    user-select: none;
+}
+
+.SetoresShowOnlyCustomGroupListTitleSpan {
+    white-space: nowrap;
+    /* Evita que o texto seja quebrado */
+    overflow: hidden;
+    /* Esconde o conteúdo que ultrapassa o limite do elemento */
+    text-overflow: ellipsis;
+    /* Adiciona reticências no final do texto que ultrapassa o limite do elemento */
+    display: flex;
+    /* Permite que o ícone e o texto fiquem na mesma linha */
+    align-items: center;
+    /* Alinha verticalmente o ícone e o texto */
+    gap: .5rem;
+    color: var(--Setores-Title-Color);
+}
+
+.SetoresShowOnlyCustomGroupListTitleSpan>svg {
+    width: 1.1rem;
+    color: var(--Setores-Title-Color);
+}
+
+.MarginBottom {
+    margin-bottom: 2.5rem;
+}

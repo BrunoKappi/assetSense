@@ -1,0 +1,379 @@
+.AtivosListContainerClaro {
+
+    --AtivosListContainer-Background: #eceff1;
+
+    --AtivosListFormFilter-Input-Background: white;
+    --AtivosListFormFilter-Input-Border: transparent;
+    --AtivosListFormFilter-Input-Color: var(--SecondaryBackground);
+
+    --AtivosListFormFilter-Button-Background: var(--ComplementaryColor);
+    --AtivosListFormFilter-Button-Border: var(--ComplementaryColor);
+    --AtivosListFormFilter-Button-Color: white;
+
+    --AtivosListFormFilter-Filtros-Title-Color: var(--SecondaryBackground);
+    --AtivosListFormFilter-Filtros-Dropdown-Background: white;
+
+    --AtivosListFormFilter-Filtros-Tipo-Background: var(--SecondaryBackground);
+    --AtivosListFormFilter-Filtros-Tipo-Color: white;
+
+    --AtivosListFormFilter-Filtros-Setor-Background: var(--PrimaryBackground);
+    --AtivosListFormFilter-Filtros-Setor-Color: white;
+
+    --AtivosListFormFilter-Filtros-AddButton-Background: var(--ComplementaryColor);
+    --AtivosListFormFilter-Filtros-AddButton-Color: white;
+    --AtivosListFormFilter-Filtros-AddButton-Background-Hover: var(--PrimaryBackground);
+    --AtivosListFormFilter-Filtros-AddButton-Color-Hover: white;
+
+
+}
+
+
+.AtivosListContainerEscuro {
+
+    --AtivosListContainer-Background: var(--BackgroundDark);
+
+    --AtivosListFormFilter-Input-Background: var(--BackgroundDark);
+    --AtivosListFormFilter-Input-Border: var(--PrimaryBackGroundFaded);
+    --AtivosListFormFilter-Input-Color: var(--ComplementaryColor);
+
+    --AtivosListFormFilter-Button-Background: var(--ComplementaryColor);
+    --AtivosListFormFilter-Button-Border: var(--ComplementaryColor);
+    --AtivosListFormFilter-Button-Color: white;
+
+    --AtivosListFormFilter-Filtros-Title-Color: var(--ComplementaryColor);
+    --AtivosListFormFilter-Filtros-Dropdown-Background: white;
+
+    --AtivosListFormFilter-Filtros-Tipo-Background: var(--SecondaryBackground);
+    --AtivosListFormFilter-Filtros-Tipo-Color: white;
+
+    --AtivosListFormFilter-Filtros-Setor-Background: var(--PrimaryBackground);
+    --AtivosListFormFilter-Filtros-Setor-Color: white;
+
+    --AtivosListFormFilter-Filtros-AddButton-Background: var(--ComplementaryColor);
+    --AtivosListFormFilter-Filtros-AddButton-Color: white;
+    --AtivosListFormFilter-Filtros-AddButton-Background-Hover: var(--PrimaryBackground);
+    --AtivosListFormFilter-Filtros-AddButton-Color-Hover: white;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.AtivosListContainer {
+    background-color: var(--AtivosListContainer-Background);
+}
+
+
+
+
+
+
+
+/* ============  FORM FILTRO DOS USUARIOS  ===================*/
+
+.AtivosListFormFilter {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+    row-gap: 1rem;
+    align-items: flex-end;
+
+}
+
+.AtivosListFormFilter>input {
+    flex-grow: 1;
+    outline: none;
+    padding: .5rem 1rem;
+    border: 1px solid var(--AtivosListFormFilter-Input-Border);
+    border-radius: .5rem;
+    font-family: var(--Fonte);
+    font-size: .8rem;
+    background-color: var(--AtivosListFormFilter-Input-Background);
+    color: var(--AtivosListFormFilter-Input-Color);
+    -webkit-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
+}
+
+.AtivosListFormFilter>input::placeholder {
+    color: var(--AtivosListFormFilter-Input-Color);
+}
+
+
+.AtivosListFormFilter>span {
+    font-family: var(--Fonte);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .3rem;
+    color: var(--ComplementaryColor);
+    font-size: 1.1rem;
+    font-weight: 500;
+    user-select: none;
+
+}
+
+.AtivosListFormFilter>button {
+    font-family: var(--Fonte);
+    font-size: .8rem;
+    outline: none;
+    border: 1px solid var(--AtivosListFormFilter-Button-Border);
+    background-color: var(--AtivosListFormFilter-Button-Background);
+    color: var(--AtivosListFormFilter-Button-Color);
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+}
+
+@media (max-width: 750px) {
+    .AtivosListFormFilter>button {
+        flex-grow: 1;
+    }
+}
+
+.AtivosListAddButton {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    background-color: var(--AtivosListFormFilter-Filtros-AddButton-Background);
+    color: var(--AtivosListFormFilter-Filtros-AddButton-Color);
+    padding: .5rem .7rem;
+    border: none;
+    border-radius: 1rem;
+    font-family: var(--Fonte);
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
+    font-size: .8rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem;
+}
+
+.AtivosListAddButton:hover {
+    background-color: var(--AtivosListFormFilter-Filtros-AddButton-Background);
+    color: var(--AtivosListFormFilter-Filtros-AddButton-Color-Hover);
+    transform: scale(1.1);
+}
+
+.AtivosListAddButton:active {
+    transform: scale(1);
+}
+
+.AtivosListFormFilter>button:hover {
+    transform: scale(1.1);
+}
+
+.AtivosListFormFilter>button:active {
+    transform: scale(1);
+}
+
+/* ============  FORM FILTRO DOS USUARIOS  ===================*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ============  DROPDOWN FILTRO DE SETOR ===================*/
+
+#FiltroDeTipoDeAtivo::after {
+    display: none !important;
+    background-color: aqua !important;
+}
+
+#FiltroDeTipoDeAtivo {
+    background-color: transparent !important;
+    border: none !important;
+    color: var(--BackgroundDark) !important;
+    padding: 0 !important;
+}
+
+.FiltroDeTipoDeAtivoTitle {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    align-items: center;
+    font-family: var(--Fonte);
+    background-color: var(--AtivosListFormFilter-Filtros-Setor-Background);
+    padding: .3rem .6rem;
+    border-radius: 1rem;
+    color: var(--AtivosListFormFilter-Filtros-Setor-Color);
+    font-size: .8rem;
+}
+
+.dropdown-item {
+    font-family: var(--Fonte) !important;
+    font-size: .8rem !important;
+}
+
+.dropdown-item:active {
+    background-color: var(--PrimaryBackground) !important;
+}
+
+/* ============  DROPDOWN FILTRO DE SETOR ===================*/
+
+
+
+
+
+
+
+
+
+/* ============  DROPDOWN FILTRO DE Tipo ===================*/
+
+#FiltroLocalDeAtivo::after {
+    display: none !important;
+}
+
+#FiltroLocalDeAtivo {
+    background-color: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+}
+
+.FiltroLocalDeAtivoTitle {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    align-items: center;
+    font-family: var(--Fonte);
+    background-color: var(--AtivosListFormFilter-Filtros-Tipo-Background);
+    padding: .3rem .6rem;
+    border-radius: 1rem;
+    color: var(--AtivosListFormFilter-Filtros-Tipo-Color);
+    font-size: .8rem;
+}
+
+.AtivosListFormFilter .dropdown-menu {
+    background-color: var(--AtivosListFormFilter-Filtros-Dropdown-Background) !important;
+}
+
+/* ============  DROPDOWN FILTRO DE SETOR ===================*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ============  DROPDOWN FILTROS ===================*/
+
+#AtivosList-Filtros::after {
+    display: none !important;
+}
+
+#AtivosList-Filtros {
+    background-color: transparent !important;
+    border: none !important;
+    color: var(--BackgroundDark);
+    padding: 0 !important;
+}
+
+.AtivosList-FiltrosTitle {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    align-items: center;
+    font-family: var(--Fonte);
+    padding: .3rem .6rem;
+    border-radius: 1rem;
+    color: var(--AtivosListFormFilter-Filtros-Title-Color) !important;
+    font-size: 1rem;
+    height: 100%;
+}
+
+#AtivosList-FiltrosItem {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+#AtivosList-FiltrosItem:active {
+    background-color: red !important;
+}
+
+#AtivosList-FiltrosItem:hover {
+    background-color: white !important;
+}
+
+
+/* ============  DROPDOWN FILTRO DE SETOR ===================*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ============== AtivosList-FilterNoResultsContainer ===================== */
+
+
+.AtivosList-FilterNoResultsContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--Fonte);
+    gap: 1rem;
+}
+
+.AtivosList-FilterNoResultsContainer svg {
+    height: 4rem;
+    color: var(--ComplementaryColor);
+}
+
+.AtivosList-FilterNoResultsContainer>h3 {
+    margin: 0;
+    color: var(--ComplementaryColor);
+}
+
+
+
+
+/* ============== AtivosList-FilterNoResultsContainer ===================== */

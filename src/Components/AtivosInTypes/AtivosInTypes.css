@@ -1,0 +1,12 @@
+.AtivosInTypesContainer {
+    width: 100%;
+    height: 100%;
+    background-color: transparent !important;
+    padding-top: 1rem;
+    background-color: aqua;
+}
+
+
+.SetorList {
+    margin: 1rem;
+}

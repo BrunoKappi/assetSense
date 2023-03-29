@@ -1,0 +1,26 @@
+.DashboardContainerClaro {
+    --DashboardContainer-Backgound: var(--Background);
+}
+
+.DashboardContainerEscuro {
+    --DashboardContainer-Backgound: var(--BackgroundDark);
+}
+
+
+.DashboardContainer {
+    width: 100%;
+    height: 100%;
+    background-color: var(--DashboardContainer-Backgound);
+}
+
+.DashboardContainer::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+
+.SelectCountry {
+
+    font-family: var(--Fonte);
+}

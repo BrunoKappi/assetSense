@@ -1,0 +1,212 @@
+.LoginContainerClaro {
+  --LoginContainer-Background: var(--Background);
+
+  --LoginContainer-Form-Background: white;
+  --LoginContainer-Form-Border: white;
+
+  --LoginContainer-Input-Background: white;
+  --LoginContainer-Input-Border: #e5e5e5;
+  --LoginContainer-Input-Color: #424656;
+
+  --LoginContainer-Forget-Color: var(--PrimaryBackGroundFaded);
+  --LoginContainer-Forget-Color-Hover: var(--PrimaryBackground);
+
+
+  --LoginContainer-LoginButton-Background: var(--PrimaryBackground);
+  --LoginContainer-LoginButton-Border: var(--PrimaryBackground);
+  --LoginContainer-LoginButton-Color: white;
+
+  --LoginContainer-LoginButton-Background-Hover: var(--PrimaryBackGroundFaded);
+  --LoginContainer-LoginButton-Border-Hover: var(--PrimaryBackGroundFaded);
+  --LoginContainer-LoginButton-Color-Hover: white;
+}
+
+
+.LoginContainerEscuro {
+  --LoginContainer-Background: var(--BackgroundDark);
+
+  --LoginContainer-Form-Background: white;
+  --LoginContainer-Form-Border: var(--PrimaryBackground);
+
+  --LoginContainer-Input-Background: white;
+  --LoginContainer-Input-Border: #e5e5e5;
+  --LoginContainer-Input-Color: #424656;
+
+  --LoginContainer-Forget-Color: var(--PrimaryBackGroundFaded);
+  --LoginContainer-Forget-Color-Hover: var(--PrimaryBackground);
+
+
+  --LoginContainer-LoginButton-Background: var(--PrimaryBackground);
+  --LoginContainer-LoginButton-Border: var(--PrimaryBackground);
+  --LoginContainer-LoginButton-Color: white;
+
+  --LoginContainer-LoginButton-Background-Hover: var(--PrimaryBackGroundFaded);
+  --LoginContainer-LoginButton-Border-Hover: var(--PrimaryBackGroundFaded);
+  --LoginContainer-LoginButton-Color-Hover: white;
+}
+
+
+
+
+
+.LoginContainer {
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--LoginContainer-Background);
+}
+
+
+.LoginForm {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 2rem;
+  width: 30%;
+  background: var(--LoginContainer-Form-Background);
+  box-shadow: 0px 187px 75px rgba(0, 0, 0, 0.01), 0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 13px;
+  border: 1px solid var(--LoginContainer-Form-Border);
+}
+
+.LoginImageContainer>img {
+  width: 20% !important;
+}
+
+.LoginImageContainer {
+  display: flex;
+  display: flex;
+  justify-content: center !important;
+  margin-bottom: 2.5rem;
+}
+
+.LoginFormGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-bottom: 1rem;
+}
+
+
+.ForgetPasswordLink>a {
+  text-decoration: none;
+  font-family: var(--Fonte);
+  color: var(--LoginContainer-Forget-Color);
+  font-size: .8rem;
+}
+
+.ForgetPasswordLink>a:hover {
+  color: var(--LoginContainer-Forget-Color-Hover);
+  cursor: pointer;
+}
+
+.LoginFormGroup>input {
+  border-radius: .3rem;
+  border: none;
+  padding: .7rem .7rem;
+  font-family: var(--Fonte);
+  outline: none;
+  border: 1px solid var(--LoginContainer-Input-Border);
+  font-size: .8rem;
+  background-color: var(--LoginContainer-Input-Background);
+  color: var(--LoginContainer-Input-Color) !important;
+}
+
+.LoginFormGroup>input::placeholder {
+  color: var(--LoginContainer-Input-Color) !important;
+}
+
+.LoginFormGroup>input:focus {
+  border: 1px solid transparent;
+  box-shadow: 0px 0px 0px 1px var(--Dark);
+}
+
+
+.LoginButton {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: .7rem 1rem;
+  border-radius: .3rem;
+  border: 1px solid var(--LoginContainer-LoginButton-Border);
+  background-color: var(--LoginContainer-LoginButton-Background);
+  color: var(--LoginContainer-LoginButton-Color);
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  -webkit-box-shadow: 7px 8px 10px -9px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 7px 8px 10px -9px rgba(0, 0, 0, 0.75);
+  box-shadow: 7px 8px 10px -9px rgba(0, 0, 0, 0.75);
+
+}
+
+.LoginButton:hover {
+  border: 1px solid var(--LoginContainer-LoginButton-Border-Hover);
+  background-color: var(--LoginContainer-LoginButton-Background-Hover);
+  color: var(--LoginContainer-LoginButton-Color-Hover);
+}
+
+.LoginButton>.LoginSpinnerContainer {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+
+
+
+
+@media (max-width: 1000px) {
+  .LoginForm {
+    width: 50%;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  .LoginForm {
+
+    border: none;
+  }
+
+  .LoginContainerEscuro {
+    --LoginContainer-Background: var(--BackgroundDark);
+
+    --LoginContainer-Form-Background: white;
+    --LoginContainer-Form-Border: var(--PrimaryBackground);
+
+    --LoginContainer-Input-Background: transparent;
+    --LoginContainer-Input-Border: var(--PrimaryBackground);
+    --LoginContainer-Input-Color: white;
+
+    --LoginContainer-Forget-Color: var(--PrimaryBackGroundFaded);
+    --LoginContainer-Forget-Color-Hover: var(--PrimaryBackground);
+
+
+    --LoginContainer-LoginButton-Background: var(--PrimaryBackground);
+    --LoginContainer-LoginButton-Border: var(--PrimaryBackground);
+    --LoginContainer-LoginButton-Color: white;
+
+    --LoginContainer-LoginButton-Background-Hover: var(--PrimaryBackGroundFaded);
+    --LoginContainer-LoginButton-Border-Hover: var(--PrimaryBackGroundFaded);
+    --LoginContainer-LoginButton-Color-Hover: white;
+  }
+}
+
+
+@media (max-width: 650px) {
+  .LoginForm {
+    width: 90%;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  .LoginForm {
+
+    border: none;
+  }
+
+
+
+
+}

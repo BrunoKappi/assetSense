@@ -1,0 +1,182 @@
+.UserTypesPermitsContainerClaro {
+    --UserTypesPermitsContainer-Background: var(--Background);
+
+    --UserTypesPermitsContainer-Title-Background: var(--PrimaryBackground);
+    --UserTypesPermitsContainer-Title-Border: var(--PrimaryBackground);
+    --UserTypesPermitsContainer-Title-Color: var(--PrimaryColor);
+
+    --UserTypesPermitsContainer-Item-Background: white;
+    --UserTypesPermitsContainer-Item-Border: rgb(170, 170, 170);
+    --UserTypesPermitsContainer-Item-Color: var(--SecondaryBackground);
+    --UserTypesPermitsContainer-Item-Color-Icon: var(--ComplementaryColor);
+
+    --UserTypesPermitsContainer-Item-Background-Hover: var(--PrimaryBackground);
+    --UserTypesPermitsContainer-Item-Border-Hover: var(--PrimaryBackground);
+    --UserTypesPermitsContainer-Item-Color-Hover: var(--PrimaryColor);
+    --UserTypesPermitsContainer-Item-Color-Icon-Hover: var(--PrimaryColor);
+}
+
+.UserTypesPermitsContainerEscuro {
+    --UserTypesPermitsContainer-Background: var(--BackgroundDark);
+
+    --UserTypesPermitsContainer-Title-Background: var(--PrimaryBackground);
+    --UserTypesPermitsContainer-Title-Border: var(--PrimaryBackground);
+    --UserTypesPermitsContainer-Title-Color: var(--PrimaryColor);
+
+    --UserTypesPermitsContainer-Item-Background: var(--BackgroundDark);
+    --UserTypesPermitsContainer-Item-Border: rgb(84, 84, 84);
+    --UserTypesPermitsContainer-Item-Color: white;
+    --UserTypesPermitsContainer-Item-Color-Icon: var(--ComplementaryColor);
+
+    --UserTypesPermitsContainer-Item-Background-Hover: var(--PrimaryBackground);
+    --UserTypesPermitsContainer-Item-Border-Hover: var(--PrimaryBackground);
+    --UserTypesPermitsContainer-Item-Color-Hover: var(--PrimaryColor);
+    --UserTypesPermitsContainer-Item-Color-Icon-Hover: var(--PrimaryColor);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.UserTypesPermitsContainer {
+    width: 100%;
+    height: 100%;
+    background-color: var(--UserTypesPermitsContainer-Background);
+}
+
+
+.UserTypesPermits-TypeContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.UserTypesPermits-TypeContainer-Title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-top-right-radius: .5rem;
+    border-top-left-radius: .5rem;
+    background-color: var(--UserTypesPermitsContainer-Title-Background);
+    color: var(--UserTypesPermitsContainer-Title-Color);
+    border: 1px solid var(--UserTypesPermitsContainer-Title-Border);
+    padding: .5rem .4rem;
+    padding-right: .6rem;
+    padding-left: .7rem;
+    font-family: var(--Fonte);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.UserTypesPermits-TypeContainer-Title svg {
+    cursor: pointer;
+}
+
+.UserTypesPermits-TypeContainer-Titlespan {
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: var(--Fonte);
+}
+
+.UserTypesPermits-TypeContainer-List {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.UserTypesPermits-TypeContainer-ListItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: .4rem;
+    padding-top: .2rem;
+    padding-bottom: .2rem;
+    gap: .5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: var(--Fonte);
+    font-weight: 400;
+    background-color: var(--UserTypesPermitsContainer-Item-Background);
+    color: var(--UserTypesPermitsContainer-Item-Color);
+    border: 1px solid var(--UserTypesPermitsContainer-Item-Border);
+    border-top: none;
+    font-size: .8rem;
+    cursor: pointer;
+}
+
+.UserTypesPermits-TypeContainer-ListItem:last-child {
+    border-bottom-right-radius: .5rem;
+    border-bottom-left-radius: .5rem;
+}
+
+.UserTypesPermits-TypeContainer-ListItem:hover {
+    background-color: var(--UserTypesPermitsContainer-Item-Background-Hover);
+    color: var(--UserTypesPermitsContainer-Item-Color-Hover);
+    border: 1px solid var(--UserTypesPermitsContainer-Item-Border-Hover);
+    border-top: none;
+}
+
+.UserTypesPermits-TypeContainer-ListItem>span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: var(--Fonte);
+}
+
+.UserTypesPermits-TypeContainer-ListItem>svg {
+    color: var(--UserTypesPermitsContainer-Item-Color-Icon);
+}
+
+.UserTypesPermits-TypeContainer-ListItem:hover>svg {
+    color: var(--UserTypesPermitsContainer-Item-Color-Icon-Hover);
+}
+
+
+.UserTypesPermits-TypeContainer-ListItemBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: .4rem;
+    padding-top: .2rem;
+    padding-bottom: .2rem;
+    gap: .5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: var(--Fonte);
+    font-weight: 500;
+    background-color: var(--UserTypesPermitsContainer-Item-Background);
+    color: var(--UserTypesPermitsContainer-Item-Color);
+    border: 1px solid var(--UserTypesPermitsContainer-Item-Border);
+    border-top: none;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.UserTypesPermits-TypeContainer-ListItemBlock:hover {
+    background-color: var(--UserTypesPermitsContainer-Item-Background-Hover);
+    color: var(--UserTypesPermitsContainer-Item-Color-Hover);
+    border: 1px solid var(--UserTypesPermitsContainer-Item-Border-Hover);
+    border-top: none;
+}
+
+
+.UserTypesPermits-TypeContainer-ListItemBlock>svg {
+    color: var(--UserTypesPermitsContainer-Item-Color-Icon);
+}
+
+.UserTypesPermits-TypeContainer-ListItemBlock:hover>svg {
+    color: var(--UserTypesPermitsContainer-Item-Color-Icon-Hover);
+}
