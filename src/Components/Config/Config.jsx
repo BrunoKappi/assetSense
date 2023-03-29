@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import './Config.css'
 import Masonry from "react-masonry-css";
-
 import EditableCustomList from '../EditableCustomList/EditableCustomList'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
@@ -9,7 +8,7 @@ import { AtivosTabTitle, PermicoesTabTitle, SetoresEUsuáriosTabTitle } from './
 import UserTypesPermits from '../UserTypesPermits/UserTypesPermits';
 import { GetCurrentUserTypePermitFromStore } from '../../Functions/Middleware';
 import { NotificationErro } from '../../NotificationUtils';
-
+ 
 const breakpointColumnsObj = {
   default: 3,
   1250: 2,
@@ -35,7 +34,7 @@ export default function Config() {
 
 
 
-  const SetKeyConfig = (Key) => { 
+  const SetKeyConfig = (Key) => {
     if (Key === 'Ativos' && AtivosPermit)
       setKey(Key)
     else if (Key === 'Setores e Usuários' && SetoresUsuariosPermit)
@@ -43,12 +42,11 @@ export default function Config() {
     else if (Key === 'Permissoes' && PermicoesPermit)
       setKey(Key)
     else
-    NotificationErro("Não Autorizado", "Você não possui permissão para acessar essa aba, solicite autorização para seu Administrador")
+      NotificationErro("Não Autorizado", "Você não possui permissão para acessar essa aba, solicite autorização para seu Administrador")
   }
 
 
   return (
-
 
 
     <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'ConfigContainerEscuro ConfigContainer' : 'ConfigContainerClaro ConfigContainer'}>
@@ -60,6 +58,7 @@ export default function Config() {
         <button onClick={(k) => SetKeyConfig('Permissoes')} className={key === 'Permissoes' ? 'TabsButtonActive' : ''}>{PermicoesTabTitle()}</button>
       </div>
 
+ 
 
       <Tabs id="UsersTabs" activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
 

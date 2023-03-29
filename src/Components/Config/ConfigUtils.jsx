@@ -14,7 +14,7 @@ export const SetoresEUsuáriosTabTitle = () => {
     <UilSitemap />
     <span>Setores e Usuários</span>
   </div>
-}
+} 
 
 export const PermicoesTabTitle = () => {
   return <div className='TabsTitle'>

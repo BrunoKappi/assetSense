@@ -3,7 +3,7 @@ import "./Login.css";
 import { useNavigate } from 'react-router-dom';
 import { HandleFirebaseEmailPasswordLogin, LoginSuccess, LoginUtil } from "./LoginUtils";
 import { Oval } from "react-loader-spinner";
-import SerranoLogo from '../../Images/SerranoLogo.png'
+import SerranoLogo from '../../assets/Images/SerranoLogo.png'
 
 import { Link } from "react-router-dom";
 import LogoutHeader from "../LogoutHeader/LogoutHeader";

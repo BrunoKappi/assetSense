@@ -1,6 +1,6 @@
 import React from 'react'
 import './LogoutHeader.css'
-import AssetSense from '../../Images/AssetSenseIconWhite.png'
+import AssetSense from '../../assets/Images/AssetSenseIconWhite.png'
 import { Link } from 'react-router-dom'
 
 

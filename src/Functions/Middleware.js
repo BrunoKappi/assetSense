@@ -15,11 +15,9 @@ export const LoginUtil = (email, password) => {
     return LoginFirebase(email, password)
 }
 
-
 export const LogarComGooglePopup = () => {
     return signInWithGoogle();
 };
-
 
 export const saveFunctions = {
     "TiposAtivos": SaveTipos,
@@ -625,8 +623,12 @@ export const GetUsersFromStore = () => {
     return store.getState().Usuarios
 }
 
-///// GETTERS DA STORE /////
-
+export const GetCurrentUserFromStore = () => {
+    const Email = GetCurrentUserEmailFromStore()
+    const Users = GetUsersFromStore()
+    const CurrentUser = Users.find(U => U.Email === Email)
+    return CurrentUser
+}
 
 export const GetCurrentUserTypeFromStore = () => {
     const Email = GetCurrentUserEmailFromStore()
@@ -638,8 +640,7 @@ export const GetCurrentUserTypeFromStore = () => {
 }
 
 
-
-/// GET WITH ID
+/// OBJECT GET WITH ID
 
 export const GetCurrentUserTypeWithIdFromStore = (Id) => {
     const Types = GetUserTypesFromStore()
@@ -667,6 +668,21 @@ export const GetTipoDeUsoWithIdFromStore = (Id) => {
     return TipoDeUso
 }
 
+export const GetUserWithIdFromStore = (Id) => {
+    const Users = GetUsersFromStore()
+    const User = Users.find(U => U.Id === Id)
+    return User
+}
+
+export const GetAtivoWithIdFromStore = (Id) => {
+    const Ativos = GetAtivosFromStore()
+    const Ativo = Ativos.find(U => U.Id === Id)
+    return Ativo ? Ativo : {}
+}
+
+
+
+// GET NAME WITH ID
 
 export const GetLocalArmazenamentoNameWithIdFromStore = (Id) => {
     const Locais = GetLocaisArmazenamentoFromStore()
@@ -700,24 +716,7 @@ export const GetCurrentUserTypeNameWithIdFromStore = (Id) => {
 
 
 
-export const GetCurrentUserFromStore = () => {
-    const Email = GetCurrentUserEmailFromStore()
-    const Users = GetUsersFromStore()
-    const CurrentUser = Users.find(U => U.Email === Email)
-    return CurrentUser
-}
-
-export const GetUserWithIdFromStore = (Id) => {
-    const Users = GetUsersFromStore()
-    const User = Users.find(U => U.Id === Id)
-    return User
-}
-export const GetAtivoWithIdFromStore = (Id) => {
-    const Ativos = GetAtivosFromStore()
-    const Ativo = Ativos.find(U => U.Id === Id)
-    return Ativo ? Ativo : {}
-}
-
+// OTHER GETTERS 
 
 export const GetCurrentUserTypePermitFromStore = (Permit) => {
     const CurrentUserType = GetCurrentUserTypeFromStore()

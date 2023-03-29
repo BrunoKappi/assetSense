@@ -3,7 +3,7 @@ import './Sidebar.css'
 import { useNavigate } from 'react-router-dom';
 import { GetSidebarItemClass, SetTab } from './SidebarUtils';
 import { connect } from 'react-redux'
-import User from '../../Images/SerranoLogoFuncoBranco.jpg'
+import User from '../../assets/Images/SerranoLogoFuncoBranco.jpg'
 
 import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle } from '@iconscout/react-unicons'
 import { NotificationErro } from '../../NotificationUtils';

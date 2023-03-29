@@ -43,12 +43,6 @@ export const UserModalSelectcustomStyles = {
 
 
 
-
-
-
-
-
-
 export const Filteroptions = [
   { value: "Mais recentes", label: "Mais Recentes" },
   { value: "Mais antigos", label: "Mais antigos" },

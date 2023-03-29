@@ -8,11 +8,11 @@ import { v4 } from 'uuid';
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { DefaultAtivoStatus, DefaultItemType } from '../../Data/Items';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
-import { Tooltip } from 'react-tippy';
+import { Tooltip } from 'react-tippy'; 
 import { GetNotificationErrorMessageDelete, GetNotificationSuccessMessageAdd, GetNotificationExistsMessageAdd, GetNotificationSuccessMessageDelete, GetNotificationSuccessMessageChangeName } from './EditableCustomListUtils';
 import Loading from '../LoadingForTabs/Loading'
 import { fetchFunctions, GetCurrentUserTypePermitFromStore, saveFunctions, SaveStatusAtivos } from '../../Functions/Middleware';
-import { DefaultUserRole } from '../../Data/User';
+import { DefaultUserRole } from '../../Data/Items';
 
 const CustomListIcon = {
   TiposAtivos: <UilLabel />,
