@@ -16,7 +16,7 @@ export const TiposTabTitle = () => {
 }
 export const TodosTabTitle = () => {
   return <div className='TabsTitle'>
-    <UilListUl />
+    <UilListUl />                   
     <span>Todos</span>
   </div>
 }

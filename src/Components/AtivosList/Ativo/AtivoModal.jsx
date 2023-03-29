@@ -326,6 +326,8 @@ const AtivoModal = (props) => {
                                             </div>
                                         </div>
 
+                                        
+
 
 
                                         <div className='AtivoModalBody-AtivoInfoForm-TwoLine'>

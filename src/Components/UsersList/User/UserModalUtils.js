@@ -35,7 +35,7 @@ export const UserModalSelectcustomStyles = {
     singleValue: (provided) => ({
         ...provided,
         color: 'var(--UserModal-Color-Input)'
-    }),
+    }), 
 };
 
- 
+  
