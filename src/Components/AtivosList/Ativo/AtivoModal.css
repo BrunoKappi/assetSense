@@ -247,6 +247,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: .5rem;
+}
+
+.AtivoModalHeader-Right-Setor > svg{
+    width: 1.1rem;
 }
 
 .AtivoModalHeader-Right-Tipo {
@@ -259,6 +264,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: .5rem;
+}
+
+.AtivoModalHeader-Right-Tipo > svg{
+    width: 1.1rem;
 }
 
 
@@ -463,10 +473,20 @@
 .AtivoModalBody-AtivoInfoForm-ConfirMessage {
     font-family: var(--Fonte);
     color: var(--AtivoModal-SectionTitleColor);
-    text-align: center;
+    text-align: right;
 }
 
 .AtivoModalBody-AtivoInfoForm-Group>input {
+    border-radius: .5rem;
+    outline: none;
+    border: 1px solid var(--AtivoModal-Borda-Input);
+    padding: .5rem .8rem;
+    color: var(--AtivoModal-Color-Input);
+    font-family: var(--Fonte);
+    font-size: .9rem;
+    background-color: var(--AtivoModal-Background-Input);
+}
+.AtivoModalBody-AtivoInfoForm-Group>textarea {
     border-radius: .5rem;
     outline: none;
     border: 1px solid var(--AtivoModal-Borda-Input);

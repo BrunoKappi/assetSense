@@ -7,6 +7,7 @@ import TiposAtivos from './reducers/TiposAtivos'
 import Ativos from './reducers/Ativos'
 import StatusAtivos from './reducers/StatusAtivos'
 import TiposDeUso from './reducers/TiposDeUso'
+import RecordsAtivos from './reducers/RecordsAtivos'
 import LocaisArmazenamento from './reducers/LocaisArmazenamento'
 import { SetTiposUsuarios } from './actions/TiposUsuariosActions'
 import { SetSetores } from './actions/SetoresActions'
@@ -16,7 +17,8 @@ import { SetAtivos } from './actions/AtivosActions'
 import { SetLocaisArmazenamento } from './actions/LocaisArmazenamentoActions'
 import { SetStatusAtivos } from './actions/AtivosStatusActions'
 import { SetTiposDeUso } from './actions/TiposDeUsoActions'
-import { GetAtivos, GetLocaisArmazenamento, GetSetores, GetStatusAtivos, GetTipos, GetTiposDeUso, GetUsers, GetUserTipos } from '../../Functions/Middleware'
+import { GetAtivos, GetLocaisArmazenamento, GetRecords, GetSetores, GetStatusAtivos, GetTipos, GetTiposDeUso, GetUsers, GetUserTipos } from '../../Functions/Middleware'
+import { SetRecords } from './actions/RecordsActions'
 
 
 
@@ -48,8 +50,13 @@ GetStatusAtivos().then((StatusAtivos) => {
     store.dispatch(SetStatusAtivos(StatusAtivos))
 })
 
-GetTiposDeUso().then((Tipos) => {
+GetTiposDeUso().then((Tipos) => { 
     store.dispatch(SetTiposDeUso(Tipos))
+})
+
+GetRecords().then((Records) => {
+    console.log("PEGANDO RECORDS")
+    store.dispatch(SetRecords(Records))
 })
 
 const store = createStore(
@@ -62,14 +69,15 @@ const store = createStore(
         Ativos,
         LocaisArmazenamento,
         StatusAtivos,
-        TiposDeUso
+        TiposDeUso,
+        RecordsAtivos
     }),
     //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
 store.subscribe(() => {
     localStorage.setItem("AssetSense", JSON.stringify(store.getState()))
-    console.log("Store Changed", store.getState())
+    console.log("Store Changed", store.getState().RecordsAtivos)
 })
 
 

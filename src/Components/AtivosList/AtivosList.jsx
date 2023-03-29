@@ -43,8 +43,7 @@ const AtivosList = (props) => {
 
 
     useEffect(() => {
-        const Ativos = GetAtivosFromStore()
-        console.log(Ativos)
+        const Ativos = GetAtivosFromStore()       
         setListaDeAtivos(Ativos.sort((a, b) => a.Item.localeCompare(b.Item)))
         setLoaded(true)
     }, [props.Ativos])

@@ -247,6 +247,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: .5rem;
+}
+
+.UserModalHeader-Right-Setor > svg{
+    width: 1.1rem;
 }
 
 .UserModalHeader-Right-Tipo {
@@ -259,8 +264,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: .5rem;
 }
 
+.UserModalHeader-Right-Tipo  > svg{
+    width: 1.1rem;
+}
 
 @media (max-width: 1000px) {
     .UserModalHeader-Right-Tipo {

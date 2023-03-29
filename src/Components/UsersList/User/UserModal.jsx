@@ -2,7 +2,7 @@ import Modal from 'react-bootstrap/Modal';
 import React, { useState, useEffect, useRef } from 'react'
 import './UserModal.css'
 import UserPhoto from '../../../assets/Images/SerranoLogoFuncoBranco.jpg'
-import { UilUserCircle, UilClipboardNotes, UilEnvelope, UilPhone, UilMap, UilMapMarker, UilPen, UilPuzzlePiece, UilListUl, UilSave, UilHistory, UilTimes, UilBuilding, UilKeySkeleton, UilCheck, UilBackward, UilTrash } from '@iconscout/react-unicons'
+import { UilUserCircle, UilClipboardNotes, UilEnvelope, UilPhone, UilMap, UilMapMarker, UilPen, UilPuzzlePiece, UilLabel,UilListUl, UilSave, UilHistory, UilTimes, UilBuilding, UilKeySkeleton, UilCheck, UilBackward, UilTrash } from '@iconscout/react-unicons'
 import { AddUser, DeleteUser, EditUser, GetCurrentUserFromStore, GetCurrentUserSetorNameWithIdFromStore, GetCurrentUserTypeFromStore, GetCurrentUserTypeNameWithIdFromStore, GetCurrentUserTypeWithIdFromStore, GetSetoresFromStore, GetUserTypesFromStore, GetUserWithIdFromStore } from '../../../Functions/Middleware'
 import { DefaultUser } from '../../../Data/Items';
 import { DefaultSetor, DefaultUserType } from '../../../Data/Items';
@@ -317,9 +317,11 @@ const UserModal = (props) => {
                                 <UilTimes className='UserModalHeader-Right-Close' onClick={props.onHide} />
                             </div>
                             <div className='UserModalHeader-Right-Setor'>
+                                <UilPuzzlePiece />
                                 {props.Function === 'Add' ? GetCurrentUserSetorNameWithIdFromStore(CopyUserSector?.Id) : UserSetor?.Value}
                             </div>
                             <div className='UserModalHeader-Right-Tipo'>
+                                <UilLabel />
                                 {props.Function === 'Add' ? GetCurrentUserTypeNameWithIdFromStore(CopyUserType?.Id) : UserType?.Value}
                             </div>
                         </div>

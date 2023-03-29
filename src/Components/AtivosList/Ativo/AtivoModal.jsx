@@ -2,8 +2,8 @@ import Modal from 'react-bootstrap/Modal';
 import React, { useState, useEffect } from 'react'
 import './AtivoModal.css'
 import UserPhoto from '../../../assets/Images/SerranoLogoFuncoBranco.jpg'
-import { UilUserCircle, UilClipboardNotes, UilLabelAlt, UilBox, UilSave, UilTag, UilTimes, UilBuilding, UilCircleLayer, UilPlay, UilWrench, UilCheck, UilBackward, UilTrash } from '@iconscout/react-unicons'
-import { AddAtivo, DeleteAtivo, EditAtivo,  GetAtivoStatusWithIdFromStore, GetAtivoTypeWithIdFromStore, GetAtivoWithIdFromStore, GetCurrentUserTypeFromStore, GetLocaisArmazenamentoFromStore, GetLocalArmazenamentoNameWithIdFromStore, GetLocalArmazenamentoWithIdFromStore, GetStatusAtivosFromStore, GetTipoAtivoNameWithIdFromStore, GetTipoDeUsoWithIdFromStore, GetTiposAtivosFromStore, GetTiposDeUsoFromStore } from '../../../Functions/Middleware'
+import { UilUserCircle, UilClipboardNotes,UilLabel , UilLabelAlt, UilBox, UilSave, UilTag, UilTimes, UilBuilding, UilCircleLayer, UilPlay, UilWrench, UilCheck, UilBackward, UilTrash, UilArrow } from '@iconscout/react-unicons'
+import { AddAtivo, DeleteAtivo, EditAtivo, GetAtivoStatusWithIdFromStore, GetAtivoTypeWithIdFromStore, GetAtivoWithIdFromStore, GetCurrentUserTypeFromStore, GetLocaisArmazenamentoFromStore, GetLocalArmazenamentoNameWithIdFromStore, GetLocalArmazenamentoWithIdFromStore, GetStatusAtivosFromStore, GetTakesOfAtivo, GetTipoAtivoNameWithIdFromStore, GetTipoDeUsoWithIdFromStore, GetTiposAtivosFromStore, GetTiposDeUsoFromStore } from '../../../Functions/Middleware'
 import { DefaultAtivo, DefaultAtivosType, DefaultLocal, } from '../../../Data/Items';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
 import { NotificationAlerta, NotificationSucesso } from '../../../NotificationUtils';
@@ -12,6 +12,7 @@ import Select from "react-select";
 import { PermitIndexs } from '../../../GlobalVars'
 import { noOptionsMessage, AtivoModalSelectcustomStyles } from './AtivoModalUtils';
 import { v4 } from 'uuid';
+import AtivoTakeReturn from './AtivoTakeReturn/AtivoTakeReturn';
 
 const AtivoModal = (props) => {
 
@@ -23,6 +24,8 @@ const AtivoModal = (props) => {
     const [Ativo, setAtivo] = useState({ ...DefaultAtivo })
     const [LocaisArmazenamento] = useState(GetLocaisArmazenamentoFromStore())
     const [TiposAtivos] = useState(GetTiposAtivosFromStore())
+
+    const QuantidadeRetirada = GetTakesOfAtivo(props.Ativo?.Id)
 
 
     //CURRENT ATIVO AND PERMITS
@@ -51,7 +54,6 @@ const AtivoModal = (props) => {
     const [IsEdited, setIsEdited] = useState(false)
 
 
-    console.log(CopyAtivoStatus)
 
 
     //PERMISSOES
@@ -130,6 +132,8 @@ const AtivoModal = (props) => {
                 NotificationAlerta('Preenchimento inválido', 'O Item não pode ser vazio')
             else if (!CopyAtivoQtd)
                 NotificationAlerta('Preenchimento inválido', 'A quantidade não pode ser vazia')
+            else if (CopyAtivoQtd < QuantidadeRetirada)
+                NotificationAlerta('Preenchimento inválido', 'Não é possível alterar a quantidade para ' + CopyAtivoQtd + ' pois existem ' + QuantidadeRetirada + ' usuários atualmente em posse de Ativos deste tipo')
             else if (CopyAtivoQtd === '0')
                 NotificationAlerta('Preenchimento inválido', 'A quantidade não pode ser 0')
             else if (!CopyAtivoLocalArmazenamento?.Id)
@@ -267,9 +271,11 @@ const AtivoModal = (props) => {
                                 <UilTimes className='AtivoModalHeader-Right-Close' onClick={props.onHide} />
                             </div>
                             <div className='AtivoModalHeader-Right-Setor'>
+                                <UilBox />
                                 {props.Function === 'Add' ? GetLocalArmazenamentoNameWithIdFromStore(CopyAtivoLocalArmazenamento?.Id) : AtivoLocalArmazenamento?.Value}
                             </div>
                             <div className='AtivoModalHeader-Right-Tipo'>
+                                <UilLabel />
                                 {props.Function === 'Add' ? GetTipoAtivoNameWithIdFromStore(CopyAtivoType?.Id) : AtivoType?.Value}
                             </div>
                         </div>
@@ -282,6 +288,12 @@ const AtivoModal = (props) => {
                                 Informações Cadastrais
                             </div>
 
+                            {props.Function !== 'Add' &&
+                                <div className={Tab === 'RetirarDevolver' ? 'AtivoModalBody-Sidebar-ActiveItem' : 'AtivoModalBody-Sidebar-Item'} onClick={e => setTab('RetirarDevolver')}>
+                                    <UilArrow />
+                                    Retirar/Devolver
+                                </div>
+                            }
                             {props.Function !== 'Add' &&
                                 <div className={Tab === 'Registros' ? 'AtivoModalBody-Sidebar-ActiveItem' : 'AtivoModalBody-Sidebar-Item'} onClick={e => setTab('Registros')}>
                                     <UilClipboardNotes />
@@ -326,7 +338,7 @@ const AtivoModal = (props) => {
                                             </div>
                                         </div>
 
-                                        
+
 
 
 
@@ -449,11 +461,16 @@ const AtivoModal = (props) => {
                                 </div>
                                 }
 
+                                {Tab === 'RetirarDevolver' &&
+                                    <AtivoTakeReturn Ativo={Ativo} />
+                                }
+
                             </div>
                         }
 
                         {Confirm && <div className='AtivoModalBody-AtivoInfo'>
                             <h4 className='AtivoModalBody-AtivoInfoForm-ConfirMessage'>{ConfirmMessage}</h4>
+
                             <div className='AtivoModalBody-AtivoInfoForm-Button'>
                                 <button className='AtivoModalBody-AtivoInfoForm-Button-Secondary' onClick={EndConfirming}>
                                     <UilBackward />

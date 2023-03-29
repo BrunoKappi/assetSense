@@ -60,7 +60,7 @@ export const signInWithGoogle = () => {
       localStorage.setItem("name", name);
       localStorage.setItem("email", email);
       localStorage.setItem("profilePic", profilePic);
-    }).catch((error) => {
+    }).catch(() => {
       //console.log(error);
     });
 };
@@ -78,7 +78,7 @@ export const signInWithFacebook = () => {
       localStorage.setItem("email", email);
       localStorage.setItem("profilePic", profilePic);
     })
-    .catch((error) => {
+    .catch(() => {
       //console.log(error);
     });
-};
+}; 

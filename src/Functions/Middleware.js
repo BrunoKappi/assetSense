@@ -9,6 +9,7 @@ import { SetTiposDeUso } from "../Config/store/actions/TiposDeUsoActions"
 import { AddAtivoAction, DeleteAtivoAction, SetAtivos } from "../Config/store/actions/AtivosActions"
 import { AddUsuarioAction, DeleteUsuarioAction, SetUsuarios } from "../Config/store/actions/UsuariosActions"
 import { PermitIndexs } from "../GlobalVars"
+import { AddRecordAction, SetRecords } from "../Config/store/actions/RecordsActions"
 
 
 export const LoginUtil = (email, password) => {
@@ -294,6 +295,108 @@ export async function GetLocaisSelect(gerarErro = false) {
         }, 5);
     });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+//////////// RECORDS //////////////////
+
+export async function GetRecords(gerarErro = false) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (gerarErro) {
+                reject(new Error('Erro ao obter dados'));
+            } else {
+                if (localStorage.getItem('AssetSenseRecords'))
+                    resolve(JSON.parse(localStorage.getItem('AssetSenseRecords')))
+                else
+                    resolve([])
+            }
+        }, 50);
+    });
+}
+
+
+export async function SaveRecords(Locais, gerarErro = false) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (gerarErro) {
+                reject(new Error('Erro ao obter dados'));
+            } else {
+                //////console.log(Locais)
+                localStorage.setItem('AssetSenseRecords', JSON.stringify(Locais))
+                store.dispatch(SetRecords(Locais))
+                resolve('Ok');
+            }
+        }, 50);
+    });
+}
+
+
+export async function AddRecord(RecordToAdd, gerarErro = false) {
+    console.log("TO ADD", GetRecordsFromStore())
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (gerarErro) {
+                reject(new Error('Erro ao obter dados'));
+            } else {
+                store.dispatch(AddRecordAction(RecordToAdd))
+                resolve('Ok');
+            }
+        }, 50);
+    }); 
+} 
+
+
+export async function EditRecord(EditedRecord, gerarErro = false) {
+    console.log("Recebendo para Editar", GetRecordsFromStore())
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (gerarErro) {
+                reject(new Error('Erro ao obter dados'));
+            } else {
+                GetRecords().then(Lista => {
+
+                    const NewRecords = Lista.filter(record => {
+                        return record.Id !== EditedRecord.Id
+                    }).concat(EditedRecord)
+
+                    SaveRecords(NewRecords)
+                    //console.log(NewRecords)
+                    resolve('Ok');
+                })
+                //store.dispatch(EditUsuarioAction(EditedRecord))
+            }
+        }, 50);
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -599,28 +702,31 @@ export const GetCurrentUserEmailFromStore = () => {
     return store.getState().LoggedUser.Email
 }
 export const GetUserTypesFromStore = () => {
-    return store.getState().TiposUsuarios
+    return [...store.getState().TiposUsuarios]
 }
 export const GetLocaisArmazenamentoFromStore = () => {
-    return store.getState().LocaisArmazenamento
+    return [...store.getState().LocaisArmazenamento]
 }
 export const GetTiposAtivosFromStore = () => {
-    return store.getState().TiposAtivos
+    return [...store.getState().TiposAtivos]
 }
 export const GetTiposDeUsoFromStore = () => {
-    return store.getState().TiposDeUso
+    return [...store.getState().TiposDeUso]
 }
 export const GetAtivosFromStore = () => {
-    return store.getState().Ativos
+    return [...store.getState().Ativos]
 }
 export const GetStatusAtivosFromStore = () => {
-    return store.getState().StatusAtivos
+    return [...store.getState().StatusAtivos]
 }
 export const GetSetoresFromStore = () => {
-    return store.getState().Setores
+    return [...store.getState().Setores]
 }
 export const GetUsersFromStore = () => {
-    return store.getState().Usuarios
+    return [...store.getState().Usuarios]
+}
+export const GetRecordsFromStore = () => {
+    return [...store.getState().RecordsAtivos]
 }
 
 export const GetCurrentUserFromStore = () => {
@@ -721,6 +827,40 @@ export const GetCurrentUserTypeNameWithIdFromStore = (Id) => {
 export const GetCurrentUserTypePermitFromStore = (Permit) => {
     const CurrentUserType = GetCurrentUserTypeFromStore()
     return CurrentUserType.Permits[PermitIndexs[Permit]]
+}
+
+//Quantidade Retirada sem devolução de um determinado Ativo 
+export const GetTakesOfAtivo = (ID) => {
+    var Records1 = [...GetRecordsFromStore()]
+    const Qtd = Records1.filter(Record => Record.AtivoId === ID && !Record.ReturnDate)
+    return Qtd ? Qtd.length : 0
+}
+
+//Quantidade Retirada sem devolução de um determinado Ativo pelo CurrentUser
+export const GetTakesOfAtivoOfCurrentUser = (ID) => {
+    const CurrentUser = GetCurrentUserFromStore()
+    var Records2 = [...GetRecordsFromStore()]
+    const Qtd = Records2.filter(Record => Record.AtivoId === ID && !Record.ReturnDate && Record.TakenFor.Id === CurrentUser.Id)
+    return Qtd ? Qtd.length : 0
+}
+
+//Usuarios que Pegaram um determinado Ativo, menos o currentuser
+export const GetUsersThatTookAtivo = (ID) => {
+    const CurrentUser = GetCurrentUserFromStore()
+    var Records3 = [...GetRecordsFromStore()]
+    const AtivosPegos = Records3.filter(Record => Record.AtivoId === ID && !Record.ReturnDate)
+    //console.log("RECORDS", AtivosPegos)
+    const Users = GetUsersFromStore()
+    const UsersThatTook = Users.filter(user => AtivosPegos.some(AtivoPego => AtivoPego.TakenFor.Id === user.Id && user.Id !== CurrentUser.Id));
+    //console.log("PEGARAM", UsersThatTook)
+    return UsersThatTook
+}
+
+
+export const GetRecordByAtivoIdAndUserId = (AtivoId, UserId) => {
+    var Records4 = [...GetRecordsFromStore()]
+    const Record = Records4.filter(Record => Record.AtivoId === AtivoId && Record.TakenFor.Id === UserId && !Record.ReturnDate)[0]
+    return Record
 }
 
 
