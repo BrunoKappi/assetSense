@@ -2,8 +2,8 @@ import Modal from 'react-bootstrap/Modal';
 import React, { useState, useEffect, useRef } from 'react'
 import './UserModal.css'
 import UserPhoto from '../../../assets/Images/SerranoLogoFuncoBranco.jpg'
-import { UilUserCircle, UilClipboardNotes, UilEnvelope, UilPhone, UilMap, UilMapMarker, UilPen, UilPuzzlePiece, UilLabel,UilListUl, UilSave, UilHistory, UilTimes, UilBuilding, UilKeySkeleton, UilCheck, UilBackward, UilTrash } from '@iconscout/react-unicons'
-import { AddUser, DeleteUser, EditUser, GetCurrentUserFromStore, GetCurrentUserSetorNameWithIdFromStore, GetCurrentUserTypeFromStore, GetCurrentUserTypeNameWithIdFromStore, GetCurrentUserTypeWithIdFromStore, GetSetoresFromStore, GetUserTypesFromStore, GetUserWithIdFromStore } from '../../../Functions/Middleware'
+import { UilUserCircle, UilClipboardNotes, UilEnvelope, UilPhone, UilMap, UilMapMarker, UilPen, UilPuzzlePiece, UilLabel, UilListUl, UilSave, UilHistory, UilTimes, UilBuilding, UilKeySkeleton, UilCheck, UilBackward, UilTrash } from '@iconscout/react-unicons'
+import { AddUser, DeleteUser, EditUser, GetCurrentUserFromStore, GetCurrentUserSetorNameWithIdFromStore, GetCurrentUserTypeFromStore, GetCurrentUserTypeNameWithIdFromStore, GetCurrentUserTypeWithIdFromStore, GetSetoresFromStore, GetUserTypesFromStore, GetUserWithIdFromStore, ReturnAllAtivosOfUserWithId } from '../../../Functions/Middleware'
 import { DefaultUser } from '../../../Data/Items';
 import { DefaultSetor, DefaultUserType } from '../../../Data/Items';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
@@ -17,6 +17,7 @@ import { PermitIndexs } from '../../../GlobalVars'
 import { noOptionsMessage, UserModalSelectcustomStyles } from './UserModalUtils';
 import { v4 } from 'uuid';
 import { LoginFirebase, mudarSenha } from '../../../Config/firebase/auth';
+import UserAtivoRecords from './UserAtivoRecords/UserAtivoRecords';
 
 
 
@@ -192,6 +193,7 @@ const UserModal = (props) => {
             EndConfirming()
             props.onDelete()
             DeleteUser(UserToDelete).then(() => {
+                ReturnAllAtivosOfUserWithId(UserToDelete.Id)
                 NotificationSucesso('Exclusão', 'Usuário Deletado com Sucesso!')
 
             })
@@ -304,7 +306,7 @@ const UserModal = (props) => {
                                 <img src={UserPhoto} alt="User" />
                             </div>
                         </div>
-                        <div className='UserModalHeader-Right'> 
+                        <div className='UserModalHeader-Right'>
                             <div className='UserModalHeader-Right-Name'>
 
                                 {props.Function === 'Add' && <span>
@@ -558,7 +560,7 @@ const UserModal = (props) => {
                                             </div>
                                         </div>
                                     </form>
-                                    
+
                                     <div className='UserModalBody-UserInfoForm-Button'>
                                         {!IsEdited && !IsCurrentUser && PermitToDeleteUsers && (props.Function !== 'Add') &&
                                             <button className='UserModalBody-UserInfoForm-Button-Delete' onClick={e => InitConfirm('Delete')}>
@@ -593,6 +595,9 @@ const UserModal = (props) => {
                                         }
                                     </div>
                                 </div>}
+
+
+                                {Tab === 'Ativos' && <UserAtivoRecords FromModal={props.FromModal} User={User} /> }
                             </div>
                         }
 

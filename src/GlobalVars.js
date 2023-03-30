@@ -29,7 +29,7 @@ export const UserModalSelectcustomStyles = {
   }),
   input: (provided) => ({
     ...provided,
-    border: 'none', 
+    border: 'none',
     outline: 'none'
   }),
   control: (provided, state) => ({
@@ -41,6 +41,10 @@ export const UserModalSelectcustomStyles = {
 };
 
 
+export const DefaultTooltipStyles = { 
+  fontFamily: "var(--Fonte) !important;",
+  color: 'red' 
+}
 
 
 export const Filteroptions = [
@@ -59,7 +63,7 @@ export const FilterStatusoptions = [
 
 
 
-
+ 
 ///////////// PERMIÇÔES ///////////
 
 var Index = 0

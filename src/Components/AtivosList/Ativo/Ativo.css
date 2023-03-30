@@ -74,9 +74,23 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: .2rem .4rem;
+    padding: .05rem .5rem;
     border-radius: 1rem;
     font-size: .7rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .1rem;
+}
+
+.LocalArmazenamentoColumn>svg {
+    width: 1rem;
+}
+
+.LocalArmazenamentoColumn>span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .AtivoTypeColumn {
@@ -85,9 +99,23 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: .2rem .4rem;
+    padding: .05rem .5rem;
     border-radius: 1rem;
     font-size: .7rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .1rem;
+}
+
+.AtivoTypeColumn>svg {
+    width: .9rem;
+}
+
+.AtivoTypeColumn>span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .AtivoNameColumn {
@@ -102,6 +130,8 @@
     color: var(--AtivoContainr-Name-Color);
     font-size: .9rem;
 }
+
+
 
 .AtivoNameColumn>span {
     white-space: nowrap;
@@ -126,11 +156,19 @@
     width: 1rem;
 }
 
-.TipoDeUsoColumn {
+
+.AtivoQuantidadesContainer {
+    display: flex !important;
+    align-items: center !important;
+    flex-direction: row !important;
+    gap: 1rem !important;
+}
+
+.AtivoQuantidades {
     display: flex;
     align-items: center;
     flex-direction: row;
-    gap: .1rem;
+    gap: .2rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -138,7 +176,7 @@
     color: var(--AtivoContainr-Email-Color);
 }
 
-.TipoDeUsoColumn>svg {
+.AtivoQuantidades>svg {
     width: .9rem;
 }
 
@@ -155,19 +193,27 @@
         font-size: .6rem;
     }
 
+    .LocalArmazenamentoColumn>svg {
+        display: none;
+    }
+
     .AtivoTypeColumn {
         font-size: .6rem;
+    }
+
+    .AtivoTypeColumn>svg {
+        display: none;
     }
 
     .AtivoNameColumn>svg {
         display: none;
     }
 
-    .TipoDeUsoColumnContainer {
-        display: none;
+    .AtivoQuantidadesContainer {
+        display: none !important;
     }
 
-    .TipoDeUsoColumn {
+    .AtivoQuantidades {
         display: none;
     }
 }

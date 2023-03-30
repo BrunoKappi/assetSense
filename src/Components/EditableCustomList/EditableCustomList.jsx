@@ -8,10 +8,10 @@ import { v4 } from 'uuid';
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { DefaultAtivoStatus, DefaultItemType } from '../../Data/Items';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
-import { Tooltip } from 'react-tippy'; 
+import { Tooltip } from 'react-tippy';
 import { GetNotificationErrorMessageDelete, GetNotificationSuccessMessageAdd, GetNotificationExistsMessageAdd, GetNotificationSuccessMessageDelete, GetNotificationSuccessMessageChangeName } from './EditableCustomListUtils';
 import Loading from '../LoadingForTabs/Loading'
-import { fetchFunctions, GetCurrentUserTypePermitFromStore, saveFunctions, SaveStatusAtivos } from '../../Functions/Middleware';
+import { CheckIfAnyAtivoOfStatusTaken, fetchFunctions, GetCurrentUserTypePermitFromStore, saveFunctions, SaveStatusAtivos } from '../../Functions/Middleware';
 import { DefaultUserRole } from '../../Data/Items';
 
 const CustomListIcon = {
@@ -211,12 +211,21 @@ const EditableCustomList = (props) => {
 
   const HandleSubmiChangeCanTake = (index) => {
     var ItensCopy = [...ListaDeItens]
-    ItensCopy[index].CanTake = !ItensCopy[index].CanTake
-    SaveStatusAtivos(ItensCopy).then(() => {
-      setListaDeItens([...ItensCopy])
-      EndEditing()
-      NotificationSucesso('Alteração', 'Status alterado com sucesso!')
-    })
+
+
+    const IsThereTakes = CheckIfAnyAtivoOfStatusTaken(ItensCopy[index].Id)
+
+    if (IsThereTakes && (ItensCopy[index].CanTake === true)) {
+      NotificationErro("Ação não permitida", "Você não pode mudar este Status no momento, pois já existem ativos com este status em utilização")
+    } else {
+      ItensCopy[index].CanTake = !ItensCopy[index].CanTake
+      SaveStatusAtivos(ItensCopy).then(() => {
+        setListaDeItens([...ItensCopy])
+        EndEditing()
+        NotificationSucesso('Alteração', 'Status alterado com sucesso!')
+      })
+    }
+
   }
 
 

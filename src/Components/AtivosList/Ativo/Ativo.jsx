@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Ativo.css'
-import { UilWrench, UilPlay } from '@iconscout/react-unicons'
-import { GetLocalArmazenamentoNameWithIdFromStore, GetTipoAtivoNameWithIdFromStore, GetTipoDeUsoNameWithIdFromStore, } from '../../../Functions/Middleware'
+import { UilWrench, UilBox, UilUsersAlt, UilArchive, UilLabelAlt } from '@iconscout/react-unicons'
+import { GetLocalArmazenamentoNameWithIdFromStore, GetTakesOfAtivo, GetTipoAtivoNameWithIdFromStore, GetTipoDeUsoNameWithIdFromStore, } from '../../../Functions/Middleware'
+//Tooltip
+import { Tooltip } from 'react-tippy';
+import { DefaultTooltipStyles } from '../../../GlobalVars';
+
 
 export default function Ativo(props) {
 
 
-
+    //Quantidades
+    const QuantidadeDoAtivo = props.Ativo?.Qtd
+    const [QuantidadeRetirada, SetQuantidadeRetirada] = useState(GetTakesOfAtivo(props.Ativo?.Id))
 
 
 
@@ -20,22 +26,40 @@ export default function Ativo(props) {
                         <UilWrench />
                         <span> {props.Ativo.Item}</span>
                     </span>
-                </span>
-                <span className='AtivoContainrColumn TipoDeUsoColumnContainer'>
-                    <span className='TipoDeUsoColumn'>
-                        <UilPlay />
-                        {GetTipoDeUsoNameWithIdFromStore(props.Ativo.Usage.Id)}
-                    </span>
+                </span> 
+                <span className='AtivoContainrColumn AtivoQuantidadesContainer'>
+
+                    <Tooltip style={DefaultTooltipStyles} title="Unidades deste Ativo" position="bottom" >
+                        <span className='AtivoQuantidades'>
+                            <UilArchive />
+                            {QuantidadeDoAtivo}
+                        </span>
+                    </Tooltip>
+                    <Tooltip title="Usuários Utilizando este Item" position="bottom" >
+                        <span className='AtivoQuantidades'>
+                            <UilUsersAlt />
+                            {QuantidadeRetirada}
+                        </span>
+                    </Tooltip>
+
+
+
                 </span>
                 <div className='AtivoContainrColumn LocalArmazenamentoColumnContainer'>
-                    <span className='LocalArmazenamentoColumn'>
-                        {GetLocalArmazenamentoNameWithIdFromStore(props.Ativo.StorageLocation.Id)}
-                    </span>
+                    <Tooltip title="Local de Armazenamento" position="bottom" >
+                        <span className='LocalArmazenamentoColumn'>
+                            <UilBox />
+                            <span>{GetLocalArmazenamentoNameWithIdFromStore(props.Ativo.StorageLocation.Id)}</span>
+                        </span>
+                    </Tooltip>
                 </div>
                 <span className='AtivoContainrColumn AtivoTypeColumnContainer'>
-                    <span className='AtivoTypeColumn'>
-                        {GetTipoAtivoNameWithIdFromStore(props.Ativo.Type.Id)}
-                    </span>
+                    <Tooltip title="Tipo do Ativo" position="bottom" >
+                        <span className='AtivoTypeColumn'>
+                            <UilLabelAlt />
+                            <span>{GetTipoAtivoNameWithIdFromStore(props.Ativo.Type.Id)}</span>
+                        </span>
+                    </Tooltip>
                 </span>
             </div>
         </>

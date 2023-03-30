@@ -10,6 +10,7 @@ import { AddAtivoAction, DeleteAtivoAction, SetAtivos } from "../Config/store/ac
 import { AddUsuarioAction, DeleteUsuarioAction, SetUsuarios } from "../Config/store/actions/UsuariosActions"
 import { PermitIndexs } from "../GlobalVars"
 import { AddRecordAction, SetRecords } from "../Config/store/actions/RecordsActions"
+import moment from "moment"
 
 
 export const LoginUtil = (email, password) => {
@@ -535,7 +536,9 @@ export async function DeleteAtivo(Ativo, gerarErro = false) {
             } else {
                 //////console.log(Ativos)
                 //localStorage.setItem('AssetSenseAtivos', JSON.stringify(Ativos))
-                store.dispatch(DeleteAtivoAction(Ativo))
+                Ativo.Deleted = true
+                EditAtivo(Ativo)
+                //store.dispatch(DeleteAtivoAction(Ativo))
                 resolve('Ok');
             }
         }, 50);
@@ -630,7 +633,8 @@ export async function DeleteUser(User, gerarErro = false) {
             } else {
                 //////console.log(Users)
                 //localStorage.setItem('AssetSenseUsers', JSON.stringify(Users))
-                store.dispatch(DeleteUsuarioAction(User))
+                User.Deleted = true
+                EditUser(User)
                 resolve('Ok');
             }
         }, 50);
@@ -714,6 +718,9 @@ export const GetTiposDeUsoFromStore = () => {
     return [...store.getState().TiposDeUso]
 }
 export const GetAtivosFromStore = () => {
+    return [...store.getState().Ativos].filter(User => User.Deleted === false)
+}
+export const GetAtivosFromStoreWithDeleted = () => {
     return [...store.getState().Ativos]
 }
 export const GetStatusAtivosFromStore = () => {
@@ -723,12 +730,15 @@ export const GetSetoresFromStore = () => {
     return [...store.getState().Setores]
 }
 export const GetUsersFromStore = () => {
+    return [...store.getState().Usuarios].filter(User => User.Deleted === false)
+}
+export const GetUsersFromStoreWithDeleted = () => {
     return [...store.getState().Usuarios]
 }
 export const GetUsersFromStoreWithNoCurrentUser = (AtivoId) => {
     const Current = GetCurrentUserFromStore()
-    const UsersThatTook = GetUsersThatTookAtivo(AtivoId)     
-    const Users = [...store.getState().Usuarios].filter(User => User.Id !== Current.Id)  
+    const UsersThatTook = GetUsersThatTookAtivo(AtivoId)
+    const Users = [...store.getState().Usuarios].filter(User => User.Id !== Current.Id)
     const UsersNotTook = Users.filter(user => !UsersThatTook.some(took => took.Id === user.Id));
     console.log("FILTER USERS", UsersNotTook)
     return UsersNotTook
@@ -783,13 +793,13 @@ export const GetTipoDeUsoWithIdFromStore = (Id) => {
 }
 
 export const GetUserWithIdFromStore = (Id) => {
-    const Users = GetUsersFromStore()
+    const Users = GetUsersFromStoreWithDeleted()
     const User = Users.find(U => U.Id === Id)
     return User
 }
 
 export const GetAtivoWithIdFromStore = (Id) => {
-    const Ativos = GetAtivosFromStore()
+    const Ativos = GetAtivosFromStoreWithDeleted()
     const Ativo = Ativos.find(U => U.Id === Id)
     return Ativo ? Ativo : {}
 }
@@ -826,14 +836,62 @@ export const GetCurrentUserTypeNameWithIdFromStore = (Id) => {
     const Name = Types.find(Type => Type.Id === Id).Value
     return Name
 }
-export const GetuserNameWithIdFromStore = (Id) => {    
-    const Users = GetUsersFromStore()
+export const GetuserNameWithIdFromStore = (Id) => {
+    const Users = GetUsersFromStoreWithDeleted()
     const User = Users.find(User => User.Id === Id)
-    const Name = User?.Name + ' ' +  User?.LastName
+    const Name = User?.Name + ' ' + User?.LastName
+    return Name
+}
+export const GetAtivoNameWithIdFromStore = (Id) => {
+    const Ativos = GetAtivosFromStoreWithDeleted()
+    const Ativo = Ativos.find(ativo => ativo.Id === Id)
+    const Name = Ativo.Item
     return Name
 }
 
+//VERIFICA SE  ALGUM ATIVO DO TIPO FOI RETIRADO
+export const CheckIfAnyAtivoOfStatusTaken = (StatusId) => {
+    const Records = GetRecordsFromStore()
+    const Ativos = GetAtivosFromStore()
+    const AtivosOfStatus = Ativos.filter(Ativo => Ativo.Status.Id === StatusId)
+    const AtivosTaken = AtivosOfStatus.filter(Ativo => Records.some(Record => Record.AtivoId === Ativo.Id && Record.Duration === 0));
+    return AtivosTaken?.length > 0 ? true : false
 
+}
+
+//VERIFICA SE  ALGUM ATIVO DO TIPO FOI RETIRADO
+export const ReturnAllAtivosOfUserWithId = (UserId) => {
+    const Records = GetRecordsFromStore()
+
+    Records.forEach(Record => {
+        if (Record.TakenFor.Id === UserId) {
+            Record.ReturnDate = moment().valueOf()
+            Record.Duration = moment().valueOf() - Record.TakeDate
+            Record.TakenForDeleted = true
+        }
+        if (Record.TakenBy.Id === UserId) {
+            Record.TakenByDeleted = true
+        }
+    })
+
+    SaveRecords(Records)
+
+}
+//VERIFICA SE  ALGUM ATIVO DO TIPO FOI RETIRADO
+export const ReturnAllRecordOfAtivowithId = (AtivoId) => {
+    const Records = GetRecordsFromStore()
+
+    Records.forEach(Record => {
+        if (Record.AtivoId === AtivoId) {
+            Record.ReturnDate = moment().valueOf()
+            Record.Duration = moment().valueOf() - Record.TakeDate
+            Record.AtivoDeleted = true
+        }
+    })
+
+    SaveRecords(Records)
+
+}
 
 
 // OTHER GETTERS 
@@ -853,7 +911,12 @@ export const GetTakesOfAtivo = (ID) => {
 //Quantidade Retirada sem devolução de um determinado Ativo 
 export const GetRecordsOfAtivo = (ID) => {
     var Records1 = [...GetRecordsFromStore()]
-    return Records1.filter(Record => Record.AtivoId === ID)    
+    return Records1.filter(Record => Record.AtivoId === ID)
+}
+//REGISTROS DE UM USUARIO
+export const GetRecordsOfUser = (ID) => {
+    var Records1 = [...GetRecordsFromStore()]
+    return Records1.filter(Record => Record.TakenFor.Id === ID)
 }
 
 //Quantidade Retirada sem devolução de um determinado Ativo pelo CurrentUser

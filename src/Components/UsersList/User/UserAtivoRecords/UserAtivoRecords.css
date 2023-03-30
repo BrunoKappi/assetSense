@@ -1,0 +1,292 @@
+.UserAtivoRecords-ContainerClaro {
+    --UserAtivoRecord-Container-Border: var(--ComplementaryColor);
+    --UserAtivoRecord-UpRow-Name-Color: var(--ComplementaryColor);
+    --UserAtivoRecord-UpRow-Name-Color-Hover: var(--PrimaryBackGroundFaded);
+
+    --UserAtivoRecord-UpRow-Status-Background: var(--SecondaryBackground);
+    --UserAtivoRecord-UpRow-Status-Color: white;
+
+
+    --UserAtivoRecord-UpRow-Date-Color: var(--SecondaryBackground);
+    --UserAtivoRecord-UpRow-Time-Color: var(--SecondaryBackground);
+
+    --UserAtivoRecord-UpRow-OrderBy-Color: var(--SecondaryBackground);
+
+    --AtivosRecordsFormFilter-Button-Background: var(--ComplementaryColor);
+    --AtivosRecordsFormFilter-Button-Border: var(--ComplementaryColor);
+    --AtivosRecordsFormFilter-Button-Color: white;
+
+    --UserAtivoRecords-FormFilter-Input-Background: white;
+    --UserAtivoRecords-FormFilter-Input-Border: transparent;
+    --UserAtivoRecords-FormFilter-Input-Color: var(--SecondaryBackground);
+
+    --UserModal-userAtivos-Warning-Color: white;
+    --UserModal-userAtivos-Warning-Background: #f0ad4e;
+
+
+}
+
+
+
+
+.UserAtivoRecords-ContainerEscuro {
+    --UserAtivoRecord-Container-Border: var(--ComplementaryColor);
+    --UserAtivoRecord-UpRow-Name-Color: var(--ComplementaryColor);
+    --UserAtivoRecord-UpRow-Name-Color-Hover: var(--ComplementaryColor);
+
+    --UserAtivoRecord-UpRow-Status-Background: var(--SecondaryBackground);
+    --UserAtivoRecord-UpRow-Status-Color: white;
+ 
+    --UserAtivoRecord-UpRow-Date-Color: white;
+    --UserAtivoRecord-UpRow-Time-Color: white;
+
+    --UserAtivoRecord-UpRow-OrderBy-Color: var(--ComplementaryColor);
+
+    --AtivosRecordsFormFilter-Button-Background: var(--ComplementaryColor);
+    --AtivosRecordsFormFilter-Button-Border: var(--ComplementaryColor);
+    --AtivosRecordsFormFilter-Button-Color: white;
+
+    --UserAtivoRecords-FormFilter-Input-Background: transparent;
+    --UserAtivoRecords-FormFilter-Input-Border: var(--ComplementaryColor);
+    --UserAtivoRecords-FormFilter-Input-Color: var(--ComplementaryColor);
+
+    --UserModal-userAtivos-Warning-Color: white;
+    --UserModal-userAtivos-Warning-Background: #f0ad4e;
+}
+
+
+
+
+
+
+
+.UserAtivoRecord-Container {
+    border: 1px solid var(--UserAtivoRecord-Container-Border);
+    border-radius: .5rem;
+    padding: .3rem .5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+    margin-bottom: .7rem;
+}
+
+.UserAtivoRecord-UpRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.UserAtivoRecord-DownRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.UserAtivoRecord-MiddleRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.UserAtivoRecord-UpRow-Name {
+    font-family: var(--Fonte);
+    color: var(--UserAtivoRecord-UpRow-Name-Color);
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.UserAtivoRecord-UpRow-Name:hover {
+    color: var(--UserAtivoRecord-UpRow-Name-Color-Hover);
+    text-decoration: underline;
+}
+
+.UserAtivoRecord-MiddleRow-Name {
+    font-family: var(--Fonte);
+    color: var(--UserAtivoRecord-UpRow-Name-Color);
+    font-size: .7rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .2rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.UserAtivoRecord-MiddleRow-Name:hover {
+    color: var(--UserAtivoRecord-UpRow-Name-Color-Hover);
+    text-decoration: underline;
+}
+
+.UserAtivoRecord-MiddleRow-Name>svg {
+    width: 1rem;
+}
+
+.UserAtivoRecord-UpRow-Status {
+    border-radius: 1rem;
+    background-color: var(--UserAtivoRecord-UpRow-Status-Background);
+    padding: 0rem 1rem;
+    font-size: .75rem;
+    font-family: var(--Fonte);
+    color: var(--UserAtivoRecord-UpRow-Status-Color);
+
+}
+
+
+.UserAtivoRecord-DownRow-Date {
+    font-family: var(--Fonte);
+    color: var(--UserAtivoRecord-UpRow-Date-Color);
+    font-size: .9rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .2rem;
+    cursor: pointer;
+}
+
+.UserAtivoRecord-DownRow-Date>svg {
+    width: 1rem;
+}
+
+.UserAtivoRecord-DownRow-Time {
+    font-family: var(--Fonte);
+    color: var(--UserAtivoRecord-UpRow-Time-Color);
+    font-size: .9rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .2rem;
+    cursor: pointer;
+}
+
+.UserAtivoRecord-DownRow-Time>svg {
+    width: 1rem;
+}
+
+
+
+/* ============  DROPDOWN  ===================*/
+
+.UserAtivoRecords-FormFilter {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.UserAtivoRecords-FormFilter>button {
+    font-family: var(--Fonte);
+    font-size: .8rem;
+    outline: none;
+    border: 1px solid var(--AtivosRecordsFormFilter-Button-Border);
+    background-color: var(--AtivosRecordsFormFilter-Button-Background);
+    color: var(--AtivosRecordsFormFilter-Button-Color);
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+}
+
+.UserAtivoRecords-FormFilter>button {
+    font-family: var(--Fonte);
+    font-size: .8rem;
+    outline: none;
+    border: 1px solid var(--AtivosRecordsFormFilter-Button-Border);
+    background-color: var(--AtivosRecordsFormFilter-Button-Background);
+    color: var(--AtivosRecordsFormFilter-Button-Color);
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+}
+
+
+.UserAtivoRecords-FormFilter>input {
+    flex-grow: 1;
+    outline: none;
+    padding: .5rem 1rem;
+    border: 1px solid var(--UserAtivoRecords-FormFilter-Input-Border);
+    border-radius: .5rem;
+    font-family: var(--Fonte);
+    font-size: .8rem;
+    background-color: var(--UserAtivoRecords-FormFilter-Input-Background);
+    color: var(--UserAtivoRecords-FormFilter-Input-Color);
+    -webkit-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
+}
+
+.UserAtivoRecords-FormFilter>input::placeholder {
+    color: var(--UserAtivoRecords-FormFilter-Input-Color);
+}
+
+.UserAtivoRecords-FormFilter>button:hover {
+    transform: scale(1.1);
+}
+
+.UserAtivoRecords-FormFilter>button:active {
+    transform: scale(1);
+}
+
+
+#UserAtivoRecords-OrderBy::after {
+    display: none !important;
+}
+
+#UserAtivoRecords-OrderBy {
+    background-color: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    height: 100%;
+}
+
+.UserAtivoRecords-OrdenarPorTitle {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    align-items: center;
+    font-family: var(--Fonte);
+    border-radius: 1rem;
+    font-size: .9rem;
+    font-family: var(--Fonte);
+    color: var(--UserAtivoRecord-UpRow-OrderBy-Color) !important;
+}
+
+
+
+
+
+
+
+
+
+.UserAtivosRecords-AvisoInfo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: .5rem;
+    margin-bottom: 2rem;
+}
+
+
+.UserAtivosRecords-AvisoInfo-Item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .3rem;
+    color: var(--UserModal-userAtivos-Warning-Color);
+    font-family: var(--Fonte);
+    background-color: var(--UserModal-userAtivos-Warning-Background);
+    padding: .2rem .8rem;
+    border-radius: 1rem;
+    font-size: .8rem;
+}
+
+.UserAtivosRecords-AvisoInfo-Item>svg {
+    width: 1rem;
+}

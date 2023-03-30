@@ -17,7 +17,7 @@ const Profile = (props) => {
     return (
         <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'ProfileContainerEscuro ProfileContainer' : 'ProfileContainerClaro ProfileContainer'}>
 
-            <UserMOdal CurrentUser={CurrentUser} User={CurrentUser} show={modalShow} onHide={() => {  setModalShow(false); navigate('../' + props.LoggedUser.CurrentSidebarTab);}} Function="View" />
+            <UserMOdal FromModal={false} CurrentUser={CurrentUser} User={CurrentUser} show={modalShow} onHide={() => {  setModalShow(false); navigate('../' + props.LoggedUser.CurrentSidebarTab);}} Function="View" />
 
         </div>
     )

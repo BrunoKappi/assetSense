@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react'
 import './AtivoModal.css'
 import UserPhoto from '../../../assets/Images/SerranoLogoFuncoBranco.jpg'
 import { UilUserCircle, UilClipboardNotes, UilLabel, UilLabelAlt, UilBox, UilSave, UilTag, UilTimes, UilBuilding, UilCircleLayer, UilPlay, UilWrench, UilCheck, UilBackward, UilTrash, UilArrow } from '@iconscout/react-unicons'
-import { AddAtivo, DeleteAtivo, EditAtivo, GetAtivoStatusWithIdFromStore, GetAtivoTypeWithIdFromStore, GetAtivoWithIdFromStore, GetCurrentUserTypeFromStore, GetLocaisArmazenamentoFromStore, GetLocalArmazenamentoNameWithIdFromStore, GetLocalArmazenamentoWithIdFromStore, GetStatusAtivosFromStore, GetTakesOfAtivo, GetTipoAtivoNameWithIdFromStore, GetTipoDeUsoWithIdFromStore, GetTiposAtivosFromStore, GetTiposDeUsoFromStore } from '../../../Functions/Middleware'
+import { AddAtivo, DeleteAtivo, EditAtivo, GetAtivoStatusWithIdFromStore, GetAtivoTypeWithIdFromStore, GetAtivoWithIdFromStore, GetCurrentUserTypeFromStore, GetLocaisArmazenamentoFromStore, GetLocalArmazenamentoNameWithIdFromStore, GetLocalArmazenamentoWithIdFromStore, GetStatusAtivosFromStore, GetTakesOfAtivo, GetTipoAtivoNameWithIdFromStore, GetTipoDeUsoWithIdFromStore, GetTiposAtivosFromStore, GetTiposDeUsoFromStore, ReturnAllRecordOfAtivowithId } from '../../../Functions/Middleware'
 import { DefaultAtivo, DefaultAtivosType, DefaultLocal, } from '../../../Data/Items';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
-import { NotificationAlerta, NotificationSucesso } from '../../../NotificationUtils';
+import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
 import 'react-phone-input-2/lib/style.css'
 import Select from "react-select";
 import { PermitIndexs } from '../../../GlobalVars'
@@ -63,8 +63,9 @@ const AtivoModal = (props) => {
     IsAdmin = CurrentUserType?.IsAdmin
     var PermitToEditAtivos = CurrentUserType?.Permits[PermitIndexs['EDITAR_ATIVOS']]
     var PermitToDeleteAtivos = CurrentUserType?.Permits[PermitIndexs['EXCLUIR_ATIVOS']]
+    var PermitToTakeAtivos = CurrentUserType?.Permits[PermitIndexs['RETIRAR_ATIVOS']]
     CanEdit = IsAdmin || PermitToEditAtivos
-    //PERMISSOES
+    //PERMISSOES 
 
     const FillCopyes = (AtivoCopy) => {
         setCopyAtivoName(AtivoCopy?.Item)
@@ -225,6 +226,7 @@ const AtivoModal = (props) => {
             EndConfirming()
             props.onDelete()
             DeleteAtivo(AtivoToDelete).then(() => {
+                ReturnAllRecordOfAtivowithId(AtivoToDelete.Id)
                 NotificationSucesso('Exclusão', 'Ativo Deletado com Sucesso!')
 
             })
@@ -243,7 +245,12 @@ const AtivoModal = (props) => {
 
 
 
-    const [Show, setShow] = useState(false)
+    const HandleSetTab = (TabToChange) => {
+        if (TabToChange === 'RetirarDevolver' && !PermitToTakeAtivos)
+            NotificationErro("Permissão", "Você não tem permissão para acessar essa área, solicite autorização para seu Administrador")
+        else
+            setTab(TabToChange)
+    }
 
 
 
@@ -251,44 +258,6 @@ const AtivoModal = (props) => {
 
 
         <>
-
-            <Modal onHide={() => setShow(false)} fullscreen={'md-down'} show={Show} size="xl">
-                <Modal.Header closeButton>
-                    <Modal.Title id="example-custom-modal-styling-title">
-                        Custom Modal Styling
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <p>
-                        Ipsum molestiae natus adipisci modi eligendi? Debitis amet quae unde
-                        commodi aspernatur enim, consectetur. Cumque deleniti temporibus
-                        ipsam atque a dolores quisquam quisquam adipisci possimus
-                        laboriosam. Quibusdam facilis doloribus debitis! Sit quasi quod
-                        accusamus eos quod. Ab quos consequuntur eaque quo rem! Mollitia
-                        reiciendis porro quo magni incidunt dolore amet atque facilis ipsum
-                        deleniti rem!
-                    </p>
-                </Modal.Body>
-            </Modal>
-
-            <Modal onHide={() => setShow(false)} fullscreen={'md-down'} show={Show} size="xl">
-                <Modal.Header closeButton>
-                    <Modal.Title id="example-custom-modal-styling-title">
-                        Custom Modal Styling
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <p>
-                        Ipsum molestiae natus adipisci modi eligendi? Debitis amet quae unde
-                        commodi aspernatur enim, consectetur. Cumque deleniti temporibus
-                        ipsam atque a dolores quisquam quisquam adipisci possimus
-                        laboriosam. Quibusdam facilis doloribus debitis! Sit quasi quod
-                        accusamus eos quod. Ab quos consequuntur eaque quo rem! Mollitia
-                        reiciendis porro quo magni incidunt dolore amet atque facilis ipsum
-                        deleniti rem!
-                    </p>
-                </Modal.Body>
-            </Modal>
 
             <Modal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'AtivoModal-ModalEscuro AtivoModal-Modal' : 'AtivoModal-ModalClaro AtivoModal-Modal'}>
 
@@ -328,25 +297,25 @@ const AtivoModal = (props) => {
                         </div>
                         <div className='AtivoModalBody'>
                             <div className='AtivoModalBody-Sidebar'>
-                                <div className={Tab === 'AtivoInfo' ? 'AtivoModalBody-Sidebar-ActiveItem' : 'AtivoModalBody-Sidebar-Item'} onClick={e => setTab('AtivoInfo')}>
+                                <div className={Tab === 'AtivoInfo' ? 'AtivoModalBody-Sidebar-ActiveItem' : 'AtivoModalBody-Sidebar-Item'} onClick={e => HandleSetTab('AtivoInfo')}>
                                     <UilUserCircle />
                                     Informações Cadastrais
                                 </div>
 
                                 {props.Function !== 'Add' &&
-                                    <div className={Tab === 'RetirarDevolver' ? 'AtivoModalBody-Sidebar-ActiveItem' : 'AtivoModalBody-Sidebar-Item'} onClick={e => setTab('RetirarDevolver')}>
+                                    <div className={Tab === 'RetirarDevolver' ? 'AtivoModalBody-Sidebar-ActiveItem' : 'AtivoModalBody-Sidebar-Item'} onClick={e => HandleSetTab('RetirarDevolver')}>
                                         <UilArrow />
                                         Retirar/Devolver
                                     </div>
                                 }
                                 {props.Function !== 'Add' &&
-                                    <div className={Tab === 'Registros' ? 'AtivoModalBody-Sidebar-ActiveItem' : 'AtivoModalBody-Sidebar-Item'} onClick={e => setTab('Registros')}>
+                                    <div className={Tab === 'Registros' ? 'AtivoModalBody-Sidebar-ActiveItem' : 'AtivoModalBody-Sidebar-Item'} onClick={e => HandleSetTab('Registros')}>
                                         <UilClipboardNotes />
                                         Registros
                                     </div>
                                 }
 
-                                <button onClick={e => setShow(true)}>Open Modal</button>
+
                             </div>
 
                             {!Confirm &&
@@ -513,7 +482,7 @@ const AtivoModal = (props) => {
                                     }
 
                                     {Tab === 'Registros' &&
-                                        <AtivoRecords Ativo={Ativo} />
+                                        <AtivoRecords Ativo={Ativo} FromModal={props.FromModal} />
                                     }
 
                                 </div>

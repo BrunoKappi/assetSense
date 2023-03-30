@@ -1,35 +1,35 @@
 import React, { useState, useEffect } from 'react'
-import './AtivoRecords.css'
-import { GetCurrentUserFromStore, GetRecordsOfAtivo, GetuserNameWithIdFromStore, GetUserWithIdFromStore } from '../../../../Functions/Middleware';
+import './UserAtivoRecords.css'
+import { GetAtivoNameWithIdFromStore, GetAtivoWithIdFromStore, GetCurrentUserFromStore, GetRecordsOfUser, GetuserNameWithIdFromStore, GetUserWithIdFromStore } from '../../../../Functions/Middleware';
 
 import moment from 'moment';
-import { UilCalendarAlt, UilClock, UilBookmark, UilPlay, UilCommentInfoAlt, UilCommentAltMessage } from '@iconscout/react-unicons'
+import { UilCalendarAlt, UilClock, UilBookmark, UilPlay, UilCommentInfoAlt } from '@iconscout/react-unicons'
 import { MdFilterList } from 'react-icons/md'
 import Dropdown from 'react-bootstrap/Dropdown';
 //Tooltip
 import { Tooltip } from 'react-tippy';
-import UserModal from '../../../UsersList/User/UserModal'
+import AtivoModal from '../../../AtivosList/Ativo/AtivoModal'
 import { NotificationAlerta } from '../../../../NotificationUtils';
 
 
-export default function AtivoRecords(props) {
+export default function UserAtivoRecords(props) {
 
     const [CurrentUser, setCurrentUser] = useState(GetCurrentUserFromStore())
 
     //Quantidades
-    const [Records, SetRecords] = useState(GetRecordsOfAtivo(props.Ativo?.Id))
+    const [Records, SetRecords] = useState(GetRecordsOfUser(props.User?.Id))
     const [OrdenarPor, setOrdenarPor] = useState('Mais Recentes')
     const [FiltroDeTexto, setFiltroDeTexto] = useState('')
-    const [SelectedUser, setSelectedUser] = useState({})
+    const [SelectedAtivo, setSelectedAtivo] = useState({})
     const [modalShow, setModalShow] = useState(false);
 
 
     useEffect(() => {
-        const Registros = GetRecordsOfAtivo(props.Ativo?.Id)
+        const Registros = GetRecordsOfUser(props.User?.Id)
         SetRecords(Registros.filter(Record => {
-            const TakenForName = GetuserNameWithIdFromStore(Record.TakenFor.Id)
+            const AtivoName = GetAtivoNameWithIdFromStore(Record.AtivoId)
             const TakenByName = GetuserNameWithIdFromStore(Record.TakenBy.Id)
-            const TextFilter = FiltroDeTexto === '' || (TakenForName.toLowerCase().includes(FiltroDeTexto.toLowerCase())) || (TakenByName.toLowerCase().includes(FiltroDeTexto.toLowerCase()))
+            const TextFilter = FiltroDeTexto === '' || (AtivoName.toLowerCase().includes(FiltroDeTexto.toLowerCase())) || (TakenByName.toLowerCase().includes(FiltroDeTexto.toLowerCase()))
             return TextFilter
         }).sort((a, b) => {
             if (OrdenarPor === 'Mais recentes' || OrdenarPor === 'Ordenar por') {
@@ -37,8 +37,8 @@ export default function AtivoRecords(props) {
             } else if (OrdenarPor === 'Mais Antigos') {
                 return a.TakeDate < b.TakeDate ? - 1 : 1
             } else if (OrdenarPor === 'Nome') {
-                const TakenForNameA = GetuserNameWithIdFromStore(a.TakenFor.Id)
-                const TakenForNameB = GetuserNameWithIdFromStore(b.TakenFor.Id)
+                const TakenForNameA = GetAtivoNameWithIdFromStore(a.AtivoId)
+                const TakenForNameB = GetAtivoNameWithIdFromStore(b.AtivoId)
                 return TakenForNameA.localeCompare(TakenForNameB);
             } else if (OrdenarPor === 'Tempo de Uso') {
                 const UsoA = a.Duration === 0 ? (moment().valueOf() - a.TakeDate) : a.Duration
@@ -56,21 +56,22 @@ export default function AtivoRecords(props) {
     }, [FiltroDeTexto, OrdenarPor])
 
 
-    const ResetSelectedUser = () => {
+    const ResetSelectedAtivo = () => {
         setModalShow(false);
-        setSelectedUser({});
+        setSelectedAtivo({});
     }
 
-    const handleUserSelection = (Id) => {
+    const handleAtivoSelection = (Id) => {
 
-        const User = GetUserWithIdFromStore(Id)
-        if (User.Deleted === false) {
+        const Ativo = GetAtivoWithIdFromStore(Id)
+
+        if (Ativo.Deleted === false) {
             if (props.FromModal === false) {
-                setSelectedUser(User)
+                setSelectedAtivo(Ativo)
                 setModalShow(true)
             }
         } else {
-            NotificationAlerta("Aviso", "Este usuário foi deletado da base de dados, não sendo possível exibir suas informações")
+            NotificationAlerta("Aviso", "Este Ativo foi deletado da base de dados, não sendo possível exibir suas informações")
         }
 
     }
@@ -83,15 +84,16 @@ export default function AtivoRecords(props) {
 
     return (
         <>
-            <UserModal FromModal={true} CurrentUser={CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
-            <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'AtivoRecords-ContainerEscuro AtivoRecords-Container' : 'AtivoRecords-ContainerClaro AtivoRecords-Container'}>
+            <AtivoModal FromModal={true} CurrentUser={CurrentUser} Ativo={{ ...SelectedAtivo }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedAtivo} />
+            <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'UserAtivoRecords-ContainerEscuro UserAtivoRecords-Container' : 'UserAtivoRecords-ContainerClaro UserAtivoRecords-Container'}>
 
 
-                <div className='AtivoRecords-FormFilter'>
+
+                <div className='UserAtivoRecords-FormFilter'>
                     <input value={FiltroDeTexto} placeholder='Buscar...' onChange={e => setFiltroDeTexto(e.target.value)}></input>
                     <Dropdown>
-                        <Dropdown.Toggle variant="success" id="AtivoRecords-OrderBy">
-                            <div className='AtivoRecords-OrdenarPorTitle'>
+                        <Dropdown.Toggle variant="success" id="UserAtivoRecords-OrderBy">
+                            <div className='UserAtivoRecords-OrdenarPorTitle'>
                                 {OrdenarPor ? OrdenarPor : 'Ordenar por'}
                                 <MdFilterList />
                             </div>
@@ -105,7 +107,7 @@ export default function AtivoRecords(props) {
                             <Dropdown.Item onClick={e => setOrdenarPor('Status')}>Status</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
-                    <button onClick={handleResetFiltros} >Limpar filtro</button>
+                    <button onClick={handleResetFiltros}>Limpar filtro</button>
 
                 </div>
 
@@ -130,77 +132,58 @@ export default function AtivoRecords(props) {
 
 
 
-                    return <div className='AtivoRecord-Container'>
-                        <div className='AtivoRecord-UpRow'>
-                            <Tooltip title="Para quem a retirada foi registrada" position="bottom" >
-                                <span className='AtivoRecord-UpRow-Name' onClick={e => handleUserSelection(Registro.TakenFor.Id)}>
-                                    {GetuserNameWithIdFromStore(Registro.TakenFor.Id)}
+                    return <div className='UserAtivoRecord-Container'>
+                        <div className='UserAtivoRecord-UpRow'>
+                            <Tooltip title="Item retirado" position="bottom" >
+                                <span className='UserAtivoRecord-UpRow-Name' onClick={e => handleAtivoSelection(Registro.AtivoId)}>
+                                    {GetAtivoNameWithIdFromStore(Registro.AtivoId)}
                                 </span>
                             </Tooltip>
-                            <span className='AtivoRecord-UpRow-Status'>
+                            <span className='UserAtivoRecord-UpRow-Status'>
                                 {Registro.Duration === 0 ? 'Em uso' : 'Devolvido'}
                             </span>
                         </div>
 
-                        {Registro.TakenBy.Id !== Registro.TakenFor.Id && <div className='AtivoRecord-MiddleRow'>
+                        {Registro.TakenBy.Id !== Registro.TakenFor.Id && <div className='UserAtivoRecord-MiddleRow'>
                             <Tooltip title="Usuário que registrou a retirada" position="bottom" >
-                                <span className='AtivoRecord-MiddleRow-Name' onClick={e => handleUserSelection(Registro.TakenBy.Id)}>
+                                <span className='UserAtivoRecord-MiddleRow-Name' onClick={e => handleAtivoSelection(Registro.TakenBy.Id)}>
                                     <UilBookmark />
                                     {GetuserNameWithIdFromStore(Registro.TakenBy.Id)}
                                 </span>
                             </Tooltip>
                         </div>
                         }
-
-                        {Registro.Obs &&
-                            <div className='AtivoRecord-DownRow'>
-                                <Tooltip title="Observação de Retirada" position="bottom" >
-                                    <span className='AtivoRecord-DownRow-Obs'>
-                                        <UilCommentAltMessage />
-                                        {Registro.Obs}
-                                    </span>
-                                </Tooltip>
-                            </div>
-                        }
-
-                        {Registro.ReturnObs &&
-                            <div className='AtivoRecord-DownRow'>
-                                <Tooltip title="Observação de devolução" position="bottom" >
-                                    <span className='AtivoRecord-DownRow-Obs'>
-                                        <UilCommentAltMessage />
-                                        {Registro.ReturnObs}
-                                    </span>
-                                </Tooltip>
-                            </div>
-                        }
-
-                        <div className='AtivoRecord-DownRow'>
+                        <div className='UserAtivoRecord-DownRow'>
                             <Tooltip title="Data de Retirada" position="bottom" >
-                                <span className='AtivoRecord-DownRow-Date'>
+                                <span className='UserAtivoRecord-DownRow-Date'>
                                     <UilCalendarAlt />
                                     {moment(Registro.TakeDate).format("DD/MM/YY")}
                                 </span>
                             </Tooltip>
                             <Tooltip title="Hora da Retirada" position="bottom" >
-                                <span className='AtivoRecord-DownRow-Time'>
+                                <span className='UserAtivoRecord-DownRow-Time'>
                                     <UilClock />
                                     {horaMinuto}
                                 </span>
                             </Tooltip>
                             <Tooltip title="Tempo de Uso (HH:mm)" position="bottom" >
-                                <span className='AtivoRecord-DownRow-Time'>
+                                <span className='UserAtivoRecord-DownRow-Time'>
                                     <UilPlay />
                                     {tempoFormatado}
                                 </span>
                             </Tooltip>
+
+
                         </div>
                     </div>
                 })}
 
 
-                {Records.length === 0 && <div className='AtivosRecords-TakeForm'>
-                    <div className='AtivosRecords-AvisoInfo'>
-                        <div className='AtivosRecords-AvisoInfo-Item'>
+
+
+                {Records.length === 0 && <div className='UserAtivosRecords-TakeForm'>
+                    <div className='UserAtivosRecords-AvisoInfo'>
+                        <div className='UserAtivosRecords-AvisoInfo-Item'>
                             <UilCommentInfoAlt />
                             <span>Nenhum registro encontrado</span>
                         </div>

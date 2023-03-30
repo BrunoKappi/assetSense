@@ -98,8 +98,8 @@ const UsersList = (props) => {
     return (
         <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'UsersListContainerEscuro UsersListContainer' : 'UsersListContainerClaro UsersListContainer'}>
 
-            <UserModal Users={ListaDeUsuarios} CurrentUser={CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
-            <UserModal Users={ListaDeUsuarios} CurrentUser={CurrentUser} User={{}} show={AddmodalShow} onHide={() => setAddModalShow(false)} Function="Add" />
+            <UserModal FromModal={false} Users={ListaDeUsuarios} CurrentUser={CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
+            <UserModal FromModal={false}Users={ListaDeUsuarios} CurrentUser={CurrentUser} User={{}} show={AddmodalShow} onHide={() => setAddModalShow(false)} Function="Add" />
 
             <div className='UsersLisFormFilter'>
                 <input value={FiltroDeTexto} placeholder='Procurar Usuário...' onChange={e => setFiltroDeTexto(e.target.value)}></input>

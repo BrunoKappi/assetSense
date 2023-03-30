@@ -8,6 +8,7 @@
 
 
     --AtivoRecord-UpRow-Date-Color: var(--SecondaryBackground);
+    --AtivoRecord-UpRow-Obs-Color: var(--SecondaryBackground);
     --AtivoRecord-UpRow-Time-Color: var(--SecondaryBackground);
 
     --AtivoRecord-UpRow-OrderBy-Color: var(--SecondaryBackground);
@@ -19,6 +20,9 @@
     --AtivoRecords-FormFilter-Input-Background: white;
     --AtivoRecords-FormFilter-Input-Border: transparent;
     --AtivoRecords-FormFilter-Input-Color: var(--SecondaryBackground);
+
+    --AtivoModal-Ativos-Warning-Color: white;
+    --AtivoModal-Ativos-Warning-Background: #f0ad4e;
 
 
 }
@@ -35,6 +39,7 @@
     --AtivoRecord-UpRow-Status-Color: white;
  
     --AtivoRecord-UpRow-Date-Color: white;
+    --AtivoRecord-UpRow-Obs-Color: white;
     --AtivoRecord-UpRow-Time-Color: white;
 
     --AtivoRecord-UpRow-OrderBy-Color: var(--ComplementaryColor);
@@ -46,6 +51,9 @@
     --AtivoRecords-FormFilter-Input-Background: transparent;
     --AtivoRecords-FormFilter-Input-Border: var(--ComplementaryColor);
     --AtivoRecords-FormFilter-Input-Color: var(--ComplementaryColor);
+
+    --AtivoModal-Ativos-Warning-Color: white;
+    --AtivoModal-Ativos-Warning-Background: #f0ad4e;
 }
 
 
@@ -90,6 +98,7 @@
     font-size: 1rem;
     cursor: pointer;
     user-select: none;
+    font-weight: 600;
 }
 
 .AtivoRecord-UpRow-Name:hover {
@@ -100,7 +109,7 @@
 .AtivoRecord-MiddleRow-Name {
     font-family: var(--Fonte);
     color: var(--AtivoRecord-UpRow-Name-Color);
-    font-size: .8rem;
+    font-size: .7rem;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -143,6 +152,20 @@
 .AtivoRecord-DownRow-Date>svg {
     width: 1rem;
 }
+.AtivoRecord-DownRow-Obs {
+    font-family: var(--Fonte);
+    color: var(--AtivoRecord-UpRow-Obs-Color);
+    font-size: .9rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .2rem;
+    cursor: pointer;
+}
+
+.AtivoRecord-DownRow-Obs>svg {
+    width: 1rem;
+}
 
 .AtivoRecord-DownRow-Time {
     font-family: var(--Fonte);
@@ -157,7 +180,7 @@
 
 .AtivoRecord-DownRow-Time>svg {
     width: 1rem;
-}
+} 
 
 
 
@@ -168,6 +191,7 @@
     flex-direction: row;
     gap: 1rem;
     margin-bottom: 2rem;
+    flex-wrap: wrap;
 }
 
 .AtivoRecords-FormFilter>button {
@@ -245,4 +269,37 @@
     font-size: .9rem;
     font-family: var(--Fonte);
     color: var(--AtivoRecord-UpRow-OrderBy-Color) !important;
+}
+
+
+
+
+
+
+.AtivosRecords-AvisoInfo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: .5rem;
+    margin-bottom: 2rem;
+}
+
+
+.AtivosRecords-AvisoInfo-Item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .3rem;
+    color: var(--AtivoModal-Ativos-Warning-Color);
+    font-family: var(--Fonte);
+    background-color: var(--AtivoModal-Ativos-Warning-Background);
+    padding: .2rem .8rem;
+    border-radius: 1rem;
+    font-size: .8rem;
+}
+
+.AtivosRecords-AvisoInfo-Item>svg {
+    width: 1rem;
 }

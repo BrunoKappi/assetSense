@@ -99,8 +99,8 @@ const AtivosList = (props) => {
     return (
         <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'AtivosListContainerEscuro AtivosListContainer' : 'AtivosListContainerClaro AtivosListContainer'}>
 
-            <AtivoModal CurrentUser={CurrentUser} Ativo={{ ...SelectedAtivo }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedAtivo} />
-            <AtivoModal CurrentUser={CurrentUser} Ativo={{}} show={AddmodalShow} onHide={() => setAddModalShow(false)} Function="Add" />
+            <AtivoModal FromModal={false} CurrentUser={CurrentUser} Ativo={{ ...SelectedAtivo }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedAtivo} />
+            <AtivoModal FromModal={false} CurrentUser={CurrentUser} Ativo={{}} show={AddmodalShow} onHide={() => setAddModalShow(false)} Function="Add" />
 
 
             <div className='AtivosListFormFilter'>
