@@ -3,7 +3,7 @@ import './AtivoTakeReturn.css'
 import { DevolverTabTitle, RetirarTabTitle } from './AtivoTakeReturnUtils';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
 import { UilUser, UilEnvelope, UilBookmark, UilCheck, UilBackward, UilArchive, UilArrowUp, UilComment, UilArrowDown, UilCommentInfoAlt } from '@iconscout/react-unicons'
-import { AddRecord, EditRecord, GetCurrentUserFromStore, GetRecordByAtivoIdAndUserId, GetRecords, GetRecordsFromStore, GetTakesOfAtivo, GetTakesOfAtivoOfCurrentUser, GetUsersFromStore, GetUsersThatTookAtivo, SaveRecords } from '../../../../Functions/Middleware';
+import { AddRecord, EditRecord, GetCurrentUserFromStore, GetRecordByAtivoIdAndUserId, GetRecords, GetRecordsFromStore, GetTakesOfAtivo, GetTakesOfAtivoOfCurrentUser, GetUsersFromStore, GetUsersFromStoreWithNoCurrentUser, GetUsersThatTookAtivo, SaveRecords } from '../../../../Functions/Middleware';
 import { AtivoModalSelectcustomStyles, noOptionsMessage } from '../AtivoModalUtils';
 import Select from "react-select";
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
@@ -37,10 +37,10 @@ export default function AtivoTakeReturn(props) {
 
 
     const ToggleActionFor = () => {
-        setActionFor('Me')
+        //setActionFor('Me')
         if (key === 'Devolver' && QuantidadeRetiradaPeloCurrentUser === 0)
             setActionFor('Other')
-        if (key === 'Retirar' && QuantidadeRetiradaPeloCurrentUser > 0)
+        else if (key === 'Retirar' && QuantidadeRetiradaPeloCurrentUser > 0)
             setActionFor('Other')
         else
             setActionFor(ActionFor === 'Me' ? 'Other' : 'Me')
@@ -57,8 +57,8 @@ export default function AtivoTakeReturn(props) {
         setActionFor('Me')
         setObs('')
         setReturnFor()
-        setTimeout(() => { SetQuantidadeRetirada(GetTakesOfAtivo(props.Ativo?.Id)) }, 1000);
-        setTimeout(() => { SetQuantidadeRetiradaPeloCurrentUser(GetTakesOfAtivoOfCurrentUser(props.Ativo?.Id)) }, 1000);
+        setTimeout(() => { SetQuantidadeRetirada(GetTakesOfAtivo(props.Ativo?.Id)) }, 500);
+        setTimeout(() => { SetQuantidadeRetiradaPeloCurrentUser(GetTakesOfAtivoOfCurrentUser(props.Ativo?.Id)) }, 500);
     }
 
     const BackConfirming = () => {
@@ -244,7 +244,7 @@ export default function AtivoTakeReturn(props) {
                                         className='AtivoModalBody-AtivoInfoForm-LocationSelect'
                                         placeholder="Digite o Email"
                                         noOptionsMessage={noOptionsMessage}
-                                        options={GetUsersFromStore()}
+                                        options={GetUsersFromStoreWithNoCurrentUser(props?.Ativo?.Id)}
                                         getOptionLabel={(options) => { return options["Email"]; }}
                                         getOptionValue={(options) => { return options["Id"]; }}
                                         styles={AtivoModalSelectcustomStyles}
@@ -261,7 +261,7 @@ export default function AtivoTakeReturn(props) {
                                         className='AtivoModalBody-AtivoInfoForm-LocationSelect'
                                         placeholder="Digite o Nome"
                                         noOptionsMessage={noOptionsMessage}
-                                        options={GetUsersFromStore()}
+                                        options={GetUsersFromStoreWithNoCurrentUser(props?.Ativo?.Id)}
                                         getOptionLabel={(options) => { return options["Name"] + ' ' + options["LastName"]; }}
                                         getOptionValue={(options) => { return options["Id"]; }}
                                         styles={AtivoModalSelectcustomStyles}

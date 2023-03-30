@@ -33,7 +33,7 @@ const UsersList = (props) => {
     //PERMITS E USER TYPE
     const [CurrentUserType] = useState(GetCurrentUserTypeFromStore())    
     var PermitToAddUsers = CurrentUserType?.Permits[PermitIndexs['ADICIONAR_USUARIOS']]
-
+ 
 
 
 
@@ -90,7 +90,7 @@ const UsersList = (props) => {
 
     const ResetSelectedUser = (UserClicked) => {
         setModalShow(false);
-        setSelectedUser({});
+        setSelectedUser({}); 
     }
 
 

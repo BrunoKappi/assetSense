@@ -1,7 +1,7 @@
 import { v4 as uuid, v4 } from 'uuid'; 
 
 
-const Update = true 
+const Update = false 
 const Reset = false  
  
 //================== DEFAULTS PARA INICIAR ATIVOS ====================//

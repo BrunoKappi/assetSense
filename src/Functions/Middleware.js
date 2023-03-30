@@ -352,8 +352,8 @@ export async function AddRecord(RecordToAdd, gerarErro = false) {
                 resolve('Ok');
             }
         }, 50);
-    }); 
-} 
+    });
+}
 
 
 export async function EditRecord(EditedRecord, gerarErro = false) {
@@ -725,6 +725,14 @@ export const GetSetoresFromStore = () => {
 export const GetUsersFromStore = () => {
     return [...store.getState().Usuarios]
 }
+export const GetUsersFromStoreWithNoCurrentUser = (AtivoId) => {
+    const Current = GetCurrentUserFromStore()
+    const UsersThatTook = GetUsersThatTookAtivo(AtivoId)     
+    const Users = [...store.getState().Usuarios].filter(User => User.Id !== Current.Id)  
+    const UsersNotTook = Users.filter(user => !UsersThatTook.some(took => took.Id === user.Id));
+    console.log("FILTER USERS", UsersNotTook)
+    return UsersNotTook
+}
 export const GetRecordsFromStore = () => {
     return [...store.getState().RecordsAtivos]
 }
@@ -818,6 +826,12 @@ export const GetCurrentUserTypeNameWithIdFromStore = (Id) => {
     const Name = Types.find(Type => Type.Id === Id).Value
     return Name
 }
+export const GetuserNameWithIdFromStore = (Id) => {    
+    const Users = GetUsersFromStore()
+    const User = Users.find(User => User.Id === Id)
+    const Name = User?.Name + ' ' +  User?.LastName
+    return Name
+}
 
 
 
@@ -834,6 +848,12 @@ export const GetTakesOfAtivo = (ID) => {
     var Records1 = [...GetRecordsFromStore()]
     const Qtd = Records1.filter(Record => Record.AtivoId === ID && !Record.ReturnDate)
     return Qtd ? Qtd.length : 0
+}
+
+//Quantidade Retirada sem devolução de um determinado Ativo 
+export const GetRecordsOfAtivo = (ID) => {
+    var Records1 = [...GetRecordsFromStore()]
+    return Records1.filter(Record => Record.AtivoId === ID)    
 }
 
 //Quantidade Retirada sem devolução de um determinado Ativo pelo CurrentUser
@@ -862,5 +882,9 @@ export const GetRecordByAtivoIdAndUserId = (AtivoId, UserId) => {
     const Record = Records4.filter(Record => Record.AtivoId === AtivoId && Record.TakenFor.Id === UserId && !Record.ReturnDate)[0]
     return Record
 }
+
+
+
+
 
 

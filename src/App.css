@@ -31,12 +31,22 @@ image.png .LoadingContainer {
   width: 100%;
   height: 100dvh;
   background-color: var(--Background);
+  overflow-y: scroll;
+}
+
+
+*::-webkit-scrollbar {
+  display: none !important;
 }
 
 body::-webkit-scrollbar {
   display: none;
   background-color: var(--Background);
+
+  overflow-y: scroll;
 }
+
+
 
 
 
