@@ -409,18 +409,7 @@ const UsuarioModal = (props) => {
                                                     <UilPhone />
                                                     Telefone
                                                 </span>
-                                                <PhoneInput
-                                                    containerClass="UserModalBody-UserInfoForm-PhoneInput-Container"
-                                                    inputClass="UserModalBody-UserInfoForm-PhoneInput"
-                                                    buttonClass="UserModalBody-UserInfoForm-PhoneInput-Button"
-                                                    dropdownClass="UserModalBody-UserInfoForm-PhoneInput-Dropdown"
-                                                    containerStyle={{ margin: '0', padding: '0', width: '100%', fontSize: '12px' }}
-                                                    country={'br'}
-                                                    value={CopyUserPhone}
-                                                    disabled={!CanEdit}
-                                                    onChange={e => HandleChangeInfo('Phone', e)}
-                                                />
-
+                                               
                                             </div>
                                         </div>
 
