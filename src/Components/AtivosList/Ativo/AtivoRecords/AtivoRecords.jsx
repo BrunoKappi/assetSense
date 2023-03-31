@@ -8,7 +8,7 @@ import { MdFilterList } from 'react-icons/md'
 import Dropdown from 'react-bootstrap/Dropdown';
 //Tooltip
 import { Tooltip } from 'react-tippy';
-import UserModal from '../../../UsersList/User/UserModal'
+import UsuarioModal from '../../../UsersList/User/UsuarioModal'
 import { NotificationAlerta } from '../../../../NotificationUtils';
 import { v4 } from 'uuid';
 
@@ -84,7 +84,7 @@ export default function AtivoRecords(props) {
 
     return (
         <>
-            <UserModal FromModal={true} CurrentUser={CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
+            <UsuarioModal FromModal={true} CurrentUser={CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
             <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'AtivoRecords-ContainerEscuro AtivoRecords-Container' : 'AtivoRecords-ContainerClaro AtivoRecords-Container'}>
 
 

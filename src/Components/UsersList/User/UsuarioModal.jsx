@@ -20,11 +20,9 @@ import UserAtivoRecords from './UserAtivoRecords/UserAtivoRecords';
 
  
 
-const UserModal = (props) => {
+const UsuarioModal = (props) => {
 
     const [Tab, setTab] = useState('UserInfo')
-
-
 
     const [UserType, setUserType] = useState({ ...DefaultUserType })
     const [User, setUser] = useState({ ...DefaultUser })
@@ -650,4 +648,4 @@ const UserModal = (props) => {
 }
 
 
-export default UserModal
+export default UsuarioModal

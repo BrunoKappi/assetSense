@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './UsersList.css'
-import UserModal from './User/UserModal'
+import UsuarioModal from './User/UsuarioModal'
 import Loading from '../LoadingForTabs/Loading';
 import User from './User/User';
 import { connect } from 'react-redux'
@@ -98,8 +98,9 @@ const UsersList = (props) => {
     return (
         <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'UsersListContainerEscuro UsersListContainer' : 'UsersListContainerClaro UsersListContainer'}>
 
-            <UserModal FromModal={false} Users={ListaDeUsuarios} CurrentUser={CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
-            <UserModal FromModal={false}Users={ListaDeUsuarios} CurrentUser={CurrentUser} User={{}} show={AddmodalShow} onHide={() => setAddModalShow(false)} Function="Add" />
+            <UsuarioModal FromModal={false} Users={ListaDeUsuarios} CurrentUser={CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
+            
+            <UsuarioModal FromModal={false}Users={ListaDeUsuarios} CurrentUser={CurrentUser} User={{}} show={AddmodalShow} onHide={() => setAddModalShow(false)} Function="Add" />
 
             <div className='UsersLisFormFilter'>
                 <input value={FiltroDeTexto} placeholder='Procurar Usuário...' onChange={e => setFiltroDeTexto(e.target.value)}></input>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './Profile.css'
 import { connect } from 'react-redux'
-import UserModal from '../UsersList/User/UserModal'
+import UsuarioModal from '../UsersList/User/UsuarioModal'
 import { useNavigate } from 'react-router-dom';
 
 
@@ -18,7 +18,11 @@ const Profile = (props) => {
     }, [props.Usuarios])
 
     return (
-        <UserModal FromModal={false} CurrentUser={CurrentUser} User={CurrentUser} show={modalShow} onHide={() => { setModalShow(false); navigate('../' + props.LoggedUser.CurrentSidebarTab); }} Function="View" />
+        <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'ProfileContainerEscuro ProfileContainer' : 'ProfileContainerClaro ProfileContainer'}>
+
+            <UsuarioModal FromModal={false} CurrentUser={CurrentUser} User={CurrentUser} show={modalShow} onHide={() => { setModalShow(false); navigate('../' + props.LoggedUser.CurrentSidebarTab); }} Function="View" />
+
+        </div>
     )
 }
 
