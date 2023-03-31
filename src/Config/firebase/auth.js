@@ -31,19 +31,19 @@ export const mudarSenha = async (novaSenha) => {
 }
 
 
-export const ResetFirebasePassword = async (email) => {
+export const FIREBASE_SendEMailResetPassword = async (email) => {
   return sendPasswordResetEmail(auth, email)
 };
 
-export const register = async (email, senha) => {
-  return createUserWithEmailAndPassword(auth, email, senha)
+export const FIREBASE_RegisterUserAuth = async (email) => {
+  return createUserWithEmailAndPassword(auth, email, email)
 };
 
-export const LoginFirebase = (email, password) => {
+export const FIREBASE_LoginAuth = (email, password) => {
   return signInWithEmailAndPassword(auth, email, password);
 };
 
-export const logout = async () => {
+export const FIREBASE_LogouyAuth = async () => {
   await signOut(auth);
 };
 

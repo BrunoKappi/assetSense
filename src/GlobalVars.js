@@ -8,7 +8,7 @@ export const DefaultLoggedUser = {
   Search: '',
   Name: '',
   Role: '',
-  CheckedLogin: false
+  CheckedLogin: false 
 };
 
 

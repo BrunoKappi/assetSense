@@ -30,14 +30,14 @@ export const DefaultTypesProps = {
 
 export const GetOptionsAndSeries = (Usuarios, TiposUsuarios) => {
     const Options = { ...DefaultTypesProps }
-    const TiposUsuariosIds = [...TiposUsuarios.map(element => { return element.Id })]
+    const TiposUsuariosIds = [...TiposUsuarios.map(element => { return element.id })]
     const TiposUsuariosLabels = [...TiposUsuarios.map(element => { return element.Value })]
     const TiposUsuariosQtd = [...TiposUsuarios.map(element => { return 0 })]
     var TiposUsuariosQtdCopy = [...TiposUsuariosQtd]
 
     TiposUsuariosIds.map((TipoID, IndexTipoUser) => {
         return Usuarios.map(User => {
-            if (User.Type.Id === TipoID) {
+            if (User.Type.id === TipoID) {
                 TiposUsuariosQtdCopy[IndexTipoUser] = TiposUsuariosQtdCopy[IndexTipoUser] + 1
 
             }

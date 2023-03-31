@@ -17,22 +17,25 @@ import { SetAtivos } from './actions/AtivosActions'
 import { SetLocaisArmazenamento } from './actions/LocaisArmazenamentoActions'
 import { SetStatusAtivos } from './actions/AtivosStatusActions'
 import { SetTiposDeUso } from './actions/TiposDeUsoActions'
-import { GetAtivos, GetLocaisArmazenamento, GetRecords, GetSetores, GetStatusAtivos, GetTipos, GetTiposDeUso, GetUsers, GetUserTipos } from '../../Functions/Middleware'
+import { GetAtivos, GetLocaisArmazenamento, GetRecordsFromFirebase, GetSetores, GetStatusAtivos, GetTipos, GetTiposDeUso, GetUsers, GetUserTipos,GetUserTiposFromFirebase } from '../../Functions/Middleware'
 import { SetRecords } from './actions/RecordsActions'
+import { FIREBASE_GetSetores } from '../firebase/metodos'
 
 
 
-GetUserTipos().then((Tipos) => {
+GetUserTiposFromFirebase().then((Tipos) => {
     store.dispatch(SetTiposUsuarios(Tipos))
-})
-
-GetSetores().then((Setores) => {
-    store.dispatch(SetSetores(Setores))
 })
 
 GetUsers().then((Users) => {
     store.dispatch(SetUsuarios(Users))
+}) 
+
+FIREBASE_GetSetores().then((Setores) => {
+    store.dispatch(SetSetores(Setores))
 })
+
+
 
 GetTipos().then((TiposAtivos) => {
     store.dispatch(SetTiposAtivos(TiposAtivos))
@@ -54,8 +57,8 @@ GetTiposDeUso().then((Tipos) => {
     store.dispatch(SetTiposDeUso(Tipos))
 })
 
-GetRecords().then((Records) => {
-    console.log("PEGANDO RECORDS")
+GetRecordsFromFirebase().then((Records) => {
+    //console.log("PEGANDO RECORDS")
     store.dispatch(SetRecords(Records))
 })
 

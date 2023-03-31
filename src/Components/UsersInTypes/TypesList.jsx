@@ -10,7 +10,7 @@ import { UilPuzzlePiece,UilShieldCheck,UilUser   } from '@iconscout/react-unicon
 const TypesList = (props) => {
 
 
-  const [ListaDeItens,] = useState([...props.Users.filter(User => User.Type.Id === props.TipoUsuario.Id)]);
+  const [ListaDeItens,] = useState([...props.Users.filter(User => User.Type.id === props.TipoUsuario.id)]);
 
 
   return (
@@ -25,14 +25,13 @@ const TypesList = (props) => {
            
           </ListGroup.Item>
 
-          <Droppable droppableId={props.TipoUsuario.Id + '/' +  v4()} key={props.TipoUsuario.Id + '/' +  v4()}>
+          <Droppable droppableId={props.TipoUsuario.id + '/' +  v4()} key={props.TipoUsuario.id + '/' +  v4()}>
             {(provided, snapshot) => {
               return (
                 <div className={snapshot.isDraggingOver ? 'MarginBottom' : ''} {...provided.droppableProps} ref={provided.innerRef}>
                   {ListaDeItens.sort((a, b) => a.Name.localeCompare(b.Name)).map((Item, index) => {
-                    const IsAdmin = props.UserTypes.find(UserType => UserType.Id === Item.Type.Id).IsAdmin
-                    ////console.log(IsAdmin)
-                    return <Draggable action as="li" key={Item.Id} draggableId={Item.Id} index={index} >
+                    const IsAdmin = props.UserTypes.find(UserType => UserType.id === Item.Type.id).IsAdmin                   
+                    return <Draggable action as="li" key={Item.id} draggableId={Item.id} index={index} >
                       {(DragProvided) => {
                         return (
                           <div ref={DragProvided.innerRef} {...DragProvided.draggableProps} {...DragProvided.dragHandleProps}>
@@ -65,7 +64,7 @@ const TypesList = (props) => {
 
           {ListaDeItens.length === 0 && <ListGroup.Item key={v4()} >
 
-            <Droppable droppableId={props.TipoUsuario.Id} key={props.TipoUsuario.Id}>
+            <Droppable droppableId={props.TipoUsuario.id} key={props.TipoUsuario.id}>
               {(provided, snapshot) => {
                 return (
                   <div  {...provided.droppableProps} ref={provided.innerRef}>

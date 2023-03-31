@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Sidebar.css'
 import { useNavigate } from 'react-router-dom';
 import { GetSidebarItemClass, SetTab } from './SidebarUtils';
@@ -16,7 +16,12 @@ import { GetCurrentUserTypePermitFromStore } from '../../Functions/Middleware';
 const Sidebar = (props) => {
 
     const navigate = useNavigate();
-    const [CurrentUser,] = useState({ ...props.Usuarios.find(user => user.Email === props.LoggedUser.Email) })
+    const [CurrentUser,SetCurrentUser ] = useState({ ...props.Usuarios.find(user => user.Email === props.LoggedUser.Email) })
+
+
+    useEffect(() => {
+        SetCurrentUser({ ...props.Usuarios.find(user => user.Email === props.LoggedUser.Email) })
+    }, [props.Usuarios])
 
     const AtivosPermit = GetCurrentUserTypePermitFromStore('VISUALIZAR_ATIVOS') || GetCurrentUserTypePermitFromStore('RETIRAR_ATIVOS') || GetCurrentUserTypePermitFromStore('ADICIONAR_ATIVOS') || GetCurrentUserTypePermitFromStore(' EDITAR_ATIVOS') || GetCurrentUserTypePermitFromStore('EXCLUIR_ATIVOS')
     const UsuariosPermit = GetCurrentUserTypePermitFromStore('VISUALIZAR_USUARIOS') || GetCurrentUserTypePermitFromStore('ADICIONAR_USUARIOS') || GetCurrentUserTypePermitFromStore(' EDITAR_USUARIOS') || GetCurrentUserTypePermitFromStore('EXCLUIR_USUARIOS')
@@ -90,8 +95,7 @@ const Sidebar = (props) => {
 const ConnectedSidebar = connect((state) => {
     return {
         LoggedUser: state.LoggedUser,
-        Usuarios: state.Usuarios,
-        TiposUsuarios: state.TiposUsuarios,
+        Usuarios: state.Usuarios
     }
 })(Sidebar)
 

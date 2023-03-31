@@ -1,13 +1,14 @@
 import React, { useState, useRef } from "react";
 import "./Login.css";
 import { useNavigate } from 'react-router-dom';
-import { HandleFirebaseEmailPasswordLogin, LoginSuccess, LoginUtil } from "./LoginUtils";
+import { HandleFirebaseEmailPasswordLogin, LoginSuccess } from "./LoginUtils";
 import { Oval } from "react-loader-spinner";
 import SerranoLogo from '../../assets/Images/SerranoLogo.png'
 
 import { Link } from "react-router-dom";
 import LogoutHeader from "../LogoutHeader/LogoutHeader";
 import { NotificationSucesso, NotificationErro } from "../../NotificationUtils";
+import { LoginUtil } from "../../Functions/Middleware";
 
 function Login() {
 

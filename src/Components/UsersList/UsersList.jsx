@@ -54,8 +54,8 @@ const UsersList = (props) => {
         const Users = GetUsersFromStore()
         setListaDeUsuarios(Users.filter(Usuario => {
             const TextFilter = FiltroDeTexto === '' || (Usuario.Name.toLowerCase().includes(FiltroDeTexto.toLowerCase()) || Usuario.Email.toLowerCase().includes(FiltroDeTexto.toLowerCase()))
-            const SetorFilter = FiltroSetor === 'Todos' || FiltroSetor === '' || Usuario.Sector.Id === FiltroSetor
-            const TipoFilter = FiltroTipo === 'Todos' || FiltroTipo === '' || Usuario.Type.Id === FiltroTipo
+            const SetorFilter = FiltroSetor === 'Todos' || FiltroSetor === '' || Usuario.Sector.id === FiltroSetor
+            const TipoFilter = FiltroTipo === 'Todos' || FiltroTipo === '' || Usuario.Type.id === FiltroTipo
             return TextFilter && SetorFilter && TipoFilter
         }).sort((a, b) => a.Name.localeCompare(b.Name)))
 
@@ -123,7 +123,7 @@ const UsersList = (props) => {
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
                                     {SetoresOptions.map(Setor => {
-                                        return <Dropdown.Item onClick={e => handleSetorOptionChange(Setor)} >{Setor.label}</Dropdown.Item>
+                                        return <Dropdown.Item key={v4()} onClick={e => handleSetorOptionChange(Setor)} >{Setor.label}</Dropdown.Item>
                                     })}
                                 </Dropdown.Menu>
                             </Dropdown>
@@ -139,7 +139,7 @@ const UsersList = (props) => {
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
                                     {UserTypesOptions.map(Type => {
-                                        return <Dropdown.Item onClick={e => handleTypeOptionChange(Type)} >{Type.label}</Dropdown.Item>
+                                        return <Dropdown.Item key={v4()} onClick={e => handleTypeOptionChange(Type)} >{Type.label}</Dropdown.Item>
                                     })}
                                 </Dropdown.Menu>
                             </Dropdown>
@@ -158,7 +158,7 @@ const UsersList = (props) => {
 
 
             {(ListaDeUsuarios.length !== 0 || Loaded) && ListaDeUsuarios.map((Item, Index) => {
-                return <div onClick={e => handleUserClick(Item)}>
+                return <div key={v4()} onClick={e => handleUserClick(Item)}>
                     <User User={Item} key={v4()} />
                 </div>
             })}

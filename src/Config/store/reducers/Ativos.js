@@ -10,7 +10,7 @@ const Ativos = (state = [], action) => {
             return []
         case 'DELETE_ATIVO':
             return state.filter(ativo => {
-                return ativo.Id !== action.AtivoToDelete.Id
+                return ativo.id !== action.AtivoToDelete.id
             })
         case 'SET_ATIVOS':
             return action.Ativos

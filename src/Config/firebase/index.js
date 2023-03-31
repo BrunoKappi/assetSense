@@ -8,9 +8,9 @@ const firebaseConfig = {
   authDomain: "assetsense.firebaseapp.com",
   projectId: "assetsense",
   storageBucket: "assetsense.appspot.com",
-  messagingSenderId: "713222303683",
-  appId: "1:713222303683:web:c89b06adaefafdb4261776",
-  measurementId: "G-2ZY0BXZYH6"
+  messagingSenderid: "713222303683",
+  appid: "1:713222303683:web:c89b06adaefafdb4261776",
+  measurementid: "G-2ZY0BXZYH6"
 };
 
 

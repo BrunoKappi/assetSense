@@ -141,7 +141,7 @@
 .AtivoRecord-DownRow-Date {
     font-family: var(--Fonte);
     color: var(--AtivoRecord-UpRow-Date-Color);
-    font-size: .9rem;
+    font-size: .8rem;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -150,7 +150,7 @@
 }
 
 .AtivoRecord-DownRow-Date>svg {
-    width: 1rem;
+    width: .8rem;
 }
 .AtivoRecord-DownRow-Obs {
     font-family: var(--Fonte);
@@ -170,7 +170,7 @@
 .AtivoRecord-DownRow-Time {
     font-family: var(--Fonte);
     color: var(--AtivoRecord-UpRow-Time-Color);
-    font-size: .9rem;
+    font-size: .8rem;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -179,7 +179,7 @@
 }
 
 .AtivoRecord-DownRow-Time>svg {
-    width: 1rem;
+    width: .8rem;
 } 
 
 

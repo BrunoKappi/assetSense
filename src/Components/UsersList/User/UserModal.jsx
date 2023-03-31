@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import './UserModal.css'
 import UserPhoto from '../../../assets/Images/SerranoLogoFuncoBranco.jpg'
 import { UilUserCircle, UilClipboardNotes, UilEnvelope, UilPhone, UilMap, UilMapMarker, UilPen, UilPuzzlePiece, UilLabel, UilListUl, UilSave, UilHistory, UilTimes, UilBuilding, UilKeySkeleton, UilCheck, UilBackward, UilTrash } from '@iconscout/react-unicons'
-import { AddUser, DeleteUser, EditUser, GetCurrentUserFromStore, GetCurrentUserSetorNameWithIdFromStore, GetCurrentUserTypeFromStore, GetCurrentUserTypeNameWithIdFromStore, GetCurrentUserTypeWithIdFromStore, GetSetoresFromStore, GetUserTypesFromStore, GetUserWithIdFromStore, ReturnAllAtivosOfUserWithId } from '../../../Functions/Middleware'
+import { AddUser, AddUserFirebase, DeleteUser, EditUser, GetCurrentUserFromStore, GetCurrentUserSetorNameWithIdFromStore, GetCurrentUserTypeFromStore, GetCurrentUserTypeNameWithIdFromStore, GetCurrentUserTypeWithIdFromStore, GetSetoresFromStore, GetUserTypesFromStore, GetUserWithIdFromStore, LoginUtil, RegisterUser, ReturnAllAtivosOfUserWithId } from '../../../Functions/Middleware'
 import { DefaultUser } from '../../../Data/Items';
 import { DefaultSetor, DefaultUserType } from '../../../Data/Items';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
@@ -16,7 +16,7 @@ import Select from "react-select";
 import { PermitIndexs } from '../../../GlobalVars'
 import { noOptionsMessage, UserModalSelectcustomStyles } from './UserModalUtils';
 import { v4 } from 'uuid';
-import { LoginFirebase, mudarSenha } from '../../../Config/firebase/auth';
+import { mudarSenha } from '../../../Config/firebase/auth';
 import UserAtivoRecords from './UserAtivoRecords/UserAtivoRecords';
 
 
@@ -69,7 +69,7 @@ const UserModal = (props) => {
     IsAdmin = CurrentUserType?.IsAdmin
     var PermitToEditUsers = CurrentUserType?.Permits[PermitIndexs['EDITAR_USUARIOS']]
     var PermitToDeleteUsers = CurrentUserType?.Permits[PermitIndexs['EXCLUIR_USUARIOS']]
-    IsCurrentUser = props.User?.Id === GetCurrentUserFromStore()?.Id
+    IsCurrentUser = props.User?.id === GetCurrentUserFromStore()?.id
     CanEdit = IsCurrentUser || IsAdmin || PermitToEditUsers
     //PERMISSOES
 
@@ -105,9 +105,9 @@ const UserModal = (props) => {
         }
         if ((CanEdit || IsAdmin) || PermitToEditUsers) {
             if (Info === 'Sector')
-                setCopyUserSector({ Id: Value })
+                setCopyUserSector({ id: Value })
             else if (Info === 'Type')
-                setCopyUserType({ Id: Value })
+                setCopyUserType({ id: Value })
         }
 
         if (props.Function === 'Add') {
@@ -120,8 +120,8 @@ const UserModal = (props) => {
     // QUANDO TEM UM USER VALIDO PASSADO PELA PROP
     useEffect(() => {
         if (!props.User?.Name) return
-        setUser(GetUserWithIdFromStore(props.User?.Id))
-        FillCopyes(GetUserWithIdFromStore(props.User?.Id))
+        setUser(GetUserWithIdFromStore(props.User?.id))
+        FillCopyes(GetUserWithIdFromStore(props.User?.id))
         setIsEdited(false)
         setTab('UserInfo')
     }, [props.User, props.CurrentUser, CurrentUserType])
@@ -129,14 +129,14 @@ const UserModal = (props) => {
 
 
     useEffect(() => {
-        setUserType(GetCurrentUserTypeWithIdFromStore(User?.Type?.Id))
-        setUserSetor({ ...GetSetoresFromStore().find(U => U.Id === User?.Sector?.Id) })
+        setUserType(GetCurrentUserTypeWithIdFromStore(User?.Type?.id))
+        setUserSetor({ ...GetSetoresFromStore().find(U => U.id === User?.Sector?.id) })
     }, [User, props.CurrentUser])
 
 
     // QUANDO ALGUMA INFORMAÇÂO MUDA
     useEffect(() => {
-        if (CopyUserName !== User?.Name || CopyUserLastName !== User?.LastName || CopyUserPhone !== User?.Phone || CopyUserEstate?.name !== User?.Estate?.name || CopyUserCity?.name !== User?.City?.name || CopyUserCountry?.name !== User?.Country?.name || CopyUserSector?.Id !== User?.Sector?.Id || CopyUserType?.Id !== User?.Type?.Id)
+        if (CopyUserName !== User?.Name || CopyUserLastName !== User?.LastName || CopyUserPhone !== User?.Phone || CopyUserEstate?.name !== User?.Estate?.name || CopyUserCity?.name !== User?.City?.name || CopyUserCountry?.name !== User?.Country?.name || CopyUserSector?.id !== User?.Sector?.id || CopyUserType?.id !== User?.Type?.id)
             setIsEdited(true)
         else
             setIsEdited(false)
@@ -159,10 +159,13 @@ const UserModal = (props) => {
                 EditedUser.Type = CopyUserType
                 EditedUser.Sector = CopyUserSector
 
+
                 setUser({ ...EditedUser })
                 EditUser(EditedUser).then(() => {
                     FillCopyes(EditedUser)
                     NotificationSucesso('Alteração', 'Alterações salvas com sucesso!')
+                }).catch(() => {
+                    NotificationErro("Erro", "Ocorreu um problema, tente novamente")
                 })
 
                 EndConfirming()
@@ -171,7 +174,7 @@ const UserModal = (props) => {
         } else if (ConfirmAction === 'Add') {
             const NewUser = { ...User }
 
-            NewUser.Id = v4()
+            NewUser.id = v4()
             NewUser.Email = CopyUserEmail.toLocaleLowerCase()
             NewUser.Name = CopyUserName
             NewUser.LastName = CopyUserLastName
@@ -181,21 +184,36 @@ const UserModal = (props) => {
             NewUser.Country = CopyUserCountry
             NewUser.Type = CopyUserType
             NewUser.Sector = CopyUserSector
+            NewUser.Deleted = false
+
             setUser({ ...NewUser })
-            AddUser(NewUser).then(() => {
-                CancelEditions()
-                props.onHide()
-                NotificationSucesso('Adição', 'Usuário Adicionado com Sucesso!')
+
+            RegisterUser(NewUser.Email).then(() => {
+                AddUser(NewUser).then(() => {
+                    AddUserFirebase(NewUser)
+                    CancelEditions()
+                    props.onHide()
+                    NotificationSucesso('Adição', 'Usuário Adicionado com Sucesso!')
+                    EndConfirming()
+                }).catch(() => {
+                    NotificationErro("Erro", "Ocorreu um problema, tente novamente")
+                })
+
+            }).catch(() => {
+                NotificationErro("Erro", "Ocorreu um problema, tente novamente")
             })
-            EndConfirming()
+
+
         } else if (ConfirmAction === 'Delete') {
             const UserToDelete = { ...User }
             EndConfirming()
             props.onDelete()
             DeleteUser(UserToDelete).then(() => {
-                ReturnAllAtivosOfUserWithId(UserToDelete.Id)
+                ReturnAllAtivosOfUserWithId(UserToDelete.id)
                 NotificationSucesso('Exclusão', 'Usuário Deletado com Sucesso!')
 
+            }).catch(() => {
+                NotificationErro("Erro", "Ocorreu um problema, tente novamente")
             })
         }
     }
@@ -220,9 +238,9 @@ const UserModal = (props) => {
                 NotificationAlerta('Preenchimento inválido', 'O Estado não pode ser vazio')
             else if (!CopyUserCity.name)
                 NotificationAlerta('Preenchimento inválido', 'A Cidade não pode ser vazia')
-            else if (!CopyUserType?.Id)
+            else if (!CopyUserType?.id)
                 NotificationAlerta('Preenchimento inválido', 'Seleciona um Tipo de Usuário')
-            else if (!CopyUserSector.Id)
+            else if (!CopyUserSector.id)
                 NotificationAlerta('Preenchimento inválido', 'Seleciona um Setor')
             else {
                 SetConfirm(true)
@@ -257,7 +275,7 @@ const UserModal = (props) => {
     const UpdatePassword = () => {
 
         if (NovaSenha.current.value && SenhaAtual.current.value) {
-            LoginFirebase(GetCurrentUserFromStore().Email, SenhaAtual.current.value).then(() => {
+            LoginUtil(GetCurrentUserFromStore().Email, SenhaAtual.current.value).then(() => {
                 mudarSenha(NovaSenha.current.value).then(() => {
                     NotificationSucesso("Alteração de Senha", "Senha Atualizada")
                     NovaSenha.current.value = ''
@@ -320,11 +338,11 @@ const UserModal = (props) => {
                             </div>
                             <div className='UserModalHeader-Right-Setor'>
                                 <UilPuzzlePiece />
-                                {props.Function === 'Add' ? GetCurrentUserSetorNameWithIdFromStore(CopyUserSector?.Id) : UserSetor?.Value}
+                                {props.Function === 'Add' ? GetCurrentUserSetorNameWithIdFromStore(CopyUserSector?.id) : UserSetor?.Value}
                             </div>
                             <div className='UserModalHeader-Right-Tipo'>
                                 <UilLabel />
-                                {props.Function === 'Add' ? GetCurrentUserTypeNameWithIdFromStore(CopyUserType?.Id) : UserType?.Value}
+                                {props.Function === 'Add' ? GetCurrentUserTypeNameWithIdFromStore(CopyUserType?.id) : UserType?.Value}
                             </div>
                         </div>
 
@@ -532,8 +550,8 @@ const UserModal = (props) => {
                                                     </div>
                                                     <div className='UserModalBody-UserInfoForm-SetorList-Itens'>
                                                         {Setores.map(Setor => {
-                                                            return <div className={'UserModalBody-UserInfoForm-SetorList-Item'} onClick={e => HandleChangeInfo('Sector', Setor?.Id)}>
-                                                                {CopyUserSector?.Id === Setor?.Id ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
+                                                            return <div key={v4()} className={'UserModalBody-UserInfoForm-SetorList-Item'} onClick={e => HandleChangeInfo('Sector', Setor?.id)}>
+                                                                {CopyUserSector?.id === Setor?.id ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
                                                                 {Setor?.Value}
                                                             </div>
                                                         })}
@@ -550,8 +568,8 @@ const UserModal = (props) => {
                                                     </div>
                                                     <div className='UserModalBody-UserInfoForm-TiposUserList-Itens'>
                                                         {TiposUsuarios.map(TipoUser => {
-                                                            return <div className={'UserModalBody-UserInfoForm-TiposUserList-Item'} onClick={e => HandleChangeInfo('Type', TipoUser?.Id)}>
-                                                                {CopyUserType?.Id === TipoUser?.Id ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
+                                                            return <div key={v4()} className={'UserModalBody-UserInfoForm-TiposUserList-Item'} onClick={e => HandleChangeInfo('Type', TipoUser?.id)}>
+                                                                {CopyUserType?.id === TipoUser?.id ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
                                                                 {TipoUser?.Value}
                                                             </div>
                                                         })}
@@ -597,7 +615,7 @@ const UserModal = (props) => {
                                 </div>}
 
 
-                                {Tab === 'Ativos' && <UserAtivoRecords FromModal={props.FromModal} User={User} /> }
+                                {Tab === 'Ativos' && <UserAtivoRecords FromModal={props.FromModal} User={User} />}
                             </div>
                         }
 

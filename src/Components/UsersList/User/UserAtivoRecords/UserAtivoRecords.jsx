@@ -10,6 +10,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { Tooltip } from 'react-tippy';
 import AtivoModal from '../../../AtivosList/Ativo/AtivoModal'
 import { NotificationAlerta } from '../../../../NotificationUtils';
+import { v4 } from 'uuid';
 
 
 export default function UserAtivoRecords(props) {
@@ -17,7 +18,7 @@ export default function UserAtivoRecords(props) {
     const [CurrentUser, setCurrentUser] = useState(GetCurrentUserFromStore())
 
     //Quantidades
-    const [Records, SetRecords] = useState(GetRecordsOfUser(props.User?.Id))
+    const [Records, SetRecords] = useState(GetRecordsOfUser(props.User?.id))
     const [OrdenarPor, setOrdenarPor] = useState('Mais Recentes')
     const [FiltroDeTexto, setFiltroDeTexto] = useState('')
     const [SelectedAtivo, setSelectedAtivo] = useState({})
@@ -25,10 +26,10 @@ export default function UserAtivoRecords(props) {
 
 
     useEffect(() => {
-        const Registros = GetRecordsOfUser(props.User?.Id)
+        const Registros = GetRecordsOfUser(props.User?.id)
         SetRecords(Registros.filter(Record => {
             const AtivoName = GetAtivoNameWithIdFromStore(Record.AtivoId)
-            const TakenByName = GetuserNameWithIdFromStore(Record.TakenBy.Id)
+            const TakenByName = GetuserNameWithIdFromStore(Record.TakenBy.id)
             const TextFilter = FiltroDeTexto === '' || (AtivoName.toLowerCase().includes(FiltroDeTexto.toLowerCase())) || (TakenByName.toLowerCase().includes(FiltroDeTexto.toLowerCase()))
             return TextFilter
         }).sort((a, b) => {
@@ -132,7 +133,7 @@ export default function UserAtivoRecords(props) {
 
 
 
-                    return <div className='UserAtivoRecord-Container'>
+                    return <div key={v4()} className='UserAtivoRecord-Container'>
                         <div className='UserAtivoRecord-UpRow'>
                             <Tooltip title="Item retirado" position="bottom" >
                                 <span className='UserAtivoRecord-UpRow-Name' onClick={e => handleAtivoSelection(Registro.AtivoId)}>
@@ -144,11 +145,11 @@ export default function UserAtivoRecords(props) {
                             </span>
                         </div>
 
-                        {Registro.TakenBy.Id !== Registro.TakenFor.Id && <div className='UserAtivoRecord-MiddleRow'>
+                        {Registro.TakenBy.id !== Registro.TakenFor.id && <div className='UserAtivoRecord-MiddleRow'>
                             <Tooltip title="Usuário que registrou a retirada" position="bottom" >
-                                <span className='UserAtivoRecord-MiddleRow-Name' onClick={e => handleAtivoSelection(Registro.TakenBy.Id)}>
+                                <span className='UserAtivoRecord-MiddleRow-Name' onClick={e => handleAtivoSelection(Registro.TakenBy.id)}>
                                     <UilBookmark />
-                                    {GetuserNameWithIdFromStore(Registro.TakenBy.Id)}
+                                    {GetuserNameWithIdFromStore(Registro.TakenBy.id)}
                                 </span>
                             </Tooltip>
                         </div>

@@ -54,9 +54,9 @@ const AtivosList = (props) => {
     useEffect(() => {
         const Ativos = GetAtivosFromStore()
         setListaDeAtivos(Ativos.filter(Ativo => {
-            const TextFilter = FiltroDeTexto === '' || (Ativo.Item.toLowerCase().includes(FiltroDeTexto.toLowerCase()) || Ativo.Brand.toLowerCase().includes(FiltroDeTexto.toLowerCase()) || GetLocalArmazenamentoNameWithIdFromStore(Ativo.StorageLocation.Id).toLowerCase().includes(FiltroDeTexto.toLowerCase()) || GetTipoAtivoNameWithIdFromStore(Ativo.Type.Id).toLowerCase().includes(FiltroDeTexto.toLowerCase()) || GetTipoDeUsoNameWithIdFromStore(Ativo.Usage.Id).toLowerCase().includes(FiltroDeTexto.toLowerCase()))
-            const TipoAtivoFiler = FiltroDeTipoAtivo === 'Todos' || FiltroDeTipoAtivo === '' || Ativo.Type.Id === FiltroDeTipoAtivo
-            const LocalArmazenamentoFilter = FiltroLocal === 'Todos' || FiltroLocal === '' || Ativo.StorageLocation.Id === FiltroLocal
+            const TextFilter = FiltroDeTexto === '' || (Ativo.Item.toLowerCase().includes(FiltroDeTexto.toLowerCase()) || Ativo.Brand.toLowerCase().includes(FiltroDeTexto.toLowerCase()) || GetLocalArmazenamentoNameWithIdFromStore(Ativo.StorageLocation.id).toLowerCase().includes(FiltroDeTexto.toLowerCase()) || GetTipoAtivoNameWithIdFromStore(Ativo.Type.id).toLowerCase().includes(FiltroDeTexto.toLowerCase()) || GetTipoDeUsoNameWithIdFromStore(Ativo.Usage.id).toLowerCase().includes(FiltroDeTexto.toLowerCase()))
+            const TipoAtivoFiler = FiltroDeTipoAtivo === 'Todos' || FiltroDeTipoAtivo === '' || Ativo.Type.id === FiltroDeTipoAtivo
+            const LocalArmazenamentoFilter = FiltroLocal === 'Todos' || FiltroLocal === '' || Ativo.StorageLocation.id === FiltroLocal
             return TextFilter && TipoAtivoFiler && LocalArmazenamentoFilter
         }).sort((a, b) => a.Item.localeCompare(b.Item)))
 
@@ -125,7 +125,7 @@ const AtivosList = (props) => {
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
                                     {AtivosTypesOptions.map(Setor => {
-                                        return <Dropdown.Item onClick={e => handleSetorOptionChange(Setor)} >{Setor.label}</Dropdown.Item>
+                                        return <Dropdown.Item  key={v4()} onClick={e => handleSetorOptionChange(Setor)} >{Setor.label}</Dropdown.Item>
                                     })}
                                 </Dropdown.Menu>
                             </Dropdown>
@@ -141,7 +141,7 @@ const AtivosList = (props) => {
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
                                     {LocaisOptions.map(Type => {
-                                        return <Dropdown.Item onClick={e => handleTypeOptionChange(Type)} >{Type.label}</Dropdown.Item>
+                                        return <Dropdown.Item key={v4()} onClick={e => handleTypeOptionChange(Type)} >{Type.label}</Dropdown.Item>
                                     })}
                                 </Dropdown.Menu>
                             </Dropdown>
@@ -160,7 +160,7 @@ const AtivosList = (props) => {
 
 
             {(ListaDeAtivos.length !== 0 || Loaded) && ListaDeAtivos.map((Item, Index) => {
-                return <div onClick={e => handleUserClick(Item)}>
+                return <div key={v4()} onClick={e => handleUserClick(Item)}>
                     <Ativo key={v4()} Ativo={Item} />
                 </div>
             })}

@@ -6,7 +6,9 @@ import { PermitDesc, PermitIndexs } from '../../GlobalVars';
 import './UserTypesPermits.css'
 import { Tooltip } from 'react-tippy';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
-import { SaveUserTipos } from '../../Functions/Middleware';
+import { EditUserType, SaveUserTipos } from '../../Functions/Middleware';
+import { v4 } from 'uuid';
+import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 
 const breakpointColumnsObj = {
     default: 3,
@@ -20,8 +22,8 @@ const UserTypesPermits = (props) => {
     const [TiposUsuarios, setTiposUsuarios] = useState([...props.TiposUsuarios])
 
     useEffect(() => {
-        setTiposUsuarios([...props.TiposUsuarios]) 
-    }, [props.TiposUsuarios]) 
+        setTiposUsuarios([...props.TiposUsuarios])
+    }, [props.TiposUsuarios])
 
 
 
@@ -185,7 +187,7 @@ const UserTypesPermits = (props) => {
             && TiposCopy[TipoIndex].Permits[PermitIndexs['VISUALIZAR_USUARIOS']]
             && TiposCopy[TipoIndex].Permits[PermitIndexs['VISUALIZAR_ATIVOS']]
             && TiposCopy[TipoIndex].Permits[PermitIndexs['RETIRAR_ATIVOS']]
-        ) {           
+        ) {
             TiposCopy[TipoIndex].IsAdmin = true
         }
         // SE TODOS ESTÂO MARCADOS
@@ -209,7 +211,7 @@ const UserTypesPermits = (props) => {
             || !TiposCopy[TipoIndex].Permits[PermitIndexs['VISUALIZAR_ATIVOS']]
             || !TiposCopy[TipoIndex].Permits[PermitIndexs['RETIRAR_ATIVOS']]
 
-        ) {            
+        ) {
             TiposCopy[TipoIndex].IsAdmin = false
         }
         return TiposCopy
@@ -259,15 +261,20 @@ const UserTypesPermits = (props) => {
         var TiposCopy = [...props.TiposUsuarios]
         TiposCopy[TipoIndex].Permits[PermitIndex] = !TiposCopy[TipoIndex].Permits[PermitIndex]
 
-        //console.log(PermitIndex === [PermitIndexs['USUARIOS']], PermitIndex, PermitIndexs['USUARIOS'])
-
         TiposCopy = [...CheckUsuarioBlock(TiposCopy, TipoIndex, PermitIndex)]
         TiposCopy = [...CheckAtivosBlock(TiposCopy, TipoIndex, PermitIndex)]
         TiposCopy = [...CheckConfigBlock(TiposCopy, TipoIndex, PermitIndex)]
         TiposCopy = [...CheckAllCheched(TiposCopy, TipoIndex, PermitIndex)]
 
-        SaveUserTipos(TiposCopy)
-        setTiposUsuarios(TiposCopy)
+
+        EditUserType(TiposCopy[TipoIndex]).then(() => {
+            SaveUserTipos(TiposCopy)
+            setTiposUsuarios(TiposCopy)
+            NotificationSucesso("Permissões","Permissões editadas com sucesso!")
+        }).catch(() => {
+            NotificationErro("Erro", "Ocorreu um problema, tente novamente")
+        })
+
     }
 
 
@@ -278,7 +285,7 @@ const UserTypesPermits = (props) => {
             <Masonry breakpointCols={breakpointColumnsObj} className="my-masonry-grid" columnClassName="my-masonry-grid_column"   >
 
                 {TiposUsuarios.map((TipoUsuario, IndexTipoUsuario) => {
-                    return <div className='UserTypesPermits-TypeContainer'>
+                    return <div key={v4()} className='UserTypesPermits-TypeContainer'>
                         <div className='UserTypesPermits-TypeContainer-Title'>
                             <span>{TipoUsuario.Value}</span>
                             {TipoUsuario.IsAdmin ?
@@ -294,7 +301,7 @@ const UserTypesPermits = (props) => {
                         <div className='UserTypesPermits-TypeContainer-List'>
                             {TipoUsuario.Permits.map((Permit, PermitIndex) => {
                                 const IsBlockTitle = PermitIndex === PermitIndexs['CONFIGURACOES'] || PermitIndex === PermitIndexs['ATIVOS'] || PermitIndex === PermitIndexs['USUARIOS']
-                                return <div onClick={e => handleChangePermit(IndexTipoUsuario, PermitIndex)} className={IsBlockTitle ? 'UserTypesPermits-TypeContainer-ListItemBlock' : 'UserTypesPermits-TypeContainer-ListItem'}>
+                                return <div key={v4()} onClick={e => handleChangePermit(IndexTipoUsuario, PermitIndex)} className={IsBlockTitle ? 'UserTypesPermits-TypeContainer-ListItemBlock' : 'UserTypesPermits-TypeContainer-ListItem'}>
                                     {Permit === true ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
                                     <span> {PermitDesc[PermitIndex]}</span>
                                 </div>

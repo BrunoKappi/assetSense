@@ -11,7 +11,7 @@ import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import { Tooltip } from 'react-tippy';
 import { GetNotificationErrorMessageDelete, GetNotificationSuccessMessageAdd, GetNotificationExistsMessageAdd, GetNotificationSuccessMessageDelete, GetNotificationSuccessMessageChangeName } from './EditableCustomListUtils';
 import Loading from '../LoadingForTabs/Loading'
-import { CheckIfAnyAtivoOfStatusTaken, fetchFunctions, GetCurrentUserTypePermitFromStore, saveFunctions, SaveStatusAtivos } from '../../Functions/Middleware';
+import { AddFunctions, CheckIfAnyAtivoOfStatusTaken, DeleteFunctions, EditFunctions, fetchFunctions, GetCurrentUserTypePermitFromStore, saveFunctions, SaveStatusAtivos } from '../../Functions/Middleware';
 import { DefaultUserRole } from '../../Data/Items';
 
 const CustomListIcon = {
@@ -60,10 +60,10 @@ const EditableCustomList = (props) => {
     fetchFunction().then((Lista) => {
       setListaDeItens(Lista)
       setLoaded(true)
-    }).catch(Erro => {
-      console.error(Erro)
+    }).catch(() => {
+      NotificationErro("Erro", "Ocorreu um problema, tente novamente")
       setLoaded(true)
-    });
+    })
   }, [props.Module, props.TiposAtivos, props.Setores, props.TiposUsuarios, props.LocaisArmazenamento, props.StatusAtivos]);
 
 
@@ -84,23 +84,20 @@ const EditableCustomList = (props) => {
   const HandleSubmiChangeItemName = (e, index, ID) => {
     e.preventDefault();
 
-    if (CustomListPermits[props.Module]) {
-      var ItensCopy = [...ListaDeItens];
-      if (!document.getElementById(ID).value) return
-      ItensCopy[index].Value = document.getElementById(ID).value;
+    const EditFunction = EditFunctions[props.Module]
+    var ItensCopy = [...ListaDeItens]
+    if (!document.getElementById(ID).value) return
+    ItensCopy[index].Value = document.getElementById(ID).value
+    var Copy = { ...ItensCopy[index] }
 
-      const saveFunction = saveFunctions[props.Module];
-      if (saveFunction) {
-        setItemListSelected('')
-        saveFunction(ItensCopy).then(() => {
-          setListaDeItens([...ItensCopy]);
-          EndEditing();
-          GetNotificationSuccessMessageChangeName(props.Module);
-        });
-      } else {
-        NotificationErro("Não Autorizado", "Você não possui permissão para fazer essa alteração, solicite autorização para seu Administrador")
-      }
-    }
+    EditFunction(Copy).then(() => {
+      setItemListSelected('')
+      setListaDeItens([...ItensCopy]);
+      EndEditing();
+      GetNotificationSuccessMessageChangeName(props.Module);
+    }).catch(() => {
+      NotificationErro("Erro", "Algo deu errado, tente novamente")
+    })
 
 
   };
@@ -116,25 +113,33 @@ const EditableCustomList = (props) => {
         var NewItem
 
         if (props.Module === 'TiposUsuarios')
-          NewItem = { ...DefaultUserRole, Id: v4(), Value: NewItemList }
+          NewItem = { ...DefaultUserRole, id: v4(), Value: NewItemList }
         else if (props.Module === 'StatusAtivos')
-          NewItem = { ...DefaultAtivoStatus, Id: v4(), Value: NewItemList }
+          NewItem = { ...DefaultAtivoStatus, id: v4(), Value: NewItemList }
         else
-          NewItem = { ...DefaultItemType, Id: v4(), Value: NewItemList }
+          NewItem = { ...DefaultItemType, id: v4(), Value: NewItemList }
 
         ItensCopy.push(NewItem)
 
-
-
-        //Chama a função de salvamento correta usando o objeto saveFunctions
+        const addFunction = AddFunctions[props.Module];
         const saveFunction = saveFunctions[props.Module];
-        if (saveFunction) {
-          saveFunction(ItensCopy).then(() => {
-            setListaDeItens([...ItensCopy])
-            GetNotificationSuccessMessageAdd(props.Module)
-            setNewItemList('')
-          });
-        }
+
+        addFunction(NewItem).then(() => {
+          if (saveFunction) {
+            saveFunction(ItensCopy).then(() => {
+              setListaDeItens([...ItensCopy])
+              GetNotificationSuccessMessageAdd(props.Module)
+              setNewItemList('')
+            }).catch(() => {
+              NotificationErro("Erro", "Ocorreu um problema, tente novamente")
+              setLoaded(true)
+            })
+          }
+        }).catch(() => {
+          NotificationErro("Erro", "Ocorreu um problema, tente novamente")
+        })
+
+
 
       } else {
         GetNotificationExistsMessageAdd(props.Module)
@@ -150,34 +155,46 @@ const EditableCustomList = (props) => {
 
   const HandleDeleteItem = (Index, Id) => {
 
+
+
     if (CustomListPermits[props.Module]) {
       var ItensCopy = [...ListaDeItens]
+      const ItemToDelete = ItensCopy[Index]
+
       ItensCopy.splice(Index, 1)
 
       var Associated
 
       if (props.Module === "TiposAtivos")
-        Associated = props.Ativos.find(Ativo => Ativo.Type.Id === Id)
+        Associated = props.Ativos.find(Ativo => Ativo.Type.id === Id)
       else if (props.Module === "Setores")
-        Associated = props.Usuarios.find(User => User.Sector.Id === Id)
+        Associated = props.Usuarios.find(User => User.Sector.id === Id)
       else if (props.Module === "TiposUsuarios")
-        Associated = props.Usuarios.find(User => User.Type.Id === Id)
+        Associated = props.Usuarios.find(User => User.Type.id === Id)
       else if (props.Module === "Locais")
-        Associated = props.Ativos.find(Ativo => Ativo.StorageLocation.Id === Id)
+        Associated = props.Ativos.find(Ativo => Ativo.StorageLocation.id === Id)
       else if (props.Module === "StatusAtivos")
-        Associated = props.Ativos.find(Ativo => Ativo.Status.Id === Id)
+        Associated = props.Ativos.find(Ativo => Ativo.Status.id === Id)
       else if (props.Module === "TiposUso")
-        Associated = props.Ativos.find(Ativo => Ativo.Usage.Id === Id)
+        Associated = props.Ativos.find(Ativo => Ativo.Usage.id === Id)
 
       const saveFunction = saveFunctions[props.Module]
 
       if (Associated) {
         GetNotificationErrorMessageDelete(props.Module)
       } else {
-        saveFunction(ItensCopy).then(() => {
-          setListaDeItens([...ItensCopy])
-          GetNotificationSuccessMessageDelete(props.Module)
+
+        const deleteFunction = DeleteFunctions[props.Module]
+
+        deleteFunction(ItemToDelete).then(() => {
+          saveFunction(ItensCopy).then(() => {
+            setListaDeItens([...ItensCopy])
+            GetNotificationSuccessMessageDelete(props.Module)
+          })
+        }).catch(() => {
+          NotificationErro("Erro", "Ocorreu um problema, tente novamente")
         })
+
       }
     } else {
       NotificationErro("Não Autorizado", "Você não possui permissão para fazer essa alteração, solicite autorização para seu Administrador")
@@ -188,6 +205,8 @@ const EditableCustomList = (props) => {
 
 
   const HandleDrag = (Resultado) => {
+    console.log(Resultado)
+
     if (!Resultado.destination) return;
 
     if (CustomListPermits[props.Module]) {
@@ -199,6 +218,8 @@ const EditableCustomList = (props) => {
       const saveFunction = saveFunctions[props.Module]
       saveFunction(copiedItems).then(() => {
         setListaDeItens([...copiedItems])
+      }).catch(() => {
+        NotificationErro("Erro", "Ocorreu um problema, tente novamente")
       })
     } else {
       NotificationErro("Não Autorizado", "Você não possui permissão para fazer essa alteração, solicite autorização para seu Administrador")
@@ -213,7 +234,7 @@ const EditableCustomList = (props) => {
     var ItensCopy = [...ListaDeItens]
 
 
-    const IsThereTakes = CheckIfAnyAtivoOfStatusTaken(ItensCopy[index].Id)
+    const IsThereTakes = CheckIfAnyAtivoOfStatusTaken(ItensCopy[index].id)
 
     if (IsThereTakes && (ItensCopy[index].CanTake === true)) {
       NotificationErro("Ação não permitida", "Você não pode mudar este Status no momento, pois já existem ativos com este status em utilização")
@@ -223,6 +244,8 @@ const EditableCustomList = (props) => {
         setListaDeItens([...ItensCopy])
         EndEditing()
         NotificationSucesso('Alteração', 'Status alterado com sucesso!')
+      }).catch(() => {
+        NotificationErro("Erro", "Ocorreu um problema, tente novamente")
       })
     }
 
@@ -247,12 +270,12 @@ const EditableCustomList = (props) => {
               <span className='CustomGroupListTitleIcon'> {CustomListIcon[props.Module]} {props.Title} </span>
             </ListGroup.Item>
             <DragDropContext onDragEnd={(result) => { HandleDrag(result) }}>
-              <Droppable droppableId={'Tipos'} key={'Tipos'}>
+              <Droppable droppableId={props.Module} key={props.Module}>
                 {(provided) => {
                   return (
                     <div {...provided.droppableProps} ref={provided.innerRef}>
                       {ListaDeItens.map((Item, index) => {
-                        return <Draggable key={Item.Id} draggableId={Item.Id} index={index} >
+                        return <Draggable key={v4()} draggableId={Item.id} index={index} >
                           {(DragProvided, Drag) => {
                             return (
                               <div className={Drag.isDragging ? ' CustomGroupListItemDragging' : ''} ref={DragProvided.innerRef} {...DragProvided.draggableProps} {...DragProvided.dragHandleProps}>
@@ -301,7 +324,7 @@ const EditableCustomList = (props) => {
                                       }
                                       {ItemListSelected === Item.Value &&
                                         <Tooltip title="Excluir Item" position="bottom" >
-                                          <button onClick={e => HandleDeleteItem(index, Item.Id)}>
+                                          <button onClick={e => HandleDeleteItem(index, Item.id)}>
                                             <UilTrashAlt lete className='EditableCustomListIcon' />
                                           </button>
                                         </Tooltip>

@@ -13,9 +13,9 @@ import { UilPuzzlePiece, UilShieldCheck, UilUser } from '@iconscout/react-unicon
 const SectorList = (props) => {
 
 
-  const [ListaDeItens,] = useState([...props.Users.filter(User => User.Sector.Id === props.Setor.Id)]);
+  const [ListaDeItens,] = useState([...props.Users.filter(User => User.Sector.id === props.Setor.id)]);
 
-  
+
 
   return (
     <div>
@@ -29,14 +29,14 @@ const SectorList = (props) => {
               <span className='SetoresShowOnlyCustomGroupListTitleSpan'> <UilPuzzlePiece /> {props.Setor.Value}</span>
             </Tooltip>
           </ListGroup.Item>
-
-          <Droppable droppableId={props.Setor.Id + '/' + v4()} key={props.Setor.Id + '/' + v4()}>
+ 
+          <Droppable droppableId={props.Setor.id + '/' + v4()} key={props.Setor.id + '/' + v4()}>
             {(provided, snapshot) => {
               return (
                 <div className={snapshot.isDraggingOver ? 'MarginBottom' : ''} {...provided.droppableProps} ref={provided.innerRef}>
                   {ListaDeItens.sort((a, b) => a.Name.localeCompare(b.Name)).map((Item, index) => {
-                    const IsAdmin = props.UserTypes.find(UserType => UserType.Id === Item.Type.Id).IsAdmin
-                    return <Draggable action as="li" key={Item.Id} draggableId={Item.Id} index={index} >
+                    const IsAdmin = props.UserTypes.find(UserType => UserType.id === Item.Type.id).IsAdmin
+                    return <Draggable action as="li" key={Item.id} draggableId={Item.id} index={index} >
                       {(DragProvided, DraggableSnapshot) => {
                         return (
                           <div ref={DragProvided.innerRef} {...DragProvided.draggableProps} {...DragProvided.dragHandleProps}>
@@ -67,7 +67,7 @@ const SectorList = (props) => {
 
           {ListaDeItens.length === 0 && <ListGroup.Item key={v4()} >
 
-            <Droppable droppableId={props.Setor.Id} key={props.Setor.Id}>
+            <Droppable droppableId={props.Setor.id} key={props.Setor.id}>
               {(provided, snapshot) => {
                 return (
                   <div  {...provided.droppableProps} ref={provided.innerRef}>

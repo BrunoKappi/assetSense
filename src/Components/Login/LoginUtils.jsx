@@ -1,17 +1,11 @@
-import { LoginFirebase, signInWithGoogle } from "../../Config/firebase/auth";
+
 import { setLoggedUser } from "../../Config/store/actions/LoggedUserActions";
 import store from "../../Config/store/store";
 import { DefaultLoggedUser } from "../../GlobalVars";
 
 
 
-export const LoginUtil = (email, password) => {
-    return LoginFirebase(email, password)
-}
 
-export const LogarComGooglePopup = () => {
-    return signInWithGoogle();
-};
 
 
 export const LoginSuccess = (message) => {

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import './AtivoModal.css'
 import UserPhoto from '../../../assets/Images/SerranoLogoFuncoBranco.jpg'
 import { UilUserCircle, UilClipboardNotes, UilLabel, UilLabelAlt, UilBox, UilSave, UilTag, UilTimes, UilBuilding, UilCircleLayer, UilPlay, UilWrench, UilCheck, UilBackward, UilTrash, UilArrow } from '@iconscout/react-unicons'
-import { AddAtivo, DeleteAtivo, EditAtivo, GetAtivoStatusWithIdFromStore, GetAtivoTypeWithIdFromStore, GetAtivoWithIdFromStore, GetCurrentUserTypeFromStore, GetLocaisArmazenamentoFromStore, GetLocalArmazenamentoNameWithIdFromStore, GetLocalArmazenamentoWithIdFromStore, GetStatusAtivosFromStore, GetTakesOfAtivo, GetTipoAtivoNameWithIdFromStore, GetTipoDeUsoWithIdFromStore, GetTiposAtivosFromStore, GetTiposDeUsoFromStore, ReturnAllRecordOfAtivowithId } from '../../../Functions/Middleware'
+import { AddAtivo, AddAtivoFirebase, DeleteAtivo, EditAtivo,  GetAtivoStatusWithIdFromStore, GetAtivoTypeWithIdFromStore, GetAtivoWithIdFromStore, GetCurrentUserTypeFromStore, GetLocaisArmazenamentoFromStore, GetLocalArmazenamentoNameWithIdFromStore, GetLocalArmazenamentoWithIdFromStore, GetStatusAtivosFromStore, GetTakesOfAtivo, GetTipoAtivoNameWithIdFromStore, GetTipoDeUsoWithIdFromStore, GetTiposAtivosFromStore, GetTiposDeUsoFromStore, ReturnAllRecordOfAtivowithId } from '../../../Functions/Middleware'
 import { DefaultAtivo, DefaultAtivosType, DefaultLocal, } from '../../../Data/Items';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
 import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
@@ -15,7 +15,7 @@ import { v4 } from 'uuid';
 import AtivoTakeReturn from './AtivoTakeReturn/AtivoTakeReturn';
 import AtivoRecords from './AtivoRecords/AtivoRecords';
 
-import Button from 'react-bootstrap/Button';
+
 
 const AtivoModal = (props) => {
 
@@ -28,7 +28,7 @@ const AtivoModal = (props) => {
     const [LocaisArmazenamento] = useState(GetLocaisArmazenamentoFromStore())
     const [TiposAtivos] = useState(GetTiposAtivosFromStore())
 
-    const QuantidadeRetirada = GetTakesOfAtivo(props.Ativo?.Id)
+    const QuantidadeRetirada = GetTakesOfAtivo(props.Ativo?.id)
 
 
     //CURRENT ATIVO AND PERMITS
@@ -71,8 +71,8 @@ const AtivoModal = (props) => {
         setCopyAtivoName(AtivoCopy?.Item)
         setCopyAtivoLocalArmazenamento(AtivoCopy?.StorageLocation)
         setCopyAtivoType(AtivoCopy?.Type)
-        setCopyAtivoStatus(GetAtivoStatusWithIdFromStore(AtivoCopy?.Status.Id))
-        setCopyAtivoTipoDeUso(GetTipoDeUsoWithIdFromStore(AtivoCopy?.Usage.Id))
+        setCopyAtivoStatus(GetAtivoStatusWithIdFromStore(AtivoCopy?.Status.id))
+        setCopyAtivoTipoDeUso(GetTipoDeUsoWithIdFromStore(AtivoCopy?.Usage.id))
         setCopyAtivoBrand(AtivoCopy?.Brand)
         setCopyAtivoQtd(AtivoCopy?.Qtd)
     }
@@ -92,9 +92,9 @@ const AtivoModal = (props) => {
         }
         if ((CanEdit || IsAdmin) || PermitToEditAtivos) {
             if (Info === 'Local')
-                setCopyAtivoLocalArmazenamento({ Id: Value })
+                setCopyAtivoLocalArmazenamento({ id: Value })
             else if (Info === 'Type')
-                setCopyAtivoType({ Id: Value })
+                setCopyAtivoType({ id: Value })
         }
     }
 
@@ -103,8 +103,8 @@ const AtivoModal = (props) => {
     // QUANDO TEM UM ATIVO VALIDO PASSADO PELA PROP
     useEffect(() => {
         if (!props.Ativo?.Item) return
-        setAtivo(GetAtivoWithIdFromStore(props.Ativo?.Id))
-        FillCopyes(GetAtivoWithIdFromStore(props.Ativo?.Id))
+        setAtivo(GetAtivoWithIdFromStore(props.Ativo?.id))
+        FillCopyes(GetAtivoWithIdFromStore(props.Ativo?.id))
         setIsEdited(false)
         setTab('AtivoInfo')
     }, [props.Ativo, props.CurrentUser, CurrentUserType])
@@ -112,15 +112,15 @@ const AtivoModal = (props) => {
 
     // QUANDO ALGUMA INFORMAÇÂO MUDA
     useEffect(() => {
-        if (CopyAtivoName !== Ativo?.Item || CopyAtivoBrand !== Ativo?.Brand || CopyAtivoQtd !== Ativo?.Qtd || CopyAtivoLocalArmazenamento?.Id !== Ativo?.StorageLocation?.Id || CopyAtivoStatus?.Id !== Ativo?.Status?.Id || CopyAtivoTipoDeUso?.Id !== Ativo?.Usage?.Id || CopyAtivoType?.Id !== Ativo?.Type?.Id)
+        if (CopyAtivoName !== Ativo?.Item || CopyAtivoBrand !== Ativo?.Brand || CopyAtivoQtd !== Ativo?.Qtd || CopyAtivoLocalArmazenamento?.id !== Ativo?.StorageLocation?.id || CopyAtivoStatus?.id !== Ativo?.Status?.id || CopyAtivoTipoDeUso?.id !== Ativo?.Usage?.id || CopyAtivoType?.id !== Ativo?.Type?.id)
             setIsEdited(true)
         else
             setIsEdited(false)
     }, [CopyAtivoName, CopyAtivoBrand, CopyAtivoQtd, CopyAtivoLocalArmazenamento, CopyAtivoStatus, CopyAtivoTipoDeUso, CopyAtivoType, Ativo])
 
     useEffect(() => {
-        setAtivoType(GetAtivoTypeWithIdFromStore(Ativo?.Type?.Id))
-        setAtivoLocalArmazenamento(GetLocalArmazenamentoWithIdFromStore(Ativo?.StorageLocation?.Id))
+        setAtivoType(GetAtivoTypeWithIdFromStore(Ativo?.Type?.id))
+        setAtivoLocalArmazenamento(GetLocalArmazenamentoWithIdFromStore(Ativo?.StorageLocation?.id))
     }, [Ativo, props.CurrentUser])
 
 
@@ -140,13 +140,13 @@ const AtivoModal = (props) => {
                 NotificationAlerta('Preenchimento inválido', 'Não é possível alterar a quantidade para ' + CopyAtivoQtd + ' pois existem ' + QuantidadeRetirada + ' usuários atualmente em posse de Ativos deste tipo')
             else if (CopyAtivoQtd === '0')
                 NotificationAlerta('Preenchimento inválido', 'A quantidade não pode ser 0')
-            else if (!CopyAtivoLocalArmazenamento?.Id)
+            else if (!CopyAtivoLocalArmazenamento?.id)
                 NotificationAlerta('Preenchimento inválido', 'O Local de Armazenamento não pode ser vazio')
-            else if (!CopyAtivoStatus?.Id)
+            else if (!CopyAtivoStatus?.id)
                 NotificationAlerta('Preenchimento inválido', 'O Status não pode ser vazio')
-            else if (!CopyAtivoTipoDeUso?.Id)
+            else if (!CopyAtivoTipoDeUso?.id)
                 NotificationAlerta('Preenchimento inválido', 'Selecione um Tipo de Uso')
-            else if (!CopyAtivoType?.Id)
+            else if (!CopyAtivoType?.id)
                 NotificationAlerta('Preenchimento inválido', 'Selecione um Tipo de Ativo')
             else {
                 SetConfirm(true)
@@ -205,20 +205,25 @@ const AtivoModal = (props) => {
         } else if (ConfirmAction === 'Add') {
             const NewAtivo = { ...Ativo }
 
-            NewAtivo.Id = v4()
+            NewAtivo.id = v4()
             NewAtivo.Item = CopyAtivoName
-            NewAtivo.Brand = CopyAtivoBrand
+            NewAtivo.Brand = CopyAtivoBrand ? CopyAtivoBrand : ''
             NewAtivo.Qtd = CopyAtivoQtd
             NewAtivo.Status = CopyAtivoStatus
             NewAtivo.Usage = CopyAtivoTipoDeUso
             NewAtivo.Type = CopyAtivoType
+            NewAtivo.Deleted = false
             NewAtivo.StorageLocation = CopyAtivoLocalArmazenamento
 
             setAtivo({ ...NewAtivo })
+            console.log(NewAtivo)
             AddAtivo(NewAtivo).then(() => {
+                AddAtivoFirebase(NewAtivo)
                 CancelEditions()
                 props.onHide()
                 NotificationSucesso('Adição', 'Ativo Adicionado com Sucesso!')
+            }).catch((erro)=>{
+                console.log(erro)
             })
             EndConfirming()
         } else if (ConfirmAction === 'Delete') {
@@ -226,7 +231,7 @@ const AtivoModal = (props) => {
             EndConfirming()
             props.onDelete()
             DeleteAtivo(AtivoToDelete).then(() => {
-                ReturnAllRecordOfAtivowithId(AtivoToDelete.Id)
+                ReturnAllRecordOfAtivowithId(AtivoToDelete.id)
                 NotificationSucesso('Exclusão', 'Ativo Deletado com Sucesso!')
 
             })
@@ -286,11 +291,11 @@ const AtivoModal = (props) => {
                                 </div>
                                 <div className='AtivoModalHeader-Right-Setor'>
                                     <UilBox />
-                                    {props.Function === 'Add' ? GetLocalArmazenamentoNameWithIdFromStore(CopyAtivoLocalArmazenamento?.Id) : AtivoLocalArmazenamento?.Value}
+                                    {props.Function === 'Add' ? GetLocalArmazenamentoNameWithIdFromStore(CopyAtivoLocalArmazenamento?.id) : AtivoLocalArmazenamento?.Value}
                                 </div>
                                 <div className='AtivoModalHeader-Right-Tipo'>
                                     <UilLabel />
-                                    {props.Function === 'Add' ? GetTipoAtivoNameWithIdFromStore(CopyAtivoType?.Id) : AtivoType?.Value}
+                                    {props.Function === 'Add' ? GetTipoAtivoNameWithIdFromStore(CopyAtivoType?.id) : AtivoType?.Value}
                                 </div>
                             </div>
 
@@ -408,8 +413,8 @@ const AtivoModal = (props) => {
                                                         </div>
                                                         <div className='AtivoModalBody-AtivoInfoForm-LocalList-Itens'>
                                                             {LocaisArmazenamento.map(Local => {
-                                                                return <div className={'AtivoModalBody-AtivoInfoForm-LocalList-Item'} onClick={e => HandleChangeInfo('Local', Local?.Id)}>
-                                                                    {CopyAtivoLocalArmazenamento?.Id === Local?.Id ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
+                                                                return <div key={v4()} className={'AtivoModalBody-AtivoInfoForm-LocalList-Item'} onClick={e => HandleChangeInfo('Local', Local?.id)}>
+                                                                    {CopyAtivoLocalArmazenamento?.id === Local?.id ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
                                                                     {Local?.Value}
                                                                 </div>
                                                             })}
@@ -426,8 +431,8 @@ const AtivoModal = (props) => {
                                                         </div>
                                                         <div className='AtivoModalBody-AtivoInfoForm-TiposAtivosList-Itens'>
                                                             {TiposAtivos.map(TipoAtivo => {
-                                                                return <div className={'AtivoModalBody-AtivoInfoForm-TiposAtivosList-Item'} onClick={e => HandleChangeInfo('Type', TipoAtivo?.Id)}>
-                                                                    {CopyAtivoType?.Id === TipoAtivo?.Id ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
+                                                                return <div key={v4()} className={'AtivoModalBody-AtivoInfoForm-TiposAtivosList-Item'} onClick={e => HandleChangeInfo('Type', TipoAtivo?.id)}>
+                                                                    {CopyAtivoType?.id === TipoAtivo?.id ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
                                                                     {TipoAtivo?.Value}
                                                                 </div>
                                                             })}

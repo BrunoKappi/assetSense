@@ -1,5 +1,5 @@
 import store from "../Config/store/store"
-import { LoginFirebase, signInWithGoogle } from "../Config/firebase/auth"
+import { FIREBASE_LoginAuth, FIREBASE_LogouyAuth, FIREBASE_RegisterUserAuth, FIREBASE_SendEMailResetPassword, signInWithGoogle } from "../Config/firebase/auth"
 import { AddTipoAtivo, SetTiposAtivos } from "../Config/store/actions/TiposAtivosActions"
 import { SetSetores } from "../Config/store/actions/SetoresActions"
 import { SetTiposUsuarios } from "../Config/store/actions/TiposUsuariosActions"
@@ -11,30 +11,34 @@ import { AddUsuarioAction, DeleteUsuarioAction, SetUsuarios } from "../Config/st
 import { PermitIndexs } from "../GlobalVars"
 import { AddRecordAction, SetRecords } from "../Config/store/actions/RecordsActions"
 import moment from "moment"
+import { FIREBASE_AddAtivo, FIREBASE_AddLocalArmazenamento, FIREBASE_AddRecord, FIREBASE_AddSetor, FIREBASE_AddStatusAtivo, FIREBASE_AddTipoAtivo, FIREBASE_AddTipoUso, FIREBASE_AddTipoUsuario, FIREBASE_AddUsuario, FIREBASE_DeleteLocalArmazenamento, FIREBASE_DeleteSetor, FIREBASE_DeleteStatusAtivo, FIREBASE_DeleteTipoAtivo, FIREBASE_DeleteTipoDeUsuario, FIREBASE_DeleteTipoUso, FIREBASE_GetAtivos, FIREBASE_GetLocaisArmazenamento, FIREBASE_GetRecords, FIREBASE_GetSetores, FIREBASE_GetStatusAtivos, FIREBASE_GetTiposAtivo, FIREBASE_GetTiposUso, FIREBASE_GetTiposUsuarios, FIREBASE_GetUsuarios, FIREBASE_UpdateAtivo, FIREBASE_UpdateLocalArmazenamento, FIREBASE_UpdateRecord, FIREBASE_UpdateSetor, FIREBASE_UpdateStatusAtivo, FIREBASE_UpdateTipoAtivo, FIREBASE_UpdateTipoDeUsuario, FIREBASE_UpdateTipoUso, FIREBASE_UpdateUsuario } from "../Config/firebase/metodos"
+import { DefaultUserRole } from "../Data/Items"
 
+
+//UTILS
 
 export const LoginUtil = (email, password) => {
-    return LoginFirebase(email, password)
+    return FIREBASE_LoginAuth(email, password)
+}
+
+export const LogoutUtil = () => {
+    return FIREBASE_LogouyAuth()
+}
+
+export const FoprgetPasswordUtil = (email, password) => {
+    return FIREBASE_SendEMailResetPassword(email, password)
 }
 
 export const LogarComGooglePopup = () => {
     return signInWithGoogle();
 };
 
-export const saveFunctions = {
-    "TiposAtivos": SaveTipos,
-    "Setores": SaveSetores,
-    "TiposUsuarios": SaveUserTipos,
-    "Locais": SaveLocaisArmazenamento,
-    "StatusAtivos": SaveStatusAtivos,
-    "TiposUso": SaveTiposDeUso
-};
 
 
 // Define um objeto de mapeamento que relaciona o nome do módulo/prop com a função get correspondente
 export const fetchFunctions = {
     TiposAtivos: GetTipos,
-    Setores: GetSetores,
+    Setores: FIREBASE_GetSetores,
     TiposUsuarios: GetUserTipos,
     Locais: GetLocaisArmazenamento,
     StatusAtivos: GetStatusAtivos,
@@ -44,59 +48,35 @@ export const fetchFunctions = {
 
 //////////// TIPOS ATIVOS //////////////////
 
-export async function GetTipos(gerarErro = false) {
+export async function GetTipos() {
+    return FIREBASE_GetTiposAtivo()
+}
+
+
+export async function SaveTipos(Tipos) {
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                if (localStorage.getItem('AssetSenseTipos'))
-                    resolve(JSON.parse(localStorage.getItem('AssetSenseTipos')))
-                else
-                    resolve([])
-            }
-        }, 50);
+
+        localStorage.setItem('AssetSenseTipos', JSON.stringify(Tipos))
+        store.dispatch(SetTiposAtivos(Tipos))
+        resolve('Ok');
+
     });
 }
 
 
-export async function SaveTipos(Tipos, gerarErro = false) {
+export function GetTiposAtivosSelect() {
+
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                //////console.log(Tipos)
-                localStorage.setItem('AssetSenseTipos', JSON.stringify(Tipos))
-                store.dispatch(SetTiposAtivos(Tipos))
-                resolve('Ok');
-            }
-        }, 50);
-    });
-}
 
+        const Types = [...GetTiposAtivosFromStore()].map((item) => {
+            return {
+                value: item.id,
+                label: item.Value,
+            };
+        });
+        Types.push({ value: 'Todos', label: 'Todos' })
+        resolve(Types)
 
-export async function GetTiposAtivosSelect(gerarErro = false) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                if (localStorage.getItem('AssetSenseTipos')) {
-                    const Types = JSON.parse(localStorage.getItem('AssetSenseTipos')).map((item) => {
-                        return {
-                            value: item.Id,
-                            label: item.Value,
-                        };
-                    });
-                    Types.push({ value: 'Todos', label: 'Todos' })
-                    resolve(Types)
-                }
-
-                else
-                    resolve([])
-            }
-        }, 5);
     });
 }
 
@@ -105,130 +85,95 @@ export async function AddTipo(TipoAtivo) {
 }
 
 
+export const EditTipoAtivo = (EditedItem) => {
+    return FIREBASE_UpdateTipoAtivo(EditedItem)
+}
+
+
 
 
 //////////// SETORES //////////////////
 
-export async function GetSetores(gerarErro = false) {
+export async function GetSetores() {
+    console.log("Pegando setores")
+    return FIREBASE_GetSetores()
+}
+
+
+export async function SaveSetores(Setores) {
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                if (localStorage.getItem('AssetSenseSetores'))
-                    resolve(JSON.parse(localStorage.getItem('AssetSenseSetores')))
-                else
-                    resolve([])
-            }
-        }, 50);
+        localStorage.setItem('AssetSenseSetores', JSON.stringify(Setores))
+        store.dispatch(SetSetores(Setores))
+        resolve('Ok');
+    });
+}
+
+export async function GetSetoresSelect() {
+    return new Promise((resolve, reject) => {
+
+        const Types = [...GetSetoresFromStore()].map((item) => {
+            return {
+                value: item.id,
+                label: item.Value,
+            };
+        });
+        Types.push({ value: 'Todos', label: 'Todos' })
+        resolve(Types)
+
     });
 }
 
 
-export async function SaveSetores(Setores, gerarErro = false) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                //////console.log(Setores)
-                localStorage.setItem('AssetSenseSetores', JSON.stringify(Setores))
-                store.dispatch(SetSetores(Setores))
-                resolve('Ok');
-            }
-        }, 50);
-    });
+
+export const EditSetor = (EditedSetor) => {
+    return FIREBASE_UpdateSetor(EditedSetor)
 }
 
-export async function GetSetoresSelect(gerarErro = false) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                if (localStorage.getItem('AssetSenseSetores')) {
-                    const Types = JSON.parse(localStorage.getItem('AssetSenseSetores')).map((item) => {
-                        return {
-                            value: item.Id,
-                            label: item.Value,
-                        };
-                    });
-                    Types.push({ value: 'Todos', label: 'Todos' })
-                    resolve(Types)
-                }
 
-                else
-                    resolve([])
-            }
-        }, 5);
-    });
-}
+
+
+
+
+
 
 
 
 //////////// TIPOS USUARIOS //////////////////
 
-export async function GetUserTipos(gerarErro = false) {
+export async function GetUserTiposFromFirebase() {
+    return FIREBASE_GetTiposUsuarios()
+}
+export async function GetUserTipos() {
+    return GetUserTypesFromStore()
+}
 
+
+export async function SaveUserTipos(Tipos) {
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                if (localStorage.getItem('AssetSenseUsersTypes')) {
-                    resolve(JSON.parse(localStorage.getItem('AssetSenseUsersTypes')))
-                    //////console.log("TIPOS", JSON.parse(localStorage.getItem('AssetSenseUsersTypes')))
-                }
+        localStorage.setItem('AssetSenseUsersTypes', JSON.stringify(Tipos))
+        store.dispatch(SetTiposUsuarios(Tipos))
+        resolve('Ok');
+    });
+}
 
-                else
-                    resolve([])
-            }
-        }, 50);
+export async function GetUsersTypesSelect() {
+    return new Promise((resolve, reject) => {
+
+        const Types = [...GetUserTypesFromStore()].map((item) => {
+            return {
+                value: item.id,
+                label: item.Value,
+            };
+        });
+        Types.push({ value: 'Todos', label: 'Todos' })
+        resolve(Types)
     });
 }
 
 
-export async function SaveUserTipos(Tipos, gerarErro = false) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                //////console.log(Tipos)
-                localStorage.setItem('AssetSenseUsersTypes', JSON.stringify(Tipos))
-                store.dispatch(SetTiposUsuarios(Tipos))
-                resolve('Ok');
-            }
-        }, 50);
-    });
+export const EditUserType = (EditedItem) => {
+    return FIREBASE_UpdateTipoDeUsuario(EditedItem)
 }
-
-export async function GetUsersTypesSelect(gerarErro = false) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                if (localStorage.getItem('AssetSenseUsersTypes')) {
-
-                    const Types = JSON.parse(localStorage.getItem('AssetSenseUsersTypes')).map((item) => {
-                        return {
-                            value: item.Id,
-                            label: item.Value,
-                        };
-                    });
-                    ////console.log(Types)
-                    Types.push({ value: 'Todos', label: 'Todos' })
-                    resolve(Types)
-                }
-
-                else
-                    resolve([])
-            }
-        }, 5);
-    });
-}
-
 
 
 
@@ -242,64 +187,41 @@ export async function GetUsersTypesSelect(gerarErro = false) {
 
 //////////// LOCAIS //////////////////
 
-export async function GetLocaisArmazenamento(gerarErro = false) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                if (localStorage.getItem('AssetSenseLocaisArmazenamento'))
-                    resolve(JSON.parse(localStorage.getItem('AssetSenseLocaisArmazenamento')))
-                else
-                    resolve([])
-            }
-        }, 50);
-    });
+
+export async function GetLocaisArmazenamento() {
+    return FIREBASE_GetLocaisArmazenamento()
 }
 
 
-export async function SaveLocaisArmazenamento(Locais, gerarErro = false) {
+export async function SaveLocaisArmazenamento(Locais) {
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                //////console.log(Locais)
-                localStorage.setItem('AssetSenseLocaisArmazenamento', JSON.stringify(Locais))
-                store.dispatch(SetLocaisArmazenamento(Locais))
-                resolve('Ok');
-            }
-        }, 50);
+        localStorage.setItem('AssetSenseLocaisArmazenamento', JSON.stringify(Locais))
+        store.dispatch(SetLocaisArmazenamento(Locais))
+        resolve('Ok');
     });
 }
 
-export async function GetLocaisSelect(gerarErro = false) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                if (localStorage.getItem('AssetSenseLocaisArmazenamento')) {
-                    const Types = JSON.parse(localStorage.getItem('AssetSenseLocaisArmazenamento')).map((item) => {
-                        return {
-                            value: item.Id,
-                            label: item.Value,
-                        };
-                    });
-                    Types.push({ value: 'Todos', label: 'Todos' })
-                    resolve(Types)
-                }
+export async function GetLocaisSelect() {
 
-                else
-                    resolve([])
-            }
-        }, 5);
+    return new Promise((resolve, reject) => {
+
+        const Types = [...GetLocaisArmazenamentoFromStore()].map((item) => {
+            return {
+                value: item.id,
+                label: item.Value,
+            };
+        });
+        Types.push({ value: 'Todos', label: 'Todos' })
+        resolve(Types)
+
     });
+
 }
 
 
-
-
+export const EditLocalArmazenamento = (EditedItem) => {
+    return FIREBASE_UpdateLocalArmazenamento(EditedItem)
+}
 
 
 
@@ -310,75 +232,32 @@ export async function GetLocaisSelect(gerarErro = false) {
 
 //////////// RECORDS //////////////////
 
-export async function GetRecords(gerarErro = false) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                if (localStorage.getItem('AssetSenseRecords'))
-                    resolve(JSON.parse(localStorage.getItem('AssetSenseRecords')))
-                else
-                    resolve([])
-            }
-        }, 50);
+export async function GetRecordsFromFirebase() {
+    return FIREBASE_GetRecords()
+}
+export async function GetRecords() {
+    return new Promise((resolve) => {
+        resolve(GetRecordsFromStore())
     });
 }
 
 
-export async function SaveRecords(Locais, gerarErro = false) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                //////console.log(Locais)
-                localStorage.setItem('AssetSenseRecords', JSON.stringify(Locais))
-                store.dispatch(SetRecords(Locais))
-                resolve('Ok');
-            }
-        }, 50);
-    });
+export async function SaveRecords(Records) {
+    store.dispatch(SetRecords(Records))
+    localStorage.setItem('AssetSenseRecords', JSON.stringify(Records))
 }
 
 
-export async function AddRecord(RecordToAdd, gerarErro = false) {
-    console.log("TO ADD", GetRecordsFromStore())
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                store.dispatch(AddRecordAction(RecordToAdd))
-                resolve('Ok');
-            }
-        }, 50);
-    });
+export async function AddRecord(RecordToAdd) {
+    return FIREBASE_AddRecord(RecordToAdd)
 }
 
 
-export async function EditRecord(EditedRecord, gerarErro = false) {
-    console.log("Recebendo para Editar", GetRecordsFromStore())
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                GetRecords().then(Lista => {
-
-                    const NewRecords = Lista.filter(record => {
-                        return record.Id !== EditedRecord.Id
-                    }).concat(EditedRecord)
-
-                    SaveRecords(NewRecords)
-                    //console.log(NewRecords)
-                    resolve('Ok');
-                })
-                //store.dispatch(EditUsuarioAction(EditedRecord))
-            }
-        }, 50);
-    });
+export const EditRecord = (EditedItem) => {
+    return FIREBASE_UpdateRecord(EditedItem)
 }
+
+
 
 
 
@@ -407,35 +286,24 @@ export async function EditRecord(EditedRecord, gerarErro = false) {
 
 //////////// STATUS ATIVOS //////////////////
 
-export async function GetStatusAtivos(gerarErro = false) {
+export async function GetStatusAtivosFromFirebase() {
+    return FIREBASE_GetStatusAtivos()
+}
+export async function GetStatusAtivos() {
+    return FIREBASE_GetStatusAtivos()
+}
+
+
+export async function SaveStatusAtivos(Locais) {
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                if (localStorage.getItem('AssetSenseStatusAtivos'))
-                    resolve(JSON.parse(localStorage.getItem('AssetSenseStatusAtivos')))
-                else
-                    resolve([])
-            }
-        }, 50);
+        localStorage.setItem('AssetSenseStatusAtivos', JSON.stringify(Locais))
+        store.dispatch(SetStatusAtivos(Locais))
     });
 }
 
 
-export async function SaveStatusAtivos(Locais, gerarErro = false) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                //////console.log(Locais)
-                localStorage.setItem('AssetSenseStatusAtivos', JSON.stringify(Locais))
-                store.dispatch(SetStatusAtivos(Locais))
-                resolve('Ok');
-            }
-        }, 50);
-    });
+export const EditStatusAtivo = (EditedItem) => {
+    return FIREBASE_UpdateStatusAtivo(EditedItem)
 }
 
 
@@ -443,35 +311,22 @@ export async function SaveStatusAtivos(Locais, gerarErro = false) {
 
 //////////// TIPOS DE USO  //////////////////
 
-export async function GetTiposDeUso(gerarErro = false) {
+
+export async function GetTiposDeUso() {
+    return FIREBASE_GetTiposUso()
+}
+
+
+export async function SaveTiposDeUso(Locais) {
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                if (localStorage.getItem('AssetSenseTiposDeUso'))
-                    resolve(JSON.parse(localStorage.getItem('AssetSenseTiposDeUso')))
-                else
-                    resolve([])
-            }
-        }, 50);
+        localStorage.setItem('AssetSenseTiposDeUso', JSON.stringify(Locais))
+        store.dispatch(SetTiposDeUso(Locais))
     });
 }
 
 
-export async function SaveTiposDeUso(Locais, gerarErro = false) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                //////console.log(Locais)
-                localStorage.setItem('AssetSenseTiposDeUso', JSON.stringify(Locais))
-                store.dispatch(SetTiposDeUso(Locais))
-                resolve('Ok');
-            }
-        }, 50);
-    });
+export const EditTipoDeUso = (EditedItem) => {
+    return FIREBASE_UpdateTipoUso(EditedItem)
 }
 
 
@@ -480,93 +335,58 @@ export async function SaveTiposDeUso(Locais, gerarErro = false) {
 ////////////////////// ATIVOS //////////////////////////
 
 
-export async function GetAtivos(gerarErro = false) {
+export async function GetAtivos() {
+    return FIREBASE_GetAtivos()
+}
+
+
+
+
+export async function SaveAtivos(Ativos) {
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                if (localStorage.getItem('AssetSenseAtivos'))
-                    resolve(JSON.parse(localStorage.getItem('AssetSenseAtivos')))
-                else
-                    resolve([])
-            }
-        }, 5);
+        localStorage.setItem('AssetSenseAtivos', JSON.stringify(Ativos))
+        store.dispatch(SetAtivos(Ativos))
+        resolve('Ok');
+    });
+}
+
+
+export async function AddAtivo(Ativo) {
+    return FIREBASE_AddAtivo(Ativo)
+}
+
+export async function AddAtivoFirebase(New) {
+    store.dispatch(AddAtivoAction(New))
+}
+
+
+export async function DeleteAtivo(Ativo) {
+    return new Promise((resolve, reject) => {
+        Ativo.Deleted = true
+        EditAtivo(Ativo)
+        resolve('Ok');
     });
 }
 
 
 
-export async function SaveAtivos(Ativos, gerarErro = false) {
-    return new Promise((resolve, reject) => {
 
-        if (gerarErro) {
-            reject(new Error('Erro ao obter dados'));
-        } else {
-            //////console.log(Ativos)
-            localStorage.setItem('AssetSenseAtivos', JSON.stringify(Ativos))
-            store.dispatch(SetAtivos(Ativos))
-            ////console.log("Command Save ATIVOS")
-            resolve('Ok');
-        }
+export const EditAtivo = (EditedItem) => {
+    return FIREBASE_UpdateAtivo(EditedItem).then(() => {
+        GetAtivos().then(Lista => {
 
-    });
+            const NewAtivos = Lista.filter(ativo => {
+                return ativo.id !== EditedItem.id
+            }).concat(EditedItem)
+
+            SaveAtivos(NewAtivos)
+
+        })
+    })
 }
 
 
-export async function AddAtivo(Ativo, gerarErro = false) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                store.dispatch(AddAtivoAction(Ativo))
-                resolve('Ok');
-            }
-        }, 50);
-    });
-}
 
-
-export async function DeleteAtivo(Ativo, gerarErro = false) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                //////console.log(Ativos)
-                //localStorage.setItem('AssetSenseAtivos', JSON.stringify(Ativos))
-                Ativo.Deleted = true
-                EditAtivo(Ativo)
-                //store.dispatch(DeleteAtivoAction(Ativo))
-                resolve('Ok');
-            }
-        }, 50);
-    });
-}
-
-
-export async function EditAtivo(EditedAtivo, gerarErro = false) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                GetAtivos().then(Lista => {
-
-                    const NewAtivos = Lista.filter(ativo => {
-                        return ativo.Id !== EditedAtivo.Id
-                    }).concat(EditedAtivo)
-
-                    SaveAtivos(NewAtivos)
-                    //console.log(NewAtivos)
-                    resolve('Ok');
-                })
-                //store.dispatch(EditUsuarioAction(EditedUser))
-            }
-        }, 50);
-    });
-}
 
 ////////////////////// ATIVOS //////////////////////////
 
@@ -582,87 +402,55 @@ export async function EditAtivo(EditedAtivo, gerarErro = false) {
 
 
 ////////////////////// USUARIOS  //////////////////////////
-export async function GetUsers(gerarErro = false) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                if (localStorage.getItem('AssetSenseUsers'))
-                    resolve(JSON.parse(localStorage.getItem('AssetSenseUsers')))
-                else
-                    resolve([])
-            }
-        }, 5);
-    });
+export async function GetUsers() {
+    return FIREBASE_GetUsuarios()
 }
 
 
-export async function SaveUsers(Users, gerarErro = false) {
+export async function SaveUsers(Users) {
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                //////console.log(Users)
-                localStorage.setItem('AssetSenseUsers', JSON.stringify(Users))
-                store.dispatch(SetUsuarios(Users))
-                resolve('Ok');
-            }
-        }, 50);
-    });
-}
-
-export async function AddUser(User, gerarErro = false) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                store.dispatch(AddUsuarioAction(User))
-                resolve('Ok');
-            }
-        }, 50);
-    });
-}
-export async function DeleteUser(User, gerarErro = false) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                //////console.log(Users)
-                //localStorage.setItem('AssetSenseUsers', JSON.stringify(Users))
-                User.Deleted = true
-                EditUser(User)
-                resolve('Ok');
-            }
-        }, 50);
+        localStorage.setItem('AssetSenseUsers', JSON.stringify(Users))
+        store.dispatch(SetUsuarios(Users))
+        resolve('Ok');
     });
 }
 
 
 
-export async function EditUser(EditedUser, gerarErro = false) {
+export async function RegisterUser(Email) {
+    return FIREBASE_RegisterUserAuth(Email)
+}
+export async function AddUser(User) {
+    return FIREBASE_AddUsuario(User)
+}
+
+export async function AddUserFirebase(New) {
+    store.dispatch(AddUsuarioAction(New))
+}
+
+export async function DeleteUser(User) {
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (gerarErro) {
-                reject(new Error('Erro ao obter dados'));
-            } else {
-                GetUsers().then(Lista => {
-
-                    const NewUsers = Lista.filter(usuario => {
-                        return usuario.Id !== EditedUser.Id
-                    }).concat(EditedUser)
-
-                    SaveUsers(NewUsers)
-                    //console.log(NewUsers)
-                    resolve('Ok');
-                })
-                //store.dispatch(EditUsuarioAction(EditedUser))
-            }
-        }, 50);
+        User.Deleted = true
+        EditUser(User)
+        resolve('Ok');
     });
+}
+
+
+
+
+export const EditUser = (EditedItem) => {
+    return FIREBASE_UpdateUsuario(EditedItem).then(() => {
+        GetUsers().then(Lista => {
+
+            const NewUsers = Lista.filter(usuario => {
+                return usuario.id !== EditedItem.id
+            }).concat(EditedItem)
+
+            SaveUsers(NewUsers)
+
+        })
+    })
 }
 
 ////////////////////// USUARIOS  //////////////////////////
@@ -727,7 +515,7 @@ export const GetStatusAtivosFromStore = () => {
     return [...store.getState().StatusAtivos]
 }
 export const GetSetoresFromStore = () => {
-    return [...store.getState().Setores]
+    return [...store.getState().Setores] ? [...store.getState().Setores] : []
 }
 export const GetUsersFromStore = () => {
     return [...store.getState().Usuarios].filter(User => User.Deleted === false)
@@ -738,8 +526,8 @@ export const GetUsersFromStoreWithDeleted = () => {
 export const GetUsersFromStoreWithNoCurrentUser = (AtivoId) => {
     const Current = GetCurrentUserFromStore()
     const UsersThatTook = GetUsersThatTookAtivo(AtivoId)
-    const Users = [...store.getState().Usuarios].filter(User => User.Id !== Current.Id)
-    const UsersNotTook = Users.filter(user => !UsersThatTook.some(took => took.Id === user.Id));
+    const Users = [...store.getState().Usuarios].filter(User => User.id !== Current.id)
+    const UsersNotTook = Users.filter(user => !UsersThatTook.some(took => took.id === user.id));
     console.log("FILTER USERS", UsersNotTook)
     return UsersNotTook
 }
@@ -759,8 +547,8 @@ export const GetCurrentUserTypeFromStore = () => {
     const Users = GetUsersFromStore()
     const Types = GetUserTypesFromStore()
     const CurrentUser = Users.find(U => U.Email === Email)
-    const CurrentUserType = Types.find(U => U.Id === CurrentUser.Type.Id)
-    return CurrentUserType
+    const CurrentUserType = Types.find(U => U.id === CurrentUser?.Type?.id)
+    return CurrentUserType ? CurrentUserType : DefaultUserRole
 }
 
 
@@ -768,39 +556,39 @@ export const GetCurrentUserTypeFromStore = () => {
 
 export const GetCurrentUserTypeWithIdFromStore = (Id) => {
     const Types = GetUserTypesFromStore()
-    const Type = Types.find(U => U.Id === Id)
+    const Type = Types.find(U => U.id === Id)
     return Type
 }
 export const GetAtivoTypeWithIdFromStore = (Id) => {
     const Types = GetTiposAtivosFromStore()
-    const Type = Types.find(U => U.Id === Id)
+    const Type = Types.find(U => U.id === Id)
     return Type
 }
 export const GetLocalArmazenamentoWithIdFromStore = (Id) => {
     const Locais = GetLocaisArmazenamentoFromStore()
-    const Local = Locais.find(U => U.Id === Id)
+    const Local = Locais.find(U => U.id === Id)
     return Local
 }
 export const GetAtivoStatusWithIdFromStore = (Id) => {
     const Statuses = GetStatusAtivosFromStore()
-    const Status = Statuses.find(U => U.Id === Id)
+    const Status = Statuses.find(U => U.id === Id)
     return Status
 }
 export const GetTipoDeUsoWithIdFromStore = (Id) => {
     const TiposDeUso = GetTiposDeUsoFromStore()
-    const TipoDeUso = TiposDeUso.find(U => U.Id === Id)
+    const TipoDeUso = TiposDeUso.find(U => U.id === Id)
     return TipoDeUso
 }
 
 export const GetUserWithIdFromStore = (Id) => {
     const Users = GetUsersFromStoreWithDeleted()
-    const User = Users.find(U => U.Id === Id)
+    const User = Users.find(U => U.id === Id)
     return User
 }
 
 export const GetAtivoWithIdFromStore = (Id) => {
     const Ativos = GetAtivosFromStoreWithDeleted()
-    const Ativo = Ativos.find(U => U.Id === Id)
+    const Ativo = Ativos.find(U => U.id === Id)
     return Ativo ? Ativo : {}
 }
 
@@ -810,41 +598,41 @@ export const GetAtivoWithIdFromStore = (Id) => {
 
 export const GetLocalArmazenamentoNameWithIdFromStore = (Id) => {
     const Locais = GetLocaisArmazenamentoFromStore()
-    const LocalName = Locais.find(U => U.Id === Id)?.Value
+    const LocalName = Locais.find(U => U.id === Id)?.Value
     return LocalName
 }
 export const GetTipoAtivoNameWithIdFromStore = (Id) => {
     const Tipos = GetTiposAtivosFromStore()
-    const TiposName = Tipos.find(U => U.Id === Id)?.Value
+    const TiposName = Tipos.find(U => U.id === Id)?.Value
     return TiposName ? TiposName : ''
 }
 export const GetTipoDeUsoNameWithIdFromStore = (Id) => {
     const Tipos = GetTiposDeUsoFromStore()
-    const TiposName = Tipos.find(U => U.Id === Id)?.Value
+    const TiposName = Tipos.find(U => U.id === Id)?.Value
     return TiposName ? TiposName : ''
 }
 
 export const GetCurrentUserSetorNameWithIdFromStore = (Id) => {
     if (!Id) return 'Selecione um Setor'
     const Setores = GetSetoresFromStore()
-    const Name = Setores.find(Setor => Setor.Id === Id).Value
+    const Name = Setores.find(Setor => Setor.id === Id).Value
     return Name ? Name : ''
 }
 export const GetCurrentUserTypeNameWithIdFromStore = (Id) => {
     if (!Id) return 'Selecione um Tipo de Usuário'
     const Types = GetUserTypesFromStore()
-    const Name = Types.find(Type => Type.Id === Id).Value
+    const Name = Types.find(Type => Type.id === Id).Value
     return Name
 }
 export const GetuserNameWithIdFromStore = (Id) => {
     const Users = GetUsersFromStoreWithDeleted()
-    const User = Users.find(User => User.Id === Id)
+    const User = Users.find(User => User.id === Id)
     const Name = User?.Name + ' ' + User?.LastName
     return Name
 }
 export const GetAtivoNameWithIdFromStore = (Id) => {
     const Ativos = GetAtivosFromStoreWithDeleted()
-    const Ativo = Ativos.find(ativo => ativo.Id === Id)
+    const Ativo = Ativos.find(ativo => ativo.id === Id)
     const Name = Ativo.Item
     return Name
 }
@@ -853,8 +641,8 @@ export const GetAtivoNameWithIdFromStore = (Id) => {
 export const CheckIfAnyAtivoOfStatusTaken = (StatusId) => {
     const Records = GetRecordsFromStore()
     const Ativos = GetAtivosFromStore()
-    const AtivosOfStatus = Ativos.filter(Ativo => Ativo.Status.Id === StatusId)
-    const AtivosTaken = AtivosOfStatus.filter(Ativo => Records.some(Record => Record.AtivoId === Ativo.Id && Record.Duration === 0));
+    const AtivosOfStatus = Ativos.filter(Ativo => Ativo.Status.id === StatusId)
+    const AtivosTaken = AtivosOfStatus.filter(Ativo => Records.some(Record => Record.AtivoId === Ativo.id && Record.Duration === 0));
     return AtivosTaken?.length > 0 ? true : false
 
 }
@@ -864,14 +652,20 @@ export const ReturnAllAtivosOfUserWithId = (UserId) => {
     const Records = GetRecordsFromStore()
 
     Records.forEach(Record => {
-        if (Record.TakenFor.Id === UserId) {
+        if (Record.TakenFor.id === UserId) {
             Record.ReturnDate = moment().valueOf()
             Record.Duration = moment().valueOf() - Record.TakeDate
             Record.TakenForDeleted = true
+            if (Record.TakenBy.id === UserId)
+                Record.TakenByDeleted = true
+            EditRecord(Record)
         }
-        if (Record.TakenBy.Id === UserId) {
+        else if (Record.TakenBy.id === UserId) {
             Record.TakenByDeleted = true
+            EditRecord(Record)
         }
+
+
     })
 
     SaveRecords(Records)
@@ -886,6 +680,7 @@ export const ReturnAllRecordOfAtivowithId = (AtivoId) => {
             Record.ReturnDate = moment().valueOf()
             Record.Duration = moment().valueOf() - Record.TakeDate
             Record.AtivoDeleted = true
+            EditRecord(Record)
         }
     })
 
@@ -898,7 +693,7 @@ export const ReturnAllRecordOfAtivowithId = (AtivoId) => {
 
 export const GetCurrentUserTypePermitFromStore = (Permit) => {
     const CurrentUserType = GetCurrentUserTypeFromStore()
-    return CurrentUserType.Permits[PermitIndexs[Permit]]
+    return CurrentUserType?.Permits[PermitIndexs[Permit]]
 }
 
 //Quantidade Retirada sem devolução de um determinado Ativo 
@@ -916,14 +711,14 @@ export const GetRecordsOfAtivo = (ID) => {
 //REGISTROS DE UM USUARIO
 export const GetRecordsOfUser = (ID) => {
     var Records1 = [...GetRecordsFromStore()]
-    return Records1.filter(Record => Record.TakenFor.Id === ID)
+    return Records1.filter(Record => Record.TakenFor.id === ID)
 }
 
 //Quantidade Retirada sem devolução de um determinado Ativo pelo CurrentUser
 export const GetTakesOfAtivoOfCurrentUser = (ID) => {
     const CurrentUser = GetCurrentUserFromStore()
     var Records2 = [...GetRecordsFromStore()]
-    const Qtd = Records2.filter(Record => Record.AtivoId === ID && !Record.ReturnDate && Record.TakenFor.Id === CurrentUser.Id)
+    const Qtd = Records2.filter(Record => Record.AtivoId === ID && !Record.ReturnDate && Record.TakenFor.id === CurrentUser.id)
     return Qtd ? Qtd.length : 0
 }
 
@@ -934,7 +729,7 @@ export const GetUsersThatTookAtivo = (ID) => {
     const AtivosPegos = Records3.filter(Record => Record.AtivoId === ID && !Record.ReturnDate)
     //console.log("RECORDS", AtivosPegos)
     const Users = GetUsersFromStore()
-    const UsersThatTook = Users.filter(user => AtivosPegos.some(AtivoPego => AtivoPego.TakenFor.Id === user.Id && user.Id !== CurrentUser.Id));
+    const UsersThatTook = Users.filter(user => AtivosPegos.some(AtivoPego => AtivoPego.TakenFor.id === user.id && user.id !== CurrentUser.id));
     //console.log("PEGARAM", UsersThatTook)
     return UsersThatTook
 }
@@ -942,7 +737,7 @@ export const GetUsersThatTookAtivo = (ID) => {
 
 export const GetRecordByAtivoIdAndUserId = (AtivoId, UserId) => {
     var Records4 = [...GetRecordsFromStore()]
-    const Record = Records4.filter(Record => Record.AtivoId === AtivoId && Record.TakenFor.Id === UserId && !Record.ReturnDate)[0]
+    const Record = Records4.filter(Record => Record.AtivoId === AtivoId && Record.TakenFor.id === UserId && !Record.ReturnDate)[0]
     return Record
 }
 
@@ -951,3 +746,49 @@ export const GetRecordByAtivoIdAndUserId = (AtivoId, UserId) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+export const saveFunctions = {
+    "TiposAtivos": SaveTipos,
+    "Setores": SaveSetores,
+    "TiposUsuarios": SaveUserTipos,
+    "Locais": SaveLocaisArmazenamento,
+    "StatusAtivos": SaveStatusAtivos,
+    "TiposUso": SaveTiposDeUso
+};
+
+export const EditFunctions = {
+    "TiposAtivos": EditTipoAtivo,
+    "Setores": EditSetor,
+    "TiposUsuarios": EditUserType,
+    "Locais": EditLocalArmazenamento,
+    "StatusAtivos": EditStatusAtivo,
+    "TiposUso": EditTipoDeUso
+};
+
+export const DeleteFunctions = {
+    "TiposAtivos": FIREBASE_DeleteTipoAtivo,
+    "Setores": FIREBASE_DeleteSetor,
+    "TiposUsuarios": FIREBASE_DeleteTipoDeUsuario,
+    "Locais": FIREBASE_DeleteLocalArmazenamento,
+    "StatusAtivos": FIREBASE_DeleteStatusAtivo,
+    "TiposUso": FIREBASE_DeleteTipoUso
+};
+
+export const AddFunctions = {
+    "TiposAtivos": FIREBASE_AddTipoAtivo,
+    "Setores": FIREBASE_AddSetor,
+    "TiposUsuarios": FIREBASE_AddTipoUsuario,
+    "Locais": FIREBASE_AddLocalArmazenamento,
+    "StatusAtivos": FIREBASE_AddStatusAtivo,
+    "TiposUso": FIREBASE_AddTipoUso
+};

@@ -13,14 +13,14 @@ export default function User(props) {
 
     useEffect(() => {
         const Tipos = GetUserTypesFromStore()       
-        setUserType(Tipos.find(U => U.Id === props.User.Type.Id))
-    }, [props.User.Type.Id])
+        setUserType(Tipos.find(U => U.id === props.User.Type.id))
+    }, [props.User.Type.id])
 
 
     useEffect(() => {
         const Setores = GetSetoresFromStore()
-        setUserSetor({ ...Setores.find(U => U.Id === props.User.Sector.Id) })
-    }, [props.User.Sector.Id])
+        setUserSetor({ ...Setores.find(U => U.id === props.User.Sector.id) })
+    }, [props.User.Sector.id])
 
 
 

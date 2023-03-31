@@ -11,11 +11,11 @@ const Usuarios = (state = [], action) => {
             return action.Usuarios
         case 'EDIT_USUARIO':
             return state.filter(usuario => {
-                return usuario.Id !== action.EditedUser.Id
+                return usuario.id !== action.EditedUser.id
             }).concat(action.EditedUser)
         case 'DELETE_USUARIO':
             return state.filter(usuario => {
-                return usuario.Id !== action.UsuarioToDelete.Id
+                return usuario.id !== action.UsuarioToDelete.id
             })
         default:
             return state

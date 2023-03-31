@@ -57,7 +57,7 @@ export default function Users() {
           <UsersList />
         </Tab>
         <Tab eventKey="Setores" >
-          <UsersInSetores />  
+          <UsersInSetores />
         </Tab>
         <Tab eventKey="Tipos"  >
           <UsersInTypes />

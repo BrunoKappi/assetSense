@@ -25,9 +25,9 @@ export default function AtivoTakeReturn(props) {
 
     //Quantidades
     const QuantidadeDoAtivo = props.Ativo?.Qtd
-    const [QuantidadeRetirada, SetQuantidadeRetirada] = useState(GetTakesOfAtivo(props.Ativo?.Id))
-    const [QuantidadeRetiradaPeloCurrentUser, SetQuantidadeRetiradaPeloCurrentUser] = useState(GetTakesOfAtivoOfCurrentUser(props.Ativo?.Id))
-    const [UsuariosQuePegaramAtivo, SetUsuariosQuePegaramAtivo] = useState(GetUsersThatTookAtivo(props.Ativo?.Id))
+    const [QuantidadeRetirada, SetQuantidadeRetirada] = useState(GetTakesOfAtivo(props.Ativo?.id))
+    const [QuantidadeRetiradaPeloCurrentUser, SetQuantidadeRetiradaPeloCurrentUser] = useState(GetTakesOfAtivoOfCurrentUser(props.Ativo?.id))
+    const [UsuariosQuePegaramAtivo, SetUsuariosQuePegaramAtivo] = useState(GetUsersThatTookAtivo(props.Ativo?.id))
 
     //Confirm 
     const [Confirm, SetConfirm] = useState(false)
@@ -57,8 +57,8 @@ export default function AtivoTakeReturn(props) {
         setActionFor('Me')
         setObs('')
         setReturnFor()
-        setTimeout(() => { SetQuantidadeRetirada(GetTakesOfAtivo(props.Ativo?.Id)) }, 500);
-        setTimeout(() => { SetQuantidadeRetiradaPeloCurrentUser(GetTakesOfAtivoOfCurrentUser(props.Ativo?.Id)) }, 500);
+        setTimeout(() => { SetQuantidadeRetirada(GetTakesOfAtivo(props.Ativo?.id)) }, 500);
+        setTimeout(() => { SetQuantidadeRetiradaPeloCurrentUser(GetTakesOfAtivoOfCurrentUser(props.Ativo?.id)) }, 500);
     }
 
     const BackConfirming = () => {
@@ -74,7 +74,7 @@ export default function AtivoTakeReturn(props) {
                 SetConfirmBtAction('Sim')
                 SetConfirmBtBack('Voltar')
             } else {
-                if (TakenFor?.Id) {
+                if (TakenFor?.id) {
                     SetConfirm(true)
                     SetConfirmMessage('Gostaria de Registrar a retirada deste Item para ' + (TakenFor?.Name ? (TakenFor?.Name) : '') + ' ' + (TakenFor?.LastName ? TakenFor?.LastName : '') + '?')
                     SetConfirmBtAction('Sim')
@@ -92,7 +92,7 @@ export default function AtivoTakeReturn(props) {
                 SetConfirmBtBack('Voltar')
             } else {
 
-                if (ReturnFor?.Id) {
+                if (ReturnFor?.id) {
                     SetConfirm(true)
                     SetConfirmMessage('Gostaria de Registrar a devolução deste Item?')
                     SetConfirmBtAction('Sim')
@@ -112,36 +112,41 @@ export default function AtivoTakeReturn(props) {
 
             var ForId
             if (ActionFor === 'Me')
-                ForId = CurrentUser.Id
+                ForId = CurrentUser.id
             else
-                ForId = TakenFor.Id
+                ForId = TakenFor.id
 
 
-            NewRecordToAdd.Id = v4()
-            NewRecordToAdd.AtivoId = props.Ativo?.Id
+            NewRecordToAdd.id = v4()
+            NewRecordToAdd.AtivoId = props.Ativo?.id
             NewRecordToAdd.TakeDate = moment().valueOf()
-            NewRecordToAdd.TakenBy.Id = CurrentUser.Id
-            NewRecordToAdd.TakenFor.Id = ForId
+            NewRecordToAdd.TakenBy.id = CurrentUser.id
+            NewRecordToAdd.TakenFor.id = ForId
             NewRecordToAdd.Returned = false
             NewRecordToAdd.ReturnDate = ''
             NewRecordToAdd.Obs = Obs
 
 
-
-            GetRecords().then(Lista => {
-                const Records = [...Lista]
-                //console.log("Adicionando", Lista)
-                Records.push(NewRecordToAdd)
-                //console.log("Adicionado", Records)
-                EndConfirming()
-                NotificationSucesso('Registro', 'Registro de Retirada registrado com Sucesso!')
-                SaveRecords(Records)
+            AddRecord(NewRecordToAdd).then(() => {
+                GetRecords().then(Lista => {
+                    const Records = [...Lista]
+                    console.log("Adicionando", Lista)
+                    Records.push(NewRecordToAdd)
+                    console.log("Adicionado", Records)
+                    SaveRecords(Records)
+                    EndConfirming()
+                    NotificationSucesso('Registro', 'Registro de Retirada registrado com Sucesso!')
+                })
+            }).catch(() => {
+                NotificationErro("Erro", "Ocorreu um problema, tente novamente")
             })
 
 
+
+
         } else {
-            var UserId = ActionFor === 'Me' ? CurrentUser.Id : ReturnFor.Id
-            const RecordToEdit = GetRecordByAtivoIdAndUserId(props.Ativo?.Id, UserId)
+            var UserId = ActionFor === 'Me' ? CurrentUser.id : ReturnFor.id
+            const RecordToEdit = GetRecordByAtivoIdAndUserId(props.Ativo?.id, UserId)
             RecordToEdit.ReturnDate = moment().valueOf()
             RecordToEdit.ReturnObs = Obs
             RecordToEdit.Duration = RecordToEdit.ReturnDate - RecordToEdit.TakeDate
@@ -151,6 +156,8 @@ export default function AtivoTakeReturn(props) {
             EditRecord(RecordToEdit).then(() => {
                 NotificationSucesso('Registro', 'Registro de Devolução registrado com Sucesso!')
                 EndConfirming()
+            }).catch(() => {
+                NotificationErro("Erro", "Ocorreu um problema, tente novamente")
             })
 
 
@@ -244,7 +251,7 @@ export default function AtivoTakeReturn(props) {
                                         className='AtivoModalBody-AtivoInfoForm-LocationSelect'
                                         placeholder="Digite o Email"
                                         noOptionsMessage={noOptionsMessage}
-                                        options={GetUsersFromStoreWithNoCurrentUser(props?.Ativo?.Id)}
+                                        options={GetUsersFromStoreWithNoCurrentUser(props?.Ativo?.id)}
                                         getOptionLabel={(options) => { return options["Email"]; }}
                                         getOptionValue={(options) => { return options["Id"]; }}
                                         styles={AtivoModalSelectcustomStyles}
@@ -261,7 +268,7 @@ export default function AtivoTakeReturn(props) {
                                         className='AtivoModalBody-AtivoInfoForm-LocationSelect'
                                         placeholder="Digite o Nome"
                                         noOptionsMessage={noOptionsMessage}
-                                        options={GetUsersFromStoreWithNoCurrentUser(props?.Ativo?.Id)}
+                                        options={GetUsersFromStoreWithNoCurrentUser(props?.Ativo?.id)}
                                         getOptionLabel={(options) => { return options["Name"] + ' ' + options["LastName"]; }}
                                         getOptionValue={(options) => { return options["Id"]; }}
                                         styles={AtivoModalSelectcustomStyles}
@@ -378,7 +385,7 @@ export default function AtivoTakeReturn(props) {
                                             className='AtivoModalBody-AtivoInfoForm-LocationSelect'
                                             placeholder="Digite o Email"
                                             noOptionsMessage={noOptionsMessage}
-                                            options={GetUsersThatTookAtivo(props.Ativo?.Id)}
+                                            options={GetUsersThatTookAtivo(props.Ativo?.id)}
                                             getOptionLabel={(options) => { return options["Email"]; }}
                                             getOptionValue={(options) => { return options["Id"]; }}
                                             styles={AtivoModalSelectcustomStyles}
@@ -395,7 +402,7 @@ export default function AtivoTakeReturn(props) {
                                             className='AtivoModalBody-AtivoInfoForm-LocationSelect'
                                             placeholder="Digite o Nome"
                                             noOptionsMessage={noOptionsMessage}
-                                            options={GetUsersThatTookAtivo(props.Ativo?.Id)}
+                                            options={GetUsersThatTookAtivo(props.Ativo?.id)}
                                             getOptionLabel={(options) => { return options["Name"] + ' ' + options["LastName"]; }}
                                             getOptionValue={(options) => { return options["Id"]; }}
                                             styles={AtivoModalSelectcustomStyles}

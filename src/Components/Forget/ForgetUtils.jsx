@@ -1,7 +1,8 @@
-import { ResetFirebasePassword } from "../../Config/firebase/auth"
+
+import { FoprgetPasswordUtil } from "../../Functions/Middleware"
 
 
 
 export const ResetarSenha = (Email) => {
-    return ResetFirebasePassword(Email)
+    return FoprgetPasswordUtil(Email)
 } 

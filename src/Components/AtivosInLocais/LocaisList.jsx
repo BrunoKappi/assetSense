@@ -14,7 +14,7 @@ const SectorList = (props) => {
 
 
 
-  const [ListaDeItens,] = useState([...props.Ativos.filter(Ativo => Ativo.StorageLocation.Id === props.LocalArmazenamento.Id)]);
+  const [ListaDeItens,] = useState([...props.Ativos.filter(Ativo => Ativo.StorageLocation.id === props.LocalArmazenamento.id)]);
 
   //console.log(props.LocalArmazenamento.Value)
 
@@ -35,12 +35,12 @@ const SectorList = (props) => {
             </ListGroup.Item>
           </Tooltip>
 
-          <Droppable droppableId={props.LocalArmazenamento.Id} key={props.LocalArmazenamento.Id}>
+          <Droppable droppableId={props.LocalArmazenamento.id} key={props.LocalArmazenamento.id}>
             {(DropProvidedArmazenamento, snapshotArmazenamento) => {
               return (
                 <div className={snapshotArmazenamento.isDraggingOver ? 'MarginBottom' : ''} {...DropProvidedArmazenamento.droppableProps} ref={DropProvidedArmazenamento.innerRef}>
                   {ListaDeItens.sort((a, b) => a.Item.localeCompare(b.Item)).map((Item, index) => {
-                    return <Draggable isDragDisabled={!props.LocalArmazenamento.Id} action as="li" key={Item.Id} draggableId={Item.Id} index={index} >
+                    return <Draggable isDragDisabled={!props.LocalArmazenamento.id} action as="li" key={v4()} draggableId={Item.id} index={index} >
                       {(DragProvided) => {
                         return (
                           <div ref={DragProvided.innerRef} {...DragProvided.draggableProps} {...DragProvided.dragHandleProps}>
@@ -62,7 +62,7 @@ const SectorList = (props) => {
 
           {ListaDeItens.length === 0 && <ListGroup.Item key={v4()} >
 
-            <Droppable droppableId={props.LocalArmazenamento.Id} key={props.LocalArmazenamento.Id}>
+            <Droppable droppableId={props.LocalArmazenamento.id} key={props.LocalArmazenamento.id}>
               {(DropProvidedArmazenamento2) => {
                 return (
                   <div  {...DropProvidedArmazenamento2.droppableProps} ref={DropProvidedArmazenamento2.innerRef}>

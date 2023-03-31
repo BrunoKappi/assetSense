@@ -10,6 +10,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { Tooltip } from 'react-tippy';
 import UserModal from '../../../UsersList/User/UserModal'
 import { NotificationAlerta } from '../../../../NotificationUtils';
+import { v4 } from 'uuid';
 
 
 export default function AtivoRecords(props) {
@@ -17,7 +18,7 @@ export default function AtivoRecords(props) {
     const [CurrentUser, setCurrentUser] = useState(GetCurrentUserFromStore())
 
     //Quantidades
-    const [Records, SetRecords] = useState(GetRecordsOfAtivo(props.Ativo?.Id))
+    const [Records, SetRecords] = useState(GetRecordsOfAtivo(props.Ativo?.id))
     const [OrdenarPor, setOrdenarPor] = useState('Mais Recentes')
     const [FiltroDeTexto, setFiltroDeTexto] = useState('')
     const [SelectedUser, setSelectedUser] = useState({})
@@ -25,10 +26,10 @@ export default function AtivoRecords(props) {
 
 
     useEffect(() => {
-        const Registros = GetRecordsOfAtivo(props.Ativo?.Id)
+        const Registros = GetRecordsOfAtivo(props.Ativo?.id)
         SetRecords(Registros.filter(Record => {
-            const TakenForName = GetuserNameWithIdFromStore(Record.TakenFor.Id)
-            const TakenByName = GetuserNameWithIdFromStore(Record.TakenBy.Id)
+            const TakenForName = GetuserNameWithIdFromStore(Record.TakenFor.id)
+            const TakenByName = GetuserNameWithIdFromStore(Record.TakenBy.id)
             const TextFilter = FiltroDeTexto === '' || (TakenForName.toLowerCase().includes(FiltroDeTexto.toLowerCase())) || (TakenByName.toLowerCase().includes(FiltroDeTexto.toLowerCase()))
             return TextFilter
         }).sort((a, b) => {
@@ -37,8 +38,8 @@ export default function AtivoRecords(props) {
             } else if (OrdenarPor === 'Mais Antigos') {
                 return a.TakeDate < b.TakeDate ? - 1 : 1
             } else if (OrdenarPor === 'Nome') {
-                const TakenForNameA = GetuserNameWithIdFromStore(a.TakenFor.Id)
-                const TakenForNameB = GetuserNameWithIdFromStore(b.TakenFor.Id)
+                const TakenForNameA = GetuserNameWithIdFromStore(a.TakenFor.id)
+                const TakenForNameB = GetuserNameWithIdFromStore(b.TakenFor.id)
                 return TakenForNameA.localeCompare(TakenForNameB);
             } else if (OrdenarPor === 'Tempo de Uso') {
                 const UsoA = a.Duration === 0 ? (moment().valueOf() - a.TakeDate) : a.Duration
@@ -130,11 +131,11 @@ export default function AtivoRecords(props) {
 
 
 
-                    return <div className='AtivoRecord-Container'>
+                    return <div key={v4()} className='AtivoRecord-Container'>
                         <div className='AtivoRecord-UpRow'>
                             <Tooltip title="Para quem a retirada foi registrada" position="bottom" >
-                                <span className='AtivoRecord-UpRow-Name' onClick={e => handleUserSelection(Registro.TakenFor.Id)}>
-                                    {GetuserNameWithIdFromStore(Registro.TakenFor.Id)}
+                                <span className='AtivoRecord-UpRow-Name' onClick={e => handleUserSelection(Registro.TakenFor.id)}>
+                                    {GetuserNameWithIdFromStore(Registro.TakenFor.id)}
                                 </span>
                             </Tooltip>
                             <span className='AtivoRecord-UpRow-Status'>
@@ -142,11 +143,11 @@ export default function AtivoRecords(props) {
                             </span>
                         </div>
 
-                        {Registro.TakenBy.Id !== Registro.TakenFor.Id && <div className='AtivoRecord-MiddleRow'>
+                        {Registro.TakenBy.id !== Registro.TakenFor.id && <div className='AtivoRecord-MiddleRow'>
                             <Tooltip title="Usuário que registrou a retirada" position="bottom" >
-                                <span className='AtivoRecord-MiddleRow-Name' onClick={e => handleUserSelection(Registro.TakenBy.Id)}>
+                                <span className='AtivoRecord-MiddleRow-Name' onClick={e => handleUserSelection(Registro.TakenBy.id)}>
                                     <UilBookmark />
-                                    {GetuserNameWithIdFromStore(Registro.TakenBy.Id)}
+                                    {GetuserNameWithIdFromStore(Registro.TakenBy.id)}
                                 </span>
                             </Tooltip>
                         </div>

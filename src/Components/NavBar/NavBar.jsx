@@ -1,5 +1,5 @@
 //Dependencias
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './NavBar.css'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -18,13 +18,12 @@ import LogoBrancoSerrano from '../../assets/Images/SerranoLogoBranco.png'
 //Tooltip
 import { Tooltip } from 'react-tippy';
 import 'react-tippy/dist/tippy.css'
-import { logout } from '../../Config/firebase/auth';
 import { GetNavbarSidebarItemClass, SetTab } from '../Sidebar/SidebarUtils';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import User from '../../assets/Images/User.png'
 import { useNavigate } from 'react-router-dom';
 import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilSignout, UilBars, UilMoon, UilBright } from '@iconscout/react-unicons'
-import { GetCurrentUserTypePermitFromStore, ToggleTema } from '../../Functions/Middleware';
+import { GetCurrentUserTypePermitFromStore, LogoutUtil, ToggleTema } from '../../Functions/Middleware';
 
 
 const NavBar = (props) => {
@@ -33,7 +32,7 @@ const NavBar = (props) => {
 
     const Sair = () => {
         SetTab('Login')
-        logout()
+        LogoutUtil()
         NotificationSucesso('Logoff', "Logoff feito com sucesso!")
     }
 
@@ -42,7 +41,13 @@ const NavBar = (props) => {
         window.location.reload()
     }
 
-    const [CurrentUser,] = useState({ ...props.Usuarios.find(user => user.Email === props.LoggedUser.Email) })
+    const [CurrentUser, SetCurrentUser] = useState('Carregando')
+
+
+    useEffect(() => {
+        SetCurrentUser({ ...props.Usuarios.find(user => user.Email === props.LoggedUser.Email) })
+    }, [props.Usuarios])
+
 
     const AtivosPermit = GetCurrentUserTypePermitFromStore('VISUALIZAR_ATIVOS') || GetCurrentUserTypePermitFromStore('RETIRAR_ATIVOS') || GetCurrentUserTypePermitFromStore('ADICIONAR_ATIVOS') || GetCurrentUserTypePermitFromStore(' EDITAR_ATIVOS') || GetCurrentUserTypePermitFromStore('EXCLUIR_ATIVOS')
     const UsuariosPermit = GetCurrentUserTypePermitFromStore('VISUALIZAR_USUARIOS') || GetCurrentUserTypePermitFromStore('ADICIONAR_USUARIOS') || GetCurrentUserTypePermitFromStore(' EDITAR_USUARIOS') || GetCurrentUserTypePermitFromStore('EXCLUIR_USUARIOS')
@@ -104,7 +109,11 @@ const NavBar = (props) => {
                                             {localStorage.getItem('AssetSenseTema') === 'Escuro' ? <UilMoon /> : <UilBright />}
                                         </button>
                                     </Tooltip>
-                                    <NavDropdown title={<span className='ProfileNavLinkTitle' > {CurrentUser.Name + ' ' + CurrentUser.LastName}</span>}>
+                                    <NavDropdown title={
+                                        <span className='ProfileNavLinkTitle' >
+                                            {(CurrentUser.Name ? CurrentUser.Name : 'Carregando...')} {' '} {(CurrentUser.LastName) ? CurrentUser.LastName : ''}
+                                        </span>}
+                                    >
 
                                         <span to="/App/Dash" className={GetNavbarSidebarItemClass('Dash', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Dash', '/App/Dash')}>
                                             <UilChartPieAlt />
@@ -145,8 +154,8 @@ const NavBar = (props) => {
                                 </div>
 
                                 <div className='NavbarSidebarUserName'>
-                                    <p> {CurrentUser.Name}</p>
-                                    <p> {CurrentUser.LastName}</p>
+                                    <p> {CurrentUser?.Name ? CurrentUser?.Name : 'Carregando'}</p>
+                                    <p> {CurrentUser?.LastName ? CurrentUser.LastName : ''}</p>
                                 </div>
 
                                 <ul className='NavBarListSidebar'>

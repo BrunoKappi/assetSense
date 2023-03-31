@@ -13,7 +13,7 @@ import { UilLabel } from '@iconscout/react-unicons'
 const SectorList = (props) => {
 
 
-  const [ListaDeItens,] = useState([...props.Ativos.filter(Ativo => Ativo.Type.Id === props.TipoAtivo.Id)]);
+  const [ListaDeItens,] = useState([...props.Ativos.filter(Ativo => Ativo.Type.id === props.TipoAtivo.id)]);
 
 
 
@@ -30,12 +30,12 @@ const SectorList = (props) => {
             </Tooltip>
           </ListGroup.Item>
 
-          <Droppable droppableId={props.TipoAtivo.Id + '/' + v4()} key={props.TipoAtivo.Id + '/' + v4()}>
+          <Droppable droppableId={props.TipoAtivo.id + '/' + v4()} key={props.TipoAtivo.id + '/' + v4()}>
             {(provided, snapshot) => {
               return (
                 <div className={snapshot.isDraggingOver ? 'MarginBottom' : ''} {...provided.droppableProps} ref={provided.innerRef}>
                   {ListaDeItens.sort((a, b) => a.Item.localeCompare(b.Item)).map((Item, index) => {
-                    return <Draggable action as="li" key={Item.Id} draggableId={Item.Id} index={index} >
+                    return <Draggable action as="li" key={Item.id} draggableId={Item.id} index={index} >
                       {(DragProvided) => {
                         return (
                           <div ref={DragProvided.innerRef} {...DragProvided.draggableProps} {...DragProvided.dragHandleProps}>
@@ -57,7 +57,7 @@ const SectorList = (props) => {
 
           {ListaDeItens.length === 0 && <ListGroup.Item key={v4()} >
 
-            <Droppable droppableId={props.TipoAtivo.Id} key={props.TipoAtivo.Id}>
+            <Droppable droppableId={props.TipoAtivo.id} key={props.TipoAtivo.id}>
               {(provided, snapshot) => {
                 return (
                   <div  {...provided.droppableProps} ref={provided.innerRef}>

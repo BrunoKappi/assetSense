@@ -12,7 +12,7 @@ export default function Ativo(props) {
 
     //Quantidades
     const QuantidadeDoAtivo = props.Ativo?.Qtd
-    const [QuantidadeRetirada, SetQuantidadeRetirada] = useState(GetTakesOfAtivo(props.Ativo?.Id))
+    const [QuantidadeRetirada, SetQuantidadeRetirada] = useState(GetTakesOfAtivo(props.Ativo?.id))
 
 
 
@@ -49,7 +49,7 @@ export default function Ativo(props) {
                     <Tooltip title="Local de Armazenamento" position="bottom" >
                         <span className='LocalArmazenamentoColumn'>
                             <UilBox />
-                            <span>{GetLocalArmazenamentoNameWithIdFromStore(props.Ativo.StorageLocation.Id)}</span>
+                            <span>{GetLocalArmazenamentoNameWithIdFromStore(props.Ativo.StorageLocation.id)}</span>
                         </span>
                     </Tooltip>
                 </div>
@@ -57,7 +57,7 @@ export default function Ativo(props) {
                     <Tooltip title="Tipo do Ativo" position="bottom" >
                         <span className='AtivoTypeColumn'>
                             <UilLabelAlt />
-                            <span>{GetTipoAtivoNameWithIdFromStore(props.Ativo.Type.Id)}</span>
+                            <span>{GetTipoAtivoNameWithIdFromStore(props.Ativo.Type.id)}</span>
                         </span>
                     </Tooltip>
                 </span>

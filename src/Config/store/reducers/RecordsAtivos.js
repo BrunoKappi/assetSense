@@ -8,16 +8,16 @@ const RecordsAtivos = (state = [], action) => {
         case 'SET_RECORDS': 
             return action.Records
         case 'ADD_RECORD':
-            console.log("No Reducer Addicionando", state)
+            //console.log("No Reducer Addicionando", state)
             return state.concat(action.NovoRecord)
         case 'EDIT_RECORD':
-            console.log("No Reducer Editando", state)
+            //console.log("No Reducer Editando", state)
             return state.filter(Record => {
-                return Record.Id !== action.EditedRecord.Id
+                return Record.id !== action.EditedRecord.id
             }).concat(action.EditedRecord)
         case 'DELETE_RECORD':
             return state.filter(Record => {
-                return Record.Id !== action.RecordToDelete.Id
+                return Record.id !== action.RecordToDelete.id
             })
         default:
             return state
