@@ -13,7 +13,7 @@ import moment from 'moment'
 import { Tooltip } from 'react-tippy';
 import { connect } from 'react-redux'
 
-const  AtivoTakeReturn = (props) => {
+const AtivoTakeReturn = (props) => {
 
     const [CurrentUser, setCurrentUser] = useState(GetCurrentUserFromStore())
     const [key, setKey] = useState('');
@@ -39,7 +39,7 @@ const  AtivoTakeReturn = (props) => {
         //setActionFor('Me')
         if (key === 'Devolver' && QuantidadeRetiradaPeloCurrentUser === 0)
             setActionFor('Other')
-        else if (key === 'Retirar' && QuantidadeRetiradaPeloCurrentUser > 0)
+        else if (key === 'Retirar' && (QuantidadeRetiradaPeloCurrentUser >= props.Ativo?.QtdPerUser))
             setActionFor('Other')
         else
             setActionFor(ActionFor === 'Me' ? 'Other' : 'Me')
@@ -115,7 +115,6 @@ const  AtivoTakeReturn = (props) => {
             else
                 ForId = TakenFor.id
 
-
             NewRecordToAdd.id = v4()
             NewRecordToAdd.AtivoId = props.Ativo?.id
             NewRecordToAdd.TakeDate = moment().valueOf()
@@ -146,12 +145,16 @@ const  AtivoTakeReturn = (props) => {
         } else {
             var UserId = ActionFor === 'Me' ? CurrentUser.id : ReturnFor.id
             const RecordToEdit = GetRecordByAtivoIdAndUserId(props.Ativo?.id, UserId)
+            
             RecordToEdit.ReturnDate = moment().valueOf()
             RecordToEdit.ReturnObs = Obs
             RecordToEdit.Duration = RecordToEdit.ReturnDate - RecordToEdit.TakeDate
 
             //console.log("Mandando Editar", GetRecordsFromStore())
 
+            console.log(RecordToEdit)
+
+            
             EditRecord(RecordToEdit).then(() => {
                 NotificationSucesso('Registro', 'Registro de Devolução registrado com Sucesso!')
                 EndConfirming()
@@ -169,7 +172,7 @@ const  AtivoTakeReturn = (props) => {
         if (Action === 'Devolver' && QuantidadeRetiradaPeloCurrentUser === 0) {
             setActionFor('Other')
             setKey(Action)
-        } else if (Action === 'Retirar' && QuantidadeRetiradaPeloCurrentUser > 0) {
+        } else if (Action === 'Retirar' && (QuantidadeRetiradaPeloCurrentUser >= props.Ativo?.QtdPerUser)) {
             setActionFor('Other')
             setKey(Action)
         } else
@@ -224,13 +227,13 @@ const  AtivoTakeReturn = (props) => {
                         Registrar para outra pessoa
                     </div>
 
-                    {QuantidadeRetiradaPeloCurrentUser > 0 &&
+                    {QuantidadeRetiradaPeloCurrentUser >= props.Ativo?.QtdPerUser &&
 
                         <div className='AtivoTakeReturn-AvisoInfo'>
                             <Tooltip title="Poderá apenas registrar uma retirada para outros usuários" position="bottom" >
                                 <div className='AtivoTakeReturn-AvisoInfo-Item'>
                                     <UilCommentInfoAlt />
-                                    <span>Voce já possui um Ativo deste retirado em seu nome</span>
+                                    <span>Você já retirou a quantidade máxima permitida por usuário para este item</span>
                                 </div>
                             </Tooltip>
                         </div>
@@ -482,7 +485,7 @@ const  AtivoTakeReturn = (props) => {
 
 
 const ConnectedAtivoTakeReturn = connect((state) => {
-    return {       
+    return {
         Tema: state.Tema
     }
 })(AtivoTakeReturn)

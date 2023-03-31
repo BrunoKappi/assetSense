@@ -58,8 +58,6 @@ const User = (props) => {
             </div>
         </>
 
-
-
     )
 }
 

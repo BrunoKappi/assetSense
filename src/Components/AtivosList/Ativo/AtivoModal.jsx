@@ -2,8 +2,8 @@ import Modal from 'react-bootstrap/Modal';
 import React, { useState, useEffect } from 'react'
 import './AtivoModal.css'
 import UserPhoto from '../../../assets/Images/SerranoLogoFuncoBranco.jpg'
-import { UilUserCircle, UilClipboardNotes, UilLabel, UilLabelAlt, UilBox, UilSave, UilTag, UilTimes, UilBuilding, UilCircleLayer, UilPlay, UilWrench, UilCheck, UilBackward, UilTrash, UilArrow } from '@iconscout/react-unicons'
-import { AddAtivo, AddAtivoFirebase, DeleteAtivo, EditAtivo,  GetAtivoStatusWithIdFromStore, GetAtivoTypeWithIdFromStore, GetAtivoWithIdFromStore, GetCurrentUserTypeFromStore, GetLocaisArmazenamentoFromStore, GetLocalArmazenamentoNameWithIdFromStore, GetLocalArmazenamentoWithIdFromStore, GetStatusAtivosFromStore, GetTakesOfAtivo, GetTipoAtivoNameWithIdFromStore, GetTipoDeUsoWithIdFromStore, GetTiposAtivosFromStore, GetTiposDeUsoFromStore, ReturnAllRecordOfAtivowithId } from '../../../Functions/Middleware'
+import { UilUserCircle, UilClipboardNotes, UilLabel, UilLabelAlt, UilBox, UilSave, UilUsersAlt, UilTag, UilTimes, UilBuilding, UilCircleLayer, UilPlay, UilWrench, UilCheck, UilBackward, UilTrash, UilArrow } from '@iconscout/react-unicons'
+import { AddAtivo, AddAtivoFirebase, DeleteAtivo, EditAtivo, GetAtivoStatusWithIdFromStore, GetAtivoTypeWithIdFromStore, GetAtivoWithIdFromStore, GetCurrentUserTypeFromStore, GetLocaisArmazenamentoFromStore, GetLocalArmazenamentoNameWithIdFromStore, GetLocalArmazenamentoWithIdFromStore, GetStatusAtivosFromStore, GetTakesOfAtivo, GetTipoAtivoNameWithIdFromStore, GetTipoDeUsoWithIdFromStore, GetTiposAtivosFromStore, GetTiposDeUsoFromStore, ReturnAllRecordOfAtivowithId } from '../../../Functions/Middleware'
 import { DefaultAtivo, DefaultAtivosType, DefaultLocal, } from '../../../Data/Items';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
 import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
@@ -52,6 +52,7 @@ const AtivoModal = (props) => {
     const [CopyAtivoTipoDeUso, setCopyAtivoTipoDeUso] = useState()
     const [CopyAtivoBrand, setCopyAtivoBrand] = useState()
     const [CopyAtivoQtd, setCopyAtivoQtd] = useState()
+    const [CopyAtivoQtdPerUser, setCopyAtivoQtdPerUser] = useState()
     //COPIAS DAS INFORMAÇÔES DO ATIVO
 
     const [IsEdited, setIsEdited] = useState(false)
@@ -75,6 +76,7 @@ const AtivoModal = (props) => {
         setCopyAtivoTipoDeUso(GetTipoDeUsoWithIdFromStore(AtivoCopy?.Usage.id))
         setCopyAtivoBrand(AtivoCopy?.Brand)
         setCopyAtivoQtd(AtivoCopy?.Qtd)
+        setCopyAtivoQtdPerUser(AtivoCopy?.QtdPerUser)
     }
 
     const CancelEditions = () => {
@@ -87,6 +89,8 @@ const AtivoModal = (props) => {
                 setCopyAtivoName(Value)
             if (Info === 'Quantidade')
                 setCopyAtivoQtd(Value)
+            if (Info === 'QuantidadePorUsuario')
+                setCopyAtivoQtdPerUser(Value)
             if (Info === 'Marca')
                 setCopyAtivoBrand(Value)
         }
@@ -112,7 +116,7 @@ const AtivoModal = (props) => {
 
     // QUANDO ALGUMA INFORMAÇÂO MUDA
     useEffect(() => {
-        if (CopyAtivoName !== Ativo?.Item || CopyAtivoBrand !== Ativo?.Brand || CopyAtivoQtd !== Ativo?.Qtd || CopyAtivoLocalArmazenamento?.id !== Ativo?.StorageLocation?.id || CopyAtivoStatus?.id !== Ativo?.Status?.id || CopyAtivoTipoDeUso?.id !== Ativo?.Usage?.id || CopyAtivoType?.id !== Ativo?.Type?.id)
+        if (CopyAtivoName !== Ativo?.Item || CopyAtivoBrand !== Ativo?.Brand || CopyAtivoQtdPerUser !== Ativo?.QtdPerUser || CopyAtivoQtd !== Ativo?.Qtd || CopyAtivoLocalArmazenamento?.id !== Ativo?.StorageLocation?.id || CopyAtivoStatus?.id !== Ativo?.Status?.id || CopyAtivoTipoDeUso?.id !== Ativo?.Usage?.id || CopyAtivoType?.id !== Ativo?.Type?.id)
             setIsEdited(true)
         else
             setIsEdited(false)
@@ -140,6 +144,10 @@ const AtivoModal = (props) => {
                 NotificationAlerta('Preenchimento inválido', 'Não é possível alterar a quantidade para ' + CopyAtivoQtd + ' pois existem ' + QuantidadeRetirada + ' usuários atualmente em posse de Ativos deste tipo')
             else if (CopyAtivoQtd === '0')
                 NotificationAlerta('Preenchimento inválido', 'A quantidade não pode ser 0')
+            else if (!CopyAtivoQtdPerUser)
+                NotificationAlerta('Preenchimento inválido', 'A quantidade por usuário não pode ser vazia')
+            else if (CopyAtivoQtdPerUser === '0')
+                NotificationAlerta('Preenchimento inválido', 'A quantidade por usuário não pode ser 0')
             else if (!CopyAtivoLocalArmazenamento?.id)
                 NotificationAlerta('Preenchimento inválido', 'O Local de Armazenamento não pode ser vazio')
             else if (!CopyAtivoStatus?.id)
@@ -187,6 +195,7 @@ const AtivoModal = (props) => {
                 EditedAtivo.Item = CopyAtivoName
                 EditedAtivo.Brand = CopyAtivoBrand
                 EditedAtivo.Qtd = CopyAtivoQtd
+                EditedAtivo.QtdPerUser = CopyAtivoQtdPerUser
                 EditedAtivo.Status = CopyAtivoStatus
                 EditedAtivo.Usage = CopyAtivoTipoDeUso
                 EditedAtivo.Type = CopyAtivoType
@@ -209,6 +218,7 @@ const AtivoModal = (props) => {
             NewAtivo.Item = CopyAtivoName
             NewAtivo.Brand = CopyAtivoBrand ? CopyAtivoBrand : ''
             NewAtivo.Qtd = CopyAtivoQtd
+            NewAtivo.QtdPerUser = CopyAtivoQtdPerUser
             NewAtivo.Status = CopyAtivoStatus
             NewAtivo.Usage = CopyAtivoTipoDeUso
             NewAtivo.Type = CopyAtivoType
@@ -222,7 +232,7 @@ const AtivoModal = (props) => {
                 CancelEditions()
                 props.onHide()
                 NotificationSucesso('Adição', 'Ativo Adicionado com Sucesso!')
-            }).catch((erro)=>{
+            }).catch((erro) => {
                 console.log(erro)
             })
             EndConfirming()
@@ -277,7 +287,7 @@ const AtivoModal = (props) => {
                                 <div className='AtivoModalHeader-Left-Photo'>
                                     <img src={UserPhoto} alt="Item" />
                                 </div>
-                            </div> 
+                            </div>
                             <div className='AtivoModalHeader-Right'>
                                 <div className='AtivoModalHeader-Right-Name'>
 
@@ -402,6 +412,16 @@ const AtivoModal = (props) => {
                                                 </div>
                                             </div>
 
+                                            <div className='AtivoModalBody-AtivoInfoForm-OneLine'>
+                                                <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                                    <span>
+                                                        <UilUsersAlt />
+                                                        Retiradas Simultâneas por Usuário
+                                                    </span>
+                                                    <input value={CopyAtivoQtdPerUser} type="number" min={1} placeholder='Quantidade de Retiradas simultâneas por usuário' onChange={e => HandleChangeInfo('QuantidadePorUsuario', e.target.value)} />
+
+                                                </div>
+                                            </div>
 
                                             <div className='AtivoModalBody-AtivoInfoForm-TwoLine'>
                                                 <div className='AtivoModalBody-AtivoInfoForm-Group'>
@@ -440,6 +460,10 @@ const AtivoModal = (props) => {
                                                     </div>
                                                 </div>
                                             </div>
+
+
+
+
 
                                         </form>
 
@@ -532,7 +556,7 @@ const AtivoModal = (props) => {
 
 
 const ConnectedAtivoModal = connect((state) => {
-    return {       
+    return {
         Tema: state.Tema
     }
 })(AtivoModal)
