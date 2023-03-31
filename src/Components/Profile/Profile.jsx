@@ -5,7 +5,7 @@ import UsuarioModal from '../UsersList/User/UsuarioModal'
 import { useNavigate } from 'react-router-dom';
 
 
-
+ 
 const Profile = (props) => {
 
     const navigate = useNavigate();
@@ -24,7 +24,7 @@ const Profile = (props) => {
 
         </div>
     )
-}
+} 
 
 
 const ConnectedProfile = connect((state) => {
