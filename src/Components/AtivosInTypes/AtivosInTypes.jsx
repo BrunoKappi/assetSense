@@ -36,7 +36,7 @@ const AtivosInTypes = (props) => {
     }, [props.Ativos, props.TiposAtivos])
 
 
-
+ 
 
     const HandleDrag = (Resultado) => {
         //console.log(Resultado)
@@ -91,7 +91,8 @@ const ConnectedAtivosInTypes = connect((state) => {
         Ativos: state.Ativos,
         Usuarios: state.Usuarios,
         TiposUsuarios: state.TiposUsuarios,
-        TiposAtivos: state.TiposAtivos
+        TiposAtivos: state.TiposAtivos,
+        Tema: state.Tema
     }
 })(AtivosInTypes)
 

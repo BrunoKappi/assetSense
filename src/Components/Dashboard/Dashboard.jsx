@@ -1,10 +1,9 @@
 
 import './Dashboard.css'
-
 import React from "react";
+import { connect } from 'react-redux'
 
-
-export default function Dashboard() {
+const Dashboard = (props) => {
 
 
 
@@ -12,12 +11,21 @@ export default function Dashboard() {
 
   return (
 
-    <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'DashboardContainerEscuro DashboardContainer' : 'DashboardContainerClaro DashboardContainer'}>
+    <div className={props.Tema === 'Escuro' ? 'DashboardContainerEscuro DashboardContainer' : 'DashboardContainerClaro DashboardContainer'}>
 
 
 
     </div>
- 
+
 
   )
 }
+
+const ConnectedDashboard = connect((state) => {
+  return {
+    Tema: state.Tema
+  }
+})(Dashboard)
+
+export default ConnectedDashboard
+

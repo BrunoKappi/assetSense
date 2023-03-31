@@ -13,6 +13,7 @@ import { AddRecordAction, SetRecords } from "../Config/store/actions/RecordsActi
 import moment from "moment"
 import { FIREBASE_AddAtivo, FIREBASE_AddLocalArmazenamento, FIREBASE_AddRecord, FIREBASE_AddSetor, FIREBASE_AddStatusAtivo, FIREBASE_AddTipoAtivo, FIREBASE_AddTipoUso, FIREBASE_AddTipoUsuario, FIREBASE_AddUsuario, FIREBASE_DeleteLocalArmazenamento, FIREBASE_DeleteSetor, FIREBASE_DeleteStatusAtivo, FIREBASE_DeleteTipoAtivo, FIREBASE_DeleteTipoDeUsuario, FIREBASE_DeleteTipoUso, FIREBASE_GetAtivos, FIREBASE_GetLocaisArmazenamento, FIREBASE_GetRecords, FIREBASE_GetSetores, FIREBASE_GetStatusAtivos, FIREBASE_GetTiposAtivo, FIREBASE_GetTiposUso, FIREBASE_GetTiposUsuarios, FIREBASE_GetUsuarios, FIREBASE_UpdateAtivo, FIREBASE_UpdateLocalArmazenamento, FIREBASE_UpdateRecord, FIREBASE_UpdateSetor, FIREBASE_UpdateStatusAtivo, FIREBASE_UpdateTipoAtivo, FIREBASE_UpdateTipoDeUsuario, FIREBASE_UpdateTipoUso, FIREBASE_UpdateUsuario } from "../Config/firebase/metodos"
 import { DefaultUserRole } from "../Data/Items"
+import { SetTemaAction } from "../Config/store/actions/TemaActions"
 
 
 //UTILS
@@ -470,17 +471,28 @@ export const EditUser = (EditedItem) => {
 
 
 export async function GetTema() {
-    if (!localStorage.getItem('AssetSenseTema'))
+    if (!localStorage.getItem('AssetSenseTema')) {
         localStorage.setItem('AssetSenseTema', 'Claro')
+        store.dispatch(SetTemaAction("Claro"))
+    } else {
+        store.dispatch(SetTemaAction(localStorage.getItem('AssetSenseTema')))
+    }
+
 }
 
 
 export async function ToggleTema() {
     const TEMA = localStorage.getItem('AssetSenseTema')
-    if (TEMA === 'Escuro')
+    if (TEMA === 'Escuro') {
+        store.dispatch(SetTemaAction("Claro"))
         localStorage.setItem('AssetSenseTema', 'Claro')
-    if (TEMA === 'Claro')
+    }
+
+    if (TEMA === 'Claro') {
+        store.dispatch(SetTemaAction("Escuro"))
         localStorage.setItem('AssetSenseTema', 'Escuro')
+    }
+
 
 }
 

@@ -11,9 +11,10 @@ import { Tooltip } from 'react-tippy';
 import UsuarioModal from '../../../UsersList/User/UsuarioModal'
 import { NotificationAlerta } from '../../../../NotificationUtils';
 import { v4 } from 'uuid';
+import { connect } from 'react-redux'
 
 
-export default function AtivoRecords(props) {
+const AtivoRecords = (props) => {
 
     const [CurrentUser, setCurrentUser] = useState(GetCurrentUserFromStore())
 
@@ -85,7 +86,7 @@ export default function AtivoRecords(props) {
     return (
         <>
             <UsuarioModal FromModal={true} CurrentUser={CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
-            <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'AtivoRecords-ContainerEscuro AtivoRecords-Container' : 'AtivoRecords-ContainerClaro AtivoRecords-Container'}>
+            <div className={props.Tema === 'Escuro' ? 'AtivoRecords-ContainerEscuro AtivoRecords-Container' : 'AtivoRecords-ContainerClaro AtivoRecords-Container'}>
 
 
                 <div className='AtivoRecords-FormFilter'>
@@ -215,3 +216,12 @@ export default function AtivoRecords(props) {
         </>
     )
 }
+
+
+const ConnectedAtivoRecords = connect((state) => {
+    return {       
+        Tema: state.Tema
+    }
+})(AtivoRecords)
+
+export default ConnectedAtivoRecords 

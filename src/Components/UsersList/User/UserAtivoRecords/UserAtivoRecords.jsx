@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './UserAtivoRecords.css'
 import { GetAtivoNameWithIdFromStore, GetAtivoWithIdFromStore, GetCurrentUserFromStore, GetRecordsOfUser, GetuserNameWithIdFromStore, GetUserWithIdFromStore } from '../../../../Functions/Middleware';
-
+import { connect } from 'react-redux'
 import moment from 'moment';
 import { UilCalendarAlt, UilClock, UilBookmark, UilPlay, UilCommentInfoAlt } from '@iconscout/react-unicons'
 import { MdFilterList } from 'react-icons/md'
@@ -13,7 +13,7 @@ import { NotificationAlerta } from '../../../../NotificationUtils';
 import { v4 } from 'uuid';
 
 
-export default function UserAtivoRecords(props) {
+const UserAtivoRecords = (props) => {
 
     const [CurrentUser, setCurrentUser] = useState(GetCurrentUserFromStore())
 
@@ -86,7 +86,7 @@ export default function UserAtivoRecords(props) {
     return (
         <>
             <AtivoModal FromModal={true} CurrentUser={CurrentUser} Ativo={{ ...SelectedAtivo }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedAtivo} />
-            <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'UserAtivoRecords-ContainerEscuro UserAtivoRecords-Container' : 'UserAtivoRecords-ContainerClaro UserAtivoRecords-Container'}>
+            <div className={props.Tema === 'Escuro' ? 'UserAtivoRecords-ContainerEscuro UserAtivoRecords-Container' : 'UserAtivoRecords-ContainerClaro UserAtivoRecords-Container'}>
 
 
 
@@ -198,3 +198,13 @@ export default function UserAtivoRecords(props) {
         </>
     )
 }
+
+
+
+const ConnectedUserAtivoRecords = connect((state) => {
+    return {
+        Tema: state.Tema
+    }
+})(UserAtivoRecords)
+
+export default ConnectedUserAtivoRecords

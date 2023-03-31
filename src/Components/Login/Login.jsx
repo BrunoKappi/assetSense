@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { HandleFirebaseEmailPasswordLogin, LoginSuccess } from "./LoginUtils";
 import { Oval } from "react-loader-spinner";
 import SerranoLogo from '../../assets/Images/SerranoLogo.png'
-
+import { connect } from 'react-redux'
 import { Link } from "react-router-dom";
 import LogoutHeader from "../LogoutHeader/LogoutHeader";
 import { NotificationSucesso, NotificationErro } from "../../NotificationUtils";
 import { LoginUtil } from "../../Functions/Middleware";
 
-function Login() {
+const Login = (props) => {
 
 
     const [IsLogging, setIsLoggin] = useState(false);
@@ -50,7 +50,7 @@ function Login() {
     };
 
     return (
-        <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'LoginContainerEscuro LoginContainer' : 'LoginContainerClaro LoginContainer'}>
+        <div className={props.Tema === 'Escuro' ? 'LoginContainerEscuro LoginContainer' : 'LoginContainerClaro LoginContainer'}>
 
             <LogoutHeader />
 
@@ -93,4 +93,11 @@ function Login() {
     );
 }
 
-export default Login;
+const ConnectedLogin = connect((state) => {
+    return {       
+        Tema: state.Tema
+    }
+  })(Login)
+  
+  export default ConnectedLogin  
+  

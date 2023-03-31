@@ -96,7 +96,7 @@ const UsersList = (props) => {
 
 
     return (
-        <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'UsersListContainerEscuro UsersListContainer' : 'UsersListContainerClaro UsersListContainer'}>
+        <div className={props.Tema === 'Escuro' ? 'UsersListContainerEscuro UsersListContainer' : 'UsersListContainerClaro UsersListContainer'}>
 
             <UsuarioModal FromModal={false} Users={ListaDeUsuarios} CurrentUser={CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
             
@@ -187,7 +187,8 @@ const UsersList = (props) => {
 const ConnectedUsersList = connect((state) => {
     return {
         LoggedUser: state.LoggedUser,
-        Usuarios: state.Usuarios
+        Usuarios: state.Usuarios,
+        Tema : state.Tema
     }
 })(UsersList)
 

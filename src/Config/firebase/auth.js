@@ -6,7 +6,7 @@ import { GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, FacebookAu
 import { DefaultLoggedUser } from "../../GlobalVars";
 
 onAuthStateChanged(auth, (currentUser) => {
-  console.log("AUTHCHANGED", currentUser ? currentUser : 'VAZIO');
+  //console.log("AUTHCHANGED", currentUser ? currentUser : 'VAZIO');
   if (currentUser) {
     const user = {
       ...DefaultLoggedUser,

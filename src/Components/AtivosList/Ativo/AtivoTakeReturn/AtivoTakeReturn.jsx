@@ -11,10 +11,9 @@ import { DefaultRecord } from '../../../../Data/Items';
 import { v4 } from 'uuid';
 import moment from 'moment'
 import { Tooltip } from 'react-tippy';
+import { connect } from 'react-redux'
 
-
-
-export default function AtivoTakeReturn(props) {
+const  AtivoTakeReturn = (props) => {
 
     const [CurrentUser, setCurrentUser] = useState(GetCurrentUserFromStore())
     const [key, setKey] = useState('');
@@ -178,7 +177,7 @@ export default function AtivoTakeReturn(props) {
     }
 
     return (
-        <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'AtivoTakeReturn-ContainerEscuro AtivoTakeReturn-Container' : 'AtivoTakeReturn-ContainerClaro AtivoTakeReturn-Container'}>
+        <div className={props.Tema === 'Escuro' ? 'AtivoTakeReturn-ContainerEscuro AtivoTakeReturn-Container' : 'AtivoTakeReturn-ContainerClaro AtivoTakeReturn-Container'}>
 
             {!Confirm &&
                 <div className='AtivoTakeReturn-Quantidades'>
@@ -199,7 +198,7 @@ export default function AtivoTakeReturn(props) {
 
             {!Confirm && <div>
 
-                <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'AtivoTRTabsContainerEscuro AtivoTRTabsContainer' : 'AtivoTRTabsContainerClaro AtivoTRTabsContainer'}>
+                <div className={props.Tema === 'Escuro' ? 'AtivoTRTabsContainerEscuro AtivoTRTabsContainer' : 'AtivoTRTabsContainerClaro AtivoTRTabsContainer'}>
                     <button onClick={(k) => SetKey('Retirar')} className={key === 'Retirar' ? 'AtivoTRTabsButtonActive' : ''}>{RetirarTabTitle()}</button>
                     <button onClick={(k) => SetKey('Devolver')} className={key === 'Devolver' ? 'AtivoTRTabsButtonActive' : ''}>{DevolverTabTitle()}</button>
                 </div>
@@ -480,3 +479,12 @@ export default function AtivoTakeReturn(props) {
         </div>
     )
 }
+
+
+const ConnectedAtivoTakeReturn = connect((state) => {
+    return {       
+        Tema: state.Tema
+    }
+})(AtivoTakeReturn)
+
+export default ConnectedAtivoTakeReturn  

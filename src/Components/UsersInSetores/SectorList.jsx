@@ -4,9 +4,8 @@ import './SectorList.css'
 import ListGroup from 'react-bootstrap/ListGroup';
 import { v4 } from 'uuid';
 import { Draggable, Droppable } from "react-beautiful-dnd";
-
+import { connect } from 'react-redux'
 import { Tooltip } from 'react-tippy';
-
 import { UilPuzzlePiece, UilShieldCheck, UilUser } from '@iconscout/react-unicons'
 
 
@@ -19,7 +18,7 @@ const SectorList = (props) => {
 
   return (
     <div>
-      <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'SetoresShowOnlyCustomGroupListEscuro SetoresShowOnlyCustomGroupList' : 'SetoresShowOnlyCustomGroupListClaro SetoresShowOnlyCustomGroupList'}>
+      <div className={props.Tema === 'Escuro' ? 'SetoresShowOnlyCustomGroupListEscuro SetoresShowOnlyCustomGroupList' : 'SetoresShowOnlyCustomGroupListClaro SetoresShowOnlyCustomGroupList'}>
 
 
 
@@ -104,4 +103,10 @@ const SectorList = (props) => {
 
 
 
-export default SectorList
+const ConnectedSectorList = connect((state) => {
+  return {       
+      Tema: state.Tema
+  }
+})(SectorList)
+
+export default ConnectedSectorList  

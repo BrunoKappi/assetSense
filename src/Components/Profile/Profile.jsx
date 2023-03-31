@@ -18,7 +18,7 @@ const Profile = (props) => {
     }, [props.Usuarios])
 
     return (
-        <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'ProfileContainerEscuro ProfileContainer' : 'ProfileContainerClaro ProfileContainer'}>
+        <div className={props.Tema === 'Escuro' ? 'ProfileContainerEscuro ProfileContainer' : 'ProfileContainerClaro ProfileContainer'}>
 
             <UsuarioModal FromModal={false} CurrentUser={CurrentUser} User={CurrentUser} show={modalShow} onHide={() => { setModalShow(false); navigate('../' + props.LoggedUser.CurrentSidebarTab); }} Function="View" />
 
@@ -30,7 +30,8 @@ const Profile = (props) => {
 const ConnectedProfile = connect((state) => {
     return {
         LoggedUser: state.LoggedUser,
-        Usuarios: state.Usuarios
+        Usuarios: state.Usuarios,
+        Tema : state.Tema
 
     }
 })(Profile)

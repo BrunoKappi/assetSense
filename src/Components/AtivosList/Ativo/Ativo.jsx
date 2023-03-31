@@ -5,10 +5,10 @@ import { GetLocalArmazenamentoNameWithIdFromStore, GetTakesOfAtivo, GetTipoAtivo
 //Tooltip
 import { Tooltip } from 'react-tippy';
 import { DefaultTooltipStyles } from '../../../GlobalVars';
+import { connect } from 'react-redux'
 
-
-export default function Ativo(props) {
-
+const Ativo = (props) => {
+ 
 
     //Quantidades
     const QuantidadeDoAtivo = props.Ativo?.Qtd
@@ -19,7 +19,7 @@ export default function Ativo(props) {
     return (
         <>
 
-            <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'AtivoContainrEscuro AtivoContainr' : 'AtivoContainrClaro AtivoContainr'} >
+            <div className={props.Tema === 'Escuro' ? 'AtivoContainrEscuro AtivoContainr' : 'AtivoContainrClaro AtivoContainr'} >
 
                 <span className='AtivoContainrColumn NameColumnContainer'>
                     <span className='AtivoNameColumn'>
@@ -68,3 +68,13 @@ export default function Ativo(props) {
 
     )
 }
+
+
+const ConnectedAtivo = connect((state) => {
+    return {       
+        Tema: state.Tema
+    }
+  })(Ativo)
+  
+  export default ConnectedAtivo  
+  

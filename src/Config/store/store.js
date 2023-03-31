@@ -5,6 +5,7 @@ import TiposUsuarios from './reducers/TiposUsuarios'
 import Usuarios from './reducers/Usuarios'
 import TiposAtivos from './reducers/TiposAtivos'
 import Ativos from './reducers/Ativos'
+import Tema from './reducers/Tema'
 import StatusAtivos from './reducers/StatusAtivos'
 import TiposDeUso from './reducers/TiposDeUso'
 import RecordsAtivos from './reducers/RecordsAtivos'
@@ -73,7 +74,8 @@ const store = createStore(
         LocaisArmazenamento,
         StatusAtivos,
         TiposDeUso,
-        RecordsAtivos
+        RecordsAtivos,
+        Tema
     }),
     //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )

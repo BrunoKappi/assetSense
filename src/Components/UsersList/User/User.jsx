@@ -3,7 +3,9 @@ import './User.css'
 import { UilEnvelope, UilUser } from '@iconscout/react-unicons'
 import { GetSetoresFromStore, GetUserTypesFromStore } from '../../../Functions/Middleware'
 
-export default function User(props) {
+import { connect } from 'react-redux'
+
+const User = (props) => {
 
 
     const [UserType, setUserType] = useState({})
@@ -12,7 +14,7 @@ export default function User(props) {
 
 
     useEffect(() => {
-        const Tipos = GetUserTypesFromStore()       
+        const Tipos = GetUserTypesFromStore()
         setUserType(Tipos.find(U => U.id === props.User.Type.id))
     }, [props.User.Type.id])
 
@@ -29,7 +31,7 @@ export default function User(props) {
     return (
         <>
 
-            <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'UserContainerEscuro UserContainer' : 'UserContainerClaro UserContainer'} >
+            <div className={props.Tema === 'Escuro' ? 'UserContainerEscuro UserContainer' : 'UserContainerClaro UserContainer'} >
 
                 <span className='UserContainerColumn NameColumnContainer'>
                     <span className='NameColumn'>
@@ -60,3 +62,12 @@ export default function User(props) {
 
     )
 }
+
+
+const ConnectedUser = connect((state) => {
+    return {
+        Tema: state.Tema
+    }
+})(User)
+
+export default ConnectedUser

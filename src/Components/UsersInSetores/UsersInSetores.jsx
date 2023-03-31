@@ -89,7 +89,7 @@ const UsersInSetores = (props) => {
 const ConnectedUsersInSetores = connect((state) => {
     return {
         Usuarios: state.Usuarios,
-        Setores: state.Setores
+        Setores: state.Setores       
     }
 })(UsersInSetores)
 

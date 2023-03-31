@@ -8,6 +8,8 @@ import AtivosInLocais from '../AtivosInLocais/AtivosInLocais'
 import { GetCurrentUserTypePermitFromStore } from '../../Functions/Middleware';
 import { NotificationErro } from '../../NotificationUtils';
 import AtivosList from '../AtivosList/AtivosList'
+import { connect } from 'react-redux'
+ 
 
 const Ativos = (props) => {
 
@@ -44,10 +46,10 @@ const Ativos = (props) => {
 
   return (
 
-    <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'AtivosContainerEscuro AtivosContainer' : 'AtivosContainerClaro AtivosContainer'}>
+    <div className={props.Tema === 'Escuro' ? 'AtivosContainerEscuro AtivosContainer' : 'AtivosContainerClaro AtivosContainer'}>
 
 
-      <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'TabsContainerEscuro TabsContainer' : 'TabsContainerClaro TabsContainer'}>
+      <div className={props.Tema === 'Escuro' ? 'TabsContainerEscuro TabsContainer' : 'TabsContainerClaro TabsContainer'}>
         <button onClick={(k) => SetKeyAtivos('Todos')} className={key === 'Todos' ? 'TabsButtonActive' : ''}>{TodosTabTitle()}</button>
         <button onClick={(k) => SetKeyAtivos('Armazenamento')} className={key === 'Armazenamento' ? 'TabsButtonActive' : ''}>{ArmazenamentoTabTitle()}</button>
         <button onClick={(k) => SetKeyAtivos('Tipos')} className={key === 'Tipos' ? 'TabsButtonActive' : ''}>{TiposTabTitle()}</button>
@@ -57,9 +59,9 @@ const Ativos = (props) => {
       <Tabs id="UsersTabs" activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
 
         <Tab eventKey="Todos" >
-        
-            <AtivosList />
-         
+
+          <AtivosList />
+
         </Tab>
         <Tab eventKey="Tipos" >
           <div className='ListItensContainer'>
@@ -73,21 +75,15 @@ const Ativos = (props) => {
         </Tab>
       </Tabs>
 
-
-
-
-
-
-
-
-
     </div>
-
-
-
-
   )
 }
 
 
-export default Ativos
+const ConnectedAtivos = connect((state) => {
+  return {
+    Tema: state.Tema
+  }
+})(Ativos)
+
+export default ConnectedAtivos

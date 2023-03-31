@@ -38,7 +38,7 @@ const NavBar = (props) => {
 
     const handleToggleTema = () => {
         ToggleTema()
-        window.location.reload()
+        //window.location.reload()
     }
 
     const [CurrentUser, SetCurrentUser] = useState('Carregando')
@@ -106,7 +106,7 @@ const NavBar = (props) => {
                                 <div className='navDiv'>
                                     <Tooltip title="Alterar o Tema" position="bottom" >
                                         <button className='ChangeThemeButton' onClick={handleToggleTema}>
-                                            {localStorage.getItem('AssetSenseTema') === 'Escuro' ? <UilMoon /> : <UilBright />}
+                                            {props.Tema === 'Escuro' ? <UilMoon /> : <UilBright />}
                                         </button>
                                     </Tooltip>
                                     <NavDropdown title={
@@ -182,7 +182,7 @@ const NavBar = (props) => {
 
                                     <div className='ChangeThemeContainer'>
                                         <button className='ChangeThemeButton' onClick={handleToggleTema}>
-                                            {localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'Mudar para Tema Claro' : 'Mudar para Tema Escuro'}
+                                            {props.Tema === 'Escuro' ? 'Mudar para Tema Claro' : 'Mudar para Tema Escuro'}
                                         </button>
                                     </div>
 
@@ -215,7 +215,8 @@ const NavBar = (props) => {
 const ConnectedNavBar = connect((state) => {
     return {
         LoggedUser: state.LoggedUser,
-        Usuarios: state.Usuarios
+        Usuarios: state.Usuarios,
+        Tema: state.Tema
     }
 })(NavBar)
 

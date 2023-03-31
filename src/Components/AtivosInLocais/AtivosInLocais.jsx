@@ -77,7 +77,7 @@ const AtivosInLocais = (props) => {
 
     return (
         <DragDropContext onDragUpdate={(result) => { onBeforeCapture(result) }} onDragEnd={(result) => { HandleDrag(result) }}>
-            <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'AtivosInLocaisContainerEscuro AtivosInLocaisContainer' : 'AtivosInLocaisContainerClaro AtivosInLocaisContainer'}>
+            <div className={props.Tema === 'Escuro' ? 'AtivosInLocaisContainerEscuro AtivosInLocaisContainer' : 'AtivosInLocaisContainerClaro AtivosInLocaisContainer'}>
 
                 <NumbersOfList Values={LocaisArmazenamento} />
 
@@ -103,8 +103,10 @@ const ConnectedAtivosInLocais = connect((state) => {
         Usuarios: state.Usuarios,
         TiposUsuarios: state.TiposUsuarios,
         TiposAtivos: state.TiposAtivos,
-        LocaisArmazenamento: state.LocaisArmazenamento
+        LocaisArmazenamento: state.LocaisArmazenamento,
+        Tema: state.Tema
     }
 })(AtivosInLocais)
 
 export default ConnectedAtivosInLocais
+ 

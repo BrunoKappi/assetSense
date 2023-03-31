@@ -14,6 +14,8 @@ import Loading from '../LoadingForTabs/Loading'
 import { AddFunctions, CheckIfAnyAtivoOfStatusTaken, DeleteFunctions, EditFunctions, fetchFunctions, GetCurrentUserTypePermitFromStore, saveFunctions, SaveStatusAtivos } from '../../Functions/Middleware';
 import { DefaultUserRole } from '../../Data/Items';
 
+
+
 const CustomListIcon = {
   TiposAtivos: <UilLabel />,
   Setores: <UilPuzzlePiece />,
@@ -258,7 +260,7 @@ const EditableCustomList = (props) => {
 
   return (
     <div>
-      <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'CustomGroupListEscuro CustomGroupList' : 'CustomGroupListClaro CustomGroupList'}>
+      <div className={props.Tema === 'Escuro' ? 'CustomGroupListEscuro CustomGroupList' : 'CustomGroupListClaro CustomGroupList'}>
 
         {ListaDeItens.length === 0 && !Loaded && <Loading />}
 
@@ -386,6 +388,7 @@ const ConnectedEditableCustomList = connect((state) => {
     LocaisArmazenamento: state.LocaisArmazenamento,
     Usuarios: state.Usuarios,
     StatusAtivos: state.StatusAtivos,
+    Tema: state.Tema
   }
 })(EditableCustomList)
 

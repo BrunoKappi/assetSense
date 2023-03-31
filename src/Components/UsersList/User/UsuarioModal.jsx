@@ -17,7 +17,7 @@ import { noOptionsMessage, UserModalSelectcustomStyles } from './UserModalUtils'
 import { v4 } from 'uuid';
 import { mudarSenha } from '../../../Config/firebase/auth';
 import UserAtivoRecords from './UserAtivoRecords/UserAtivoRecords';
-
+import { connect } from 'react-redux'
  
 
 const UsuarioModal = (props) => {
@@ -309,7 +309,7 @@ const UsuarioModal = (props) => {
 
 
     return (
-        <BootstrapModal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'UserModal-ModalEscuro UserModal-Modal' : 'UserModal-ModalClaro UserModal-Modal'}>
+        <BootstrapModal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Escuro' ? 'UserModal-ModalEscuro UserModal-Modal' : 'UserModal-ModalClaro UserModal-Modal'}>
 
             <BootstrapModal.Body closeButton className="UserModal-Body">
 
@@ -644,4 +644,12 @@ const UsuarioModal = (props) => {
 }
 
 
-export default UsuarioModal
+
+const ConnectedUsuarioModal = connect((state) => {
+    return {
+        Tema: state.Tema
+    }
+})(UsuarioModal)
+
+export default ConnectedUsuarioModal
+ 

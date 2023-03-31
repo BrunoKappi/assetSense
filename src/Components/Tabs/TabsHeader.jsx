@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import { UilListUl, UilSitemap, UilShieldCheck } from '@iconscout/react-unicons'
 import { GetCurrentUserTypePermitFromStore } from '../../Functions/Middleware'
 
-export default function TabsHeader(props) {
+import { connect } from 'react-redux'
+
+const TabsHeader = (props) => {
 
 
 
@@ -64,7 +66,7 @@ export default function TabsHeader(props) {
     }
 
     return (
-        <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'TabsContainerEscuro TabsContainer' : 'TabsContainerClaro TabsContainer'}>
+        <div className={props.Tema === 'Escuro' ? 'TabsContainerEscuro TabsContainer' : 'TabsContainerClaro TabsContainer'}>
             <button onClick={(k) => SetKeyConfig('Ativos')} className={key === 'Ativos' ? 'TabsButtonActive' : ''}>{ConfigAtivosTabTitle()}</button>
             <button onClick={(k) => SetKeyConfig('Setores e Usuários')} className={key === 'Setores e Usuários' ? 'TabsButtonActive' : ''}>{ConfigSetoresEUsuáriosTabTitle()}</button>
             <button onClick={(k) => SetKeyConfig('Permissoes')} className={key === 'Permissoes' ? 'TabsButtonActive' : ''}>{ConfigPermicoesTabTitle()}</button>
@@ -74,5 +76,11 @@ export default function TabsHeader(props) {
 
 
 
-
+const ConnectedTabsHeader = connect((state) => {
+    return {       
+        Tema: state.Tema
+    }
+  })(TabsHeader)
+  
+  export default ConnectedTabsHeader  
 

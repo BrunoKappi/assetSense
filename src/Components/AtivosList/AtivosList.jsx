@@ -97,7 +97,7 @@ const AtivosList = (props) => {
 
 
     return (
-        <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'AtivosListContainerEscuro AtivosListContainer' : 'AtivosListContainerClaro AtivosListContainer'}>
+        <div className={props.Tema === 'Escuro' ? 'AtivosListContainerEscuro AtivosListContainer' : 'AtivosListContainerClaro AtivosListContainer'}>
 
             <AtivoModal FromModal={false} CurrentUser={CurrentUser} Ativo={{ ...SelectedAtivo }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedAtivo} />
             <AtivoModal FromModal={false} CurrentUser={CurrentUser} Ativo={{}} show={AddmodalShow} onHide={() => setAddModalShow(false)} Function="Add" />
@@ -187,7 +187,8 @@ const AtivosList = (props) => {
 
 const ConnectedAtivosList = connect((state) => {
     return {
-        Ativos: state.Ativos
+        Ativos: state.Ativos,
+        Tema: state.Tema
     }
 })(AtivosList)
 

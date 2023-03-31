@@ -8,14 +8,15 @@ import { AtivosTabTitle, PermicoesTabTitle, SetoresEUsuáriosTabTitle } from './
 import UserTypesPermits from '../UserTypesPermits/UserTypesPermits';
 import { GetCurrentUserTypePermitFromStore } from '../../Functions/Middleware';
 import { NotificationErro } from '../../NotificationUtils';
- 
+import { connect } from 'react-redux'
+
 const breakpointColumnsObj = {
   default: 3,
   1250: 2,
   950: 1
 };
 
-export default function Config() {
+const Config = (props) => {
 
   const AtivosPermit = GetCurrentUserTypePermitFromStore('CONFIGURACOES') || GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_ATIVOS') || GetCurrentUserTypePermitFromStore('EDITAR_LOCAIS') || GetCurrentUserTypePermitFromStore('EDITAR_STATUS_ATIVOS') || GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_DE_USO')
   const SetoresUsuariosPermit = GetCurrentUserTypePermitFromStore('CONFIGURACOES') || GetCurrentUserTypePermitFromStore('EDITAR_SETORES') || GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_DE_USUARIO')
@@ -49,10 +50,10 @@ export default function Config() {
   return (
 
 
-    <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'ConfigContainerEscuro ConfigContainer' : 'ConfigContainerClaro ConfigContainer'}>
+    <div className={props.Tema === 'Escuro' ? 'ConfigContainerEscuro ConfigContainer' : 'ConfigContainerClaro ConfigContainer'}>
 
 
-      <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'TabsContainerEscuro TabsContainer' : 'TabsContainerClaro TabsContainer'}>
+      <div className={props.Tema === 'Escuro' ? 'TabsContainerEscuro TabsContainer' : 'TabsContainerClaro TabsContainer'}>
         <button onClick={(k) => SetKeyConfig('Ativos')} className={key === 'Ativos' ? 'TabsButtonActive' : ''}>{AtivosTabTitle()}</button>
         <button onClick={(k) => SetKeyConfig('Setores e Usuários')} className={key === 'Setores e Usuários' ? 'TabsButtonActive' : ''}>{SetoresEUsuáriosTabTitle()}</button>
         <button onClick={(k) => SetKeyConfig('Permissoes')} className={key === 'Permissoes' ? 'TabsButtonActive' : ''}>{PermicoesTabTitle()}</button>
@@ -92,3 +93,12 @@ export default function Config() {
 
   )
 }
+
+
+const ConnectedConfig = connect((state) => {
+  return {       
+      Tema: state.Tema
+  }
+})(Config)
+
+export default ConnectedConfig  

@@ -50,7 +50,7 @@ const Sidebar = (props) => {
 
 
     return (
-        <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'SidebarContainerEscuro SidebarContainer' : 'SidebarContainerClaro SidebarContainer'}>
+        <div className={props.Tema === 'Escuro' ? 'SidebarContainerEscuro SidebarContainer' : 'SidebarContainerClaro SidebarContainer'}>
 
             <div className='SidebarUserPhotoContainer'>
                 <img alt='User' className='SidebarUserPhoto' src={User}></img>
@@ -95,7 +95,8 @@ const Sidebar = (props) => {
 const ConnectedSidebar = connect((state) => {
     return {
         LoggedUser: state.LoggedUser,
-        Usuarios: state.Usuarios
+        Usuarios: state.Usuarios,
+        Tema: state.Tema
     }
 })(Sidebar)
 

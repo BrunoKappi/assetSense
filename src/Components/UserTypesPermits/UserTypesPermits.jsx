@@ -280,7 +280,7 @@ const UserTypesPermits = (props) => {
 
 
     return (
-        <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'UserTypesPermitsContainerEscuro UserTypesPermitsContainer' : 'UserTypesPermitsContainerClaro UserTypesPermitsContainer'}>
+        <div className={props.Tema === 'Escuro' ? 'UserTypesPermitsContainerEscuro UserTypesPermitsContainer' : 'UserTypesPermitsContainerClaro UserTypesPermitsContainer'}>
 
             <Masonry breakpointCols={breakpointColumnsObj} className="my-masonry-grid" columnClassName="my-masonry-grid_column"   >
 
@@ -321,7 +321,8 @@ const ConnectedUserTypesPermits = connect((state) => {
     return {
         Setores: state.Setores,
         Usuarios: state.Usuarios,
-        TiposUsuarios: state.TiposUsuarios
+        TiposUsuarios: state.TiposUsuarios,
+        Tema : state.Tema
     }
 })(UserTypesPermits)
 

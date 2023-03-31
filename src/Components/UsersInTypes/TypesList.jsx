@@ -6,6 +6,8 @@ import { v4 } from 'uuid';
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { Tooltip } from 'react-tippy';
 import { UilPuzzlePiece,UilShieldCheck,UilUser   } from '@iconscout/react-unicons'
+import { connect } from 'react-redux'
+
 
 const TypesList = (props) => {
 
@@ -15,7 +17,7 @@ const TypesList = (props) => {
 
   return (
     <div>
-      <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'UserTypesShowOnlyCustomGroupListEscuro UserTypesShowOnlyCustomGroupList' : 'UserTypesShowOnlyCustomGroupListClaro UserTypesShowOnlyCustomGroupList'}>
+      <div className={props.Tema === 'Escuro' ? 'UserTypesShowOnlyCustomGroupListEscuro UserTypesShowOnlyCustomGroupList' : 'UserTypesShowOnlyCustomGroupListClaro UserTypesShowOnlyCustomGroupList'}>
 
         <ListGroup as="ul">
           <ListGroup.Item as="li" className='UserTypesShowOnlyCustomGroupListTitle' >
@@ -103,4 +105,10 @@ const TypesList = (props) => {
 
 
 
-export default TypesList
+const ConnectedTypesList = connect((state) => {
+  return {       
+      Tema: state.Tema
+  }
+})(TypesList)
+
+export default ConnectedTypesList  

@@ -8,12 +8,12 @@ import UsersInTypes from '../UsersInTypes/UsersInTypes';
 import UsersList from '../UsersList/UsersList';
 import { GetCurrentUserTypePermitFromStore } from '../../Functions/Middleware';
 import { NotificationErro } from '../../NotificationUtils';
+import { connect } from 'react-redux'
 
 
 
 
-
-export default function Users() {
+const Users = (props) => {
 
   const TodosPermit = GetCurrentUserTypePermitFromStore('USUARIOS') || GetCurrentUserTypePermitFromStore('EDITAR_USUARIOS') || GetCurrentUserTypePermitFromStore('VISUALIZAR_USUARIOS')
   const SetoresPermit = GetCurrentUserTypePermitFromStore('EDITAR_USUARIOS') || GetCurrentUserTypePermitFromStore('VISUALIZAR_USUARIOS')
@@ -42,10 +42,10 @@ export default function Users() {
   }
 
   return (
-    <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'UsersContainerEscuro UsersContainer' : 'UsersContainerClaro UsersContainer'}>
+    <div className={props.Tema === 'Escuro' ? 'UsersContainerEscuro UsersContainer' : 'UsersContainerClaro UsersContainer'}>
 
 
-      <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'TabsContainerEscuro TabsContainer' : 'TabsContainerClaro TabsContainer'}>
+      <div className={props.Tema === 'Escuro' ? 'TabsContainerEscuro TabsContainer' : 'TabsContainerClaro TabsContainer'}>
         <button onClick={(k) => SetKeyConfig('Todos')} className={key === 'Todos' ? 'TabsButtonActive' : ''}>{TodosTabTitle()}</button>
         <button onClick={(k) => SetKeyConfig('Setores')} className={key === 'Setores' ? 'TabsButtonActive' : ''}>{SetoresTabTitle()}</button>
         <button onClick={(k) => SetKeyConfig('Tipos')} className={key === 'Tipos' ? 'TabsButtonActive' : ''}>{TiposTabTitle()}</button>
@@ -68,7 +68,14 @@ export default function Users() {
 }
 
 
+ 
+const ConnectedUsers = connect((state) => {
+  return {       
+      Tema: state.Tema
+  }
+})(Users)
 
+export default ConnectedUsers  
 
 
 

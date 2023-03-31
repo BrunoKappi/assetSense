@@ -4,8 +4,9 @@ import './Forget.css'
 import { ResetarSenha } from './ForgetUtils'
 import LogoutHeader from '../LogoutHeader/LogoutHeader'
 import { NotificationSucesso, NotificationErro } from "../../NotificationUtils";
+import { connect } from 'react-redux'
 
-export default function Forget() {
+const Forget = (props) => {
 
     const Email = useRef()
 
@@ -20,7 +21,7 @@ export default function Forget() {
     }
 
     return (
-        <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'ForgetContainerEscuro ForgetContainer' : 'ForgetContainerClaro ForgetContainer'} >
+        <div className={props.Tema === 'Escuro' ? 'ForgetContainerEscuro ForgetContainer' : 'ForgetContainerClaro ForgetContainer'} >
 
             <LogoutHeader />
 
@@ -51,3 +52,13 @@ export default function Forget() {
         </div>
     )
 }
+
+
+
+const ConnectedForget = connect((state) => {
+    return {       
+        Tema: state.Tema
+    }
+  })(Forget)
+  
+  export default ConnectedForget  

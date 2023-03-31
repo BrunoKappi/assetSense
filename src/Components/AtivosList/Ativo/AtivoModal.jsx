@@ -14,7 +14,7 @@ import { noOptionsMessage, AtivoModalSelectcustomStyles } from './AtivoModalUtil
 import { v4 } from 'uuid';
 import AtivoTakeReturn from './AtivoTakeReturn/AtivoTakeReturn';
 import AtivoRecords from './AtivoRecords/AtivoRecords';
-
+import { connect } from 'react-redux'
 
 
 const AtivoModal = (props) => {
@@ -264,7 +264,7 @@ const AtivoModal = (props) => {
 
         <>
 
-            <Modal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'AtivoModal-ModalEscuro AtivoModal-Modal' : 'AtivoModal-ModalClaro AtivoModal-Modal'}>
+            <Modal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Escuro' ? 'AtivoModal-ModalEscuro AtivoModal-Modal' : 'AtivoModal-ModalClaro AtivoModal-Modal'}>
 
                 <Modal.Body closeButton className="AtivoModal-Body">
 
@@ -277,7 +277,7 @@ const AtivoModal = (props) => {
                                 <div className='AtivoModalHeader-Left-Photo'>
                                     <img src={UserPhoto} alt="Item" />
                                 </div>
-                            </div>
+                            </div> 
                             <div className='AtivoModalHeader-Right'>
                                 <div className='AtivoModalHeader-Right-Name'>
 
@@ -531,7 +531,10 @@ const AtivoModal = (props) => {
 }
 
 
+const ConnectedAtivoModal = connect((state) => {
+    return {       
+        Tema: state.Tema
+    }
+})(AtivoModal)
 
-
-
-export default AtivoModal
+export default ConnectedAtivoModal 
