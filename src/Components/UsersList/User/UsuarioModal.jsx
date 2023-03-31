@@ -344,7 +344,29 @@ const UsuarioModal = (props) => {
                         </div>
 
                     </div>
-           
+                    <div className='UserModalBody'>
+                        <div className='UserModalBody-Sidebar'>
+                            <div className={Tab === 'UserInfo' ? 'UserModalBody-Sidebar-ActiveItem' : 'UserModalBody-Sidebar-Item'} onClick={e => setTab('UserInfo')}>
+                                <UilUserCircle />
+                                Informações Pessoais
+                            </div>
+
+                            {props.Function !== 'Add' &&
+                                <div className={Tab === 'Ativos' ? 'UserModalBody-Sidebar-ActiveItem' : 'UserModalBody-Sidebar-Item'} onClick={e => setTab('Ativos')}>
+                                    <UilClipboardNotes />
+                                    Ativos
+                                </div>
+                            }
+                            {props.Function !== 'Add' &&
+                                <div className={Tab === 'Atividade' ? 'UserModalBody-Sidebar-ActiveItem' : 'UserModalBody-Sidebar-Item'} onClick={e => setTab('Atividade')}>
+                                    <UilHistory />
+                                    Atividade
+                                </div>
+                            }
+                        </div>
+                       
+
+                    </div>
                 </div>
 
 
