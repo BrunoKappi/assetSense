@@ -8,7 +8,7 @@ import { DefaultUser } from '../../../Data/Items';
 import { DefaultSetor, DefaultUserType } from '../../../Data/Items';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
 import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
-import PhoneInput from 'react-phone-input-2'
+import PI from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { Country, State, City } from "country-state-city";
 import Select from "react-select";
@@ -21,6 +21,8 @@ import UserAtivoRecords from './UserAtivoRecords/UserAtivoRecords';
  
 
 const UsuarioModal = (props) => {
+    
+    const PhoneInput = PI.default ? PI.default : PI;
 
     const [Tab, setTab] = useState('UserInfo')
 
@@ -409,7 +411,18 @@ const UsuarioModal = (props) => {
                                                     <UilPhone />
                                                     Telefone
                                                 </span>
-                                               
+                                                <PhoneInput
+                                                    containerClass="UserModalBody-UserInfoForm-PhoneInput-Container"
+                                                    inputClass="UserModalBody-UserInfoForm-PhoneInput"
+                                                    buttonClass="UserModalBody-UserInfoForm-PhoneInput-Button"
+                                                    dropdownClass="UserModalBody-UserInfoForm-PhoneInput-Dropdown"
+                                                    containerStyle={{ margin: '0', padding: '0', width: '100%', fontSize: '12px' }}
+                                                    country={'br'}
+                                                    value={CopyUserPhone}
+                                                    disabled={!CanEdit}
+                                                    onChange={e => HandleChangeInfo('Phone', e)}
+                                                />
+
                                             </div>
                                         </div>
 
