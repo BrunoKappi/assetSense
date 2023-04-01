@@ -14,6 +14,9 @@ import moment from "moment"
 import { FIREBASE_AddAtivo, FIREBASE_AddLocalArmazenamento, FIREBASE_AddRecord, FIREBASE_AddSetor, FIREBASE_AddStatusAtivo, FIREBASE_AddTipoAtivo, FIREBASE_AddTipoUso, FIREBASE_AddTipoUsuario, FIREBASE_AddUsuario, FIREBASE_DeleteLocalArmazenamento, FIREBASE_DeleteSetor, FIREBASE_DeleteStatusAtivo, FIREBASE_DeleteTipoAtivo, FIREBASE_DeleteTipoDeUsuario, FIREBASE_DeleteTipoUso, FIREBASE_GetAtivos, FIREBASE_GetLocaisArmazenamento, FIREBASE_GetRecords, FIREBASE_GetSetores, FIREBASE_GetStatusAtivos, FIREBASE_GetTiposAtivo, FIREBASE_GetTiposUso, FIREBASE_GetTiposUsuarios, FIREBASE_GetUsuarios, FIREBASE_UpdateAtivo, FIREBASE_UpdateLocalArmazenamento, FIREBASE_UpdateRecord, FIREBASE_UpdateSetor, FIREBASE_UpdateStatusAtivo, FIREBASE_UpdateTipoAtivo, FIREBASE_UpdateTipoDeUsuario, FIREBASE_UpdateTipoUso, FIREBASE_UpdateUsuario } from "../Config/firebase/metodos"
 import { DefaultUserRole } from "../Data/Items"
 import { SetTemaAction } from "../Config/store/actions/TemaActions"
+import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage"
+import { storage } from "../Config/firebase"
+import { SetLoggedUserPhotoUrlAction } from "../Config/store/actions/LoggedUserActions"
 
 
 //UTILS
@@ -33,6 +36,35 @@ export const FoprgetPasswordUtil = (email, password) => {
 export const LogarComGooglePopup = () => {
     return signInWithGoogle();
 };
+
+
+
+
+export const ImageUpload = (ImagePath, ImageToUpload) => {
+    const Email = GetCurrentUserEmailFromStore()
+    const imageRef = ref(storage, ImagePath);
+    return uploadBytes(imageRef, ImageToUpload)
+}
+
+
+export const GetUserUrlImage = (path) => {
+    return getDownloadURL(ref(storage, path))
+}
+
+export const DeleteFile = (path) => {
+    const desertRef = ref(storage, path);
+    return deleteObject(desertRef)
+}
+
+
+export const SetLoggedUserPhotoUrl = (URL) => {
+    //console.log("Recebendo URL", URL)
+    const User = GetCurrentUserFromStore()
+    User.PhotoUrl = URL
+    EditUser(User)
+    store.dispatch(SetLoggedUserPhotoUrlAction(URL))
+}
+
 
 
 
@@ -96,7 +128,7 @@ export const EditTipoAtivo = (EditedItem) => {
 //////////// SETORES //////////////////
 
 export async function GetSetores() {
-    console.log("Pegando setores")
+    //COMENTADO  console.log("Pegando setores")
     return FIREBASE_GetSetores()
 }
 
@@ -299,6 +331,7 @@ export async function SaveStatusAtivos(Locais) {
     return new Promise((resolve, reject) => {
         localStorage.setItem('AssetSenseStatusAtivos', JSON.stringify(Locais))
         store.dispatch(SetStatusAtivos(Locais))
+        resolve('Ok')
     });
 }
 
@@ -540,7 +573,7 @@ export const GetUsersFromStoreWithNoCurrentUser = (AtivoId) => {
     const UsersThatTook = GetUsersThatTookAtivo(AtivoId)
     const Users = [...store.getState().Usuarios].filter(User => User.id !== Current.id)
     const UsersNotTook = Users.filter(user => !UsersThatTook.some(took => took.id === user.id));
-    console.log("FILTER USERS", UsersNotTook)
+    //COMENTADO  console.log("FILTER USERS", UsersNotTook)
     return UsersNotTook
 }
 export const GetRecordsFromStore = () => {
@@ -576,12 +609,14 @@ export const GetAtivoTypeWithIdFromStore = (Id) => {
     const Type = Types.find(U => U.id === Id)
     return Type
 }
+
 export const GetLocalArmazenamentoWithIdFromStore = (Id) => {
     const Locais = GetLocaisArmazenamentoFromStore()
     const Local = Locais.find(U => U.id === Id)
     return Local
 }
 export const GetAtivoStatusWithIdFromStore = (Id) => {
+
     const Statuses = GetStatusAtivosFromStore()
     const Status = Statuses.find(U => U.id === Id)
     return Status

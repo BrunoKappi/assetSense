@@ -4,6 +4,7 @@ import store from '../store/store'
 import { setLoggedUser, clearLoggedUser, SetCheckLogin } from '../store/actions/LoggedUserActions'
 import { GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, FacebookAuthProvider, updatePassword } from "firebase/auth";
 import { DefaultLoggedUser } from "../../GlobalVars";
+import { GetUserUrlImage } from "../../Functions/Middleware";
 
 onAuthStateChanged(auth, (currentUser) => {
   //console.log("AUTHCHANGED", currentUser ? currentUser : 'VAZIO');
@@ -15,6 +16,22 @@ onAuthStateChanged(auth, (currentUser) => {
       CurrentSidebarTab: 'Dash'
     }
     store.dispatch(setLoggedUser(user))
+
+    GetUserUrlImage(`images/${currentUser.uid}`).then((url) => {
+     //COMENTADO  console.log("Retorno", url)
+      const user2 = {
+        ...DefaultLoggedUser,
+        Email: currentUser.email,
+        uid: currentUser.uid,
+        CurrentSidebarTab: 'Dash',
+        PhotoUrl: url
+      }
+      store.dispatch(setLoggedUser(user2))
+    }).catch((error) => {
+     //COMENTADO  console.log("Retorno Erro", error)
+    })
+
+
   } else {
     store.dispatch(clearLoggedUser())
   }

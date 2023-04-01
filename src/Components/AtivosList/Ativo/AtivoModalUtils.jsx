@@ -5,11 +5,11 @@ export const noOptionsMessage = ({ inputValue }) => {
 };
 
 export const AtivoModalSelectcustomStyles = {
- 
+
     option: (provided, state) => ({
         ...provided,
-        backgroundColor: state.isFocused ? 'var(--ComplementaryColor)' : provided.backgroundColor,
-        color: state.isFocused ? 'var(--PrimaryColor)' : provided.color,
+        backgroundColor: state.isFocused ? 'var(--ComplementaryColor)' : 'white',
+        color: state.isFocused ? 'var(--PrimaryColor)' : 'var(--SecondaryBackground)',
         ':hover': {
             backgroundColor: 'var(--ComplementaryColor)',
             color: 'var(--PrimaryColor)'

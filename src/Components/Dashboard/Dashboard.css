@@ -1,16 +1,91 @@
 .DashboardContainerClaro {
     --DashboardContainer-Backgound: var(--Background);
+
+
+    --Charts-Container-Background: white;
+    --Charts-Container-Border: var(--PrimaryBackGroundFaded50);
+    --Charts-Container-Shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
+
+    --Charts-ReferenceMono: var(--PrimaryBackground);
+    --Charts-Title-Color: var(--PrimaryBackground);
+    --Charts-BarFillColor: var(--PrimaryBackground);
+    --Charts-BarColor-XAxis: var(--SecondaryBackground);
+    --Charts-BarColor-YAxis: var(--SecondaryBackground);
+    --Charts-Legend-Color: white;
+    --Charts-Pie-Legend-Color: white;
+    --Charts-Bars-Legend-Color: white;
+
+    --DashBoard-ColorPickerBorder: var(--PrimaryBackground);
+    --DashBoard-ColorPickerBackground: white;
 }
 
 .DashboardContainerEscuro {
     --DashboardContainer-Backgound: var(--BackgroundDark);
+
+    --Charts-Container-Background: var(--PrimaryBackGroundFaded2);
+    --Charts-Container-Border: none;
+    --Charts-Container-Shadow: 2px 1px 3px 0px rgba(43, 90, 166, 1);
+
+    --Charts-ReferenceMono: var(--PrimaryBackground);
+    --Charts-Title-Color: var(--PrimaryColor);
+    --Charts-BarFillColor: var(--PrimaryBackground);
+    --Charts-BarColor-XAxis: var(--PrimaryColor);
+    --Charts-BarColor-YAxis: var(--PrimaryColor);
+    --Charts-Legend-Color: white;
+    --Charts-Pie-Legend-Color: white;
+    --Charts-Bars-Legend-Color: white;
+
+    --DashBoard-ColorPickerBorder: white;
+    --DashBoard-ColorPickerBackground: black;
 }
+
+
+
+
 
 
 .DashboardContainer {
     width: 100%;
     height: 100%;
     background-color: var(--DashboardContainer-Backgound);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 2rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 2rem;
+    padding-left: 3rem;
+    overflow-y: scroll;
+}
+
+
+@media (max-width: 750px) {
+    .DashboardContainer {
+        padding: .5rem;
+        display: flex;
+        justify-content: stretch;
+        align-items: stretch;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+
+    .DashBoard-Charts-Container {
+        border-width: 1px;
+        border-style: solid;
+        display: flex;
+        flex-direction: column;
+        justify-content: stretch;
+        align-items: stretch;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: .5rem;
+    }
+
+    .ChartCointer {
+        flex-grow: 1;
+        padding: 0;
+    }
 }
 
 .DashboardContainer::-webkit-scrollbar {
@@ -18,9 +93,67 @@
 }
 
 
-
-
 .SelectCountry {
 
     font-family: var(--Fonte);
+}
+
+
+
+#ColorPickerMenu {
+    background-color: var(--DashBoard-ColorPickerBackground) !important;
+    border: 1px solid var(--DashBoard-ColorPickerBorder);
+    padding: 1rem !important;
+}
+
+#ColorPickerItem {
+    background-color: var(--DashBoard-ColorPickerBackground) !important;
+
+}
+
+
+#ColorPickerMenuToggle {
+    background-color: var(--PrimaryBackground) !important;
+    font-family: var(--Fonte) !important;
+    border: none !important;
+}
+
+#ColorPickerMenuToggle:hover {
+    transform: scale(1.1) !important;
+}
+
+#ColorPickerMenuToggle:active {
+    transform: scale(1) !important;
+}
+
+.ColorPickerButton {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 10;
+}
+
+
+.ChartCointer {
+    width: auto;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--Charts-Container-Border);
+    background-color: var(--Charts-Container-Background);
+    padding-left: 0;
+    border-radius: .5rem;
+    padding-top: .5rem;
+    padding: .5rem;
+    min-height: 250px;
+    -webkit-box-shadow: var(--Charts-Container-Shadow);
+    box-shadow: var(--Charts-Container-Shadow);
+}
+
+
+.DashBoard-Charts-Container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: .5rem;
 }

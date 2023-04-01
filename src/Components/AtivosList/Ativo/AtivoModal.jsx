@@ -22,6 +22,8 @@ const AtivoModal = (props) => {
     const [Tab, setTab] = useState('AtivoInfo')
 
 
+    const StatusAtivo = GetAtivoStatusWithIdFromStore(props?.Ativo?.Status?.id)
+
     const [AtivoType, setAtivoType] = useState({ ...DefaultAtivosType })
     const [AtivoLocalArmazenamento, setAtivoLocalArmazenamento] = useState({ ...DefaultLocal })
     const [Ativo, setAtivo] = useState({ ...DefaultAtivo })
@@ -225,15 +227,15 @@ const AtivoModal = (props) => {
             NewAtivo.Deleted = false
             NewAtivo.StorageLocation = CopyAtivoLocalArmazenamento
 
-            setAtivo({ ...NewAtivo })
-            console.log(NewAtivo)
+            setAtivo({ ...NewAtivo }) 
+           //COMENTADO  console.log(NewAtivo)
             AddAtivo(NewAtivo).then(() => {
                 AddAtivoFirebase(NewAtivo)
                 CancelEditions()
                 props.onHide()
                 NotificationSucesso('Adição', 'Ativo Adicionado com Sucesso!')
             }).catch((erro) => {
-                console.log(erro)
+               //COMENTADO  console.log(erro)
             })
             EndConfirming()
         } else if (ConfirmAction === 'Delete') {
@@ -263,6 +265,8 @@ const AtivoModal = (props) => {
     const HandleSetTab = (TabToChange) => {
         if (TabToChange === 'RetirarDevolver' && !PermitToTakeAtivos)
             NotificationErro("Permissão", "Você não tem permissão para acessar essa área, solicite autorização para seu Administrador")
+        else if (TabToChange === 'RetirarDevolver' && StatusAtivo?.CanTake === false)
+            NotificationErro("Não permitido", "Você não tem permissão para acessar essa área, solicite autorização para seu Administrador")
         else
             setTab(TabToChange)
     }
@@ -507,7 +511,7 @@ const AtivoModal = (props) => {
                                     }
 
                                     {Tab === 'RetirarDevolver' &&
-                                        <AtivoTakeReturn Ativo={Ativo} />
+                                        <AtivoTakeReturn Ativo={Ativo} OnTake={setTab} />
                                     }
 
                                     {Tab === 'Registros' &&

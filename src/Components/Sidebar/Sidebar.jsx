@@ -18,6 +18,7 @@ const Sidebar = (props) => {
     const navigate = useNavigate();
     const [CurrentUser,SetCurrentUser ] = useState({ ...props.Usuarios.find(user => user.Email === props.LoggedUser.Email) })
 
+ 
 
     useEffect(() => {
         SetCurrentUser({ ...props.Usuarios.find(user => user.Email === props.LoggedUser.Email) })
@@ -53,7 +54,7 @@ const Sidebar = (props) => {
         <div className={props.Tema === 'Escuro' ? 'SidebarContainerEscuro SidebarContainer' : 'SidebarContainerClaro SidebarContainer'}>
 
             <div className='SidebarUserPhotoContainer'>
-                <img alt='User' className='SidebarUserPhoto' src={User}></img>
+                <img alt='User' className='SidebarUserPhoto' src={props.LoggedUser.PhotoUrl || User}></img>
             </div>
 
             <div className='SidebarUserName'>

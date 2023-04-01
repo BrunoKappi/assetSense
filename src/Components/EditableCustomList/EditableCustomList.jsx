@@ -11,7 +11,7 @@ import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import { Tooltip } from 'react-tippy';
 import { GetNotificationErrorMessageDelete, GetNotificationSuccessMessageAdd, GetNotificationExistsMessageAdd, GetNotificationSuccessMessageDelete, GetNotificationSuccessMessageChangeName } from './EditableCustomListUtils';
 import Loading from '../LoadingForTabs/Loading'
-import { AddFunctions, CheckIfAnyAtivoOfStatusTaken, DeleteFunctions, EditFunctions, fetchFunctions, GetCurrentUserTypePermitFromStore, saveFunctions, SaveStatusAtivos } from '../../Functions/Middleware';
+import { AddFunctions, CheckIfAnyAtivoOfStatusTaken, DeleteFunctions, EditFunctions, EditStatusAtivo, fetchFunctions, GetCurrentUserTypePermitFromStore, saveFunctions, SaveStatusAtivos } from '../../Functions/Middleware';
 import { DefaultUserRole } from '../../Data/Items';
 
 
@@ -207,7 +207,7 @@ const EditableCustomList = (props) => {
 
 
   const HandleDrag = (Resultado) => {
-    console.log(Resultado)
+   //COMENTADO  console.log(Resultado)
 
     if (!Resultado.destination) return;
 
@@ -238,17 +238,27 @@ const EditableCustomList = (props) => {
 
     const IsThereTakes = CheckIfAnyAtivoOfStatusTaken(ItensCopy[index].id)
 
+
+
     if (IsThereTakes && (ItensCopy[index].CanTake === true)) {
       NotificationErro("Ação não permitida", "Você não pode mudar este Status no momento, pois já existem ativos com este status em utilização")
     } else {
       ItensCopy[index].CanTake = !ItensCopy[index].CanTake
-      SaveStatusAtivos(ItensCopy).then(() => {
-        setListaDeItens([...ItensCopy])
-        EndEditing()
-        NotificationSucesso('Alteração', 'Status alterado com sucesso!')
+     //COMENTADO  console.log(ItensCopy[index])
+
+
+      EditStatusAtivo(ItensCopy[index]).then(() => { 
+        SaveStatusAtivos(ItensCopy).then(() => {
+          setListaDeItens([...ItensCopy])
+          EndEditing()
+          NotificationSucesso('Alteração', 'Status alterado com sucesso!')
+        })
       }).catch(() => {
         NotificationErro("Erro", "Ocorreu um problema, tente novamente")
       })
+
+
+
     }
 
   }

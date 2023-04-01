@@ -109,7 +109,7 @@ const NavBar = (props) => {
                                             {props.Tema === 'Escuro' ? <UilMoon /> : <UilBright />}
                                         </button>
                                     </Tooltip>
-                                    <NavDropdown title={
+                                    <NavDropdown  title={
                                         <span className='ProfileNavLinkTitle' >
                                             {(CurrentUser.Name ? CurrentUser.Name : 'Carregando...')} {' '} {(CurrentUser.LastName) ? CurrentUser.LastName : ''}
                                         </span>}
@@ -132,7 +132,7 @@ const NavBar = (props) => {
                                             <UilUserCircle />
                                             <span>Meu Perfil</span>
                                         </span>
-                                        <span to="/App/Config" className={GetNavbarSidebarItemClass('Config', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Config', '/App/Config')}>
+                                        <span id="NavDropDown" to="/App/Config" className={GetNavbarSidebarItemClass('Config', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Config', '/App/Config')}>
                                             <UilSetting />
                                             <span>Configurações</span>
                                         </span>

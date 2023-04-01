@@ -8,7 +8,8 @@ export const DefaultLoggedUser = {
   Search: '',
   Name: '',
   Role: '',
-  CheckedLogin: false 
+  CheckedLogin: false,
+  PhotoUrl: ''
 };
 
 
@@ -41,9 +42,9 @@ export const UserModalSelectcustomStyles = {
 };
 
 
-export const DefaultTooltipStyles = { 
+export const DefaultTooltipStyles = {
   fontFamily: "var(--Fonte) !important;",
-  color: 'red' 
+  color: 'red'
 }
 
 
@@ -63,7 +64,7 @@ export const FilterStatusoptions = [
 
 
 
- 
+
 ///////////// PERMIÇÔES ///////////
 
 var Index = 0
@@ -130,3 +131,24 @@ export const PermitDesc = [
   'Editar Tipos de Usuários',
   'Editar Permissões',
 ]
+
+
+
+
+
+
+export const DefaultChartStyle = {
+  series: [],
+  options: {
+    chart: {
+      type: "pie", // define o tipo de gráfico como "pie"
+      width: "100%" // define a largura do gráfico como 100%
+    },
+    theme: {
+      monochrome: {
+        enabled: true
+      }
+    },
+    labels: []
+  }
+}

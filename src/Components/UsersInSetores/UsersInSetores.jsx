@@ -38,7 +38,7 @@ const UsersInSetores = (props) => {
     }, [props.Usuarios, props.Setores])
 
 
-    console.log("SETORES")
+   //COMENTADO  console.log("SETORES")
 
 
     const HandleDrag = (Resultado) => {
@@ -51,7 +51,7 @@ const UsersInSetores = (props) => {
             if (User.Sector.id === SectorDestinationID) return
             User.Sector.id = SectorDestinationID
             EditUser(User).then(() => {
-                console.log("Movido")
+               //COMENTADO  console.log("Movido")
                 const copiedItems = [...Usuarios];
                 copiedItems[IndexOfUser] = { ...User }
                 SaveUsers(copiedItems)

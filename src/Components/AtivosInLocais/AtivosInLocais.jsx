@@ -61,7 +61,7 @@ const AtivosInLocais = (props) => {
             Ativo.StorageLocation.id = TypeDestinationID
 
             EditAtivo(Ativo).then(() => {
-                console.log("Movido")
+                //console.log("Movido")
                 const copiedItems = [...props.Ativos];
                 copiedItems[IndexOfAtivo] = { ...Ativo }
                 SaveAtivos(copiedItems)

@@ -51,7 +51,7 @@ const AtivosInTypes = (props) => {
             if (Ativo.Type.id === TypeDestinationID) return
             Ativo.Type.id = TypeDestinationID
             EditAtivo(Ativo).then(() => {
-                console.log("Movido")
+               //COMENTADO  console.log("Movido")
                 const copiedItems = [...props.Ativos]; 
                 copiedItems[IndexOfAtivo] = { ...Ativo }
                 SaveAtivos(copiedItems)

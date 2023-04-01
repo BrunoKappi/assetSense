@@ -1,12 +1,81 @@
 
 import './Dashboard.css'
-import React from "react";
+import React, { useState } from "react";
 import { connect } from 'react-redux'
+import PieChart from '../Charts/DefaultCharts/PieChart/PieChart';
+import BarChart from '../Charts/DefaultCharts/BarChart/BarChart';
+import { GetFunctions, GetTop5ItensRetirados_SeriesLabels, GetTop5UsuariosRetirados_SeriesLabels } from '../Charts/ChartsUtils';
+import { RecordsTabTitle, AtivosTabTitle, UsuariosTabTitle } from './DashboardUtils';
+import { CirclePicker } from "react-color";
+import Dropdown from 'react-bootstrap/Dropdown';
+import Loading from '../LoadingForTabs/Loading';
 
 const Dashboard = (props) => {
 
+  // SETORES
+  const GetSetoresData = GetFunctions["Setores"]
+  const SetoresLabels = GetSetoresData().labels
+  const SetoresSeries = GetSetoresData().series
+
+  // TiposUsuaios
+  const GetTiposUsuaiosData = GetFunctions["TiposUsuarios"]
+  const TiposUsuaiosLabels = GetTiposUsuaiosData().labels
+  const TiposUsuaiosSeries = GetTiposUsuaiosData().series
+
+  // TiposAtivos
+  const GetTiposAtivosData = GetFunctions["TiposAtivos"]
+  const TiposAtivosLabels = GetTiposAtivosData().labels
+  const TiposAtivosSeries = GetTiposAtivosData().series
+
+  // Locais de Armazenamento
+  const GetAtivosLocaisData = GetFunctions["Locais"]
+  const AtivosLocaisLabels = GetAtivosLocaisData().labels
+  const AtivosLocaisSeries = GetAtivosLocaisData().series
+
+  // Status de Ativos
+  const GetAtivosStatusData = GetFunctions["StatusAtivos"]
+  const AtivosStatusLabels = GetAtivosStatusData().labels
+  const AtivosStatusSeries = GetAtivosStatusData().series
+
+  // TiposUso
+  const GetTiposUsoData = GetFunctions["TiposUso"]
+  const TiposUsoLabels = GetTiposUsoData().labels
+  const TiposUsoSeries = GetTiposUsoData().series
+
+  // TiposUso
+  const GetRecordsPendentesEmUsoData = GetFunctions["RecordsPendentesUso"]
+  const RecordsPendentesEmUsoLabels = GetRecordsPendentesEmUsoData().labels
+  const RecordsPendentesEmUsoSeries = GetRecordsPendentesEmUsoData().series
+
+  // TOP 5 ATIVOS RETIRADO
+  const GetTop5AtivosRetiradosEmUsoData = GetFunctions["Top5AtivosRetirados"]
+  const Top5AtivosRetiradosEmUsoLabels = GetTop5AtivosRetiradosEmUsoData().labels
+  const Top5AtivosRetiradosEmUsoSeries = GetTop5AtivosRetiradosEmUsoData().series
+
+  // TOP 5 USERS RETIRADO
+  const GetTop5UsersRetiradosEmUsoData = GetFunctions["Top5UsersRetirados"]
+  const Top5UsersRetiradosEmUsoLabels = GetTop5UsersRetiradosEmUsoData().labels
+  const Top5UsersRetiradosEmUsoSeries = GetTop5UsersRetiradosEmUsoData().series
 
 
+  const [Color, setColor] = useState('#2b5aa6')
+
+
+
+  const [key, setKey] = useState('Ativos');
+
+  const SetKeyConfig = (Key) => {
+    setKey(Key)
+  }
+
+  const handleChangeColor = (color) => {
+    setColor(color.hex)
+    setChartContainerBorder(color.hex)
+  }
+
+  GetTop5ItensRetirados_SeriesLabels()
+
+  GetTop5UsuariosRetirados_SeriesLabels()
 
 
   return (
@@ -14,18 +83,159 @@ const Dashboard = (props) => {
     <div className={props.Tema === 'Escuro' ? 'DashboardContainerEscuro DashboardContainer' : 'DashboardContainerClaro DashboardContainer'}>
 
 
+      {(!props.Tema || props.Ativos.length === 0 || props.Setores.length === 0 || props.Usuarios.length === 0 || props.LocaisArmazenamento.length === 0 || props.TiposUsuarios.length === 0 || props.TiposDeUso.length === 0 || props.TiposAtivos.length === 0) &&
+        <Loading />
+      }
 
-    </div>
+      {props.Tema && props.Ativos && props.Setores && props.Usuarios && props.LocaisArmazenamento && props.TiposUsuarios && props.TiposDeUso && props.TiposAtivos && <>
+
+        <div className='ColorPickerButton'>
+          <Dropdown autoClose="inside">
+            <Dropdown.Toggle variant="success" id="ColorPickerMenuToggle">
+              Mudar cor
+            </Dropdown.Toggle>
+            <Dropdown.Menu id='ColorPickerMenu'>
+              <Dropdown.Item id='ColorPickerItem'>
+                <CirclePicker onChange={handleChangeColor} />
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+
+        <div className={props.Tema === 'Escuro' ? 'TabsContainerEscuro TabsContainer' : 'TabsContainerClaro TabsContainer'}>
+          <button onClick={(k) => SetKeyConfig('Ativos')} className={key === 'Ativos' ? 'TabsButtonActive' : ''}>{AtivosTabTitle()}</button>
+          <button onClick={(k) => SetKeyConfig('Usuarios')} className={key === 'Usuarios' ? 'TabsButtonActive' : ''}>{UsuariosTabTitle()}</button>
+          <button onClick={(k) => SetKeyConfig('Tipos')} className={key === 'Tipos' ? 'TabsButtonActive' : ''}>{RecordsTabTitle()}</button>
+        </div>
 
 
+        {key === 'Ativos' &&
+
+          <div className='DashBoard-Charts-Container'>
+
+            <div className='ChartCointer'>
+              <BarChart Mono={Color} Title="Ativos por Tipo" Series={TiposAtivosSeries} Labels={TiposAtivosLabels} />
+            </div>
+
+            <div className='ChartCointer'>
+              <BarChart Mono={Color} Title="Ativos por Local de Armazenamento" Series={AtivosLocaisSeries} Labels={AtivosLocaisLabels} />
+            </div>
+
+            <div className='ChartCointer'>
+              <BarChart Mono={Color} Title="Ativos por Status" Series={AtivosStatusSeries} Labels={AtivosStatusLabels} />
+            </div>
+
+            <div className='ChartCointer'>
+              <BarChart Mono={Color} Title="Aivos por Tipo de Uso" Series={TiposUsoSeries} Labels={TiposUsoLabels} />
+            </div>
+
+            <div className='ChartCointer'>
+              <PieChart Mono={Color} Title="Ativos por Tipo" Series={TiposAtivosSeries} Labels={TiposAtivosLabels} />
+            </div>
+
+            <div className='ChartCointer'>
+              <PieChart Mono={Color} Title="Ativos por Local de Armazenamento" Series={AtivosLocaisSeries} Labels={AtivosLocaisLabels} />
+            </div>
+
+            <div className='ChartCointer'>
+              <PieChart Mono={Color} Title="Ativos por Status" Series={AtivosStatusSeries} Labels={AtivosStatusLabels} />
+            </div>
+
+            <div className='ChartCointer'>
+              <PieChart Mono={Color} Title="Aivos por Tipo de Uso" Series={TiposUsoSeries} Labels={TiposUsoLabels} />
+            </div>
+
+          </div>
+
+        }
+
+
+        {key === 'Usuarios' &&
+          <div className='DashBoard-Charts-Container'>
+
+            <div className='ChartCointer'>
+              <BarChart Mono={Color} Title="Usuários por Setor" Series={SetoresSeries} Labels={SetoresLabels} />
+            </div>
+
+            <div className='ChartCointer'>
+              <BarChart Mono={Color} Title="Usuários por Tipo" Series={TiposUsuaiosSeries} Labels={TiposUsuaiosLabels} />
+            </div>
+
+            <div className='ChartCointer'>
+              <PieChart Mono={Color} Title="Usuários por Setor" Series={SetoresSeries} Labels={SetoresLabels} />
+            </div>
+
+
+            <div className='ChartCointer'>
+              <PieChart Mono={Color} Title="Usuários por Tipo" Series={TiposUsuaiosSeries} Labels={TiposUsuaiosLabels} />
+            </div>
+
+
+
+          </div>
+        }
+
+        {key === 'Tipos' &&
+          <>
+            <div className='DashBoard-Charts-Container'>
+
+              <div className='ChartCointer'>
+                <BarChart Mono={Color} Title="Registros de Retiradas de Ativos" Series={RecordsPendentesEmUsoSeries} Labels={RecordsPendentesEmUsoLabels} />
+              </div>
+
+              <div className='ChartCointer'>
+                <BarChart Mono={Color} Title="Top 5 Ativos retirados" Series={Top5AtivosRetiradosEmUsoSeries} Labels={Top5AtivosRetiradosEmUsoLabels} />
+              </div>
+
+              <div className='ChartCointer'>
+                <BarChart Mono={Color} Title="Top 5 Retiradas por Usuário" Series={Top5UsersRetiradosEmUsoSeries} Labels={Top5UsersRetiradosEmUsoLabels} />
+              </div>
+
+
+              <div className='ChartCointer'>
+                <PieChart Mono={Color} Title="Registros de Retiradas de Ativos" Series={RecordsPendentesEmUsoSeries} Labels={RecordsPendentesEmUsoLabels} />
+              </div>
+
+              <div className='ChartCointer'>
+                <PieChart Mono={Color} Title="Top 5 Ativos retirados" Series={Top5AtivosRetiradosEmUsoSeries} Labels={Top5AtivosRetiradosEmUsoLabels} />
+              </div>
+
+              <div className='ChartCointer'>
+                <PieChart Mono={Color} Title="Top 5 Retiradas por Usuário" Series={Top5UsersRetiradosEmUsoSeries} Labels={Top5UsersRetiradosEmUsoLabels} />
+              </div>
+
+
+            </div>
+
+
+          </>
+
+        }
+
+
+      </>
+      }
+
+
+    </div >
   )
 }
 
 const ConnectedDashboard = connect((state) => {
   return {
-    Tema: state.Tema
+    Tema: state.Tema,
+    Ativos: state.Ativos,
+    Setores: state.Setores,
+    Usuarios: state.Usuarios,
+    RecordsAtivos: state.RecordsAtivos,
+    TiposUsuarios: state.TiposUsuarios,
+    LocaisArmazenamento: state.LocaisArmazenamento,
+    TiposDeUso: state.TiposDeUso,
+    TiposAtivos: state.TiposAtivos,
   }
 })(Dashboard)
 
 export default ConnectedDashboard
+
+
 

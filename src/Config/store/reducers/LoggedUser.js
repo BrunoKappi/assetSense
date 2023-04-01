@@ -20,11 +20,10 @@ const LoggedUser = (state = DefaultLoggedUser, action) => {
                 ...state,
                 CurrentSidebarTab: action.tab
             }
-
-        case 'SET_SEARCH':
+        case 'SET_PHOTO_URL':
             return {
                 ...state,
-                Search: action.search
+                PhotoUrl: action.PhotoUrl
             }
         case 'CLAER_SEARCH':
             return {

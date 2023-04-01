@@ -36,6 +36,13 @@ export const SetSidebarTag = (tab) => {
 }
 
 
+export const SetLoggedUserPhotoUrlAction = (PhotoUrl) => {
+    return ({
+        type: 'SET_PHOTO_URL',
+        PhotoUrl
+    })
+}
+
 export const SetSearchProp = (search) => {
     return ({
         type: 'SET_SEARCH',

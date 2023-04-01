@@ -43,7 +43,7 @@ const UsersInTypes = (props) => {
 
 
 
-    console.log("TIPOS")
+   //COMENTADO  console.log("TIPOS")
 
 
     const HandleDrag = (Resultado) => {
@@ -60,7 +60,7 @@ const UsersInTypes = (props) => {
 
 
             EditUser(User).then(() => {
-                console.log("Movido")
+               //COMENTADO  console.log("Movido")
                 const copiedItems = [...props.Usuarios];
                 copiedItems[IndexOfUser] = { ...User }
                 SaveUsers(copiedItems)

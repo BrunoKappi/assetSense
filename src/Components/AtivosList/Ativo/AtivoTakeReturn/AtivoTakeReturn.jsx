@@ -124,16 +124,18 @@ const AtivoTakeReturn = (props) => {
             NewRecordToAdd.ReturnDate = ''
             NewRecordToAdd.Obs = Obs
 
+            //console.log("Mandando Retirar", NewRecordToAdd)
 
             AddRecord(NewRecordToAdd).then(() => {
                 GetRecords().then(Lista => {
                     const Records = [...Lista]
-                    console.log("Adicionando", Lista)
+                   //COMENTADO  console.log("Adicionando", Lista)
                     Records.push(NewRecordToAdd)
-                    console.log("Adicionado", Records)
+                   //COMENTADO  console.log("Adicionado", Records)
                     SaveRecords(Records)
                     EndConfirming()
                     NotificationSucesso('Registro', 'Registro de Retirada registrado com Sucesso!')
+                    props.OnTake('Registros')
                 })
             }).catch(() => {
                 NotificationErro("Erro", "Ocorreu um problema, tente novamente")
@@ -145,19 +147,20 @@ const AtivoTakeReturn = (props) => {
         } else {
             var UserId = ActionFor === 'Me' ? CurrentUser.id : ReturnFor.id
             const RecordToEdit = GetRecordByAtivoIdAndUserId(props.Ativo?.id, UserId)
-            
+          
             RecordToEdit.ReturnDate = moment().valueOf()
             RecordToEdit.ReturnObs = Obs
             RecordToEdit.Duration = RecordToEdit.ReturnDate - RecordToEdit.TakeDate
 
-            //console.log("Mandando Editar", GetRecordsFromStore())
+            //console.log("Mandando Devolver", RecordToEdit)
 
-            console.log(RecordToEdit)
+            
 
             
             EditRecord(RecordToEdit).then(() => {
                 NotificationSucesso('Registro', 'Registro de Devolução registrado com Sucesso!')
                 EndConfirming()
+                props.OnTake('Registros')
             }).catch(() => {
                 NotificationErro("Erro", "Ocorreu um problema, tente novamente")
             })
