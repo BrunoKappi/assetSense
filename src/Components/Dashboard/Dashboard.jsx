@@ -83,6 +83,7 @@ const Dashboard = (props) => {
     <div className={props.Tema === 'Escuro' ? 'DashboardContainerEscuro DashboardContainer' : 'DashboardContainerClaro DashboardContainer'}>
 
 
+
       {(!props.Tema || props.Ativos.length === 0 || props.Setores.length === 0 || props.Usuarios.length === 0 || props.LocaisArmazenamento.length === 0 || props.TiposUsuarios.length === 0 || props.TiposDeUso.length === 0 || props.TiposAtivos.length === 0) &&
         <Loading />
       }

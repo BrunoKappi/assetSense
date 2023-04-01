@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './AtivoTakeReturn.css'
 import { DevolverTabTitle, RetirarTabTitle } from './AtivoTakeReturnUtils';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
-import { UilUser, UilEnvelope, UilBookmark, UilCheck, UilBackward, UilArchive, UilArrowUp, UilComment, UilArrowDown, UilCommentInfoAlt } from '@iconscout/react-unicons'
+import { UilUser, UilEnvelope, UilBookmark, UilCalendarAlt, UilCheck, UilBackward, UilArchive, UilArrowUp, UilComment, UilArrowDown, UilCommentInfoAlt } from '@iconscout/react-unicons'
 import { AddRecord, EditRecord, GetCurrentUserFromStore, GetRecordByAtivoIdAndUserId, GetRecords, GetRecordsFromStore, GetTakesOfAtivo, GetTakesOfAtivoOfCurrentUser, GetUsersFromStore, GetUsersFromStoreWithNoCurrentUser, GetUsersThatTookAtivo, SaveRecords } from '../../../../Functions/Middleware';
 import { AtivoModalSelectcustomStyles, noOptionsMessage } from '../AtivoModalUtils';
 import Select from "react-select";
@@ -13,6 +13,9 @@ import moment from 'moment'
 import { Tooltip } from 'react-tippy';
 import { connect } from 'react-redux'
 import { FIREBASE_GetRecordsPendentesDeUmAtivo } from '../../../../Config/firebase/metodos';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import Loading from '../../../LoadingForTabs/Loading'
 
 const AtivoTakeReturn = (props) => {
 
@@ -22,6 +25,9 @@ const AtivoTakeReturn = (props) => {
     const [TakenFor, setTakenFor] = useState();
     const [ReturnFor, setReturnFor] = useState();
     const [Obs, setObs] = useState('');
+    const [EventDate, setEventDate] = useState(new Date());
+    const [EventTime, setEventTime] = useState('');
+    const [LoadingAction, setLoadingAction] = useState(false);
 
     //Quantidades
     const QuantidadeDoAtivo = props.Ativo?.Qtd
@@ -67,8 +73,20 @@ const AtivoTakeReturn = (props) => {
     }
 
     const InitConfirm = () => {
+
+        const SelectedDateTime = moment(EventDate).valueOf()
+        const currentDateTime = moment().valueOf()
+
         if (key === 'Retirar') {
 
+            if (!EventDate) {
+                NotificationErro("Preenchimento Inválido", "Selecione uma Data para registrar a retirada")
+                return
+            }
+            if (SelectedDateTime > currentDateTime) {
+                NotificationErro("Preenchimento Inválido", "Data maior que a data atual")
+                return
+            }
             if (ActionFor === 'Me') {
                 SetConfirm(true)
                 SetConfirmMessage('Gostaria de Registrar a retirada deste Item para seu Usuário?')
@@ -81,11 +99,28 @@ const AtivoTakeReturn = (props) => {
                     SetConfirmBtAction('Sim')
                     SetConfirmBtBack('Voltar')
                 } else {
-
                     NotificationErro("Preenchimento Inválido", "Selecione um Usuário para registrar a retirada")
                 }
             }
         } else {
+
+
+            var UserId = ActionFor === 'Me' ? CurrentUser.id : ReturnFor.id
+            const RecordToEdit = GetRecordByAtivoIdAndUserId(props.Ativo?.id, UserId)
+
+            if (!EventDate) {
+                NotificationErro("Preenchimento Inválido", "Selecione uma Data para registrar a retirada")
+                return
+            }
+            if (SelectedDateTime < RecordToEdit.TakeDate) {
+                NotificationErro("Preenchimento Inválido", "Data menor que a data de retirada")
+                return
+            }
+            if (SelectedDateTime > currentDateTime) {
+                NotificationErro("Preenchimento Inválido", "Data maior que a data atual")
+                return
+            }
+
             if (ActionFor === 'Me') {
                 SetConfirm(true)
                 SetConfirmMessage('Gostaria de Registrar a devolução deste Item?')
@@ -108,6 +143,12 @@ const AtivoTakeReturn = (props) => {
     }
 
     const Submit = () => {
+
+        setLoadingAction(true)
+
+        const SelectedDateTime = moment(EventDate).valueOf()
+
+
         if (key === 'Retirar') {
             var NewRecordToAdd = { ...DefaultRecord }
 
@@ -119,7 +160,7 @@ const AtivoTakeReturn = (props) => {
 
             NewRecordToAdd.id = v4()
             NewRecordToAdd.AtivoId = props.Ativo?.id
-            NewRecordToAdd.TakeDate = moment().valueOf()
+            NewRecordToAdd.TakeDate = SelectedDateTime
             NewRecordToAdd.TakenBy.id = CurrentUser.id
             NewRecordToAdd.TakenFor.id = ForId
             NewRecordToAdd.Returned = false
@@ -128,7 +169,7 @@ const AtivoTakeReturn = (props) => {
 
             //console.log("Mandando Retirar", NewRecordToAdd)
 
-            
+
 
 
             FIREBASE_GetRecordsPendentesDeUmAtivo(props.Ativo?.id).then(QuantidadeFirebaseRetirada => {
@@ -139,6 +180,7 @@ const AtivoTakeReturn = (props) => {
                     NotificationErro("Ação negada", "Parece que alguém ja reitrou esse item, atualize sua página para infomações atualizadas")
                 } else {
                     AddRecord(NewRecordToAdd).then(() => {
+                        
                         GetRecords().then(Lista => {
                             const Records = [...Lista]
                             //COMENTADO  console.log("Adicionando", Lista)
@@ -147,14 +189,17 @@ const AtivoTakeReturn = (props) => {
                             SaveRecords(Records)
                             EndConfirming()
                             NotificationSucesso('Registro', 'Registro de Retirada registrado com Sucesso!')
+                            setLoadingAction(false)
                             props.OnTake('Registros')
                         })
                     }).catch(() => {
+                        setLoadingAction(false)
                         NotificationErro("Erro", "Ocorreu um problema, tente novamente")
                     })
                 }
 
             }).catch(() => {
+                setLoadingAction(false)
                 NotificationErro("Erro", "Ocorreu um problema, tente novamente")
             })
 
@@ -169,7 +214,7 @@ const AtivoTakeReturn = (props) => {
             var UserId = ActionFor === 'Me' ? CurrentUser.id : ReturnFor.id
             const RecordToEdit = GetRecordByAtivoIdAndUserId(props.Ativo?.id, UserId)
 
-            RecordToEdit.ReturnDate = moment().valueOf()
+            RecordToEdit.ReturnDate = SelectedDateTime
             RecordToEdit.ReturnObs = Obs
             RecordToEdit.Duration = RecordToEdit.ReturnDate - RecordToEdit.TakeDate
 
@@ -179,10 +224,12 @@ const AtivoTakeReturn = (props) => {
 
 
             EditRecord(RecordToEdit).then(() => {
+                setLoadingAction(false)
                 NotificationSucesso('Registro', 'Registro de Devolução registrado com Sucesso!')
                 EndConfirming()
                 props.OnTake('Registros')
             }).catch(() => {
+                setLoadingAction(false)
                 NotificationErro("Erro", "Ocorreu um problema, tente novamente")
             })
 
@@ -206,7 +253,7 @@ const AtivoTakeReturn = (props) => {
     return (
         <div className={props.Tema === 'Escuro' ? 'AtivoTakeReturn-ContainerEscuro AtivoTakeReturn-Container' : 'AtivoTakeReturn-ContainerClaro AtivoTakeReturn-Container'}>
 
-            {!Confirm &&
+            {!Confirm && !LoadingAction &&
                 <div className='AtivoTakeReturn-Quantidades'>
                     <div className='AtivoTakeReturn-Quantidades-Item'>
                         <UilArchive />
@@ -223,7 +270,7 @@ const AtivoTakeReturn = (props) => {
                 </div>
             }
 
-            {!Confirm && <div>
+            {!Confirm && !LoadingAction && <div>
 
                 <div className={props.Tema === 'Escuro' ? 'AtivoTRTabsContainerEscuro AtivoTRTabsContainer' : 'AtivoTRTabsContainerClaro AtivoTRTabsContainer'}>
                     <button onClick={(k) => SetKey('Retirar')} className={key === 'Retirar' ? 'AtivoTRTabsButtonActive' : ''}>{RetirarTabTitle()}</button>
@@ -310,11 +357,22 @@ const AtivoTakeReturn = (props) => {
                         <div className='AtivoModalBody-AtivoInfoForm-OneLine'>
                             <div className='AtivoModalBody-AtivoInfoForm-Group'>
                                 <span>
+                                    <UilCalendarAlt />
+                                    Data
+                                </span>
+                                <DatePicker showTimeSelect={true} dateFormat="dd/MM/yyyy" selected={EventDate} onChange={(date) => setEventDate(date)} />
+                            </div>
+                        </div>
+
+                        <div className='AtivoModalBody-AtivoInfoForm-OneLine'>
+                            <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                <span>
                                     <UilComment />
                                     Observação
                                 </span>
                                 <textarea value={Obs} onChange={e => setObs(e.target.value)} placeholder='Digite uma Observação(Opcional)' name="" id="" rows="2"></textarea>
                             </div>
+
                         </div>
 
                         <div className='AtivoModalBody-AtivoInfoForm-Button'>
@@ -445,6 +503,17 @@ const AtivoTakeReturn = (props) => {
 
 
                         {((QuantidadeRetirada - QuantidadeRetiradaPeloCurrentUser) !== 0 || ActionFor === 'Me') && <>
+
+                            <div className='AtivoModalBody-AtivoInfoForm-OneLine'>
+                                <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                    <span>
+                                        <UilCalendarAlt />
+                                        Data e Hora de Devolução
+                                    </span>
+                                    <DatePicker showTimeSelect={true} dateFormat="dd/MM/yyyy" selected={EventDate} onChange={(date) => setEventDate(date)} />
+                                </div>
+                            </div>
+
                             <div className='AtivoModalBody-AtivoInfoForm-OneLine'>
                                 <div className='AtivoModalBody-AtivoInfoForm-Group'>
                                     <span>
@@ -454,6 +523,8 @@ const AtivoTakeReturn = (props) => {
                                     <textarea value={Obs} onChange={e => setObs(e.target.value)} placeholder='Digite uma Observação(Opcional)' name="" id="" rows="2"></textarea>
                                 </div>
                             </div>
+
+
 
                             <div className='AtivoModalBody-AtivoInfoForm-Button'>
                                 <button onClick={InitConfirm}>
@@ -488,7 +559,7 @@ const AtivoTakeReturn = (props) => {
             }
 
 
-            {Confirm && <div className='AtivoModalBody-AtivoInfo'>
+            {Confirm && !LoadingAction && <div className='AtivoModalBody-AtivoInfo'>
                 <h4 className='AtivoModalBody-AtivoInfoForm-ConfirMessage'>{ConfirmMessage}</h4>
                 <div className='AtivoModalBody-AtivoInfoForm-Button'>
                     <button className='AtivoModalBody-AtivoInfoForm-Button-Secondary' onClick={BackConfirming} >
@@ -501,6 +572,10 @@ const AtivoTakeReturn = (props) => {
                     </button>
                 </div>
             </div>
+            }
+
+            {LoadingAction &&
+                <Loading />
             }
 
         </div>

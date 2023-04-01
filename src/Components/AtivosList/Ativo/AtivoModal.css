@@ -477,6 +477,8 @@
     text-align: right;
 }
 
+
+
 .AtivoModalBody-AtivoInfoForm-Group>input {
     border-radius: .5rem;
     outline: none;
@@ -487,6 +489,19 @@
     font-size: .9rem;
     background-color: var(--AtivoModal-Background-Input);
 }
+
+.AtivoModalBody-AtivoInfoForm-Group input {
+    border-radius: .5rem;
+    outline: none;
+    border: 1px solid var(--AtivoModal-Borda-Input);
+    padding: .5rem .8rem;
+    color: var(--AtivoModal-Color-Input);
+    font-family: var(--Fonte);
+    font-size: .9rem;
+    background-color: var(--AtivoModal-Background-Input);
+    width: 100% !important;
+}
+
 .AtivoModalBody-AtivoInfoForm-Group>textarea {
     border-radius: .5rem;
     outline: none;
