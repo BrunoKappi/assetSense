@@ -4,11 +4,20 @@ import store from '../store/store'
 import { setLoggedUser, clearLoggedUser, SetCheckLogin } from '../store/actions/LoggedUserActions'
 import { GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, FacebookAuthProvider, updatePassword } from "firebase/auth";
 import { DefaultLoggedUser } from "../../GlobalVars";
-import { GetUserUrlImage } from "../../Functions/Middleware";
+import { GetCurrentUserEmailFromStore, GetCurrentUserFromStore, GetUserUrlImage } from "../../Functions/Middleware";
+
+
 
 onAuthStateChanged(auth, (currentUser) => {
-  //console.log("AUTHCHANGED", currentUser ? currentUser : 'VAZIO');
-  if (currentUser) {
+  console.log("AUTHCHANGED", currentUser ? currentUser : 'VAZIO');
+
+  const LoggedUserEmail = GetCurrentUserEmailFromStore()
+  const CurrentUserEmail = currentUser?.email
+  const Logado = store.getState().LoggedUser.CheckedLogin
+
+
+
+  if (((LoggedUserEmail === CurrentUserEmail) || (!LoggedUserEmail)) && currentUser) {
     const user = {
       ...DefaultLoggedUser,
       Email: currentUser.email,
@@ -18,7 +27,7 @@ onAuthStateChanged(auth, (currentUser) => {
     store.dispatch(setLoggedUser(user))
 
     GetUserUrlImage(`images/${currentUser.uid}`).then((url) => {
-     //COMENTADO  console.log("Retorno", url)
+      //COMENTADO  console.log("Retorno", url)
       const user2 = {
         ...DefaultLoggedUser,
         Email: currentUser.email,
@@ -28,12 +37,13 @@ onAuthStateChanged(auth, (currentUser) => {
       }
       store.dispatch(setLoggedUser(user2))
     }).catch((error) => {
-     //COMENTADO  console.log("Retorno Erro", error)
+      //COMENTADO  console.log("Retorno Erro", error)
     })
 
 
   } else {
-    store.dispatch(clearLoggedUser())
+    if (!CurrentUserEmail)
+      store.dispatch(clearLoggedUser())
   }
 
   if (store.getState().LoggedUser.CheckedLogin === false)

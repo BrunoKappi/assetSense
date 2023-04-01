@@ -10,16 +10,17 @@ import 'react-notifications-component/dist/theme.css'
 
 
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render( 
+root.render(
   <Router>
     <Provider store={store}>
-    
-        <App /> 
-  
+
+      <App />
+
+
     </Provider>
 
-  </Router> 
+  </Router>
 );
 
- 

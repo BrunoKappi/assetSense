@@ -1,7 +1,7 @@
 
 import { db } from '../firebase/index'
-import { collection } from "firebase/firestore";
-import { getDocs, addDoc, updateDoc, deleteDoc, doc, where, query } from "firebase/firestore";
+import { collection, query } from "firebase/firestore";
+import { getDocs, addDoc, updateDoc, deleteDoc, doc, where } from "firebase/firestore";
 
 
 
@@ -266,6 +266,18 @@ export const FIREBASE_GetRecords = async () => {
   const dados = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
   return dados
 }
+
+export const FIREBASE_GetRecordsPendentesDeUmAtivo = async (ativoId) => {
+  const Query = query(
+    Records,
+    where('ReturnDate', '==', ''),
+    where('AtivoId', '==', ativoId)
+  );
+  const data = await getDocs(Query);
+  const dados = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }));
+  console.log("PENDENTES", dados.length)
+  return dados.length;
+};
 
 export const FIREBASE_UpdateRecord = (EditedItem) => {
   const Doc = doc(db, "Records", EditedItem.docID);

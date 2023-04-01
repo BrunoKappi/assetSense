@@ -12,6 +12,7 @@ import { v4 } from 'uuid';
 import moment from 'moment'
 import { Tooltip } from 'react-tippy';
 import { connect } from 'react-redux'
+import { FIREBASE_GetRecordsPendentesDeUmAtivo } from '../../../../Config/firebase/metodos';
 
 const AtivoTakeReturn = (props) => {
 
@@ -25,6 +26,7 @@ const AtivoTakeReturn = (props) => {
     //Quantidades
     const QuantidadeDoAtivo = props.Ativo?.Qtd
     const [QuantidadeRetirada, SetQuantidadeRetirada] = useState(GetTakesOfAtivo(props.Ativo?.id))
+    const QuantidadeRetiradaFirebase = FIREBASE_GetRecordsPendentesDeUmAtivo(props.Ativo?.id)
     const [QuantidadeRetiradaPeloCurrentUser, SetQuantidadeRetiradaPeloCurrentUser] = useState(GetTakesOfAtivoOfCurrentUser(props.Ativo?.id))
     const [UsuariosQuePegaramAtivo, SetUsuariosQuePegaramAtivo] = useState(GetUsersThatTookAtivo(props.Ativo?.id))
 
@@ -126,20 +128,26 @@ const AtivoTakeReturn = (props) => {
 
             //console.log("Mandando Retirar", NewRecordToAdd)
 
-            AddRecord(NewRecordToAdd).then(() => {
-                GetRecords().then(Lista => {
-                    const Records = [...Lista]
-                   //COMENTADO  console.log("Adicionando", Lista)
-                    Records.push(NewRecordToAdd)
-                   //COMENTADO  console.log("Adicionado", Records)
-                    SaveRecords(Records)
-                    EndConfirming()
-                    NotificationSucesso('Registro', 'Registro de Retirada registrado com Sucesso!')
-                    props.OnTake('Registros')
+            if (QuantidadeDoAtivo <= QuantidadeRetiradaFirebase) {
+                NotificationErro("Ação negada", "Parece que alguém ja reitrou esse item, atualize sua página para infomações atualizadas")
+            } else {
+                AddRecord(NewRecordToAdd).then(() => {
+                    GetRecords().then(Lista => {
+                        const Records = [...Lista]
+                        //COMENTADO  console.log("Adicionando", Lista)
+                        Records.push(NewRecordToAdd)
+                        //COMENTADO  console.log("Adicionado", Records)
+                        SaveRecords(Records)
+                        EndConfirming()
+                        NotificationSucesso('Registro', 'Registro de Retirada registrado com Sucesso!')
+                        props.OnTake('Registros')
+                    })
+                }).catch(() => {
+                    NotificationErro("Erro", "Ocorreu um problema, tente novamente")
                 })
-            }).catch(() => {
-                NotificationErro("Erro", "Ocorreu um problema, tente novamente")
-            })
+            }
+
+
 
 
 
@@ -147,16 +155,16 @@ const AtivoTakeReturn = (props) => {
         } else {
             var UserId = ActionFor === 'Me' ? CurrentUser.id : ReturnFor.id
             const RecordToEdit = GetRecordByAtivoIdAndUserId(props.Ativo?.id, UserId)
-          
+
             RecordToEdit.ReturnDate = moment().valueOf()
             RecordToEdit.ReturnObs = Obs
             RecordToEdit.Duration = RecordToEdit.ReturnDate - RecordToEdit.TakeDate
 
             //console.log("Mandando Devolver", RecordToEdit)
 
-            
 
-            
+
+
             EditRecord(RecordToEdit).then(() => {
                 NotificationSucesso('Registro', 'Registro de Devolução registrado com Sucesso!')
                 EndConfirming()

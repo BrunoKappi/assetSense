@@ -5,52 +5,67 @@ import { connect } from 'react-redux'
 import UserPhoto from '../../../../assets/Images/SerranoLogoFuncoBranco.jpg'
 import { UilCameraPlus, UilTimes, UilTrashAlt, UilCheck, UilBackward, UilPen } from '@iconscout/react-unicons'
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
-import { DeleteFile, GetUserUrlImage, ImageUpload, SetLoggedUserPhotoUrl, SetOtherUserPhotoUrl } from '../../../../Functions/Middleware';
+import { DeleteFile, GetCurrentUserFromStore, GetUserUrlImage, ImageUpload, SetLoggedUserPhotoUrl, SetOtherUserPhotoUrl } from '../../../../Functions/Middleware';
 import LoadingSpiner from '../../../LoadingForTabs/Loading'
+import { v4 } from 'uuid';
 
 
 const UserPhotoModal = (props) => {
 
     const fileInputRef = useRef(null);
     const [imageUpload, setImageUpload] = useState(null);
+    const [CurrentUserObjet, setCurrentUserObjet] = useState(null);
     const [LastUserUrlImage, setLastUserUrlImage] = useState(null);
     const [Loading, setLoading] = useState(false);
     const [ImageToShowUser, setImageToShowUser] = useState(null);
 
     useEffect(() => {
-        console.log("EU MESMO", props.IsCurrentUser)
         if (props.IsCurrentUser === true) {
-           
             setImageToShowUser(props.LoggedUser.PhotoUrl)
             setLastUserUrlImage(props.LoggedUser.PhotoUrl)
         } else {
-            setImageToShowUser(props.User?.PhotoUrl)
-            setLastUserUrlImage(props.User?.PhotoUrl)
+            if (props.Add) {
+                setImageToShowUser('')
+                setLastUserUrlImage('')
+            } else {
+                setImageToShowUser(props.User?.PhotoUrl)
+                setLastUserUrlImage(props.User?.PhotoUrl)
+            }
         }
 
-    }, [props.IsCurrentUser,props.User])
+    }, [props.IsCurrentUser, props.User])
 
 
 
     const UploadFile = () => {
         if (imageUpload == null) return;
         setLoading(true)
-        const path = props.IsCurrentUser ? `images/${props.LoggedUser.uid}` : props.User?.id
-        console.log("PATH", path)
+
+        var path
+
+
+        if (props.Add) {
+            const IdToUseToAdd = v4()
+            path = `images/${IdToUseToAdd}`
+            console.log("ADD PATH", path)
+        } else {
+            path = props.IsCurrentUser ? `images/${props.LoggedUser.uid}` : `images/${props.User?.id}`
+        }
+
+
         ImageUpload(path, imageUpload, props.LoggedUser.Email).then(() => {
             setLoading(false)
             NotificationSucesso("Foto de Perfil Atualizada!")
             GetUserUrlImage(path).then((url) => {
                 setTimeout(() => {
-                    setLastUserUrlImage(url)    
-                    setImageUpload('')     
-                    fileInputRef.current.value = ''         
+                    setLastUserUrlImage(url)
+                    setImageUpload('')
+                    fileInputRef.current.value = ''
+                    props.OnChangePhoto(url)
                     if (props.IsCurrentUser) {
                         SetLoggedUserPhotoUrl(url)
                     } else {
-                        console.log("PARA Outro")
                         SetOtherUserPhotoUrl(url, props.User?.id)
-                        props.OnChangePhoto(url)
                     }
                 }, 2000)
             })
@@ -64,9 +79,10 @@ const UserPhotoModal = (props) => {
 
     const ApagarFotoDeUsuario = () => {
         setLoading(true)
-        const path = props.IsCurrentUser ? `images/${props.LoggedUser.uid}` : props.User?.id
-        DeleteFile(path).then(() => {
+        const UserAtual = GetCurrentUserFromStore()
+        const path = props.IsCurrentUser ? `images/${props.LoggedUser.uid}` : `images/${props.User?.id}`
 
+        DeleteFile(path).then(() => {
             if (props.IsCurrentUser)
                 SetLoggedUserPhotoUrl('')
             else
@@ -74,6 +90,7 @@ const UserPhotoModal = (props) => {
             NotificationSucesso("Exlusão", "Foto apagada com sucesso!")
             setLastUserUrlImage('')
             setLoading(false)
+            props.OnChangePhoto('')
         }).catch((error) => {
             setLoading(false)
             NotificationErro("Erro", "Aconteceu um problema, tente novamente mais tarde")
@@ -131,6 +148,8 @@ const UserPhotoModal = (props) => {
                     <UilCameraPlus />
                     Atualização de Foto de Perfil
                 </h3>
+
+                {props.Add && <h3>Add</h3>}
 
 
                 <div className='UserPhotoModal'>

@@ -17,7 +17,8 @@ import { SetTemaAction } from "../Config/store/actions/TemaActions"
 import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { storage } from "../Config/firebase"
 import { SetLoggedUserPhotoUrlAction } from "../Config/store/actions/LoggedUserActions"
-
+import { onAuthStateChanged } from "firebase/auth"
+import { auth } from "../Config/firebase/index";
 
 //UTILS
 
@@ -40,7 +41,7 @@ export const LogarComGooglePopup = () => {
 
 
 
-export const ImageUpload = (ImagePath, ImageToUpload) => {   
+export const ImageUpload = (ImagePath, ImageToUpload) => {
     console.log("Recebendo para Atualizar", ImagePath)
     const imageRef = ref(storage, ImagePath);
     return uploadBytes(imageRef, ImageToUpload)
@@ -52,6 +53,7 @@ export const GetUserUrlImage = (path) => {
 }
 
 export const DeleteFile = (path) => {
+    console.log("Mandando apagar", path)
     const desertRef = ref(storage, path);
     return deleteObject(desertRef)
 }
@@ -65,16 +67,22 @@ export const SetLoggedUserPhotoUrl = (URL) => {
     store.dispatch(SetLoggedUserPhotoUrlAction(URL))
 }
 
+export const SetLoggedUserPhotoUrlJustStore = (URL) => {       
+    store.dispatch(SetLoggedUserPhotoUrlAction(URL))
+}
+
+
+
 export const SetOtherUserPhotoUrl = (URL, ID) => {
     //console.log("Recebendo URL", URL)
     const User = GetUserWithIdFromStore(ID)
     User.PhotoUrl = URL
-    EditUser(User)    
+    EditUser(User)
 }
 
 export const SetAtivoPhotoUrl = (URL, AtivoId) => {
     //console.log("Recebendo URL", URL)
-    const Ativo = GetAtivoWithIdFromStore(AtivoId) 
+    const Ativo = GetAtivoWithIdFromStore(AtivoId)
     Ativo.PhotoUrl = URL
     //console.log("EDITANDO ATIVO", Ativo)
     EditAtivo(Ativo)
@@ -466,10 +474,18 @@ export async function SaveUsers(Users) {
 }
 
 
+export const ResetonAuthStateChanged = () => {
+    onAuthStateChanged(auth, () => {
+        console.log("Usuário Registrado AUTH")
+    })
+}
 
-export async function RegisterUser(Email) {
+export async function RegisterUser(Email) {   
     return FIREBASE_RegisterUserAuth(Email)
 }
+
+
+
 export async function AddUser(User) {
     return FIREBASE_AddUsuario(User)
 }
@@ -646,6 +662,11 @@ export const GetTipoDeUsoWithIdFromStore = (Id) => {
 export const GetUserWithIdFromStore = (Id) => {
     const Users = GetUsersFromStoreWithDeleted()
     const User = Users.find(U => U.id === Id)
+    return User
+}
+export const GetUserWithEmailFromStore = (Email) => {
+    const Users = GetUsersFromStoreWithDeleted()
+    const User = Users.find(U => U.Email === Email)
     return User
 }
 

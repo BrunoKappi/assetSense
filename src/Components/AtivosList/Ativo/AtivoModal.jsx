@@ -50,6 +50,7 @@ const AtivoModal = (props) => {
 
     //COPIAS DAS INFORMAÇÔES DO ATIVO
     const [CopyAtivoName, setCopyAtivoName] = useState('')
+    const [CopyAtivoPhotoUrl, setCopyAtivoPhotoUrl] = useState('')
     const [CopyAtivoType, setCopyAtivoType] = useState({})
     const [CopyAtivoLocalArmazenamento, setCopyAtivoLocalArmazenamento] = useState({})
     const [CopyAtivoStatus, setCopyAtivoStatus] = useState()
@@ -60,6 +61,7 @@ const AtivoModal = (props) => {
     //COPIAS DAS INFORMAÇÔES DO ATIVO
 
     const [IsEdited, setIsEdited] = useState(false)
+    const [IdToUse, setIdToUse] = useState('')
 
 
 
@@ -75,6 +77,7 @@ const AtivoModal = (props) => {
     const FillCopyes = (AtivoCopy) => {
         setCopyAtivoName(AtivoCopy?.Item)
         setCopyAtivoLocalArmazenamento(AtivoCopy?.StorageLocation)
+        setCopyAtivoPhotoUrl(AtivoCopy?.PhotoUrl)
         setCopyAtivoType(AtivoCopy?.Type)
         setCopyAtivoStatus(GetAtivoStatusWithIdFromStore(AtivoCopy?.Status.id))
         setCopyAtivoTipoDeUso(GetTipoDeUsoWithIdFromStore(AtivoCopy?.Usage.id))
@@ -127,9 +130,18 @@ const AtivoModal = (props) => {
     }, [props.Ativo, props.CurrentUser, CurrentUserType])
 
 
-    const SetAtivoUrl = (url) => {
+    const SetAtivoUrl = (url, Id) => {
+        setCopyAtivoPhotoUrl(url)
         setProfileImageUrl(url)
+        setTimeout(() => {
+            setProfileImageUrl(url)
+        }, 3000);
         setShowPhotoModal(false)
+
+        if (props.Function === 'Add') {
+            setIdToUse(Id)
+            console.log("Recebendo ID noativo ", Id)
+        }
     }
 
 
@@ -233,7 +245,8 @@ const AtivoModal = (props) => {
         } else if (ConfirmAction === 'Add') {
             const NewAtivo = { ...Ativo }
 
-            NewAtivo.id = v4()
+            NewAtivo.id = IdToUse ? IdToUse : v4()
+            NewAtivo.PhotoUrl = CopyAtivoPhotoUrl
             NewAtivo.Item = CopyAtivoName
             NewAtivo.Brand = CopyAtivoBrand ? CopyAtivoBrand : ''
             NewAtivo.Qtd = CopyAtivoQtd
@@ -243,6 +256,8 @@ const AtivoModal = (props) => {
             NewAtivo.Type = CopyAtivoType
             NewAtivo.Deleted = false
             NewAtivo.StorageLocation = CopyAtivoLocalArmazenamento
+
+         
 
             setAtivo({ ...NewAtivo })
             //COMENTADO  console.log(NewAtivo)
@@ -302,7 +317,7 @@ const AtivoModal = (props) => {
         <>
 
 
-            <AtivoPhotoModal CanEdit={PermitToEditAtivos} OnChange={SetAtivoUrl} Ativo={props.Ativo} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
+            <AtivoPhotoModal Add={props.Function === 'Add'} CanEdit={PermitToEditAtivos} OnChange={SetAtivoUrl} Ativo={props.Ativo} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
 
             <Modal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Escuro' ? 'AtivoModal-ModalEscuro AtivoModal-Modal' : 'AtivoModal-ModalClaro AtivoModal-Modal'}>
 

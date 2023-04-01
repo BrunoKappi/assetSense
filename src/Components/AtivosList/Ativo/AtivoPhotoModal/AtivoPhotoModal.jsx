@@ -7,6 +7,8 @@ import { UilCameraPlus, UilTimes, UilTrashAlt, UilCheck, UilBackward, UilPen } f
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
 import { DeleteFile, GetUserUrlImage, ImageUpload, SetAtivoPhotoUrl } from '../../../../Functions/Middleware';
 import LoadingSpiner from '../../../LoadingForTabs/Loading'
+import { connectStorageEmulator } from 'firebase/storage';
+import { v4 } from 'uuid';
 
 
 const AtivoPhotoModal = (props) => {
@@ -25,18 +27,42 @@ const AtivoPhotoModal = (props) => {
     const UploadFile = () => {
         if (imageUpload == null) return;
         setLoading(true)
-        ImageUpload(`images/${props.Ativo.id}`, imageUpload, props.LoggedUser.Email).then(() => {
-            NotificationSucesso("Foto de Perfil Atualizada!")
+
+
+        var path
+        const IdToUseToAdd = v4()
+
+
+        if (props.Add) {
+            path = `images/${IdToUseToAdd}`
+            console.log("ADD PATH", path)
+        } else {
+            path = `images/${props.Ativo.id}`
+        }
+
+
+
+
+
+
+        ImageUpload(path, imageUpload, props.LoggedUser.Email).then(() => {
+            NotificationSucesso("Foto do Ativo Atualizada!")
             setImageUpload('')
-            GetUserUrlImage(`images/${props.Ativo.id}`).then((url) => {
-                console.log(url)
-                props.OnChange(url)
+            GetUserUrlImage(path).then((url) => {
+
+                if (props.Add) {
+                    console.log("Adicionando novo")
+                    props.OnChange(url, IdToUseToAdd)
+                } else {
+                    props.OnChange(url, IdToUseToAdd)
+                }
+
                 setTimeout(() => {
                     setLoading(false)
                     setImageToShowUser(url)
-                    props.OnChange(url)
+                    props.OnChange(url, IdToUseToAdd)
                 }, 1500);
-                SetAtivoPhotoUrl(url, props.Ativo.id)
+                SetAtivoPhotoUrl(url, props.Ativo.id) 
             })
         }).catch((erro) => {
             console.log(erro)
@@ -47,12 +73,17 @@ const AtivoPhotoModal = (props) => {
 
 
     const ApagarFotoDoAtivo = () => {
+
+
+   
         setLoading(true)
         DeleteFile(`images/${props.Ativo.id}`).then(() => {
             SetAtivoPhotoUrl('', props.Ativo.id)
             NotificationSucesso("Exlusão", "Foto apagada com sucesso!")
             setLoading(false)
+            props.OnChange('')
         }).catch((error) => {
+            console.log(error)
             setLoading(false)
             NotificationErro("Erro", "Aconteceu um problema, tente novamente mais tarde")
         })

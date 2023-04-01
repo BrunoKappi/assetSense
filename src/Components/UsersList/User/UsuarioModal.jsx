@@ -54,6 +54,7 @@ const UsuarioModal = (props) => {
     //COPIAS DAS INFORMAÇÔES DO USER
     const [ProfileImageUrl, setProfileImageUrl] = useState('')
     const [CopyUserName, setCopyUserName] = useState('')
+    const [CopyUserUrlImage, setCopyUserUrlImage] = useState('')
     const [CopyUserEmail, setCopyUserEmail] = useState('')
     const [CopyUserLastName, setCopyUserLastName] = useState('')
     const [CopyUserPhone, setCopyUserPhone] = useState('')
@@ -80,6 +81,7 @@ const UsuarioModal = (props) => {
 
     const FillCopyes = (UserCopy) => {
         setCopyUserName(UserCopy?.Name)
+        setCopyUserUrlImage(UserCopy?.PhotoUrl)
         setCopyUserLastName(UserCopy?.LastName)
         setCopyUserPhone(UserCopy?.Phone)
         setCopyUserCountry(UserCopy?.Country)
@@ -175,12 +177,14 @@ const UsuarioModal = (props) => {
                 EditedUser.Type = CopyUserType
                 EditedUser.Sector = CopyUserSector
 
+                              
 
                 setUser({ ...EditedUser })
                 EditUser(EditedUser).then(() => {
                     FillCopyes(EditedUser)
                     NotificationSucesso('Alteração', 'Alterações salvas com sucesso!')
-                }).catch(() => {
+                }).catch((erro) => {
+                    console.log(erro)
                     NotificationErro("Erro", "Ocorreu um problema, tente novamente")
                 })
 
@@ -191,6 +195,7 @@ const UsuarioModal = (props) => {
             const NewUser = { ...User }
 
             NewUser.id = v4()
+            NewUser.PhotoUrl = CopyUserUrlImage
             NewUser.Email = CopyUserEmail.toLocaleLowerCase()
             NewUser.Name = CopyUserName
             NewUser.LastName = CopyUserLastName
@@ -204,20 +209,23 @@ const UsuarioModal = (props) => {
 
             setUser({ ...NewUser })
 
-            RegisterUser(NewUser.Email).then(() => {
-                AddUser(NewUser).then(() => {
-                    AddUserFirebase(NewUser)
-                    CancelEditions()
-                    props.onHide()
-                    NotificationSucesso('Adição', 'Usuário Adicionado com Sucesso!')
-                    EndConfirming()
-                }).catch(() => {
-                    NotificationErro("Erro", "Ocorreu um problema, tente novamente")
-                })
 
+            AddUser(NewUser).then(() => {
+                AddUserFirebase(NewUser)
+                CancelEditions()
+                props.onHide()
+                NotificationSucesso('Adição', 'Usuário Adicionado com Sucesso!')
+                EndConfirming()
             }).catch(() => {
                 NotificationErro("Erro", "Ocorreu um problema, tente novamente")
             })
+
+            /*
+            RegisterUser(NewUser.Email).then(() => {
+            }).catch((erro) => {
+                console.log(erro)
+                NotificationErro("Erro", "Ocorreu um problema, tente novamente")
+            })*/
 
 
         } else if (ConfirmAction === 'Delete') {
@@ -338,8 +346,9 @@ const UsuarioModal = (props) => {
     }
 
 
-    const onChangePhoto = (url) => {   
-        setProfileImageUrl(url)   
+    const onChangePhoto = (url) => {
+        setProfileImageUrl(url)
+        setCopyUserUrlImage(url)
         setTimeout(() => {
             setProfileImageUrl(url)
         }, 4000);
@@ -350,7 +359,7 @@ const UsuarioModal = (props) => {
 
         <>
 
-            <UserPhotoModal OnChangePhoto={onChangePhoto} User={props.User} IsCurrentUser={IsCurrentUser} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
+            <UserPhotoModal Add={props.Function === 'Add'} OnChangePhoto={onChangePhoto} User={props.User} IsCurrentUser={IsCurrentUser} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
 
             <BootstrapModal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Escuro' ? 'UserModal-ModalEscuro UserModal-Modal' : 'UserModal-ModalClaro UserModal-Modal'}>
 
@@ -664,7 +673,7 @@ const UsuarioModal = (props) => {
                             {Confirm && <div className='UserModalBody-UserInfo'>
                                 <h4 className='UserModalBody-UserInfoForm-ConfirMessage'>{ConfirmMessage}</h4>
                                 <div className='UserModalBody-UserInfoForm-Button'>
-                                    <button className='UserModalBody-UserInfoForm-Button-Secondary' onClick={EndConfirming}>
+                                    <button className='UserModalBody-UserInfoForm-Button-Secondary' onClick={e => { EndConfirming(); setIsEdited(true); }}>
                                         <UilBackward />
                                         {ConfirmBtBack}
                                     </button>

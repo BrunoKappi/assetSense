@@ -2,7 +2,7 @@ import { v4 as uuid, v4 } from 'uuid';
 import { FIREBASE_AddAtivo, FIREBASE_AddLocalArmazenamento, FIREBASE_AddSetor, FIREBASE_AddStatusAtivo, FIREBASE_AddTipoAtivo, FIREBASE_AddTipoUso, FIREBASE_AddTipoUsuario, FIREBASE_AddUsuario, FIREBASE_GetSetores } from '../Config/firebase/metodos';
 
 
-const Update = true
+const Update = false
 const Reset = false
 
 const ADD_FIREBASE = false
@@ -81,10 +81,9 @@ if (!localStorage.getItem('AssetSenseAtivos') || Update && !Reset) {
 
 
 if (ADD_FIREBASE) {
-
     Items.forEach(Tipo => {
-        FIREBASE_AddAtivo(Tipo).then((Document) => {
-            //COMENTADO  console.log("Item Adicionado", Document)
+        FIREBASE_AddAtivo(Tipo).then((Document) => { 
+            console.log("Item Adicionado", Document)
         }).catch((erro) => {
             //COMENTADO  console.log("Erro", erro)
         })
@@ -197,18 +196,16 @@ if (!localStorage.getItem('AssetSenseUsers') || Update && !Reset) {
 
 
 if (ADD_FIREBASE) {
-
     Users.forEach(Tipo => {
         FIREBASE_AddUsuario(Tipo).then((Document) => {
-            //COMENTADO  console.log("Usuario adicionado", Document)
+            console.log("Usuario adicionado", Document)
         }).catch((erro) => {
             //COMENTADO  console.log("Erro", erro)
         })
     })
-
 }
 
-
+ 
 
 
 
@@ -277,7 +274,6 @@ if (!localStorage.getItem('AssetSenseSetores') || Update && !Reset) {
 
 
 if (ADD_FIREBASE) {
-
     Setores.forEach(Setor => {
         FIREBASE_AddSetor(Setor).then((Document) => {
             //COMENTADO  console.log("Setor Adicionado", Document)

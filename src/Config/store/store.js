@@ -20,8 +20,7 @@ import { SetStatusAtivos } from './actions/AtivosStatusActions'
 import { SetTiposDeUso } from './actions/TiposDeUsoActions'
 import { GetAtivos, GetLocaisArmazenamento, GetRecordsFromFirebase, GetSetores, GetStatusAtivos, GetTipos, GetTiposDeUso, GetUsers, GetUserTipos,GetUserTiposFromFirebase } from '../../Functions/Middleware'
 import { SetRecords } from './actions/RecordsActions'
-import { FIREBASE_GetSetores } from '../firebase/metodos'
-
+import {  FIREBASE_AddLocalArmazenamento, FIREBASE_AddSetor, FIREBASE_GetSetores } from '../firebase/metodos'
 
 
 GetUserTiposFromFirebase().then((Tipos) => {
@@ -35,8 +34,6 @@ GetUsers().then((Users) => {
 FIREBASE_GetSetores().then((Setores) => {
     store.dispatch(SetSetores(Setores))
 })
-
-
 
 GetTipos().then((TiposAtivos) => {
     store.dispatch(SetTiposAtivos(TiposAtivos))
@@ -63,6 +60,11 @@ GetRecordsFromFirebase().then((Records) => {
     store.dispatch(SetRecords(Records))
 })
 
+
+
+
+
+
 const store = createStore(
     combineReducers({
         LoggedUser,
@@ -82,7 +84,7 @@ const store = createStore(
 
 store.subscribe(() => {
     localStorage.setItem("AssetSense", JSON.stringify(store.getState()))
-    console.log("Store Changed", store.getState())
+    //console.log("Store Changed", store.getState().LoggedUser)
 })
 
 

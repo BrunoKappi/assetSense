@@ -13,10 +13,12 @@ import Config from './Components/Config/Config'
 import Dashboard from './Components/Dashboard/Dashboard';
 import { ReactNotifications } from 'react-notifications-component'
 import { GetTema } from './Functions/Middleware';
+
  
 
 const App = (props) => {
    
+
 
   GetTema() 
 
@@ -27,8 +29,6 @@ const App = (props) => {
       return <Navigate to="/" />;
     }
   };
-
-
  
 
 

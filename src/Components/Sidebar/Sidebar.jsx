@@ -7,7 +7,7 @@ import User from '../../assets/Images/SerranoLogoFuncoBranco.jpg'
 
 import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle } from '@iconscout/react-unicons'
 import { NotificationErro } from '../../NotificationUtils';
-import { GetCurrentUserTypePermitFromStore } from '../../Functions/Middleware';
+import { GetCurrentUserFromStore, GetCurrentUserTypePermitFromStore, SetLoggedUserPhotoUrlJustStore } from '../../Functions/Middleware';
 import Loading from '../LoadingForTabs/Loading'
 
 
@@ -25,7 +25,20 @@ const Sidebar = (props) => {
         setTimeout(() => {
             SetTimeToLoadPhoto(true)
         }, 1500);
+
+
+        const User = GetCurrentUserFromStore()
+        if (User?.PhotoUrl) {
+            if (props.LoggedUser.PhotoUrl !== User?.PhotoUrl) {
+                console.log(User?.PhotoUrl)
+                SetLoggedUserPhotoUrlJustStore(User?.PhotoUrl)
+            }
+        }
     }, [props.Usuarios])
+
+
+
+
 
     const AtivosPermit = GetCurrentUserTypePermitFromStore('VISUALIZAR_ATIVOS') || GetCurrentUserTypePermitFromStore('RETIRAR_ATIVOS') || GetCurrentUserTypePermitFromStore('ADICIONAR_ATIVOS') || GetCurrentUserTypePermitFromStore(' EDITAR_ATIVOS') || GetCurrentUserTypePermitFromStore('EXCLUIR_ATIVOS')
     const UsuariosPermit = GetCurrentUserTypePermitFromStore('VISUALIZAR_USUARIOS') || GetCurrentUserTypePermitFromStore('ADICIONAR_USUARIOS') || GetCurrentUserTypePermitFromStore(' EDITAR_USUARIOS') || GetCurrentUserTypePermitFromStore('EXCLUIR_USUARIOS')
