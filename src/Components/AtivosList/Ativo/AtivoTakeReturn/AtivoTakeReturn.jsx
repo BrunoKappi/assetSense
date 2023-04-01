@@ -26,7 +26,7 @@ const AtivoTakeReturn = (props) => {
     //Quantidades
     const QuantidadeDoAtivo = props.Ativo?.Qtd
     const [QuantidadeRetirada, SetQuantidadeRetirada] = useState(GetTakesOfAtivo(props.Ativo?.id))
-    const QuantidadeRetiradaFirebase = FIREBASE_GetRecordsPendentesDeUmAtivo(props.Ativo?.id)
+    const QuantidadeRetiradaFirebase = 0
     const [QuantidadeRetiradaPeloCurrentUser, SetQuantidadeRetiradaPeloCurrentUser] = useState(GetTakesOfAtivoOfCurrentUser(props.Ativo?.id))
     const [UsuariosQuePegaramAtivo, SetUsuariosQuePegaramAtivo] = useState(GetUsersThatTookAtivo(props.Ativo?.id))
 
@@ -128,24 +128,37 @@ const AtivoTakeReturn = (props) => {
 
             //console.log("Mandando Retirar", NewRecordToAdd)
 
-            if (QuantidadeDoAtivo <= QuantidadeRetiradaFirebase) {
-                NotificationErro("Ação negada", "Parece que alguém ja reitrou esse item, atualize sua página para infomações atualizadas")
-            } else {
-                AddRecord(NewRecordToAdd).then(() => {
-                    GetRecords().then(Lista => {
-                        const Records = [...Lista]
-                        //COMENTADO  console.log("Adicionando", Lista)
-                        Records.push(NewRecordToAdd)
-                        //COMENTADO  console.log("Adicionado", Records)
-                        SaveRecords(Records)
-                        EndConfirming()
-                        NotificationSucesso('Registro', 'Registro de Retirada registrado com Sucesso!')
-                        props.OnTake('Registros')
+            
+
+
+            FIREBASE_GetRecordsPendentesDeUmAtivo(props.Ativo?.id).then(QuantidadeFirebaseRetirada => {
+
+                console.log("Quantidade Firebase", QuantidadeFirebaseRetirada)
+
+                if (QuantidadeDoAtivo <= QuantidadeFirebaseRetirada) {
+                    NotificationErro("Ação negada", "Parece que alguém ja reitrou esse item, atualize sua página para infomações atualizadas")
+                } else {
+                    AddRecord(NewRecordToAdd).then(() => {
+                        GetRecords().then(Lista => {
+                            const Records = [...Lista]
+                            //COMENTADO  console.log("Adicionando", Lista)
+                            Records.push(NewRecordToAdd)
+                            //COMENTADO  console.log("Adicionado", Records)
+                            SaveRecords(Records)
+                            EndConfirming()
+                            NotificationSucesso('Registro', 'Registro de Retirada registrado com Sucesso!')
+                            props.OnTake('Registros')
+                        })
+                    }).catch(() => {
+                        NotificationErro("Erro", "Ocorreu um problema, tente novamente")
                     })
-                }).catch(() => {
-                    NotificationErro("Erro", "Ocorreu um problema, tente novamente")
-                })
-            }
+                }
+
+            }).catch(() => {
+                NotificationErro("Erro", "Ocorreu um problema, tente novamente")
+            })
+
+
 
 
 

@@ -16,7 +16,7 @@ export const FIREBASE_AddSetor = async (ItemToAdd) => {
 };
 
 export const FIREBASE_GetSetores = async () => {
-  const data = await getDocs(SetoresCollectionRef);
+  const data = await getDocs(SetoresCollectionRef); 
   const dados = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
   return dados
 }
