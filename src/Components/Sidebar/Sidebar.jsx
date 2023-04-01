@@ -8,20 +8,23 @@ import User from '../../assets/Images/SerranoLogoFuncoBranco.jpg'
 import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle } from '@iconscout/react-unicons'
 import { NotificationErro } from '../../NotificationUtils';
 import { GetCurrentUserTypePermitFromStore } from '../../Functions/Middleware';
-
-
+import Loading from '../LoadingForTabs/Loading'
 
 
 
 const Sidebar = (props) => {
 
     const navigate = useNavigate();
-    const [CurrentUser,SetCurrentUser ] = useState({ ...props.Usuarios.find(user => user.Email === props.LoggedUser.Email) })
+    const [CurrentUser, SetCurrentUser] = useState({ ...props.Usuarios.find(user => user.Email === props.LoggedUser.Email) })
+    const [TimeToLoadPhoto, SetTimeToLoadPhoto] = useState(false)
 
- 
+
 
     useEffect(() => {
         SetCurrentUser({ ...props.Usuarios.find(user => user.Email === props.LoggedUser.Email) })
+        setTimeout(() => {
+            SetTimeToLoadPhoto(true)
+        }, 1500);
     }, [props.Usuarios])
 
     const AtivosPermit = GetCurrentUserTypePermitFromStore('VISUALIZAR_ATIVOS') || GetCurrentUserTypePermitFromStore('RETIRAR_ATIVOS') || GetCurrentUserTypePermitFromStore('ADICIONAR_ATIVOS') || GetCurrentUserTypePermitFromStore(' EDITAR_ATIVOS') || GetCurrentUserTypePermitFromStore('EXCLUIR_ATIVOS')
@@ -53,40 +56,55 @@ const Sidebar = (props) => {
     return (
         <div className={props.Tema === 'Escuro' ? 'SidebarContainerEscuro SidebarContainer' : 'SidebarContainerClaro SidebarContainer'}>
 
+
             <div className='SidebarUserPhotoContainer'>
                 <img alt='User' className='SidebarUserPhoto' src={props.LoggedUser.PhotoUrl || User}></img>
             </div>
 
-            <div className='SidebarUserName'>
-                <p> {CurrentUser.Name}</p>
-                <p> {CurrentUser.LastName}</p>
-            </div>
-
-            <ul className='SidebarList'>
-                <span to="/App/Dash" className={GetSidebarItemClass('Dash', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Dash', '/App/Dash')}>
-                    <UilChartPieAlt />
-                    <span>Dashboard</span>
-                </span>
-                <span to="/App/Ativos" className={GetSidebarItemClass('Ativos', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Ativos', '/App/Ativos')}>
-                    <UilListUl />
-                    <span>Ativos</span>
-                </span>
-                <span to="/App/Users" className={GetSidebarItemClass('Users', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Users', '/App/Users')}>
-                    <UilUsersAlt />
-                    <span>Usuarios</span>
-                </span>
-                <span to="/App/Profile" className={GetSidebarItemClass('Profile', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Profile', '/App/Profile')} >
-                    <UilUserCircle />
-                    <span>Meu Perfil</span>
-                </span>
-                <span to="/App/Config" className={GetSidebarItemClass('Config', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Config', '/App/Config')}>
-                    <UilSetting />
-                    <span>Configurações</span>
-                </span>
 
 
 
-            </ul>
+            {!CurrentUser.Name && <Loading />}
+
+            {CurrentUser.Name &&
+
+                <>
+                    <div className='SidebarUserName'>
+                        <p> {CurrentUser.Name ? CurrentUser.Name : 'Caregando...'}</p>
+                        <p> {CurrentUser.LastName}</p>
+                    </div>
+
+
+                    <ul className='SidebarList'>
+                        <span to="/App/Dash" className={GetSidebarItemClass('Dash', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Dash', '/App/Dash')}>
+                            <UilChartPieAlt />
+                            <span>Dashboard</span>
+                        </span>
+                        <span to="/App/Ativos" className={GetSidebarItemClass('Ativos', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Ativos', '/App/Ativos')}>
+                            <UilListUl />
+                            <span>Ativos</span>
+                        </span>
+                        <span to="/App/Users" className={GetSidebarItemClass('Users', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Users', '/App/Users')}>
+                            <UilUsersAlt />
+                            <span>Usuarios</span>
+                        </span>
+                        <span to="/App/Profile" className={GetSidebarItemClass('Profile', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Profile', '/App/Profile')} >
+                            <UilUserCircle />
+                            <span>Meu Perfil</span>
+                        </span>
+                        <span to="/App/Config" className={GetSidebarItemClass('Config', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Config', '/App/Config')}>
+                            <UilSetting />
+                            <span>Configurações</span>
+                        </span>
+
+
+
+                    </ul>
+
+                </>
+
+
+            }
 
         </div>
     )

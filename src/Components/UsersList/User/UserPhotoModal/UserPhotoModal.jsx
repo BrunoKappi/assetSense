@@ -28,7 +28,7 @@ const UserPhotoModal = (props) => {
             setLastUserUrlImage(props.User?.PhotoUrl)
         }
 
-    }, [props.IsCurrentUser])
+    }, [props.IsCurrentUser,props.User])
 
 
 
