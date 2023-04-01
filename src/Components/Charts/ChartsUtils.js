@@ -170,13 +170,13 @@ export const GetTiposDeUsoAtivos_SeriesLabels = () => {
 
 export const GetRecordsPendentesUso_SeriesLabels = () => {
 
-    const TiposDeUsoAtivosLabels = ['Devolvidos', 'Em Uso']
+    const TiposDeUsoAtivosLabels = ['Em Uso', 'Devolvidos']
     const TiposDeUsoAtivosQtd = [0, 0]
 
     const Records = [...GetRecordsFromStore()]
 
 
-    Records.map(Record => {
+    Records.map(Record => { 
         if (Record.ReturnDate)
             TiposDeUsoAtivosQtd[1] = TiposDeUsoAtivosQtd[1] + 1
         else
@@ -185,7 +185,7 @@ export const GetRecordsPendentesUso_SeriesLabels = () => {
 
 
     
-    const optionsCopy = {}
+    const optionsCopy = {} 
     optionsCopy.labels = [...TiposDeUsoAtivosLabels]
     optionsCopy.series = [...TiposDeUsoAtivosQtd]
     return optionsCopy

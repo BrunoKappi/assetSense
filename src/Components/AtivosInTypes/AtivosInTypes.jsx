@@ -55,7 +55,7 @@ const AtivosInTypes = (props) => {
                 const copiedItems = [...props.Ativos]; 
                 copiedItems[IndexOfAtivo] = { ...Ativo }
                 SaveAtivos(copiedItems)
-                NotificationSucesso("Edição", "Local do Ativo alterado com Sucesso!")
+                NotificationSucesso("Edição", "Tipo do Ativo alterado com Sucesso!")
             })
         } else {
             NotificationErro("Ação não Autoriazada", 'Você não tem permissão para realizar essa ação, solicite autorização ao seu Administrador')

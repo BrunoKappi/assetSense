@@ -296,7 +296,7 @@ const EditableCustomList = (props) => {
 
 
 
-                                    {props.Module === "StatusAtivos" && <Tooltip title="Pode ser Utilizado" position="bottom" >
+                                    {props.Module === "StatusAtivos" && <Tooltip title="Pode ser Utilizado/Retirado" position="bottom" >
                                       <label class="containerCheck">
                                         <input checked={Item.CanTake} type="checkbox" onChange={e => HandleSubmiChangeCanTake(index)} ></input>
                                         <div class="checkmark"></div>

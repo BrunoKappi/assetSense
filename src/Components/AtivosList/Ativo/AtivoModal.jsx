@@ -298,7 +298,7 @@ const AtivoModal = (props) => {
         if (TabToChange === 'RetirarDevolver' && !PermitToTakeAtivos)
             NotificationErro("Permissão", "Você não tem permissão para acessar essa área, solicite autorização para seu Administrador")
         else if (TabToChange === 'RetirarDevolver' && StatusAtivo?.CanTake === false)
-            NotificationErro("Não permitido", "Você não tem permissão para acessar essa área, solicite autorização para seu Administrador")
+            NotificationAlerta("Não permitido", "Este Ativo está com o Status '" + StatusAtivo?.Value + "' , sendo este status confiigurado para não aceitar retiradas" )
         else
             setTab(TabToChange)
     }
