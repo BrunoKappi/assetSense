@@ -1,0 +1,189 @@
+.AtivoPhotoModal-ModalClaro {
+
+    --AtivoPhotoModal-Backgound: white;
+    --AtivoPhotoModal-Border: white;
+    --AtivoPhotoModal-SectionTitleColor: var(--ComplementaryColor);
+}
+
+
+
+.AtivoPhotoModal-ModalEscuro {
+
+    --AtivoPhotoModal-Backgound: var(--BackgroundDark);
+    --AtivoPhotoModal-Border: rgb(127, 126, 126);
+    --AtivoPhotoModal-SectionTitleColor: var(--ComplementaryColor);
+}
+
+
+/* blurred background modal for bootstrap v4 */
+.modal-open> :not(.modal) {}
+
+@media (max-width: 760px) {
+    .modal-open> :not(.modal) {
+        -webkit-filter: none;
+        -moz-filter: none;
+        -o-filter: none;
+        -ms-filter: none;
+        filter: none;
+    }
+}
+
+.AtivoPhotoModal {
+    z-index: 0 !important;
+}
+
+
+.AtivoPhotoModal-Modal .modal-content {
+    background-color: var(--AtivoPhotoModal-Backgound) !important;
+    border: 1px solid var(--AtivoPhotoModal-Border) !important;
+    min-height: 400px;
+}
+
+
+.AtivoPhotoModal {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    max-height: 80vh;
+    min-height: 80vh;
+    overflow-y: scroll;
+}
+
+
+.OnlyView {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.AtivoPhotoModal-ImageColumn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+
+}
+
+.AtivoPhotoModal-Warning {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .3rem;
+    color: rgb(241, 241, 241);
+    font-family: var(--Fonte);
+    background-color: #dd9633;
+    padding: .2rem .8rem;
+    border-radius: 1rem;
+    font-size: .8rem;
+}
+
+
+.AtivoPhotoModal-ImageColumn>img {
+    width: 300px;
+    border-radius: 50%;
+    -webkit-box-shadow: 3px 2px 7px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 3px 2px 7px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 3px 2px 7px 0px rgba(0, 0, 0, 0.75);
+}
+
+
+.AtivoPhotoModal-OptionsColumn {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+@media (max-width: 750px) {
+    .AtivoPhotoModal {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+}
+
+
+.AtivoPhotoModal-OptionsColumn>button {
+    background-color: var(--PrimaryBackground);
+    font-family: var(--Fonte);
+    padding: .5rem 1.5rem;
+    border-radius: .5rem;
+    color: white;
+    -webkit-box-shadow: 3px 2px 7px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 3px 2px 7px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 3px 2px 7px 0px rgba(0, 0, 0, 0.75);
+    border: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem;
+}
+
+.AtivoPhotoModal-OptionsColumn>button>svg {
+    width: 1.1rem;
+}
+
+.AtivoPhotoModal-OptionsColumn>button:hover {
+    transform: scale(1.15);
+}
+
+.AtivoPhotoModal-OptionsColumn>button:active {
+    transform: scale(1);
+}
+
+
+
+
+.AtivoPhotoModal-ChangePhotoButton>input {
+    display: none;
+}
+
+.AtivoPhotoModal-CancelChangePhoto {
+    background-color: #0275d8 !important;
+}
+
+.AtivoPhotoModal-ChangePhotoButton-Ready {
+    background-color: #298a29 !important;
+}
+
+.AtivoPhotoModal-DeletePhoto {
+    background-color: #d9534f !important;
+}
+
+.AtivoPhotoModalHeader-Right-Close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+    color: var(--PrimaryBackground);
+}
+
+.AtivoPhotoModalHeader-Right-Close:hover {
+    transform: scale(1.1);
+}
+
+
+.AtivoPhotoModal-Title {
+    color: var(--ComplementaryColor);
+    font-family: var(--Fonte);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem;
+    margin: 0;
+
+}
+
+
+
+@media (max-width: 750px) {
+    .AtivoPhotoModal-Title {
+        margin-bottom: 2.5rem;
+
+    }
+}

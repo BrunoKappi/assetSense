@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import UserPhoto from '../../../../assets/Images/SerranoLogoFuncoBranco.jpg'
 import { UilCameraPlus, UilTimes, UilTrashAlt, UilCheck, UilBackward, UilPen } from '@iconscout/react-unicons'
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
-import { DeleteFile, GetUserUrlImage, ImageUpload, SetLoggedUserPhotoUrl } from '../../../../Functions/Middleware';
+import { DeleteFile, GetUserUrlImage, ImageUpload, SetLoggedUserPhotoUrl, SetOtherUserPhotoUrl } from '../../../../Functions/Middleware';
 import LoadingSpiner from '../../../LoadingForTabs/Loading'
 
 
@@ -13,24 +13,46 @@ const UserPhotoModal = (props) => {
 
     const fileInputRef = useRef(null);
     const [imageUpload, setImageUpload] = useState(null);
+    const [LastUserUrlImage, setLastUserUrlImage] = useState(null);
     const [Loading, setLoading] = useState(false);
     const [ImageToShowUser, setImageToShowUser] = useState(null);
 
     useEffect(() => {
-        setImageToShowUser(props.LoggedUser.PhotoUrl)
-    }, [])
+        console.log("EU MESMO", props.IsCurrentUser)
+        if (props.IsCurrentUser === true) {
+           
+            setImageToShowUser(props.LoggedUser.PhotoUrl)
+            setLastUserUrlImage(props.LoggedUser.PhotoUrl)
+        } else {
+            setImageToShowUser(props.User?.PhotoUrl)
+            setLastUserUrlImage(props.User?.PhotoUrl)
+        }
+
+    }, [props.IsCurrentUser])
 
 
 
     const UploadFile = () => {
         if (imageUpload == null) return;
         setLoading(true)
-        ImageUpload(`images/${props.LoggedUser.uid}`, imageUpload, props.LoggedUser.Email).then(() => {
+        const path = props.IsCurrentUser ? `images/${props.LoggedUser.uid}` : props.User?.id
+        console.log("PATH", path)
+        ImageUpload(path, imageUpload, props.LoggedUser.Email).then(() => {
             setLoading(false)
             NotificationSucesso("Foto de Perfil Atualizada!")
-            GetUserUrlImage(`images/${props.LoggedUser.uid}`).then((url) => {
-                SetLoggedUserPhotoUrl(url)
-
+            GetUserUrlImage(path).then((url) => {
+                setTimeout(() => {
+                    setLastUserUrlImage(url)    
+                    setImageUpload('')     
+                    fileInputRef.current.value = ''         
+                    if (props.IsCurrentUser) {
+                        SetLoggedUserPhotoUrl(url)
+                    } else {
+                        console.log("PARA Outro")
+                        SetOtherUserPhotoUrl(url, props.User?.id)
+                        props.OnChangePhoto(url)
+                    }
+                }, 2000)
             })
         }).catch((erro) => {
             //COMENTADO  console.log(erro)
@@ -42,9 +64,15 @@ const UserPhotoModal = (props) => {
 
     const ApagarFotoDeUsuario = () => {
         setLoading(true)
-        DeleteFile(`images/${props.LoggedUser.uid}`).then(() => {
-            SetLoggedUserPhotoUrl('')
+        const path = props.IsCurrentUser ? `images/${props.LoggedUser.uid}` : props.User?.id
+        DeleteFile(path).then(() => {
+
+            if (props.IsCurrentUser)
+                SetLoggedUserPhotoUrl('')
+            else
+                SetOtherUserPhotoUrl('', props.User?.id)
             NotificationSucesso("Exlusão", "Foto apagada com sucesso!")
+            setLastUserUrlImage('')
             setLoading(false)
         }).catch((error) => {
             setLoading(false)
@@ -84,7 +112,7 @@ const UserPhotoModal = (props) => {
 
     const Cancel = () => {
         setImageUpload('')
-        setImageToShowUser('')
+        setImageToShowUser(LastUserUrlImage)
         fileInputRef.current.value = ''
     }
 

@@ -267,6 +267,8 @@ const UserTypesPermits = (props) => {
         TiposCopy = [...CheckAllCheched(TiposCopy, TipoIndex, PermitIndex)]
 
 
+        console.log(TiposCopy[TipoIndex])
+
         EditUserType(TiposCopy[TipoIndex]).then(() => {
             SaveUserTipos(TiposCopy)
             setTiposUsuarios(TiposCopy)

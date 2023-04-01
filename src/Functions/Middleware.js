@@ -40,8 +40,8 @@ export const LogarComGooglePopup = () => {
 
 
 
-export const ImageUpload = (ImagePath, ImageToUpload) => {
-    const Email = GetCurrentUserEmailFromStore()
+export const ImageUpload = (ImagePath, ImageToUpload) => {   
+    console.log("Recebendo para Atualizar", ImagePath)
     const imageRef = ref(storage, ImagePath);
     return uploadBytes(imageRef, ImageToUpload)
 }
@@ -63,6 +63,22 @@ export const SetLoggedUserPhotoUrl = (URL) => {
     User.PhotoUrl = URL
     EditUser(User)
     store.dispatch(SetLoggedUserPhotoUrlAction(URL))
+}
+
+export const SetOtherUserPhotoUrl = (URL, ID) => {
+    //console.log("Recebendo URL", URL)
+    const User = GetUserWithIdFromStore(ID)
+    User.PhotoUrl = URL
+    EditUser(User)    
+}
+
+export const SetAtivoPhotoUrl = (URL, AtivoId) => {
+    //console.log("Recebendo URL", URL)
+    const Ativo = GetAtivoWithIdFromStore(AtivoId) 
+    Ativo.PhotoUrl = URL
+    //console.log("EDITANDO ATIVO", Ativo)
+    EditAtivo(Ativo)
+    //store.dispatch(SetLoggedUserPhotoUrlAction(URL))
 }
 
 

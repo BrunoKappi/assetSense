@@ -287,7 +287,7 @@ const UsuarioModal = (props) => {
         }
     }
 
- 
+
     const UpdatePassword = () => {
 
         if (NovaSenha.current.value && SenhaAtual.current.value) {
@@ -324,19 +324,33 @@ const UsuarioModal = (props) => {
     }
 
 
+
+
+
     const [ShowPhotoModal, setShowPhotoModal] = useState(false)
 
     const handleShowPhotoModal = () => {
-        if (IsCurrentUser) {
+        if (PermitToEditUsers) {
             setShowPhotoModal(true)
+        } else {
+            NotificationAlerta("Ação negada", "Você não possui permissão para editar usuários")
         }
+    }
+
+
+    const onChangePhoto = (url) => {   
+        setProfileImageUrl(url)   
+        setTimeout(() => {
+            setProfileImageUrl(url)
+        }, 4000);
+        setShowPhotoModal(false)
     }
 
     return (
 
         <>
 
-            <UserPhotoModal show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
+            <UserPhotoModal OnChangePhoto={onChangePhoto} User={props.User} IsCurrentUser={IsCurrentUser} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
 
             <BootstrapModal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Escuro' ? 'UserModal-ModalEscuro UserModal-Modal' : 'UserModal-ModalClaro UserModal-Modal'}>
 
@@ -346,7 +360,7 @@ const UsuarioModal = (props) => {
                     <div className='UserModal'>
                         <div className='UserModalHeader'>
                             <div className='UserModalHeader-Left'>
-                                <Tooltip title="Ver/Alterar Foto" position="bottom" >
+                                <Tooltip title="Alterar Foto" position="bottom" >
                                     <div className='UserModalHeader-Left-Photo'>
                                         <img onClick={handleShowPhotoModal} src={ProfileImageUrl || UserPhoto} alt="User" />
                                     </div>

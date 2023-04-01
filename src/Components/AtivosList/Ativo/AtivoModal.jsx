@@ -15,7 +15,9 @@ import { v4 } from 'uuid';
 import AtivoTakeReturn from './AtivoTakeReturn/AtivoTakeReturn';
 import AtivoRecords from './AtivoRecords/AtivoRecords';
 import { connect } from 'react-redux'
-
+import AtivoPhotoModal from './AtivoPhotoModal/AtivoPhotoModal'
+//Tooltip
+import { Tooltip } from 'react-tippy';
 
 const AtivoModal = (props) => {
 
@@ -23,7 +25,7 @@ const AtivoModal = (props) => {
 
 
     const StatusAtivo = GetAtivoStatusWithIdFromStore(props?.Ativo?.Status?.id)
-
+    const [ProfileImageUrl, setProfileImageUrl] = useState('')
     const [AtivoType, setAtivoType] = useState({ ...DefaultAtivosType })
     const [AtivoLocalArmazenamento, setAtivoLocalArmazenamento] = useState({ ...DefaultLocal })
     const [Ativo, setAtivo] = useState({ ...DefaultAtivo })
@@ -113,7 +115,22 @@ const AtivoModal = (props) => {
         FillCopyes(GetAtivoWithIdFromStore(props.Ativo?.id))
         setIsEdited(false)
         setTab('AtivoInfo')
+
+
+        if (props.Ativo?.PhotoUrl) {
+            setProfileImageUrl(props.Ativo?.PhotoUrl)
+        } else {
+            setProfileImageUrl('')
+        }
+
+
     }, [props.Ativo, props.CurrentUser, CurrentUserType])
+
+
+    const SetAtivoUrl = (url) => {
+        setProfileImageUrl(url)
+        setShowPhotoModal(false)
+    }
 
 
     // QUANDO ALGUMA INFORMAÇÂO MUDA
@@ -227,15 +244,15 @@ const AtivoModal = (props) => {
             NewAtivo.Deleted = false
             NewAtivo.StorageLocation = CopyAtivoLocalArmazenamento
 
-            setAtivo({ ...NewAtivo }) 
-           //COMENTADO  console.log(NewAtivo)
+            setAtivo({ ...NewAtivo })
+            //COMENTADO  console.log(NewAtivo)
             AddAtivo(NewAtivo).then(() => {
                 AddAtivoFirebase(NewAtivo)
                 CancelEditions()
                 props.onHide()
                 NotificationSucesso('Adição', 'Ativo Adicionado com Sucesso!')
             }).catch((erro) => {
-               //COMENTADO  console.log(erro)
+                //COMENTADO  console.log(erro)
             })
             EndConfirming()
         } else if (ConfirmAction === 'Delete') {
@@ -272,11 +289,20 @@ const AtivoModal = (props) => {
     }
 
 
+    const [ShowPhotoModal, setShowPhotoModal] = useState(false)
+
+    const handleShowPhotoModal = () => {
+        setShowPhotoModal(true)
+    }
+
 
     return (
 
 
         <>
+
+
+            <AtivoPhotoModal CanEdit={PermitToEditAtivos} OnChange={SetAtivoUrl} Ativo={props.Ativo} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
 
             <Modal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Escuro' ? 'AtivoModal-ModalEscuro AtivoModal-Modal' : 'AtivoModal-ModalClaro AtivoModal-Modal'}>
 
@@ -288,9 +314,11 @@ const AtivoModal = (props) => {
                     <div className='AtivoModal'>
                         <div className='AtivoModalHeader'>
                             <div className='AtivoModalHeader-Left'>
-                                <div className='AtivoModalHeader-Left-Photo'>
-                                    <img src={UserPhoto} alt="Item" />
-                                </div>
+                                <Tooltip title="Ver/Alterar Foto" position="bottom" >
+                                    <div className='AtivoModalHeader-Left-Photo'>
+                                        <img onClick={handleShowPhotoModal} src={ProfileImageUrl || UserPhoto} alt="Item" />
+                                    </div>
+                                </Tooltip>
                             </div>
                             <div className='AtivoModalHeader-Right'>
                                 <div className='AtivoModalHeader-Right-Name'>

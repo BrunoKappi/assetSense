@@ -1,0 +1,167 @@
+import React, { useState, useRef, useEffect } from 'react'
+import './AtivoPhotoModal.css'
+import Modal from 'react-bootstrap/Modal';
+import { connect } from 'react-redux'
+import UserPhoto from '../../../../assets/Images/SerranoLogoFuncoBranco.jpg'
+import { UilCameraPlus, UilTimes, UilTrashAlt, UilCheck, UilBackward, UilPen } from '@iconscout/react-unicons'
+import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
+import { DeleteFile, GetUserUrlImage, ImageUpload, SetAtivoPhotoUrl } from '../../../../Functions/Middleware';
+import LoadingSpiner from '../../../LoadingForTabs/Loading'
+
+
+const AtivoPhotoModal = (props) => {
+
+    const fileInputRef = useRef(null);
+    const [imageUpload, setImageUpload] = useState(null);
+    const [Loading, setLoading] = useState(false);
+    const [ImageToShowUser, setImageToShowUser] = useState(props?.Ativo?.PhotoUrl);
+
+    useEffect(() => {
+        //console.log(props?.Ativo?.PhotoUrl)
+        setImageToShowUser(props?.Ativo?.PhotoUrl)
+    }, [props.Ativo])
+
+
+    const UploadFile = () => {
+        if (imageUpload == null) return;
+        setLoading(true)
+        ImageUpload(`images/${props.Ativo.id}`, imageUpload, props.LoggedUser.Email).then(() => {
+            NotificationSucesso("Foto de Perfil Atualizada!")
+            setImageUpload('')
+            GetUserUrlImage(`images/${props.Ativo.id}`).then((url) => {
+                console.log(url)
+                props.OnChange(url)
+                setTimeout(() => {
+                    setLoading(false)
+                    setImageToShowUser(url)
+                    props.OnChange(url)
+                }, 1500);
+                SetAtivoPhotoUrl(url, props.Ativo.id)
+            })
+        }).catch((erro) => {
+            console.log(erro)
+            setLoading(false)
+            NotificationErro("Erro", "Aconteceu um problema, tente novamente mais tarde")
+        })
+    }
+
+
+    const ApagarFotoDoAtivo = () => {
+        setLoading(true)
+        DeleteFile(`images/${props.Ativo.id}`).then(() => {
+            SetAtivoPhotoUrl('', props.Ativo.id)
+            NotificationSucesso("Exlusão", "Foto apagada com sucesso!")
+            setLoading(false)
+        }).catch((error) => {
+            setLoading(false)
+            NotificationErro("Erro", "Aconteceu um problema, tente novamente mais tarde")
+        })
+
+    }
+
+
+    const handleChangePicture = (e) => {
+
+        const imageFile = e.target.files[0];
+
+        if (imageFile.type.includes("image") && imageFile.size <= 10148205) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setImageToShowUser(reader.result)
+                setImageUpload(imageFile)
+            };
+            reader.readAsDataURL(imageFile);
+        } else if (!imageFile.type.includes("image"))
+            NotificationErro("Apenas formatos de Imagens")
+        else
+            NotificationErro("O arquivo deve ter no máximo 10MB")
+
+    }
+
+
+
+
+    const handleButtonClick = () => {
+        if (!imageUpload)
+            fileInputRef.current.click()
+        else
+            UploadFile()
+    }
+
+    const Cancel = () => {
+        setImageUpload('')
+        setImageToShowUser('')
+        fileInputRef.current.value = ''
+    }
+
+    <img src={imageUpload} alt="Ativo" />
+
+
+
+    return (
+        <Modal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Escuro' ? 'AtivoPhotoModal-ModalEscuro AtivoPhotoModal-Modal' : 'AtivoPhotoModal-ModalClaro AtivoPhotoModal-Modal'}>
+
+            <Modal.Body closeButton className="AtivoPhotoModal-Body">
+
+                <UilTimes className='AtivoPhotoModalHeader-Right-Close' onClick={props.onHide} />
+
+                <h3 className='AtivoPhotoModal-Title'>
+                    <UilCameraPlus />
+                    {props.CanEdit ? 'Atualização de Foto do Ativo' : 'Foto do Ativo'}
+
+                </h3>
+
+
+                <div className={'AtivoPhotoModal' + (props.CanEdit ? '' : ' OnlyView')}>
+                    {!Loading &&
+                        <>
+                            <div className={'AtivoPhotoModal-ImageColumn '}>
+                                <img src={ImageToShowUser || UserPhoto} alt="Ativo" />
+                            </div>
+
+                            {props.CanEdit &&
+                                <div className='AtivoPhotoModal-OptionsColumn'>
+                                    <button className={'AtivoPhotoModal-ChangePhotoButton ' + (imageUpload ? ' AtivoPhotoModal-ChangePhotoButton-Ready' : '')} onClick={handleButtonClick}>
+                                        {imageUpload ? <UilCheck /> : <UilPen />}
+                                        {imageUpload ? 'Definir Imagem' : 'Trocar de Foto'}
+                                        <input ref={fileInputRef} accept="image/apng, image/avif, image/gif, image/jpeg, image/png, image/svg+xml, image/webp" type="file" onChange={handleChangePicture} />
+                                    </button>
+                                    {!imageUpload && <button onClick={ApagarFotoDoAtivo} className='AtivoPhotoModal-DeletePhoto'>
+                                        <UilTrashAlt />
+                                        Remover Foto
+                                    </button>}
+                                    {imageUpload && <button className='AtivoPhotoModal-CancelChangePhoto' onClick={Cancel}>
+                                        <UilBackward />
+                                        Cancelar
+                                    </button>}
+                                </div>
+                            }
+                        </>
+                    }
+                    {Loading && <LoadingSpiner />}
+
+                    {!props.CanEdit &&
+                        <span className='AtivoPhotoModal-Warning'>Você não possui permissão para editar, somente visualização</span>
+                    }
+                </div>
+
+
+
+
+
+
+            </Modal.Body >
+
+        </Modal >
+    )
+}
+
+
+const ConnectedAtivoPhotoModal = connect((state) => {
+    return {
+        Tema: state.Tema,
+        LoggedUser: state.LoggedUser
+    }
+})(AtivoPhotoModal)
+
+export default ConnectedAtivoPhotoModal
