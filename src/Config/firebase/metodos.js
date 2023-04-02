@@ -16,7 +16,7 @@ export const FIREBASE_AddSetor = async (ItemToAdd) => {
 };
 
 export const FIREBASE_GetSetores = async () => {
-  const data = await getDocs(SetoresCollectionRef); 
+  const data = await getDocs(SetoresCollectionRef);
   const dados = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
   return dados
 }
@@ -240,6 +240,14 @@ export const FIREBASE_GetUsuarios = async () => {
   return dados
 }
 
+export const FIREBASE_GetUserDocIDById = async (id) => {
+  const Query = query(Usuarios, where('id', '==', id));
+  const data = await getDocs(Query);
+  const dados = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
+  console.log("USER BY ID", dados[0].docID)
+  return dados[0].docID;
+};
+
 export const FIREBASE_UpdateUsuario = (EditedItem) => {
   const Doc = doc(db, "Usuarios", EditedItem.docID);
   const NewItem = { ...EditedItem };
@@ -258,7 +266,7 @@ export var Records = collection(db, "Records")
 
 
 export const FIREBASE_AddRecord = async (ItemToAdd) => {
-  return addDoc(Records, ItemToAdd);
+  return addDoc(Records, ItemToAdd)
 };
 
 export const FIREBASE_GetRecords = async () => {
@@ -278,6 +286,19 @@ export const FIREBASE_GetRecordsPendentesDeUmAtivo = async (ativoId) => {
   console.log("PENDENTES", dados.length)
   return dados.length;
 };
+
+
+
+
+
+export const FIREBASE_GetRecordDocIDById = async (id) => {
+  const Query = query(Records, where('id', '==', id));
+  const data = await getDocs(Query);
+  const dados = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
+  console.log("RECORD BY ID", dados[0].docID)
+  return dados[0].docID;
+};
+
 
 export const FIREBASE_UpdateRecord = (EditedItem) => {
   const Doc = doc(db, "Records", EditedItem.docID);

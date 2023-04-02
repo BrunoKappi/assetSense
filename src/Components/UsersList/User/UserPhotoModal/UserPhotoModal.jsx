@@ -12,8 +12,10 @@ import { v4 } from 'uuid';
 
 const UserPhotoModal = (props) => {
 
+
     const fileInputRef = useRef(null);
     const [imageUpload, setImageUpload] = useState(null);
+    const [Uploading, setUploading] = useState(false);
     const [CurrentUserObjet, setCurrentUserObjet] = useState(null);
     const [LastUserUrlImage, setLastUserUrlImage] = useState(null);
     const [Loading, setLoading] = useState(false);
@@ -52,15 +54,16 @@ const UserPhotoModal = (props) => {
             path = props.IsCurrentUser ? `images/${props.LoggedUser.uid}` : `images/${props.User?.id}`
         }
 
-
+        setUploading(true)
         ImageUpload(path, imageUpload, props.LoggedUser.Email).then(() => {
-            setLoading(false)
-            NotificationSucesso("Foto de Perfil Atualizada!")
             GetUserUrlImage(path).then((url) => {
+                setLoading(false)
+                NotificationSucesso("Foto de Perfil Atualizada!")
                 setTimeout(() => {
                     setLastUserUrlImage(url)
                     setImageUpload('')
                     fileInputRef.current.value = ''
+                    setUploading(false)
                     props.OnChangePhoto(url)
                     if (props.IsCurrentUser) {
                         SetLoggedUserPhotoUrl(url)
@@ -71,6 +74,7 @@ const UserPhotoModal = (props) => {
             })
         }).catch((erro) => {
             //COMENTADO  console.log(erro)
+            setUploading(false)
             setLoading(false)
             NotificationErro("Erro", "Aconteceu um problema, tente novamente mais tarde")
         })
@@ -78,11 +82,13 @@ const UserPhotoModal = (props) => {
 
 
     const ApagarFotoDeUsuario = () => {
+        setUploading(false)
         setLoading(true)
         const UserAtual = GetCurrentUserFromStore()
         const path = props.IsCurrentUser ? `images/${props.LoggedUser.uid}` : `images/${props.User?.id}`
 
         DeleteFile(path).then(() => {
+            setUploading(false)
             if (props.IsCurrentUser)
                 SetLoggedUserPhotoUrl('')
             else
@@ -93,6 +99,7 @@ const UserPhotoModal = (props) => {
             props.OnChangePhoto('')
         }).catch((error) => {
             setLoading(false)
+            setUploading(false)
             NotificationErro("Erro", "Aconteceu um problema, tente novamente mais tarde")
         })
 
@@ -135,6 +142,11 @@ const UserPhotoModal = (props) => {
 
     <img src={imageUpload} alt="User" />
 
+    const closeModal = () => {
+        if (!Uploading) {
+            props.onHide()
+        }
+    }
 
 
     return (
@@ -142,7 +154,7 @@ const UserPhotoModal = (props) => {
 
             <Modal.Body closeButton className="UserPhotoModal-Body">
 
-                <UilTimes className='UserPhotoModalHeader-Right-Close' onClick={props.onHide} />
+                <UilTimes className='UserPhotoModalHeader-Right-Close' onClick={closeModal} />
 
                 <h3 className='UserPhotoModal-Title'>
                     <UilCameraPlus />

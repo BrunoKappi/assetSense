@@ -18,11 +18,14 @@ import { connect } from 'react-redux'
 import AtivoPhotoModal from './AtivoPhotoModal/AtivoPhotoModal'
 //Tooltip
 import { Tooltip } from 'react-tippy';
+import Loading from '../../LoadingForTabs/Loading';
 
 const AtivoModal = (props) => {
 
     const [Tab, setTab] = useState('AtivoInfo')
 
+
+    const [LoadingAction, setLoadingAction] = useState(false)
 
     const StatusAtivo = GetAtivoStatusWithIdFromStore(props?.Ativo?.Status?.id)
     const [ProfileImageUrl, setProfileImageUrl] = useState('')
@@ -147,11 +150,11 @@ const AtivoModal = (props) => {
 
     // QUANDO ALGUMA INFORMAÇÂO MUDA
     useEffect(() => {
-        if (CopyAtivoName !== Ativo?.Item || CopyAtivoBrand !== Ativo?.Brand || CopyAtivoQtdPerUser !== Ativo?.QtdPerUser || CopyAtivoQtd !== Ativo?.Qtd || CopyAtivoLocalArmazenamento?.id !== Ativo?.StorageLocation?.id || CopyAtivoStatus?.id !== Ativo?.Status?.id || CopyAtivoTipoDeUso?.id !== Ativo?.Usage?.id || CopyAtivoType?.id !== Ativo?.Type?.id)
+        if (CopyAtivoName !== Ativo?.Item || CopyAtivoName !== Ativo?.Item || CopyAtivoBrand !== Ativo?.Brand || CopyAtivoQtdPerUser !== Ativo?.QtdPerUser || CopyAtivoQtd !== Ativo?.Qtd || CopyAtivoLocalArmazenamento?.id !== Ativo?.StorageLocation?.id || CopyAtivoStatus?.id !== Ativo?.Status?.id || CopyAtivoTipoDeUso?.id !== Ativo?.Usage?.id || CopyAtivoType?.id !== Ativo?.Type?.id)
             setIsEdited(true)
         else
             setIsEdited(false)
-    }, [CopyAtivoName, CopyAtivoBrand, CopyAtivoQtd, CopyAtivoLocalArmazenamento, CopyAtivoStatus, CopyAtivoTipoDeUso, CopyAtivoType, Ativo])
+    }, [CopyAtivoName, CopyAtivoBrand, CopyAtivoQtd, CopyAtivoLocalArmazenamento, CopyAtivoStatus, CopyAtivoTipoDeUso, CopyAtivoType, Ativo, CopyAtivoQtdPerUser])
 
     useEffect(() => {
         setAtivoType(GetAtivoTypeWithIdFromStore(Ativo?.Type?.id))
@@ -218,6 +221,9 @@ const AtivoModal = (props) => {
 
 
     const Submit = () => {
+
+        setLoadingAction(true)
+
         if (ConfirmAction === 'Edit') {
             if (((CanEdit || IsAdmin) || PermitToEditAtivos)) {
 
@@ -235,8 +241,11 @@ const AtivoModal = (props) => {
 
                 setAtivo({ ...EditedAtivo })
                 EditAtivo(EditedAtivo).then(() => {
+                    setLoadingAction(false)
                     FillCopyes(EditedAtivo)
                     NotificationSucesso('Alteração', 'Alterações salvas com sucesso!')
+                }).catch(() => {
+                    setLoadingAction(false)
                 })
 
                 EndConfirming()
@@ -257,32 +266,39 @@ const AtivoModal = (props) => {
             NewAtivo.Deleted = false
             NewAtivo.StorageLocation = CopyAtivoLocalArmazenamento
 
-         
+
 
             setAtivo({ ...NewAtivo })
             //COMENTADO  console.log(NewAtivo)
             AddAtivo(NewAtivo).then(() => {
+                setLoadingAction(false)
                 AddAtivoFirebase(NewAtivo)
                 CancelEditions()
                 props.onHide()
                 NotificationSucesso('Adição', 'Ativo Adicionado com Sucesso!')
             }).catch((erro) => {
+                setLoadingAction(false)
                 //COMENTADO  console.log(erro)
             })
             EndConfirming()
         } else if (ConfirmAction === 'Delete') {
+            setLoadingAction(false)
             const AtivoToDelete = { ...Ativo }
             EndConfirming()
             props.onDelete()
             DeleteAtivo(AtivoToDelete).then(() => {
+                setLoadingAction(false)
                 ReturnAllRecordOfAtivowithId(AtivoToDelete.id)
                 NotificationSucesso('Exclusão', 'Ativo Deletado com Sucesso!')
 
+            }).catch(() => {
+                setLoadingAction(false)
             })
         }
     }
 
     const EndConfirming = () => {
+
         SetConfirm(false)
         SetConfirmMessage('')
         SetConfirmBtAction('')
@@ -298,7 +314,7 @@ const AtivoModal = (props) => {
         if (TabToChange === 'RetirarDevolver' && !PermitToTakeAtivos)
             NotificationErro("Permissão", "Você não tem permissão para acessar essa área, solicite autorização para seu Administrador")
         else if (TabToChange === 'RetirarDevolver' && StatusAtivo?.CanTake === false)
-            NotificationAlerta("Não permitido", "Este Ativo está com o Status '" + StatusAtivo?.Value + "' , sendo este status confiigurado para não aceitar retiradas" )
+            NotificationAlerta("Não permitido", "Este Ativo está com o Status '" + StatusAtivo?.Value + "' , sendo este status confiigurado para não aceitar retiradas")
         else
             setTab(TabToChange)
     }
@@ -357,237 +373,242 @@ const AtivoModal = (props) => {
                             </div>
 
                         </div>
-                        <div className='AtivoModalBody'>
-                            <div className='AtivoModalBody-Sidebar'>
-                                <div className={Tab === 'AtivoInfo' ? 'AtivoModalBody-Sidebar-ActiveItem' : 'AtivoModalBody-Sidebar-Item'} onClick={e => HandleSetTab('AtivoInfo')}>
-                                    <UilUserCircle />
-                                    Informações Cadastrais
-                                </div>
 
-                                {props.Function !== 'Add' &&
-                                    <div className={Tab === 'RetirarDevolver' ? 'AtivoModalBody-Sidebar-ActiveItem' : 'AtivoModalBody-Sidebar-Item'} onClick={e => HandleSetTab('RetirarDevolver')}>
-                                        <UilArrow />
-                                        Retirar/Devolver
+                        {!LoadingAction &&
+                            <div className='AtivoModalBody'>
+                                <div className='AtivoModalBody-Sidebar'>
+                                    <div className={Tab === 'AtivoInfo' ? 'AtivoModalBody-Sidebar-ActiveItem' : 'AtivoModalBody-Sidebar-Item'} onClick={e => HandleSetTab('AtivoInfo')}>
+                                        <UilUserCircle />
+                                        Informações Cadastrais
                                     </div>
-                                }
-                                {props.Function !== 'Add' &&
-                                    <div className={Tab === 'Registros' ? 'AtivoModalBody-Sidebar-ActiveItem' : 'AtivoModalBody-Sidebar-Item'} onClick={e => HandleSetTab('Registros')}>
-                                        <UilClipboardNotes />
-                                        Registros
-                                    </div>
-                                }
 
-
-                            </div>
-
-                            {!Confirm &&
-                                <div className='AtivoModalBody-AtivoInfo'>
-                                    {Tab === 'AtivoInfo' && <div className='AtivoModalBody-AtivoInfoForm'>
-                                        <form onSubmit={GetAtivoSubmit}>
-
-                                            <h4 className='AtivoModalBody-AtivoInfoForm-SectionTitle'>Dados Cadastrais</h4>
-
-
-                                            <div className='AtivoModalBody-AtivoInfoForm-OneLine'>
-                                                <div className='AtivoModalBody-AtivoInfoForm-Group'>
-                                                    <span>
-                                                        <UilWrench />
-                                                        Item
-                                                    </span>
-                                                    <input value={CopyAtivoName} type="text" placeholder='Digite o Item' onChange={e => HandleChangeInfo('Item', e.target.value)} />
-
-                                                </div>
-                                            </div>
-
-                                            <div className='AtivoModalBody-AtivoInfoForm-TwoLine'>
-                                                <div className='AtivoModalBody-AtivoInfoForm-Group'>
-                                                    <span>
-                                                        <UilBuilding />
-                                                        Marca
-                                                    </span>
-                                                    <input placeholder='Digite a Marca (Opcional)' disabled={!CanEdit} value={CopyAtivoBrand} type="text" onChange={e => HandleChangeInfo('Marca', e.target.value)} />
-                                                </div>
-                                                <div className='AtivoModalBody-AtivoInfoForm-Group'>
-                                                    <span>
-                                                        <UilCircleLayer />
-                                                        Quantidade
-                                                    </span>
-                                                    <input placeholder='Digite a Quantidade' min='1' disabled={!CanEdit} value={CopyAtivoQtd} type="number" onChange={e => HandleChangeInfo('Quantidade', e.target.value)} />
-                                                </div>
-                                            </div>
-
-
-
-
-
-                                            <div className='AtivoModalBody-AtivoInfoForm-TwoLine'>
-                                                <div className='AtivoModalBody-AtivoInfoForm-Group'>
-                                                    <span>
-                                                        <UilTag />
-                                                        Status do Ativo
-                                                    </span>
-                                                    <Select
-                                                        className='AtivoModalBody-AtivoInfoForm-LocationSelect'
-                                                        placeholder="Selecione o Status"
-                                                        noOptionsMessage={noOptionsMessage}
-                                                        options={GetStatusAtivosFromStore()}
-                                                        getOptionLabel={(options) => { return options["Value"]; }}
-                                                        getOptionValue={(options) => { return options["Id"]; }}
-                                                        styles={AtivoModalSelectcustomStyles}
-                                                        value={CopyAtivoStatus}
-                                                        isDisabled={!CanEdit}
-                                                        onChange={(item) => { setCopyAtivoStatus(item); }}
-                                                    />
-                                                </div>
-                                                <div className='AtivoModalBody-AtivoInfoForm-Group'>
-                                                    <span>
-                                                        <UilPlay />
-                                                        Tipo de Uso
-                                                    </span>
-                                                    <Select
-                                                        className='AtivoModalBody-AtivoInfoForm-LocationSelect'
-                                                        placeholder="Selecione o Tipo de Uso"
-                                                        noOptionsMessage={noOptionsMessage}
-                                                        options={GetTiposDeUsoFromStore()}
-                                                        getOptionLabel={(options) => { return options["Value"]; }}
-                                                        getOptionValue={(options) => { return options["Id"]; }}
-                                                        styles={AtivoModalSelectcustomStyles}
-                                                        value={CopyAtivoTipoDeUso}
-                                                        isDisabled={!CanEdit}
-                                                        onChange={(item) => { setCopyAtivoTipoDeUso(item); }}
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            <div className='AtivoModalBody-AtivoInfoForm-OneLine'>
-                                                <div className='AtivoModalBody-AtivoInfoForm-Group'>
-                                                    <span>
-                                                        <UilUsersAlt />
-                                                        Retiradas Simultâneas por Usuário
-                                                    </span>
-                                                    <input value={CopyAtivoQtdPerUser} type="number" min={1} placeholder='Quantidade de Retiradas simultâneas por usuário' onChange={e => HandleChangeInfo('QuantidadePorUsuario', e.target.value)} />
-
-                                                </div>
-                                            </div>
-
-                                            <div className='AtivoModalBody-AtivoInfoForm-TwoLine'>
-                                                <div className='AtivoModalBody-AtivoInfoForm-Group'>
-
-                                                    <div className='AtivoModalBody-AtivoInfoForm-LocalList'>
-                                                        <div className='AtivoModalBody-AtivoInfoForm-LocalList-Title'>
-                                                            <UilBox />
-                                                            Local de Armazenamento
-                                                        </div>
-                                                        <div className='AtivoModalBody-AtivoInfoForm-LocalList-Itens'>
-                                                            {LocaisArmazenamento.map(Local => {
-                                                                return <div key={v4()} className={'AtivoModalBody-AtivoInfoForm-LocalList-Item'} onClick={e => HandleChangeInfo('Local', Local?.id)}>
-                                                                    {CopyAtivoLocalArmazenamento?.id === Local?.id ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
-                                                                    {Local?.Value}
-                                                                </div>
-                                                            })}
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-                                                <div className='AtivoModalBody-AtivoInfoForm-Group'>
-                                                    <div className='AtivoModalBody-AtivoInfoForm-TiposAtivosList'>
-                                                        <div className='AtivoModalBody-AtivoInfoForm-TiposAtivosList-Title'>
-                                                            <UilLabelAlt />
-                                                            Tipo do Ativo
-                                                        </div>
-                                                        <div className='AtivoModalBody-AtivoInfoForm-TiposAtivosList-Itens'>
-                                                            {TiposAtivos.map(TipoAtivo => {
-                                                                return <div key={v4()} className={'AtivoModalBody-AtivoInfoForm-TiposAtivosList-Item'} onClick={e => HandleChangeInfo('Type', TipoAtivo?.id)}>
-                                                                    {CopyAtivoType?.id === TipoAtivo?.id ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
-                                                                    {TipoAtivo?.Value}
-                                                                </div>
-                                                            })}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-
-
-                                        </form>
-
-
-                                        <div className='AtivoModalBody-AtivoInfoForm-Button'>
-                                            {!IsEdited && !IsCurrentUser && PermitToDeleteAtivos && (props.Function !== 'Add') &&
-                                                <button className='AtivoModalBody-AtivoInfoForm-Button-Delete' onClick={e => InitConfirm('Delete')}>
-                                                    <UilTrash />
-                                                    Excluir Ativo
-                                                </button>
-                                            }
-                                            {IsEdited &&
-                                                <>
-                                                    <button onClick={CancelEditions}>
-                                                        <UilTimes />
-                                                        {props.Function === 'Add' ? 'Limpar Campos' : 'Cancelar'}
-                                                    </button>
-
-                                                    {props.Function === 'Add' &&
-                                                        <button onClick={e => InitConfirm('Add')}>
-                                                            <UilSave />
-                                                            Adicionar
-                                                        </button>
-                                                    }
-
-                                                    {props.Function !== 'Add' &&
-                                                        <button onClick={e => InitConfirm('Edit')}>
-                                                            <UilSave />
-                                                            Salvar
-                                                        </button>
-                                                    }
-
-
-                                                </>
-
-                                            }
+                                    {props.Function !== 'Add' &&
+                                        <div className={Tab === 'RetirarDevolver' ? 'AtivoModalBody-Sidebar-ActiveItem' : 'AtivoModalBody-Sidebar-Item'} onClick={e => HandleSetTab('RetirarDevolver')}>
+                                            <UilArrow />
+                                            Retirar/Devolver
                                         </div>
+                                    }
+                                    {props.Function !== 'Add' &&
+                                        <div className={Tab === 'Registros' ? 'AtivoModalBody-Sidebar-ActiveItem' : 'AtivoModalBody-Sidebar-Item'} onClick={e => HandleSetTab('Registros')}>
+                                            <UilClipboardNotes />
+                                            Registros
+                                        </div>
+                                    }
 
+
+                                </div>
+
+                                {!Confirm &&
+                                    <div className='AtivoModalBody-AtivoInfo'>
+                                        {Tab === 'AtivoInfo' && <div className='AtivoModalBody-AtivoInfoForm'>
+                                            <form onSubmit={GetAtivoSubmit}>
+
+                                                <h4 className='AtivoModalBody-AtivoInfoForm-SectionTitle'>Dados Cadastrais</h4>
+
+
+                                                <div className='AtivoModalBody-AtivoInfoForm-OneLine'>
+                                                    <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                                        <span>
+                                                            <UilWrench />
+                                                            Item
+                                                        </span>
+                                                        <input value={CopyAtivoName} type="text" placeholder='Digite o Item' onChange={e => HandleChangeInfo('Item', e.target.value)} />
+
+                                                    </div>
+                                                </div>
+
+                                                <div className='AtivoModalBody-AtivoInfoForm-TwoLine'>
+                                                    <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                                        <span>
+                                                            <UilBuilding />
+                                                            Marca
+                                                        </span>
+                                                        <input placeholder='Digite a Marca (Opcional)' disabled={!CanEdit} value={CopyAtivoBrand} type="text" onChange={e => HandleChangeInfo('Marca', e.target.value)} />
+                                                    </div>
+                                                    <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                                        <span>
+                                                            <UilCircleLayer />
+                                                            Quantidade
+                                                        </span>
+                                                        <input placeholder='Digite a Quantidade' min='1' disabled={!CanEdit} value={CopyAtivoQtd} type="number" onChange={e => HandleChangeInfo('Quantidade', e.target.value)} />
+                                                    </div>
+                                                </div>
+
+
+
+
+
+                                                <div className='AtivoModalBody-AtivoInfoForm-TwoLine'>
+                                                    <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                                        <span>
+                                                            <UilTag />
+                                                            Status do Ativo
+                                                        </span>
+                                                        <Select
+                                                            className='AtivoModalBody-AtivoInfoForm-LocationSelect'
+                                                            placeholder="Selecione o Status"
+                                                            noOptionsMessage={noOptionsMessage}
+                                                            options={GetStatusAtivosFromStore()}
+                                                            getOptionLabel={(options) => { return options["Value"]; }}
+                                                            getOptionValue={(options) => { return options["Id"]; }}
+                                                            styles={AtivoModalSelectcustomStyles}
+                                                            value={CopyAtivoStatus}
+                                                            isDisabled={!CanEdit}
+                                                            onChange={(item) => { setCopyAtivoStatus(item); }}
+                                                        />
+                                                    </div>
+                                                    <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                                        <span>
+                                                            <UilPlay />
+                                                            Tipo de Uso
+                                                        </span>
+                                                        <Select
+                                                            className='AtivoModalBody-AtivoInfoForm-LocationSelect'
+                                                            placeholder="Selecione o Tipo de Uso"
+                                                            noOptionsMessage={noOptionsMessage}
+                                                            options={GetTiposDeUsoFromStore()}
+                                                            getOptionLabel={(options) => { return options["Value"]; }}
+                                                            getOptionValue={(options) => { return options["Id"]; }}
+                                                            styles={AtivoModalSelectcustomStyles}
+                                                            value={CopyAtivoTipoDeUso}
+                                                            isDisabled={!CanEdit}
+                                                            onChange={(item) => { setCopyAtivoTipoDeUso(item); }}
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div className='AtivoModalBody-AtivoInfoForm-OneLine'>
+                                                    <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                                        <span>
+                                                            <UilUsersAlt />
+                                                            Retiradas Simultâneas por Usuário
+                                                        </span>
+                                                        <input value={CopyAtivoQtdPerUser} type="number" min={1} placeholder='Quantidade de Retiradas simultâneas por usuário' onChange={e => HandleChangeInfo('QuantidadePorUsuario', e.target.value)} />
+
+                                                    </div>
+                                                </div>
+
+                                                <div className='AtivoModalBody-AtivoInfoForm-TwoLine'>
+                                                    <div className='AtivoModalBody-AtivoInfoForm-Group'>
+
+                                                        <div className='AtivoModalBody-AtivoInfoForm-LocalList'>
+                                                            <div className='AtivoModalBody-AtivoInfoForm-LocalList-Title'>
+                                                                <UilBox />
+                                                                Local de Armazenamento
+                                                            </div>
+                                                            <div className='AtivoModalBody-AtivoInfoForm-LocalList-Itens'>
+                                                                {LocaisArmazenamento.map(Local => {
+                                                                    return <div key={v4()} className={'AtivoModalBody-AtivoInfoForm-LocalList-Item'} onClick={e => HandleChangeInfo('Local', Local?.id)}>
+                                                                        {CopyAtivoLocalArmazenamento?.id === Local?.id ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
+                                                                        {Local?.Value}
+                                                                    </div>
+                                                                })}
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                                        <div className='AtivoModalBody-AtivoInfoForm-TiposAtivosList'>
+                                                            <div className='AtivoModalBody-AtivoInfoForm-TiposAtivosList-Title'>
+                                                                <UilLabelAlt />
+                                                                Tipo do Ativo
+                                                            </div>
+                                                            <div className='AtivoModalBody-AtivoInfoForm-TiposAtivosList-Itens'>
+                                                                {TiposAtivos.map(TipoAtivo => {
+                                                                    return <div key={v4()} className={'AtivoModalBody-AtivoInfoForm-TiposAtivosList-Item'} onClick={e => HandleChangeInfo('Type', TipoAtivo?.id)}>
+                                                                        {CopyAtivoType?.id === TipoAtivo?.id ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
+                                                                        {TipoAtivo?.Value}
+                                                                    </div>
+                                                                })}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+
+
+                                            </form>
+
+
+                                            <div className='AtivoModalBody-AtivoInfoForm-Button'>
+                                                {!IsEdited && !IsCurrentUser && PermitToDeleteAtivos && (props.Function !== 'Add') &&
+                                                    <button className='AtivoModalBody-AtivoInfoForm-Button-Delete' onClick={e => InitConfirm('Delete')}>
+                                                        <UilTrash />
+                                                        Excluir Ativo
+                                                    </button>
+                                                }
+                                                {IsEdited &&
+                                                    <>
+                                                        <button onClick={CancelEditions}>
+                                                            <UilTimes />
+                                                            {props.Function === 'Add' ? 'Limpar Campos' : 'Cancelar'}
+                                                        </button>
+
+                                                        {props.Function === 'Add' &&
+                                                            <button onClick={e => InitConfirm('Add')}>
+                                                                <UilSave />
+                                                                Adicionar
+                                                            </button>
+                                                        }
+
+                                                        {props.Function !== 'Add' &&
+                                                            <button onClick={e => InitConfirm('Edit')}>
+                                                                <UilSave />
+                                                                Salvar
+                                                            </button>
+                                                        }
+
+
+                                                    </>
+
+                                                }
+                                            </div>
+
+
+                                        </div>
+                                        }
+
+                                        {Tab === 'RetirarDevolver' &&
+                                            <AtivoTakeReturn Ativo={Ativo} OnTake={setTab} />
+                                        }
+
+                                        {Tab === 'Registros' &&
+                                            <AtivoRecords Ativo={Ativo} FromModal={props.FromModal} />
+                                        }
 
                                     </div>
-                                    }
+                                }
 
-                                    {Tab === 'RetirarDevolver' &&
-                                        <AtivoTakeReturn Ativo={Ativo} OnTake={setTab} />
-                                    }
+                                {Confirm && <div className='AtivoModalBody-AtivoInfo'>
+                                    <h4 className='AtivoModalBody-AtivoInfoForm-ConfirMessage'>{ConfirmMessage}</h4>
 
-                                    {Tab === 'Registros' &&
-                                        <AtivoRecords Ativo={Ativo} FromModal={props.FromModal} />
-                                    }
-
+                                    <div className='AtivoModalBody-AtivoInfoForm-Button'>
+                                        <button className='AtivoModalBody-AtivoInfoForm-Button-Secondary' onClick={EndConfirming}>
+                                            <UilBackward />
+                                            {ConfirmBtBack}
+                                        </button>
+                                        <button onClick={Submit}>
+                                            <UilCheck />
+                                            {ConfirmBtAction}
+                                        </button>
+                                    </div>
                                 </div>
-                            }
+                                }
 
-                            {Confirm && <div className='AtivoModalBody-AtivoInfo'>
-                                <h4 className='AtivoModalBody-AtivoInfoForm-ConfirMessage'>{ConfirmMessage}</h4>
 
-                                <div className='AtivoModalBody-AtivoInfoForm-Button'>
-                                    <button className='AtivoModalBody-AtivoInfoForm-Button-Secondary' onClick={EndConfirming}>
-                                        <UilBackward />
-                                        {ConfirmBtBack}
-                                    </button>
-                                    <button onClick={Submit}>
-                                        <UilCheck />
-                                        {ConfirmBtAction}
-                                    </button>
-                                </div>
+
+
+
+
+
+
                             </div>
-                            }
+                        }
 
-
-
-
-
-
-
-
-                        </div>
+                        {LoadingAction && <Loading />}
 
                     </div>
 

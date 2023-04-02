@@ -12,7 +12,7 @@ import { v4 } from 'uuid';
 import moment from 'moment'
 import { Tooltip } from 'react-tippy';
 import { connect } from 'react-redux'
-import { FIREBASE_GetRecordsPendentesDeUmAtivo } from '../../../../Config/firebase/metodos';
+import { FIREBASE_GetRecordDocIDById, FIREBASE_GetRecordsPendentesDeUmAtivo } from '../../../../Config/firebase/metodos';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Loading from '../../../LoadingForTabs/Loading'
@@ -179,11 +179,12 @@ const AtivoTakeReturn = (props) => {
                 if (QuantidadeDoAtivo <= QuantidadeFirebaseRetirada) {
                     NotificationErro("Ação negada", "Parece que alguém ja reitrou esse item, atualize sua página para infomações atualizadas")
                 } else {
-                    AddRecord(NewRecordToAdd).then(() => {
-                        
+                    AddRecord(NewRecordToAdd).then((Record) => {
+
                         GetRecords().then(Lista => {
                             const Records = [...Lista]
                             //COMENTADO  console.log("Adicionando", Lista)
+                            NewRecordToAdd.docID = Record?.id
                             Records.push(NewRecordToAdd)
                             //COMENTADO  console.log("Adicionado", Records)
                             SaveRecords(Records)
@@ -214,24 +215,41 @@ const AtivoTakeReturn = (props) => {
             var UserId = ActionFor === 'Me' ? CurrentUser.id : ReturnFor.id
             const RecordToEdit = GetRecordByAtivoIdAndUserId(props.Ativo?.id, UserId)
 
-            RecordToEdit.ReturnDate = SelectedDateTime
+            RecordToEdit.ReturnDate = SelectedDateTime 
             RecordToEdit.ReturnObs = Obs
             RecordToEdit.Duration = RecordToEdit.ReturnDate - RecordToEdit.TakeDate
 
             //console.log("Mandando Devolver", RecordToEdit)
 
 
+            if (!RecordToEdit.docId) {
+                console.log("SEM DOC ID")
+                FIREBASE_GetRecordDocIDById(RecordToEdit.id).then((docID) => {
+                    console.log("PEGUEI O DOCID", docID)
+                    RecordToEdit.docID = docID
+                    EditRecord(RecordToEdit).then(() => {
+                        setLoadingAction(false)
+                        NotificationSucesso('Registro', 'Registro de Devolução registrado com Sucesso!')
+                        EndConfirming()
+                        props.OnTake('Registros')
+                    }).catch(() => {
+                        setLoadingAction(false)
+                        NotificationErro("Erro", "Ocorreu um problema, tente novamente")
+                    })
+                })
+            } else {
+                EditRecord(RecordToEdit).then(() => {
+                    setLoadingAction(false)
+                    NotificationSucesso('Registro', 'Registro de Devolução registrado com Sucesso!')
+                    EndConfirming()
+                    props.OnTake('Registros')
+                }).catch(() => {
+                    setLoadingAction(false)
+                    NotificationErro("Erro", "Ocorreu um problema, tente novamente")
+                })
+            }
 
 
-            EditRecord(RecordToEdit).then(() => {
-                setLoadingAction(false)
-                NotificationSucesso('Registro', 'Registro de Devolução registrado com Sucesso!')
-                EndConfirming()
-                props.OnTake('Registros')
-            }).catch(() => {
-                setLoadingAction(false)
-                NotificationErro("Erro", "Ocorreu um problema, tente novamente")
-            })
 
 
         }

@@ -215,8 +215,8 @@ export const GetTop5ItensRetirados_SeriesLabels = () => {
 
 
     const optionsCopy = {}
-    optionsCopy.labels = AtivosRetirados.sort((a, b) => b.Qtd - a.Qtd).map(Ativo => { return Ativo.Item })
-    optionsCopy.series = AtivosRetirados.sort((a, b) => b.Qtd - a.Qtd).map(Ativo => { return Ativo.Qtd })
+    optionsCopy.labels = AtivosRetirados.sort((a, b) => b.Qtd - a.Qtd).slice(0, 5).map(Ativo => { return Ativo.Item })
+    optionsCopy.series = AtivosRetirados.sort((a, b) => b.Qtd - a.Qtd).slice(0, 5).map(Ativo => { return Ativo.Qtd })
 
     return optionsCopy
 
@@ -252,8 +252,8 @@ export const GetTop5UsuariosRetirados_SeriesLabels = () => {
     })
 
     const optionsCopy = {}
-    optionsCopy.labels = UsersRetirados.sort((a, b) => b.Qtd - a.Qtd).map(Ativo => { return Ativo.Nome })
-    optionsCopy.series = UsersRetirados.sort((a, b) => b.Qtd - a.Qtd).map(Ativo => { return Ativo.Qtd })
+    optionsCopy.labels = UsersRetirados.sort((a, b) => b.Qtd - a.Qtd).slice(0, 5).map(Ativo => { return Ativo.Nome })
+    optionsCopy.series = UsersRetirados.sort((a, b) => b.Qtd - a.Qtd).slice(0, 5).map(Ativo => { return Ativo.Qtd })
     //COMENTADO  console.log(optionsCopy)
     return optionsCopy
 

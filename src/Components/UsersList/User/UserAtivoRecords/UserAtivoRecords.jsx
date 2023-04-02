@@ -117,6 +117,9 @@ const UserAtivoRecords = (props) => {
                     const momento = moment.unix(Registro.TakeDate / 1000); // dividir por 1000 porque o valor está em milissegundos, mas moment.unix() espera segundos
                     const horaMinuto = momento.format('HH:mm'); // exemplo de formato "HH:mm"
 
+                    const momentoReturn = moment.unix(Registro?.ReturnDate / 1000); // dividir por 1000 porque o valor está em milissegundos, mas moment.unix() espera segundos
+                    const horaMinutoReturn = momentoReturn.format('HH:mm'); // exemplo de formato "HH:mm"
+
                     // Tempo alvo em milissegundos
                     const tempoEmMilissegundos = Registro.Duration === 0 ? (moment().valueOf() - Registro.TakeDate) : Registro.Duration;
 
@@ -176,6 +179,15 @@ const UserAtivoRecords = (props) => {
 
 
                         </div>
+
+                        {Registro.ReturnDate &&
+                            <div className='AtivoRecord-DownRow'>
+                                <span className='UserAtivoRecord-UpRow-Status'>
+                                    {"Devolvido em " + moment(Registro.ReturnDate).format("DD/MM/YY") + " " + horaMinutoReturn}
+                                </span>
+                            </div>
+                        }
+
                     </div>
                 })}
 

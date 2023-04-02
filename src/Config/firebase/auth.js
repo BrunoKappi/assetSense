@@ -8,7 +8,7 @@ import { GetCurrentUserEmailFromStore, GetCurrentUserFromStore, GetUserUrlImage 
 
 
 
-onAuthStateChanged(auth, (currentUser) => {
+const onAuthStateChangedHandler = (currentUser) => {
   console.log("AUTHCHANGED", currentUser ? currentUser : 'VAZIO');
 
   const LoggedUserEmail = GetCurrentUserEmailFromStore()
@@ -51,7 +51,11 @@ onAuthStateChanged(auth, (currentUser) => {
       store.dispatch(SetCheckLogin())
     }, 5);
 
-})
+}
+
+
+
+export const unsubscribe = onAuthStateChanged(auth, onAuthStateChangedHandler)
 
 export const mudarSenha = async (novaSenha) => {
   return updatePassword(auth.currentUser, novaSenha)

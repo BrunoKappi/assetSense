@@ -3,7 +3,7 @@ import './AtivoRecords.css'
 import { GetCurrentUserFromStore, GetRecordsOfAtivo, GetuserNameWithIdFromStore, GetUserWithIdFromStore } from '../../../../Functions/Middleware';
 
 import moment from 'moment';
-import { UilCalendarAlt, UilClock, UilBookmark, UilPlay, UilCommentInfoAlt, UilCommentAltMessage } from '@iconscout/react-unicons'
+import { UilCalendarAlt, UilClock, UilBookmark, UilPlay, UilCommentInfoAlt, UilCommentAltMessage, UilArrowUp, UilArrowDown } from '@iconscout/react-unicons'
 import { MdFilterList } from 'react-icons/md'
 import Dropdown from 'react-bootstrap/Dropdown';
 //Tooltip
@@ -116,6 +116,9 @@ const AtivoRecords = (props) => {
                     const momento = moment.unix(Registro.TakeDate / 1000); // dividir por 1000 porque o valor está em milissegundos, mas moment.unix() espera segundos
                     const horaMinuto = momento.format('HH:mm'); // exemplo de formato "HH:mm"
 
+                    const momentoReturn = moment.unix(Registro?.ReturnDate / 1000); // dividir por 1000 porque o valor está em milissegundos, mas moment.unix() espera segundos
+                    const horaMinutoReturn = momentoReturn.format('HH:mm'); // exemplo de formato "HH:mm"
+
                     // Tempo alvo em milissegundos
                     const tempoEmMilissegundos = Registro.Duration === 0 ? (moment().valueOf() - Registro.TakeDate) : Registro.Duration;
 
@@ -140,7 +143,7 @@ const AtivoRecords = (props) => {
                                 </span>
                             </Tooltip>
                             <span className='AtivoRecord-UpRow-Status'>
-                                {Registro.Duration === 0 ? 'Em uso' : 'Devolvido'}
+                                {Registro.Duration === 0 ? 'Em uso' : ''}
                             </span>
                         </div>
 
@@ -195,7 +198,21 @@ const AtivoRecords = (props) => {
                                     {tempoFormatado}
                                 </span>
                             </Tooltip>
+
+
+
                         </div>
+
+                        {Registro.ReturnDate &&
+                            <div className='AtivoRecord-DownRow'>
+                                <span className='AtivoRecord-UpRow-Status'>
+                                    {"Devolvido em " + moment(Registro.ReturnDate).format("DD/MM/YY") + " " + horaMinutoReturn}
+                                </span>
+                            </div>
+                        }
+
+
+
                     </div>
                 })}
 
@@ -219,7 +236,7 @@ const AtivoRecords = (props) => {
 
 
 const ConnectedAtivoRecords = connect((state) => {
-    return {       
+    return {
         Tema: state.Tema
     }
 })(AtivoRecords)

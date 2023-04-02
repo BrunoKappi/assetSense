@@ -67,7 +67,7 @@ export const SetLoggedUserPhotoUrl = (URL) => {
     store.dispatch(SetLoggedUserPhotoUrlAction(URL))
 }
 
-export const SetLoggedUserPhotoUrlJustStore = (URL) => {       
+export const SetLoggedUserPhotoUrlJustStore = (URL) => {
     store.dispatch(SetLoggedUserPhotoUrlAction(URL))
 }
 
@@ -480,7 +480,7 @@ export const ResetonAuthStateChanged = () => {
     })
 }
 
-export async function RegisterUser(Email) {   
+export async function RegisterUser(Email) {
     return FIREBASE_RegisterUserAuth(Email)
 }
 
