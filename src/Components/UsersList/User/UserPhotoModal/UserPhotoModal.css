@@ -78,7 +78,7 @@
     gap: 1rem;
 }
 
-@media (max-width: 750px) {
+@media (max-width: 1000px) {
     .UserPhotoModal {
         display: flex;
         flex-direction: column;

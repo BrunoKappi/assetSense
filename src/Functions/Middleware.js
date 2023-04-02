@@ -23,6 +23,7 @@ import { auth } from "../Config/firebase/index";
 //UTILS
 
 export const LoginUtil = (email, password) => {
+    console.log("Recebdno login", email, password)
     return FIREBASE_LoginAuth(email, password)
 }
 

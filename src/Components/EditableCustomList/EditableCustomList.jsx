@@ -121,14 +121,16 @@ const EditableCustomList = (props) => {
         else
           NewItem = { ...DefaultItemType, id: v4(), Value: NewItemList }
 
-        ItensCopy.push(NewItem)
+
 
         const addFunction = AddFunctions[props.Module];
         const saveFunction = saveFunctions[props.Module];
 
         addFunction(NewItem).then(() => {
           if (saveFunction) {
-            saveFunction(ItensCopy).then(() => {
+            saveFunction(ItensCopy).then((AddedItem) => {
+              NewItem.docID = AddedItem?.id
+              ItensCopy.push(NewItem)
               setListaDeItens([...ItensCopy])
               GetNotificationSuccessMessageAdd(props.Module)
               setNewItemList('')
@@ -207,7 +209,7 @@ const EditableCustomList = (props) => {
 
 
   const HandleDrag = (Resultado) => {
-   //COMENTADO  console.log(Resultado)
+    //COMENTADO  console.log(Resultado)
 
     if (!Resultado.destination) return;
 
@@ -244,10 +246,10 @@ const EditableCustomList = (props) => {
       NotificationErro("Ação não permitida", "Você não pode mudar este Status no momento, pois já existem ativos com este status em utilização")
     } else {
       ItensCopy[index].CanTake = !ItensCopy[index].CanTake
-     //COMENTADO  console.log(ItensCopy[index])
+      //COMENTADO  console.log(ItensCopy[index])
 
 
-      EditStatusAtivo(ItensCopy[index]).then(() => { 
+      EditStatusAtivo(ItensCopy[index]).then(() => {
         SaveStatusAtivos(ItensCopy).then(() => {
           setListaDeItens([...ItensCopy])
           EndEditing()
@@ -310,7 +312,11 @@ const EditableCustomList = (props) => {
 
                                       {EditingItem && ItemListSelected !== Item.Value && <span onClick={e => { setEditingItem(false); }}> {Item.Value}</span>}
 
-                                      {!EditingItem && <span onDoubleClick={e => InitEditing(Item.Value)}> {Item.Value}</span>}
+                                      {!EditingItem &&
+                                      
+                                          <span onDoubleClick={e => InitEditing(Item.Value)}> {Item.Value}</span>
+                                        
+                                      }
 
                                       {ItemListSelected === Item.Value && EditingItem &&
                                         <form onSubmit={e => HandleSubmiChangeItemName(e, index, Item.Value)}>

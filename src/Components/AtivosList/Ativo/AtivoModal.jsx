@@ -270,7 +270,8 @@ const AtivoModal = (props) => {
 
             setAtivo({ ...NewAtivo })
             //COMENTADO  console.log(NewAtivo)
-            AddAtivo(NewAtivo).then(() => {
+            AddAtivo(NewAtivo).then((AddedRecordDoc) => {
+                NewAtivo.docID = AddedRecordDoc?.id
                 setLoadingAction(false)
                 AddAtivoFirebase(NewAtivo)
                 CancelEditions()

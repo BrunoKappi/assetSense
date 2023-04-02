@@ -180,13 +180,10 @@ const AtivoTakeReturn = (props) => {
                     NotificationErro("Ação negada", "Parece que alguém ja reitrou esse item, atualize sua página para infomações atualizadas")
                 } else {
                     AddRecord(NewRecordToAdd).then((Record) => {
-
                         GetRecords().then(Lista => {
-                            const Records = [...Lista]
-                            //COMENTADO  console.log("Adicionando", Lista)
+                            const Records = [...Lista]                            
                             NewRecordToAdd.docID = Record?.id
-                            Records.push(NewRecordToAdd)
-                            //COMENTADO  console.log("Adicionado", Records)
+                            Records.push(NewRecordToAdd)            
                             SaveRecords(Records)
                             EndConfirming()
                             NotificationSucesso('Registro', 'Registro de Retirada registrado com Sucesso!')

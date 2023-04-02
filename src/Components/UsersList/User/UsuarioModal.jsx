@@ -239,15 +239,16 @@ const UsuarioModal = (props) => {
 
             unsubscribe()
             setTimeout(() => {
-                FIREBASE_LogouyAuth().then(()=>{
+                FIREBASE_LogouyAuth().then(() => {
                     console.log("LOGOUT")
-                }).catch(()=>{
-                    console.log("ERRO LOGOUT") 
+                }).catch(() => {
+                    console.log("ERRO LOGOUT")
                 })
             }, 1500);
 
             RegisterUser(NewUser.Email).then(() => {
-                AddUser(NewUser).then(() => {
+                AddUser(NewUser).then((AddedUserDoc) => {
+                    NewUser.docID = AddedUserDoc?.id // PEGA O docID gerado pelo firebase e coloca no objeto do novo User
                     setLoadingAction(false)
                     AddUserFirebase(NewUser)
                     CancelEditions()
@@ -336,19 +337,32 @@ const UsuarioModal = (props) => {
     const UpdatePassword = () => {
 
         if (NovaSenha.current.value && SenhaAtual.current.value) {
-            LoginUtil(GetCurrentUserFromStore().Email, SenhaAtual.current.value).then(() => {
-                mudarSenha(NovaSenha.current.value).then(() => {
+
+            const Senha = SenhaAtual.current.value
+            const SenhaNova = NovaSenha.current.value
+
+            const Email = User?.Email
+
+            setLoadingAction(true)
+            LoginUtil(User?.Email, Senha).then(() => {
+ 
+                mudarSenha(SenhaNova).then(() => {
+                    setLoadingAction(false)
                     NotificationSucesso("Alteração de Senha", "Senha Atualizada")
-                    NovaSenha.current.value = ''
-                    SenhaAtual.current.value = ''
+                    setTimeout(() => {
+                        SenhaAtual.current.value = ''
+                        NovaSenha.current.value = ''
+                    }, 4000);
                 }).catch((error) => {
+                    setLoadingAction(false)
                     let SenhaFraca = error.code.includes("password");
                     if (SenhaFraca)
                         NotificationAlerta("Erro", 'A senha deve ter pelo menos 6 caracteres')
                 })
-            }
-            ).catch(() => {
+            }).catch((erro) => {
+                console.log(erro)
                 NotificationErro("Erro", 'Senha Atual incorreta')
+                setLoadingAction(false)
             })
         } else {
 

@@ -57,7 +57,7 @@ const onAuthStateChangedHandler = (currentUser) => {
 
 export const unsubscribe = onAuthStateChanged(auth, onAuthStateChangedHandler)
 
-export const mudarSenha = async (novaSenha) => {
+export const mudarSenha = async (novaSenha) => {  
   return updatePassword(auth.currentUser, novaSenha)
 }
 

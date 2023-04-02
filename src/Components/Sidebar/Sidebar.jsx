@@ -9,8 +9,9 @@ import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle } fro
 import { NotificationErro } from '../../NotificationUtils';
 import { GetCurrentUserFromStore, GetCurrentUserTypePermitFromStore, SetLoggedUserPhotoUrlJustStore } from '../../Functions/Middleware';
 import Loading from '../LoadingForTabs/Loading'
-
-
+import UserPhotoModal from '../UsersList/User/UserPhotoModal/UserPhotoModal'
+//Tooltip
+import { Tooltip } from 'react-tippy';
 
 const Sidebar = (props) => {
 
@@ -64,62 +65,78 @@ const Sidebar = (props) => {
             NotificationErro("Não Autorizado", "Você não possui permissão para acessar essa aba, solicite acesso ao seu Administrador")
     }
 
+    const [ShowPhotoModal, setShowPhotoModal] = useState(false)
+
+    const onChangePhoto = (url) => {
+
+    }
 
 
     return (
-        <div className={props.Tema === 'Escuro' ? 'SidebarContainerEscuro SidebarContainer' : 'SidebarContainerClaro SidebarContainer'}>
+
+        <>
+
+            <UserPhotoModal Add={false} OnChangePhoto={onChangePhoto} User={CurrentUser} IsCurrentUser={true} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
 
 
-            <div className='SidebarUserPhotoContainer'>
-                <img alt='User' className='SidebarUserPhoto' src={props.LoggedUser.PhotoUrl || User}></img>
+            <div className={props.Tema === 'Escuro' ? 'SidebarContainerEscuro SidebarContainer' : 'SidebarContainerClaro SidebarContainer'}>
+
+
+                <div className='SidebarUserPhotoContainer'>
+                    <Tooltip title="Ver/Alterar Foto de Perfil" position="bottom" >
+                        <img onClick={e => setShowPhotoModal(true)} alt='User' className='SidebarUserPhoto' src={props.LoggedUser.PhotoUrl || User}></img>
+                    </Tooltip>
+                </div>
+
+
+
+
+                {!CurrentUser.Name && <Loading />}
+
+                {CurrentUser.Name &&
+
+                    <>
+                        <Tooltip title="Acessar seu Perfil" position="bottom" >
+                            <div className='SidebarUserName' onClick={e => SetTabSidebar('Profile', '/App/Profile')}>
+                                <p> {CurrentUser.Name ? CurrentUser.Name : 'Caregando...'}</p>
+                                <p> {CurrentUser.LastName}</p>
+                            </div>
+                        </Tooltip>
+
+                        <ul className='SidebarList'>
+                            <span to="/App/Dash" className={GetSidebarItemClass('Dash', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Dash', '/App/Dash')}>
+                                <UilChartPieAlt />
+                                <span>Dashboard</span>
+                            </span>
+                            <span to="/App/Ativos" className={GetSidebarItemClass('Ativos', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Ativos', '/App/Ativos')}>
+                                <UilListUl />
+                                <span>Ativos</span>
+                            </span>
+                            <span to="/App/Users" className={GetSidebarItemClass('Users', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Users', '/App/Users')}>
+                                <UilUsersAlt />
+                                <span>Usuarios</span>
+                            </span>
+                            <span to="/App/Profile" className={GetSidebarItemClass('Profile', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Profile', '/App/Profile')} >
+                                <UilUserCircle />
+                                <span>Meu Perfil</span>
+                            </span>
+                            <span to="/App/Config" className={GetSidebarItemClass('Config', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Config', '/App/Config')}>
+                                <UilSetting />
+                                <span>Configurações</span>
+                            </span>
+
+
+
+                        </ul>
+
+                    </>
+
+
+                }
+
             </div>
 
-
-
-
-            {!CurrentUser.Name && <Loading />}
-
-            {CurrentUser.Name &&
-
-                <>
-                    <div className='SidebarUserName'>
-                        <p> {CurrentUser.Name ? CurrentUser.Name : 'Caregando...'}</p>
-                        <p> {CurrentUser.LastName}</p>
-                    </div>
-
-
-                    <ul className='SidebarList'>
-                        <span to="/App/Dash" className={GetSidebarItemClass('Dash', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Dash', '/App/Dash')}>
-                            <UilChartPieAlt />
-                            <span>Dashboard</span>
-                        </span>
-                        <span to="/App/Ativos" className={GetSidebarItemClass('Ativos', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Ativos', '/App/Ativos')}>
-                            <UilListUl />
-                            <span>Ativos</span>
-                        </span>
-                        <span to="/App/Users" className={GetSidebarItemClass('Users', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Users', '/App/Users')}>
-                            <UilUsersAlt />
-                            <span>Usuarios</span>
-                        </span>
-                        <span to="/App/Profile" className={GetSidebarItemClass('Profile', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Profile', '/App/Profile')} >
-                            <UilUserCircle />
-                            <span>Meu Perfil</span>
-                        </span>
-                        <span to="/App/Config" className={GetSidebarItemClass('Config', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Config', '/App/Config')}>
-                            <UilSetting />
-                            <span>Configurações</span>
-                        </span>
-
-
-
-                    </ul>
-
-                </>
-
-
-            }
-
-        </div>
+        </>
     )
 }
 

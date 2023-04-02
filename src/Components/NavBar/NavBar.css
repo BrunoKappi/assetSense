@@ -20,14 +20,21 @@
 
 
 .NavSidebarUserPhotoContainer {
-  width: 100%;
   display: none;
   align-items: center;
   justify-content: center;
 }
 
+.NavSidebarUserPhoto:hover {
+  transform: scale(1.1);
+}
+
+
 .NavSidebarUserPhoto {
   width: 30%;
+  height: 30%;
+  object-fit: cover;
+  cursor: pointer;
   border-radius: 50%;
 }
 
@@ -494,6 +501,11 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 1rem;
+    cursor: pointer;
+  }
+
+  .NavbarSidebarUserName:hover {
+    transform: scale(1.1);
   }
 
   .NavbarSidebarUserName>p {

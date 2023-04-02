@@ -24,6 +24,7 @@ import User from '../../assets/Images/User.png'
 import { useNavigate } from 'react-router-dom';
 import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilSignout, UilBars, UilMoon, UilBright } from '@iconscout/react-unicons'
 import { GetCurrentUserTypePermitFromStore, LogoutUtil, ToggleTema } from '../../Functions/Middleware';
+import UserPhotoModal from '../UsersList/User/UserPhotoModal/UserPhotoModal'
 
 
 const NavBar = (props) => {
@@ -73,141 +74,154 @@ const NavBar = (props) => {
             NotificationErro("Não Autorizado", "Você não possui permissão para acessar essa aba, solicite acesso ao seu Administrador")
     }
 
-    return (
-        <div className='NavBarContainer'>
 
-            <Navbar className='NavBar' expand={'md'} id='navBarResponsive' >
-                <Container fluid bg='dark'>
-                    <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`} >
-                        <UilBars className='NavBarToggleIcon' />
-                    </Navbar.Toggle>
-                    <Navbar.Brand>
-                        <div className='LogoAndCollpse'>
-                            <Tooltip title="Inicio" position="bottom" >
-                                <Link to="/App/Dash" onClick={e => SetTab('Dash')}>
-                                    <img alt="Logo" className="LogoNavBar" src={Logo} />
-                                </Link>
-                            </Tooltip>
-                        </div>
-                    </Navbar.Brand>
-                    <Navbar.Offcanvas id="sidebarOffCanvas" backdrop={true}>
-                        <Offcanvas.Header closeButton closeVariant='white'>
-                            <Offcanvas.Title>
-                                <h1>
-                                    <Link className='offCanvasBrand' to="/App">
+    const [ShowPhotoModal, setShowPhotoModal] = useState(false)
+
+    const onChangePhoto = (url) => {
+
+    }
+
+    return (
+        <>
+
+            <UserPhotoModal Add={false} OnChangePhoto={onChangePhoto} User={CurrentUser} IsCurrentUser={true} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
+
+            <div className='NavBarContainer'>
+
+                <Navbar className='NavBar' expand={'md'} id='navBarResponsive' >
+                    <Container fluid bg='dark'>
+                        <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`} >
+                            <UilBars className='NavBarToggleIcon' />
+                        </Navbar.Toggle>
+                        <Navbar.Brand>
+                            <div className='LogoAndCollpse'>
+                                <Tooltip title="Inicio" position="bottom" >
+                                    <Link to="/App/Dash" onClick={e => SetTab('Dash')}>
                                         <img alt="Logo" className="LogoNavBar" src={Logo} />
                                     </Link>
-                                </h1>
-                            </Offcanvas.Title>
-                        </Offcanvas.Header>
-                        <Offcanvas.Body >
-                            <Nav className="justify-content-end flex-grow-1 navBody ">
+                                </Tooltip>
+                            </div>
+                        </Navbar.Brand>
+                        <Navbar.Offcanvas id="sidebarOffCanvas" backdrop={true}>
+                            <Offcanvas.Header closeButton closeVariant='white'>
+                                <Offcanvas.Title>
+                                    <h1>
+                                        <Link className='offCanvasBrand' to="/App">
+                                            <img alt="Logo" className="LogoNavBar" src={Logo} />
+                                        </Link>
+                                    </h1>
+                                </Offcanvas.Title>
+                            </Offcanvas.Header>
+                            <Offcanvas.Body >
+                                <Nav className="justify-content-end flex-grow-1 navBody ">
 
-                                <div className='navDiv'>
-                                    <Tooltip title="Alterar o Tema" position="bottom" >
-                                        <button className='ChangeThemeButton' onClick={handleToggleTema}>
-                                            {props.Tema === 'Escuro' ? <UilMoon /> : <UilBright />}
-                                        </button>
-                                    </Tooltip>
-                                    <NavDropdown title={
-                                        <span className='ProfileNavLinkTitle' >
-                                            {(CurrentUser.Name ? CurrentUser.Name : 'Carregando...')} {' '} {(CurrentUser.LastName) ? CurrentUser.LastName : ''}
-                                        </span>}
-                                    >
+                                    <div className='navDiv'>
+                                        <Tooltip title="Alterar o Tema" position="bottom" >
+                                            <button className='ChangeThemeButton' onClick={handleToggleTema}>
+                                                {props.Tema === 'Escuro' ? <UilMoon /> : <UilBright />}
+                                            </button>
+                                        </Tooltip>
+                                        <NavDropdown title={
+                                            <span className='ProfileNavLinkTitle' >
+                                                {(CurrentUser.Name ? CurrentUser.Name : 'Carregando...')} {' '} {(CurrentUser.LastName) ? CurrentUser.LastName : ''}
+                                            </span>}
+                                        >
 
-                                        <span to="/App/Dash" className={GetNavbarSidebarItemClass('Dash', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Dash', '/App/Dash')}>
+                                            <span to="/App/Dash" className={GetNavbarSidebarItemClass('Dash', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Dash', '/App/Dash')}>
+                                                <UilChartPieAlt />
+                                                <span>Dashboard</span>
+                                            </span>
+
+                                            <span to="/App/Ativos" className={GetNavbarSidebarItemClass('Ativos', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Ativos', '/App/Ativos')}>
+                                                <UilListUl />
+                                                <span>Ativos</span>
+                                            </span>
+                                            <span to="/App/Users" className={GetNavbarSidebarItemClass('Users', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Users', '/App/Users')}>
+                                                <UilUsersAlt />
+                                                <span>Usuarios</span>
+                                            </span>
+                                            <span to="/App/Profile" className={GetNavbarSidebarItemClass('Profile', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Profile', '/App/Profile')} >
+                                                <UilUserCircle />
+                                                <span>Meu Perfil</span>
+                                            </span>
+                                            <span id="NavDropDown" to="/App/Config" className={GetNavbarSidebarItemClass('Config', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Config', '/App/Config')}>
+                                                <UilSetting />
+                                                <span>Configurações</span>
+                                            </span>
+
+                                            <NavDropdown.Divider />
+                                            <span href='/' className="dropDownLink NavBarListSidebarItem" onClick={Sair}>
+                                                <UilSignout /> Sair
+                                            </span>
+                                        </NavDropdown>
+                                    </div>
+
+                                    <div className='LastNavLogoIconContainer'>
+                                        <img alt="Logo" src={LogoBrancoSerrano} className='LastNavLogoIcon'></img>
+                                    </div>
+
+
+                                    <div className='NavSidebarUserPhotoContainer'>
+                                        <img  onClick={e => setShowPhotoModal(true)} alt='User' className='NavSidebarUserPhoto' src={props.LoggedUser.PhotoUrl || User}></img>
+                                    </div>
+
+                                    <div className='NavbarSidebarUserName' onClick={e => SetTabNavBar('Profile', '/App/Profile')}>
+                                        <p> {CurrentUser?.Name ? CurrentUser?.Name : 'Carregando'}</p>
+                                        <p> {CurrentUser?.LastName ? CurrentUser.LastName : ''}</p>
+                                    </div>
+
+                                    <ul className='NavBarListSidebar'>
+                                        <span to="/App/Dash" className={GetNavbarSidebarItemClass('Dash', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Dash', 'App/')}>
                                             <UilChartPieAlt />
                                             <span>Dashboard</span>
                                         </span>
-
-                                        <span to="/App/Ativos" className={GetNavbarSidebarItemClass('Ativos', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Ativos', '/App/Ativos')}>
+                                        <span to="/App/Ativos" className={GetNavbarSidebarItemClass('Ativos', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Ativos', '/App/Ativos')}>
                                             <UilListUl />
                                             <span>Ativos</span>
                                         </span>
-                                        <span to="/App/Users" className={GetNavbarSidebarItemClass('Users', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Users', '/App/Users')}>
+                                        <span to="/App/Users" className={GetNavbarSidebarItemClass('Users', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Users', '/App/Users')}>
                                             <UilUsersAlt />
                                             <span>Usuarios</span>
                                         </span>
-                                        <span to="/App/Profile" className={GetNavbarSidebarItemClass('Profile', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Profile', '/App/Profile')} >
+                                        <span to="/App/Profile" className={GetNavbarSidebarItemClass('Profile', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Profile', '/App/Profile')}>
                                             <UilUserCircle />
                                             <span>Meu Perfil</span>
                                         </span>
-                                        <span id="NavDropDown" to="/App/Config" className={GetNavbarSidebarItemClass('Config', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Config', '/App/Config')}>
+                                        <span to="/App/Config" className={GetNavbarSidebarItemClass('Config', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Config', '/App/Config')}>
                                             <UilSetting />
                                             <span>Configurações</span>
                                         </span>
 
-                                        <NavDropdown.Divider />
-                                        <span href='/' className="dropDownLink NavBarListSidebarItem" onClick={Sair}>
-                                            <UilSignout /> Sair
+                                        <div className='ChangeThemeContainer'>
+                                            <button className='ChangeThemeButton' onClick={handleToggleTema}>
+                                                {props.Tema === 'Escuro' ? 'Mudar para Tema Claro' : 'Mudar para Tema Escuro'}
+                                            </button>
+                                        </div>
+
+                                        <span to="/" className={GetNavbarSidebarItemClass('Sair', props.LoggedUser.CurrentSidebarTab)} onClick={Sair}>
+                                            <UilSignout />
+                                            <span>Sair</span>
                                         </span>
-                                    </NavDropdown>
-                                </div>
 
-                                <div className='LastNavLogoIconContainer'>
-                                    <img alt="Logo" src={LogoBrancoSerrano} className='LastNavLogoIcon'></img>
-                                </div>
+                                    </ul>
 
 
-                                <div className='NavSidebarUserPhotoContainer'>
-                                    <img alt='User' className='NavSidebarUserPhoto' src={props.LoggedUser.PhotoUrl || User}></img>
-                                </div>
-
-                                <div className='NavbarSidebarUserName'>
-                                    <p> {CurrentUser?.Name ? CurrentUser?.Name : 'Carregando'}</p>
-                                    <p> {CurrentUser?.LastName ? CurrentUser.LastName : ''}</p>
-                                </div>
-
-                                <ul className='NavBarListSidebar'>
-                                    <span to="/App/Dash" className={GetNavbarSidebarItemClass('Dash', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Dash', 'App/')}>
-                                        <UilChartPieAlt />
-                                        <span>Dashboard</span>
-                                    </span>
-                                    <span to="/App/Ativos" className={GetNavbarSidebarItemClass('Ativos', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Ativos', '/App/Ativos')}>
-                                        <UilListUl />
-                                        <span>Ativos</span>
-                                    </span>
-                                    <span to="/App/Users" className={GetNavbarSidebarItemClass('Users', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Users', '/App/Users')}>
-                                        <UilUsersAlt />
-                                        <span>Usuarios</span>
-                                    </span>
-                                    <span to="/App/Profile" className={GetNavbarSidebarItemClass('Profile', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Profile', '/App/Profile')}>
-                                        <UilUserCircle />
-                                        <span>Meu Perfil</span>
-                                    </span>
-                                    <span to="/App/Config" className={GetNavbarSidebarItemClass('Config', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Config', '/App/Config')}>
-                                        <UilSetting />
-                                        <span>Configurações</span>
-                                    </span>
-
-                                    <div className='ChangeThemeContainer'>
-                                        <button className='ChangeThemeButton' onClick={handleToggleTema}>
-                                            {props.Tema === 'Escuro' ? 'Mudar para Tema Claro' : 'Mudar para Tema Escuro'}
-                                        </button>
-                                    </div>
-
-                                    <span to="/" className={GetNavbarSidebarItemClass('Sair', props.LoggedUser.CurrentSidebarTab)} onClick={Sair}>
-                                        <UilSignout />
-                                        <span>Sair</span>
-                                    </span>
-
-                                </ul>
-
-
-                            </Nav>
+                                </Nav>
 
 
 
 
 
-                        </Offcanvas.Body>
-                    </Navbar.Offcanvas>
-                </Container>
-            </Navbar>
+                            </Offcanvas.Body>
+                        </Navbar.Offcanvas>
+                    </Container>
+                </Navbar>
 
 
 
-        </div >
+            </div >
+
+        </>
     )
 }
 
