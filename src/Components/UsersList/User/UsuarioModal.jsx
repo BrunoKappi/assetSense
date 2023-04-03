@@ -243,8 +243,8 @@ const UsuarioModal = (props) => {
                     console.log("LOGOUT")
                 }).catch(() => {
                     console.log("ERRO LOGOUT")
-                })
-            }, 1500);
+                }) 
+            }, 5000);
 
             RegisterUser(NewUser.Email).then(() => {
                 AddUser(NewUser).then((AddedUserDoc) => {
@@ -269,6 +269,9 @@ const UsuarioModal = (props) => {
             const UserToDelete = { ...User }
             EndConfirming()
             props.onDelete()
+
+
+            
             DeleteUser(UserToDelete).then(() => {
                 setLoadingAction(false)
                 ReturnAllAtivosOfUserWithId(UserToDelete.id)

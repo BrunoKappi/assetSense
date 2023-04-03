@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthState
 import { auth } from "./index";
 import store from '../store/store'
 import { setLoggedUser, clearLoggedUser, SetCheckLogin } from '../store/actions/LoggedUserActions'
-import { GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, FacebookAuthProvider, updatePassword } from "firebase/auth";
+import {  GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, FacebookAuthProvider, updatePassword } from "firebase/auth";
 import { DefaultLoggedUser } from "../../GlobalVars";
 import { GetCurrentUserEmailFromStore, GetCurrentUserFromStore, GetUserUrlImage } from "../../Functions/Middleware";
 
@@ -65,10 +65,12 @@ export const mudarSenha = async (novaSenha) => {
 export const FIREBASE_SendEMailResetPassword = async (email) => {
   return sendPasswordResetEmail(auth, email)
 };
-
+ 
 export const FIREBASE_RegisterUserAuth = async (email) => {
   return createUserWithEmailAndPassword(auth, email, email)
 };
+
+
 
 export const FIREBASE_LoginAuth = (email, password) => {
   return signInWithEmailAndPassword(auth, email, password);
