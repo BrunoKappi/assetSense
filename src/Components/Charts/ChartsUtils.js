@@ -18,7 +18,9 @@ export const GetUserTypes_SeriesLabels = () => {
         })
     })
 
-    
+
+    TiposUsuariosQtdCopy = TiposUsuariosQtdCopy.filter(I => I.Qtd > 0)
+
     TiposUsuariosQtdCopy.sort((a, b) => b.Qtd - a.Qtd).map((Item, Index) => {
         TiposUsuariosLabels[Index] = TiposUsuariosQtdCopy[Index].Label
         TiposUsuariosQtdCopy[Index] = TiposUsuariosQtdCopy[Index].Qtd
@@ -40,11 +42,14 @@ export const GetUserSetores_SeriesLabels = () => {
         return Usuarios.map(User => {
             if (User.Sector.id === TipoID) {
                 SetoresQtdCopy[IndexTipoUser].Qtd = SetoresQtdCopy[IndexTipoUser].Qtd + 1
-                SetoresQtdCopy[IndexTipoUser].Label =  SetoresLabels[IndexTipoUser]
+                SetoresQtdCopy[IndexTipoUser].Label = SetoresLabels[IndexTipoUser]
             }
             return ''
         })
     })
+
+
+    SetoresQtdCopy = SetoresQtdCopy.filter(I => I.Qtd > 0)
 
     SetoresQtdCopy.sort((a, b) => b.Qtd - a.Qtd).map((Item, Index) => {
         SetoresLabels[Index] = SetoresQtdCopy[Index].Label
@@ -52,11 +57,13 @@ export const GetUserSetores_SeriesLabels = () => {
     })
 
 
+    
+
     const optionsCopy = {}
     optionsCopy.labels = [...SetoresLabels]
     optionsCopy.series = [...SetoresQtdCopy]
     return optionsCopy
-} 
+}
 
 export const GetTiposAtivos_SeriesLabels = () => {
     const TiposAtivosIds = [...GetTiposAtivosFromStore().map(element => { return element.id })]
@@ -74,6 +81,8 @@ export const GetTiposAtivos_SeriesLabels = () => {
         })
     })
     const optionsCopy = {}
+
+    TiposAtivosQtdCopy = TiposAtivosQtdCopy.filter(I => I.Qtd > 0)
 
     TiposAtivosQtdCopy.sort((a, b) => b.Qtd - a.Qtd).map((Item, Index) => {
         TiposAtivosLabels[Index] = TiposAtivosQtdCopy[Index].Label
@@ -100,6 +109,8 @@ export const GetAtivosLocais_SeriesLabels = () => {
             return ''
         })
     })
+
+    AtivosLocaisQtdCopy = AtivosLocaisQtdCopy.filter(I => I.Qtd > 0)
 
     AtivosLocaisQtdCopy.sort((a, b) => b.Qtd - a.Qtd).map((Item, Index) => {
         AtivosLocaisLabels[Index] = AtivosLocaisQtdCopy[Index].Label
@@ -128,6 +139,8 @@ export const GetAtivosStatus_SeriesLabels = () => {
         })
     })
 
+    AtivosStatusQtdCopy = AtivosStatusQtdCopy.filter(I => I.Qtd > 0)
+
     AtivosStatusQtdCopy.sort((a, b) => b.Qtd - a.Qtd).map((Item, Index) => {
         AtivosStatusLabels[Index] = AtivosStatusQtdCopy[Index].Label
         AtivosStatusQtdCopy[Index] = AtivosStatusQtdCopy[Index].Qtd
@@ -152,8 +165,10 @@ export const GetTiposDeUsoAtivos_SeriesLabels = () => {
             }
             return ''
         })
-    }) 
+    })
 
+
+    TiposDeUsoAtivosQtdCopy = TiposDeUsoAtivosQtdCopy.filter(I => I.Qtd > 0)
 
     TiposDeUsoAtivosQtdCopy.sort((a, b) => b.Qtd - a.Qtd).map((Item, Index) => {
         TiposDeUsoAtivosLabels[Index] = TiposDeUsoAtivosQtdCopy[Index].Label
@@ -176,7 +191,7 @@ export const GetRecordsPendentesUso_SeriesLabels = () => {
     const Records = [...GetRecordsFromStore()]
 
 
-    Records.map(Record => { 
+    Records.map(Record => {
         if (Record.ReturnDate)
             TiposDeUsoAtivosQtd[1] = TiposDeUsoAtivosQtd[1] + 1
         else
@@ -184,8 +199,8 @@ export const GetRecordsPendentesUso_SeriesLabels = () => {
     })
 
 
-    
-    const optionsCopy = {} 
+
+    const optionsCopy = {}
     optionsCopy.labels = [...TiposDeUsoAtivosLabels]
     optionsCopy.series = [...TiposDeUsoAtivosQtd]
     return optionsCopy

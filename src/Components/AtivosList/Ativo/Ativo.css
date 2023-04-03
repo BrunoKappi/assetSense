@@ -1,5 +1,6 @@
 .AtivoContainrClaro {
     --AtivoContainr-Background: white;
+    --AtivoContainr-Background-Hover: whitesmoke;
     --AtivoContainr-Border: transparent;
 
     --AtivoContainr-LocalArmazenamento-Background: var(--PrimaryBackground);
@@ -15,6 +16,7 @@
 
 .AtivoContainrEscuro {
     --AtivoContainr-Background: var(--BackgroundDark);
+    --AtivoContainr-Background-Hover: var(--PrimaryBackGroundFaded30);
     --AtivoContainr-Border: var(--ComplementaryColor);
 
     --AtivoContainr-LocalArmazenamento-Background: var(--PrimaryBackground);
@@ -49,6 +51,10 @@
     user-select: none;
     border-radius: .5rem;
 
+}
+
+.AtivoContainr:hover {
+    background-color: var(--AtivoContainr-Background-Hover);
 }
 
 .AtivoContainrColumn {

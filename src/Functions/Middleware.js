@@ -571,6 +571,12 @@ export async function ToggleTema() {
 export const GetCurrentUserEmailFromStore = () => {
     return store.getState().LoggedUser.Email
 }
+export const GetCurrentUserPhotoUrlFromStore = () => {
+    return store.getState().LoggedUser.PhotoUrl
+}
+export const GetCurrentCurrentSidebarTabFromStore = () => {
+    return store.getState().LoggedUser.CurrentSidebarTab
+}
 export const GetUserTypesFromStore = () => {
     return [...store.getState().TiposUsuarios]
 }

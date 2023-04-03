@@ -23,8 +23,9 @@ import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import User from '../../assets/Images/User.png'
 import { useNavigate } from 'react-router-dom';
 import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilSignout, UilBars, UilMoon, UilBright } from '@iconscout/react-unicons'
-import { GetCurrentUserTypePermitFromStore, LogoutUtil, ToggleTema } from '../../Functions/Middleware';
+import { GetCurrentCurrentSidebarTabFromStore, GetCurrentUserFromStore, GetCurrentUserPhotoUrlFromStore, GetCurrentUserTypePermitFromStore, LogoutUtil, ToggleTema } from '../../Functions/Middleware';
 import UserPhotoModal from '../UsersList/User/UserPhotoModal/UserPhotoModal'
+import UserPhoto from '../UserProfilePhoto/UserPhoto';
 
 
 const NavBar = (props) => {
@@ -46,8 +47,8 @@ const NavBar = (props) => {
 
 
     useEffect(() => {
-        SetCurrentUser({ ...props.Usuarios.find(user => user.Email === props.LoggedUser.Email) })
-    }, [props.Usuarios])
+        SetCurrentUser({ ...GetCurrentUserFromStore() })
+    }, [])
 
 
     const AtivosPermit = GetCurrentUserTypePermitFromStore('VISUALIZAR_ATIVOS') || GetCurrentUserTypePermitFromStore('RETIRAR_ATIVOS') || GetCurrentUserTypePermitFromStore('ADICIONAR_ATIVOS') || GetCurrentUserTypePermitFromStore(' EDITAR_ATIVOS') || GetCurrentUserTypePermitFromStore('EXCLUIR_ATIVOS')
@@ -127,24 +128,24 @@ const NavBar = (props) => {
                                             </span>}
                                         >
 
-                                            <span to="/App/Dash" className={GetNavbarSidebarItemClass('Dash', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Dash', '/App/Dash')}>
+                                            <span to="/App/Dash" className={GetNavbarSidebarItemClass('Dash', GetCurrentCurrentSidebarTabFromStore()) + ' dropDownLink'} onClick={e => SetTabNavBar('Dash', '/App/Dash')}>
                                                 <UilChartPieAlt />
                                                 <span>Dashboard</span>
                                             </span>
 
-                                            <span to="/App/Ativos" className={GetNavbarSidebarItemClass('Ativos', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Ativos', '/App/Ativos')}>
+                                            <span to="/App/Ativos" className={GetNavbarSidebarItemClass('Ativos', GetCurrentCurrentSidebarTabFromStore()) + ' dropDownLink'} onClick={e => SetTabNavBar('Ativos', '/App/Ativos')}>
                                                 <UilListUl />
                                                 <span>Ativos</span>
                                             </span>
-                                            <span to="/App/Users" className={GetNavbarSidebarItemClass('Users', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Users', '/App/Users')}>
+                                            <span to="/App/Users" className={GetNavbarSidebarItemClass('Users', GetCurrentCurrentSidebarTabFromStore()) + ' dropDownLink'} onClick={e => SetTabNavBar('Users', '/App/Users')}>
                                                 <UilUsersAlt />
                                                 <span>Usuarios</span>
                                             </span>
-                                            <span to="/App/Profile" className={GetNavbarSidebarItemClass('Profile', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Profile', '/App/Profile')} >
+                                            <span to="/App/Profile" className={GetNavbarSidebarItemClass('Profile', GetCurrentCurrentSidebarTabFromStore()) + ' dropDownLink'} onClick={e => SetTabNavBar('Profile', '/App/Profile')} >
                                                 <UilUserCircle />
                                                 <span>Meu Perfil</span>
                                             </span>
-                                            <span id="NavDropDown" to="/App/Config" className={GetNavbarSidebarItemClass('Config', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Config', '/App/Config')}>
+                                            <span id="NavDropDown" to="/App/Config" className={GetNavbarSidebarItemClass('Config', GetCurrentCurrentSidebarTabFromStore()) + ' dropDownLink'} onClick={e => SetTabNavBar('Config', '/App/Config')}>
                                                 <UilSetting />
                                                 <span>Configurações</span>
                                             </span>
@@ -156,13 +157,13 @@ const NavBar = (props) => {
                                         </NavDropdown>
                                     </div>
 
-                                    <div className='LastNavLogoIconContainer'>
-                                        <img alt="Logo" src={LogoBrancoSerrano} className='LastNavLogoIcon'></img>
+                                    <div className='LastNavLogoIconContainer' onClick={e => SetTabNavBar('Profile', '/App/Profile')}>
+                                        <UserPhoto src={GetCurrentUserPhotoUrlFromStore() || LogoBrancoSerrano} />
                                     </div>
 
 
                                     <div className='NavSidebarUserPhotoContainer'>
-                                        <img  onClick={e => setShowPhotoModal(true)} alt='User' className='NavSidebarUserPhoto' src={props.LoggedUser.PhotoUrl || User}></img>
+                                        <img onClick={e => setShowPhotoModal(true)} alt='User' className='NavSidebarUserPhoto' src={GetCurrentUserPhotoUrlFromStore() || User}></img>
                                     </div>
 
                                     <div className='NavbarSidebarUserName' onClick={e => SetTabNavBar('Profile', '/App/Profile')}>
@@ -171,23 +172,23 @@ const NavBar = (props) => {
                                     </div>
 
                                     <ul className='NavBarListSidebar'>
-                                        <span to="/App/Dash" className={GetNavbarSidebarItemClass('Dash', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Dash', 'App/')}>
+                                        <span to="/App/Dash" className={GetNavbarSidebarItemClass('Dash', GetCurrentCurrentSidebarTabFromStore())} onClick={e => SetTabNavBar('Dash', 'App/')}>
                                             <UilChartPieAlt />
                                             <span>Dashboard</span>
                                         </span>
-                                        <span to="/App/Ativos" className={GetNavbarSidebarItemClass('Ativos', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Ativos', '/App/Ativos')}>
+                                        <span to="/App/Ativos" className={GetNavbarSidebarItemClass('Ativos', GetCurrentCurrentSidebarTabFromStore())} onClick={e => SetTabNavBar('Ativos', '/App/Ativos')}>
                                             <UilListUl />
                                             <span>Ativos</span>
                                         </span>
-                                        <span to="/App/Users" className={GetNavbarSidebarItemClass('Users', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Users', '/App/Users')}>
+                                        <span to="/App/Users" className={GetNavbarSidebarItemClass('Users', GetCurrentCurrentSidebarTabFromStore())} onClick={e => SetTabNavBar('Users', '/App/Users')}>
                                             <UilUsersAlt />
                                             <span>Usuarios</span>
                                         </span>
-                                        <span to="/App/Profile" className={GetNavbarSidebarItemClass('Profile', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Profile', '/App/Profile')}>
+                                        <span to="/App/Profile" className={GetNavbarSidebarItemClass('Profile', GetCurrentCurrentSidebarTabFromStore())} onClick={e => SetTabNavBar('Profile', '/App/Profile')}>
                                             <UilUserCircle />
                                             <span>Meu Perfil</span>
                                         </span>
-                                        <span to="/App/Config" className={GetNavbarSidebarItemClass('Config', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Config', '/App/Config')}>
+                                        <span to="/App/Config" className={GetNavbarSidebarItemClass('Config', GetCurrentCurrentSidebarTabFromStore())} onClick={e => SetTabNavBar('Config', '/App/Config')}>
                                             <UilSetting />
                                             <span>Configurações</span>
                                         </span>
@@ -198,7 +199,7 @@ const NavBar = (props) => {
                                             </button>
                                         </div>
 
-                                        <span to="/" className={GetNavbarSidebarItemClass('Sair', props.LoggedUser.CurrentSidebarTab)} onClick={Sair}>
+                                        <span to="/" className={GetNavbarSidebarItemClass('Sair', GetCurrentCurrentSidebarTabFromStore())} onClick={Sair}>
                                             <UilSignout />
                                             <span>Sair</span>
                                         </span>
@@ -228,8 +229,6 @@ const NavBar = (props) => {
 
 const ConnectedNavBar = connect((state) => {
     return {
-        LoggedUser: state.LoggedUser,
-        Usuarios: state.Usuarios,
         Tema: state.Tema
     }
 })(NavBar)

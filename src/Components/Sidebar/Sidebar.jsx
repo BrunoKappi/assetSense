@@ -5,7 +5,7 @@ import { GetSidebarItemClass, SetTab } from './SidebarUtils';
 import { connect } from 'react-redux'
 import User from '../../assets/Images/SerranoLogoFuncoBranco.jpg'
 
-import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle } from '@iconscout/react-unicons'
+import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilClipboardNotes, UilHistory } from '@iconscout/react-unicons'
 import { NotificationErro } from '../../NotificationUtils';
 import { GetCurrentUserFromStore, GetCurrentUserTypePermitFromStore, SetLoggedUserPhotoUrlJustStore } from '../../Functions/Middleware';
 import Loading from '../LoadingForTabs/Loading'
@@ -123,6 +123,14 @@ const Sidebar = (props) => {
                             <span to="/App/Config" className={GetSidebarItemClass('Config', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Config', '/App/Config')}>
                                 <UilSetting />
                                 <span>Configurações</span>
+                            </span>
+                            <span className={GetSidebarItemClass('Config', props.LoggedUser.CurrentSidebarTab)}>
+                                <UilHistory />
+                                <span>Registros</span>
+                            </span>
+                            <span className={GetSidebarItemClass('Config', props.LoggedUser.CurrentSidebarTab)}>
+                                <UilClipboardNotes />
+                                <span>Relatórios</span>
                             </span>
 
 

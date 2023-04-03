@@ -20,6 +20,7 @@
 
 
 .NavSidebarUserPhotoContainer {
+  min-width: 20px !important;
   display: none;
   align-items: center;
   justify-content: center;
@@ -368,8 +369,21 @@
 
 
 .LastNavLogoIconContainer {
+
   height: 2rem;
   margin-right: 1.5rem;
+}
+
+.LastNavLogoIconContainer>img {
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.LastNavLogoIconContainer>img:hover{
+  transform: scale(1.2);
+}
+.LastNavLogoIconContainer>img:active{
+  transform: scale(1);
 }
 
 .LastNavLogoIcon {
