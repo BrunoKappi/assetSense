@@ -10,10 +10,15 @@ export default function BarChart(props) {
 
 
     const ChartProps = {
-        series: [{
-            name: 'Quantidade',
-            data: [...props.Series]
-        }],
+        series: [
+            {
+                name: 'Quantidade',
+                data: [...props.Series],
+
+            },
+
+
+        ],
         options: {
             plotOptions: {
                 bar: {
@@ -75,6 +80,8 @@ export default function BarChart(props) {
 
                 }
             },
+
+           
             yaxis: {
                 labels: {
                     show: false, // Mostrar as legendas do eixo y

@@ -571,6 +571,9 @@ export async function ToggleTema() {
 export const GetCurrentUserEmailFromStore = () => {
     return store.getState().LoggedUser.Email
 }
+export const GetCurrentUserCheckedLoginFromStore = () => {
+    return store.getState().LoggedUser.CheckedLogin
+}
 export const GetCurrentUserPhotoUrlFromStore = () => {
     return store.getState().LoggedUser.PhotoUrl
 }
@@ -601,6 +604,8 @@ export const GetStatusAtivosFromStore = () => {
 export const GetSetoresFromStore = () => {
     return [...store.getState().Setores] ? [...store.getState().Setores] : []
 }
+
+
 export const GetUsersFromStore = () => {
     return [...store.getState().Usuarios].filter(User => User.Deleted === false)
 }

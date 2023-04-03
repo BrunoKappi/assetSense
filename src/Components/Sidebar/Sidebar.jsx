@@ -61,6 +61,9 @@ const Sidebar = (props) => {
         } else if (Tab === 'Config' && ConfigPermit) {
             SetTab(Tab)
             navigate(To)
+        } else if (Tab === 'Records' ) {
+            SetTab(Tab)
+            navigate(To)
         } else
             NotificationErro("Não Autorizado", "Você não possui permissão para acessar essa aba, solicite acesso ao seu Administrador")
     }
@@ -124,11 +127,11 @@ const Sidebar = (props) => {
                                 <UilSetting />
                                 <span>Configurações</span>
                             </span>
-                            <span className={GetSidebarItemClass('Config', props.LoggedUser.CurrentSidebarTab)}>
+                            <span className={GetSidebarItemClass('Records', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Records', '/App/Records')}>
                                 <UilHistory />
                                 <span>Registros</span>
                             </span>
-                            <span className={GetSidebarItemClass('Config', props.LoggedUser.CurrentSidebarTab)}>
+                            <span className={GetSidebarItemClass('Relatórios', props.LoggedUser.CurrentSidebarTab)}>
                                 <UilClipboardNotes />
                                 <span>Relatórios</span>
                             </span>

@@ -11,6 +11,7 @@ import Users from './Components/Users/Users'
 import Profile from './Components/Profile/Profile'
 import Config from './Components/Config/Config'
 import Dashboard from './Components/Dashboard/Dashboard';
+import Records from './Components/Records/Records'
 import { ReactNotifications } from 'react-notifications-component'
 import { GetTema } from './Functions/Middleware';
 
@@ -45,6 +46,7 @@ const App = (props) => {
           <Route path="/App/Profile" element={<RequireAuth> <Profile /> </RequireAuth>} />
           <Route path="/App/Config" element={<RequireAuth> <Config /> </RequireAuth>} />
           <Route path="/App/Users" element={<RequireAuth> <Users /> </RequireAuth>} />
+          <Route path="/App/Records" element={<RequireAuth> <Records /> </RequireAuth>} />
           <Route path="*" element={<RequireAuth> <NotFound /> </RequireAuth>} />
         </Route>
         <Route path="*" element={<NotFound />} />

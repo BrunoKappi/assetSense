@@ -48,7 +48,7 @@ const NavBar = (props) => {
 
     useEffect(() => {
         SetCurrentUser({ ...GetCurrentUserFromStore() })
-    }, [])
+    }, [props.Usuarios])
 
 
     const AtivosPermit = GetCurrentUserTypePermitFromStore('VISUALIZAR_ATIVOS') || GetCurrentUserTypePermitFromStore('RETIRAR_ATIVOS') || GetCurrentUserTypePermitFromStore('ADICIONAR_ATIVOS') || GetCurrentUserTypePermitFromStore(' EDITAR_ATIVOS') || GetCurrentUserTypePermitFromStore('EXCLUIR_ATIVOS')
@@ -226,10 +226,11 @@ const NavBar = (props) => {
     )
 }
 
-
+ 
 const ConnectedNavBar = connect((state) => {
     return {
-        Tema: state.Tema
+        Tema: state.Tema,
+        Usuarios : state.Usuarios
     }
 })(NavBar)
 

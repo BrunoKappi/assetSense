@@ -13,14 +13,14 @@ import { connect } from 'react-redux'
 
 const Ativos = (props) => {
 
-  const TodosPermit = GetCurrentUserTypePermitFromStore('USUARIOS') || GetCurrentUserTypePermitFromStore('EDITAR_ATIVOS') || GetCurrentUserTypePermitFromStore('VISUALIZAR_ATIVOS')
+  const TodosPermit = GetCurrentUserTypePermitFromStore('ATIVOS') || GetCurrentUserTypePermitFromStore('EDITAR_ATIVOS') || GetCurrentUserTypePermitFromStore('VISUALIZAR_ATIVOS')
   const LocaisPermit = GetCurrentUserTypePermitFromStore('EDITAR_ATIVOS') || GetCurrentUserTypePermitFromStore('VISUALIZAR_ATIVOS')
   const TiposPermit = GetCurrentUserTypePermitFromStore('EDITAR_ATIVOS') || GetCurrentUserTypePermitFromStore('VISUALIZAR_ATIVOS')
 
   const getInitialTab = () => {
-    if (TodosPermit)
+    if (TodosPermit) 
       return 'Todos'
-    else if (LocaisPermit)
+    else if (LocaisPermit) 
       return 'Armazenamento'
     else if (TiposPermit)
       return 'Tipos'

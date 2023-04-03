@@ -1,0 +1,358 @@
+.AtivoRecords-ContainerClaro {
+    --AtivoRecords-Container-Background: var(--Background);
+
+    --AtivoRecord-Container-Border: var(--ComplementaryColor);
+    --AtivoRecord-UpRow-Name-Color: var(--ComplementaryColor);
+    --AtivoRecord-UpRow-Name-Color-Hover: var(--PrimaryBackGroundFaded);
+
+    --AtivoRecord-UpRow-Status-Background: var(--SecondaryBackground);
+    --AtivoRecord-UpRow-Status-Color: white;
+
+
+    --AtivoRecord-UpRow-Date-Color: var(--SecondaryBackground);
+    --AtivoRecord-UpRow-Obs-Color: var(--SecondaryBackground);
+    --AtivoRecord-UpRow-Time-Color: var(--SecondaryBackground);
+
+    --AtivoRecord-UpRow-OrderBy-Color: var(--SecondaryBackground);
+
+    --AtivosRecordsFormFilter-Button-Background: var(--ComplementaryColor);
+    --AtivosRecordsFormFilter-Button-Border: var(--ComplementaryColor);
+    --AtivosRecordsFormFilter-Button-Color: white;
+
+    --AtivoRecords-FormFilter-Input-Background: white;
+    --AtivoRecords-FormFilter-Input-Border: transparent;
+    --AtivoRecords-FormFilter-Input-Color: var(--SecondaryBackground);
+
+    --AtivoModal-Ativos-Warning-Color: white;
+    --AtivoModal-Ativos-Warning-Background: #f0ad4e;
+
+
+}
+
+
+
+
+.AtivoRecords-ContainerEscuro {
+    --AtivoRecords-Container-Background: var(--BackgroundDark);
+
+    --AtivoRecord-Container-Border: var(--ComplementaryColor);
+    --AtivoRecord-UpRow-Name-Color: var(--ComplementaryColor);
+    --AtivoRecord-UpRow-Name-Color-Hover: var(--ComplementaryColor);
+
+    --AtivoRecord-UpRow-Status-Background: var(--SecondaryBackground);
+    --AtivoRecord-UpRow-Status-Color: white;
+
+    --AtivoRecord-UpRow-Date-Color: white;
+    --AtivoRecord-UpRow-Obs-Color: white;
+    --AtivoRecord-UpRow-Time-Color: white;
+
+    --AtivoRecord-UpRow-OrderBy-Color: var(--ComplementaryColor);
+
+    --AtivosRecordsFormFilter-Button-Background: var(--ComplementaryColor);
+    --AtivosRecordsFormFilter-Button-Border: var(--ComplementaryColor);
+    --AtivosRecordsFormFilter-Button-Color: white;
+
+    --AtivoRecords-FormFilter-Input-Background: transparent;
+    --AtivoRecords-FormFilter-Input-Border: var(--ComplementaryColor);
+    --AtivoRecords-FormFilter-Input-Color: var(--ComplementaryColor);
+
+    --AtivoModal-Ativos-Warning-Color: white;
+    --AtivoModal-Ativos-Warning-Background: #f0ad4e;
+}
+
+
+
+.AtivoRecords-Container {
+    width: 100%;
+    padding: 2rem;
+    background-color: var(--AtivoRecords-Container-Background);
+    overflow-y: scroll;
+}
+
+@media (max-width: 900px) {
+    .AtivoRecords-Container {
+        padding: .5rem;
+    }
+}
+
+
+
+.AtivoRecord-Container {
+
+    border: 1px solid var(--AtivoRecord-Container-Border);
+    border-radius: .5rem;
+    padding: .3rem .5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+    margin-bottom: .7rem;
+}
+
+.AtivoRecord-UpRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+@media (max-width: 900px) {
+    .UserAtivoRecord-UpRow {
+        flex-wrap: wrap;
+        row-gap: .2rem;
+    }
+}
+
+
+.AtivoRecord-DownRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.AtivoRecord-MiddleRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.AtivoRecord-UpRow-Name {
+    font-family: var(--Fonte);
+    color: var(--AtivoRecord-UpRow-Name-Color);
+    font-size: 1rem;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 600;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .3rem;
+}
+
+.AtivoRecord-UpRow-Name>svg {
+    width: 1rem;
+}
+
+
+
+.AtivoRecord-UpRow-UserName {
+    font-family: var(--Fonte);
+    color: var(--AtivoRecord-UpRow-Name-Color);
+    font-size: .9rem;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 500;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .3rem;
+}
+
+.AtivoRecord-UpRow-UserName>svg {
+    width: 1rem;
+}
+
+
+.AtivoRecord-UpRow-Name:hover {
+    color: var(--AtivoRecord-UpRow-Name-Color-Hover);
+    text-decoration: underline;
+}
+
+.AtivoRecord-MiddleRow-Name {
+    font-family: var(--Fonte);
+    color: var(--AtivoRecord-UpRow-Name-Color);
+    font-size: .7rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .2rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.AtivoRecord-MiddleRow-Name:hover {
+    color: var(--AtivoRecord-UpRow-Name-Color-Hover);
+    text-decoration: underline;
+}
+
+.AtivoRecord-MiddleRow-Name>svg {
+    width: 1rem;
+}
+
+.AtivoRecord-UpRow-Status {
+    border-radius: 1rem;
+    background-color: var(--AtivoRecord-UpRow-Status-Background);
+    padding: 0rem 1rem;
+    font-size: .75rem;
+    font-family: var(--Fonte);
+    color: var(--AtivoRecord-UpRow-Status-Color);
+
+}
+
+
+.AtivoRecord-DownRow-Date {
+    font-family: var(--Fonte);
+    color: var(--AtivoRecord-UpRow-Date-Color);
+    font-size: .8rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .2rem;
+    cursor: pointer;
+}
+
+.AtivoRecord-DownRow-Date>svg {
+    width: .8rem;
+}
+
+.AtivoRecord-DownRow-Obs {
+    font-family: var(--Fonte);
+    color: var(--AtivoRecord-UpRow-Obs-Color);
+    font-size: .9rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .2rem;
+    cursor: pointer;
+}
+
+.AtivoRecord-DownRow-Obs>svg {
+    width: 1rem;
+}
+
+.AtivoRecord-DownRow-Time {
+    font-family: var(--Fonte);
+    color: var(--AtivoRecord-UpRow-Time-Color);
+    font-size: .8rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .2rem;
+    cursor: pointer;
+}
+
+.AtivoRecord-DownRow-Time>svg {
+    width: .8rem;
+}
+
+
+
+/* ============  DROPDOWN  ===================*/
+
+.AtivoRecords-FormFilter {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.AtivoRecords-FormFilter>button {
+    font-family: var(--Fonte);
+    font-size: .8rem;
+    outline: none;
+    border: 1px solid var(--AtivosRecordsFormFilter-Button-Border);
+    background-color: var(--AtivosRecordsFormFilter-Button-Background);
+    color: var(--AtivosRecordsFormFilter-Button-Color);
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+}
+
+.AtivoRecords-FormFilter>button {
+    font-family: var(--Fonte);
+    font-size: .8rem;
+    outline: none;
+    border: 1px solid var(--AtivosRecordsFormFilter-Button-Border);
+    background-color: var(--AtivosRecordsFormFilter-Button-Background);
+    color: var(--AtivosRecordsFormFilter-Button-Color);
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+}
+
+
+.AtivoRecords-FormFilter>input {
+    flex-grow: 1;
+    outline: none;
+    padding: .5rem 1rem;
+    border: 1px solid var(--AtivoRecords-FormFilter-Input-Border);
+    border-radius: .5rem;
+    font-family: var(--Fonte);
+    font-size: .8rem;
+    background-color: var(--AtivoRecords-FormFilter-Input-Background);
+    color: var(--AtivoRecords-FormFilter-Input-Color);
+    -webkit-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
+}
+
+.AtivoRecords-FormFilter>input::placeholder {
+    color: var(--AtivoRecords-FormFilter-Input-Color);
+}
+
+.AtivoRecords-FormFilter>button:hover {
+    transform: scale(1.1);
+}
+
+.AtivoRecords-FormFilter>button:active {
+    transform: scale(1);
+}
+
+
+#AtivoRecords-OrderBy::after {
+    display: none !important;
+}
+
+#AtivoRecords-OrderBy {
+    background-color: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    height: 100%;
+}
+
+.AtivoRecords-OrdenarPorTitle {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    align-items: center;
+    font-family: var(--Fonte);
+    border-radius: 1rem;
+    font-size: .9rem;
+    font-family: var(--Fonte);
+    color: var(--AtivoRecord-UpRow-OrderBy-Color) !important;
+}
+
+
+
+
+
+
+.AtivosRecords-AvisoInfo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: .5rem;
+    margin-bottom: 2rem;
+}
+
+
+.AtivosRecords-AvisoInfo-Item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .3rem;
+    color: var(--AtivoModal-Ativos-Warning-Color);
+    font-family: var(--Fonte);
+    background-color: var(--AtivoModal-Ativos-Warning-Background);
+    padding: .2rem .8rem;
+    border-radius: 1rem;
+    font-size: .8rem;
+}
+
+.AtivosRecords-AvisoInfo-Item>svg {
+    width: 1rem;
+}
