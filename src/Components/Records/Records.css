@@ -1,5 +1,5 @@
 .AtivoRecords-ContainerClaro {
-    --AtivoRecords-Container-Background: var(--Background);
+    --AtivoRecords-Container-Background:transparent;
 
     --AtivoRecord-Container-Border: var(--ComplementaryColor);
     --AtivoRecord-UpRow-Name-Color: var(--ComplementaryColor);
