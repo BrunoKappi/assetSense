@@ -84,7 +84,7 @@ const AtivoTakeReturn = (props) => {
                 return
             }
             if (SelectedDateTime > currentDateTime) {
-                NotificationErro("Preenchimento Inválido", "Data maior que a data atual")
+                NotificationErro("Preenchimento Inválido", "A Data selecionada é maior que a data atual")
                 return
             }
             if (ActionFor === 'Me') {
@@ -113,11 +113,11 @@ const AtivoTakeReturn = (props) => {
                 return
             }
             if (SelectedDateTime < RecordToEdit.TakeDate) {
-                NotificationErro("Preenchimento Inválido", "Data menor que a data de retirada")
+                NotificationErro("Preenchimento Inválido", "A Data selecionada é menor que a data de Retirada")
                 return
             }
             if (SelectedDateTime > currentDateTime) {
-                NotificationErro("Preenchimento Inválido", "Data maior que a data atual")
+                NotificationErro("Preenchimento Inválido", "A Data Selecionada é maior que a data atual")
                 return
             }
 
@@ -174,16 +174,15 @@ const AtivoTakeReturn = (props) => {
 
             FIREBASE_GetRecordsPendentesDeUmAtivo(props.Ativo?.id).then(QuantidadeFirebaseRetirada => {
 
-                console.log("Quantidade Firebase", QuantidadeFirebaseRetirada)
-
                 if (QuantidadeDoAtivo <= QuantidadeFirebaseRetirada) {
                     NotificationErro("Ação negada", "Parece que alguém ja reitrou esse item, atualize sua página para infomações atualizadas")
                 } else {
+                   
                     AddRecord(NewRecordToAdd).then((Record) => {
                         GetRecords().then(Lista => {
-                            const Records = [...Lista]                            
-                            NewRecordToAdd.docID = Record?.id
-                            Records.push(NewRecordToAdd)            
+                            const Records = [...Lista]
+                            NewRecordToAdd.docID = Record?.id 
+                            Records.push(NewRecordToAdd)
                             SaveRecords(Records)
                             EndConfirming()
                             NotificationSucesso('Registro', 'Registro de Retirada registrado com Sucesso!')
@@ -212,7 +211,7 @@ const AtivoTakeReturn = (props) => {
             var UserId = ActionFor === 'Me' ? CurrentUser.id : ReturnFor.id
             const RecordToEdit = GetRecordByAtivoIdAndUserId(props.Ativo?.id, UserId)
 
-            RecordToEdit.ReturnDate = SelectedDateTime 
+            RecordToEdit.ReturnDate = SelectedDateTime
             RecordToEdit.ReturnObs = Obs
             RecordToEdit.Duration = RecordToEdit.ReturnDate - RecordToEdit.TakeDate
 

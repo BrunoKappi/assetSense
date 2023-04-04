@@ -1,15 +1,15 @@
 import store from "../Config/store/store"
-import { FIREBASE_LoginAuth, FIREBASE_LogouyAuth, FIREBASE_RegisterUserAuth, FIREBASE_SendEMailResetPassword, signInWithGoogle } from "../Config/firebase/auth"
+import { FIREBASE_LoginAuth, FIREBASE_LogouyAuth, FIREBASE_RegisterUserAuth, FIREBASE_SendEMailResetPassword } from "../Config/firebase/auth"
 import { AddTipoAtivo, SetTiposAtivos } from "../Config/store/actions/TiposAtivosActions"
 import { SetSetores } from "../Config/store/actions/SetoresActions"
 import { SetTiposUsuarios } from "../Config/store/actions/TiposUsuariosActions"
 import { SetLocaisArmazenamento } from "../Config/store/actions/LocaisArmazenamentoActions"
 import { SetStatusAtivos } from "../Config/store/actions/AtivosStatusActions"
 import { SetTiposDeUso } from "../Config/store/actions/TiposDeUsoActions"
-import { AddAtivoAction, DeleteAtivoAction, SetAtivos } from "../Config/store/actions/AtivosActions"
-import { AddUsuarioAction, DeleteUsuarioAction, SetUsuarios } from "../Config/store/actions/UsuariosActions"
+import { AddAtivoAction, SetAtivos } from "../Config/store/actions/AtivosActions"
+import { AddUsuarioAction, SetUsuarios } from "../Config/store/actions/UsuariosActions"
 import { PermitIndexs } from "../GlobalVars"
-import { AddRecordAction, SetRecords } from "../Config/store/actions/RecordsActions"
+import { SetRecords } from "../Config/store/actions/RecordsActions"
 import moment from "moment"
 import { FIREBASE_AddAtivo, FIREBASE_AddLocalArmazenamento, FIREBASE_AddRecord, FIREBASE_AddSetor, FIREBASE_AddStatusAtivo, FIREBASE_AddTipoAtivo, FIREBASE_AddTipoUso, FIREBASE_AddTipoUsuario, FIREBASE_AddUsuario, FIREBASE_DeleteLocalArmazenamento, FIREBASE_DeleteSetor, FIREBASE_DeleteStatusAtivo, FIREBASE_DeleteTipoAtivo, FIREBASE_DeleteTipoDeUsuario, FIREBASE_DeleteTipoUso, FIREBASE_GetAtivos, FIREBASE_GetLocaisArmazenamento, FIREBASE_GetRecords, FIREBASE_GetSetores, FIREBASE_GetStatusAtivos, FIREBASE_GetTiposAtivo, FIREBASE_GetTiposUso, FIREBASE_GetTiposUsuarios, FIREBASE_GetUsuarios, FIREBASE_UpdateAtivo, FIREBASE_UpdateLocalArmazenamento, FIREBASE_UpdateRecord, FIREBASE_UpdateSetor, FIREBASE_UpdateStatusAtivo, FIREBASE_UpdateTipoAtivo, FIREBASE_UpdateTipoDeUsuario, FIREBASE_UpdateTipoUso, FIREBASE_UpdateUsuario } from "../Config/firebase/metodos"
 import { DefaultUserRole } from "../Data/Items"
@@ -19,7 +19,7 @@ import { storage } from "../Config/firebase"
 import { SetLoggedUserPhotoUrlAction } from "../Config/store/actions/LoggedUserActions"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth } from "../Config/firebase/index";
-
+ 
 //UTILS
 
 export const LoginUtil = (email, password) => {
@@ -35,9 +35,7 @@ export const FoprgetPasswordUtil = (email, password) => {
     return FIREBASE_SendEMailResetPassword(email, password)
 }
 
-export const LogarComGooglePopup = () => {
-    return signInWithGoogle();
-};
+
 
 
 
@@ -85,7 +83,7 @@ export const SetAtivoPhotoUrl = (URL, AtivoId) => {
     //console.log("Recebendo URL", URL)
     const Ativo = GetAtivoWithIdFromStore(AtivoId)
     Ativo.PhotoUrl = URL
-    //console.log("EDITANDO ATIVO", Ativo)
+    Ativo.LastEditedAt = moment().valueOf()
     EditAtivo(Ativo)
     //store.dispatch(SetLoggedUserPhotoUrlAction(URL))
 }
@@ -139,11 +137,14 @@ export function GetTiposAtivosSelect() {
 }
 
 export async function AddTipo(TipoAtivo) {
+    TipoAtivo.CreatedAt = moment().valueOf()
+    TipoAtivo.LastEditedAt = moment().valueOf()
     store.dispatch(AddTipoAtivo(TipoAtivo))
 }
 
 
 export const EditTipoAtivo = (EditedItem) => {
+    EditedItem.LastEditedAt = moment().valueOf()
     return FIREBASE_UpdateTipoAtivo(EditedItem)
 }
 
@@ -184,6 +185,7 @@ export async function GetSetoresSelect() {
 
 
 export const EditSetor = (EditedSetor) => {
+    EditedSetor.LastEditedAt = moment().valueOf()
     return FIREBASE_UpdateSetor(EditedSetor)
 }
 
@@ -230,6 +232,7 @@ export async function GetUsersTypesSelect() {
 
 
 export const EditUserType = (EditedItem) => {
+    EditedItem.LastEditedAt = moment().valueOf()
     return FIREBASE_UpdateTipoDeUsuario(EditedItem)
 }
 
@@ -278,6 +281,7 @@ export async function GetLocaisSelect() {
 
 
 export const EditLocalArmazenamento = (EditedItem) => {
+    EditedItem.LastEditedAt = moment().valueOf()
     return FIREBASE_UpdateLocalArmazenamento(EditedItem)
 }
 
@@ -307,11 +311,14 @@ export async function SaveRecords(Records) {
 
 
 export async function AddRecord(RecordToAdd) {
+    RecordToAdd.CreatedAt = moment().valueOf()
+    RecordToAdd.LastEditedAt = moment().valueOf()
     return FIREBASE_AddRecord(RecordToAdd)
 }
 
 
 export const EditRecord = (EditedItem) => {
+    EditedItem.LastEditedAt = moment().valueOf()
     return FIREBASE_UpdateRecord(EditedItem)
 }
 
@@ -362,6 +369,7 @@ export async function SaveStatusAtivos(Locais) {
 
 
 export const EditStatusAtivo = (EditedItem) => {
+    EditedItem.LastEditedAt = moment().valueOf()
     return FIREBASE_UpdateStatusAtivo(EditedItem)
 }
 
@@ -385,6 +393,7 @@ export async function SaveTiposDeUso(Locais) {
 
 
 export const EditTipoDeUso = (EditedItem) => {
+    EditedItem.LastEditedAt = moment().valueOf()
     return FIREBASE_UpdateTipoUso(EditedItem)
 }
 
@@ -411,10 +420,14 @@ export async function SaveAtivos(Ativos) {
 
 
 export async function AddAtivo(Ativo) {
+    Ativo.CreatedAt = moment().valueOf()
+    Ativo.LastEditedAt = moment().valueOf()
     return FIREBASE_AddAtivo(Ativo)
 }
 
 export async function AddAtivoFirebase(New) {
+    New.CreatedAt = moment().valueOf()
+    New.LastEditedAt = moment().valueOf()
     store.dispatch(AddAtivoAction(New))
 }
 
@@ -431,6 +444,7 @@ export async function DeleteAtivo(Ativo) {
 
 
 export const EditAtivo = (EditedItem) => {
+    EditedItem.LastEditedAt = moment().valueOf()
     return FIREBASE_UpdateAtivo(EditedItem).then(() => {
         GetAtivos().then(Lista => {
 
@@ -488,10 +502,14 @@ export async function RegisterUser(Email) {
 
 
 export async function AddUser(User) {
+    User.CreatedAt = moment().valueOf()
+    User.LastEditedAt = moment().valueOf()
     return FIREBASE_AddUsuario(User)
 }
 
 export async function AddUserFirebase(New) {
+    New.CreatedAt = moment().valueOf()
+    New.LastEditedAt = moment().valueOf()
     store.dispatch(AddUsuarioAction(New))
 }
 
@@ -507,6 +525,7 @@ export async function DeleteUser(User) {
 
 
 export const EditUser = (EditedItem) => {
+    EditedItem.LastEditedAt = moment().valueOf()
     return FIREBASE_UpdateUsuario(EditedItem).then(() => {
         GetUsers().then(Lista => {
 

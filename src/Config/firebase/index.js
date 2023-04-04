@@ -3,6 +3,8 @@ import { getFirestore } from "@firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
+
+// BANCO ASSET SENSE FINAL 
 const firebaseConfig = {
   apiKey: "AIzaSyAokGdM7586Mv3MceiP5to3ur4WLDi9QNQ",
   authDomain: "assetsense.firebaseapp.com",
@@ -13,7 +15,7 @@ const firebaseConfig = {
   measurementId: "G-2ZY0BXZYH6"
 };
  
-
+// BANCO TESTE
 /*
 const firebaseConfig = {
   apiKey: "AIzaSyBm_MtZ9IzdJrMX4I58P1ULB8VhvC14fa8",

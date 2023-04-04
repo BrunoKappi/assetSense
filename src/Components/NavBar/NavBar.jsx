@@ -31,6 +31,14 @@ import UserPhoto from '../UserProfilePhoto/UserPhoto';
 const NavBar = (props) => {
 
     const navigate = useNavigate();
+    const [CurrentUser, SetCurrentUser] = useState('Carregando')
+    const [ShowPhotoModal, setShowPhotoModal] = useState(false)
+
+    // PERMITS NEEDED
+    const AtivosPermit = GetCurrentUserTypePermitFromStore('VISUALIZAR_ATIVOS') || GetCurrentUserTypePermitFromStore('RETIRAR_ATIVOS') || GetCurrentUserTypePermitFromStore('ADICIONAR_ATIVOS') || GetCurrentUserTypePermitFromStore(' EDITAR_ATIVOS') || GetCurrentUserTypePermitFromStore('EXCLUIR_ATIVOS')
+    const UsuariosPermit = GetCurrentUserTypePermitFromStore('VISUALIZAR_USUARIOS') || GetCurrentUserTypePermitFromStore('ADICIONAR_USUARIOS') || GetCurrentUserTypePermitFromStore(' EDITAR_USUARIOS') || GetCurrentUserTypePermitFromStore('EXCLUIR_USUARIOS')
+    const ConfigPermit = GetCurrentUserTypePermitFromStore('CONFIGURACOES') || GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_ATIVOS') || GetCurrentUserTypePermitFromStore('EDITAR_LOCAIS') || GetCurrentUserTypePermitFromStore('EDITAR_STATUS_ATIVOS') || GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_DE_USO') || GetCurrentUserTypePermitFromStore('EDITAR_SETORES') || GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_DE_USUARIO') || GetCurrentUserTypePermitFromStore('EDITAR_PERMICOES')
+
 
     const Sair = () => {
         SetTab('Login')
@@ -38,22 +46,17 @@ const NavBar = (props) => {
         NotificationSucesso('Logoff', "Logoff feito com sucesso!")
     }
 
-    const handleToggleTema = () => {
-        ToggleTema()
-        //window.location.reload()
-    }
-
-    const [CurrentUser, SetCurrentUser] = useState('Carregando')
+    // CHANGE APP THEME
+    const handleToggleTema = () => { ToggleTema() }
 
 
+
+    // SET CURRENT USER ALWAYS WHEN USERS CHANGE
     useEffect(() => {
         SetCurrentUser({ ...GetCurrentUserFromStore() })
     }, [props.Usuarios])
 
 
-    const AtivosPermit = GetCurrentUserTypePermitFromStore('VISUALIZAR_ATIVOS') || GetCurrentUserTypePermitFromStore('RETIRAR_ATIVOS') || GetCurrentUserTypePermitFromStore('ADICIONAR_ATIVOS') || GetCurrentUserTypePermitFromStore(' EDITAR_ATIVOS') || GetCurrentUserTypePermitFromStore('EXCLUIR_ATIVOS')
-    const UsuariosPermit = GetCurrentUserTypePermitFromStore('VISUALIZAR_USUARIOS') || GetCurrentUserTypePermitFromStore('ADICIONAR_USUARIOS') || GetCurrentUserTypePermitFromStore(' EDITAR_USUARIOS') || GetCurrentUserTypePermitFromStore('EXCLUIR_USUARIOS')
-    const ConfigPermit = GetCurrentUserTypePermitFromStore('CONFIGURACOES') || GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_ATIVOS') || GetCurrentUserTypePermitFromStore('EDITAR_LOCAIS') || GetCurrentUserTypePermitFromStore('EDITAR_STATUS_ATIVOS') || GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_DE_USO') || GetCurrentUserTypePermitFromStore('EDITAR_SETORES') || GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_DE_USUARIO') || GetCurrentUserTypePermitFromStore('EDITAR_PERMICOES')
 
 
     const SetTabNavBar = (Tab, To) => {
@@ -76,11 +79,9 @@ const NavBar = (props) => {
     }
 
 
-    const [ShowPhotoModal, setShowPhotoModal] = useState(false)
 
-    const onChangePhoto = (url) => {
 
-    }
+    const onChangePhoto = () => { }
 
     return (
         <>
@@ -226,11 +227,11 @@ const NavBar = (props) => {
     )
 }
 
- 
+
 const ConnectedNavBar = connect((state) => {
     return {
         Tema: state.Tema,
-        Usuarios : state.Usuarios
+        Usuarios: state.Usuarios
     }
 })(NavBar)
 

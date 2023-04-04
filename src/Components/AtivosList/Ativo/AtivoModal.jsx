@@ -2,7 +2,7 @@ import Modal from 'react-bootstrap/Modal';
 import React, { useState, useEffect } from 'react'
 import './AtivoModal.css'
 import UserPhoto from '../../../assets/Images/SerranoLogoFuncoBranco.jpg'
-import { UilUserCircle, UilClipboardNotes, UilLabel, UilLabelAlt, UilBox, UilSave, UilUsersAlt, UilTag, UilTimes, UilBuilding, UilCircleLayer, UilPlay, UilWrench, UilCheck, UilBackward, UilTrash, UilArrow } from '@iconscout/react-unicons'
+import { UilUserCircle, UilClipboardNotes, UilLabel, UilLabelAlt, UilCog, UilBox, UilSave, UilPostcard, UilUsersAlt, UilCommentAltChartLines, UilTag, UilTimes, UilBuilding, UilCircleLayer, UilPlay, UilWrench, UilCheck, UilBackward, UilTrash, UilArrow } from '@iconscout/react-unicons'
 import { AddAtivo, AddAtivoFirebase, DeleteAtivo, EditAtivo, GetAtivoStatusWithIdFromStore, GetAtivoTypeWithIdFromStore, GetAtivoWithIdFromStore, GetCurrentUserTypeFromStore, GetLocaisArmazenamentoFromStore, GetLocalArmazenamentoNameWithIdFromStore, GetLocalArmazenamentoWithIdFromStore, GetStatusAtivosFromStore, GetTakesOfAtivo, GetTipoAtivoNameWithIdFromStore, GetTipoDeUsoWithIdFromStore, GetTiposAtivosFromStore, GetTiposDeUsoFromStore, ReturnAllRecordOfAtivowithId } from '../../../Functions/Middleware'
 import { DefaultAtivo, DefaultAtivosType, DefaultLocal, } from '../../../Data/Items';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
@@ -51,7 +51,15 @@ const AtivoModal = (props) => {
     const [ConfirmBtAction, SetConfirmBtAction] = useState('')
     const [ConfirmBtBack, SetConfirmBtBack] = useState('')
 
+
+
+
+
     //COPIAS DAS INFORMAÇÔES DO ATIVO
+    const [CopyAtivoDescription, setCopyAtivoDescription] = useState('')
+    const [CopyAtivoManufacturer, setCopyAtivoManufacturer] = useState('')
+    const [CopyAtivoModel, setCopyAtivoModel] = useState('')
+    const [CopyAtivoSerialNumber, setCopyAtivoSerialNumber] = useState('')
     const [CopyAtivoName, setCopyAtivoName] = useState('')
     const [CopyAtivoPhotoUrl, setCopyAtivoPhotoUrl] = useState('')
     const [CopyAtivoType, setCopyAtivoType] = useState({})
@@ -87,13 +95,17 @@ const AtivoModal = (props) => {
         setCopyAtivoBrand(AtivoCopy?.Brand)
         setCopyAtivoQtd(AtivoCopy?.Qtd)
         setCopyAtivoQtdPerUser(AtivoCopy?.QtdPerUser)
+        setCopyAtivoSerialNumber(AtivoCopy?.SerialNumber)
+        setCopyAtivoModel(AtivoCopy?.Model)
+        setCopyAtivoManufacturer(AtivoCopy?.Manufacturer)
+        setCopyAtivoDescription(AtivoCopy?.Description)
     }
 
     const CancelEditions = () => {
         FillCopyes(Ativo)
     }
 
-    const HandleChangeInfo = (Info, Value) => {
+    const HandleChangeInfo = (Info, Value, Value2) => {
         if (CanEdit) {
             if (Info === 'Item')
                 setCopyAtivoName(Value)
@@ -103,12 +115,24 @@ const AtivoModal = (props) => {
                 setCopyAtivoQtdPerUser(Value)
             if (Info === 'Marca')
                 setCopyAtivoBrand(Value)
+            if (Info === 'Fabricante')
+                setCopyAtivoManufacturer(Value)
+            if (Info === 'NumeroSerie')
+                setCopyAtivoSerialNumber(Value)
+            if (Info === 'Modelo')
+                setCopyAtivoModel(Value)
+            if (Info === 'Descricao')
+                setCopyAtivoDescription(Value)
         }
         if ((CanEdit || IsAdmin) || PermitToEditAtivos) {
             if (Info === 'Local')
                 setCopyAtivoLocalArmazenamento({ id: Value })
             else if (Info === 'Type')
                 setCopyAtivoType({ id: Value })
+            else if (Info === 'Status')
+                setCopyAtivoStatus({ id: Value, Value: Value2 })
+            else if (Info === 'TipoUso')
+                setCopyAtivoTipoDeUso({ id: Value, Value: Value2 })
         }
     }
 
@@ -148,13 +172,40 @@ const AtivoModal = (props) => {
     }
 
 
+
     // QUANDO ALGUMA INFORMAÇÂO MUDA
     useEffect(() => {
-        if (CopyAtivoName !== Ativo?.Item || CopyAtivoName !== Ativo?.Item || CopyAtivoBrand !== Ativo?.Brand || CopyAtivoQtdPerUser !== Ativo?.QtdPerUser || CopyAtivoQtd !== Ativo?.Qtd || CopyAtivoLocalArmazenamento?.id !== Ativo?.StorageLocation?.id || CopyAtivoStatus?.id !== Ativo?.Status?.id || CopyAtivoTipoDeUso?.id !== Ativo?.Usage?.id || CopyAtivoType?.id !== Ativo?.Type?.id)
+        if (CopyAtivoName !== Ativo?.Item ||
+            CopyAtivoBrand !== Ativo?.Brand ||
+            CopyAtivoQtdPerUser !== Ativo?.QtdPerUser ||
+            CopyAtivoQtd !== Ativo?.Qtd ||
+            CopyAtivoLocalArmazenamento?.id !== Ativo?.StorageLocation?.id ||
+            CopyAtivoStatus?.id !== Ativo?.Status?.id ||
+            CopyAtivoTipoDeUso?.id !== Ativo?.Usage?.id ||
+            CopyAtivoType?.id !== Ativo?.Type?.id ||
+            CopyAtivoManufacturer !== Ativo?.Manufacturer ||
+            CopyAtivoModel !== Ativo?.Model ||
+            CopyAtivoSerialNumber !== Ativo?.SerialNumber ||
+            CopyAtivoDescription !== Ativo?.Description
+        )
             setIsEdited(true)
         else
             setIsEdited(false)
-    }, [CopyAtivoName, CopyAtivoBrand, CopyAtivoQtd, CopyAtivoLocalArmazenamento, CopyAtivoStatus, CopyAtivoTipoDeUso, CopyAtivoType, Ativo, CopyAtivoQtdPerUser])
+    }, [CopyAtivoName,
+        CopyAtivoBrand,
+        CopyAtivoQtd,
+        CopyAtivoLocalArmazenamento,
+        CopyAtivoStatus,
+        CopyAtivoTipoDeUso,
+        CopyAtivoType,
+        Ativo,
+        CopyAtivoQtdPerUser,
+        CopyAtivoManufacturer,
+        CopyAtivoModel,
+        CopyAtivoSerialNumber,
+        CopyAtivoDescription
+    ]
+    )
 
     useEffect(() => {
         setAtivoType(GetAtivoTypeWithIdFromStore(Ativo?.Type?.id))
@@ -232,6 +283,10 @@ const AtivoModal = (props) => {
                 EditedAtivo.Item = CopyAtivoName
                 EditedAtivo.Brand = CopyAtivoBrand
                 EditedAtivo.Qtd = CopyAtivoQtd
+                EditedAtivo.Model = CopyAtivoModel
+                EditedAtivo.SerialNumber = CopyAtivoSerialNumber
+                EditedAtivo.Manufacturer = CopyAtivoManufacturer
+                EditedAtivo.Description = CopyAtivoDescription
                 EditedAtivo.QtdPerUser = CopyAtivoQtdPerUser
                 EditedAtivo.Status = CopyAtivoStatus
                 EditedAtivo.Usage = CopyAtivoTipoDeUso
@@ -257,6 +312,10 @@ const AtivoModal = (props) => {
             NewAtivo.id = IdToUse ? IdToUse : v4()
             NewAtivo.PhotoUrl = CopyAtivoPhotoUrl
             NewAtivo.Item = CopyAtivoName
+            NewAtivo.Model = CopyAtivoModel
+            NewAtivo.SerialNumber = CopyAtivoSerialNumber
+            NewAtivo.Manufacturer = CopyAtivoManufacturer
+            NewAtivo.Description = CopyAtivoDescription
             NewAtivo.Brand = CopyAtivoBrand ? CopyAtivoBrand : ''
             NewAtivo.Qtd = CopyAtivoQtd
             NewAtivo.QtdPerUser = CopyAtivoQtdPerUser
@@ -424,7 +483,7 @@ const AtivoModal = (props) => {
                                                             <UilBuilding />
                                                             Marca
                                                         </span>
-                                                        <input placeholder='Digite a Marca (Opcional)' disabled={!CanEdit} value={CopyAtivoBrand} type="text" onChange={e => HandleChangeInfo('Marca', e.target.value)} />
+                                                        <input placeholder='Opcional' disabled={!CanEdit} value={CopyAtivoBrand} type="text" onChange={e => HandleChangeInfo('Marca', e.target.value)} />
                                                     </div>
                                                     <div className='AtivoModalBody-AtivoInfoForm-Group'>
                                                         <span>
@@ -435,7 +494,34 @@ const AtivoModal = (props) => {
                                                     </div>
                                                 </div>
 
+                                                <div className='AtivoModalBody-AtivoInfoForm-OneLine'>
+                                                    <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                                        <span>
+                                                            <UilCommentAltChartLines />
+                                                            Descrição
+                                                        </span>
+                                                        <input value={CopyAtivoDescription} type="text" placeholder='Opcional' onChange={e => HandleChangeInfo('Descricao', e.target.value)} />
 
+                                                    </div>
+                                                </div>
+
+
+                                                <div className='AtivoModalBody-AtivoInfoForm-TwoLine'>
+                                                    <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                                        <span>
+                                                            <UilCog />
+                                                            Fabricante
+                                                        </span>
+                                                        <input placeholder='Opcional' disabled={!CanEdit} value={CopyAtivoManufacturer} type="text" onChange={e => HandleChangeInfo('Fabricante', e.target.value)} />
+                                                    </div>
+                                                    <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                                        <span>
+                                                            <UilLabelAlt />
+                                                            Modelo
+                                                        </span>
+                                                        <input placeholder='Opcional' min='1' disabled={!CanEdit} value={CopyAtivoModel} type="text" onChange={e => HandleChangeInfo('Modelo', e.target.value)} />
+                                                    </div>
+                                                </div>
 
 
 
@@ -455,7 +541,7 @@ const AtivoModal = (props) => {
                                                             styles={AtivoModalSelectcustomStyles}
                                                             value={CopyAtivoStatus}
                                                             isDisabled={!CanEdit}
-                                                            onChange={(item) => { setCopyAtivoStatus(item); }}
+                                                            onChange={(item) => { HandleChangeInfo('Status', item.id, item.Value); }}
                                                         />
                                                     </div>
                                                     <div className='AtivoModalBody-AtivoInfoForm-Group'>
@@ -473,12 +559,12 @@ const AtivoModal = (props) => {
                                                             styles={AtivoModalSelectcustomStyles}
                                                             value={CopyAtivoTipoDeUso}
                                                             isDisabled={!CanEdit}
-                                                            onChange={(item) => { setCopyAtivoTipoDeUso(item); }}
+                                                            onChange={(item) => { HandleChangeInfo('TipoUso', item.id, item.Value); }}
                                                         />
                                                     </div>
                                                 </div>
 
-                                                <div className='AtivoModalBody-AtivoInfoForm-OneLine'>
+                                                <div className='AtivoModalBody-AtivoInfoForm-TwoLine'>
                                                     <div className='AtivoModalBody-AtivoInfoForm-Group'>
                                                         <span>
                                                             <UilUsersAlt />
@@ -486,6 +572,13 @@ const AtivoModal = (props) => {
                                                         </span>
                                                         <input value={CopyAtivoQtdPerUser} type="number" min={1} placeholder='Quantidade de Retiradas simultâneas por usuário' onChange={e => HandleChangeInfo('QuantidadePorUsuario', e.target.value)} />
 
+                                                    </div>
+                                                    <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                                        <span>
+                                                            <UilPostcard />
+                                                            Número de Série
+                                                        </span>
+                                                        <input placeholder='Opcional' min='1' disabled={!CanEdit} value={CopyAtivoSerialNumber} type="text" onChange={e => HandleChangeInfo('NumeroSerie', e.target.value)} />
                                                     </div>
                                                 </div>
 
