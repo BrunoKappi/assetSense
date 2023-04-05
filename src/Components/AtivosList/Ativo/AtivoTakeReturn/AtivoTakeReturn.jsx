@@ -16,6 +16,8 @@ import { FIREBASE_GetRecordDocIDById, FIREBASE_GetRecordsPendentesDeUmAtivo } fr
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Loading from '../../../LoadingForTabs/Loading'
+import TwoColumns from '../../../LayoutComponents/TwoColumns/TwoColumns';
+import FormGroupLabel from '../../../LayoutComponents/FormGroupLabel/FormGroupLabel';
 
 const AtivoTakeReturn = (props) => {
 
@@ -177,11 +179,11 @@ const AtivoTakeReturn = (props) => {
                 if (QuantidadeDoAtivo <= QuantidadeFirebaseRetirada) {
                     NotificationErro("Ação negada", "Parece que alguém ja reitrou esse item, atualize sua página para infomações atualizadas")
                 } else {
-                   
+
                     AddRecord(NewRecordToAdd).then((Record) => {
                         GetRecords().then(Lista => {
                             const Records = [...Lista]
-                            NewRecordToAdd.docID = Record?.id 
+                            NewRecordToAdd.docID = Record?.id
                             Records.push(NewRecordToAdd)
                             SaveRecords(Records)
                             EndConfirming()
@@ -328,12 +330,12 @@ const AtivoTakeReturn = (props) => {
                     <div className='TakeForm'>
 
                         {ActionFor !== 'Me' && <>
-                            <div className='AtivoModalBody-AtivoInfoForm-TwoLine'>
+                            <TwoColumns>
                                 <div className='AtivoModalBody-AtivoInfoForm-Group'>
-                                    <span>
+                                    <FormGroupLabel>
                                         <UilEnvelope />
                                         Email (Retirado para)
-                                    </span>
+                                    </FormGroupLabel>
                                     <Select
                                         className='AtivoModalBody-AtivoInfoForm-LocationSelect'
                                         placeholder="Digite o Email"
@@ -347,10 +349,10 @@ const AtivoTakeReturn = (props) => {
                                     />
                                 </div>
                                 <div className='AtivoModalBody-AtivoInfoForm-Group'>
-                                    <span>
+                                    <FormGroupLabel>
                                         <UilUser />
                                         Nome (Retirado para)
-                                    </span>
+                                    </FormGroupLabel>
                                     <Select
                                         className='AtivoModalBody-AtivoInfoForm-LocationSelect'
                                         placeholder="Digite o Nome"
@@ -363,28 +365,28 @@ const AtivoTakeReturn = (props) => {
                                         onChange={(item) => { setTakenFor(item); }}
                                     />
                                 </div>
-                            </div>
+                            </TwoColumns>
 
                         </>
                         }
 
-                        <div className='AtivoModalBody-AtivoInfoForm-OneLine'>
+                        <div>
                             <div className='AtivoModalBody-AtivoInfoForm-Group'>
-                                <span>
+                                <FormGroupLabel>
                                     <UilCalendarAlt />
                                     Data
-                                </span>
-                                <DatePicker showTimeSelect={true} dateFormat="dd/MM/yyyy" selected={EventDate} onChange={(date) => setEventDate(date)} />
+                                </FormGroupLabel>
+                                <DatePicker className='AtivoModalBody-AtivoInfoForm-Group-Input' showTimeSelect={true} dateFormat="dd/MM/yyyy" selected={EventDate} onChange={(date) => setEventDate(date)} />
                             </div>
                         </div>
 
-                        <div className='AtivoModalBody-AtivoInfoForm-OneLine'>
+                        <div>
                             <div className='AtivoModalBody-AtivoInfoForm-Group'>
-                                <span>
+                                <FormGroupLabel>
                                     <UilComment />
                                     Observação
-                                </span>
-                                <textarea value={Obs} onChange={e => setObs(e.target.value)} placeholder='Digite uma Observação(Opcional)' name="" id="" rows="2"></textarea>
+                                </FormGroupLabel>
+                                <textarea className='AtivoModalBody-AtivoInfoForm-Group-Input' value={Obs} onChange={e => setObs(e.target.value)} placeholder='Digite uma Observação(Opcional)' name="" id="" rows="2"></textarea>
                             </div>
 
                         </div>
@@ -473,12 +475,12 @@ const AtivoTakeReturn = (props) => {
 
                             {(QuantidadeRetirada - QuantidadeRetiradaPeloCurrentUser) !== 0 &&
 
-                                <div className='AtivoModalBody-AtivoInfoForm-TwoLine'>
+                                <TwoColumns>
                                     <div className='AtivoModalBody-AtivoInfoForm-Group'>
-                                        <span>
+                                        <FormGroupLabel>
                                             <UilEnvelope />
                                             Email (De quem vai devolver)
-                                        </span>
+                                        </FormGroupLabel>
                                         <Select
                                             className='AtivoModalBody-AtivoInfoForm-LocationSelect'
                                             placeholder="Digite o Email"
@@ -492,10 +494,10 @@ const AtivoTakeReturn = (props) => {
                                         />
                                     </div>
                                     <div className='AtivoModalBody-AtivoInfoForm-Group'>
-                                        <span>
+                                        <FormGroupLabel>
                                             <UilUser />
                                             Nome (De quem vai devolver)
-                                        </span>
+                                        </FormGroupLabel>
                                         <Select
                                             className='AtivoModalBody-AtivoInfoForm-LocationSelect'
                                             placeholder="Digite o Nome"
@@ -508,7 +510,7 @@ const AtivoTakeReturn = (props) => {
                                             onChange={(item) => { setReturnFor(item); }}
                                         />
                                     </div>
-                                </div>
+                                </TwoColumns>
 
                             }
 
@@ -518,23 +520,23 @@ const AtivoTakeReturn = (props) => {
 
                         {((QuantidadeRetirada - QuantidadeRetiradaPeloCurrentUser) !== 0 || ActionFor === 'Me') && <>
 
-                            <div className='AtivoModalBody-AtivoInfoForm-OneLine'>
+                            <div>
                                 <div className='AtivoModalBody-AtivoInfoForm-Group'>
-                                    <span>
+                                    <FormGroupLabel>
                                         <UilCalendarAlt />
                                         Data e Hora de Devolução
-                                    </span>
-                                    <DatePicker showTimeSelect={true} dateFormat="dd/MM/yyyy" selected={EventDate} onChange={(date) => setEventDate(date)} />
+                                    </FormGroupLabel>
+                                    <DatePicker className='AtivoModalBody-AtivoInfoForm-Group-Input' showTimeSelect={true} dateFormat="dd/MM/yyyy" selected={EventDate} onChange={(date) => setEventDate(date)} />
                                 </div>
                             </div>
 
-                            <div className='AtivoModalBody-AtivoInfoForm-OneLine'>
+                            <div>
                                 <div className='AtivoModalBody-AtivoInfoForm-Group'>
-                                    <span>
+                                    <FormGroupLabel>
                                         <UilComment />
                                         Observação
-                                    </span>
-                                    <textarea value={Obs} onChange={e => setObs(e.target.value)} placeholder='Digite uma Observação(Opcional)' name="" id="" rows="2"></textarea>
+                                    </FormGroupLabel>
+                                    <textarea className='AtivoModalBody-AtivoInfoForm-Group-Input' value={Obs} onChange={e => setObs(e.target.value)} placeholder='Digite uma Observação(Opcional)' name="" id="" rows="2"></textarea>
                                 </div>
                             </div>
 

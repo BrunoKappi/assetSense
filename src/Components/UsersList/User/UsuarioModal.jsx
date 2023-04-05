@@ -23,6 +23,7 @@ import { Tooltip } from 'react-tippy';
 import UserPhotoModal from './UserPhotoModal/UserPhotoModal';
 import { FIREBASE_GetUserDocIDById } from '../../../Config/firebase/metodos';
 import Loading from '../../LoadingForTabs/Loading';
+import TwoColumns from '../../LayoutComponents/TwoColumns/TwoColumns';
 
 const UsuarioModal = (props) => {
 
@@ -243,7 +244,7 @@ const UsuarioModal = (props) => {
                     console.log("LOGOUT")
                 }).catch(() => {
                     console.log("ERRO LOGOUT")
-                }) 
+                })
             }, 5000);
 
             RegisterUser(NewUser.Email).then(() => {
@@ -271,7 +272,7 @@ const UsuarioModal = (props) => {
             props.onDelete()
 
 
-            
+
             DeleteUser(UserToDelete).then(() => {
                 setLoadingAction(false)
                 ReturnAllAtivosOfUserWithId(UserToDelete.id)
@@ -348,7 +349,7 @@ const UsuarioModal = (props) => {
 
             setLoadingAction(true)
             LoginUtil(User?.Email, Senha).then(() => {
- 
+
                 mudarSenha(SenhaNova).then(() => {
                     setLoadingAction(false)
                     NotificationSucesso("Alteração de Senha", "Senha Atualizada")
@@ -482,7 +483,7 @@ const UsuarioModal = (props) => {
                                                 <h4 className='UserModalBody-UserInfoForm-SectionTitle'>Dados Cadastrais</h4>
 
 
-                                                <div className='UserModalBody-UserInfoForm-OneLine'>
+                                                <div>
                                                     <div className='UserModalBody-UserInfoForm-Group'>
                                                         <span>
                                                             <UilEnvelope />
@@ -494,7 +495,7 @@ const UsuarioModal = (props) => {
                                                 </div>
 
 
-                                                <div className='UserModalBody-UserInfoForm-TwoLine'>
+                                                <TwoColumns>
                                                     <div className='UserModalBody-UserInfoForm-Group'>
                                                         <span>
                                                             <UilPen />
@@ -509,11 +510,11 @@ const UsuarioModal = (props) => {
                                                         </span>
                                                         <input placeholder='Digite o Sobrenome' disabled={!CanEdit} value={CopyUserLastName} type="text" onChange={e => HandleChangeInfo('LastName', e.target.value)} />
                                                     </div>
-                                                </div>
+                                                </TwoColumns>
 
 
 
-                                                <div className='UserModalBody-UserInfoForm-OneLine'>
+                                                <div>
                                                     <div className='UserModalBody-UserInfoForm-Group'>
                                                         <span>
                                                             <UilPhone />
@@ -537,7 +538,7 @@ const UsuarioModal = (props) => {
 
 
 
-                                                <div className='UserModalBody-UserInfoForm-TwoLine'>
+                                                <TwoColumns>
                                                     <div className='UserModalBody-UserInfoForm-Group'>
                                                         <span>
                                                             <UilMap />
@@ -581,10 +582,10 @@ const UsuarioModal = (props) => {
                                                             }}
                                                         />
                                                     </div>
-                                                </div>
+                                                </TwoColumns>
 
 
-                                                <div className='UserModalBody-UserInfoForm-OneLine'>
+                                                <div>
                                                     <div className='UserModalBody-UserInfoForm-Group'>
                                                         <span>
                                                             <UilBuilding />
@@ -614,7 +615,7 @@ const UsuarioModal = (props) => {
                                                 {IsCurrentUser && <div className='UserModalBody-UserInfoForm-SectionTitle'></div>}
                                                 {IsCurrentUser && <h4 className='UserModalBody-UserInfoForm-SectionTitle'>Trocar de Senha</h4>}
                                                 {IsCurrentUser &&
-                                                    <div className='UserModalBody-UserInfoForm-TwoLine'>
+                                                    <TwoColumns>
                                                         <div className='UserModalBody-UserInfoForm-Group'>
                                                             <span>
                                                                 <UilKeySkeleton />
@@ -629,7 +630,7 @@ const UsuarioModal = (props) => {
                                                             </span>
                                                             <input placeholder='Digite a nova Senha' ref={NovaSenha} type="password" />
                                                         </div>
-                                                    </div>
+                                                    </TwoColumns>
                                                 }
 
                                                 {IsCurrentUser &&
@@ -647,7 +648,7 @@ const UsuarioModal = (props) => {
 
 
 
-                                                <div className='UserModalBody-UserInfoForm-TwoLine'>
+                                                <TwoColumns>
                                                     <div className='UserModalBody-UserInfoForm-Group'>
 
                                                         <div className='UserModalBody-UserInfoForm-SetorList'>
@@ -683,7 +684,7 @@ const UsuarioModal = (props) => {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </TwoColumns>
                                             </form>
 
                                             <div className='UserModalBody-UserInfoForm-Button'>

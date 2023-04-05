@@ -1,0 +1,29 @@
+.FormGroupLabel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .5rem;
+    font-family: var(--Fonte);
+    color: var(--ComplementaryColor);
+    font-size: .9rem;
+}
+
+.FormGroupLabel>svg {
+    width: 1rem;
+}
+
+
+
+
+
+@media (max-width: 1000px) {
+
+    .FormGroupLabel {
+        font-size: .8rem;
+    }
+
+    .FormGroupLabel>svg {
+        width: 1rem;
+    }
+}

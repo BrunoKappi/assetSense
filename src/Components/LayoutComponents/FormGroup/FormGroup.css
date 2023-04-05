@@ -1,0 +1,4 @@
+.FormGroup{
+    display: flex;
+    flex-direction: column;
+}

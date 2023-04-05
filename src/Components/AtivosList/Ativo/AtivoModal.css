@@ -457,38 +457,7 @@
     width: 100%;
 }
 
-.AtivoModalBody-AtivoInfoForm-Group {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
-    gap: .1rem;
-}
 
-.AtivoModalBody-AtivoInfoForm-Group>span {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: .5rem;
-    font-family: var(--Fonte);
-    color: var(--AtivoModal-IconeELabe-Input);
-    font-size: .9rem;
-}
-
-.AtivoModalBody-AtivoInfoForm-Group>span>svg {
-    width: 1rem;
-}
-
-@media (max-width: 1000px) {
-    .AtivoModalBody-AtivoInfoForm-Group>span {
-        font-size: .8rem;
-    }
-
-    .AtivoModalBody-AtivoInfoForm-Group>span>svg {
-        width: 1rem;
-    }
-}
 
 .AtivoModalBody-AtivoInfoForm-SectionTitle {
     font-family: var(--Fonte);
@@ -503,18 +472,7 @@
 
 
 
-.AtivoModalBody-AtivoInfoForm-Group>input {
-    border-radius: .5rem;
-    outline: none;
-    border: 1px solid var(--AtivoModal-Borda-Input);
-    padding: .5rem .8rem;
-    color: var(--AtivoModal-Color-Input);
-    font-family: var(--Fonte);
-    font-size: .9rem;
-    background-color: var(--AtivoModal-Background-Input);
-}
-
-.AtivoModalBody-AtivoInfoForm-Group input {
+.AtivoModalBody-AtivoInfoForm-Group-Input {
     border-radius: .5rem;
     outline: none;
     border: 1px solid var(--AtivoModal-Borda-Input);
@@ -526,16 +484,28 @@
     width: 100% !important;
 }
 
-.AtivoModalBody-AtivoInfoForm-Group>textarea {
-    border-radius: .5rem;
-    outline: none;
-    border: 1px solid var(--AtivoModal-Borda-Input);
-    padding: .5rem .8rem;
-    color: var(--AtivoModal-Color-Input);
-    font-family: var(--Fonte);
-    font-size: .9rem;
-    background-color: var(--AtivoModal-Background-Input);
+@media (max-width: 1000px) {
+    .AtivoModalBody-AtivoInfoForm-Group-Input {
+        font-size: .8rem;
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .AtivoModalBody-AtivoInfoForm-PhoneInput-Container {
     border-radius: .5rem !important;
@@ -591,31 +561,10 @@
 
 }
 
-@media (max-width: 1000px) {
-    .AtivoModalBody-AtivoInfoForm-Group>input {
-        font-size: .8rem;
-    }
-}
 
 
-.AtivoModalBody-AtivoInfoForm-TwoLine {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 49% 49%;
-    gap: 1rem;
-}
-
-@media (max-width: 1000px) {
-    .AtivoModalBody-AtivoInfoForm-TwoLine {
-        display: flex;
-        flex-direction: column;
-    }
-}
 
 
-.AtivoModalBody-AtivoInfoForm-TwoLine>.AtivoModalBody-AtivoInfoForm-Group {
-    flex-grow: 1;
-}
 
 
 .AtivoModalBody-AtivoInfoForm-Button {
@@ -690,11 +639,6 @@
 
 /* ======================================== LISTA DE SETORES MODAL =========================================================================== */
 
-.AtivoModalBody-AtivoInfoForm-LocalList {
-
-    display: flex;
-    flex-direction: column;
-}
 
 .AtivoModalBody-AtivoInfoForm-LocalList-Title {
     display: flex;
@@ -783,11 +727,6 @@
 
 /* ======================================== LISTA DE TIPOS DE USUARIOS MODAL =========================================================================== */
 
-.AtivoModalBody-AtivoInfoForm-TiposAtivosList {
-
-    display: flex;
-    flex-direction: column;
-}
 
 .AtivoModalBody-AtivoInfoForm-TiposAtivosList-Title {
     display: flex;
