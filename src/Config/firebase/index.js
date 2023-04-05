@@ -15,8 +15,8 @@ const firebaseConfig = {
   measurementId: "G-2ZY0BXZYH6"
 };
  
-// BANCO TESTE
 /*
+// BANCO TESTE
 const firebaseConfig = {
   apiKey: "AIzaSyBm_MtZ9IzdJrMX4I58P1ULB8VhvC14fa8",
   authDomain: "todoappredux-fbc26.firebaseapp.com",

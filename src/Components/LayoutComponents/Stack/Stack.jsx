@@ -1,12 +1,24 @@
 import React from 'react';
 import './Stack.css'
 
-const Stack = ({ children }) => {
+const Stack = ({ children, Gap = 0, className = '' }) => {
+    const stackStyle = {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: `${Gap}`
+    };
+
     return (
-        <div className='Stack'>
+        <div className={`Stack ${className}`} style={stackStyle}>
             {children}
         </div>
     );
 };
 
-export default Stack; 
+export default Stack;
+
+
+
+
+
+

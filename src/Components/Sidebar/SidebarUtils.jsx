@@ -13,6 +13,10 @@ export const GetSidebarItemClass = (Item, Tab) => {
         return "SidebarItem"
 }
 
+export const GetSidebarItemActive = (Item, Tab) => {
+    return Item === Tab
+}
+
 export const GetNavbarSidebarItemClass = (Item, Tab) => {
     if (Item === Tab)
         return "NavBarListSidebarItem ActiveNavbarSidebar"
@@ -68,7 +72,7 @@ export const GetAtivosPermits = (Tipo) => {
 
 export const GetUsuariosPermits2 = () => {
 
- 
+
 
     return false
 }

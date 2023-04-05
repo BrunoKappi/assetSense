@@ -12,6 +12,9 @@ import Loading from '../LoadingForTabs/Loading'
 import UserPhotoModal from '../UsersList/User/UserPhotoModal/UserPhotoModal'
 //Tooltip
 import { Tooltip } from 'react-tippy';
+import SidebarItem from '../LayoutComponents/SidebarItem/SidebarItem';
+import Show from '../LayoutComponents/Show/Show';
+import Stack from '../LayoutComponents/Stack/Stack';
 
 const Sidebar = (props) => {
 
@@ -61,7 +64,7 @@ const Sidebar = (props) => {
         } else if (Tab === 'Config' && ConfigPermit) {
             SetTab(Tab)
             navigate(To)
-        } else if (Tab === 'Records' ) {
+        } else if (Tab === 'Records') {
             SetTab(Tab)
             navigate(To)
         } else
@@ -70,9 +73,10 @@ const Sidebar = (props) => {
 
     const [ShowPhotoModal, setShowPhotoModal] = useState(false)
 
-    const onChangePhoto = (url) => {
+    const onChangePhoto = () => { }
 
-    }
+    const IsActive = (Tab) => props.LoggedUser.CurrentSidebarTab === Tab
+
 
 
     return (
@@ -94,56 +98,59 @@ const Sidebar = (props) => {
 
 
 
-                {!CurrentUser.Name && <Loading />}
 
-                {CurrentUser.Name &&
+                <Show Show={!CurrentUser.Name}>
+                    <Loading />
+                </Show>
 
-                    <>
-                        <Tooltip title="Acessar seu Perfil" position="bottom" >
-                            <div className='SidebarUserName' onClick={e => SetTabSidebar('Profile', '/App/Profile')}>
-                                <p> {CurrentUser.Name ? CurrentUser.Name : 'Caregando...'}</p>
-                                <p> {CurrentUser.LastName}</p>
-                            </div>
-                        </Tooltip>
+                <Show Show={CurrentUser.Name}>
+                    <Tooltip title="Acessar seu Perfil" position="bottom" >
+                        <div className='SidebarUserName' onClick={e => SetTabSidebar('Profile', '/App/Profile')}>
+                            <p> {CurrentUser.Name ? CurrentUser.Name : 'Caregando...'}</p>
+                            <p> {CurrentUser.LastName}</p>
+                        </div>
+                    </Tooltip>
 
-                        <ul className='SidebarList'>
-                            <span to="/App/Dash" className={GetSidebarItemClass('Dash', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Dash', '/App/Dash')}>
-                                <UilChartPieAlt />
-                                <span>Dashboard</span>
-                            </span>
-                            <span to="/App/Ativos" className={GetSidebarItemClass('Ativos', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Ativos', '/App/Ativos')}>
-                                <UilListUl />
-                                <span>Ativos</span>
-                            </span>
-                            <span to="/App/Users" className={GetSidebarItemClass('Users', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Users', '/App/Users')}>
-                                <UilUsersAlt />
-                                <span>Usuarios</span>
-                            </span>
-                            <span to="/App/Profile" className={GetSidebarItemClass('Profile', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Profile', '/App/Profile')} >
-                                <UilUserCircle />
-                                <span>Meu Perfil</span>
-                            </span>
-                            <span to="/App/Config" className={GetSidebarItemClass('Config', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Config', '/App/Config')}>
-                                <UilSetting />
-                                <span>Configurações</span>
-                            </span>
-                            <span className={GetSidebarItemClass('Records', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabSidebar('Records', '/App/Records')}>
-                                <UilHistory />
-                                <span>Registros</span>
-                            </span>
-                            <span className={GetSidebarItemClass('Relatórios', props.LoggedUser.CurrentSidebarTab)}>
-                                <UilClipboardNotes />
-                                <span>Relatórios</span>
-                            </span>
+                    <Stack Gap={'.4rem'}>
+                        <SidebarItem Active={IsActive('Dash')}
+                            onClick={e => SetTabSidebar('Dash', '/App/Dash')}>
+                            <UilChartPieAlt />
+                            Dashboard
+                        </SidebarItem>
+                        <SidebarItem Active={IsActive('Ativos')}
+                            onClick={e => SetTabSidebar('Ativos', '/App/Ativos')}>
+                            <UilListUl />
+                            Ativos
+                        </SidebarItem>
+                        <SidebarItem Active={IsActive('Users')}
+                            onClick={e => SetTabSidebar('Users', '/App/Users')}>
+                            <UilUsersAlt />
+                            Usuarios
+                        </SidebarItem>
+                        <SidebarItem Active={IsActive('Profile')}
+                            onClick={e => SetTabSidebar('Profile', '/App/Profile')} >
+                            <UilUserCircle />
+                            Meu Perfil
+                        </SidebarItem>
+                        <SidebarItem Active={IsActive('Config')}
+                            onClick={e => SetTabSidebar('Config', '/App/Config')}>
+                            <UilSetting />
+                            Configurações
+                        </SidebarItem>
+                        <SidebarItem Active={IsActive('Records')}
+                            onClick={e => SetTabSidebar('Records', '/App/Records')}>
+                            <UilHistory />
+                            Registros
+                        </SidebarItem>
+                        <SidebarItem >
+                            <UilClipboardNotes />
+                            Relatórios
+                        </SidebarItem>
+                    </Stack>
+                </Show>
 
 
-
-                        </ul>
-
-                    </>
-
-
-                }
+                
 
             </div>
 
@@ -161,3 +168,15 @@ const ConnectedSidebar = connect((state) => {
 })(Sidebar)
 
 export default ConnectedSidebar
+
+
+
+
+
+
+
+
+
+
+
+

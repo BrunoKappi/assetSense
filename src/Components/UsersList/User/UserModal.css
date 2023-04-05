@@ -179,7 +179,7 @@
 @media (max-width: 1000px) {
     .UserModalHeader-Left {
         width: 30%;
-    } 
+    }
 }
 
 .UserModalHeader-Left-Photo>img {
@@ -251,7 +251,7 @@
     gap: .5rem;
 }
 
-.UserModalHeader-Right-Setor > svg{
+.UserModalHeader-Right-Setor>svg {
     width: 1.1rem;
 }
 
@@ -268,7 +268,7 @@
     gap: .5rem;
 }
 
-.UserModalHeader-Right-Tipo  > svg{
+.UserModalHeader-Right-Tipo>svg {
     width: 1.1rem;
 }
 
@@ -476,16 +476,6 @@
     text-align: center;
 }
 
-.UserModalBody-UserInfoForm-Group>input {
-    border-radius: .5rem;
-    outline: none;
-    border: 1px solid var(--UserModal-Borda-Input);
-    padding: .5rem .8rem;
-    color: var(--UserModal-Color-Input);
-    font-family: var(--Fonte);
-    font-size: .9rem;
-    background-color: var(--UserModal-Background-Input);
-}
 
 .UserModalBody-UserInfoForm-PhoneInput-Container {
     border-radius: .5rem !important;
@@ -541,31 +531,33 @@
 
 }
 
+
+
+
+
+
+
+
+.UserModalBody-UserInfoForm-Group-Input {
+    border-radius: .5rem;
+    outline: none;
+    border: 1px solid var(--UserModal-Borda-Input);
+    padding: .5rem .8rem;
+    color: var(--UserModal-Color-Input);
+    font-family: var(--Fonte);
+    font-size: .9rem;
+    background-color: var(--UserModal-Background-Input);
+}
+
 @media (max-width: 1000px) {
-    .UserModalBody-UserInfoForm-Group>input {
+    .UserModalBody-UserInfoForm-Group-Input {
         font-size: .8rem;
     }
 }
 
 
-.UserModalBody-UserInfoForm-TwoLine {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 49% 49%;
-    gap: 1rem;
-}
-
-@media (max-width: 1000px) {
-    .UserModalBody-UserInfoForm-TwoLine {
-        display: flex;
-        flex-direction: column;
-    }
-}
 
 
-.UserModalBody-UserInfoForm-TwoLine>.UserModalBody-UserInfoForm-Group {
-    flex-grow: 1;
-}
 
 
 .UserModalBody-UserInfoForm-Button {

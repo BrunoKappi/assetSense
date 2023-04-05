@@ -24,6 +24,8 @@ import UserPhotoModal from './UserPhotoModal/UserPhotoModal';
 import { FIREBASE_GetUserDocIDById } from '../../../Config/firebase/metodos';
 import Loading from '../../LoadingForTabs/Loading';
 import TwoColumns from '../../LayoutComponents/TwoColumns/TwoColumns';
+import FormGroupLabel from '../../LayoutComponents/FormGroupLabel/FormGroupLabel';
+import FormGroup from '../../LayoutComponents/FormGroup/FormGroup';
 
 const UsuarioModal = (props) => {
 
@@ -484,42 +486,42 @@ const UsuarioModal = (props) => {
 
 
                                                 <div>
-                                                    <div className='UserModalBody-UserInfoForm-Group'>
-                                                        <span>
+                                                    <FormGroup>
+                                                        <FormGroupLabel>
                                                             <UilEnvelope />
                                                             Email
-                                                        </span>
-                                                        {props.Function === 'Add' && <input value={CopyUserEmail} type="text" placeholder='Digite o Email' onChange={e => HandleChangeInfo('Email', e.target.value)} />}
-                                                        {props.Function !== 'Add' && <input value={User?.Email} type="text" placeholder='Digite o Email' />}
-                                                    </div>
+                                                        </FormGroupLabel>
+                                                        {props.Function === 'Add' && <input className='UserModalBody-UserInfoForm-Group-Input' value={CopyUserEmail} type="text" placeholder='Digite o Email' onChange={e => HandleChangeInfo('Email', e.target.value)} />}
+                                                        {props.Function !== 'Add' && <input className='UserModalBody-UserInfoForm-Group-Input' value={User?.Email} type="text" placeholder='Digite o Email' />}
+                                                    </FormGroup>
                                                 </div>
 
 
                                                 <TwoColumns>
-                                                    <div className='UserModalBody-UserInfoForm-Group'>
-                                                        <span>
+                                                    <FormGroup>
+                                                        <FormGroupLabel>
                                                             <UilPen />
                                                             Nome
-                                                        </span>
-                                                        <input placeholder='Digite o Nome' disabled={!CanEdit} value={CopyUserName} type="text" onChange={e => HandleChangeInfo('Name', e.target.value)} />
-                                                    </div>
-                                                    <div className='UserModalBody-UserInfoForm-Group'>
-                                                        <span>
+                                                        </FormGroupLabel>
+                                                        <input className='UserModalBody-UserInfoForm-Group-Input' placeholder='Digite o Nome' disabled={!CanEdit} value={CopyUserName} type="text" onChange={e => HandleChangeInfo('Name', e.target.value)} />
+                                                    </FormGroup>
+                                                    <FormGroup>
+                                                        <FormGroupLabel>
                                                             <UilPen />
                                                             Sobrenome
-                                                        </span>
-                                                        <input placeholder='Digite o Sobrenome' disabled={!CanEdit} value={CopyUserLastName} type="text" onChange={e => HandleChangeInfo('LastName', e.target.value)} />
-                                                    </div>
+                                                        </FormGroupLabel>
+                                                        <input className='UserModalBody-UserInfoForm-Group-Input' placeholder=' Digite o Sobrenome' disabled={!CanEdit} value={CopyUserLastName} type="text" onChange={e => HandleChangeInfo('LastName', e.target.value)} />
+                                                    </FormGroup>
                                                 </TwoColumns>
 
 
 
                                                 <div>
-                                                    <div className='UserModalBody-UserInfoForm-Group'>
-                                                        <span>
+                                                    <FormGroup>
+                                                        <FormGroupLabel>
                                                             <UilPhone />
                                                             Telefone
-                                                        </span>
+                                                        </FormGroupLabel>
                                                         <PhoneInput
                                                             containerClass="UserModalBody-UserInfoForm-PhoneInput-Container"
                                                             inputClass="UserModalBody-UserInfoForm-PhoneInput"
@@ -532,18 +534,18 @@ const UsuarioModal = (props) => {
                                                             onChange={e => HandleChangeInfo('Phone', e)}
                                                         />
 
-                                                    </div>
+                                                    </FormGroup>
                                                 </div>
 
 
 
 
                                                 <TwoColumns>
-                                                    <div className='UserModalBody-UserInfoForm-Group'>
-                                                        <span>
+                                                    <FormGroup>
+                                                        <FormGroupLabel>
                                                             <UilMap />
                                                             País
-                                                        </span>
+                                                        </FormGroupLabel>
                                                         <Select
                                                             className='UserModalBody-UserInfoForm-LocationSelect'
                                                             placeholder="Selecione o País"
@@ -555,17 +557,17 @@ const UsuarioModal = (props) => {
                                                             value={CopyUserCountry}
                                                             isDisabled={!CanEdit}
                                                             onChange={(item) => {
-                                                                setCopyUserCountry(item);;
+                                                                setCopyUserCountry(item);
                                                                 setCopyUserEstate({ name: '' });
                                                                 setCopyUserCity({ name: '' });
                                                             }}
                                                         />
-                                                    </div>
-                                                    <div className='UserModalBody-UserInfoForm-Group'>
-                                                        <span>
+                                                    </FormGroup>
+                                                    <FormGroup>
+                                                        <FormGroupLabel>
                                                             <UilMapMarker />
                                                             Estado
-                                                        </span>
+                                                        </FormGroupLabel>
                                                         <Select
                                                             className='UserModalBody-UserInfoForm-LocationSelect'
                                                             placeholder="Selecione o Estado"
@@ -576,60 +578,52 @@ const UsuarioModal = (props) => {
                                                             styles={UserModalSelectcustomStyles}
                                                             isDisabled={!CanEdit}
                                                             value={CopyUserEstate}
-                                                            onChange={(item) => {
-                                                                setCopyUserEstate(item);
-                                                                setCopyUserCity({ name: '' });
-                                                            }}
+                                                            onChange={(item) => { setCopyUserEstate(item); setCopyUserCity({ name: '' }); }}
                                                         />
-                                                    </div>
+                                                    </FormGroup>
                                                 </TwoColumns>
 
 
                                                 <div>
-                                                    <div className='UserModalBody-UserInfoForm-Group'>
-                                                        <span>
+                                                    <FormGroup>
+                                                        <FormGroupLabel>
                                                             <UilBuilding />
                                                             Cidade
-                                                        </span>
+                                                        </FormGroupLabel>
                                                         <Select
                                                             className='UserModalBody-UserInfoForm-LocationSelect'
                                                             placeholder="Selecione a Cidade"
                                                             noOptionsMessage={noOptionsMessage}
-                                                            options={City.getCitiesOfState(
-                                                                CopyUserEstate?.countryCode,
-                                                                CopyUserEstate?.isoCode
-                                                            )}
+                                                            options={City.getCitiesOfState(CopyUserEstate?.countryCode, CopyUserEstate?.isoCode)}
                                                             getOptionLabel={(options) => { return options["name"]; }}
                                                             getOptionValue={(options) => { return options["name"]; }}
                                                             styles={UserModalSelectcustomStyles}
                                                             isDisabled={!CanEdit}
                                                             value={CopyUserCity}
-                                                            onChange={(item) => {
-                                                                setCopyUserCity(item);
-                                                            }}
+                                                            onChange={(item) => { setCopyUserCity(item); }}
                                                             allowCreate={true}
                                                         />
-                                                    </div>
+                                                    </FormGroup>
                                                 </div>
 
                                                 {IsCurrentUser && <div className='UserModalBody-UserInfoForm-SectionTitle'></div>}
                                                 {IsCurrentUser && <h4 className='UserModalBody-UserInfoForm-SectionTitle'>Trocar de Senha</h4>}
                                                 {IsCurrentUser &&
                                                     <TwoColumns>
-                                                        <div className='UserModalBody-UserInfoForm-Group'>
-                                                            <span>
+                                                        <FormGroup>
+                                                            <FormGroupLabel>
                                                                 <UilKeySkeleton />
                                                                 Senha Atual
-                                                            </span>
-                                                            <input placeholder='Digite sua Senha' ref={SenhaAtual} type="password" />
-                                                        </div>
-                                                        <div className='UserModalBody-UserInfoForm-Group'>
-                                                            <span>
+                                                            </FormGroupLabel>
+                                                            <input className='UserModalBody-UserInfoForm-Group-Input' placeholder='Digite sua Senha' ref={SenhaAtual} type="password" />
+                                                        </FormGroup>
+                                                        <FormGroup>
+                                                            <FormGroupLabel>
                                                                 <UilKeySkeleton />
                                                                 Nova Senha
-                                                            </span>
-                                                            <input placeholder='Digite a nova Senha' ref={NovaSenha} type="password" />
-                                                        </div>
+                                                            </FormGroupLabel>
+                                                            <input className='UserModalBody-UserInfoForm-Group-Input' placeholder='Digite a nova Senha' ref={NovaSenha} type="password" />
+                                                        </FormGroup>
                                                     </TwoColumns>
                                                 }
 

@@ -23,6 +23,9 @@ import TwoColumns from '../../LayoutComponents/TwoColumns/TwoColumns';
 import FormGroup from '../../LayoutComponents/FormGroup/FormGroup';
 import FormGroupLabel from '../../LayoutComponents/FormGroupLabel/FormGroupLabel';
 import Stack from '../../LayoutComponents/Stack/Stack';
+import SidebarItem from '../../LayoutComponents/SidebarItem/SidebarItem';
+import Show from '../../LayoutComponents/Show/Show';
+
 
 const AtivoModal = (props) => {
 
@@ -417,15 +420,16 @@ const AtivoModal = (props) => {
                             </div>
                             <div className='AtivoModalHeader-Right'>
                                 <div className='AtivoModalHeader-Right-Name'>
-
-                                    {props.Function === 'Add' && <span>
+                                    <Show Show={props.Function === 'Add'}>
                                         {(props.Function === 'Add' && (!CopyAtivoName)) ? 'Nome do Item ' : CopyAtivoName}
-                                    </span>
-                                    }
-
-                                    {(props.Function !== 'Add') ? Ativo?.Item : ''}
+                                    </Show>
+                                    <Show Show={props.Function !== 'Add'}>
+                                        {Ativo?.Item}
+                                    </Show>
                                     <UilTimes className='AtivoModalHeader-Right-Close' onClick={props.onHide} />
                                 </div>
+
+
                                 <div className='AtivoModalHeader-Right-Setor'>
                                     <UilBox />
                                     {props.Function === 'Add' ? GetLocalArmazenamentoNameWithIdFromStore(CopyAtivoLocalArmazenamento?.id) : AtivoLocalArmazenamento?.Value}
@@ -434,263 +438,286 @@ const AtivoModal = (props) => {
                                     <UilLabel />
                                     {props.Function === 'Add' ? GetTipoAtivoNameWithIdFromStore(CopyAtivoType?.id) : AtivoType?.Value}
                                 </div>
+
                             </div>
 
                         </div>
- 
-                        {!LoadingAction &&
+
+
+                        <Show Show={!LoadingAction} Width='100%'>
                             <div className='AtivoModalBody'>
-                                <div className='AtivoModalBody-Sidebar'>
-                                    <div className={Tab === 'AtivoInfo' ? 'AtivoModalBody-Sidebar-ActiveItem' : 'AtivoModalBody-Sidebar-Item'} onClick={e => HandleSetTab('AtivoInfo')}>
+                                <Stack className='AtivoModalBody-Sidebar' Gap={'.5rem'} >
+                                    <SidebarItem Active={Tab === 'AtivoInfo'}
+                                        onClick={e => HandleSetTab('AtivoInfo')}>
                                         <UilUserCircle />
                                         Informações Cadastrais
-                                    </div>
+                                    </SidebarItem>
 
-                                    {props.Function !== 'Add' &&
-                                        <div className={Tab === 'RetirarDevolver' ? 'AtivoModalBody-Sidebar-ActiveItem' : 'AtivoModalBody-Sidebar-Item'} onClick={e => HandleSetTab('RetirarDevolver')}>
+                                    <Show Show={props.Function !== 'Add'}>
+                                        <SidebarItem Active={Tab === 'RetirarDevolver'}
+                                            onClick={e => HandleSetTab('RetirarDevolver')}>
                                             <UilArrow />
                                             Retirar/Devolver
-                                        </div>
-                                    }
-                                    {props.Function !== 'Add' &&
-                                        <div className={Tab === 'Registros' ? 'AtivoModalBody-Sidebar-ActiveItem' : 'AtivoModalBody-Sidebar-Item'} onClick={e => HandleSetTab('Registros')}>
+                                        </SidebarItem>
+                                    </Show>
+
+                                    <Show Show={props.Function !== 'Add'}>
+                                        <SidebarItem Active={Tab === 'Registros'}
+                                            onClick={e => HandleSetTab('Registros')}>
                                             <UilClipboardNotes />
                                             Registros
-                                        </div>
-                                    }
+                                        </SidebarItem>
+                                    </Show>
 
 
-                                </div>
+                                </Stack>
 
-                                {!Confirm &&
+
+                                <Show Show={!Confirm} Width={'100%'}>
                                     <div className='AtivoModalBody-AtivoInfo'>
-                                        {Tab === 'AtivoInfo' && <div className='AtivoModalBody-AtivoInfoForm'>
-                                            <form onSubmit={GetAtivoSubmit}>
 
-                                                <h4 className='AtivoModalBody-AtivoInfoForm-SectionTitle'>Dados Cadastrais</h4>
+                                        <Show Show={Tab === 'AtivoInfo'}>
 
+                                            <div className='AtivoModalBody-AtivoInfoForm'>
 
+                                                <Stack Gap={'.8rem'}>
 
-                                                <FormGroup>
-                                                    <FormGroupLabel>
-                                                        <UilWrench />
-                                                        Item
-                                                    </FormGroupLabel>
-                                                    <input className='AtivoModalBody-AtivoInfoForm-Group-Input' value={CopyAtivoName} type="text" placeholder='Digite o Item' onChange={e => HandleChangeInfo('Item', e.target.value)} />
-                                                </FormGroup>
+                                                    <h4 className='AtivoModalBody-AtivoInfoForm-SectionTitle'>Dados Cadastrais</h4>
 
-
-                                                <TwoColumns>
                                                     <FormGroup>
                                                         <FormGroupLabel>
-                                                            <UilBuilding />
-                                                            Marca
+                                                            <UilWrench />
+                                                            Item
                                                         </FormGroupLabel>
-                                                        <input className='AtivoModalBody-AtivoInfoForm-Group-Input' placeholder='Opcional' disabled={!CanEdit} value={CopyAtivoBrand} type="text" onChange={e => HandleChangeInfo('Marca', e.target.value)} />
+                                                        <input className='AtivoModalBody-AtivoInfoForm-Group-Input' value={CopyAtivoName} type="text" placeholder='Digite o Item' onChange={e => HandleChangeInfo('Item', e.target.value)} />
                                                     </FormGroup>
+
+
+                                                    <TwoColumns>
+                                                        <FormGroup>
+                                                            <FormGroupLabel>
+                                                                <UilBuilding />
+                                                                Marca
+                                                            </FormGroupLabel>
+                                                            <input className='AtivoModalBody-AtivoInfoForm-Group-Input' placeholder='Opcional' disabled={!CanEdit} value={CopyAtivoBrand} type="text" onChange={e => HandleChangeInfo('Marca', e.target.value)} />
+                                                        </FormGroup>
+                                                        <FormGroup>
+                                                            <FormGroupLabel>
+                                                                <UilCircleLayer />
+                                                                Quantidade
+                                                            </FormGroupLabel>
+                                                            <input className='AtivoModalBody-AtivoInfoForm-Group-Input' placeholder='Digite a Quantidade' min='1' disabled={!CanEdit} value={CopyAtivoQtd} type="number" onChange={e => HandleChangeInfo('Quantidade', e.target.value)} />
+                                                        </FormGroup>
+                                                    </TwoColumns>
+
+
                                                     <FormGroup>
                                                         <FormGroupLabel>
-                                                            <UilCircleLayer />
-                                                            Quantidade
+                                                            <UilCommentAltChartLines />
+                                                            Descrição
                                                         </FormGroupLabel>
-                                                        <input className='AtivoModalBody-AtivoInfoForm-Group-Input' placeholder='Digite a Quantidade' min='1' disabled={!CanEdit} value={CopyAtivoQtd} type="number" onChange={e => HandleChangeInfo('Quantidade', e.target.value)} />
+                                                        <input className='AtivoModalBody-AtivoInfoForm-Group-Input' value={CopyAtivoDescription} type="text" placeholder='Opcional' onChange={e => HandleChangeInfo('Descricao', e.target.value)} />
                                                     </FormGroup>
-                                                </TwoColumns>
-
-
-                                                <FormGroup>
-                                                    <FormGroupLabel>
-                                                        <UilCommentAltChartLines />
-                                                        Descrição
-                                                    </FormGroupLabel>
-                                                    <input className='AtivoModalBody-AtivoInfoForm-Group-Input' value={CopyAtivoDescription} type="text" placeholder='Opcional' onChange={e => HandleChangeInfo('Descricao', e.target.value)} />
-                                                </FormGroup>
 
 
 
-                                                <TwoColumns>
-                                                    <FormGroup>
-                                                        <FormGroupLabel>
-                                                            <UilCog />
-                                                            Fabricante
-                                                        </FormGroupLabel>
-                                                        <input className='AtivoModalBody-AtivoInfoForm-Group-Input' placeholder='Opcional' disabled={!CanEdit} value={CopyAtivoManufacturer} type="text" onChange={e => HandleChangeInfo('Fabricante', e.target.value)} />
-                                                    </FormGroup>
-                                                    <FormGroup>
-                                                        <FormGroupLabel>
-                                                            <UilLabelAlt />
-                                                            Modelo
-                                                        </FormGroupLabel>
-                                                        <input className='AtivoModalBody-AtivoInfoForm-Group-Input' placeholder='Opcional' min='1' disabled={!CanEdit} value={CopyAtivoModel} type="text" onChange={e => HandleChangeInfo('Modelo', e.target.value)} />
-                                                    </FormGroup>
-                                                </TwoColumns>
+                                                    <TwoColumns>
+                                                        <FormGroup>
+                                                            <FormGroupLabel>
+                                                                <UilCog />
+                                                                Fabricante
+                                                            </FormGroupLabel>
+                                                            <input className='AtivoModalBody-AtivoInfoForm-Group-Input' placeholder='Opcional' disabled={!CanEdit} value={CopyAtivoManufacturer} type="text" onChange={e => HandleChangeInfo('Fabricante', e.target.value)} />
+                                                        </FormGroup>
+                                                        <FormGroup>
+                                                            <FormGroupLabel>
+                                                                <UilLabelAlt />
+                                                                Modelo
+                                                            </FormGroupLabel>
+                                                            <input className='AtivoModalBody-AtivoInfoForm-Group-Input' placeholder='Opcional' min='1' disabled={!CanEdit} value={CopyAtivoModel} type="text" onChange={e => HandleChangeInfo('Modelo', e.target.value)} />
+                                                        </FormGroup>
+                                                    </TwoColumns>
 
 
 
-                                                <TwoColumns>
-                                                    <FormGroup>
-                                                        <FormGroupLabel>
-                                                            <UilTag />
-                                                            Status do Ativo
-                                                        </FormGroupLabel>
-                                                        <Select
-                                                            className='AtivoModalBody-AtivoInfoForm-LocationSelect'
-                                                            placeholder="Selecione o Status"
-                                                            noOptionsMessage={noOptionsMessage}
-                                                            options={GetStatusAtivosFromStore()}
-                                                            getOptionLabel={(options) => { return options["Value"]; }}
-                                                            getOptionValue={(options) => { return options["Id"]; }}
-                                                            styles={AtivoModalSelectcustomStyles}
-                                                            value={CopyAtivoStatus}
-                                                            isDisabled={!CanEdit}
-                                                            onChange={(item) => { HandleChangeInfo('Status', item.id, item.Value); }}
-                                                        />
-                                                    </FormGroup>
-                                                    <FormGroup>
-                                                        <FormGroupLabel>
-                                                            <UilPlay />
-                                                            Tipo de Uso
-                                                        </FormGroupLabel>
-                                                        <Select
-                                                            className='AtivoModalBody-AtivoInfoForm-LocationSelect'
-                                                            placeholder="Selecione o Tipo de Uso"
-                                                            noOptionsMessage={noOptionsMessage}
-                                                            options={GetTiposDeUsoFromStore()}
-                                                            getOptionLabel={(options) => { return options["Value"]; }}
-                                                            getOptionValue={(options) => { return options["Id"]; }}
-                                                            styles={AtivoModalSelectcustomStyles}
-                                                            value={CopyAtivoTipoDeUso}
-                                                            isDisabled={!CanEdit}
-                                                            onChange={(item) => { HandleChangeInfo('TipoUso', item.id, item.Value); }}
-                                                        />
-                                                    </FormGroup>
-                                                </TwoColumns>
+                                                    <TwoColumns>
+                                                        <FormGroup>
+                                                            <FormGroupLabel>
+                                                                <UilTag />
+                                                                Status do Ativo
+                                                            </FormGroupLabel>
+                                                            <Select
+                                                                className='AtivoModalBody-AtivoInfoForm-LocationSelect'
+                                                                placeholder="Selecione o Status"
+                                                                noOptionsMessage={noOptionsMessage}
+                                                                options={GetStatusAtivosFromStore()}
+                                                                getOptionLabel={(options) => { return options["Value"]; }}
+                                                                getOptionValue={(options) => { return options["Id"]; }}
+                                                                styles={AtivoModalSelectcustomStyles}
+                                                                value={CopyAtivoStatus}
+                                                                isDisabled={!CanEdit}
+                                                                onChange={(item) => { HandleChangeInfo('Status', item.id, item.Value); }}
+                                                            />
+                                                        </FormGroup>
+                                                        <FormGroup>
+                                                            <FormGroupLabel>
+                                                                <UilPlay />
+                                                                Tipo de Uso
+                                                            </FormGroupLabel>
+                                                            <Select
+                                                                className='AtivoModalBody-AtivoInfoForm-LocationSelect'
+                                                                placeholder="Selecione o Tipo de Uso"
+                                                                noOptionsMessage={noOptionsMessage}
+                                                                options={GetTiposDeUsoFromStore()}
+                                                                getOptionLabel={(options) => { return options["Value"]; }}
+                                                                getOptionValue={(options) => { return options["Id"]; }}
+                                                                styles={AtivoModalSelectcustomStyles}
+                                                                value={CopyAtivoTipoDeUso}
+                                                                isDisabled={!CanEdit}
+                                                                onChange={(item) => { HandleChangeInfo('TipoUso', item.id, item.Value); }}
+                                                            />
+                                                        </FormGroup>
+                                                    </TwoColumns>
 
-                                                <TwoColumns>
-                                                    <FormGroup>
-                                                        <FormGroupLabel>
-                                                            <UilUsersAlt />
-                                                            Retiradas Simultâneas por Usuário
-                                                        </FormGroupLabel>
-                                                        <input className='AtivoModalBody-AtivoInfoForm-Group-Input' value={CopyAtivoQtdPerUser} type="number" min={1} placeholder='Quantidade de Retiradas simultâneas por usuário' onChange={e => HandleChangeInfo('QuantidadePorUsuario', e.target.value)} />
+                                                    <TwoColumns>
+                                                        <FormGroup>
+                                                            <FormGroupLabel>
+                                                                <UilUsersAlt />
+                                                                Retiradas Simultâneas por Usuário
+                                                            </FormGroupLabel>
+                                                            <input className='AtivoModalBody-AtivoInfoForm-Group-Input' value={CopyAtivoQtdPerUser} type="number" min={1} placeholder='Quantidade de Retiradas simultâneas por usuário' onChange={e => HandleChangeInfo('QuantidadePorUsuario', e.target.value)} />
 
-                                                    </FormGroup>
-                                                    <FormGroup>
-                                                        <FormGroupLabel>
-                                                            <UilPostcard />
-                                                            Número de Série
-                                                        </FormGroupLabel>
-                                                        <input className='AtivoModalBody-AtivoInfoForm-Group-Input' placeholder='Opcional' min='1' disabled={!CanEdit} value={CopyAtivoSerialNumber} type="text" onChange={e => HandleChangeInfo('NumeroSerie', e.target.value)} />
-                                                    </FormGroup>
-                                                </TwoColumns>
+                                                        </FormGroup>
+                                                        <FormGroup>
+                                                            <FormGroupLabel>
+                                                                <UilPostcard />
+                                                                Número de Série
+                                                            </FormGroupLabel>
+                                                            <input className='AtivoModalBody-AtivoInfoForm-Group-Input' placeholder='Opcional' min='1' disabled={!CanEdit} value={CopyAtivoSerialNumber} type="text" onChange={e => HandleChangeInfo('NumeroSerie', e.target.value)} />
+                                                        </FormGroup>
+                                                    </TwoColumns>
 
-                                                <TwoColumns>
-
-
-                                                    <Stack>
-                                                        <div className='AtivoModalBody-AtivoInfoForm-LocalList-Title'>
-                                                            <UilBox />
-                                                            Local de Armazenamento
-                                                        </div>
-                                                        <div className='AtivoModalBody-AtivoInfoForm-LocalList-Itens'>
-                                                            {LocaisArmazenamento.map(Local => {
-                                                                return <div key={v4()} className={'AtivoModalBody-AtivoInfoForm-LocalList-Item'} onClick={e => HandleChangeInfo('Local', Local?.id)}>
-                                                                    {CopyAtivoLocalArmazenamento?.id === Local?.id ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
-                                                                    {Local?.Value}
-                                                                </div>
-                                                            })}
-                                                        </div>
-                                                    </Stack>
+                                                    <TwoColumns>
 
 
-                                                    <Stack>
-                                                        <div className='AtivoModalBody-AtivoInfoForm-TiposAtivosList-Title'>
-                                                            <UilLabelAlt />
-                                                            Tipo do Ativo
-                                                        </div>
-                                                        <div className='AtivoModalBody-AtivoInfoForm-TiposAtivosList-Itens'>
-                                                            {TiposAtivos.map(TipoAtivo => {
-                                                                return <div key={v4()} className={'AtivoModalBody-AtivoInfoForm-TiposAtivosList-Item'} onClick={e => HandleChangeInfo('Type', TipoAtivo?.id)}>
-                                                                    {CopyAtivoType?.id === TipoAtivo?.id ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
-                                                                    {TipoAtivo?.Value}
-                                                                </div>
-                                                            })}
-                                                        </div>
-                                                    </Stack>
+                                                        <Stack>
+                                                            <div className='AtivoModalBody-AtivoInfoForm-LocalList-Title'>
+                                                                <UilBox />
+                                                                Local de Armazenamento
+                                                            </div>
+                                                            <div className='AtivoModalBody-AtivoInfoForm-LocalList-Itens'>
+                                                                {LocaisArmazenamento.map(Local => {
+                                                                    return <div key={v4()} className={'AtivoModalBody-AtivoInfoForm-LocalList-Item'} onClick={e => HandleChangeInfo('Local', Local?.id)}>
+                                                                        {CopyAtivoLocalArmazenamento?.id === Local?.id ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
+                                                                        {Local?.Value}
+                                                                    </div>
+                                                                })}
+                                                            </div>
+                                                        </Stack>
 
-                                                </TwoColumns>
+
+                                                        <Stack>
+                                                            <div className='AtivoModalBody-AtivoInfoForm-TiposAtivosList-Title'>
+                                                                <UilLabelAlt />
+                                                                Tipo do Ativo
+                                                            </div>
+                                                            <div className='AtivoModalBody-AtivoInfoForm-TiposAtivosList-Itens'>
+                                                                {TiposAtivos.map(TipoAtivo => {
+                                                                    return <div key={v4()} className={'AtivoModalBody-AtivoInfoForm-TiposAtivosList-Item'} onClick={e => HandleChangeInfo('Type', TipoAtivo?.id)}>
+                                                                        {CopyAtivoType?.id === TipoAtivo?.id ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
+                                                                        {TipoAtivo?.Value}
+                                                                    </div>
+                                                                })}
+                                                            </div>
+                                                        </Stack>
+
+                                                    </TwoColumns>
 
 
 
 
 
-                                            </form>
+                                                </Stack>
 
 
-                                            <div className='AtivoModalBody-AtivoInfoForm-Button'>
-                                                {!IsEdited && !IsCurrentUser && PermitToDeleteAtivos && (props.Function !== 'Add') &&
-                                                    <button className='AtivoModalBody-AtivoInfoForm-Button-Delete' onClick={e => InitConfirm('Delete')}>
-                                                        <UilTrash />
-                                                        Excluir Ativo
-                                                    </button>
-                                                }
-                                                {IsEdited &&
-                                                    <>
+                                                <div className='AtivoModalBody-AtivoInfoForm-Button'>
+
+
+                                                    <Show Show={!IsEdited && !IsCurrentUser && PermitToDeleteAtivos && (props.Function !== 'Add')}>
+                                                        <button className='AtivoModalBody-AtivoInfoForm-Button-Delete' onClick={e => InitConfirm('Delete')}>
+                                                            <UilTrash />
+                                                            Excluir Ativo
+                                                        </button>
+                                                    </Show>
+
+                                                    <Show Show={IsEdited}>
                                                         <button onClick={CancelEditions}>
                                                             <UilTimes />
                                                             {props.Function === 'Add' ? 'Limpar Campos' : 'Cancelar'}
                                                         </button>
+                                                    </Show>
 
-                                                        {props.Function === 'Add' &&
-                                                            <button onClick={e => InitConfirm('Add')}>
-                                                                <UilSave />
-                                                                Adicionar
-                                                            </button>
-                                                        }
+                                                    <Show Show={IsEdited && props.Function === 'Add'}>
+                                                        <button onClick={e => InitConfirm('Add')}>
+                                                            <UilSave />
+                                                            Adicionar
+                                                        </button>
+                                                    </Show>
 
-                                                        {props.Function !== 'Add' &&
-                                                            <button onClick={e => InitConfirm('Edit')}>
-                                                                <UilSave />
-                                                                Salvar
-                                                            </button>
-                                                        }
+                                                    <Show Show={IsEdited && props.Function !== 'Add'}>
+                                                        <button onClick={e => InitConfirm('Edit')}>
+                                                            <UilSave />
+                                                            Salvar
+                                                        </button>
+                                                    </Show>
 
 
-                                                    </>
 
-                                                }
+
+
+
+                                                </div>
+
+
                                             </div>
 
+                                        </Show>
 
-                                        </div>
-                                        }
 
-                                        {Tab === 'RetirarDevolver' &&
+
+
+                                        <Show Show={Tab === 'RetirarDevolver'}>
                                             <AtivoTakeReturn Ativo={Ativo} OnTake={setTab} />
-                                        }
+                                        </Show>
 
-                                        {Tab === 'Registros' &&
+
+                                        <Show Show={Tab === 'Registros'}>
                                             <AtivoRecords Ativo={Ativo} FromModal={props.FromModal} />
-                                        }
+                                        </Show>
+
 
                                     </div>
-                                }
+                                </Show>
 
-                                {Confirm && <div className='AtivoModalBody-AtivoInfo'>
-                                    <h4 className='AtivoModalBody-AtivoInfoForm-ConfirMessage'>{ConfirmMessage}</h4>
 
-                                    <div className='AtivoModalBody-AtivoInfoForm-Button'>
-                                        <button className='AtivoModalBody-AtivoInfoForm-Button-Secondary' onClick={EndConfirming}>
-                                            <UilBackward />
-                                            {ConfirmBtBack}
-                                        </button>
-                                        <button onClick={Submit}>
-                                            <UilCheck />
-                                            {ConfirmBtAction}
-                                        </button>
+
+                                <Show Show={Confirm} Width='100%'>
+                                    <div className='AtivoModalBody-AtivoInfo'>
+                                        <h4 className='AtivoModalBody-AtivoInfoForm-ConfirMessage'>{ConfirmMessage}</h4>
+
+                                        <div className='AtivoModalBody-AtivoInfoForm-Button'>
+                                            <button className='AtivoModalBody-AtivoInfoForm-Button-Secondary' onClick={EndConfirming}>
+                                                <UilBackward />
+                                                {ConfirmBtBack}
+                                            </button>
+                                            <button onClick={Submit}>
+                                                <UilCheck />
+                                                {ConfirmBtAction}
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                                }
+                                </Show>
+
 
 
 
@@ -700,9 +727,12 @@ const AtivoModal = (props) => {
 
 
                             </div>
-                        }
+                        </Show>
 
-                        {LoadingAction && <Loading />}
+                        <Show Show={LoadingAction}>
+                            <Loading />
+                        </Show>
+
 
                     </div>
 
