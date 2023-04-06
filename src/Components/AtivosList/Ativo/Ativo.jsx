@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './Ativo.css'
-import { UilWrench, UilBox, UilUsersAlt, UilArchive, UilLabelAlt } from '@iconscout/react-unicons'
+import { UilWrench, UilBox, UilPlay , UilArchive, UilLabelAlt } from '@iconscout/react-unicons'
 import { GetLocalArmazenamentoNameWithIdFromStore, GetTakesOfAtivo, GetTipoAtivoNameWithIdFromStore, GetTipoDeUsoNameWithIdFromStore, } from '../../../Functions/Middleware'
 //Tooltip
 import { Tooltip } from 'react-tippy';
@@ -35,9 +35,9 @@ const Ativo = (props) => {
                             {QuantidadeDoAtivo}
                         </span>
                     </Tooltip>
-                    <Tooltip title="Usuários Utilizando este Item" position="bottom" >
+                    <Tooltip title="Quantidade em Uso" position="bottom" >
                         <span className='AtivoQuantidades'>
-                            <UilUsersAlt />
+                            <UilPlay  />
                             {QuantidadeRetirada}
                         </span>
                     </Tooltip>

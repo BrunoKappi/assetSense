@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './AtivoTakeReturn.css'
 import { DevolverTabTitle, RetirarTabTitle } from './AtivoTakeReturnUtils';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
 import { UilUser, UilEnvelope, UilBookmark, UilCalendarAlt, UilCheck, UilBackward, UilArchive, UilArrowUp, UilComment, UilArrowDown, UilCommentInfoAlt } from '@iconscout/react-unicons'
-import { AddRecord, EditRecord, GetCurrentUserFromStore, GetRecordByAtivoIdAndUserId, GetRecords, GetRecordsFromStore, GetTakesOfAtivo, GetTakesOfAtivoOfCurrentUser, GetUsersFromStore, GetUsersFromStoreWithNoCurrentUser, GetUsersThatTookAtivo, SaveRecords } from '../../../../Functions/Middleware';
+import { AddRecord, EditRecord, EditRecordStore, GetCurrentUserFromStore, GetRecordByAtivoIdAndUserId, GetRecords, GetRecordsFromStore, GetTakesOfAtivo, GetTakesOfAtivoOfCurrentUser, GetUsersFromStore, GetUsersFromStoreWithNoCurrentUser, GetUsersThatTookAtivo, SaveRecords } from '../../../../Functions/Middleware';
 import { AtivoModalSelectcustomStyles, noOptionsMessage } from '../AtivoModalUtils';
 import Select from "react-select";
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
@@ -34,15 +34,22 @@ const AtivoTakeReturn = (props) => {
     //Quantidades
     const QuantidadeDoAtivo = props.Ativo?.Qtd
     const [QuantidadeRetirada, SetQuantidadeRetirada] = useState(GetTakesOfAtivo(props.Ativo?.id))
-    const QuantidadeRetiradaFirebase = 0
     const [QuantidadeRetiradaPeloCurrentUser, SetQuantidadeRetiradaPeloCurrentUser] = useState(GetTakesOfAtivoOfCurrentUser(props.Ativo?.id))
-    const [UsuariosQuePegaramAtivo, SetUsuariosQuePegaramAtivo] = useState(GetUsersThatTookAtivo(props.Ativo?.id))
+
 
     //Confirm 
     const [Confirm, SetConfirm] = useState(false)
     const [ConfirmMessage, SetConfirmMessage] = useState('')
     const [ConfirmBtAction, SetConfirmBtAction] = useState('')
     const [ConfirmBtBack, SetConfirmBtBack] = useState('')
+
+
+
+    useEffect(() => {
+        SetQuantidadeRetirada(GetTakesOfAtivo(props.Ativo?.id))
+        SetQuantidadeRetiradaPeloCurrentUser(GetTakesOfAtivoOfCurrentUser(props.Ativo?.id))
+    }, [props.Ativo?.id, props.RecordsAtivos])
+
 
 
     const ToggleActionFor = () => {
@@ -217,15 +224,11 @@ const AtivoTakeReturn = (props) => {
             RecordToEdit.ReturnObs = Obs
             RecordToEdit.Duration = RecordToEdit.ReturnDate - RecordToEdit.TakeDate
 
-            //console.log("Mandando Devolver", RecordToEdit)
-
-
-            if (!RecordToEdit.docId) {
-                console.log("SEM DOC ID")
-                FIREBASE_GetRecordDocIDById(RecordToEdit.id).then((docID) => {
-                    console.log("PEGUEI O DOCID", docID)
+            if (!RecordToEdit.docId) {               
+                FIREBASE_GetRecordDocIDById(RecordToEdit.id).then((docID) => {                  
                     RecordToEdit.docID = docID
-                    EditRecord(RecordToEdit).then(() => {
+                    EditRecord(RecordToEdit).then(() => {  
+                        EditRecordStore(RecordToEdit)                
                         setLoadingAction(false)
                         NotificationSucesso('Registro', 'Registro de Devolução registrado com Sucesso!')
                         EndConfirming()
@@ -601,7 +604,9 @@ const AtivoTakeReturn = (props) => {
 
 const ConnectedAtivoTakeReturn = connect((state) => {
     return {
-        Tema: state.Tema
+        Tema: state.Tema,
+        RecordsAtivos: state.RecordsAtivos
+
     }
 })(AtivoTakeReturn)
 

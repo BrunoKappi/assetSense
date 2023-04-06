@@ -1,12 +1,14 @@
 .TwoColumns {
     display: grid;
     grid-template-columns: 49% 49%;
-    gap: 2%;
+    grid-row-gap: .5rem;
+    grid-column-gap: 2%;
 }
 
 @media (max-width: 1000px) {
     .TwoColumns {
         display: flex;
         flex-direction: column;
+        gap: .5rem;
     }
 }

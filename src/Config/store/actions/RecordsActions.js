@@ -16,10 +16,10 @@ export const DeleteRecordAction = (RecordToDelete = {}) => {
 }
 
 
-export const EditRecordAction = (EditedUser = {}) => {
+export const EditRecordAction = (EditedRecord = {}) => {
     return ({
         type: 'EDIT_RECORD',
-        EditedUser
+        EditedRecord
     })
 }
 

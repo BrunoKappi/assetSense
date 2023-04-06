@@ -27,6 +27,10 @@ const AtivoRecords = (props) => {
 
 
     useEffect(() => {
+        SetRecords(GetRecordsOfAtivo(props.Ativo?.id))
+    }, [props.Ativo?.id, props.RecordsAtivos])
+
+    useEffect(() => {
         const Registros = GetRecordsOfAtivo(props.Ativo?.id)
         SetRecords(Registros.filter(Record => {
             const TakenForName = GetuserNameWithIdFromStore(Record.TakenFor.id)
@@ -55,8 +59,8 @@ const AtivoRecords = (props) => {
             }
         }))
 
-    }, [FiltroDeTexto, OrdenarPor])
-
+    }, [FiltroDeTexto, OrdenarPor, props.RecordsAtivos])
+ 
 
     const ResetSelectedUser = () => {
         setModalShow(false);
@@ -143,7 +147,7 @@ const AtivoRecords = (props) => {
                                 </span>
                             </Tooltip>
                             <span className='AtivoRecord-UpRow-Status'>
-                                {Registro.Duration === 0 ? 'Em uso' : ''}
+                                {!Registro.ReturnDate ? 'Em uso' : ''}
                             </span>
                         </div>
 
@@ -237,7 +241,8 @@ const AtivoRecords = (props) => {
 
 const ConnectedAtivoRecords = connect((state) => {
     return {
-        Tema: state.Tema
+        Tema: state.Tema,
+        RecordsAtivos: state.RecordsAtivos
     }
 })(AtivoRecords)
 

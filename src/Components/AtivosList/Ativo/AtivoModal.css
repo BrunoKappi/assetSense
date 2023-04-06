@@ -460,6 +460,7 @@
 .AtivoModalBody-AtivoInfoForm-SectionTitle {
     font-family: var(--Fonte);
     color: var(--AtivoModal-SectionTitleColor);
+    margin-top: .5rem;
 }
 
 .AtivoModalBody-AtivoInfoForm-ConfirMessage {
@@ -649,6 +650,7 @@
     color: var(--AtivoModal-ListTittle-Color);
     border-top-right-radius: .5rem;
     border-top-left-radius: .5rem;
+    margin-top: 1rem;
 }
 
 .AtivoModalBody-AtivoInfoForm-LocalList-Item:last-child {
@@ -737,6 +739,7 @@
     color: var(--AtivoModal-ListTittle-Color);
     border-top-right-radius: .5rem;
     border-top-left-radius: .5rem;
+    margin-top: 1rem;
 }
 
 .AtivoModalBody-AtivoInfoForm-TiposAtivosList-Item:last-child {

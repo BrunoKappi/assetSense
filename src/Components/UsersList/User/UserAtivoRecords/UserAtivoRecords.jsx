@@ -42,12 +42,12 @@ const UserAtivoRecords = (props) => {
                 const TakenForNameB = GetAtivoNameWithIdFromStore(b.AtivoId)
                 return TakenForNameA.localeCompare(TakenForNameB);
             } else if (OrdenarPor === 'Tempo de Uso') {
-                const UsoA = a.Duration === 0 ? (moment().valueOf() - a.TakeDate) : a.Duration
-                const UsoB = b.Duration === 0 ? (moment().valueOf() - b.TakeDate) : b.Duration
+                const UsoA = !a.ReturnDate ? (moment().valueOf() - a.TakeDate) : a.Duration
+                const UsoB = !b.ReturnDate ? (moment().valueOf() - b.TakeDate) : b.Duration
                 return UsoA < UsoB ? 1 : -1
             } else if (OrdenarPor === 'Status') {
-                const UsoA = a.Duration === 0 ? 'Em uso' : 'Devolvido'
-                const UsoB = b.Duration === 0 ? 'Em uso' : 'Devolvido'
+                const UsoA = !a.ReturnDate ? 'Em uso' : 'Devolvido'
+                const UsoB = !b.ReturnDate ? 'Em uso' : 'Devolvido'
                 return UsoA.localeCompare(UsoB);
             } else {
                 return a.TakeDate < b.TakeDate ? 1 : -1
@@ -121,7 +121,7 @@ const UserAtivoRecords = (props) => {
                     const horaMinutoReturn = momentoReturn.format('HH:mm'); // exemplo de formato "HH:mm"
 
                     // Tempo alvo em milissegundos
-                    const tempoEmMilissegundos = Registro.Duration === 0 ? (moment().valueOf() - Registro.TakeDate) : Registro.Duration;
+                    const tempoEmMilissegundos = !Registro.ReturnDate ? (moment().valueOf() - Registro.TakeDate) : Registro.Duration;
 
                     // Duração do tempo em relação à data atual
                     const duracao = moment.duration(tempoEmMilissegundos);
@@ -144,7 +144,7 @@ const UserAtivoRecords = (props) => {
                                 </span>
                             </Tooltip>
                             <span className='UserAtivoRecord-UpRow-Status'>
-                                {Registro.Duration === 0 ? 'Em uso' : 'Devolvido'}
+                                {!Registro.ReturnDate ? 'Em uso' : ''}
                             </span>
                         </div>
 

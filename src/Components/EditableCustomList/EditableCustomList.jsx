@@ -6,7 +6,7 @@ import { UilLabel, UilPuzzlePiece, UilBox, UilPlay, UilPlus, UilTrashAlt, UilBac
 import ListGroup from 'react-bootstrap/ListGroup';
 import { v4 } from 'uuid';
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { DefaultAtivoStatus, DefaultItemType } from '../../Data/Items';
+import { DefaultAtivoStatus, DefaultAtivosType, DefaultItemType } from '../../Data/Items';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import { Tooltip } from 'react-tippy';
 import { GetNotificationErrorMessageDelete, GetNotificationSuccessMessageAdd, GetNotificationExistsMessageAdd, GetNotificationSuccessMessageDelete, GetNotificationSuccessMessageChangeName } from './EditableCustomListUtils';
@@ -118,6 +118,8 @@ const EditableCustomList = (props) => {
           NewItem = { ...DefaultUserRole, id: v4(), Value: NewItemList }
         else if (props.Module === 'StatusAtivos')
           NewItem = { ...DefaultAtivoStatus, id: v4(), Value: NewItemList }
+        else if (props.Module === 'TiposAtivos')
+          NewItem = { ...DefaultAtivosType, id: v4(), Value: NewItemList }
         else
           NewItem = { ...DefaultItemType, id: v4(), Value: NewItemList }
 
@@ -126,14 +128,15 @@ const EditableCustomList = (props) => {
         const addFunction = AddFunctions[props.Module];
         const saveFunction = saveFunctions[props.Module];
 
-        addFunction(NewItem).then(() => {
-          if (saveFunction) {
-            saveFunction(ItensCopy).then((AddedItem) => {
-              NewItem.docID = AddedItem?.id
-              ItensCopy.push(NewItem)
+        addFunction(NewItem).then((AddedItemFirebase) => {
+          NewItem.docID = AddedItemFirebase?.id
+          ItensCopy.push(NewItem)
+          if (saveFunction) { 
+            saveFunction(ItensCopy).then(() => {    
+              console.log(ItensCopy)
               setListaDeItens([...ItensCopy])
               GetNotificationSuccessMessageAdd(props.Module)
-              setNewItemList('')
+              setNewItemList('') 
             }).catch(() => {
               NotificationErro("Erro", "Ocorreu um problema, tente novamente")
               setLoaded(true)
@@ -313,9 +316,9 @@ const EditableCustomList = (props) => {
                                       {EditingItem && ItemListSelected !== Item.Value && <span onClick={e => { setEditingItem(false); }}> {Item.Value}</span>}
 
                                       {!EditingItem &&
-                                      
-                                          <span onDoubleClick={e => InitEditing(Item.Value)}> {Item.Value}</span>
-                                        
+
+                                        <span onDoubleClick={e => InitEditing(Item.Value)}> {Item.Value}</span>
+
                                       }
 
                                       {ItemListSelected === Item.Value && EditingItem &&

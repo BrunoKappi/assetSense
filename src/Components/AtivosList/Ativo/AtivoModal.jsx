@@ -2,7 +2,7 @@ import Modal from 'react-bootstrap/Modal';
 import React, { useState, useEffect } from 'react'
 import './AtivoModal.css'
 import UserPhoto from '../../../assets/Images/SerranoLogoFuncoBranco.jpg'
-import { UilUserCircle, UilClipboardNotes, UilLabel, UilLabelAlt, UilCog, UilBox, UilSave, UilPostcard, UilUsersAlt, UilCommentAltChartLines, UilTag, UilTimes, UilBuilding, UilCircleLayer, UilPlay, UilWrench, UilCheck, UilBackward, UilTrash, UilArrow } from '@iconscout/react-unicons'
+import { UilUserCircle, UilClipboardNotes, UilLabel, UilLabelAlt, UilAsterisk, UilCog, UilBox, UilSave, UilPostcard, UilUsersAlt, UilCommentAltChartLines, UilTag, UilTimes, UilBuilding, UilCircleLayer, UilPlay, UilWrench, UilCheck, UilBackward, UilTrash, UilArrow } from '@iconscout/react-unicons'
 import { AddAtivo, AddAtivoFirebase, DeleteAtivo, EditAtivo, GetAtivoStatusWithIdFromStore, GetAtivoTypeWithIdFromStore, GetAtivoWithIdFromStore, GetCurrentUserTypeFromStore, GetLocaisArmazenamentoFromStore, GetLocalArmazenamentoNameWithIdFromStore, GetLocalArmazenamentoWithIdFromStore, GetStatusAtivosFromStore, GetTakesOfAtivo, GetTipoAtivoNameWithIdFromStore, GetTipoDeUsoWithIdFromStore, GetTiposAtivosFromStore, GetTiposDeUsoFromStore, ReturnAllRecordOfAtivowithId } from '../../../Functions/Middleware'
 import { DefaultAtivo, DefaultAtivosType, DefaultLocal, } from '../../../Data/Items';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
@@ -37,6 +37,7 @@ const AtivoModal = (props) => {
     const StatusAtivo = GetAtivoStatusWithIdFromStore(props?.Ativo?.Status?.id)
     const [ProfileImageUrl, setProfileImageUrl] = useState('')
     const [AtivoType, setAtivoType] = useState({ ...DefaultAtivosType })
+    const [AtivoTypeCustomFields, setAtivoTypeCustomFields] = useState([])
     const [AtivoLocalArmazenamento, setAtivoLocalArmazenamento] = useState({ ...DefaultLocal })
     const [Ativo, setAtivo] = useState({ ...DefaultAtivo })
     const [LocaisArmazenamento] = useState(GetLocaisArmazenamentoFromStore())
@@ -65,6 +66,7 @@ const AtivoModal = (props) => {
     //COPIAS DAS INFORMAÇÔES DO ATIVO
     const [CopyAtivoDescription, setCopyAtivoDescription] = useState('')
     const [CopyAtivoManufacturer, setCopyAtivoManufacturer] = useState('')
+    const [CopyAtivoCustomFieldsValues, setCopyAtivoCustomFieldsValues] = useState([])
     const [CopyAtivoModel, setCopyAtivoModel] = useState('')
     const [CopyAtivoSerialNumber, setCopyAtivoSerialNumber] = useState('')
     const [CopyAtivoName, setCopyAtivoName] = useState('')
@@ -93,6 +95,7 @@ const AtivoModal = (props) => {
     //PERMISSOES 
 
     const FillCopyes = (AtivoCopy) => {
+        console.log(AtivoCopy)
         setCopyAtivoName(AtivoCopy?.Item)
         setCopyAtivoLocalArmazenamento(AtivoCopy?.StorageLocation)
         setCopyAtivoPhotoUrl(AtivoCopy?.PhotoUrl)
@@ -106,6 +109,12 @@ const AtivoModal = (props) => {
         setCopyAtivoModel(AtivoCopy?.Model)
         setCopyAtivoManufacturer(AtivoCopy?.Manufacturer)
         setCopyAtivoDescription(AtivoCopy?.Description)
+        if (AtivoCopy?.CustomFieldsValues.length > 0)
+            setCopyAtivoCustomFieldsValues(AtivoCopy?.CustomFieldsValues)
+        else
+            setCopyAtivoCustomFieldsValues([])
+
+
     }
 
     const CancelEditions = () => {
@@ -130,12 +139,17 @@ const AtivoModal = (props) => {
                 setCopyAtivoModel(Value)
             if (Info === 'Descricao')
                 setCopyAtivoDescription(Value)
+            if (Info === 'CustomFieldsValues')
+                setCopyAtivoCustomFieldsValues(Value)
         }
         if ((CanEdit || IsAdmin) || PermitToEditAtivos) {
             if (Info === 'Local')
                 setCopyAtivoLocalArmazenamento({ id: Value })
-            else if (Info === 'Type')
+            else if (Info === 'Type') {
                 setCopyAtivoType({ id: Value })
+                const GotAtivoType = GetAtivoTypeWithIdFromStore(Value)
+                setAtivoType(GotAtivoType)
+            }
             else if (Info === 'Status')
                 setCopyAtivoStatus({ id: Value, Value: Value2 })
             else if (Info === 'TipoUso')
@@ -148,11 +162,11 @@ const AtivoModal = (props) => {
     // QUANDO TEM UM ATIVO VALIDO PASSADO PELA PROP
     useEffect(() => {
         if (!props.Ativo?.Item) return
+
         setAtivo(GetAtivoWithIdFromStore(props.Ativo?.id))
         FillCopyes(GetAtivoWithIdFromStore(props.Ativo?.id))
         setIsEdited(false)
         setTab('AtivoInfo')
-
 
         if (props.Ativo?.PhotoUrl) {
             setProfileImageUrl(props.Ativo?.PhotoUrl)
@@ -220,6 +234,19 @@ const AtivoModal = (props) => {
     }, [Ativo, props.CurrentUser])
 
 
+    //QUANDO O ATIVOTYPE MUDA, PEGA OS CUSTOMS FIELDS
+    useEffect(() => {
+        if (AtivoType?.CustomFields?.length > 0) {
+            setAtivoTypeCustomFields([...AtivoType?.CustomFields])
+            console.log("CUSTOM ", [...AtivoType?.CustomFields])
+        } else {
+            setAtivoTypeCustomFields([])
+        }
+
+    }, [AtivoType])
+
+
+
     const GetAtivoSubmit = (e) => {
         e.preventDefault()
     }
@@ -285,8 +312,10 @@ const AtivoModal = (props) => {
         if (ConfirmAction === 'Edit') {
             if (((CanEdit || IsAdmin) || PermitToEditAtivos)) {
 
+
                 const EditedAtivo = { ...Ativo }
 
+                EditedAtivo.CustomFieldsValues = CopyAtivoCustomFieldsValues
                 EditedAtivo.Item = CopyAtivoName
                 EditedAtivo.Brand = CopyAtivoBrand
                 EditedAtivo.Qtd = CopyAtivoQtd
@@ -299,6 +328,7 @@ const AtivoModal = (props) => {
                 EditedAtivo.Usage = CopyAtivoTipoDeUso
                 EditedAtivo.Type = CopyAtivoType
                 EditedAtivo.StorageLocation = CopyAtivoLocalArmazenamento
+
 
 
                 setAtivo({ ...EditedAtivo })
@@ -316,6 +346,8 @@ const AtivoModal = (props) => {
         } else if (ConfirmAction === 'Add') {
             const NewAtivo = { ...Ativo }
 
+
+            NewAtivo.CustomFieldsValues = CopyAtivoCustomFieldsValues
             NewAtivo.id = IdToUse ? IdToUse : v4()
             NewAtivo.PhotoUrl = CopyAtivoPhotoUrl
             NewAtivo.Item = CopyAtivoName
@@ -393,6 +425,20 @@ const AtivoModal = (props) => {
         setShowPhotoModal(true)
     }
 
+
+    const handleChangeCustomField = (TypedValue, Index, CustomFieldId) => {
+
+        const NewAtivoCustomFieldsValues = [...CopyAtivoCustomFieldsValues]
+
+        NewAtivoCustomFieldsValues[Index] = {
+            id: CustomFieldId,
+            Value: TypedValue
+        }
+        setCopyAtivoCustomFieldsValues([...NewAtivoCustomFieldsValues])
+
+        setIsEdited(true)
+
+    }
 
     return (
 
@@ -597,9 +643,39 @@ const AtivoModal = (props) => {
                                                         </FormGroup>
                                                     </TwoColumns>
 
+
+                                                    <Show Show={AtivoTypeCustomFields?.length > 0}>
+                                                        <h4 className='AtivoModalBody-AtivoInfoForm-SectionTitle'>Campos Personalizados</h4>
+                                                    </Show>
+
+
+
                                                     <TwoColumns>
+                                                        {AtivoTypeCustomFields?.map((CustomField, CustomFieldIndex) => {
+                                                            return <FormGroup>
+                                                                <FormGroupLabel>
+                                                                    <UilAsterisk />
+                                                                    {CustomField.Value}
+                                                                </FormGroupLabel>
+                                                                <input
+                                                                    type="text"
+                                                                    className='AtivoModalBody-AtivoInfoForm-Group-Input'
+                                                                    value={CopyAtivoCustomFieldsValues?.find(CF => CF.id === CustomField.id)?.Value || ''}
+                                                                    disabled={!CanEdit}
+                                                                    onChange={e => {
+                                                                        console.log(e.target.value, CustomFieldIndex, CustomField.id)
+                                                                        handleChangeCustomField(e.target.value, CustomFieldIndex, CustomField.id)
+                                                                    }}
+                                                                />
+                                                            </FormGroup>
+                                                        })}
+
+                                                    </TwoColumns>
 
 
+
+
+                                                    <TwoColumns>
                                                         <Stack>
                                                             <div className='AtivoModalBody-AtivoInfoForm-LocalList-Title'>
                                                                 <UilBox />
@@ -614,7 +690,6 @@ const AtivoModal = (props) => {
                                                                 })}
                                                             </div>
                                                         </Stack>
-
 
                                                         <Stack>
                                                             <div className='AtivoModalBody-AtivoInfoForm-TiposAtivosList-Title'>
@@ -650,7 +725,7 @@ const AtivoModal = (props) => {
                                                         </button>
                                                     </Show>
 
-                                                    <Show Show={IsEdited}>
+                                                    <Show Show={IsEdited && false}>
                                                         <button onClick={CancelEditions}>
                                                             <UilTimes />
                                                             {props.Function === 'Add' ? 'Limpar Campos' : 'Cancelar'}
@@ -752,7 +827,8 @@ const AtivoModal = (props) => {
 
 const ConnectedAtivoModal = connect((state) => {
     return {
-        Tema: state.Tema
+        Tema: state.Tema,
+        RecordsAtivos: state.RecordsAtivos
     }
 })(AtivoModal)
 

@@ -1,15 +1,15 @@
 import React from 'react';
 import './Show.css'
 
-const Show = ({ children, Show, Width = '' }) => {
+const Show = ({ children, Show, Width = '', className = '' }) => {
 
-    const ShowStyle = {        
+    const ShowStyle = {
         width: `${Width}`
     };
 
 
     return (
-        <div className={` ${Show ? 'Show' : 'NotShow'}`} style={ShowStyle}>
+        <div className={` ${className}  ${Show ? 'Show' : 'NotShow'}`} style={ShowStyle}>
             {children}
         </div>
     );

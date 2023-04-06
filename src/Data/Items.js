@@ -57,12 +57,22 @@ export const DefaultItemType = {
     Value: ''
 }
 export const DefaultAtivosType = {
-    LastEditedAt: moment().valueOf(),
+    LastEditedAt: moment().valueOf(), 
     CreatedAt: moment().valueOf(),
     docID: '',
     id: '',
-    Value: ''
+    Value: '',
+    CustomFields: []
 }
+
+
+export const DefaultAtivoCustomField = {
+    LastEditedAt: moment().valueOf(),
+    CreatedAt: moment().valueOf(),   
+    id: '',
+    Value: '',    
+}
+
 
 export const DefaultAtivoStatus = {
     LastEditedAt: moment().valueOf(),

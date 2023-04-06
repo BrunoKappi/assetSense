@@ -9,7 +9,7 @@ import { SetTiposDeUso } from "../Config/store/actions/TiposDeUsoActions"
 import { AddAtivoAction, SetAtivos } from "../Config/store/actions/AtivosActions"
 import { AddUsuarioAction, SetUsuarios } from "../Config/store/actions/UsuariosActions"
 import { PermitIndexs } from "../GlobalVars"
-import { SetRecords } from "../Config/store/actions/RecordsActions"
+import { EditRecordAction, SetRecords } from "../Config/store/actions/RecordsActions"
 import moment from "moment"
 import { FIREBASE_AddAtivo, FIREBASE_AddLocalArmazenamento, FIREBASE_AddRecord, FIREBASE_AddSetor, FIREBASE_AddStatusAtivo, FIREBASE_AddTipoAtivo, FIREBASE_AddTipoUso, FIREBASE_AddTipoUsuario, FIREBASE_AddUsuario, FIREBASE_DeleteLocalArmazenamento, FIREBASE_DeleteSetor, FIREBASE_DeleteStatusAtivo, FIREBASE_DeleteTipoAtivo, FIREBASE_DeleteTipoDeUsuario, FIREBASE_DeleteTipoUso, FIREBASE_GetAtivos, FIREBASE_GetLocaisArmazenamento, FIREBASE_GetRecords, FIREBASE_GetSetores, FIREBASE_GetStatusAtivos, FIREBASE_GetTiposAtivo, FIREBASE_GetTiposUso, FIREBASE_GetTiposUsuarios, FIREBASE_GetUsuarios, FIREBASE_UpdateAtivo, FIREBASE_UpdateLocalArmazenamento, FIREBASE_UpdateRecord, FIREBASE_UpdateSetor, FIREBASE_UpdateStatusAtivo, FIREBASE_UpdateTipoAtivo, FIREBASE_UpdateTipoDeUsuario, FIREBASE_UpdateTipoUso, FIREBASE_UpdateUsuario } from "../Config/firebase/metodos"
 import { DefaultUserRole } from "../Data/Items"
@@ -19,7 +19,7 @@ import { storage } from "../Config/firebase"
 import { SetLoggedUserPhotoUrlAction } from "../Config/store/actions/LoggedUserActions"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth } from "../Config/firebase/index";
- 
+
 //UTILS
 
 export const LoginUtil = (email, password) => {
@@ -111,11 +111,9 @@ export async function GetTipos() {
 
 export async function SaveTipos(Tipos) {
     return new Promise((resolve, reject) => {
-
         localStorage.setItem('AssetSenseTipos', JSON.stringify(Tipos))
         store.dispatch(SetTiposAtivos(Tipos))
         resolve('Ok');
-
     });
 }
 
@@ -315,6 +313,11 @@ export async function AddRecord(RecordToAdd) {
     RecordToAdd.LastEditedAt = moment().valueOf()
     return FIREBASE_AddRecord(RecordToAdd)
 }
+
+export const EditRecordStore = (EditedItem) => {
+    store.dispatch(EditRecordAction(EditedItem))
+}
+
 
 
 export const EditRecord = (EditedItem) => {
