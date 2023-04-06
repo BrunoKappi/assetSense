@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import './Users.css'
-import { SetoresTabTitle, TiposTabTitle, TodosTabTitle } from './UsersUtils';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import UsersInSetores from '../UsersInSetores/UsersInSetores';
@@ -9,6 +8,8 @@ import UsersList from '../UsersList/UsersList';
 import { GetCurrentUserTypePermitFromStore } from '../../Functions/Middleware';
 import { NotificationErro } from '../../NotificationUtils';
 import { connect } from 'react-redux'
+import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
+import TabButton from '../LayoutComponents/TabButton/TabButton';
 
 
 
@@ -21,21 +22,21 @@ const Users = (props) => {
 
   const getInitialTab = () => {
     if (TodosPermit)
-      return 'Todos'
+      return 'TodosUsuarios'
     else if (SetoresPermit)
-      return 'Setores'
+      return 'UsersInSetores'
     else if (TiposPermit)
-      return 'Tipos'
+      return 'UsersInTipos'
   }
 
   const [key, setKey] = useState(getInitialTab());
 
   const SetKeyConfig = (Key) => {
-    if (Key === 'Todos' && TodosPermit)
+    if (Key === 'TodosUsuarios' && TodosPermit)
       setKey(Key)
-    else if (Key === 'Setores' && SetoresPermit)
+    else if (Key === 'UsersInSetores' && SetoresPermit)
       setKey(Key)
-    else if (Key === 'Tipos' && TiposPermit)
+    else if (Key === 'UsersInTipos' && TiposPermit)
       setKey(Key)
     else
       NotificationErro("Não Autorizado", "Você não possui permissão para acessar essa aba, solicite acesso ao seu Administrador")
@@ -45,21 +46,23 @@ const Users = (props) => {
     <div className={props.Tema === 'Escuro' ? 'UsersContainerEscuro UsersContainer' : 'UsersContainerClaro UsersContainer'}>
 
 
-      <div className={props.Tema === 'Escuro' ? 'TabsContainerEscuro TabsContainer' : 'TabsContainerClaro TabsContainer'}>
-        <button onClick={(k) => SetKeyConfig('Todos')} className={key === 'Todos' ? 'TabsButtonActive' : ''}>{TodosTabTitle()}</button>
-        <button onClick={(k) => SetKeyConfig('Setores')} className={key === 'Setores' ? 'TabsButtonActive' : ''}>{SetoresTabTitle()}</button>
-        <button onClick={(k) => SetKeyConfig('Tipos')} className={key === 'Tipos' ? 'TabsButtonActive' : ''}>{TiposTabTitle()}</button>
-      </div>
+
+ 
+      <TabsContainer Tema={props.Tema}>
+        <TabButton ButtonName="TodosUsuarios" Key={key} onClick={(k) => SetKeyConfig('TodosUsuarios')} />
+        <TabButton ButtonName="UsersInSetores" Key={key} onClick={(k) => SetKeyConfig('UsersInSetores')} />       
+        <TabButton ButtonName="UsersInTipos" Key={key} onClick={(k) => SetKeyConfig('UsersInTipos')} />
+      </TabsContainer>
 
 
       <Tabs id="UsersTabs" activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
-        <Tab className='TabItem' eventKey="Todos" >
+        <Tab className='TabItem' eventKey="TodosUsuarios" >
           <UsersList />
         </Tab>
-        <Tab eventKey="Setores" >
+        <Tab eventKey="UsersInSetores" >
           <UsersInSetores />
         </Tab>
-        <Tab eventKey="Tipos"  >
+        <Tab eventKey="UsersInTipos"  >
           <UsersInTypes />
         </Tab>
       </Tabs>

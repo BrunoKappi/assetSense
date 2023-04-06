@@ -5,10 +5,12 @@ import { connect } from 'react-redux'
 import PieChart from '../Charts/DefaultCharts/PieChart/PieChart';
 import BarChart from '../Charts/DefaultCharts/BarChart/BarChart';
 import { GetFunctions, GetTop5ItensRetirados_SeriesLabels, GetTop5UsuariosRetirados_SeriesLabels } from '../Charts/ChartsUtils';
-import { RecordsTabTitle, AtivosTabTitle, UsuariosTabTitle } from './DashboardUtils';
 import { CirclePicker } from "react-color";
 import Dropdown from 'react-bootstrap/Dropdown';
 import Loading from '../LoadingForTabs/Loading';
+import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
+import TabButton from '../LayoutComponents/TabButton/TabButton';
+import Show from '../LayoutComponents/Show/Show';
 
 const Dashboard = (props) => {
 
@@ -62,7 +64,7 @@ const Dashboard = (props) => {
 
 
 
-  const [key, setKey] = useState('Ativos');
+  const [key, setKey] = useState('DashAtivos');
 
   const SetKeyConfig = (Key) => {
     setKey(Key)
@@ -102,56 +104,58 @@ const Dashboard = (props) => {
             </Dropdown.Menu>
           </Dropdown>
         </div>
-
-        <div className={props.Tema === 'Escuro' ? 'TabsContainerEscuro TabsContainer' : 'TabsContainerClaro TabsContainer'}>
-          <button onClick={(k) => SetKeyConfig('Ativos')} className={key === 'Ativos' ? 'TabsButtonActive' : ''}>{AtivosTabTitle()}</button>
-          <button onClick={(k) => SetKeyConfig('Usuarios')} className={key === 'Usuarios' ? 'TabsButtonActive' : ''}>{UsuariosTabTitle()}</button>
-          <button onClick={(k) => SetKeyConfig('Tipos')} className={key === 'Tipos' ? 'TabsButtonActive' : ''}>{RecordsTabTitle()}</button>
-        </div>
+ 
 
 
-        {key === 'Ativos' &&
+        <TabsContainer Tema={props.Tema}>
+          <TabButton ButtonName="DashAtivos" Key={key} onClick={(k) => SetKeyConfig('DashAtivos')} />
+          <TabButton ButtonName="DahUsuarios" Key={key} onClick={(k) => SetKeyConfig('DahUsuarios')} />
+          <TabButton ButtonName="DashTipos" Key={key} onClick={(k) => SetKeyConfig('DashTipos')} />
+        </TabsContainer>
 
-          <div className='DashBoard-Charts-Container'>
 
-            <div className='ChartCointer'>
-              <BarChart Mono={Color} Title="Ativos por Tipo" Series={TiposAtivosSeries} Labels={TiposAtivosLabels} />
-            </div>
+        {key === 'DashAtivos' &&        
 
-            <div className='ChartCointer'>
-              <BarChart Mono={Color} Title="Ativos por Local de Armazenamento" Series={AtivosLocaisSeries} Labels={AtivosLocaisLabels} />
-            </div>
+            <div className='DashBoard-Charts-Container'>
 
-            <div className='ChartCointer'>
-              <BarChart Mono={Color} Title="Ativos por Status" Series={AtivosStatusSeries} Labels={AtivosStatusLabels} />
-            </div>
+              <div className='ChartCointer'>
+                <BarChart Mono={Color} Title="Ativos por Tipo" Series={TiposAtivosSeries} Labels={TiposAtivosLabels} />
+              </div>
 
-            <div className='ChartCointer'>
-              <BarChart Mono={Color} Title="Aivos por Tipo de Uso" Series={TiposUsoSeries} Labels={TiposUsoLabels} />
-            </div>
+              <div className='ChartCointer'>
+                <BarChart Mono={Color} Title="Ativos por Local de Armazenamento" Series={AtivosLocaisSeries} Labels={AtivosLocaisLabels} />
+              </div>
 
-            <div className='ChartCointer'>
-              <PieChart Mono={Color} Title="Ativos por Tipo" Series={TiposAtivosSeries} Labels={TiposAtivosLabels} />
-            </div>
+              <div className='ChartCointer'>
+                <BarChart Mono={Color} Title="Ativos por Status" Series={AtivosStatusSeries} Labels={AtivosStatusLabels} />
+              </div>
 
-            <div className='ChartCointer'>
-              <PieChart Mono={Color} Title="Ativos por Local de Armazenamento" Series={AtivosLocaisSeries} Labels={AtivosLocaisLabels} />
-            </div>
+              <div className='ChartCointer'>
+                <BarChart Mono={Color} Title="Aivos por Tipo de Uso" Series={TiposUsoSeries} Labels={TiposUsoLabels} />
+              </div>
 
-            <div className='ChartCointer'>
-              <PieChart Mono={Color} Title="Ativos por Status" Series={AtivosStatusSeries} Labels={AtivosStatusLabels} />
-            </div>
+              <div className='ChartCointer'>
+                <PieChart Mono={Color} Title="Ativos por Tipo" Series={TiposAtivosSeries} Labels={TiposAtivosLabels} />
+              </div>
 
-            <div className='ChartCointer'>
-              <PieChart Mono={Color} Title="Aivos por Tipo de Uso" Series={TiposUsoSeries} Labels={TiposUsoLabels} />
-            </div>
+              <div className='ChartCointer'>
+                <PieChart Mono={Color} Title="Ativos por Local de Armazenamento" Series={AtivosLocaisSeries} Labels={AtivosLocaisLabels} />
+              </div>
 
-          </div>
+              <div className='ChartCointer'>
+                <PieChart Mono={Color} Title="Ativos por Status" Series={AtivosStatusSeries} Labels={AtivosStatusLabels} />
+              </div>
+
+              <div className='ChartCointer'>
+                <PieChart Mono={Color} Title="Aivos por Tipo de Uso" Series={TiposUsoSeries} Labels={TiposUsoLabels} />
+              </div>
+
+            </div>    
 
         }
 
 
-        {key === 'Usuarios' &&
+        {key === 'DahUsuarios' &&
           <div className='DashBoard-Charts-Container'>
 
             <div className='ChartCointer'>
@@ -176,7 +180,7 @@ const Dashboard = (props) => {
           </div>
         }
 
-        {key === 'Tipos' &&
+        {key === 'DashTipos' &&
           <>
             <div className='DashBoard-Charts-Container'>
 
@@ -207,7 +211,6 @@ const Dashboard = (props) => {
 
 
             </div>
-
 
           </>
 

@@ -4,12 +4,14 @@ import Masonry from "react-masonry-css";
 import EditableCustomList from '../EditableCustomList/EditableCustomList'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import { AtivosCamposTabTitle, AtivosTabTitle, PermicoesTabTitle, SetoresEUsuáriosTabTitle } from './ConfigUtils';
+
 import UserTypesPermits from '../UserTypesPermits/UserTypesPermits';
 import { GetCurrentUserTypePermitFromStore } from '../../Functions/Middleware';
 import { NotificationErro } from '../../NotificationUtils';
 import { connect } from 'react-redux'
 import AtivosCampos from '../AtivosCampos/AtivosCampos';
+import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
+import TabButton from '../LayoutComponents/TabButton/TabButton';
 
 const breakpointColumnsObj = {
   default: 3,
@@ -56,13 +58,12 @@ const Config = (props) => {
     <div className={props.Tema === 'Escuro' ? 'ConfigContainerEscuro ConfigContainer' : 'ConfigContainerClaro ConfigContainer'}>
 
 
-      <div className={props.Tema === 'Escuro' ? 'TabsContainerEscuro TabsContainer' : 'TabsContainerClaro TabsContainer'}>
-        <button onClick={(k) => SetKeyConfig('Ativos')} className={key === 'Ativos' ? 'TabsButtonActive' : ''}>{AtivosTabTitle()}</button>
-        <button onClick={(k) => SetKeyConfig('AtivosCampos')} className={key === 'AtivosCampos' ? 'TabsButtonActive' : ''}>{AtivosCamposTabTitle()}</button>
-        <button onClick={(k) => SetKeyConfig('Setores e Usuários')} className={key === 'Setores e Usuários' ? 'TabsButtonActive' : ''}>{SetoresEUsuáriosTabTitle()}</button>
-        <button onClick={(k) => SetKeyConfig('Permissoes')} className={key === 'Permissoes' ? 'TabsButtonActive' : ''}>{PermicoesTabTitle()}</button>
-      </div>
-
+      <TabsContainer Tema={props.Tema}>
+        <TabButton ButtonName="Ativos" Key={key} onClick={(k) => SetKeyConfig('Ativos')} />
+        <TabButton ButtonName="AtivosCampos" Key={key} onClick={(k) => SetKeyConfig('AtivosCampos')} />
+        <TabButton ButtonName="Setores e Usuários" Key={key} onClick={(k) => SetKeyConfig('Setores e Usuários')} />
+        <TabButton ButtonName="Permissoes" Key={key} onClick={(k) => SetKeyConfig('Permissoes')} />
+      </TabsContainer>
 
 
       <Tabs id="UsersTabs" activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
@@ -79,7 +80,7 @@ const Config = (props) => {
         </Tab>
         <Tab eventKey="AtivosCampos" >
           <div className='ListItensContainer'>
-            <AtivosCampos/>
+            <AtivosCampos />
           </div>
         </Tab>
         <Tab eventKey="Setores e Usuários"  >
