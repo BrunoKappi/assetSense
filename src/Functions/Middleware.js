@@ -23,7 +23,7 @@ import { auth } from "../Config/firebase/index";
 //UTILS
 
 export const LoginUtil = (email, password) => {
-    console.log("Recebdno login", email, password)
+    // console.log("Recebdno login", email, password)
     return FIREBASE_LoginAuth(email, password)
 }
 
@@ -41,7 +41,7 @@ export const FoprgetPasswordUtil = (email, password) => {
 
 
 export const ImageUpload = (ImagePath, ImageToUpload) => {
-    console.log("Recebendo para Atualizar", ImagePath)
+    // console.log("Recebendo para Atualizar", ImagePath)
     const imageRef = ref(storage, ImagePath);
     return uploadBytes(imageRef, ImageToUpload)
 }
@@ -52,7 +52,7 @@ export const GetUserUrlImage = (path) => {
 }
 
 export const DeleteFile = (path) => {
-    console.log("Mandando apagar", path)
+    // console.log("Mandando apagar", path)
     const desertRef = ref(storage, path);
     return deleteObject(desertRef)
 }
@@ -152,7 +152,7 @@ export const EditTipoAtivo = (EditedItem) => {
 //////////// SETORES //////////////////
 
 export async function GetSetores() {
-    //COMENTADO  console.log("Pegando setores")
+    //COMENTADO // console.log("Pegando setores")
     return FIREBASE_GetSetores()
 }
 
@@ -494,7 +494,7 @@ export async function SaveUsers(Users) {
 
 export const ResetonAuthStateChanged = () => {
     onAuthStateChanged(auth, () => {
-        console.log("Usuário Registrado AUTH")
+        // console.log("Usuário Registrado AUTH")
     })
 }
 
@@ -639,7 +639,7 @@ export const GetUsersFromStoreWithNoCurrentUser = (AtivoId) => {
     const UsersThatTook = GetUsersThatTookAtivo(AtivoId)
     const Users = [...store.getState().Usuarios].filter(User => User.id !== Current.id)
     const UsersNotTook = Users.filter(user => !UsersThatTook.some(took => took.id === user.id));
-    //COMENTADO  console.log("FILTER USERS", UsersNotTook)
+    //COMENTADO // console.log("FILTER USERS", UsersNotTook)
     return UsersNotTook
 }
 export const GetRecordsFromStore = () => {
@@ -666,6 +666,12 @@ export const GetCurrentUserTypeFromStore = () => {
 /// OBJECT GET WITH ID
 
 export const GetCurrentUserTypeWithIdFromStore = (Id) => {
+    const Types = GetUserTypesFromStore()
+    const Type = Types.find(U => U.id === Id)
+    return Type
+}
+
+export const GetUserTypeWithIdFromStore = (Id) => {
     const Types = GetUserTypesFromStore()
     const Type = Types.find(U => U.id === Id)
     return Type

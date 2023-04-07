@@ -2,8 +2,8 @@ import BootstrapModal from 'react-bootstrap/Modal';
 import React, { useState, useEffect, useRef } from 'react'
 import './UserModal.css'
 import UserPhoto from '../../../assets/Images/SerranoLogoFuncoBranco.jpg'
-import { UilUserCircle, UilClipboardNotes, UilEnvelope, UilPhone, UilMap, UilMapMarker, UilPen, UilPuzzlePiece, UilLabel, UilListUl, UilSave, UilHistory, UilTimes, UilBuilding, UilKeySkeleton, UilCheck, UilBackward, UilTrash } from '@iconscout/react-unicons'
-import { AddUser, AddUserFirebase, DeleteUser, EditUser, GetCurrentUserFromStore, GetCurrentUserSetorNameWithIdFromStore, GetCurrentUserTypeFromStore, GetCurrentUserTypeNameWithIdFromStore, GetCurrentUserTypeWithIdFromStore, GetSetoresFromStore, GetUserTypesFromStore, GetUserWithIdFromStore, LoginUtil, RegisterUser, ReturnAllAtivosOfUserWithId } from '../../../Functions/Middleware'
+import { UilUserCircle, UilClipboardNotes, UilEnvelope, UilPhone, UilAsterisk, UilMap, UilMapMarker, UilPen, UilPuzzlePiece, UilLabel, UilListUl, UilSave, UilHistory, UilTimes, UilBuilding, UilKeySkeleton, UilCheck, UilBackward, UilTrash } from '@iconscout/react-unicons'
+import { AddUser, AddUserFirebase, DeleteUser, EditUser, GetCurrentUserFromStore, GetCurrentUserSetorNameWithIdFromStore, GetCurrentUserTypeFromStore, GetCurrentUserTypeNameWithIdFromStore, GetCurrentUserTypeWithIdFromStore, GetSetoresFromStore, GetUserTypeWithIdFromStore, GetUserTypesFromStore, GetUserWithIdFromStore, LoginUtil, RegisterUser, ReturnAllAtivosOfUserWithId } from '../../../Functions/Middleware'
 import { DefaultUser } from '../../../Data/Items';
 import { DefaultSetor, DefaultUserType } from '../../../Data/Items';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
@@ -26,6 +26,7 @@ import Loading from '../../LoadingForTabs/Loading';
 import TwoColumns from '../../LayoutComponents/TwoColumns/TwoColumns';
 import FormGroupLabel from '../../LayoutComponents/FormGroupLabel/FormGroupLabel';
 import FormGroup from '../../LayoutComponents/FormGroup/FormGroup';
+import Show from '../../LayoutComponents/Show/Show';
 
 const UsuarioModal = (props) => {
 
@@ -34,6 +35,7 @@ const UsuarioModal = (props) => {
     const [LoadingAction, setLoadingAction] = useState(false)
     const [Tab, setTab] = useState('UserInfo')
 
+    const [UserTypeCustomFields, setUserTypeCustomFields] = useState([])
     const [UserType, setUserType] = useState({ ...DefaultUserType })
     const [User, setUser] = useState({ ...DefaultUser })
     const [UserSetor, setUserSetor] = useState({ ...DefaultSetor })
@@ -61,6 +63,7 @@ const UsuarioModal = (props) => {
     const [ProfileImageUrl, setProfileImageUrl] = useState('')
     const [CopyUserName, setCopyUserName] = useState('')
     const [CopyUserUrlImage, setCopyUserUrlImage] = useState('')
+    const [CopyCustomFieldsValues, setCopyCustomFieldsValues] = useState([])
     const [CopyUserEmail, setCopyUserEmail] = useState('')
     const [CopyUserLastName, setCopyUserLastName] = useState('')
     const [CopyUserPhone, setCopyUserPhone] = useState('')
@@ -95,6 +98,10 @@ const UsuarioModal = (props) => {
         setCopyUserCity(UserCopy?.City)
         setCopyUserSector(UserCopy?.Sector)
         setCopyUserType(UserCopy?.Type)
+        if (UserCopy?.CustomFieldsValues.length > 0)
+            setCopyCustomFieldsValues(UserCopy?.CustomFieldsValues)
+        else
+            setCopyCustomFieldsValues([])
     }
 
     const CancelEditions = () => {
@@ -115,12 +122,18 @@ const UsuarioModal = (props) => {
                 setCopyUserCountry(Value)
             else if (Info === 'City')
                 setCopyUserCity(Value)
+            else if (Info === 'CustomFieldsValues')
+                setCopyCustomFieldsValues(Value)
         }
         if ((CanEdit || IsAdmin) || PermitToEditUsers) {
             if (Info === 'Sector')
                 setCopyUserSector({ id: Value })
-            else if (Info === 'Type')
+            else if (Info === 'Type') {
                 setCopyUserType({ id: Value })
+                const GotUserType = GetUserTypeWithIdFromStore(Value)
+                setUserType(GotUserType)
+            }
+
         }
 
         if (props.Function === 'Add') {
@@ -158,6 +171,18 @@ const UsuarioModal = (props) => {
     }, [User, props.CurrentUser])
 
 
+    //QUANDO O USERTYPE MUDA, PEGA OS CUSTOMS FIELDS
+    useEffect(() => {
+        if (UserType?.CustomFields?.length > 0) {
+            setUserTypeCustomFields([...UserType?.CustomFields])
+            console.log("CUSTOM ", [...UserType?.CustomFields])
+        } else {
+            setUserTypeCustomFields([])
+        }
+    }, [UserType])
+
+
+
     // QUANDO ALGUMA INFORMAÇÂO MUDA
     useEffect(() => {
         if (CopyUserName !== User?.Name || CopyUserLastName !== User?.LastName || CopyUserPhone !== User?.Phone || CopyUserEstate?.name !== User?.Estate?.name || CopyUserCity?.name !== User?.City?.name || CopyUserCountry?.name !== User?.Country?.name || CopyUserSector?.id !== User?.Sector?.id || CopyUserType?.id !== User?.Type?.id)
@@ -176,6 +201,7 @@ const UsuarioModal = (props) => {
 
                 const EditedUser = { ...User }
 
+                EditedUser.CustomFieldsValues = CopyCustomFieldsValues
                 EditedUser.Name = CopyUserName
                 EditedUser.LastName = CopyUserLastName
                 EditedUser.Phone = CopyUserPhone
@@ -190,16 +216,16 @@ const UsuarioModal = (props) => {
                 setUser({ ...EditedUser })
 
                 if (!EditedUser.docID) {
-                    console.log("Atualizando User SEM DOCID")
+                    // console.log("Atualizando User SEM DOCID")
                     FIREBASE_GetUserDocIDById(EditedUser.id).then((docID) => {
-                        console.log("PEGUEI O DOCID", docID)
+                        // console.log("PEGUEI O DOCID", docID)
                         EditedUser.docID = docID
                         EditUser(EditedUser).then(() => {
                             FillCopyes(EditedUser)
                             NotificationSucesso('Alteração', 'Alterações salvas com sucesso!')
                             setLoadingAction(false)
                         }).catch((erro) => {
-                            console.log(erro)
+                            // console.log(erro)
                             NotificationErro("Erro", "Ocorreu um problema, tente novamente")
                             setLoadingAction(false)
                         })
@@ -207,13 +233,13 @@ const UsuarioModal = (props) => {
                         setLoadingAction(false)
                     })
                 } else {
-                    console.log("Atualizando User com DOCID")
+                    // console.log("Atualizando User com DOCID")
                     EditUser(EditedUser).then(() => {
                         FillCopyes(EditedUser)
                         NotificationSucesso('Alteração', 'Alterações salvas com sucesso!')
                         setLoadingAction(false)
                     }).catch((erro) => {
-                        console.log(erro)
+                        // console.log(erro)
                         NotificationErro("Erro", "Ocorreu um problema, tente novamente")
                         setLoadingAction(false)
                     })
@@ -226,6 +252,7 @@ const UsuarioModal = (props) => {
             const NewUser = { ...User }
 
             NewUser.id = v4()
+            NewUser.CustomFieldsValues = CopyCustomFieldsValues
             NewUser.PhotoUrl = CopyUserUrlImage
             NewUser.Email = CopyUserEmail.toLocaleLowerCase()
             NewUser.Name = CopyUserName
@@ -243,9 +270,9 @@ const UsuarioModal = (props) => {
             unsubscribe()
             setTimeout(() => {
                 FIREBASE_LogouyAuth().then(() => {
-                    console.log("LOGOUT")
+                    // console.log("LOGOUT")
                 }).catch(() => {
-                    console.log("ERRO LOGOUT")
+                    // console.log("ERRO LOGOUT")
                 })
             }, 5000);
 
@@ -263,7 +290,7 @@ const UsuarioModal = (props) => {
                     NotificationErro("Erro", "Ocorreu um problema, tente novamente")
                 })
             }).catch((erro) => {
-                console.log(erro)
+                // console.log(erro)
                 NotificationErro("Erro", "Ocorreu um problema, tente novamente")
             })
 
@@ -366,7 +393,7 @@ const UsuarioModal = (props) => {
                         NotificationAlerta("Erro", 'A senha deve ter pelo menos 6 caracteres')
                 })
             }).catch((erro) => {
-                console.log(erro)
+                // console.log(erro)
                 NotificationErro("Erro", 'Senha Atual incorreta')
                 setLoadingAction(false)
             })
@@ -410,6 +437,21 @@ const UsuarioModal = (props) => {
             setProfileImageUrl(url)
         }, 4000);
         setShowPhotoModal(false)
+    }
+
+
+    const handleChangeCustomField = (TypedValue, Index, CustomFieldId) => {
+
+        const NewUserCustomFieldsValues = [...CopyCustomFieldsValues]
+
+        NewUserCustomFieldsValues[Index] = {
+            id: CustomFieldId,
+            Value: TypedValue
+        }
+        setCopyCustomFieldsValues([...NewUserCustomFieldsValues])
+
+        setIsEdited(true)
+
     }
 
     return (
@@ -606,6 +648,14 @@ const UsuarioModal = (props) => {
                                                     </FormGroup>
                                                 </div>
 
+
+
+
+
+
+
+
+
                                                 {IsCurrentUser && <div className='UserModalBody-UserInfoForm-SectionTitle'></div>}
                                                 {IsCurrentUser && <h4 className='UserModalBody-UserInfoForm-SectionTitle'>Trocar de Senha</h4>}
                                                 {IsCurrentUser &&
@@ -635,6 +685,7 @@ const UsuarioModal = (props) => {
                                                         </button>
                                                     </div>
                                                 }
+
 
 
 
@@ -679,6 +730,36 @@ const UsuarioModal = (props) => {
                                                         </div>
                                                     </div>
                                                 </TwoColumns>
+
+
+
+                                                <Show Show={UserTypeCustomFields?.length > 0}>
+                                                    <h4 className='UserModalBody-AtivoInfoForm-SectionTitle'>Campos Personalizados</h4>
+                                                </Show>
+
+
+                                                <TwoColumns>
+                                                    {UserTypeCustomFields?.map((CustomField, CustomFieldIndex) => {
+                                                        return <FormGroup>
+                                                            <FormGroupLabel>
+                                                                <UilAsterisk />
+                                                                {CustomField.Value}
+                                                            </FormGroupLabel>
+                                                            <input
+                                                                type="text"
+                                                                className='UserModalBody-AtivoInfoForm-Group-Input'
+                                                                value={CopyCustomFieldsValues?.find(CF => CF.id === CustomField.id)?.Value || ''}
+                                                                disabled={!CanEdit}
+                                                                onChange={e => {
+                                                                    console.log(e.target.value, CustomFieldIndex, CustomField.id)
+                                                                    handleChangeCustomField(e.target.value, CustomFieldIndex, CustomField.id)
+                                                                }}
+                                                            />
+                                                        </FormGroup>
+                                                    })}
+
+                                                </TwoColumns>
+
                                             </form>
 
                                             <div className='UserModalBody-UserInfoForm-Button'>
@@ -690,10 +771,12 @@ const UsuarioModal = (props) => {
                                                 }
                                                 {IsEdited &&
                                                     <>
-                                                        <button onClick={CancelEditions}>
-                                                            <UilTimes />
-                                                            {props.Function === 'Add' ? 'Limpar Campos' : 'Cancelar'}
-                                                        </button>
+                                                        {false &&
+                                                            <button onClick={CancelEditions}>
+                                                                <UilTimes />
+                                                                {props.Function === 'Add' ? 'Limpar Campos' : 'Cancelar'}
+                                                            </button>
+                                                        }
 
                                                         {props.Function === 'Add' &&
                                                             <button onClick={e => InitConfirm('Add')}>

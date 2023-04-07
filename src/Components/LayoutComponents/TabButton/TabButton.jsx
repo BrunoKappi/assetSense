@@ -45,8 +45,8 @@ export const AtivosTabTitle = () => {
 export const AtivosCamposTabTitle = () => {
     return <div className='TabsTitle'>
         <UilAsterisk />
-        <span>Campos de Ativos</span>
-    </div>
+        <span>Campos Personalizados</span>
+    </div> 
 }
 
 export const SetoresEUsuáriosTabTitle = () => {

@@ -15,7 +15,7 @@ import moment from 'moment';
 const Update = false
 const Reset = false
 const Nothing = true
-
+ 
 //COMANDOS FIREBASE
 const ADD_FIREBASE = false
 
@@ -33,31 +33,35 @@ export const DefaultUserType = {
     CreatedAt: moment().valueOf(),
     docID: '',
     id: '',
-    Value: ''
+    Value: '',
+    CustomFields: []
 }
 export const DefaultSetor = {
     LastEditedAt: moment().valueOf(),
     CreatedAt: moment().valueOf(),
     docID: '',
     id: '',
-    Value: ''
+    Value: '',
+    CustomFields: []
 }
 export const DefaultLocal = {
     LastEditedAt: moment().valueOf(),
     CreatedAt: moment().valueOf(),
     docID: '',
     id: '',
-    Value: ''
+    Value: '',
+    CustomFields: []
 }
 export const DefaultItemType = {
     LastEditedAt: moment().valueOf(),
     CreatedAt: moment().valueOf(),
     docID: '',
     id: '',
-    Value: ''
+    Value: '',
+    CustomFields: []
 }
 export const DefaultAtivosType = {
-    LastEditedAt: moment().valueOf(), 
+    LastEditedAt: moment().valueOf(),
     CreatedAt: moment().valueOf(),
     docID: '',
     id: '',
@@ -66,11 +70,11 @@ export const DefaultAtivosType = {
 }
 
 
-export const DefaultAtivoCustomField = {
+export const DefaultCustomField = {
     LastEditedAt: moment().valueOf(),
-    CreatedAt: moment().valueOf(),   
-    id: '',
-    Value: '',    
+    CreatedAt: moment().valueOf(),
+    id: v4(),
+    Value: '',
 }
 
 
@@ -80,7 +84,18 @@ export const DefaultAtivoStatus = {
     docID: '',
     id: '',
     Value: '',
-    CanTake: true
+    CanTake: true,
+    CustomFields: []
+}
+
+
+export const DefaultTipoDeUso = {
+    LastEditedAt: moment().valueOf(),
+    CreatedAt: moment().valueOf(),
+    docID: '',
+    id: '',
+    Value: '',
+    CustomFields: []
 }
 
 
@@ -92,7 +107,7 @@ export const DefaultAtivo = {
     CreatedAt: moment().valueOf(),
     Price: 0,
     ResidualPrice: 0,
-    Description: '',
+    Description: '', 
     Barcode: '',
     SerialNumber: '',
     Manufacturer: '',
@@ -123,6 +138,7 @@ export const DefaultAtivo = {
         id: ''
     },
     Deleted: false,
+    CustomFieldsValues:[]
 }
 
 
@@ -145,7 +161,8 @@ export const DefaultRecord = {
     ReturnDate: '',
     TakenForDeleted: false,
     TakenByDeleted: false,
-    AtivoDeleted: false
+    AtivoDeleted: false,
+    CustomFieldsValues:[]
 }
 
 
@@ -192,7 +209,8 @@ export const DefaultUser =
         LinkedIn: '',
         TikTok: '',
         GitHub: ''
-    }
+    },
+    CustomFieldsValues:[]
 
 }
 
@@ -220,7 +238,6 @@ const DefaultCity = {
     name: "Porto Alegre",
     stateCode: "RS",
 }
-
 
 export const DefaultUserRole = {
     LastEditedAt: moment().valueOf(),
@@ -379,7 +396,7 @@ export const Users = [
     { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Bruno', LastName: 'Kappi', Email: 'brunokappi@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Integracao } },
     { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Cristiano', LastName: 'Melo', Email: 'cristianomelo@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Projeto } },
     { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Demétrius', LastName: 'Figueiredo', Email: 'demetriusfigueiredo@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Douglas', LastName: 'Pinheiro', Email: 'douglaspinheiro@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Douglas', LastName: 'Pinheiro', Email: 'douglaspinheiro@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Integracao } },
     { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Ezequiel', LastName: 'Silva', Email: 'ezequielsilva@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
     { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Filipe', LastName: 'Dias', Email: 'filipedias@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
     { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Gabriel', LastName: 'Pedroso', Email: 'gabrielpedroso@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
@@ -440,15 +457,13 @@ export const Users = [
 /// ==================== TIPOS DE ATIVOS =================== ///
 export const ItemTypes = [
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultAtivosType,
         docID: '',
         id: '5c292f1a-1fc1-400b-b44c-ca0fa68458ad',
         Value: 'Cabo'
     },
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultAtivosType,
         docID: '',
         id: '9bff9e15-f30d-4287-891b-565389906a35',
         Value: 'Equipamento'
@@ -473,29 +488,25 @@ export const ItemTypes = [
 /// ==================== SETORES  =================== ///
 export const Setores = [
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultSetor,
         docID: '',
         id: '0e13d17c-082e-400b-bf25-6ed0aaec5d57',
         Value: 'Integração'
     },
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultSetor,
         docID: '',
         id: '9268f2f9-249f-433c-880a-7dcd0492a466',
         Value: 'Projeto'
     },
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultSetor,
         docID: '',
         id: 'ad01ba2f-aa9a-47a2-a771-1fee98ef54a5',
         Value: 'Administrativo'
     },
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultSetor,
         docID: '',
         id: 'ea05229e-658a-415a-bc23-62cebd0bbe96',
         Value: 'RH'
@@ -514,24 +525,21 @@ export const Setores = [
 /// ==================== LOCAIS DE ARMZANEMAMENTO =================== ///
 export const LocaisDeArmazenamento = [
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultLocal,
         docID: '',
         id: 'b21e3ca1-985a-4958-9d16-9ff68579c576',
         Value: 'Armário da Integração'
     }
     ,
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultLocal,
         docID: '',
         id: '59ca3189-70cb-451c-a597-4320e0bf158f',
         Value: 'Armário Administrativo'
     }
     ,
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultLocal,
         docID: '',
         id: '24d50296-fb80-473a-9eaa-f2745341b148',
         Value: 'Projeto'
@@ -563,8 +571,7 @@ export const LocaisDeArmazenamento = [
 /// ==================== STATUS DE ATIVOS =================== ///
 export const AtivosStatus = [
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultAtivoStatus,
         docID: '',
         id: '693ae26e-399e-4a2f-a646-d6315fb9a516',
         Value: 'Em Funcionamento',
@@ -572,8 +579,7 @@ export const AtivosStatus = [
     }
     ,
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultAtivoStatus,
         docID: '',
         id: '144febcf-6a34-4c60-9166-1751ff5e8e6b',
         Value: 'Em Manutenção',
@@ -601,71 +607,61 @@ export const AtivosStatus = [
 /// ==================== TIPOS DE USOS  =================== ///
 export const TiposDeUso = [
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultTipoDeUso,
         docID: '',
         id: 'd0e718ac-9cdc-4d7a-ba00-711d68d2c108',
         Value: 'Uso contínuo'
     },
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultTipoDeUso,
         docID: '',
         id: 'a481167c-76f4-4412-a8ca-2e7c2569533b',
         Value: 'Uso momentâneo'
     },
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultTipoDeUso,
         docID: '',
         id: v4(),
         Value: 'Uso compartilhado'
     },
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultTipoDeUso,
         docID: '',
         id: v4(),
         Value: 'Uso pessoal'
     },
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultTipoDeUso,
         docID: '',
         id: v4(),
         Value: 'Uso limitado'
     },
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultTipoDeUso,
         docID: '',
         id: v4(),
         Value: 'Uso temporário'
     },
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultTipoDeUso,
         docID: '',
         id: v4(),
         Value: 'Uso remoto'
     },
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultTipoDeUso,
         docID: '',
         id: v4(),
         Value: 'Uso de treinamento'
     },
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultTipoDeUso,
         docID: '',
         id: v4(),
         Value: 'Uso de manutenção'
     },
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultTipoDeUso,
         docID: '',
         id: v4(),
         Value: 'Uso especializado'
@@ -689,17 +685,15 @@ export const TiposDeUso = [
 
 export const UserRoles = [
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultUserType,
         docID: '',
         id: '8c25a156-04b7-479f-874f-b16e63383cbd',
-        Value: 'Funcionário',
+        Value: 'Colaborador',
         IsAdmin: false,
         Permits: DefaultPermits
     },
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultUserType,
         docID: '',
         id: '0e296e6a-345f-47ff-91f1-34cd6c1f20e3',
         Value: 'Cliente',
@@ -707,8 +701,7 @@ export const UserRoles = [
         Permits: DefaultPermits
     },
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultUserType,
         docID: '',
         id: '784c4def-b901-4883-b481-a4a6cf6dd070',
         Value: 'Administrador',
@@ -716,8 +709,7 @@ export const UserRoles = [
         Permits: DefaultAdminPermis
     },
     {
-        LastEditedAt: moment().valueOf(),
-        CreatedAt: moment().valueOf(),
+        ...DefaultUserType,
         docID: '',
         id: '0624b310-4d7a-4423-a342-0cc272c39d80',
         Value: 'Gerente',

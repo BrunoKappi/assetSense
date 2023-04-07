@@ -560,6 +560,21 @@
 
 
 
+.UserModalBody-AtivoInfoForm-SectionTitle {
+    font-family: var(--Fonte);
+    color: var(--UserModal-SectionTitleColor);
+    margin-top: .5rem;
+}
+
+
+
+
+
+
+
+
+
+
 .UserModalBody-UserInfoForm-Button {
     display: flex;
     flex-direction: row;
@@ -619,6 +634,36 @@
 .UserModalBody-UserInfoForm-Button>button:active {
     transform: scale(.9);
 }
+
+
+
+
+
+
+
+
+.UserModalBody-AtivoInfoForm-Group-Input {
+    border-radius: .5rem;
+    outline: none;
+    border: 1px solid var(--UserModal-Borda-Input);
+    padding: .5rem .8rem;
+    color: var(--UserModal-Color-Input);
+    font-family: var(--Fonte);
+    font-size: .9rem;
+    background-color: var(--UserModal-Background-Input); 
+    width: 100% !important;
+}
+
+@media (max-width: 1000px) {
+    .UserModalBody-AtivoInfoForm-Group-Input {
+        font-size: .8rem;
+    }
+
+}
+
+
+
+
 
 
 

@@ -34,7 +34,7 @@ const Sidebar = (props) => {
         const User = GetCurrentUserFromStore()
         if (User?.PhotoUrl) {
             if (props.LoggedUser.PhotoUrl !== User?.PhotoUrl) {
-                console.log(User?.PhotoUrl)
+                //console.log(User?.PhotoUrl)
                 SetLoggedUserPhotoUrlJustStore(User?.PhotoUrl)
             }
         }

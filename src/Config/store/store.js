@@ -56,7 +56,7 @@ GetTiposDeUso().then((Tipos) => {
 })
 
 GetRecordsFromFirebase().then((Records) => {
-   //COMENTADO  console.log("PEGANDO RECORDS",Records)
+    console.log("PEGANDO RECORDS",Records)
     store.dispatch(SetRecords(Records))
 })
 
@@ -84,7 +84,7 @@ const store = createStore(
 
 store.subscribe(() => {
     localStorage.setItem("AssetSense", JSON.stringify(store.getState()))
-    console.log("Store Changed", store.getState())
+    //console.log("Store Changed", store.getState())
 })
 
 

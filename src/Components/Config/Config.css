@@ -7,7 +7,17 @@
 }
 
 
-
+.ConfigTitleSection {
+    font-family: var(--Fonte);
+    color: var(--ComplementaryColor);
+    margin: 0;
+    margin-top: 2.3rem;
+    margin-bottom: -1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .3rem;
+}
 
 
 .ConfigContainer {
@@ -28,6 +38,14 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 2rem;
+    justify-content: stretch;
+}
+
+.CamposListItensContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0rem;
     justify-content: stretch;
 }
 

@@ -4,12 +4,13 @@ import Masonry from "react-masonry-css";
 import EditableCustomList from '../EditableCustomList/EditableCustomList'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-
+import { UilSetting } from '@iconscout/react-unicons'
 import UserTypesPermits from '../UserTypesPermits/UserTypesPermits';
 import { GetCurrentUserTypePermitFromStore } from '../../Functions/Middleware';
 import { NotificationErro } from '../../NotificationUtils';
 import { connect } from 'react-redux'
-import AtivosCampos from '../AtivosCampos/AtivosCampos';
+import Campos from '../AtivosCampos/Campos';
+
 import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
 
@@ -79,8 +80,11 @@ const Config = (props) => {
           </div>
         </Tab>
         <Tab eventKey="AtivosCampos" >
-          <div className='ListItensContainer'>
-            <AtivosCampos />
+          <div className='CamposListItensContainer'>
+            <h4 className='ConfigTitleSection'> <UilSetting />  Campos Personalizados por Tipo de Ativo</h4>
+            <Campos Function="TiposAtivos" />
+            <h4 className='ConfigTitleSection'> <UilSetting />  Campos Personalizados por Tipo de Usuário</h4>
+            <Campos Function="TiposUsuarios" />
           </div>
         </Tab>
         <Tab eventKey="Setores e Usuários"  >
