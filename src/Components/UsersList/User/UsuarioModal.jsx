@@ -27,6 +27,9 @@ import TwoColumns from '../../LayoutComponents/TwoColumns/TwoColumns';
 import FormGroupLabel from '../../LayoutComponents/FormGroupLabel/FormGroupLabel';
 import FormGroup from '../../LayoutComponents/FormGroup/FormGroup';
 import Show from '../../LayoutComponents/Show/Show';
+import Stack from '../../LayoutComponents/Stack/Stack';
+import SidebarItem from '../../LayoutComponents/SidebarItem/SidebarItem';
+import FormInput from '../../LayoutComponents/FormInput/FormInput';
 
 const UsuarioModal = (props) => {
 
@@ -86,6 +89,12 @@ const UsuarioModal = (props) => {
     //PERMISSOES
 
 
+    // HANDLE ERROR
+    const HandleError = (Erro) => {
+        console.log(Erro)
+        NotificationErro("Erro", "Ocorreu um problema, tente novamente")
+        setLoadingAction(false)
+    }
 
 
     const FillCopyes = (UserCopy) => {
@@ -216,33 +225,20 @@ const UsuarioModal = (props) => {
                 setUser({ ...EditedUser })
 
                 if (!EditedUser.docID) {
-                    // console.log("Atualizando User SEM DOCID")
                     FIREBASE_GetUserDocIDById(EditedUser.id).then((docID) => {
-                        // console.log("PEGUEI O DOCID", docID)
                         EditedUser.docID = docID
                         EditUser(EditedUser).then(() => {
                             FillCopyes(EditedUser)
                             NotificationSucesso('Alteração', 'Alterações salvas com sucesso!')
                             setLoadingAction(false)
-                        }).catch((erro) => {
-                            // console.log(erro)
-                            NotificationErro("Erro", "Ocorreu um problema, tente novamente")
-                            setLoadingAction(false)
-                        })
-                    }).catch(() => {
-                        setLoadingAction(false)
-                    })
+                        }).catch(HandleError)
+                    }).catch(HandleError)
                 } else {
-                    // console.log("Atualizando User com DOCID")
                     EditUser(EditedUser).then(() => {
                         FillCopyes(EditedUser)
                         NotificationSucesso('Alteração', 'Alterações salvas com sucesso!')
                         setLoadingAction(false)
-                    }).catch((erro) => {
-                        // console.log(erro)
-                        NotificationErro("Erro", "Ocorreu um problema, tente novamente")
-                        setLoadingAction(false)
-                    })
+                    }).catch(HandleError)
                 }
 
                 EndConfirming()
@@ -269,11 +265,7 @@ const UsuarioModal = (props) => {
 
             unsubscribe()
             setTimeout(() => {
-                FIREBASE_LogouyAuth().then(() => {
-                    // console.log("LOGOUT")
-                }).catch(() => {
-                    // console.log("ERRO LOGOUT")
-                })
+                FIREBASE_LogouyAuth()
             }, 5000);
 
             RegisterUser(NewUser.Email).then(() => {
@@ -285,14 +277,8 @@ const UsuarioModal = (props) => {
                     props.onHide()
                     NotificationSucesso('Adição', 'Usuário Adicionado com Sucesso!')
                     EndConfirming()
-                }).catch(() => {
-                    setLoadingAction(false)
-                    NotificationErro("Erro", "Ocorreu um problema, tente novamente")
-                })
-            }).catch((erro) => {
-                // console.log(erro)
-                NotificationErro("Erro", "Ocorreu um problema, tente novamente")
-            })
+                }).catch(HandleError)
+            }).catch(HandleError)
 
 
         } else if (ConfirmAction === 'Delete') {
@@ -300,16 +286,11 @@ const UsuarioModal = (props) => {
             EndConfirming()
             props.onDelete()
 
-
-
             DeleteUser(UserToDelete).then(() => {
                 setLoadingAction(false)
                 ReturnAllAtivosOfUserWithId(UserToDelete.id)
                 NotificationSucesso('Exclusão', 'Usuário Deletado com Sucesso!')
-            }).catch(() => {
-                setLoadingAction(false)
-                NotificationErro("Erro", "Ocorreu um problema, tente novamente")
-            })
+            }).catch(HandleError)
         }
     }
 
@@ -388,12 +369,10 @@ const UsuarioModal = (props) => {
                     }, 4000);
                 }).catch((error) => {
                     setLoadingAction(false)
-                    let SenhaFraca = error.code.includes("password");
-                    if (SenhaFraca)
+                    if (error.code.includes("password"))
                         NotificationAlerta("Erro", 'A senha deve ter pelo menos 6 caracteres')
                 })
             }).catch((erro) => {
-                // console.log(erro)
                 NotificationErro("Erro", 'Senha Atual incorreta')
                 setLoadingAction(false)
             })
@@ -422,20 +401,18 @@ const UsuarioModal = (props) => {
     const [ShowPhotoModal, setShowPhotoModal] = useState(false)
 
     const handleShowPhotoModal = () => {
-        if (PermitToEditUsers) {
+        if (PermitToEditUsers)
             setShowPhotoModal(true)
-        } else {
+        else
             NotificationAlerta("Ação negada", "Você não possui permissão para editar usuários")
-        }
+
     }
 
 
     const onChangePhoto = (url) => {
         setProfileImageUrl(url)
         setCopyUserUrlImage(url)
-        setTimeout(() => {
-            setProfileImageUrl(url)
-        }, 4000);
+        setTimeout(() => { setProfileImageUrl(url) }, 4000);
         setShowPhotoModal(false)
     }
 
@@ -453,6 +430,9 @@ const UsuarioModal = (props) => {
         setIsEdited(true)
 
     }
+
+
+    const IsActive = (tab) => tab === Tab
 
     return (
 
@@ -477,11 +457,12 @@ const UsuarioModal = (props) => {
                             <div className='UserModalHeader-Right'>
                                 <div className='UserModalHeader-Right-Name'>
 
-                                    {props.Function === 'Add' && <span>
-                                        {(props.Function === 'Add' && (!CopyUserName)) ? 'Nome ' : CopyUserName}
-                                        {(props.Function === 'Add' && (!CopyUserLastName)) ? ' Sobrenome' : ' ' + CopyUserLastName}
-                                    </span>
-                                    }
+                                    <Show Show={props.Function === 'Add'}>
+                                        <span>
+                                            {(props.Function === 'Add' && (!CopyUserName)) ? 'Nome ' : CopyUserName}
+                                            {(props.Function === 'Add' && (!CopyUserLastName)) ? ' Sobrenome' : ' ' + CopyUserLastName}
+                                        </span>
+                                    </Show>
 
                                     {(props.Function !== 'Add') ? User?.Name + ' ' + User?.LastName : ''}
                                     <UilTimes className='UserModalHeader-Right-Close' onClick={props.onHide} />
@@ -498,28 +479,38 @@ const UsuarioModal = (props) => {
 
                         </div>
 
-                        {!LoadingAction &&
+
+                        <Show Show={!LoadingAction} Width='100%'>
                             <div className='UserModalBody'>
-                                <div className='UserModalBody-Sidebar'>
-                                    <div className={Tab === 'UserInfo' ? 'UserModalBody-Sidebar-ActiveItem' : 'UserModalBody-Sidebar-Item'} onClick={e => setTab('UserInfo')}>
+                                <Stack className='UserModalBody-Sidebar' Gap={'.5rem'}>
+
+                                    <SidebarItem Active={IsActive('UserInfo')}
+                                        onClick={e => setTab('UserInfo')}>
                                         <UilUserCircle />
                                         Informações Pessoais
-                                    </div>
+                                    </SidebarItem>
 
-                                    {props.Function !== 'Add' &&
-                                        <div className={Tab === 'Ativos' ? 'UserModalBody-Sidebar-ActiveItem' : 'UserModalBody-Sidebar-Item'} onClick={e => setTab('Ativos')}>
+                                    <Show Show={props.Function !== 'Add'}>
+                                        <SidebarItem Active={IsActive('Ativos')}
+                                            onClick={e => setTab('Ativos')}>
                                             <UilClipboardNotes />
                                             Ativos
-                                        </div>
-                                    }
-                                    {props.Function !== 'Add' &&
-                                        <div className={Tab === 'Atividade' ? 'UserModalBody-Sidebar-ActiveItem' : 'UserModalBody-Sidebar-Item'} onClick={e => setTab('Atividade')}>
+                                        </SidebarItem>
+                                    </Show>
+
+                                    <Show Show={props.Function !== 'Add'}>
+                                        <SidebarItem Active={IsActive('Atividade')}
+                                            onClick={e => setTab('Atividade')}>
                                             <UilHistory />
                                             Atividade
-                                        </div>
-                                    }
-                                </div>
-                                {!Confirm &&
+                                        </SidebarItem>
+                                    </Show>
+
+                                </Stack>
+
+
+
+                                <Show Show={!Confirm} Width='100%'>
                                     <div className='UserModalBody-UserInfo'>
                                         {Tab === 'UserInfo' && <div className='UserModalBody-UserInfoForm'>
                                             <form onSubmit={GetUserSubmit}>
@@ -533,8 +524,20 @@ const UsuarioModal = (props) => {
                                                             <UilEnvelope />
                                                             Email
                                                         </FormGroupLabel>
-                                                        {props.Function === 'Add' && <input className='UserModalBody-UserInfoForm-Group-Input' value={CopyUserEmail} type="text" placeholder='Digite o Email' onChange={e => HandleChangeInfo('Email', e.target.value)} />}
-                                                        {props.Function !== 'Add' && <input className='UserModalBody-UserInfoForm-Group-Input' value={User?.Email} type="text" placeholder='Digite o Email' />}
+                                                        <Show Show={props.Function === 'Add'}>
+                                                            <FormInput
+                                                                value={CopyUserEmail}
+                                                                placeholder='Digite o Email'
+                                                                onChange={e => HandleChangeInfo('Email', e.target.value)}
+                                                            />
+                                                        </Show>
+
+                                                        <Show Show={props.Function !== 'Add'}>
+                                                            <FormInput
+                                                                value={User?.Email}
+                                                                placeholder='Digite o Email'
+                                                            />
+                                                        </Show>
                                                     </FormGroup>
                                                 </div>
 
@@ -545,14 +548,23 @@ const UsuarioModal = (props) => {
                                                             <UilPen />
                                                             Nome
                                                         </FormGroupLabel>
-                                                        <input className='UserModalBody-UserInfoForm-Group-Input' placeholder='Digite o Nome' disabled={!CanEdit} value={CopyUserName} type="text" onChange={e => HandleChangeInfo('Name', e.target.value)} />
+                                                        <FormInput
+                                                            placeholder='Digite o Nome'
+                                                            disabled={!CanEdit}
+                                                            value={CopyUserName}
+                                                            onChange={e => HandleChangeInfo('Name', e.target.value)}
+                                                        />
                                                     </FormGroup>
                                                     <FormGroup>
                                                         <FormGroupLabel>
                                                             <UilPen />
                                                             Sobrenome
                                                         </FormGroupLabel>
-                                                        <input className='UserModalBody-UserInfoForm-Group-Input' placeholder=' Digite o Sobrenome' disabled={!CanEdit} value={CopyUserLastName} type="text" onChange={e => HandleChangeInfo('LastName', e.target.value)} />
+                                                        <FormInput
+                                                            placeholder=' Digite o Sobrenome'
+                                                            disabled={!CanEdit} value={CopyUserLastName}
+                                                            onChange={e => HandleChangeInfo('LastName', e.target.value)}
+                                                        />
                                                     </FormGroup>
                                                 </TwoColumns>
 
@@ -590,6 +602,7 @@ const UsuarioModal = (props) => {
                                                         </FormGroupLabel>
                                                         <Select
                                                             className='UserModalBody-UserInfoForm-LocationSelect'
+
                                                             placeholder="Selecione o País"
                                                             noOptionsMessage={noOptionsMessage}
                                                             options={Country.getAllCountries()}
@@ -612,6 +625,7 @@ const UsuarioModal = (props) => {
                                                         </FormGroupLabel>
                                                         <Select
                                                             className='UserModalBody-UserInfoForm-LocationSelect'
+
                                                             placeholder="Selecione o Estado"
                                                             noOptionsMessage={noOptionsMessage}
                                                             options={State?.getStatesOfCountry(CopyUserCountry?.isoCode)}
@@ -634,6 +648,7 @@ const UsuarioModal = (props) => {
                                                         </FormGroupLabel>
                                                         <Select
                                                             className='UserModalBody-UserInfoForm-LocationSelect'
+
                                                             placeholder="Selecione a Cidade"
                                                             noOptionsMessage={noOptionsMessage}
                                                             options={City.getCitiesOfState(CopyUserEstate?.countryCode, CopyUserEstate?.isoCode)}
@@ -655,43 +670,50 @@ const UsuarioModal = (props) => {
 
 
 
+                                                <Show Show={IsCurrentUser}>
 
-                                                {IsCurrentUser && <div className='UserModalBody-UserInfoForm-SectionTitle'></div>}
-                                                {IsCurrentUser && <h4 className='UserModalBody-UserInfoForm-SectionTitle'>Trocar de Senha</h4>}
-                                                {IsCurrentUser &&
+                                                    <h4 className='UserModalBody-UserInfoForm-SectionTitle'>Trocar de Senha</h4>
+
                                                     <TwoColumns>
                                                         <FormGroup>
                                                             <FormGroupLabel>
                                                                 <UilKeySkeleton />
                                                                 Senha Atual
                                                             </FormGroupLabel>
-                                                            <input className='UserModalBody-UserInfoForm-Group-Input' placeholder='Digite sua Senha' ref={SenhaAtual} type="password" />
+                                                            <input
+                                                                className='UserModalBody-UserInfoForm-Group-Input'
+                                                                placeholder='Digite sua Senha'
+                                                                ref={SenhaAtual}
+                                                                type="password"
+                                                            />
                                                         </FormGroup>
                                                         <FormGroup>
                                                             <FormGroupLabel>
                                                                 <UilKeySkeleton />
                                                                 Nova Senha
                                                             </FormGroupLabel>
-                                                            <input className='UserModalBody-UserInfoForm-Group-Input' placeholder='Digite a nova Senha' ref={NovaSenha} type="password" />
+                                                            <input
+                                                                className='UserModalBody-UserInfoForm-Group-Input'
+                                                                placeholder='Digite a nova Senha'
+                                                                ref={NovaSenha}
+                                                                type="password"
+                                                            />
                                                         </FormGroup>
                                                     </TwoColumns>
-                                                }
 
-                                                {IsCurrentUser &&
                                                     <div className='UserModalBody-UserInfoForm-Button'>
                                                         <button onClick={UpdatePassword}>
                                                             <UilPen />
                                                             Atualizar
                                                         </button>
                                                     </div>
-                                                }
+                                                </Show>
+
 
 
 
 
                                                 <h4 className='UserModalBody-UserInfoForm-SectionTitle'>Na Empresa</h4>
-
-
 
                                                 <TwoColumns>
                                                     <div className='UserModalBody-UserInfoForm-Group'>
@@ -737,7 +759,6 @@ const UsuarioModal = (props) => {
                                                     <h4 className='UserModalBody-AtivoInfoForm-SectionTitle'>Campos Personalizados</h4>
                                                 </Show>
 
-
                                                 <TwoColumns>
                                                     {UserTypeCustomFields?.map((CustomField, CustomFieldIndex) => {
                                                         return <FormGroup>
@@ -745,9 +766,7 @@ const UsuarioModal = (props) => {
                                                                 <UilAsterisk />
                                                                 {CustomField.Value}
                                                             </FormGroupLabel>
-                                                            <input
-                                                                type="text"
-                                                                className='UserModalBody-AtivoInfoForm-Group-Input'
+                                                            <FormInput                                                                
                                                                 value={CopyCustomFieldsValues?.find(CF => CF.id === CustomField.id)?.Value || ''}
                                                                 disabled={!CanEdit}
                                                                 onChange={e => {
@@ -763,66 +782,70 @@ const UsuarioModal = (props) => {
                                             </form>
 
                                             <div className='UserModalBody-UserInfoForm-Button'>
-                                                {!IsEdited && !IsCurrentUser && PermitToDeleteUsers && (props.Function !== 'Add') &&
+
+                                                <Show Show={!IsEdited && !IsCurrentUser && PermitToDeleteUsers && (props.Function !== 'Add')}>
                                                     <button className='UserModalBody-UserInfoForm-Button-Delete' onClick={e => InitConfirm('Delete')}>
                                                         <UilTrash />
                                                         Excluir Usuário
                                                     </button>
-                                                }
-                                                {IsEdited &&
-                                                    <>
-                                                        {false &&
-                                                            <button onClick={CancelEditions}>
-                                                                <UilTimes />
-                                                                {props.Function === 'Add' ? 'Limpar Campos' : 'Cancelar'}
-                                                            </button>
-                                                        }
+                                                </Show>
 
-                                                        {props.Function === 'Add' &&
-                                                            <button onClick={e => InitConfirm('Add')}>
-                                                                <UilSave />
-                                                                Adicionar
-                                                            </button>
-                                                        }
+                                                <Show Show={IsEdited}>
+                                                    <Show Show={false}>
+                                                        <button onClick={CancelEditions}>
+                                                            <UilTimes />
+                                                            {props.Function === 'Add' ? 'Limpar Campos' : 'Cancelar'}
+                                                        </button>
+                                                    </Show>
 
-                                                        {props.Function !== 'Add' &&
-                                                            <button onClick={e => InitConfirm('Edit')}>
-                                                                <UilSave />
-                                                                Salvar
-                                                            </button>
-                                                        }
+                                                    <Show Show={props.Function === 'Add'}>
+                                                        <button onClick={e => InitConfirm('Add')}>
+                                                            <UilSave />
+                                                            Adicionar
+                                                        </button>
+                                                    </Show>
+
+                                                    <Show Show={props.Function !== 'Add'}>
+                                                        <button onClick={e => InitConfirm('Edit')}>
+                                                            <UilSave />
+                                                            Salvar
+                                                        </button>
+                                                    </Show>
+                                                </Show>
 
 
-                                                    </>
-
-                                                }
                                             </div>
                                         </div>}
 
 
                                         {Tab === 'Ativos' && <UserAtivoRecords FromModal={props.FromModal} User={User} />}
                                     </div>
-                                }
+                                </Show>
 
-                                {Confirm && <div className='UserModalBody-UserInfo'>
-                                    <h4 className='UserModalBody-UserInfoForm-ConfirMessage'>{ConfirmMessage}</h4>
-                                    <div className='UserModalBody-UserInfoForm-Button'>
-                                        <button className='UserModalBody-UserInfoForm-Button-Secondary' onClick={e => { EndConfirming(); setIsEdited(true); }}>
-                                            <UilBackward />
-                                            {ConfirmBtBack}
-                                        </button>
-                                        <button onClick={Submit}>
-                                            <UilCheck />
-                                            {ConfirmBtAction}
-                                        </button>
+
+                                <Show Show={Confirm} Width='100%'>
+                                    <div className='UserModalBody-UserInfo'>
+                                        <h4 className='UserModalBody-UserInfoForm-ConfirMessage'>{ConfirmMessage}</h4>
+                                        <div className='UserModalBody-UserInfoForm-Button'>
+                                            <button className='UserModalBody-UserInfoForm-Button-Secondary' onClick={e => { EndConfirming(); setIsEdited(true); }}>
+                                                <UilBackward />
+                                                {ConfirmBtBack}
+                                            </button>
+                                            <button onClick={Submit}>
+                                                <UilCheck />
+                                                {ConfirmBtAction}
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                                }
+                                </Show>
 
                             </div>
-                        }
+                        </Show>
 
-                        {LoadingAction && <Loading />}
+                        <Show Show={LoadingAction} Width='100%'>
+                            <Loading />
+                        </Show>
+
                     </div>
 
 

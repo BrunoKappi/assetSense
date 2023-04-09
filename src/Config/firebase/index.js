@@ -15,6 +15,7 @@ const firebaseConfig = {
   measurementId: "G-2ZY0BXZYH6"
 };
  
+
 /*
 // BANCO TESTE
 const firebaseConfig = {

@@ -25,6 +25,8 @@ import FormGroupLabel from '../../LayoutComponents/FormGroupLabel/FormGroupLabel
 import Stack from '../../LayoutComponents/Stack/Stack';
 import SidebarItem from '../../LayoutComponents/SidebarItem/SidebarItem';
 import Show from '../../LayoutComponents/Show/Show';
+import FormInput from '../../LayoutComponents/FormInput/FormInput';
+
 
 
 const AtivoModal = (props) => {
@@ -58,7 +60,7 @@ const AtivoModal = (props) => {
     const [ConfirmMessage, SetConfirmMessage] = useState('')
     const [ConfirmBtAction, SetConfirmBtAction] = useState('')
     const [ConfirmBtBack, SetConfirmBtBack] = useState('')
-
+    const [ShowPhotoModal, setShowPhotoModal] = useState(false)
 
 
 
@@ -113,7 +115,6 @@ const AtivoModal = (props) => {
             setCopyAtivoCustomFieldsValues(AtivoCopy?.CustomFieldsValues)
         else
             setCopyAtivoCustomFieldsValues([])
-
 
     }
 
@@ -246,10 +247,13 @@ const AtivoModal = (props) => {
     }, [AtivoType])
 
 
-
-    const GetAtivoSubmit = (e) => {
-        e.preventDefault()
+    // HANDLE ERROR
+    const HandleError = (Erro) => {
+        console.log(Erro)
+        NotificationErro("Erro", "Ocorreu um problema, tente novamente")
+        setLoadingAction(false)
     }
+
 
 
     const InitConfirm = (Action) => {
@@ -336,9 +340,7 @@ const AtivoModal = (props) => {
                     setLoadingAction(false)
                     FillCopyes(EditedAtivo)
                     NotificationSucesso('Alteração', 'Alterações salvas com sucesso!')
-                }).catch(() => {
-                    setLoadingAction(false)
-                })
+                }).catch(HandleError)
 
                 EndConfirming()
 
@@ -364,10 +366,8 @@ const AtivoModal = (props) => {
             NewAtivo.Deleted = false
             NewAtivo.StorageLocation = CopyAtivoLocalArmazenamento
 
-
-
             setAtivo({ ...NewAtivo })
-            //COMENTADO  console.log(NewAtivo)
+
             AddAtivo(NewAtivo).then((AddedRecordDoc) => {
                 NewAtivo.docID = AddedRecordDoc?.id
                 setLoadingAction(false)
@@ -375,10 +375,7 @@ const AtivoModal = (props) => {
                 CancelEditions()
                 props.onHide()
                 NotificationSucesso('Adição', 'Ativo Adicionado com Sucesso!')
-            }).catch((erro) => {
-                setLoadingAction(false)
-                //COMENTADO  console.log(erro)
-            })
+            }).catch(HandleError)
             EndConfirming()
         } else if (ConfirmAction === 'Delete') {
             setLoadingAction(false)
@@ -390,22 +387,17 @@ const AtivoModal = (props) => {
                 ReturnAllRecordOfAtivowithId(AtivoToDelete.id)
                 NotificationSucesso('Exclusão', 'Ativo Deletado com Sucesso!')
 
-            }).catch(() => {
-                setLoadingAction(false)
-            })
+            }).catch(HandleError)
         }
     }
 
     const EndConfirming = () => {
-
         SetConfirm(false)
         SetConfirmMessage('')
         SetConfirmBtAction('')
         SetConfirmBtBack('')
         SetConfirmAction('')
     }
-
-
 
 
 
@@ -419,7 +411,6 @@ const AtivoModal = (props) => {
     }
 
 
-    const [ShowPhotoModal, setShowPhotoModal] = useState(false)
 
     const handleShowPhotoModal = () => {
         setShowPhotoModal(true)
@@ -427,17 +418,13 @@ const AtivoModal = (props) => {
 
 
     const handleChangeCustomField = (TypedValue, Index, CustomFieldId) => {
-
         const NewAtivoCustomFieldsValues = [...CopyAtivoCustomFieldsValues]
-
         NewAtivoCustomFieldsValues[Index] = {
             id: CustomFieldId,
             Value: TypedValue
         }
         setCopyAtivoCustomFieldsValues([...NewAtivoCustomFieldsValues])
-
         setIsEdited(true)
-
     }
 
     return (
@@ -535,7 +522,11 @@ const AtivoModal = (props) => {
                                                             <UilWrench />
                                                             Item
                                                         </FormGroupLabel>
-                                                        <input className='AtivoModalBody-AtivoInfoForm-Group-Input' value={CopyAtivoName} type="text" placeholder='Digite o Item' onChange={e => HandleChangeInfo('Item', e.target.value)} />
+                                                        <FormInput
+                                                            placeholder='Digite o Item'
+                                                            value={CopyAtivoName}
+                                                            onChange={e => HandleChangeInfo('Item', e.target.value)}
+                                                        />
                                                     </FormGroup>
 
 
@@ -545,14 +536,26 @@ const AtivoModal = (props) => {
                                                                 <UilBuilding />
                                                                 Marca
                                                             </FormGroupLabel>
-                                                            <input className='AtivoModalBody-AtivoInfoForm-Group-Input' placeholder='Opcional' disabled={!CanEdit} value={CopyAtivoBrand} type="text" onChange={e => HandleChangeInfo('Marca', e.target.value)} />
+                                                            <FormInput
+                                                                placeholder='Opcional'
+                                                                disabled={!CanEdit}
+                                                                value={CopyAtivoBrand}
+                                                                onChange={e => HandleChangeInfo('Marca', e.target.value)}
+                                                            />
                                                         </FormGroup>
                                                         <FormGroup>
                                                             <FormGroupLabel>
                                                                 <UilCircleLayer />
                                                                 Quantidade
                                                             </FormGroupLabel>
-                                                            <input className='AtivoModalBody-AtivoInfoForm-Group-Input' placeholder='Digite a Quantidade' min='1' disabled={!CanEdit} value={CopyAtivoQtd} type="number" onChange={e => HandleChangeInfo('Quantidade', e.target.value)} />
+                                                            <FormInput
+                                                                placeholder='Digite a Quantidade'
+                                                                min='1'
+                                                                disabled={!CanEdit}
+                                                                value={CopyAtivoQtd}
+                                                                type="number"
+                                                                onChange={e => HandleChangeInfo('Quantidade', e.target.value)}
+                                                            />
                                                         </FormGroup>
                                                     </TwoColumns>
 
@@ -562,7 +565,11 @@ const AtivoModal = (props) => {
                                                             <UilCommentAltChartLines />
                                                             Descrição
                                                         </FormGroupLabel>
-                                                        <input className='AtivoModalBody-AtivoInfoForm-Group-Input' value={CopyAtivoDescription} type="text" placeholder='Opcional' onChange={e => HandleChangeInfo('Descricao', e.target.value)} />
+                                                        <FormInput
+                                                            value={CopyAtivoDescription}
+                                                            placeholder='Opcional'
+                                                            onChange={e => HandleChangeInfo('Descricao', e.target.value)}
+                                                        />
                                                     </FormGroup>
 
 
@@ -573,14 +580,26 @@ const AtivoModal = (props) => {
                                                                 <UilCog />
                                                                 Fabricante
                                                             </FormGroupLabel>
-                                                            <input className='AtivoModalBody-AtivoInfoForm-Group-Input' placeholder='Opcional' disabled={!CanEdit} value={CopyAtivoManufacturer} type="text" onChange={e => HandleChangeInfo('Fabricante', e.target.value)} />
+                                                            <FormInput
+                                                                placeholder='Opcional'
+                                                                disabled={!CanEdit}
+                                                                value={CopyAtivoManufacturer}
+                                                                onChange={e => HandleChangeInfo('Fabricante', e.target.value)}
+                                                            />
+
                                                         </FormGroup>
                                                         <FormGroup>
                                                             <FormGroupLabel>
                                                                 <UilLabelAlt />
                                                                 Modelo
                                                             </FormGroupLabel>
-                                                            <input className='AtivoModalBody-AtivoInfoForm-Group-Input' placeholder='Opcional' min='1' disabled={!CanEdit} value={CopyAtivoModel} type="text" onChange={e => HandleChangeInfo('Modelo', e.target.value)} />
+                                                            <FormInput
+                                                                placeholder='Opcional'
+                                                                min='1' disabled={!CanEdit}
+                                                                value={CopyAtivoModel}
+                                                                onChange={e => HandleChangeInfo('Modelo', e.target.value)}
+                                                            />
+
                                                         </FormGroup>
                                                     </TwoColumns>
 
@@ -631,7 +650,13 @@ const AtivoModal = (props) => {
                                                                 <UilUsersAlt />
                                                                 Retiradas Simultâneas por Usuário
                                                             </FormGroupLabel>
-                                                            <input className='AtivoModalBody-AtivoInfoForm-Group-Input' value={CopyAtivoQtdPerUser} type="number" min={1} placeholder='Quantidade de Retiradas simultâneas por usuário' onChange={e => HandleChangeInfo('QuantidadePorUsuario', e.target.value)} />
+                                                            <FormInput
+                                                                value={CopyAtivoQtdPerUser}
+                                                                type="number"
+                                                                min={1}
+                                                                placeholder='Quantidade de Retiradas simultâneas por usuário'
+                                                                onChange={e => HandleChangeInfo('QuantidadePorUsuario', e.target.value)}
+                                                            />
 
                                                         </FormGroup>
                                                         <FormGroup>
@@ -639,7 +664,8 @@ const AtivoModal = (props) => {
                                                                 <UilPostcard />
                                                                 Número de Série
                                                             </FormGroupLabel>
-                                                            <input className='AtivoModalBody-AtivoInfoForm-Group-Input' placeholder='Opcional' min='1' disabled={!CanEdit} value={CopyAtivoSerialNumber} type="text" onChange={e => HandleChangeInfo('NumeroSerie', e.target.value)} />
+                                                            <FormInput placeholder='Opcional' min='1' disabled={!CanEdit} value={CopyAtivoSerialNumber} type="text" onChange={e => HandleChangeInfo('NumeroSerie', e.target.value)} />
+
                                                         </FormGroup>
                                                     </TwoColumns>
 
@@ -657,7 +683,7 @@ const AtivoModal = (props) => {
                                                                     <UilAsterisk />
                                                                     {CustomField.Value}
                                                                 </FormGroupLabel>
-                                                                <input
+                                                                <FormInput
                                                                     type="text"
                                                                     className='AtivoModalBody-AtivoInfoForm-Group-Input'
                                                                     value={CopyAtivoCustomFieldsValues?.find(CF => CF.id === CustomField.id)?.Value || ''}
@@ -667,6 +693,7 @@ const AtivoModal = (props) => {
                                                                         handleChangeCustomField(e.target.value, CustomFieldIndex, CustomField.id)
                                                                     }}
                                                                 />
+
                                                             </FormGroup>
                                                         })}
 

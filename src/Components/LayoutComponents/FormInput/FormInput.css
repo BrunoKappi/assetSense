@@ -1,0 +1,36 @@
+.FormInputClaro {
+    --AtivoModal-IconeELabe-Input: var(--ComplementaryColor);
+    --AtivoModal-Borda-Input: var(--PrimaryBackGroundFaded50);
+    --AtivoModal-Color-Input: var(--SecondaryBackground);
+    --AtivoModal-Background-Input: transparent;
+}
+
+
+.FormInputEscuro {
+    --AtivoModal-IconeELabe-Input: var(--ComplementaryColor);
+    --AtivoModal-Borda-Input: var(--PrimaryBackGroundFaded50);
+    --AtivoModal-Color-Input: white;
+    --AtivoModal-Background-Input: transparent;
+}
+
+
+
+
+.FormInput {
+    border-radius: .5rem;
+    outline: none;
+    border: 1px solid var(--AtivoModal-Borda-Input);
+    padding: .5rem .8rem;
+    color: var(--AtivoModal-Color-Input);
+    font-family: var(--Fonte);
+    font-size: .9rem;
+    background-color: var(--AtivoModal-Background-Input);
+    width: 100% !important;
+}
+
+@media (max-width: 1000px) {
+    .FormInput {
+        font-size: .8rem;
+    }
+
+}

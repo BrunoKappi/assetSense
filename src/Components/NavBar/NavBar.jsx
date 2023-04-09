@@ -173,7 +173,7 @@ const NavBar = (props) => {
                                     </div>
 
                                     <ul className='NavBarListSidebar'>
-                                        <span to="/App/Dash" className={GetNavbarSidebarItemClass('Dash', GetCurrentCurrentSidebarTabFromStore())} onClick={e => SetTabNavBar('Dash', 'App/')}>
+                                        <span to="/App/Dash" className={GetNavbarSidebarItemClass('Dash', GetCurrentCurrentSidebarTabFromStore())} onClick={e => SetTabNavBar('Dash', '/App/Dash')}>
                                             <UilChartPieAlt />
                                             <span>Dashboard</span>
                                         </span>
