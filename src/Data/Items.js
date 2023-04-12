@@ -102,6 +102,7 @@ export const DefaultTipoDeUso = {
 
 
 export const DefaultAtivo = {
+    PhotoUrl : '',
     LastEditedAt: moment().valueOf(),
     CreatedBy: '',
     CreatedAt: moment().valueOf(),
@@ -169,6 +170,7 @@ export const DefaultRecord = {
 // DEFAULT USER 
 export const DefaultUser =
 {
+    PhotoUrl : '',
     LastEditedAt: moment().valueOf(),
     CreatedBy: '',
     CreatedAt: moment().valueOf(),
@@ -190,7 +192,7 @@ export const DefaultUser =
     City: { name: '' },
     Country: { name: '' },
     AccessToken: '',
-    Name: 'F',
+    Name: '',
     LastName: '',
     Email: '',
     DateJoinedCompany: 0,

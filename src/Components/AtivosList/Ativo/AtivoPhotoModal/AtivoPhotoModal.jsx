@@ -3,98 +3,79 @@ import './AtivoPhotoModal.css'
 import Modal from 'react-bootstrap/Modal';
 import { connect } from 'react-redux'
 import UserPhoto from '../../../../assets/Images/SerranoLogoFuncoBranco.jpg'
-import { UilCameraPlus, UilTimes, UilTrashAlt, UilCheck, UilBackward, UilPen } from '@iconscout/react-unicons'
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
+import { UilTimes, UilTrashAlt, UilCheck, UilBackward, UilPen } from '@iconscout/react-unicons'
 import { DeleteFile, GetUserUrlImage, ImageUpload, SetAtivoPhotoUrl } from '../../../../Functions/Middleware';
 import LoadingSpiner from '../../../LoadingForTabs/Loading'
-import { connectStorageEmulator } from 'firebase/storage';
 import { v4 } from 'uuid';
-
 
 const AtivoPhotoModal = (props) => {
 
-    const fileInputRef = useRef(null);
-    const [imageUpload, setImageUpload] = useState(null);
+    // REFS
+    const fileInputRef = useRef(null)
+
+    //ESTATES
     const [Loading, setLoading] = useState(false);
+    const [imageUpload, setImageUpload] = useState(null);
     const [ImageToShowUser, setImageToShowUser] = useState(props?.Ativo?.PhotoUrl);
 
+
+    // WHEN THERE IS ATIVO, GET ITS PHOTO URL
     useEffect(() => {
-        //console.log(props?.Ativo?.PhotoUrl)
         setImageToShowUser(props?.Ativo?.PhotoUrl)
     }, [props.Ativo])
 
 
+    // HANDLE ERROR
+    const HandleError = (Erro) => {
+        console.log(Erro)
+        setLoading(false)
+        NotificationErro("Erro", "Aconteceu um problema, tente novamente mais tarde")
+    }
+
+    // UPLOAD FILE TO FIREBASE
     const UploadFile = () => {
         if (imageUpload == null) return;
         setLoading(true)
 
-
         var path
         const IdToUseToAdd = v4()
 
-
         if (props.Add) {
             path = `images/${IdToUseToAdd}`
-            console.log("ADD PATH", path)
         } else {
             path = `images/${props.Ativo.id}`
         }
-
-
-
-
-
 
         ImageUpload(path, imageUpload, props.LoggedUser.Email).then(() => {
             NotificationSucesso("Foto do Ativo Atualizada!")
             setImageUpload('')
             GetUserUrlImage(path).then((url) => {
-
-                if (props.Add) {
-                    console.log("Adicionando novo")
-                    props.OnChange(url, IdToUseToAdd)
-                } else {
-                    props.OnChange(url, IdToUseToAdd)
-                }
-
+                props.OnChange(url, IdToUseToAdd)
                 setTimeout(() => {
                     setLoading(false)
                     setImageToShowUser(url)
                     props.OnChange(url, IdToUseToAdd)
                 }, 1500);
-                SetAtivoPhotoUrl(url, props.Ativo.id) 
+                SetAtivoPhotoUrl(url, props.Ativo.id)
             })
-        }).catch((erro) => {
-            console.log(erro)
-            setLoading(false)
-            NotificationErro("Erro", "Aconteceu um problema, tente novamente mais tarde")
-        })
+        }).catch(HandleError)
     }
 
-
+    // DELETE PHOTO
     const ApagarFotoDoAtivo = () => {
-
-
-   
         setLoading(true)
         DeleteFile(`images/${props.Ativo.id}`).then(() => {
             SetAtivoPhotoUrl('', props.Ativo.id)
             NotificationSucesso("Exlusão", "Foto apagada com sucesso!")
             setLoading(false)
             props.OnChange('')
-        }).catch((error) => {
-            console.log(error)
-            setLoading(false)
-            NotificationErro("Erro", "Aconteceu um problema, tente novamente mais tarde")
-        })
-
+        }).catch(HandleError)
     }
 
-
+    // GET UPLOADED FILE
     const handleChangePicture = (e) => {
-
-        const imageFile = e.target.files[0];
-
+        const imageFile = e.target.files[0]
         if (imageFile.type.includes("image") && imageFile.size <= 10148205) {
             const reader = new FileReader();
             reader.onload = () => {
@@ -109,9 +90,6 @@ const AtivoPhotoModal = (props) => {
 
     }
 
-
-
-
     const handleButtonClick = () => {
         if (!imageUpload)
             fileInputRef.current.click()
@@ -119,14 +97,12 @@ const AtivoPhotoModal = (props) => {
             UploadFile()
     }
 
+    // CANCEL 
     const Cancel = () => {
         setImageUpload('')
         setImageToShowUser('')
         fileInputRef.current.value = ''
     }
-
-    <img src={imageUpload} alt="Ativo" />
-
 
 
     return (
@@ -137,9 +113,7 @@ const AtivoPhotoModal = (props) => {
                 <UilTimes className='AtivoPhotoModalHeader-Right-Close' onClick={props.onHide} />
 
                 <h3 className='AtivoPhotoModal-Title'>
-                    <UilCameraPlus />
                     {props.CanEdit ? 'Atualização de Foto do Ativo' : 'Foto do Ativo'}
-
                 </h3>
 
 
@@ -151,6 +125,7 @@ const AtivoPhotoModal = (props) => {
                             </div>
 
                             {props.CanEdit &&
+
                                 <div className='AtivoPhotoModal-OptionsColumn'>
                                     <button className={'AtivoPhotoModal-ChangePhotoButton ' + (imageUpload ? ' AtivoPhotoModal-ChangePhotoButton-Ready' : '')} onClick={handleButtonClick}>
                                         {imageUpload ? <UilCheck /> : <UilPen />}
@@ -164,8 +139,10 @@ const AtivoPhotoModal = (props) => {
                                     {imageUpload && <button className='AtivoPhotoModal-CancelChangePhoto' onClick={Cancel}>
                                         <UilBackward />
                                         Cancelar
-                                    </button>}
+                                    </button>} 
+
                                 </div>
+
                             }
                         </>
                     }

@@ -8,18 +8,27 @@ import { NotificationErro, NotificationSucesso } from '../../../../NotificationU
 import { DeleteFile, GetCurrentUserFromStore, GetUserUrlImage, ImageUpload, SetLoggedUserPhotoUrl, SetOtherUserPhotoUrl } from '../../../../Functions/Middleware';
 import LoadingSpiner from '../../../LoadingForTabs/Loading'
 import { v4 } from 'uuid';
+import Show from '../../../LayoutComponents/Show/Show';
 
 
 const UserPhotoModal = (props) => {
 
-
     const fileInputRef = useRef(null);
     const [imageUpload, setImageUpload] = useState(null);
     const [Uploading, setUploading] = useState(false);
-    const [CurrentUserObjet, setCurrentUserObjet] = useState(null);
     const [LastUserUrlImage, setLastUserUrlImage] = useState(null);
     const [Loading, setLoading] = useState(false);
     const [ImageToShowUser, setImageToShowUser] = useState(null);
+
+
+    // HANDLE ERROR
+    const HandleError = (Erro) => {
+        console.log(Erro)
+        setLoading(false)
+        setUploading(false)
+        NotificationErro("Erro", "Aconteceu um problema, tente novamente mais tarde")
+    }
+
 
     useEffect(() => {
         if (props.IsCurrentUser === true) {
@@ -42,19 +51,17 @@ const UserPhotoModal = (props) => {
     const UploadFile = () => {
         if (imageUpload == null) return;
         setLoading(true)
+        setUploading(true)
 
         var path
-
+        const IdToUseToAdd = v4()
 
         if (props.Add) {
-            const IdToUseToAdd = v4()
             path = `images/${IdToUseToAdd}`
-            console.log("ADD PATH", path)
         } else {
-            path = props.IsCurrentUser ? `images/${props.LoggedUser.uid}` : `images/${props.User?.id}`
+            path = `images/${props.User?.id}`
         }
 
-        setUploading(true)
         ImageUpload(path, imageUpload, props.LoggedUser.Email).then(() => {
             GetUserUrlImage(path).then((url) => {
                 setLoading(false)
@@ -63,8 +70,9 @@ const UserPhotoModal = (props) => {
                     setLastUserUrlImage(url)
                     setImageUpload('')
                     fileInputRef.current.value = ''
-                    setUploading(false)
-                    props.OnChangePhoto(url)
+                    setUploading(false) 
+                    props.OnChangePhoto(url, IdToUseToAdd)
+                    console.log("ID ENVIADO", IdToUseToAdd)
                     if (props.IsCurrentUser) {
                         SetLoggedUserPhotoUrl(url)
                     } else {
@@ -72,20 +80,16 @@ const UserPhotoModal = (props) => {
                     }
                 }, 2000)
             })
-        }).catch((erro) => {
-            //COMENTADO  console.log(erro)
-            setUploading(false)
-            setLoading(false)
-            NotificationErro("Erro", "Aconteceu um problema, tente novamente mais tarde")
-        })
+        }).catch(HandleError)
     }
 
 
     const ApagarFotoDeUsuario = () => {
         setUploading(false)
         setLoading(true)
-        const UserAtual = GetCurrentUserFromStore()
-        const path = props.IsCurrentUser ? `images/${props.LoggedUser.uid}` : `images/${props.User?.id}`
+        const path = `images/${props.User?.id}` 
+
+        console.log("APAGANDO DE ", path)
 
         DeleteFile(path).then(() => {
             setUploading(false)
@@ -97,11 +101,7 @@ const UserPhotoModal = (props) => {
             setLastUserUrlImage('')
             setLoading(false)
             props.OnChangePhoto('')
-        }).catch((error) => {
-            setLoading(false)
-            setUploading(false)
-            NotificationErro("Erro", "Aconteceu um problema, tente novamente mais tarde")
-        })
+        }).catch(HandleError)
 
     }
 
@@ -121,13 +121,13 @@ const UserPhotoModal = (props) => {
             NotificationErro("Apenas formatos de Imagens")
         else
             NotificationErro("O arquivo deve ter no máximo 10MB")
-
+ 
     }
 
 
 
 
-    const handleButtonClick = () => {
+    const handleButtonClick = () => { 
         if (!imageUpload)
             fileInputRef.current.click()
         else
@@ -140,7 +140,7 @@ const UserPhotoModal = (props) => {
         fileInputRef.current.value = ''
     }
 
-    <img src={imageUpload} alt="User" />
+
 
     const closeModal = () => {
         if (!Uploading) {
@@ -157,46 +157,49 @@ const UserPhotoModal = (props) => {
                 <UilTimes className='UserPhotoModalHeader-Right-Close' onClick={closeModal} />
 
                 <h3 className='UserPhotoModal-Title'>
-                    <UilCameraPlus />
                     Atualização de Foto de Perfil
                 </h3>
 
-                {props.Add && <h3>Add</h3>}
+                <Show Show={!Loading}>
+                    <div className='UserPhotoModal'>
+ 
+                        <div className='UserPhotoModal-ImageColumn'>
+                            <img src={ImageToShowUser || UserPhoto} alt="User" />
+                        </div>
 
 
-                <div className='UserPhotoModal'>
-                    {!Loading &&
-                        <>
-                            <div className='UserPhotoModal-ImageColumn'>
-                                <img src={ImageToShowUser || UserPhoto} alt="User" />
+                        <div className='UserPhotoModal-OptionsColumn'>
+                            <button className={'UserPhotoModal-ChangePhotoButton ' + (imageUpload ? ' UserPhotoModal-ChangePhotoButton-Ready' : '')} onClick={handleButtonClick}>
+                                {imageUpload ? <UilCheck /> : <UilPen />}
+                                {imageUpload ? 'Definir Imagem' : 'Trocar de Foto'}
+                                <input ref={fileInputRef} accept="image/apng, image/avif, image/gif, image/jpeg, image/png, image/svg+xml, image/webp" type="file" onChange={handleChangePicture} />
+                            </button>
 
-
-
-                            </div>
-
-                            <div className='UserPhotoModal-OptionsColumn'>
-                                <button className={'UserPhotoModal-ChangePhotoButton ' + (imageUpload ? ' UserPhotoModal-ChangePhotoButton-Ready' : '')} onClick={handleButtonClick}>
-                                    {imageUpload ? <UilCheck /> : <UilPen />}
-                                    {imageUpload ? 'Definir Imagem' : 'Trocar de Foto'}
-                                    <input ref={fileInputRef} accept="image/apng, image/avif, image/gif, image/jpeg, image/png, image/svg+xml, image/webp" type="file" onChange={handleChangePicture} />
-                                </button>
-                                {!imageUpload && <button onClick={ApagarFotoDeUsuario} className='UserPhotoModal-DeletePhoto'>
+                            <Show Show={!imageUpload && ImageToShowUser}>
+                                <button onClick={ApagarFotoDeUsuario} className='UserPhotoModal-DeletePhoto'>
                                     <UilTrashAlt />
                                     Remover Foto
-                                </button>}
-                                {imageUpload && <button className='UserPhotoModal-CancelChangePhoto' onClick={Cancel}>
+                                </button>
+                            </Show>
+
+                            <Show Show={imageUpload}>
+                                <button className='UserPhotoModal-CancelChangePhoto' onClick={Cancel}>
                                     <UilBackward />
                                     Cancelar
-                                </button>}
-                            </div>
-                        </>
-                    }
-                    {Loading && <LoadingSpiner />}
-                </div>
+                                </button>
+                            </Show>
+
+                        </div>
 
 
+                    </div>
+                </Show>
 
-
+                <Show Show={Loading}>
+                    <div className='UserPhotoModal'>
+                        <LoadingSpiner />
+                    </div>
+                </Show>
 
             </Modal.Body >
 

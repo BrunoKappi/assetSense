@@ -10,6 +10,7 @@ import { PermitIndexs } from '../../GlobalVars';
 import Ativo from './Ativo/Ativo';
 import { v4 } from 'uuid';
 import AtivoModal from './Ativo/AtivoModal'
+import AtivoModal2 from './Ativo/AtivoModal2'
 
 
 const AtivosList = (props) => {

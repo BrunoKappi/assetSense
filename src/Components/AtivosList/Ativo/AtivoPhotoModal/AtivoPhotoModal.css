@@ -108,7 +108,7 @@
 }
 
 
-.AtivoPhotoModal-OptionsColumn>button {
+.AtivoPhotoModal-OptionsColumn button {
     background-color: var(--PrimaryBackground);
     font-family: var(--Fonte);
     padding: .5rem 1.5rem;
@@ -124,15 +124,15 @@
     gap: .5rem;
 }
 
-.AtivoPhotoModal-OptionsColumn>button>svg {
+.AtivoPhotoModal-OptionsColumn button>svg {
     width: 1.1rem;
 }
 
-.AtivoPhotoModal-OptionsColumn>button:hover {
+.AtivoPhotoModal-OptionsColumn button:hover {
     transform: scale(1.15);
 }
 
-.AtivoPhotoModal-OptionsColumn>button:active {
+.AtivoPhotoModal-OptionsColumn button:active {
     transform: scale(1);
 }
 

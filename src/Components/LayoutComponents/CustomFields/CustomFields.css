@@ -1,0 +1,5 @@
+.CustomFields-Title {
+    font-family: var(--Fonte);
+    color: var(--ComplementaryColor);
+    margin-top: .5rem;
+}

@@ -736,6 +736,12 @@ export const GetTipoDeUsoNameWithIdFromStore = (Id) => {
     return TiposName ? TiposName : ''
 }
 
+export const GetAtivoStatusNameWithIdFromStore = (Id) => {
+    const Status = GetStatusAtivosFromStore()
+    const StatusName = Status.find(U => U.id === Id)?.Value
+    return StatusName ? StatusName : ''
+}
+
 export const GetCurrentUserSetorNameWithIdFromStore = (Id) => {
     if (!Id) return 'Selecione um Setor'
     const Setores = GetSetoresFromStore()
