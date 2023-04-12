@@ -1,0 +1,103 @@
+.ConfirmTabClaro { 
+
+
+    --ConfirmButton-Secondary-Border: var(--ComplementaryColor);
+    --ConfirmButton-Secondary-Color: var(--ComplementaryColor);
+
+    --ConfirmButton-Delete-Background: #d9534f;
+    --ConfirmButton-Delete-Border: #d9534f;
+    --ConfirmButton-Delete-Color: white;
+}
+
+
+
+.ConfirmTabEscuro {
+
+
+    --ConfirmButton-Secondary-Border: var(--ComplementaryColor);
+    --ConfirmButton-Secondary-Color: var(--ComplementaryColor);
+
+    --ConfirmButton-Delete-Background: #d9534f;
+    --ConfirmButton-Delete-Border: #d9534f;
+    --ConfirmButton-Delete-Color: white;
+
+}
+
+
+
+
+.ConfirmMessage {
+    font-family: var(--Fonte);
+    color: var(--ComplementaryColor);
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+.ConfirmButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    min-height: 2.5rem;
+    margin-top: 1.5rem;
+    gap: 1rem;
+}
+
+.ConfirmButtons button {
+    padding: .5rem 1rem;
+    font-family: var(--Fonte);
+    background-color: var(--ComplementaryColor);
+    border: 1px solid var(--ComplementaryColor);
+    color: var(--PrimaryColor);
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    align-items: center;
+}
+
+@media (max-width: 760px) {
+    .ConfirmButtons button {
+        font-size: .8rem;
+    }
+}
+
+
+.ConfirmButtons-Delete {
+    background-color: var(--ConfirmButton-Delete-Background) !important;
+    border: 1px solid var(--ConfirmButton-Delete-Border) !important;
+    color: var(--ConfirmButton-Delete-Color) !important;
+}
+
+.ConfirmButtons>.ConfirmButtons-Secondary {
+    padding: .5rem 1rem;
+    font-family: var(--Fonte);
+    background-color: transparent !important;
+    border: 1px solid var(--ConfirmButton-Secondary-Border);
+    color: var(--ConfirmButton-Secondary-Color);
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    align-items: center;
+}
+
+.ConfirmButtons button>svg {
+    width: 1.2rem;
+}
+
+.ConfirmButtons button:hover {
+    transform: scale(1.1);
+}
+
+.ConfirmButtons button:active {
+    transform: scale(.9);
+}

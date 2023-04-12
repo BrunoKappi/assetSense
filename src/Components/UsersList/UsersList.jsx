@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './UsersList.css'
 import UsuarioModal from './User/UsuarioModal'
-import UsuarioModal2 from './User/UsuarioModal2'
 import Loading from '../LoadingForTabs/Loading';
 import User from './User/User';
 import { connect } from 'react-redux'

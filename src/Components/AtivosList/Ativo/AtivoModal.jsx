@@ -35,6 +35,7 @@ import Show from '../../LayoutComponents/Show/Show';
 import FormInput from '../../LayoutComponents/FormInput/FormInput';
 import EditList from '../../LayoutComponents/EditList/EditList';
 import CustomFields from '../../LayoutComponents/CustomFields/CustomFields';
+import ConfirmTab from '../../LayoutComponents/ConfirmTab/ConfirmTab';
 
 
 
@@ -316,7 +317,7 @@ const AtivoModal2 = (props) => {
         setIsEdited(true)
     }
 
-
+  
 
 
     return (
@@ -519,7 +520,7 @@ const AtivoModal2 = (props) => {
                                                         </FormGroup>
                                                         <FormGroup>
                                                             <FormGroupLabel>
-                                                                <UilPlay /> 
+                                                                <UilPlay />
                                                                 Tipo de Uso
                                                             </FormGroupLabel>
                                                             <Select
@@ -650,45 +651,29 @@ const AtivoModal2 = (props) => {
 
                                         </Show>
 
-
-
-
                                         <Show Show={Tab === 'RetirarDevolver'}>
                                             <AtivoTakeReturn Ativo={Ativo} OnTake={setTab} />
                                         </Show>
-
 
                                         <Show Show={Tab === 'Registros'}>
                                             <AtivoRecords Ativo={Ativo} FromModal={props.FromModal} />
                                         </Show>
 
-
                                     </div>
                                 </Show>
+
 
 
 
                                 <Show Show={Confirm} Width='100%'>
-                                    <div className='AtivoModalBody-AtivoInfo'>
-                                        <h4 className='AtivoModalBody-AtivoInfoForm-ConfirMessage'>{ConfirmMessage}</h4>
-
-                                        <div className='AtivoModalBody-AtivoInfoForm-Button'>
-                                            <button className='AtivoModalBody-AtivoInfoForm-Button-Secondary' onClick={EndConfirming}>
-                                                <UilBackward />
-                                                {ConfirmBtBack}
-                                            </button>
-                                            <button onClick={Submit}>
-                                                <UilCheck />
-                                                {ConfirmBtAction}
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <ConfirmTab
+                                        ConfirmMessage={ConfirmMessage}
+                                        ConfirmBtBack={ConfirmBtBack}
+                                        ConfirmBtAction={ConfirmBtAction}
+                                        EndConfirming={EndConfirming}
+                                        setIsEdited={setIsEdited}
+                                    />
                                 </Show>
-
-
-
-
-
 
 
 

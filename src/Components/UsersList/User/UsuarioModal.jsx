@@ -38,6 +38,8 @@ import SidebarItem from '../../LayoutComponents/SidebarItem/SidebarItem';
 import FormInput from '../../LayoutComponents/FormInput/FormInput';
 import EditList from '../../LayoutComponents/EditList/EditList';
 import CustomFields from '../../LayoutComponents/CustomFields/CustomFields';
+import SectionTitle from '../../LayoutComponents/SectionTitle/SectionTitle';
+import ConfirmTab from '../../LayoutComponents/ConfirmTab/ConfirmTab';
 
 const UsuarioModal = (props) => {
 
@@ -435,300 +437,300 @@ const UsuarioModal = (props) => {
 
                                 </Stack>
 
-
-
                                 <Show Show={!Confirm} Width='100%'>
                                     <div className='UserModalBody-UserInfo'>
-                                        {Tab === 'UserInfo' && <div className='UserModalBody-UserInfoForm'>
-                                            <form onSubmit={GetUserSubmit}>
 
-                                                <h4 className='UserModalBody-UserInfoForm-SectionTitle'>Dados Cadastrais</h4>
-
-
-                                                <div>
-                                                    <FormGroup>
-                                                        <FormGroupLabel>
-                                                            <UilEnvelope />
-                                                            Email
-                                                        </FormGroupLabel>
-                                                        <Show Show={props.Function === 'Add'}>
-                                                            <FormInput
-                                                                value={User?.Email}
-                                                                placeholder='Digite o Email'
-                                                                onChange={e => HandleChangeInfo('Email', e.target.value)}
-                                                            />
-                                                        </Show>
-
-                                                        <Show Show={props.Function !== 'Add'}>
-                                                            <FormInput
-                                                                value={User?.Email}
-                                                                placeholder='Digite o Email'
-                                                            />
-                                                        </Show>
-                                                    </FormGroup>
-                                                </div>
-
-
-                                                <TwoColumns>
-                                                    <FormGroup>
-                                                        <FormGroupLabel>
-                                                            <UilPen />
-                                                            Nome
-                                                        </FormGroupLabel>
-                                                        <FormInput
-                                                            placeholder='Digite o Nome'
-                                                            disabled={!CanEdit}
-                                                            value={User?.Name}
-                                                            onChange={e => HandleChangeInfo('Name', e.target.value)}
-                                                        />
-                                                    </FormGroup>
-                                                    <FormGroup>
-                                                        <FormGroupLabel>
-                                                            <UilPen />
-                                                            Sobrenome
-                                                        </FormGroupLabel>
-                                                        <FormInput
-                                                            placeholder=' Digite o Sobrenome'
-                                                            disabled={!CanEdit} value={User?.LastName}
-                                                            onChange={e => HandleChangeInfo('LastName', e.target.value)}
-                                                        />
-                                                    </FormGroup>
-                                                </TwoColumns>
+                                        <Show Show={Tab === 'UserInfo'}>
+                                            <div className='UserModalBody-UserInfoForm'>
+                                                <form onSubmit={GetUserSubmit}>
 
 
 
-                                                <div>
-                                                    <FormGroup>
-                                                        <FormGroupLabel>
-                                                            <UilPhone />
-                                                            Telefone
-                                                        </FormGroupLabel>
-                                                        <PhoneInput
-                                                            containerClass="UserModalBody-UserInfoForm-PhoneInput-Container"
-                                                            inputClass="UserModalBody-UserInfoForm-PhoneInput"
-                                                            buttonClass="UserModalBody-UserInfoForm-PhoneInput-Button"
-                                                            dropdownClass="UserModalBody-UserInfoForm-PhoneInput-Dropdown"
-                                                            containerStyle={{ margin: '0', padding: '0', width: '100%', fontSize: '12px' }}
-                                                            country={'br'}
-                                                            value={User?.Phone}
-                                                            disabled={!CanEdit}
-                                                            onChange={e => HandleChangeInfo('Phone', e)}
-                                                        />
-
-                                                    </FormGroup>
-                                                </div>
+                                                    <SectionTitle>Dados Cadastrais</SectionTitle>
 
 
+                                                    <div>
+                                                        <FormGroup>
+                                                            <FormGroupLabel>
+                                                                <UilEnvelope />
+                                                                Email
+                                                            </FormGroupLabel>
+                                                            <Show Show={props.Function === 'Add'}>
+                                                                <FormInput
+                                                                    value={User?.Email}
+                                                                    placeholder='Digite o Email'
+                                                                    onChange={e => HandleChangeInfo('Email', e.target.value)}
+                                                                />
+                                                            </Show>
 
+                                                            <Show Show={props.Function !== 'Add'}>
+                                                                <FormInput
+                                                                    value={User?.Email}
+                                                                    placeholder='Digite o Email'
+                                                                />
+                                                            </Show>
+                                                        </FormGroup>
+                                                    </div>
 
-                                                <TwoColumns>
-                                                    <FormGroup>
-                                                        <FormGroupLabel>
-                                                            <UilMap />
-                                                            País
-                                                        </FormGroupLabel>
-                                                        <Select
-                                                            className='UserModalBody-UserInfoForm-LocationSelect'
-
-                                                            placeholder="Selecione o País"
-                                                            noOptionsMessage={noOptionsMessage}
-                                                            options={Country.getAllCountries()}
-                                                            getOptionLabel={(options) => { return options["name"]; }}
-                                                            getOptionValue={(options) => { return options["name"]; }}
-                                                            styles={UserModalSelectcustomStyles}
-                                                            value={User?.Country}
-                                                            isDisabled={!CanEdit}
-                                                            onChange={(item) => { HandleChangeInfo('Country', item) }}
-                                                        />
-                                                    </FormGroup>
-                                                    <FormGroup>
-                                                        <FormGroupLabel>
-                                                            <UilMapMarker />
-                                                            Estado
-                                                        </FormGroupLabel>
-                                                        <Select
-                                                            className='UserModalBody-UserInfoForm-LocationSelect'
-
-                                                            placeholder="Selecione o Estado"
-                                                            noOptionsMessage={noOptionsMessage}
-                                                            options={State?.getStatesOfCountry(User?.Country?.isoCode)}
-                                                            getOptionLabel={(options) => { return options["name"]; }}
-                                                            getOptionValue={(options) => { return options["name"]; }}
-                                                            styles={UserModalSelectcustomStyles}
-                                                            isDisabled={!CanEdit}
-                                                            value={User?.Estate}
-                                                            onChange={(item) => { HandleChangeInfo("Estate", item); }}
-                                                        />
-                                                    </FormGroup>
-                                                </TwoColumns>
-
-
-                                                <div>
-                                                    <FormGroup>
-                                                        <FormGroupLabel>
-                                                            <UilBuilding />
-                                                            Cidade
-                                                        </FormGroupLabel>
-                                                        <Select
-                                                            className='UserModalBody-UserInfoForm-LocationSelect'
-                                                            placeholder="Selecione a Cidade"
-                                                            noOptionsMessage={noOptionsMessage}
-                                                            options={City.getCitiesOfState(User?.Estate?.countryCode, User?.Estate?.isoCode)}
-                                                            getOptionLabel={(options) => { return options["name"]; }}
-                                                            getOptionValue={(options) => { return options["name"]; }}
-                                                            styles={UserModalSelectcustomStyles}
-                                                            isDisabled={!CanEdit}
-                                                            value={User?.City}
-                                                            onChange={(item) => { HandleChangeInfo("City", item); }}
-                                                            allowCreate={true}
-                                                        />
-                                                    </FormGroup>
-                                                </div>
-
-
-
-
-
-
-
-
-                                                <Show Show={IsCurrentUser}>
-
-                                                    <h4 className='UserModalBody-UserInfoForm-SectionTitle'>Trocar de Senha</h4>
 
                                                     <TwoColumns>
                                                         <FormGroup>
                                                             <FormGroupLabel>
-                                                                <UilKeySkeleton />
-                                                                Senha Atual
+                                                                <UilPen />
+                                                                Nome
                                                             </FormGroupLabel>
                                                             <FormInput
-                                                                placeholder='Digite sua Senha'
-                                                                type="password"
-                                                                value={SenhaAtual}
-                                                                onChange={e => setSenhaAtual(e.target.value)}
+                                                                placeholder='Digite o Nome'
+                                                                disabled={!CanEdit}
+                                                                value={User?.Name}
+                                                                onChange={e => HandleChangeInfo('Name', e.target.value)}
                                                             />
                                                         </FormGroup>
                                                         <FormGroup>
                                                             <FormGroupLabel>
-                                                                <UilKeySkeleton />
-                                                                Nova Senha
+                                                                <UilPen />
+                                                                Sobrenome
                                                             </FormGroupLabel>
                                                             <FormInput
-                                                                placeholder='Digite a nova Senha'
-                                                                type="password"
-                                                                value={NovaSenha}
-                                                                onChange={e => setNovaSenha(e.target.value)}
+                                                                placeholder=' Digite o Sobrenome'
+                                                                disabled={!CanEdit} value={User?.LastName}
+                                                                onChange={e => HandleChangeInfo('LastName', e.target.value)}
                                                             />
                                                         </FormGroup>
                                                     </TwoColumns>
 
-                                                    <div className='UserModalBody-UserInfoForm-Button'>
-                                                        <button onClick={UpdatePassword}>
-                                                            <UilPen />
-                                                            Atualizar
-                                                        </button>
+
+
+                                                    <div>
+                                                        <FormGroup>
+                                                            <FormGroupLabel>
+                                                                <UilPhone />
+                                                                Telefone
+                                                            </FormGroupLabel>
+                                                            <PhoneInput
+                                                                containerClass="UserModalBody-UserInfoForm-PhoneInput-Container"
+                                                                inputClass="UserModalBody-UserInfoForm-PhoneInput"
+                                                                buttonClass="UserModalBody-UserInfoForm-PhoneInput-Button"
+                                                                dropdownClass="UserModalBody-UserInfoForm-PhoneInput-Dropdown"
+                                                                containerStyle={{ margin: '0', padding: '0', width: '100%', fontSize: '12px' }}
+                                                                country={'br'}
+                                                                value={User?.Phone}
+                                                                disabled={!CanEdit}
+                                                                onChange={e => HandleChangeInfo('Phone', e)}
+                                                            />
+
+                                                        </FormGroup>
                                                     </div>
-                                                </Show>
+
+
+
+
+                                                    <TwoColumns>
+                                                        <FormGroup>
+                                                            <FormGroupLabel>
+                                                                <UilMap />
+                                                                País
+                                                            </FormGroupLabel>
+                                                            <Select
+                                                                className='UserModalBody-UserInfoForm-LocationSelect'
+
+                                                                placeholder="Selecione o País"
+                                                                noOptionsMessage={noOptionsMessage}
+                                                                options={Country.getAllCountries()}
+                                                                getOptionLabel={(options) => { return options["name"]; }}
+                                                                getOptionValue={(options) => { return options["name"]; }}
+                                                                styles={UserModalSelectcustomStyles}
+                                                                value={User?.Country}
+                                                                isDisabled={!CanEdit}
+                                                                onChange={(item) => { HandleChangeInfo('Country', item) }}
+                                                            />
+                                                        </FormGroup>
+                                                        <FormGroup>
+                                                            <FormGroupLabel>
+                                                                <UilMapMarker />
+                                                                Estado
+                                                            </FormGroupLabel>
+                                                            <Select
+                                                                className='UserModalBody-UserInfoForm-LocationSelect'
+
+                                                                placeholder="Selecione o Estado"
+                                                                noOptionsMessage={noOptionsMessage}
+                                                                options={State?.getStatesOfCountry(User?.Country?.isoCode)}
+                                                                getOptionLabel={(options) => { return options["name"]; }}
+                                                                getOptionValue={(options) => { return options["name"]; }}
+                                                                styles={UserModalSelectcustomStyles}
+                                                                isDisabled={!CanEdit}
+                                                                value={User?.Estate}
+                                                                onChange={(item) => { HandleChangeInfo("Estate", item); }}
+                                                            />
+                                                        </FormGroup>
+                                                    </TwoColumns>
+
+
+                                                    <div>
+                                                        <FormGroup>
+                                                            <FormGroupLabel>
+                                                                <UilBuilding />
+                                                                Cidade
+                                                            </FormGroupLabel>
+                                                            <Select
+                                                                className='UserModalBody-UserInfoForm-LocationSelect'
+                                                                placeholder="Selecione a Cidade"
+                                                                noOptionsMessage={noOptionsMessage}
+                                                                options={City.getCitiesOfState(User?.Estate?.countryCode, User?.Estate?.isoCode)}
+                                                                getOptionLabel={(options) => { return options["name"]; }}
+                                                                getOptionValue={(options) => { return options["name"]; }}
+                                                                styles={UserModalSelectcustomStyles}
+                                                                isDisabled={!CanEdit}
+                                                                value={User?.City}
+                                                                onChange={(item) => { HandleChangeInfo("City", item); }}
+                                                                allowCreate={true}
+                                                            />
+                                                        </FormGroup>
+                                                    </div>
 
 
 
 
 
-                                                <h4 className='UserModalBody-UserInfoForm-SectionTitle'>Na Empresa</h4>
-
-                                                <TwoColumns>
-                                                    <FormGroup>
-                                                        <EditList
-                                                            Item={User}
-                                                            List={Setores}
-                                                            Title="Sector"
-                                                            Key='Sector'
-                                                            Handle={HandleChangeInfo}
-                                                            Icon={<UilPuzzlePiece />}
-                                                        />
-                                                    </FormGroup>
-                                                    <FormGroup>
-                                                        <EditList
-                                                            Item={User}
-                                                            List={TiposUsuarios}
-                                                            Title="Tipos de Usuarios"
-                                                            Key='Type'
-                                                            Handle={HandleChangeInfo}
-                                                            Icon={<UilListUl />}
-                                                        />
-                                                    </FormGroup>
-                                                </TwoColumns>
 
 
 
+                                                    <Show Show={IsCurrentUser}>
 
-                                                <CustomFields
-                                                    Container={UserTypeCustomFields}
-                                                    CanEdit={CanEdit}
-                                                    Item={User}
-                                                    Handle={handleChangeCustomField}
-                                                />
+                                                        <SectionTitle>Trocar de Senha</SectionTitle>
+
+                                                        <TwoColumns>
+                                                            <FormGroup>
+                                                                <FormGroupLabel>
+                                                                    <UilKeySkeleton />
+                                                                    Senha Atual
+                                                                </FormGroupLabel>
+                                                                <FormInput
+                                                                    placeholder='Digite sua Senha'
+                                                                    type="password"
+                                                                    value={SenhaAtual}
+                                                                    onChange={e => setSenhaAtual(e.target.value)}
+                                                                />
+                                                            </FormGroup>
+                                                            <FormGroup>
+                                                                <FormGroupLabel>
+                                                                    <UilKeySkeleton />
+                                                                    Nova Senha
+                                                                </FormGroupLabel>
+                                                                <FormInput
+                                                                    placeholder='Digite a nova Senha'
+                                                                    type="password"
+                                                                    value={NovaSenha}
+                                                                    onChange={e => setNovaSenha(e.target.value)}
+                                                                />
+                                                            </FormGroup>
+                                                        </TwoColumns>
+
+                                                        <div className='UserModalBody-UserInfoForm-Button'>
+                                                            <button onClick={UpdatePassword}>
+                                                                <UilPen />
+                                                                Atualizar
+                                                            </button>
+                                                        </div>
+                                                    </Show>
 
 
-                                            </form>
 
-                                            <div className='UserModalBody-UserInfoForm-Button'>
 
-                                                <Show Show={!IsEdited && !IsCurrentUser && PermitToDeleteUsers && (props.Function !== 'Add')}>
-                                                    <button className='UserModalBody-UserInfoForm-Button-Delete' onClick={e => InitConfirm('Delete')}>
-                                                        <UilTrash />
-                                                        Excluir Usuário
-                                                    </button>
-                                                </Show>
 
-                                                <Show Show={IsEdited}>
-                                                    <Show Show={false}>
-                                                        <button onClick={CancelEditions}>
-                                                            <UilTimes />
-                                                            {props.Function === 'Add' ? 'Limpar Campos' : 'Cancelar'}
+
+
+                                                    <SectionTitle>Na Empresa</SectionTitle>
+
+                                                    <TwoColumns>
+                                                        <FormGroup>
+                                                            <EditList
+                                                                Item={User}
+                                                                List={Setores}
+                                                                Title="Sector"
+                                                                Key='Sector'
+                                                                Handle={HandleChangeInfo}
+                                                                Icon={<UilPuzzlePiece />}
+                                                            />
+                                                        </FormGroup>
+                                                        <FormGroup>
+                                                            <EditList
+                                                                Item={User}
+                                                                List={TiposUsuarios}
+                                                                Title="Tipos de Usuarios"
+                                                                Key='Type'
+                                                                Handle={HandleChangeInfo}
+                                                                Icon={<UilListUl />}
+                                                            />
+                                                        </FormGroup>
+                                                    </TwoColumns>
+
+
+
+
+                                                    <CustomFields
+                                                        Container={UserTypeCustomFields}
+                                                        CanEdit={CanEdit}
+                                                        Item={User}
+                                                        Handle={handleChangeCustomField}
+                                                    />
+
+
+                                                </form>
+
+                                                <div className='UserModalBody-UserInfoForm-Button'>
+
+                                                    <Show Show={!IsEdited && !IsCurrentUser && PermitToDeleteUsers && (props.Function !== 'Add')}>
+                                                        <button className='UserModalBody-UserInfoForm-Button-Delete' onClick={e => InitConfirm('Delete')}>
+                                                            <UilTrash />
+                                                            Excluir Usuário
                                                         </button>
                                                     </Show>
 
-                                                    <Show Show={props.Function === 'Add'}>
-                                                        <button onClick={e => InitConfirm('Add')}>
-                                                            <UilSave />
-                                                            Adicionar
-                                                        </button>
+                                                    <Show Show={IsEdited}>
+                                                        <Show Show={false}>
+                                                            <button onClick={CancelEditions}>
+                                                                <UilTimes />
+                                                                {props.Function === 'Add' ? 'Limpar Campos' : 'Cancelar'}
+                                                            </button>
+                                                        </Show>
+
+                                                        <Show Show={props.Function === 'Add'}>
+                                                            <button onClick={e => InitConfirm('Add')}>
+                                                                <UilSave />
+                                                                Adicionar
+                                                            </button>
+                                                        </Show>
+
+                                                        <Show Show={props.Function !== 'Add'}>
+                                                            <button onClick={e => InitConfirm('Edit')}>
+                                                                <UilSave />
+                                                                Salvar
+                                                            </button>
+                                                        </Show>
                                                     </Show>
 
-                                                    <Show Show={props.Function !== 'Add'}>
-                                                        <button onClick={e => InitConfirm('Edit')}>
-                                                            <UilSave />
-                                                            Salvar
-                                                        </button>
-                                                    </Show>
-                                                </Show>
 
-
+                                                </div>
                                             </div>
-                                        </div>}
+                                        </Show>
 
+                                        <Show Show={Tab === 'Ativos'}>
+                                            <UserAtivoRecords FromModal={props.FromModal} User={User} />
+                                        </Show>
 
-                                        {Tab === 'Ativos' && <UserAtivoRecords FromModal={props.FromModal} User={User} />}
                                     </div>
                                 </Show>
 
-
                                 <Show Show={Confirm} Width='100%'>
-                                    <div className='UserModalBody-UserInfo'>
-                                        <h4 className='UserModalBody-UserInfoForm-ConfirMessage'>{ConfirmMessage}</h4>
-                                        <div className='UserModalBody-UserInfoForm-Button'>
-                                            <button className='UserModalBody-UserInfoForm-Button-Secondary' onClick={e => { EndConfirming(); setIsEdited(true); }}>
-                                                <UilBackward />
-                                                {ConfirmBtBack}
-                                            </button>
-                                            <button onClick={Submit}>
-                                                <UilCheck />
-                                                {ConfirmBtAction}
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <ConfirmTab
+                                        ConfirmMessage={ConfirmMessage}
+                                        ConfirmBtBack={ConfirmBtBack}
+                                        ConfirmBtAction={ConfirmBtAction}
+                                        EndConfirming={EndConfirming}
+                                        setIsEdited={setIsEdited}
+                                    />
                                 </Show>
 
                             </div>
