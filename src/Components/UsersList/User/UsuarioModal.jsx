@@ -9,7 +9,7 @@ import { UilUserCircle, UilClipboardNotes, UilEnvelope, UilPhone, UilAsterisk, U
 import UserAtivoRecords from './UserAtivoRecords/UserAtivoRecords';
 import UserPhoto from '../../../assets/Images/SerranoLogoFuncoBranco.jpg'
 //LIBRARIES
-import PI from 'react-phone-input-2'
+import PI from 'react-phone-input-2' 
 import 'react-phone-input-2/lib/style.css'
 import { Country, State, City } from "country-state-city";
 import Select from "react-select";
@@ -730,6 +730,7 @@ const UsuarioModal = (props) => {
                                         ConfirmBtAction={ConfirmBtAction}
                                         EndConfirming={EndConfirming}
                                         setIsEdited={setIsEdited}
+                                        Submit={Submit}
                                     />
                                 </Show>
 

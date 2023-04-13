@@ -15,7 +15,7 @@ import moment from 'moment';
 const Update = false
 const Reset = false
 const Nothing = true
- 
+
 //COMANDOS FIREBASE
 const ADD_FIREBASE = false
 
@@ -98,17 +98,41 @@ export const DefaultTipoDeUso = {
     CustomFields: []
 }
 
+const DefaultCountry = {
+    currency: "BRL",
+    flag: "🇧🇷",
+    isoCode: "BR",
+    latitude: "-10.00000000",
+    longitude: "-55.00000000",
+    name: "Brazil",
+    phonecode: "55"
+}
+const DefaultEstate = {
+    countryCode: "BR",
+    isoCode: "RS",
+    latitude: "-30.03463160",
+    longitude: "-51.21769860",
+    name: "Rio Grande do Sul",
+}
+const DefaultCity = {
+    countryCode: "BR",
+    latitude: "-30.03283000",
+    longitude: "-51.23019000",
+    name: "Porto Alegre",
+    stateCode: "RS",
+}
+
 
 
 
 export const DefaultAtivo = {
-    PhotoUrl : '',
+    PhotoUrl: '',
     LastEditedAt: moment().valueOf(),
     CreatedBy: '',
     CreatedAt: moment().valueOf(),
     Price: 0,
     ResidualPrice: 0,
-    Description: '', 
+    Description: '',
     Barcode: '',
     SerialNumber: '',
     Manufacturer: '',
@@ -139,7 +163,8 @@ export const DefaultAtivo = {
         id: ''
     },
     Deleted: false,
-    CustomFieldsValues:[]
+    CustomFieldsValues: [],
+    QtdPerUser: 1,
 }
 
 
@@ -163,21 +188,20 @@ export const DefaultRecord = {
     TakenForDeleted: false,
     TakenByDeleted: false,
     AtivoDeleted: false,
-    CustomFieldsValues:[]
+    CustomFieldsValues: []
 }
 
 
 // DEFAULT USER 
 export const DefaultUser =
 {
-    PhotoUrl : '',
+    PhotoUrl: '',
     LastEditedAt: moment().valueOf(),
     CreatedBy: '',
     CreatedAt: moment().valueOf(),
     LastLoginAt: 0,
     docID: '',
-    id: '',
-    Phone: '',
+    id: v4(),
     Barcode: '',
     SecondaryPhone: '',
     Address: '',
@@ -212,34 +236,20 @@ export const DefaultUser =
         TikTok: '',
         GitHub: ''
     },
-    CustomFieldsValues:[]
+    CustomFieldsValues: [],
+    PhotoUrl: '',
+    uid: '',
+    Deleted: false,
+    docID: '',
+    Country: { ...DefaultCountry },
+    Estate: { ...DefaultEstate },
+    City: { ...DefaultCity },
+    Phone: '555199999999',
 
 }
 
 
-const DefaultCountry = {
-    currency: "BRL",
-    flag: "🇧🇷",
-    isoCode: "BR",
-    latitude: "-10.00000000",
-    longitude: "-55.00000000",
-    name: "Brazil",
-    phonecode: "55"
-}
-const DefaultEstate = {
-    countryCode: "BR",
-    isoCode: "RS",
-    latitude: "-30.03463160",
-    longitude: "-51.21769860",
-    name: "Rio Grande do Sul",
-}
-const DefaultCity = {
-    countryCode: "BR",
-    latitude: "-30.03283000",
-    longitude: "-51.23019000",
-    name: "Porto Alegre",
-    stateCode: "RS",
-}
+
 
 export const DefaultUserRole = {
     LastEditedAt: moment().valueOf(),
@@ -330,52 +340,52 @@ export const SetoresReset = [{ docID: '', id: 'ad01ba2f-aa9a-47a2-a771-1fee98ef5
 
 /////////// ATIVOS ////////////////
 export const Items = [
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CONVERSOR USB SERIAL', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO PANEL VIEW PLUS 1000', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 2, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: '1747-NET-UIC', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'ROCKWELL SERIAL SLC-500/MICROLOGIX/CONTROLLOGIX', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'ROCKWELL SERIAL PLC-5', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation }, Item: 'SIEMENS LOGO!', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO MICROLOGIX DIN', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso2 } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'SIEMENS S7-200 RS-232 - PPI', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO S5 RS-232 - TTY', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus2 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'SIEMENS SINAMICS', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation }, Item: 'SIEMENS S7-200/300 RS-232 - PPI/MPI', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'PC Adapter', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'FONTE PC ADAPTER', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'PC CABLE SIMOCODE', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation }, Item: 'CONFIF PROSOFT', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus2 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO ALTUS AL-1342', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO PANEL VIEW 500/600', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus2 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'SIEMENS S7-200 RS-232 - PPI', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'SIEMENS S7-200/300 RS-232 - PPI/MPI', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus2 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO PICCOLO', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO TCI S5-USB', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso2 } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CONVERSOR USB - RS485', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CONVERSOR UBS SERIAL TECNATRON', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CONVERSOR UBS SERIAL TECNATRON', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso2 } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation2 }, Item: 'CONVERSOR USB SERIAL ICP COM', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO OP7/17/27', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO RS-232 IHM HT 60', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO KLOCKNER MOELLER', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso2 } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'Cabo HDMI', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'Adaptador VGA-DP', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'Patch Cord', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int01', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int02', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso2 } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int03', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int04', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation2 }, Item: 'HD Externo SA_HdE_Int05', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus2 }, Usage: { ...DefaultTipoUso2 } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int06', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int07', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation2 }, Item: 'HD Externo SA_HdE_Int08', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus2 }, Usage: { ...DefaultTipoUso2 } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int09', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int10', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso2 } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int11', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation2 }, Item: 'HD Externo SA_HdE_Int12', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int13', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation1 }, Item: 'Régua extensão', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', QtdPerUser: 1, Deleted: false, docID: '', id: v4(), Qtd: 1, Brand: '', StorageLocation: { ...DefaultStorageLocation2 }, Item: 'Case HD externo 3.0', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CONVERSOR USB SERIAL', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO PANEL VIEW PLUS 1000', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: '1747-NET-UIC', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'ROCKWELL SERIAL SLC-500/MICROLOGIX/CONTROLLOGIX', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'ROCKWELL SERIAL PLC-5', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation }, Item: 'SIEMENS LOGO!', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO MICROLOGIX DIN', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso2 } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'SIEMENS S7-200 RS-232 - PPI', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO S5 RS-232 - TTY', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus2 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'SIEMENS SINAMICS', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation }, Item: 'SIEMENS S7-200/300 RS-232 - PPI/MPI', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'PC Adapter', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'FONTE PC ADAPTER', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'PC CABLE SIMOCODE', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation }, Item: 'CONFIF PROSOFT', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus2 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO ALTUS AL-1342', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO PANEL VIEW 500/600', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus2 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'SIEMENS S7-200 RS-232 - PPI', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'SIEMENS S7-200/300 RS-232 - PPI/MPI', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus2 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO PICCOLO', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO TCI S5-USB', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso2 } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CONVERSOR USB - RS485', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CONVERSOR UBS SERIAL TECNATRON', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CONVERSOR UBS SERIAL TECNATRON', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso2 } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation2 }, Item: 'CONVERSOR USB SERIAL ICP COM', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO OP7/17/27', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO RS-232 IHM HT 60', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO KLOCKNER MOELLER', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso2 } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'Cabo HDMI', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'Adaptador VGA-DP', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'Patch Cord', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int01', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int02', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso2 } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int03', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int04', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation2 }, Item: 'HD Externo SA_HdE_Int05', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus2 }, Usage: { ...DefaultTipoUso2 } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int06', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int07', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation2 }, Item: 'HD Externo SA_HdE_Int08', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus2 }, Usage: { ...DefaultTipoUso2 } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int09', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int10', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso2 } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int11', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation2 }, Item: 'HD Externo SA_HdE_Int12', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int13', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'Régua extensão', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation2 }, Item: 'Case HD externo 3.0', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
 ]
 
 
@@ -394,46 +404,46 @@ export const Items = [
 
 
 export const Users = [
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Betina', LastName: 'Goldani', Email: 'betinagoldani@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Admin } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Bruno', LastName: 'Kappi', Email: 'brunokappi@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Cristiano', LastName: 'Melo', Email: 'cristianomelo@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Projeto } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Demétrius', LastName: 'Figueiredo', Email: 'demetriusfigueiredo@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Douglas', LastName: 'Pinheiro', Email: 'douglaspinheiro@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Ezequiel', LastName: 'Silva', Email: 'ezequielsilva@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Filipe', LastName: 'Dias', Email: 'filipedias@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Gabriel', LastName: 'Pedroso', Email: 'gabrielpedroso@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Gabrielle', LastName: 'Pintanel', Email: 'gabriellepintanel@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Henrique', LastName: 'Steigleder', Email: 'henriquesteigleder@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Júlia', LastName: 'Kist', Email: 'juliakist@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Júlia', LastName: 'Koch', Email: 'juliakoch@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Julio', LastName: 'Serrano', Email: 'julioserrano@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Admin } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Karen', LastName: 'Kist', Email: 'adm@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...RH } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Lucas', LastName: 'Ferreira', Email: 'lucasferreira@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Lucas', LastName: 'Reis', Email: 'lucasreis@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Lucian', LastName: 'Silva', Email: 'luciansilva@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Luis', LastName: 'Pires', Email: 'luispires@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Luiz', LastName: 'Krug', Email: 'luizgustavokrug@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Marceli', LastName: 'Santos', Email: 'marcelisantos@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Marcelo', LastName: 'Eichenberg', Email: 'marceloeichenberg@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Marcelo', LastName: 'Silva', Email: 'marcelosilva@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Marcio', LastName: 'Wentz', Email: 'marciowentz@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Mariana', Email: 'marianacoronel@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Marina', LastName: 'Muller', Email: 'marinamuller@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Matheus', LastName: 'Brum', Email: 'matheusbrum@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Projeto } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Matheus', LastName: 'Pedroso', Email: 'matheuspedroso@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Projeto } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Michel', LastName: 'Fagundes', Email: 'michelfagundes@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Projeto } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Moisés', LastName: 'Beck', Email: 'moisesbeck@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Nathan', LastName: 'Lopes', Email: 'nathanlopes@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Projeto } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Octávio', LastName: 'Brandão', Email: 'octaviobrandao@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Patrick', LastName: 'Souza', Email: 'patricksouza@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Sergio', LastName: 'Dutra', Email: 'sergiodutra@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Projeto } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Silvia', LastName: 'Scheid', Email: 'silviascheid@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Susana', LastName: 'Santana', Email: 'susanasantana@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Tales', LastName: 'Calliero', Email: 'talescalliero@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Tiago', LastName: 'Silva', Email: 'tiagosilva@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Valéria', LastName: 'Rex', Email: 'valeriarex@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Vera', LastName: 'Lucia Santos', Email: 'verasantos@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, LastEditedAt: moment().valueOf(), CreatedAt: moment().valueOf(), PhotoUrl: '', uid: '', Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Administrador', LastName: 'Serrano', Email: 'admin@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...RH } }
+    { ...DefaultUser, Name: 'Betina', LastName: 'Goldani', Email: 'betinagoldani@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Admin } },
+    { ...DefaultUser, Name: 'Bruno', LastName: 'Kappi', Email: 'brunokappi@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Cristiano', LastName: 'Melo', Email: 'cristianomelo@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Projeto } },
+    { ...DefaultUser, Name: 'Demétrius', LastName: 'Figueiredo', Email: 'demetriusfigueiredo@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Douglas', LastName: 'Pinheiro', Email: 'douglaspinheiro@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Ezequiel', LastName: 'Silva', Email: 'ezequielsilva@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Filipe', LastName: 'Dias', Email: 'filipedias@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Gabriel', LastName: 'Pedroso', Email: 'gabrielpedroso@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Gabrielle', LastName: 'Pintanel', Email: 'gabriellepintanel@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Henrique', LastName: 'Steigleder', Email: 'henriquesteigleder@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Júlia', LastName: 'Kist', Email: 'juliakist@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Júlia', LastName: 'Koch', Email: 'juliakoch@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Julio', LastName: 'Serrano', Email: 'julioserrano@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Admin } },
+    { ...DefaultUser, Name: 'Karen', LastName: 'Kist', Email: 'adm@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...RH } },
+    { ...DefaultUser, Name: 'Lucas', LastName: 'Ferreira', Email: 'lucasferreira@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Lucas', LastName: 'Reis', Email: 'lucasreis@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Lucian', LastName: 'Silva', Email: 'luciansilva@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Luis', LastName: 'Pires', Email: 'luispires@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Luiz', LastName: 'Krug', Email: 'luizgustavokrug@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Marceli', LastName: 'Santos', Email: 'marcelisantos@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Marcelo', LastName: 'Eichenberg', Email: 'marceloeichenberg@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Marcelo', LastName: 'Silva', Email: 'marcelosilva@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Marcio', LastName: 'Wentz', Email: 'marciowentz@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Mariana', LastName: 'Coronel', Email: 'marianacoronel@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Marina', LastName: 'Muller', Email: 'marinamuller@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Matheus', LastName: 'Brum', Email: 'matheusbrum@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Projeto } },
+    { ...DefaultUser, Name: 'Matheus', LastName: 'Pedroso', Email: 'matheuspedroso@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Projeto } },
+    { ...DefaultUser, Name: 'Michel', LastName: 'Fagundes', Email: 'michelfagundes@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Projeto } },
+    { ...DefaultUser, Name: 'Moisés', LastName: 'Beck', Email: 'moisesbeck@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Nathan', LastName: 'Lopes', Email: 'nathanlopes@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Projeto } },
+    { ...DefaultUser, Name: 'Octávio', LastName: 'Brandão', Email: 'octaviobrandao@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Patrick', LastName: 'Souza', Email: 'patricksouza@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Sergio', LastName: 'Dutra', Email: 'sergiodutra@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Projeto } },
+    { ...DefaultUser, Name: 'Silvia', LastName: 'Scheid', Email: 'silviascheid@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Susana', LastName: 'Santana', Email: 'susanasantana@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Tales', LastName: 'Calliero', Email: 'talescalliero@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Tiago', LastName: 'Silva', Email: 'tiagosilva@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Valéria', LastName: 'Rex', Email: 'valeriarex@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Vera', LastName: 'Lucia Santos', Email: 'verasantos@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Administrador', LastName: 'Serrano', Email: 'admin@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...RH } }
 ]
 
 

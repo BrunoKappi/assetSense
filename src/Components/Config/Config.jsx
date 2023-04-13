@@ -13,6 +13,7 @@ import Campos from '../AtivosCampos/Campos';
 
 import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
+import Show from '../LayoutComponents/Show/Show';
 
 const breakpointColumnsObj = {
   default: 3,
@@ -36,10 +37,11 @@ const Config = (props) => {
   }
 
   const [key, setKey] = useState(getInitialTab());
+  const [Camposkey, setCamposKey] = useState('CustomAtivos');
 
 
 
-  const SetKeyConfig = (Key) => {
+  const SetKeyConfig = (Key) => { 
     if (Key === 'Ativos' && AtivosPermit)
       setKey(Key)
     else if (Key === 'AtivosCampos')
@@ -81,10 +83,21 @@ const Config = (props) => {
         </Tab>
         <Tab eventKey="AtivosCampos" >
           <div className='CamposListItensContainer'>
-            <h4 className='ConfigTitleSection'> <UilSetting />  Campos Personalizados por Tipo de Ativo</h4>
-            <Campos Function="TiposAtivos" />
-            <h4 className='ConfigTitleSection'> <UilSetting />  Campos Personalizados por Tipo de Usuário</h4>
-            <Campos Function="TiposUsuarios" />
+            
+            <TabsContainer Tema={props.Tema}>
+              <TabButton ButtonName="CustomAtivos" Key={Camposkey} onClick={(k) => setCamposKey('CustomAtivos')} />
+              <TabButton ButtonName="CustomUserTypes" Key={Camposkey} onClick={(k) => setCamposKey('CustomUserTypes')} />
+            </TabsContainer>
+
+            <Show Show={Camposkey === 'CustomAtivos'} Width='100%'>
+              <Campos Function="TiposAtivos" />
+            </Show>
+
+            <Show Show={Camposkey === 'CustomUserTypes'} Width='100%'>
+              <Campos Function="TiposUsuarios" />
+            </Show>
+
+
           </div>
         </Tab>
         <Tab eventKey="Setores e Usuários"  >

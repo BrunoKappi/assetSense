@@ -105,7 +105,7 @@ const Sidebar = (props) => {
 
                 <Show Show={CurrentUser.Name}>
                     <Tooltip title="Acessar seu Perfil" position="bottom" >
-                        <div className='SidebarUserName' onClick={e => SetTabSidebar('Profile', '/App/Profile')}>
+                        <div className='SidebarUserName' onClick={e => SetTabSidebar('Profile', '/Assets/Profile')}>
                             <p> {CurrentUser.Name ? CurrentUser.Name : 'Caregando...'}</p>
                             <p> {CurrentUser.LastName}</p>
                         </div>
@@ -113,32 +113,32 @@ const Sidebar = (props) => {
 
                     <Stack Gap={'.4rem'}>
                         <SidebarItem Active={IsActive('Dash')}
-                            onClick={e => SetTabSidebar('Dash', '/App/Dash')}>
+                            onClick={e => SetTabSidebar('Dash', '/Assets/Dash')}>
                             <UilChartPieAlt />
                             Dashboard
                         </SidebarItem>
                         <SidebarItem Active={IsActive('Ativos')}
-                            onClick={e => SetTabSidebar('Ativos', '/App/Ativos')}>
+                            onClick={e => SetTabSidebar('Ativos', '/Assets/Ativos')}>
                             <UilListUl />
                             Ativos
                         </SidebarItem>
                         <SidebarItem Active={IsActive('Users')}
-                            onClick={e => SetTabSidebar('Users', '/App/Users')}>
+                            onClick={e => SetTabSidebar('Users', '/Assets/Users')}>
                             <UilUsersAlt />
                             Usuarios
                         </SidebarItem>
                         <SidebarItem Active={IsActive('Profile')}
-                            onClick={e => SetTabSidebar('Profile', '/App/Profile')} >
+                            onClick={e => SetTabSidebar('Profile', '/Assets/Profile')} >
                             <UilUserCircle />
                             Meu Perfil
                         </SidebarItem>
                         <SidebarItem Active={IsActive('Config')}
-                            onClick={e => SetTabSidebar('Config', '/App/Config')}>
+                            onClick={e => SetTabSidebar('Config', '/Assets/Config')}>
                             <UilSetting />
                             Configurações
                         </SidebarItem>
                         <SidebarItem Active={IsActive('Records')}
-                            onClick={e => SetTabSidebar('Records', '/App/Records')}>
+                            onClick={e => SetTabSidebar('Records', '/Assets/Records')}>
                             <UilHistory />
                             Registros
                         </SidebarItem>

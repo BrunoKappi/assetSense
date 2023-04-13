@@ -15,22 +15,22 @@ import Records from './Components/Records/Records'
 import { ReactNotifications } from 'react-notifications-component'
 import { GetTema } from './Functions/Middleware';
 
- 
+
 
 const App = (props) => {
-   
 
 
-  GetTema() 
+
+  GetTema()
 
   const RequireAuth = ({ children }) => {
     if (props.LoggedUser.Email) {
-      return children; 
+      return children;
     } else {
       return <Navigate to="/" />;
     }
   };
- 
+
 
 
 
@@ -40,21 +40,21 @@ const App = (props) => {
       <Routes>
         <Route path="/" element={<Home CheckedLogin={props.LoggedUser.CheckedLogin} Email={props.LoggedUser.Email} />} />
         <Route path="/Forget" element={<Forget />} />
-        <Route path="/App" element={<RequireAuth> <Layout /> </RequireAuth>}>
-          <Route path="/App/Dash" element={<RequireAuth> <Dashboard /> </RequireAuth>} />
-          <Route path="/App/Ativos" element={<RequireAuth> <Ativos /> </RequireAuth>} />
-          <Route path="/App/Profile" element={<RequireAuth> <Profile /> </RequireAuth>} />
-          <Route path="/App/Config" element={<RequireAuth> <Config /> </RequireAuth>} />
-          <Route path="/App/Users" element={<RequireAuth> <Users /> </RequireAuth>} />
-          <Route path="/App/Records" element={<RequireAuth> <Records /> </RequireAuth>} />
+        <Route path="/Assets" element={<RequireAuth> <Layout /> </RequireAuth>}>
+          <Route path="/Assets/Dash" element={<RequireAuth> <Dashboard /> </RequireAuth>} />
+          <Route path="/Assets/Ativos" element={<RequireAuth> <Ativos /> </RequireAuth>} />
+          <Route path="/Assets/Profile" element={<RequireAuth> <Profile /> </RequireAuth>} />
+          <Route path="/Assets/Config" element={<RequireAuth> <Config /> </RequireAuth>} />
+          <Route path="/Assets/Users" element={<RequireAuth> <Users /> </RequireAuth>} />
+          <Route path="/Assets/Records" element={<RequireAuth> <Records /> </RequireAuth>} />
           <Route path="*" element={<RequireAuth> <NotFound /> </RequireAuth>} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </div> 
+    </div>
   );
 }
- 
+
 const ConnectedApp = connect((state) => {
   return {
     LoggedUser: state.LoggedUser

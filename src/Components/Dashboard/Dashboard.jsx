@@ -131,7 +131,7 @@ const Dashboard = (props) => {
               </div>
 
               <div className='ChartCointer'>
-                <BarChart Mono={Color} Title="Aivos por Tipo de Uso" Series={TiposUsoSeries} Labels={TiposUsoLabels} />
+                <BarChart Mono={Color} Title="Ativos por Tipo de Uso" Series={TiposUsoSeries} Labels={TiposUsoLabels} />
               </div>
 
               <div className='ChartCointer'>
@@ -147,7 +147,7 @@ const Dashboard = (props) => {
               </div>
 
               <div className='ChartCointer'>
-                <PieChart Mono={Color} Title="Aivos por Tipo de Uso" Series={TiposUsoSeries} Labels={TiposUsoLabels} />
+                <PieChart Mono={Color} Title="Ativos por Tipo de Uso" Series={TiposUsoSeries} Labels={TiposUsoLabels} />
               </div>
 
             </div>    

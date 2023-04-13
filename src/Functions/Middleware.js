@@ -444,7 +444,7 @@ export async function DeleteAtivo(Ativo) {
 }
 
 
-
+ 
 
 export const EditAtivo = (EditedItem) => {
     EditedItem.LastEditedAt = moment().valueOf()

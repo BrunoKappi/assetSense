@@ -60,7 +60,7 @@ const AtivoRecords = (props) => {
         }))
 
     }, [FiltroDeTexto, OrdenarPor, props.RecordsAtivos])
- 
+
 
     const ResetSelectedUser = () => {
         setModalShow(false);
@@ -135,7 +135,7 @@ const AtivoRecords = (props) => {
                     const minutos = duracao.minutes();
 
                     // Formatar a duração no formato desejado
-                    const tempoFormatado = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}`;
+                    const tempoFormatado = `${dias !== 0 ? (dias + ' Dias ') : ''} ${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}`;
 
 
 

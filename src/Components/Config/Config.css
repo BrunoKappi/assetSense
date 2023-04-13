@@ -47,6 +47,7 @@
     flex-wrap: wrap;
     gap: 0rem;
     justify-content: stretch;
+    margin-top: 3rem;
 }
 
 .my-masonry-grid {

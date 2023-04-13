@@ -51,10 +51,10 @@ const AtivoModal2 = (props) => {
     const [Ativo, setAtivo] = useState({ ...DefaultAtivo })
     const [LocaisArmazenamento] = useState(GetLocaisArmazenamentoFromStore())
     const [TiposAtivos] = useState(GetTiposAtivosFromStore())
-    const QuantidadeRetirada = GetTakesOfAtivo(props.Ativo?.id)
+    const QuantidadeRetirada = props.Ativo?.QtdInUse
 
 
-    //FUNCIONALIDADE
+    //FUNCIONALIDADE 
     const [Tab, setTab] = useState('AtivoInfo')
     const [IdToUse, setIdToUse] = useState('')
     const [IsEdited, setIsEdited] = useState(false)
@@ -317,7 +317,7 @@ const AtivoModal2 = (props) => {
         setIsEdited(true)
     }
 
-  
+
 
 
     return (
@@ -352,7 +352,7 @@ const AtivoModal2 = (props) => {
                                     </Show>
                                     <UilTimes className='AtivoModalHeader-Right-Close' onClick={props.onHide} />
                                 </div>
-
+ 
 
                                 <div className='AtivoModalHeader-Right-Setor'>
                                     <UilBox />
@@ -672,6 +672,7 @@ const AtivoModal2 = (props) => {
                                         ConfirmBtAction={ConfirmBtAction}
                                         EndConfirming={EndConfirming}
                                         setIsEdited={setIsEdited}
+                                        Submit={Submit}
                                     />
                                 </Show>
 

@@ -21,7 +21,7 @@
     --TabsContainer-Button-Color-Active: white;
     --TabsContainer-Button-Background-Hover: var(--PrimaryBackground);
     --TabsContainer-Button-Border-Hover: var(--PrimaryBackground);
-    --TabsContainer-Button-Color-Hover: white;
+    --TabsContainer-Button-Color-Hover: white; 
 }
 
 
@@ -29,7 +29,8 @@
     display: flex;
     flex-direction: row;
     gap: 1rem;
-    background-color: var(--TabsContainer-Background);
+    background-color: var(--TabsContainer-Background);    
+ 
 }
 
 .TabsContainer>button {

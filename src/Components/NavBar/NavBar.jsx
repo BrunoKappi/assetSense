@@ -98,7 +98,7 @@ const NavBar = (props) => {
                         <Navbar.Brand>
                             <div className='LogoAndCollpse'>
                                 <Tooltip title="Inicio" position="bottom" >
-                                    <Link to="/App/Dash" onClick={e => SetTab('Dash')}>
+                                    <Link to="/Assets/Dash" onClick={e => SetTab('Dash')}>
                                         <img alt="Logo" className="LogoNavBar" src={Logo} />
                                     </Link>
                                 </Tooltip>
@@ -108,7 +108,7 @@ const NavBar = (props) => {
                             <Offcanvas.Header closeButton closeVariant='white'>
                                 <Offcanvas.Title>
                                     <h1>
-                                        <Link className='offCanvasBrand' to="/App">
+                                        <Link className='offCanvasBrand' to="/Assets">
                                             <img alt="Logo" className="LogoNavBar" src={Logo} />
                                         </Link>
                                     </h1>
@@ -129,24 +129,24 @@ const NavBar = (props) => {
                                             </span>}
                                         >
 
-                                            <span to="/App/Dash" className={GetNavbarSidebarItemClass('Dash', GetCurrentCurrentSidebarTabFromStore()) + ' dropDownLink'} onClick={e => SetTabNavBar('Dash', '/App/Dash')}>
+                                            <span to="/Assets/Dash" className={GetNavbarSidebarItemClass('Dash', GetCurrentCurrentSidebarTabFromStore()) + ' dropDownLink'} onClick={e => SetTabNavBar('Dash', '/Assets/Dash')}>
                                                 <UilChartPieAlt />
                                                 <span>Dashboard</span>
                                             </span>
 
-                                            <span to="/App/Ativos" className={GetNavbarSidebarItemClass('Ativos', GetCurrentCurrentSidebarTabFromStore()) + ' dropDownLink'} onClick={e => SetTabNavBar('Ativos', '/App/Ativos')}>
+                                            <span to="/Assets/Ativos" className={GetNavbarSidebarItemClass('Ativos', GetCurrentCurrentSidebarTabFromStore()) + ' dropDownLink'} onClick={e => SetTabNavBar('Ativos', '/Assets/Ativos')}>
                                                 <UilListUl />
                                                 <span>Ativos</span>
                                             </span>
-                                            <span to="/App/Users" className={GetNavbarSidebarItemClass('Users', GetCurrentCurrentSidebarTabFromStore()) + ' dropDownLink'} onClick={e => SetTabNavBar('Users', '/App/Users')}>
+                                            <span to="/Assets/Users" className={GetNavbarSidebarItemClass('Users', GetCurrentCurrentSidebarTabFromStore()) + ' dropDownLink'} onClick={e => SetTabNavBar('Users', '/Assets/Users')}>
                                                 <UilUsersAlt />
                                                 <span>Usuarios</span>
                                             </span>
-                                            <span to="/App/Profile" className={GetNavbarSidebarItemClass('Profile', GetCurrentCurrentSidebarTabFromStore()) + ' dropDownLink'} onClick={e => SetTabNavBar('Profile', '/App/Profile')} >
+                                            <span to="/Assets/Profile" className={GetNavbarSidebarItemClass('Profile', GetCurrentCurrentSidebarTabFromStore()) + ' dropDownLink'} onClick={e => SetTabNavBar('Profile', '/Assets/Profile')} >
                                                 <UilUserCircle />
                                                 <span>Meu Perfil</span>
                                             </span>
-                                            <span id="NavDropDown" to="/App/Config" className={GetNavbarSidebarItemClass('Config', GetCurrentCurrentSidebarTabFromStore()) + ' dropDownLink'} onClick={e => SetTabNavBar('Config', '/App/Config')}>
+                                            <span id="NavDropDown" to="/Assets/Config" className={GetNavbarSidebarItemClass('Config', GetCurrentCurrentSidebarTabFromStore()) + ' dropDownLink'} onClick={e => SetTabNavBar('Config', '/Assets/Config')}>
                                                 <UilSetting />
                                                 <span>Configurações</span>
                                             </span>
@@ -158,7 +158,7 @@ const NavBar = (props) => {
                                         </NavDropdown>
                                     </div>
 
-                                    <div className='LastNavLogoIconContainer' onClick={e => SetTabNavBar('Profile', '/App/Profile')}>
+                                    <div className='LastNavLogoIconContainer' onClick={e => SetTabNavBar('Profile', '/Assets/Profile')}>
                                         <UserPhoto src={GetCurrentUserPhotoUrlFromStore() || LogoBrancoSerrano} />
                                     </div>
 
@@ -167,29 +167,29 @@ const NavBar = (props) => {
                                         <img onClick={e => setShowPhotoModal(true)} alt='User' className='NavSidebarUserPhoto' src={GetCurrentUserPhotoUrlFromStore() || User}></img>
                                     </div>
 
-                                    <div className='NavbarSidebarUserName' onClick={e => SetTabNavBar('Profile', '/App/Profile')}>
+                                    <div className='NavbarSidebarUserName' onClick={e => SetTabNavBar('Profile', '/Assets/Profile')}>
                                         <p> {CurrentUser?.Name ? CurrentUser?.Name : 'Carregando'}</p>
                                         <p> {CurrentUser?.LastName ? CurrentUser.LastName : ''}</p>
                                     </div>
 
                                     <ul className='NavBarListSidebar'>
-                                        <span to="/App/Dash" className={GetNavbarSidebarItemClass('Dash', GetCurrentCurrentSidebarTabFromStore())} onClick={e => SetTabNavBar('Dash', '/App/Dash')}>
+                                        <span to="/Assets/Dash" className={GetNavbarSidebarItemClass('Dash', GetCurrentCurrentSidebarTabFromStore())} onClick={e => SetTabNavBar('Dash', '/Assets/Dash')}>
                                             <UilChartPieAlt />
                                             <span>Dashboard</span>
                                         </span>
-                                        <span to="/App/Ativos" className={GetNavbarSidebarItemClass('Ativos', GetCurrentCurrentSidebarTabFromStore())} onClick={e => SetTabNavBar('Ativos', '/App/Ativos')}>
+                                        <span to="/Assets/Ativos" className={GetNavbarSidebarItemClass('Ativos', GetCurrentCurrentSidebarTabFromStore())} onClick={e => SetTabNavBar('Ativos', '/Assets/Ativos')}>
                                             <UilListUl />
                                             <span>Ativos</span>
                                         </span>
-                                        <span to="/App/Users" className={GetNavbarSidebarItemClass('Users', GetCurrentCurrentSidebarTabFromStore())} onClick={e => SetTabNavBar('Users', '/App/Users')}>
+                                        <span to="/Assets/Users" className={GetNavbarSidebarItemClass('Users', GetCurrentCurrentSidebarTabFromStore())} onClick={e => SetTabNavBar('Users', '/Assets/Users')}>
                                             <UilUsersAlt />
                                             <span>Usuarios</span>
                                         </span>
-                                        <span to="/App/Profile" className={GetNavbarSidebarItemClass('Profile', GetCurrentCurrentSidebarTabFromStore())} onClick={e => SetTabNavBar('Profile', '/App/Profile')}>
+                                        <span to="/Assets/Profile" className={GetNavbarSidebarItemClass('Profile', GetCurrentCurrentSidebarTabFromStore())} onClick={e => SetTabNavBar('Profile', '/Assets/Profile')}>
                                             <UilUserCircle />
                                             <span>Meu Perfil</span>
                                         </span>
-                                        <span to="/App/Config" className={GetNavbarSidebarItemClass('Config', GetCurrentCurrentSidebarTabFromStore())} onClick={e => SetTabNavBar('Config', '/App/Config')}>
+                                        <span to="/Assets/Config" className={GetNavbarSidebarItemClass('Config', GetCurrentCurrentSidebarTabFromStore())} onClick={e => SetTabNavBar('Config', '/Assets/Config')}>
                                             <UilSetting />
                                             <span>Configurações</span>
                                         </span>

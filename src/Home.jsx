@@ -6,7 +6,7 @@ import Login from './Components/Login/Login'
 export default function Home({ CheckedLogin, Email }) {
   if (CheckedLogin) {
     if (Email) {
-      return <Navigate to="/App/Dash" />;
+      return <Navigate to="/Assets/Dash" />;
     } else {
       return <Login />;
     }

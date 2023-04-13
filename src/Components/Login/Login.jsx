@@ -41,10 +41,10 @@ const Login = (props) => {
                 LoginSuccess(message)
                 setIsLoggin(false)
                 NotificationSucesso('Login', 'Login realizado com sucesso!')
-                navigate('/App/Dash')
+                navigate('/Assets/Dash')
             }).catch((error) => {
-                setIsLoggin(false)               
-                NotificationErro('Login', HandleFirebaseEmailPasswordLogin(error.toString()))                
+                setIsLoggin(false)
+                NotificationErro('Login', HandleFirebaseEmailPasswordLogin(error.toString()))
             })
         }
     };
@@ -60,7 +60,7 @@ const Login = (props) => {
 
                 <div className="LoginImageContainer">
                     <img alt="Logo" src={SerranoLogo}></img>
-                </div>              
+                </div>
                 <div className="LoginFormGroup">
 
                     <input placeholder="Email" type="Email" value={Email} onChange={handleChangeEmail} />
@@ -94,10 +94,10 @@ const Login = (props) => {
 }
 
 const ConnectedLogin = connect((state) => {
-    return {       
+    return {
         Tema: state.Tema
     }
-  })(Login)
-  
-  export default ConnectedLogin  
-  
+})(Login)
+
+export default ConnectedLogin
+

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './TabButton.css'
-import { UilListUl, UilSitemap, UilShieldCheck, UilAsterisk,UilLabel,UilBox, UilUsersAlt  } from '@iconscout/react-unicons'
+import { UilListUl, UilSitemap, UilShieldCheck, UilAsterisk, UilLabel, UilBox, UilUsersAlt, UilSetting } from '@iconscout/react-unicons'
 
 const TabButton = ({ children, onClick, className = '', ButtonName, Key }) => {
 
     const [IsActive, setIsActive] = useState(false)
 
     useEffect(() => {
-        setIsActive(Key === ButtonName)        
+        setIsActive(Key === ButtonName)
     }, [Key, ButtonName])
 
 
@@ -46,7 +46,7 @@ export const AtivosCamposTabTitle = () => {
     return <div className='TabsTitle'>
         <UilAsterisk />
         <span>Campos Personalizados</span>
-    </div> 
+    </div>
 }
 
 export const SetoresEUsuáriosTabTitle = () => {
@@ -66,30 +66,30 @@ export const PermicoesTabTitle = () => {
 
 export const ArmazenamentoTabTitle = () => {
     return <div className='TabsTitle'>
-      <UilBox />
-      <span>Armazenamento</span>
+        <UilBox />
+        <span>Armazenamento</span>
     </div>
-  } 
-  
-  export const TiposTabTitle = () => {
+}
+
+export const TiposTabTitle = () => {
     return <div className='TabsTitle'>
-      <UilLabel />
-      <span>Tipos</span>
+        <UilLabel />
+        <span>Tipos</span>
     </div>
-  }
-  export const TodosTabTitle = () => {
+}
+export const TodosTabTitle = () => {
     return <div className='TabsTitle'>
-      <UilListUl />                   
-      <span>Todos</span>
+        <UilListUl />
+        <span>Todos</span>
     </div>
-  }
-   
+}
 
 
 
 
 
-  export const SetoresTabTitle = () => {
+
+export const SetoresTabTitle = () => {
     return <div className='TabsTitle'>
         <UilSitemap />
         <span>Setores</span>
@@ -124,7 +124,7 @@ export const DashUsuariosTabTitle = () => {
         <span>Usuarios</span>
     </div>
 }
- 
+
 export const DashRecordsTabTitle = () => {
     return <div className='TabsTitle'>
         <UilListUl />
@@ -137,6 +137,29 @@ export const DashAtivosTabTitle = () => {
         <span>Ativos</span>
     </div>
 }
+
+
+
+
+export const CustomTiposAtivos = () => {
+    return <div className='TabsTitle'>
+        <UilSetting />
+        <span>Tipos de Ativos</span>
+    </div>
+}
+
+export const CustomTiposUsuarios = () => {
+    return <div className='TabsTitle'>
+        <UilSetting />
+        <span>Tipos de Usuários</span>
+    </div>
+}
+
+
+
+
+
+
 
 
 const Tabs = {
@@ -153,4 +176,6 @@ const Tabs = {
     "DashAtivos": DashAtivosTabTitle(),
     "DahUsuarios": DashUsuariosTabTitle(),
     "DashTipos": DashRecordsTabTitle(),
+    "CustomAtivos": CustomTiposAtivos(),
+    "CustomUserTypes": CustomTiposUsuarios(),
 }

@@ -27,6 +27,7 @@ const UserAtivoRecords = (props) => {
 
     useEffect(() => {
         const Registros = GetRecordsOfUser(props.User?.id)
+
         SetRecords(Registros.filter(Record => {
             const AtivoName = GetAtivoNameWithIdFromStore(Record.AtivoId)
             const TakenByName = GetuserNameWithIdFromStore(Record.TakenBy.id)
@@ -54,7 +55,7 @@ const UserAtivoRecords = (props) => {
             }
         }))
 
-    }, [FiltroDeTexto, OrdenarPor])
+    }, [FiltroDeTexto, OrdenarPor,props.User])
 
 
     const ResetSelectedAtivo = () => {
@@ -132,7 +133,7 @@ const UserAtivoRecords = (props) => {
                     const minutos = duracao.minutes();
 
                     // Formatar a duração no formato desejado
-                    const tempoFormatado = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}`;
+                    const tempoFormatado = `${dias !== 0 ? (dias + ' Dias ') : ''} ${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}`;
 
 
 
