@@ -40,7 +40,7 @@ import ConfirmTab from '../../LayoutComponents/ConfirmTab/ConfirmTab';
 
 
 
-const AtivoModal2 = (props) => {
+const AtivoModal = (props) => {
 
     //DEPENDENCIAS 
     const StatusAtivo = GetAtivoStatusWithIdFromStore(props?.Ativo?.Status?.id)
@@ -703,14 +703,14 @@ const AtivoModal2 = (props) => {
 }
 
 
-const ConnectedAtivoModal2 = connect((state) => {
+const ConnectedAtivoModal = connect((state) => {
     return {
         Tema: state.Tema,
         RecordsAtivos: state.RecordsAtivos
     }
-})(AtivoModal2)
+})(AtivoModal)
 
-export default ConnectedAtivoModal2
+export default ConnectedAtivoModal
 
 
 
