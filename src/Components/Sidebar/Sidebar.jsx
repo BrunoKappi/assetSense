@@ -86,7 +86,7 @@ const Sidebar = (props) => {
             <UserPhotoModal Add={false} OnChangePhoto={onChangePhoto} User={CurrentUser} IsCurrentUser={true} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
 
 
-            <div className={props.Tema === 'Escuro' ? 'SidebarContainerEscuro SidebarContainer' : 'SidebarContainerClaro SidebarContainer'}>
+            <div className={(props.Tema === 'Escuro' ? 'SidebarContainerEscuro SidebarContainer' : 'SidebarContainerClaro SidebarContainer') + ' ' + (props.LoggedUser.SidebarActive ? ' SidebarVisible' : ' SidebarHidden')} >
 
 
                 <div className='SidebarUserPhotoContainer'>
@@ -150,7 +150,7 @@ const Sidebar = (props) => {
                 </Show>
 
 
-                
+
 
             </div>
 

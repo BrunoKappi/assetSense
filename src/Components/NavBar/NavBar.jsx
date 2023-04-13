@@ -23,7 +23,7 @@ import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import User from '../../assets/Images/User.png'
 import { useNavigate } from 'react-router-dom';
 import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilSignout, UilBars, UilMoon, UilBright } from '@iconscout/react-unicons'
-import { GetCurrentCurrentSidebarTabFromStore, GetCurrentUserFromStore, GetCurrentUserPhotoUrlFromStore, GetCurrentUserTypePermitFromStore, LogoutUtil, ToggleTema } from '../../Functions/Middleware';
+import { GetCurrentCurrentSidebarTabFromStore, GetCurrentUserFromStore, GetCurrentUserPhotoUrlFromStore, GetCurrentUserTypePermitFromStore, LogoutUtil, ToggleSideBarVisibility, ToggleTema } from '../../Functions/Middleware';
 import UserPhotoModal from '../UsersList/User/UserPhotoModal/UserPhotoModal'
 import UserPhoto from '../UserProfilePhoto/UserPhoto';
 
@@ -97,6 +97,17 @@ const NavBar = (props) => {
                         </Navbar.Toggle>
                         <Navbar.Brand>
                             <div className='LogoAndCollpse'>
+
+
+
+                                <Tooltip title="Recolher/Expandir barra lateral" position="bottom" >
+                                    <div className='NavBar-Hamburguer' onClick={ToggleSideBarVisibility}>
+                                        <UilBars />
+                                    </div>
+                                </Tooltip>
+
+
+
                                 <Tooltip title="Inicio" position="bottom" >
                                     <Link to="/Assets/Dash" onClick={e => SetTab('Dash')}>
                                         <img alt="Logo" className="LogoNavBar" src={Logo} />

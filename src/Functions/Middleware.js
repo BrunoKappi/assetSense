@@ -16,7 +16,7 @@ import { DefaultUserRole } from "../Data/Items"
 import { SetTemaAction } from "../Config/store/actions/TemaActions"
 import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { storage } from "../Config/firebase"
-import { SetLoggedUserPhotoUrlAction } from "../Config/store/actions/LoggedUserActions"
+import { SetLoggedUserPhotoUrlAction, ToggleSideBar } from "../Config/store/actions/LoggedUserActions"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth } from "../Config/firebase/index";
 
@@ -87,6 +87,18 @@ export const SetAtivoPhotoUrl = (URL, AtivoId) => {
     EditAtivo(Ativo)
     //store.dispatch(SetLoggedUserPhotoUrlAction(URL))
 }
+
+
+
+
+export const ToggleSideBarVisibility = () => {
+    store.dispatch(ToggleSideBar())
+}
+
+
+
+
+
 
 
 
@@ -444,7 +456,7 @@ export async function DeleteAtivo(Ativo) {
 }
 
 
- 
+
 
 export const EditAtivo = (EditedItem) => {
     EditedItem.LastEditedAt = moment().valueOf()

@@ -19,6 +19,13 @@
 
 
 
+.NavBar-Hamburguer {
+  border-radius: 50%;
+  color: white;
+  margin-right: .5rem;
+  cursor: pointer;
+}
+
 .NavSidebarUserPhotoContainer {
   min-width: 20px !important;
   display: none;
@@ -379,10 +386,11 @@
   cursor: pointer;
 }
 
-.LastNavLogoIconContainer>img:hover{
+.LastNavLogoIconContainer>img:hover {
   transform: scale(1.2);
 }
-.LastNavLogoIconContainer>img:active{
+
+.LastNavLogoIconContainer>img:active {
   transform: scale(1);
 }
 

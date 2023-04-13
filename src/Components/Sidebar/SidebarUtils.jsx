@@ -36,7 +36,7 @@ export const GetConfigPermits = (Tipo) => {
         || Tipo.Permits[PermitIndexs['EDITAR_SETORES']]
         || Tipo.Permits[PermitIndexs['EDITAR_TIPOS_DE_USUARIO']]
         || Tipo.Permits[PermitIndexs['EDITAR_PERMICOES']]
-        || Tipo.Permits[PermitIndexs['CONFIGURACOES']]
+
     )
         return true
     else
@@ -46,8 +46,7 @@ export const GetConfigPermits = (Tipo) => {
 export const GetUsuariosPermits = (Tipo) => {
     if (Tipo.Permits[PermitIndexs['ADICIONAR_USUARIOS']]
         || Tipo.Permits[PermitIndexs['EDITAR_USUARIOS']]
-        || Tipo.Permits[PermitIndexs['EXCLUIR_USUARIOS']]
-        || Tipo.Permits[PermitIndexs['USUARIOS']]
+        || Tipo.Permits[PermitIndexs['EXCLUIR_USUARIOS']]      
         || Tipo.Permits[PermitIndexs['VISUALIZAR_USUARIOS']]
     )
         return true
@@ -59,7 +58,6 @@ export const GetAtivosPermits = (Tipo) => {
     if (Tipo.Permits[PermitIndexs['ADICIONAR_ATIVOS']]
         || Tipo.Permits[PermitIndexs['EDITAR_ATIVOS']]
         || Tipo.Permits[PermitIndexs['EXCLUIR_ATIVOS']]
-        || Tipo.Permits[PermitIndexs['ATIVOS']]
         || Tipo.Permits[PermitIndexs['RETIRAR_ATIVOS']]
         || Tipo.Permits[PermitIndexs['VISUALIZAR_ATIVOS']]
     )

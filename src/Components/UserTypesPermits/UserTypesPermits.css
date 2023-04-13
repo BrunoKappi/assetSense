@@ -49,6 +49,9 @@
     width: 100%;
     height: 100%;
     background-color: var(--UserTypesPermitsContainer-Background);
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
 }
 
 
@@ -56,6 +59,7 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
+    margin-top: 2rem;
 }
 
 .UserTypesPermits-TypeContainer-Title {

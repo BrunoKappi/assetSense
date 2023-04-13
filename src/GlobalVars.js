@@ -73,56 +73,66 @@ var Index = 0
 
 export const PermitIndexs = {
   // ================ ATIVOS ================== // 
-  ATIVOS: Index++,
   VISUALIZAR_ATIVOS: Index++,
   RETIRAR_ATIVOS: Index++,
   ADICIONAR_ATIVOS: Index++,
   EDITAR_ATIVOS: Index++,
   EXCLUIR_ATIVOS: Index++,
-  // ================ ATIVOS ================== //
-  // ================ USUARIOS ================== //
-  USUARIOS: Index++,
+  ____: Index++,
+  ____: Index++,
+  ____: Index++,
+  ____: Index++,
+  ____: Index++,
+  // ================ USUARIOS ================== // 
   VISUALIZAR_USUARIOS: Index++,
   ADICIONAR_USUARIOS: Index++,
   EDITAR_USUARIOS: Index++,
   EXCLUIR_USUARIOS: Index++,
-  // ================ USUARIOS ================== //
-
-  // ================ CONFIGURAÇÔES ================== //
-  CONFIGURACOES: Index++,
-  //TIPOS DE ATIVOS 
+  ____: Index++,
+  ____: Index++,
+  ____: Index++,
+  ____: Index++,
+  ____: Index++,
+  ____: Index++,
+  // ================ CONFIGURAÇÔES ================== // 
   EDITAR_TIPOS_ATIVOS: Index++,
-  //LOCAIS  
   EDITAR_LOCAIS: Index++,
-  //STATUS DE ATIVOS 
   EDITAR_STATUS_ATIVOS: Index++,
-  //TIPOS DE USO  
   EDITAR_TIPOS_DE_USO: Index++,
-  //SETORES
   EDITAR_SETORES: Index++,
-  //TIPOS DE USUARIO  
   EDITAR_TIPOS_DE_USUARIO: Index++,
-  //PERMISSOES
   EDITAR_PERMICOES: Index++,
-  // ================ CONFIGURAÇÔES ================== //
+  ____: Index++,
+  ____: Index++,
+  ____: Index++,
+
 }
 
 export const PermitDesc = [
   // ================ ATIVOS ================== // 
-  'Ativos',
   'Visualizar Ativos',
   'Retirar Ativos',
   'Adicionar Ativos',
   'Editar Ativos',
   'Excluir Ativos',
+  '',
+  '',
+  '',
+  '',
+  '',
   // ================ USUARIOS ================== //
-  'Usuários',
   'Visualizar Usuários',
   'Adicionar Usuários',
   'Editar Usuários',
   'Excluir Usuários',
+  '',
+  '',
+  '',
+  '',
+  '',
+  '',
   // ================ CONFIGURAÇÔES ================== //
-  'Configurações',
+
   'Editar Tipos de Ativos',
   'Editar Locais de Armazenamento',
   'Editar Status de Ativos',
@@ -130,6 +140,9 @@ export const PermitDesc = [
   'Editar Setores',
   'Editar Tipos de Usuários',
   'Editar Permissões',
+  '',
+  '',
+  '',
 ]
 
 

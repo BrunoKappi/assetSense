@@ -29,16 +29,9 @@
     --Sidebar-Item-Border-Active: var(--PrimaryBackground);
     --Sidebar-Item-Background-Active: var(--PrimaryBackground);
     --Sidebar-Item-Color-Active: white;
-
     --Sidebar-Name-Color: var(--ComplementaryColor);
 
 }
-
-
-
-
-
-
 
 
 
@@ -54,7 +47,17 @@
     padding-top: 1.5rem;
     background-color: var(--SidebarContainer-Background);
     padding-left: .5rem;
+    transition: width 1s ease-in-out;
 }
+
+
+.SidebarHidden {
+    width: 0 !important;
+    padding: 0 !important;
+    overflow: hidden;
+    transition: width 1s ease-in-out;
+}
+
 
 .SidebarList {
     list-style: none;

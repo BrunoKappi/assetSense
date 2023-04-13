@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './TabButton.css'
 import { UilListUl, UilSitemap, UilShieldCheck, UilAsterisk, UilLabel, UilBox, UilUsersAlt, UilSetting } from '@iconscout/react-unicons'
 
-const TabButton = ({ children, onClick, className = '', ButtonName, Key }) => {
+const TabButton = ({ children, onClick, className = '', ButtonName, Key, Text }) => {
 
     const [IsActive, setIsActive] = useState(false)
 
@@ -12,9 +12,21 @@ const TabButton = ({ children, onClick, className = '', ButtonName, Key }) => {
 
 
     return (
-        <button className={`TabButton ${className} ${IsActive ? 'TabsButtonActive' : ''}`} onClick={onClick}>
-            {Tabs[ButtonName]}
-        </button>
+
+        <>
+            {Text && <button className={`TabButton ${className} ${IsActive ? 'TabsButtonActive' : ''}`} onClick={onClick}>
+                {UserType(Text)}
+            </button>
+            }
+
+            {!Text && <button className={`TabButton ${className} ${IsActive ? 'TabsButtonActive' : ''}`} onClick={onClick}>
+                {Tabs[ButtonName]}
+            </button>
+            }
+
+
+        </>
+
     );
 };
 
@@ -156,6 +168,14 @@ export const CustomTiposUsuarios = () => {
 }
 
 
+export const UserType = (Text) => {
+    return <div className='TabsTitle'>
+        <UilLabel />
+        <span>{Text}</span>
+    </div>
+}
+
+
 
 
 
@@ -178,4 +198,5 @@ const Tabs = {
     "DashTipos": DashRecordsTabTitle(),
     "CustomAtivos": CustomTiposAtivos(),
     "CustomUserTypes": CustomTiposUsuarios(),
+    "UserType": CustomTiposUsuarios(),
 }

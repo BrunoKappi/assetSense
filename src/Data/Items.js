@@ -24,8 +24,8 @@ const ADD_FIREBASE = false
 
 //////////// ================================== DEFAULT ITENS ======================== ////////
 
-const DefaultPermits = [false, true, true, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false]
-const DefaultAdminPermis = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+const DefaultPermits =     [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+const DefaultAdminPermis = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
 
 
 export const DefaultUserType = {
@@ -212,9 +212,6 @@ export const DefaultUser =
         FontFamily: ''
     },
     DateOfBirth: 0,
-    Estate: { name: '' },
-    City: { name: '' },
-    Country: { name: '' },
     AccessToken: '',
     Name: '',
     LastName: '',
@@ -245,6 +242,7 @@ export const DefaultUser =
     Estate: { ...DefaultEstate },
     City: { ...DefaultCity },
     Phone: '555199999999',
+    QtdAtivos: 0,
 
 }
 
@@ -443,7 +441,8 @@ export const Users = [
     { ...DefaultUser, Name: 'Tiago', LastName: 'Silva', Email: 'tiagosilva@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
     { ...DefaultUser, Name: 'Valéria', LastName: 'Rex', Email: 'valeriarex@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
     { ...DefaultUser, Name: 'Vera', LastName: 'Lucia Santos', Email: 'verasantos@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, Name: 'Administrador', LastName: 'Serrano', Email: 'admin@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...RH } }
+    { ...DefaultUser, Name: 'Administrador', LastName: 'Serrano', Email: 'admin@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...RH } },
+    { ...DefaultUser, Name: 'Kátia', LastName: 'Santos', Email: 'katiasantos@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...RH } }
 ]
 
 
