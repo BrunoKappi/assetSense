@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './Sidebar.css'
 import { useNavigate } from 'react-router-dom';
-import { GetSidebarItemClass, SetTab } from './SidebarUtils';
+import { SetTab } from './SidebarUtils';
 import { connect } from 'react-redux'
 import User from '../../assets/Images/SerranoLogoFuncoBranco.jpg'
 
-import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilClipboardNotes, UilHistory } from '@iconscout/react-unicons'
+import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilClipboardNotes, UilHistory,UilBars } from '@iconscout/react-unicons'
 import { NotificationErro } from '../../NotificationUtils';
 import { GetCurrentUserFromStore, GetCurrentUserTypePermitFromStore, SetLoggedUserPhotoUrlJustStore } from '../../Functions/Middleware';
 import Loading from '../LoadingForTabs/Loading'
@@ -16,12 +16,19 @@ import SidebarItem from '../LayoutComponents/SidebarItem/SidebarItem';
 import Show from '../LayoutComponents/Show/Show';
 import Stack from '../LayoutComponents/Stack/Stack';
 
+
+
+
+
 const Sidebar = (props) => {
+
+    const SidebarRef = useRef()
 
     const navigate = useNavigate();
     const [CurrentUser, SetCurrentUser] = useState({ ...props.Usuarios.find(user => user.Email === props.LoggedUser.Email) })
     const [TimeToLoadPhoto, SetTimeToLoadPhoto] = useState(false)
 
+    const [SidebarActive, setSidebarActive] = useState(true)
 
 
     useEffect(() => {
@@ -34,14 +41,10 @@ const Sidebar = (props) => {
         const User = GetCurrentUserFromStore()
         if (User?.PhotoUrl) {
             if (props.LoggedUser.PhotoUrl !== User?.PhotoUrl) {
-                //console.log(User?.PhotoUrl)
                 SetLoggedUserPhotoUrlJustStore(User?.PhotoUrl)
             }
         }
     }, [props.Usuarios])
-
-
-
 
 
     const AtivosPermit = GetCurrentUserTypePermitFromStore('VISUALIZAR_ATIVOS') || GetCurrentUserTypePermitFromStore('RETIRAR_ATIVOS') || GetCurrentUserTypePermitFromStore('ADICIONAR_ATIVOS') || GetCurrentUserTypePermitFromStore(' EDITAR_ATIVOS') || GetCurrentUserTypePermitFromStore('EXCLUIR_ATIVOS')
@@ -78,6 +81,21 @@ const Sidebar = (props) => {
     const IsActive = (Tab) => props.LoggedUser.CurrentSidebarTab === Tab
 
 
+    useEffect(() => {
+        if (!SidebarActive) {
+            SidebarRef.current.style.width = '0'
+            SidebarRef.current.style.padding = '0'
+        }
+        else {
+            SidebarRef.current.style.width = '25%'
+            SidebarRef.current.style.paddingLeft = '.5rem'
+            SidebarRef.current.style.paddingTop = '1.5rem'
+        }
+
+    }, [SidebarActive])
+
+
+
 
     return (
 
@@ -86,8 +104,16 @@ const Sidebar = (props) => {
             <UserPhotoModal Add={false} OnChangePhoto={onChangePhoto} User={CurrentUser} IsCurrentUser={true} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
 
 
-            <div className={(props.Tema === 'Escuro' ? 'SidebarContainerEscuro SidebarContainer' : 'SidebarContainerClaro SidebarContainer') + ' ' + (props.LoggedUser.SidebarActive ? ' SidebarVisible' : ' SidebarHidden')} >
 
+            <div ref={SidebarRef} className={(props.Tema === 'Escuro' ? 'SidebarContainerEscuro SidebarContainer' : 'SidebarContainerClaro SidebarContainer')} >
+
+               
+
+                <Tooltip title="Recolher/Expandir barra lateral" position="bottom" >
+                    <div className='NavBar-Hamburguer ToggleSidebarButton' onClick={e => setSidebarActive(!SidebarActive)}>
+                        <UilBars />
+                    </div>
+                </Tooltip>
 
                 <div className='SidebarUserPhotoContainer'>
                     <Tooltip title="Ver/Alterar Foto de Perfil" position="bottom" >
@@ -169,6 +195,10 @@ const ConnectedSidebar = connect((state) => {
 
 export default ConnectedSidebar
 
+
+export const ToggleSidebar = () => {
+    setSidebarActive(!SidebarActive)
+}
 
 
 

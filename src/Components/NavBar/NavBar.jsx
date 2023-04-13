@@ -26,6 +26,7 @@ import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilS
 import { GetCurrentCurrentSidebarTabFromStore, GetCurrentUserFromStore, GetCurrentUserPhotoUrlFromStore, GetCurrentUserTypePermitFromStore, LogoutUtil, ToggleSideBarVisibility, ToggleTema } from '../../Functions/Middleware';
 import UserPhotoModal from '../UsersList/User/UserPhotoModal/UserPhotoModal'
 import UserPhoto from '../UserProfilePhoto/UserPhoto';
+import { ToggleSidebar } from '../Sidebar/Sidebar';
 
 
 const NavBar = (props) => {
@@ -101,7 +102,7 @@ const NavBar = (props) => {
 
 
                                 <Tooltip title="Recolher/Expandir barra lateral" position="bottom" >
-                                    <div className='NavBar-Hamburguer' onClick={ToggleSideBarVisibility}>
+                                    <div className='NavBar-Hamburguer'>
                                         <UilBars />
                                     </div>
                                 </Tooltip>

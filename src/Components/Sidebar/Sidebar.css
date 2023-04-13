@@ -47,17 +47,16 @@
     padding-top: 1.5rem;
     background-color: var(--SidebarContainer-Background);
     padding-left: .5rem;
-    transition: width 1s ease-in-out;
-}
-
-
-.SidebarHidden {
-    width: 0 !important;
-    padding: 0 !important;
+    transition: width .5s ease-in-out;
     overflow: hidden;
-    transition: width 1s ease-in-out;
 }
 
+.ToggleSidebarButton {
+    position: absolute;
+    top: .9rem;
+    left: .5rem;
+    z-index: 11;
+}
 
 .SidebarList {
     list-style: none;

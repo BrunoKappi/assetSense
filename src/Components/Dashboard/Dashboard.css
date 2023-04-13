@@ -57,6 +57,7 @@
     padding: 2rem;
     padding-left: 3rem;
     overflow-y: scroll;
+
 }
 
 
@@ -147,7 +148,16 @@
     min-height: 250px;
     -webkit-box-shadow: var(--Charts-Container-Shadow);
     box-shadow: var(--Charts-Container-Shadow);
-    
+
+
+}
+
+
+@media (max-width: 1400px) {
+    .ChartCointer {
+        padding: .2rem;
+        width: 300px !important;
+    }
 }
 
 
@@ -160,14 +170,14 @@
 
 @media (max-width: 1000px) {
     .ChartCointer {
-        padding: .2rem; 
-       flex-grow: 1;
+        padding: .2rem;
+        flex-grow: 1;
     }
 }
 
 @media (max-width: 900px) {
     .ChartCointer {
-        padding: .2rem; 
+        padding: .2rem;
         flex-grow: 1;
     }
 }
@@ -177,6 +187,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 100%;
+    
+    width: 100%; 
     gap: .5rem;
 }
