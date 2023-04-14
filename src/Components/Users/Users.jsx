@@ -5,38 +5,36 @@ import Tabs from 'react-bootstrap/Tabs';
 import UsersInSetores from '../UsersInSetores/UsersInSetores';
 import UsersInTypes from '../UsersInTypes/UsersInTypes';
 import UsersList from '../UsersList/UsersList';
-import { GetCurrentUserTypePermitFromStore } from '../../Functions/Middleware';
 import { NotificationErro } from '../../NotificationUtils';
 import { connect } from 'react-redux'
 import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
+import { TodosUsersTab, UsersInSetoresTab, UsersInTypesTab } from '../../Functions/Permits';
 
 
 
 
 const Users = (props) => {
 
-  const TodosPermit = GetCurrentUserTypePermitFromStore('USUARIOS') || GetCurrentUserTypePermitFromStore('EDITAR_USUARIOS') || GetCurrentUserTypePermitFromStore('VISUALIZAR_USUARIOS')
-  const SetoresPermit = GetCurrentUserTypePermitFromStore('EDITAR_USUARIOS') || GetCurrentUserTypePermitFromStore('VISUALIZAR_USUARIOS')
-  const TiposPermit = GetCurrentUserTypePermitFromStore('EDITAR_USUARIOS') || GetCurrentUserTypePermitFromStore('VISUALIZAR_USUARIOS')
+
 
   const getInitialTab = () => {
-    if (TodosPermit)
+    if (TodosUsersTab())
       return 'TodosUsuarios'
-    else if (SetoresPermit)
+    else if (UsersInSetoresTab())
       return 'UsersInSetores'
-    else if (TiposPermit)
+    else if (UsersInTypesTab())
       return 'UsersInTipos'
   }
 
   const [key, setKey] = useState(getInitialTab());
 
   const SetKeyConfig = (Key) => {
-    if (Key === 'TodosUsuarios' && TodosPermit)
+    if (Key === 'TodosUsuarios' && TodosUsersTab())
       setKey(Key)
-    else if (Key === 'UsersInSetores' && SetoresPermit)
+    else if (Key === 'UsersInSetores' && UsersInSetoresTab())
       setKey(Key)
-    else if (Key === 'UsersInTipos' && TiposPermit)
+    else if (Key === 'UsersInTipos' && UsersInTypesTab())
       setKey(Key)
     else
       NotificationErro("Não Autorizado", "Você não possui permissão para acessar essa aba, solicite acesso ao seu Administrador")
@@ -47,10 +45,10 @@ const Users = (props) => {
 
 
 
- 
+
       <TabsContainer Tema={props.Tema}>
         <TabButton ButtonName="TodosUsuarios" Key={key} onClick={(k) => SetKeyConfig('TodosUsuarios')} />
-        <TabButton ButtonName="UsersInSetores" Key={key} onClick={(k) => SetKeyConfig('UsersInSetores')} />       
+        <TabButton ButtonName="UsersInSetores" Key={key} onClick={(k) => SetKeyConfig('UsersInSetores')} />
         <TabButton ButtonName="UsersInTipos" Key={key} onClick={(k) => SetKeyConfig('UsersInTipos')} />
       </TabsContainer>
 
@@ -71,14 +69,14 @@ const Users = (props) => {
 }
 
 
- 
+
 const ConnectedUsers = connect((state) => {
-  return {       
-      Tema: state.Tema
+  return {
+    Tema: state.Tema
   }
 })(Users)
 
-export default ConnectedUsers  
+export default ConnectedUsers
 
 
 

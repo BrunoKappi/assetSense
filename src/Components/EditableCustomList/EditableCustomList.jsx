@@ -11,8 +11,9 @@ import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import { Tooltip } from 'react-tippy';
 import { GetNotificationErrorMessageDelete, GetNotificationSuccessMessageAdd, GetNotificationExistsMessageAdd, GetNotificationSuccessMessageDelete, GetNotificationSuccessMessageChangeName } from './EditableCustomListUtils';
 import Loading from '../LoadingForTabs/Loading'
-import { AddFunctions, CheckIfAnyAtivoOfStatusTaken, DeleteFunctions, EditFunctions, EditStatusAtivo, fetchFunctions, GetCurrentUserTypePermitFromStore, saveFunctions, SaveStatusAtivos } from '../../Functions/Middleware';
+import { AddFunctions, CheckIfAnyAtivoOfStatusTaken, DeleteFunctions, EditFunctions, EditStatusAtivo, fetchFunctions, saveFunctions, SaveStatusAtivos } from '../../Functions/Middleware';
 import { DefaultUserRole } from '../../Data/Items';
+import { EDITAR_LOCAIS, EDITAR_SETORES, EDITAR_STATUS_ATIVOS, EDITAR_TIPOS_ATIVOS, EDITAR_TIPOS_DE_USO, EDITAR_TIPOS_DE_USUARIO } from '../../Functions/Permits';
 
 
 
@@ -27,12 +28,12 @@ const CustomListIcon = {
 
 const EditableCustomList = (props) => {
 
-  const TiposAtvisoPermit = GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_ATIVOS')
-  const LocaisPermit = GetCurrentUserTypePermitFromStore('EDITAR_LOCAIS')
-  const StatusAtivosPermit = GetCurrentUserTypePermitFromStore('EDITAR_STATUS_ATIVOS')
-  const TiposUsoPermit = GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_DE_USO')
-  const SetoresPermit = GetCurrentUserTypePermitFromStore('EDITAR_SETORES')
-  const TiposUsuariosPermit = GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_DE_USUARIO')
+  const TiposAtvisoPermit = EDITAR_TIPOS_ATIVOS()
+  const LocaisPermit = EDITAR_LOCAIS()
+  const StatusAtivosPermit = EDITAR_STATUS_ATIVOS()
+  const TiposUsoPermit = EDITAR_TIPOS_DE_USO()
+  const SetoresPermit = EDITAR_SETORES()
+  const TiposUsuariosPermit = EDITAR_TIPOS_DE_USUARIO()
 
   const CustomListPermits = {
     TiposAtivos: TiposAtvisoPermit,
@@ -49,7 +50,7 @@ const EditableCustomList = (props) => {
   const [Loaded, setLoaded] = useState(false);
   const [EditingItem, setEditingItem] = useState(false);
   const [ListaDeItens, setListaDeItens] = useState([]);
-
+ 
 
 
 
@@ -131,12 +132,12 @@ const EditableCustomList = (props) => {
         addFunction(NewItem).then((AddedItemFirebase) => {
           NewItem.docID = AddedItemFirebase?.id
           ItensCopy.push(NewItem)
-          if (saveFunction) { 
-            saveFunction(ItensCopy).then(() => {    
+          if (saveFunction) {
+            saveFunction(ItensCopy).then(() => {
               console.log(ItensCopy)
               setListaDeItens([...ItensCopy])
               GetNotificationSuccessMessageAdd(props.Module)
-              setNewItemList('') 
+              setNewItemList('')
             }).catch(() => {
               NotificationErro("Erro", "Ocorreu um problema, tente novamente")
               setLoaded(true)

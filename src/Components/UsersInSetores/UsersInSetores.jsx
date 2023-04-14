@@ -6,8 +6,9 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { v4 } from 'uuid';
 import { connect } from 'react-redux'
 import NumbersOfList from '../NumbersOfList/NumbersOfList';
-import { EditUser, GetCurrentUserTypePermitFromStore, GetSetoresFromStore, GetUsersFromStore, GetUserTypesFromStore, SaveUsers } from '../../Functions/Middleware';
+import { EditUser, GetSetoresFromStore, GetUsersFromStore, GetUserTypesFromStore, SaveUsers } from '../../Functions/Middleware';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
+import { EDITAR_USUARIOS } from '../../Functions/Permits';
 
 const breakpointColumnsObj = {
     default: 4,
@@ -19,7 +20,7 @@ const breakpointColumnsObj = {
 
 const UsersInSetores = (props) => {
 
-    const SetoresPermit = (GetCurrentUserTypePermitFromStore('EDITAR_USUARIOS'))
+    const SetoresPermit = (EDITAR_USUARIOS())
 
     const ListaSetores = GetSetoresFromStore()
     const TiposUsuarios = GetUserTypesFromStore()
@@ -38,7 +39,7 @@ const UsersInSetores = (props) => {
     }, [props.Usuarios, props.Setores])
 
 
-   //COMENTADO  console.log("SETORES")
+    //COMENTADO  console.log("SETORES")
 
 
     const HandleDrag = (Resultado) => {
@@ -51,7 +52,7 @@ const UsersInSetores = (props) => {
             if (User.Sector.id === SectorDestinationID) return
             User.Sector.id = SectorDestinationID
             EditUser(User).then(() => {
-               //COMENTADO  console.log("Movido")
+                //COMENTADO  console.log("Movido")
                 const copiedItems = [...Usuarios];
                 copiedItems[IndexOfUser] = { ...User }
                 SaveUsers(copiedItems)
@@ -89,7 +90,7 @@ const UsersInSetores = (props) => {
 const ConnectedUsersInSetores = connect((state) => {
     return {
         Usuarios: state.Usuarios,
-        Setores: state.Setores       
+        Setores: state.Setores
     }
 })(UsersInSetores)
 

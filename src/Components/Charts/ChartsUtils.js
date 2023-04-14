@@ -1,185 +1,75 @@
-import { GetAtivosFromStore, GetLocaisArmazenamentoFromStore, GetRecordsFromFirebase, GetRecordsFromStore, GetSetoresFromStore, GetStatusAtivosFromFirebase, GetStatusAtivosFromStore, GetTiposAtivosFromStore, GetTiposDeUsoFromStore, GetUserTypesFromStore, GetUsersFromStore } from "../../Functions/Middleware"
+import {
+    GetAtivosFromStore,
+    GetLocaisArmazenamentoFromStore,
+    GetRecordsFromStore,
+    GetSetoresFromStore,
+    GetStatusAtivosFromStore,
+    GetTiposAtivosFromStore,
+    GetTiposDeUsoFromStore,
+    GetUserTypesFromStore,
+    GetUsersFromStore
+} from "../../Functions/Middleware"
 
 
 
-export const GetUserTypes_SeriesLabels = () => {
-    const TiposUsuariosIds = [...GetUserTypesFromStore().map(element => { return element.id })]
-    const TiposUsuariosLabels = [...GetUserTypesFromStore().map(element => { return element.Value })]
-    const TiposUsuariosQtd = [...GetUserTypesFromStore().map(element => { return { Qtd: 0, Label: '' } })]
-    var TiposUsuariosQtdCopy = [...TiposUsuariosQtd]
-    const Usuarios = GetUsersFromStore()
-    TiposUsuariosIds.map((TipoID, IndexTipoUser) => {
-        return Usuarios.map(User => {
-            if (User.Type.id === TipoID) {
-                TiposUsuariosQtdCopy[IndexTipoUser].Qtd = TiposUsuariosQtdCopy[IndexTipoUser].Qtd + 1
-                TiposUsuariosQtdCopy[IndexTipoUser].Label = TiposUsuariosLabels[IndexTipoUser]
-            }
-            return ''
-        })
-    })
 
-
-    TiposUsuariosQtdCopy = TiposUsuariosQtdCopy.filter(I => I.Qtd > 0)
-
-    TiposUsuariosQtdCopy.sort((a, b) => b.Qtd - a.Qtd).map((Item, Index) => {
-        TiposUsuariosLabels[Index] = TiposUsuariosQtdCopy[Index].Label
-        TiposUsuariosQtdCopy[Index] = TiposUsuariosQtdCopy[Index].Qtd
-    })
-
-    const optionsCopy = {}
-    optionsCopy.labels = [...TiposUsuariosLabels]
-    optionsCopy.series = [...TiposUsuariosQtdCopy]
-    return optionsCopy
+const IdsGetFunctions = {
+    'StatusAtivos': GetStatusAtivosFromStore,
+    'TiposUso': GetTiposDeUsoFromStore,
+    'Locais': GetLocaisArmazenamentoFromStore,
+    'TiposAtivos': GetTiposAtivosFromStore,
+    'Setores': GetSetoresFromStore,
+    'TiposUsuarios': GetUserTypesFromStore,
 }
 
-export const GetUserSetores_SeriesLabels = () => {
-    const SetoresIds = [...GetSetoresFromStore().map(element => { return element.id })]
-    const SetoresLabels = [...GetSetoresFromStore().map(element => { return element.Value })]
-    const SetoresQtd = [...GetSetoresFromStore().map(element => { return { Qtd: 0, Label: '' } })]
-    var SetoresQtdCopy = [...SetoresQtd]
-    const Usuarios = GetUsersFromStore()
-    SetoresIds.map((TipoID, IndexTipoUser) => {
-        return Usuarios.map(User => {
-            if (User.Sector.id === TipoID) {
-                SetoresQtdCopy[IndexTipoUser].Qtd = SetoresQtdCopy[IndexTipoUser].Qtd + 1
-                SetoresQtdCopy[IndexTipoUser].Label = SetoresLabels[IndexTipoUser]
-            }
-            return ''
-        })
-    })
-
-
-    SetoresQtdCopy = SetoresQtdCopy.filter(I => I.Qtd > 0)
-
-    SetoresQtdCopy.sort((a, b) => b.Qtd - a.Qtd).map((Item, Index) => {
-        SetoresLabels[Index] = SetoresQtdCopy[Index].Label
-        SetoresQtdCopy[Index] = SetoresQtdCopy[Index].Qtd
-    })
-
-
-    
-
-    const optionsCopy = {}
-    optionsCopy.labels = [...SetoresLabels]
-    optionsCopy.series = [...SetoresQtdCopy]
-    return optionsCopy
+const ItensGetFunctions = {
+    'StatusAtivos': GetAtivosFromStore,
+    'TiposUso': GetAtivosFromStore,
+    'Locais': GetAtivosFromStore,
+    'TiposAtivos': GetAtivosFromStore,
+    'Setores': GetUsersFromStore,
+    'TiposUsuarios': GetUsersFromStore,
 }
 
-export const GetTiposAtivos_SeriesLabels = () => {
-    const TiposAtivosIds = [...GetTiposAtivosFromStore().map(element => { return element.id })]
-    const TiposAtivosLabels = [...GetTiposAtivosFromStore().map(element => { return element.Value })]
-    const TiposAtivosQtd = [...GetTiposAtivosFromStore().map(element => { return { Qtd: 0, Label: '' } })]
-    var TiposAtivosQtdCopy = [...TiposAtivosQtd]
-    const Ativos = GetAtivosFromStore()
-    TiposAtivosIds.map((TipoID, index) => {
-        return Ativos.map(Ativo => {
-            if (Ativo.Type.id === TipoID) {
-                TiposAtivosQtdCopy[index].Qtd = TiposAtivosQtdCopy[index].Qtd + 1
-                TiposAtivosQtdCopy[index].Label = TiposAtivosLabels[index]
-            }
-            return ''
-        })
-    })
-    const optionsCopy = {}
-
-    TiposAtivosQtdCopy = TiposAtivosQtdCopy.filter(I => I.Qtd > 0)
-
-    TiposAtivosQtdCopy.sort((a, b) => b.Qtd - a.Qtd).map((Item, Index) => {
-        TiposAtivosLabels[Index] = TiposAtivosQtdCopy[Index].Label
-        TiposAtivosQtdCopy[Index] = TiposAtivosQtdCopy[Index].Qtd
-    })
-
-    optionsCopy.labels = [...TiposAtivosLabels]
-    optionsCopy.series = [...TiposAtivosQtdCopy]
-    return optionsCopy
+const KeysGetFunctions = {
+    'StatusAtivos': 'Status',
+    'TiposUso': 'Usage',
+    'Locais': 'StorageLocation',
+    'TiposAtivos': 'Type',
+    'Setores': 'Sector',
+    'TiposUsuarios': 'Type',
 }
 
-export const GetAtivosLocais_SeriesLabels = () => {
-    const AtivosLocaisIds = [...GetLocaisArmazenamentoFromStore().map(element => { return element.id })]
-    const AtivosLocaisLabels = [...GetLocaisArmazenamentoFromStore().map(element => { return element.Value })]
-    const AtivosLocaisQtd = [...GetLocaisArmazenamentoFromStore().map(element => { return { Qtd: 0, Label: '' } })]
-    var AtivosLocaisQtdCopy = [...AtivosLocaisQtd]
-    const Ativos = GetAtivosFromStore()
-    AtivosLocaisIds.map((TipoID, index) => {
-        return Ativos.map(Ativo => {
-            if (Ativo.StorageLocation.id === TipoID) {
-                AtivosLocaisQtdCopy[index].Qtd = AtivosLocaisQtdCopy[index].Qtd + 1
-                AtivosLocaisQtdCopy[index].Label = AtivosLocaisLabels[index]
+
+export const GetSeriesAndLabels = (Tipo) => {
+
+    const GetIds = IdsGetFunctions[Tipo]
+    const GetItens = ItensGetFunctions[Tipo]
+
+    const Ids = [...GetIds().map(element => { return element.id })]
+    const Labels = [...GetIds().map(element => { return element.Value })]
+    const Qtds = [...GetIds().map(element => { return { Qtd: 0, Label: '' } })]
+    var QtdsCopy = [...Qtds]
+    const Itens = GetItens()
+    Ids.map((ID, Index) => {
+        return Itens.map(Item => {
+            if (Item[KeysGetFunctions[Tipo]].id === ID) {
+                QtdsCopy[Index].Qtd = QtdsCopy[Index].Qtd + 1
+                QtdsCopy[Index].Label = Labels[Index]
             }
             return ''
         })
     })
 
-    AtivosLocaisQtdCopy = AtivosLocaisQtdCopy.filter(I => I.Qtd > 0)
+    QtdsCopy = QtdsCopy.filter(I => I.Qtd > 0)
 
-    AtivosLocaisQtdCopy.sort((a, b) => b.Qtd - a.Qtd).map((Item, Index) => {
-        AtivosLocaisLabels[Index] = AtivosLocaisQtdCopy[Index].Label
-        AtivosLocaisQtdCopy[Index] = AtivosLocaisQtdCopy[Index].Qtd
-    })
-
-    const optionsCopy = {}
-    optionsCopy.labels = [...AtivosLocaisLabels]
-    optionsCopy.series = [...AtivosLocaisQtdCopy]
-    return optionsCopy
-}
-
-export const GetAtivosStatus_SeriesLabels = () => {
-    const AtivosStatusIds = [...GetStatusAtivosFromStore().map(element => { return element.id })]
-    const AtivosStatusLabels = [...GetStatusAtivosFromStore().map(element => { return element.Value })]
-    const AtivosStatusQtd = [...GetStatusAtivosFromStore().map(element => { return { Qtd: 0, Label: '' } })]
-    var AtivosStatusQtdCopy = [...AtivosStatusQtd]
-    const Ativos = GetAtivosFromStore()
-    AtivosStatusIds.map((TipoID, index) => {
-        return Ativos.map(Ativo => {
-            if (Ativo.Status.id === TipoID) {
-                AtivosStatusQtdCopy[index].Qtd = AtivosStatusQtdCopy[index].Qtd + 1
-                AtivosStatusQtdCopy[index].Label = AtivosStatusLabels[index]
-            }
-            return ''
-        })
-    })
-
-    AtivosStatusQtdCopy = AtivosStatusQtdCopy.filter(I => I.Qtd > 0)
-
-    AtivosStatusQtdCopy.sort((a, b) => b.Qtd - a.Qtd).map((Item, Index) => {
-        AtivosStatusLabels[Index] = AtivosStatusQtdCopy[Index].Label
-        AtivosStatusQtdCopy[Index] = AtivosStatusQtdCopy[Index].Qtd
+    QtdsCopy.sort((a, b) => b.Qtd - a.Qtd).map((Item, Index) => {
+        Labels[Index] = QtdsCopy[Index].Label
+        QtdsCopy[Index] = QtdsCopy[Index].Qtd
     })
     const optionsCopy = {}
-    optionsCopy.labels = [...AtivosStatusLabels]
-    optionsCopy.series = [...AtivosStatusQtdCopy]
-    return optionsCopy
-}
-
-export const GetTiposDeUsoAtivos_SeriesLabels = () => {
-    const TiposDeUsoAtivosIds = [...GetTiposDeUsoFromStore().map(element => { return element.id })]
-    const TiposDeUsoAtivosLabels = [...GetTiposDeUsoFromStore().map(element => { return element.Value })]
-    const TiposDeUsoAtivosQtd = [...GetTiposDeUsoFromStore().map(element => { return { Qtd: 0, Label: '' } })]
-    var TiposDeUsoAtivosQtdCopy = [...TiposDeUsoAtivosQtd]
-    const Ativos = GetAtivosFromStore()
-    TiposDeUsoAtivosIds.map((TipoID, index) => {
-        return Ativos.map(Ativo => {
-            if (Ativo.Usage.id === TipoID) {
-                TiposDeUsoAtivosQtdCopy[index].Qtd = TiposDeUsoAtivosQtdCopy[index].Qtd + 1
-                TiposDeUsoAtivosQtdCopy[index].Label = TiposDeUsoAtivosLabels[index]
-            }
-            return ''
-        })
-    })
-
-
-    TiposDeUsoAtivosQtdCopy = TiposDeUsoAtivosQtdCopy.filter(I => I.Qtd > 0)
-
-    TiposDeUsoAtivosQtdCopy.sort((a, b) => b.Qtd - a.Qtd).map((Item, Index) => {
-        TiposDeUsoAtivosLabels[Index] = TiposDeUsoAtivosQtdCopy[Index].Label
-        TiposDeUsoAtivosQtdCopy[Index] = TiposDeUsoAtivosQtdCopy[Index].Qtd
-    })
-
-
-    const optionsCopy = {}
-
-    optionsCopy.labels = [...TiposDeUsoAtivosLabels]
-    optionsCopy.series = [...TiposDeUsoAtivosQtdCopy]
+    optionsCopy.labels = [...Labels]
+    optionsCopy.series = [...QtdsCopy]
     return optionsCopy
 }
 
@@ -205,8 +95,6 @@ export const GetRecordsPendentesUso_SeriesLabels = () => {
     optionsCopy.series = [...TiposDeUsoAtivosQtd]
     return optionsCopy
 }
-
-
 
 export const GetTop5ItensRetirados_SeriesLabels = () => {
 
@@ -239,16 +127,6 @@ export const GetTop5ItensRetirados_SeriesLabels = () => {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 export const GetTop5UsuariosRetirados_SeriesLabels = () => {
 
     const Records = GetRecordsFromStore()
@@ -265,11 +143,10 @@ export const GetTop5UsuariosRetirados_SeriesLabels = () => {
         } else
             return
     })
-
     const optionsCopy = {}
     optionsCopy.labels = UsersRetirados.sort((a, b) => b.Qtd - a.Qtd).slice(0, 5).map(Ativo => { return Ativo.Nome })
     optionsCopy.series = UsersRetirados.sort((a, b) => b.Qtd - a.Qtd).slice(0, 5).map(Ativo => { return Ativo.Qtd })
-    //COMENTADO  console.log(optionsCopy)
+
     return optionsCopy
 
 
@@ -281,13 +158,13 @@ export const GetTop5UsuariosRetirados_SeriesLabels = () => {
 
 
 export const GetFunctions = {
-    "TiposAtivos": GetTiposAtivos_SeriesLabels,
-    "Setores": GetUserSetores_SeriesLabels,
-    "TiposUsuarios": GetUserTypes_SeriesLabels,
-    "Locais": GetAtivosLocais_SeriesLabels,
-    "StatusAtivos": GetAtivosStatus_SeriesLabels,
-    "TiposUso": GetTiposDeUsoAtivos_SeriesLabels,
+    "TiposAtivos": GetSeriesAndLabels,
+    "Setores": GetSeriesAndLabels,
+    "TiposUsuarios": GetSeriesAndLabels,
+    "Locais": GetSeriesAndLabels,
+    "StatusAtivos": GetSeriesAndLabels,
+    "TiposUso": GetSeriesAndLabels,
     "RecordsPendentesUso": GetRecordsPendentesUso_SeriesLabels,
     "Top5AtivosRetirados": GetTop5ItensRetirados_SeriesLabels,
     "Top5UsersRetirados": GetTop5UsuariosRetirados_SeriesLabels,
-};
+}; 

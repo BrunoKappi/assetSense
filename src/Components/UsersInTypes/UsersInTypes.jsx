@@ -8,8 +8,9 @@ import { connect } from 'react-redux'
 import Chart from 'react-apexcharts'
 import { DefaultTypesProps, GetOptionsAndSeries } from './UsersInTypesUtils';
 import NumbersOfList from '../NumbersOfList/NumbersOfList';
-import { EditUser, GetCurrentUserTypePermitFromStore, GetUserTypesFromStore, SaveUsers } from '../../Functions/Middleware';
+import { EditUser, GetUserTypesFromStore, SaveUsers } from '../../Functions/Middleware';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
+import { EDITAR_USUARIOS } from '../../Functions/Permits';
 
 
 const breakpointColumnsObj = {
@@ -23,7 +24,7 @@ const breakpointColumnsObj = {
 
 const UsersInTypes = (props) => {
 
-    const TiposPermit = (GetCurrentUserTypePermitFromStore('EDITAR_USUARIOS'))
+    const TiposPermit = (EDITAR_USUARIOS())
 
 
     const [Options, setOptions] = useState({ ...DefaultTypesProps })
@@ -43,7 +44,7 @@ const UsersInTypes = (props) => {
 
 
 
-   //COMENTADO  console.log("TIPOS")
+    //COMENTADO  console.log("TIPOS")
 
 
     const HandleDrag = (Resultado) => {
@@ -60,7 +61,7 @@ const UsersInTypes = (props) => {
 
 
             EditUser(User).then(() => {
-               //COMENTADO  console.log("Movido")
+                //COMENTADO  console.log("Movido")
                 const copiedItems = [...props.Usuarios];
                 copiedItems[IndexOfUser] = { ...User }
                 SaveUsers(copiedItems)

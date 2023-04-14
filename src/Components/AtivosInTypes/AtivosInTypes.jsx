@@ -6,8 +6,9 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { v4 } from 'uuid';
 import { connect } from 'react-redux'
 import NumbersOfList from '../NumbersOfList/NumbersOfList';
-import { EditAtivo, GetCurrentUserTypePermitFromStore, SaveAtivos } from '../../Functions/Middleware';
+import { EditAtivo,  SaveAtivos } from '../../Functions/Middleware';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
+import { EDITAR_ATIVOS } from '../../Functions/Permits';
 
 const breakpointColumnsObj = {
     default: 4,
@@ -19,7 +20,7 @@ const breakpointColumnsObj = {
 
 const AtivosInTypes = (props) => {
 
-    const AtivosPermit = (GetCurrentUserTypePermitFromStore('EDITAR_ATIVOS'))
+    const AtivosPermit = (EDITAR_ATIVOS())
 
     const [TiposAtivos, setTiposAtivos] = useState([
         ...props.TiposAtivos.map(element => {
@@ -36,7 +37,7 @@ const AtivosInTypes = (props) => {
     }, [props.Ativos, props.TiposAtivos])
 
 
- 
+
 
     const HandleDrag = (Resultado) => {
         //console.log(Resultado)
@@ -51,8 +52,8 @@ const AtivosInTypes = (props) => {
             if (Ativo.Type.id === TypeDestinationID) return
             Ativo.Type.id = TypeDestinationID
             EditAtivo(Ativo).then(() => {
-               //COMENTADO  console.log("Movido")
-                const copiedItems = [...props.Ativos]; 
+                //COMENTADO  console.log("Movido")
+                const copiedItems = [...props.Ativos];
                 copiedItems[IndexOfAtivo] = { ...Ativo }
                 SaveAtivos(copiedItems)
                 NotificationSucesso("Edição", "Tipo do Ativo alterado com Sucesso!")

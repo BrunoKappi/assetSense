@@ -5,9 +5,9 @@ import { SetTab } from './SidebarUtils';
 import { connect } from 'react-redux'
 import User from '../../assets/Images/SerranoLogoFuncoBranco.jpg'
 
-import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilClipboardNotes, UilHistory,UilBars } from '@iconscout/react-unicons'
+import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilClipboardNotes, UilHistory, UilBars } from '@iconscout/react-unicons'
 import { NotificationErro } from '../../NotificationUtils';
-import { GetCurrentUserFromStore, GetCurrentUserTypePermitFromStore, SetLoggedUserPhotoUrlJustStore } from '../../Functions/Middleware';
+import { GetCurrentUserFromStore,  SetLoggedUserPhotoUrlJustStore } from '../../Functions/Middleware';
 import Loading from '../LoadingForTabs/Loading'
 import UserPhotoModal from '../UsersList/User/UserPhotoModal/UserPhotoModal'
 //Tooltip
@@ -15,6 +15,7 @@ import { Tooltip } from 'react-tippy';
 import SidebarItem from '../LayoutComponents/SidebarItem/SidebarItem';
 import Show from '../LayoutComponents/Show/Show';
 import Stack from '../LayoutComponents/Stack/Stack';
+import { AtivosTela, ConfigTela, UsuariosTela } from '../../Functions/Permits';
 
 
 
@@ -26,18 +27,11 @@ const Sidebar = (props) => {
 
     const navigate = useNavigate();
     const [CurrentUser, SetCurrentUser] = useState({ ...props.Usuarios.find(user => user.Email === props.LoggedUser.Email) })
-    const [TimeToLoadPhoto, SetTimeToLoadPhoto] = useState(false)
-
     const [SidebarActive, setSidebarActive] = useState(true)
 
 
     useEffect(() => {
         SetCurrentUser({ ...props.Usuarios.find(user => user.Email === props.LoggedUser.Email) })
-        setTimeout(() => {
-            SetTimeToLoadPhoto(true)
-        }, 1500);
-
-
         const User = GetCurrentUserFromStore()
         if (User?.PhotoUrl) {
             if (props.LoggedUser.PhotoUrl !== User?.PhotoUrl) {
@@ -47,10 +41,6 @@ const Sidebar = (props) => {
     }, [props.Usuarios])
 
 
-    const AtivosPermit = GetCurrentUserTypePermitFromStore('VISUALIZAR_ATIVOS') || GetCurrentUserTypePermitFromStore('RETIRAR_ATIVOS') || GetCurrentUserTypePermitFromStore('ADICIONAR_ATIVOS') || GetCurrentUserTypePermitFromStore(' EDITAR_ATIVOS') || GetCurrentUserTypePermitFromStore('EXCLUIR_ATIVOS')
-    const UsuariosPermit = GetCurrentUserTypePermitFromStore('VISUALIZAR_USUARIOS') || GetCurrentUserTypePermitFromStore('ADICIONAR_USUARIOS') || GetCurrentUserTypePermitFromStore(' EDITAR_USUARIOS') || GetCurrentUserTypePermitFromStore('EXCLUIR_USUARIOS')
-    const ConfigPermit = GetCurrentUserTypePermitFromStore('CONFIGURACOES') || GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_ATIVOS') || GetCurrentUserTypePermitFromStore('EDITAR_LOCAIS') || GetCurrentUserTypePermitFromStore('EDITAR_STATUS_ATIVOS') || GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_DE_USO') || GetCurrentUserTypePermitFromStore('EDITAR_SETORES') || GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_DE_USUARIO') || GetCurrentUserTypePermitFromStore('EDITAR_PERMICOES')
-
 
     const SetTabSidebar = (Tab, To) => {
         if (Tab === 'Dash') {
@@ -58,13 +48,13 @@ const Sidebar = (props) => {
             navigate(To)
         } else if (Tab === 'Profile') {
             navigate(To)
-        } else if (Tab === 'Ativos' && AtivosPermit) {
+        } else if (Tab === 'Ativos' && AtivosTela()) {
             SetTab(Tab)
             navigate(To)
-        } else if (Tab === 'Users' && UsuariosPermit) {
+        } else if (Tab === 'Users' && UsuariosTela()) { 
             SetTab(Tab)
             navigate(To)
-        } else if (Tab === 'Config' && ConfigPermit) {
+        } else if (Tab === 'Config' && ConfigTela()) {
             SetTab(Tab)
             navigate(To)
         } else if (Tab === 'Records') {
@@ -107,7 +97,7 @@ const Sidebar = (props) => {
 
             <div ref={SidebarRef} className={(props.Tema === 'Escuro' ? 'SidebarContainerEscuro SidebarContainer' : 'SidebarContainerClaro SidebarContainer')} >
 
-               
+
 
                 <Tooltip title="Recolher/Expandir barra lateral" position="bottom" >
                     <div className='NavBar-Hamburguer ToggleSidebarButton' onClick={e => setSidebarActive(!SidebarActive)}>

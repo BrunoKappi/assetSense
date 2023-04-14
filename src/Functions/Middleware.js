@@ -13,7 +13,7 @@ import { EditRecordAction, SetRecords } from "../Config/store/actions/RecordsAct
 import moment from "moment"
 import { FIREBASE_AddAtivo, FIREBASE_AddLocalArmazenamento, FIREBASE_AddRecord, FIREBASE_AddSetor, FIREBASE_AddStatusAtivo, FIREBASE_AddTipoAtivo, FIREBASE_AddTipoUso, FIREBASE_AddTipoUsuario, FIREBASE_AddUsuario, FIREBASE_DeleteLocalArmazenamento, FIREBASE_DeleteSetor, FIREBASE_DeleteStatusAtivo, FIREBASE_DeleteTipoAtivo, FIREBASE_DeleteTipoDeUsuario, FIREBASE_DeleteTipoUso, FIREBASE_GetAtivos, FIREBASE_GetLocaisArmazenamento, FIREBASE_GetRecords, FIREBASE_GetSetores, FIREBASE_GetStatusAtivos, FIREBASE_GetTiposAtivo, FIREBASE_GetTiposUso, FIREBASE_GetTiposUsuarios, FIREBASE_GetUsuarios, FIREBASE_UpdateAtivo, FIREBASE_UpdateLocalArmazenamento, FIREBASE_UpdateRecord, FIREBASE_UpdateSetor, FIREBASE_UpdateStatusAtivo, FIREBASE_UpdateTipoAtivo, FIREBASE_UpdateTipoDeUsuario, FIREBASE_UpdateTipoUso, FIREBASE_UpdateUsuario } from "../Config/firebase/metodos"
 import { DefaultUserRole } from "../Data/Items"
-import { SetTemaAction } from "../Config/store/actions/TemaActions"
+import { SetTemaAction } from "../Config/store/actions/TemaActions" 
 import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { storage } from "../Config/firebase"
 import { SetLoggedUserPhotoUrlAction, ToggleSideBar } from "../Config/store/actions/LoggedUserActions"
@@ -164,7 +164,7 @@ export const EditTipoAtivo = (EditedItem) => {
 //////////// SETORES //////////////////
 
 export async function GetSetores() {
-    //COMENTADO // console.log("Pegando setores")
+
     return FIREBASE_GetSetores()
 }
 
@@ -651,7 +651,7 @@ export const GetUsersFromStoreWithNoCurrentUser = (AtivoId) => {
     const UsersThatTook = GetUsersThatTookAtivo(AtivoId)
     const Users = [...store.getState().Usuarios].filter(User => User.id !== Current.id)
     const UsersNotTook = Users.filter(user => !UsersThatTook.some(took => took.id === user.id));
-    //COMENTADO // console.log("FILTER USERS", UsersNotTook)
+
     return UsersNotTook
 }
 export const GetRecordsFromStore = () => {

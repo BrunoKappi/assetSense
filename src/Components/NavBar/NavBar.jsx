@@ -23,10 +23,11 @@ import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import User from '../../assets/Images/User.png'
 import { useNavigate } from 'react-router-dom';
 import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilSignout, UilBars, UilMoon, UilBright } from '@iconscout/react-unicons'
-import { GetCurrentCurrentSidebarTabFromStore, GetCurrentUserFromStore, GetCurrentUserPhotoUrlFromStore, GetCurrentUserTypePermitFromStore, LogoutUtil, ToggleSideBarVisibility, ToggleTema } from '../../Functions/Middleware';
+import { GetCurrentCurrentSidebarTabFromStore, GetCurrentUserFromStore, GetCurrentUserPhotoUrlFromStore, LogoutUtil, ToggleTema } from '../../Functions/Middleware';
 import UserPhotoModal from '../UsersList/User/UserPhotoModal/UserPhotoModal'
 import UserPhoto from '../UserProfilePhoto/UserPhoto';
-import { ToggleSidebar } from '../Sidebar/Sidebar';
+import { AtivosTela, ConfigTela, UsuariosTela } from '../../Functions/Permits';
+
 
 
 const NavBar = (props) => {
@@ -34,11 +35,6 @@ const NavBar = (props) => {
     const navigate = useNavigate();
     const [CurrentUser, SetCurrentUser] = useState('Carregando')
     const [ShowPhotoModal, setShowPhotoModal] = useState(false)
-
-    // PERMITS NEEDED
-    const AtivosPermit = GetCurrentUserTypePermitFromStore('VISUALIZAR_ATIVOS') || GetCurrentUserTypePermitFromStore('RETIRAR_ATIVOS') || GetCurrentUserTypePermitFromStore('ADICIONAR_ATIVOS') || GetCurrentUserTypePermitFromStore(' EDITAR_ATIVOS') || GetCurrentUserTypePermitFromStore('EXCLUIR_ATIVOS')
-    const UsuariosPermit = GetCurrentUserTypePermitFromStore('VISUALIZAR_USUARIOS') || GetCurrentUserTypePermitFromStore('ADICIONAR_USUARIOS') || GetCurrentUserTypePermitFromStore(' EDITAR_USUARIOS') || GetCurrentUserTypePermitFromStore('EXCLUIR_USUARIOS')
-    const ConfigPermit = GetCurrentUserTypePermitFromStore('CONFIGURACOES') || GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_ATIVOS') || GetCurrentUserTypePermitFromStore('EDITAR_LOCAIS') || GetCurrentUserTypePermitFromStore('EDITAR_STATUS_ATIVOS') || GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_DE_USO') || GetCurrentUserTypePermitFromStore('EDITAR_SETORES') || GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_DE_USUARIO') || GetCurrentUserTypePermitFromStore('EDITAR_PERMICOES')
 
 
     const Sair = () => {
@@ -66,13 +62,13 @@ const NavBar = (props) => {
             navigate(To)
         } else if (Tab === 'Profile') {
             navigate(To)
-        } else if (Tab === 'Ativos' && AtivosPermit) {
+        } else if (Tab === 'Ativos' && AtivosTela()) {
             SetTab(Tab)
             navigate(To)
-        } else if (Tab === 'Users' && UsuariosPermit) {
+        } else if (Tab === 'Users' && UsuariosTela()) {
             SetTab(Tab)
             navigate(To)
-        } else if (Tab === 'Config' && ConfigPermit) {
+        } else if (Tab === 'Config' && ConfigTela()) {
             SetTab(Tab)
             navigate(To)
         } else

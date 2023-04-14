@@ -1,25 +1,19 @@
 import React, { useState } from 'react'
 import { UilListUl, UilSitemap, UilShieldCheck } from '@iconscout/react-unicons'
-import { GetCurrentUserTypePermitFromStore } from '../../Functions/Middleware'
-
 import { connect } from 'react-redux'
+import { AtivosTabAccess, PermicoesTabAccess, SetoresUsuariosTabAccess } from '../../Functions/Permits'
 
 const TabsHeader = (props) => {
 
 
 
 
-    const AtivosPermit = GetCurrentUserTypePermitFromStore('CONFIGURACOES') || GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_ATIVOS') || GetCurrentUserTypePermitFromStore('EDITAR_LOCAIS') || GetCurrentUserTypePermitFromStore('EDITAR_STATUS_ATIVOS') || GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_DE_USO')
-    const SetoresUsuariosPermit = GetCurrentUserTypePermitFromStore('CONFIGURACOES') || GetCurrentUserTypePermitFromStore('EDITAR_SETORES') || GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_DE_USUARIO')
-    const PermicoesPermit = GetCurrentUserTypePermitFromStore('CONFIGURACOES') || GetCurrentUserTypePermitFromStore('EDITAR_PERMICOES')
-
-
     const getInitialTab = () => {
-        if (AtivosPermit)
+        if (AtivosTabAccess())
             return 'Ativos'
-        else if (SetoresUsuariosPermit)
+        else if (SetoresUsuariosTabAccess())
             return 'Setores e Usuários'
-        else if (PermicoesPermit)
+        else if (PermicoesTabAccess())
             return 'Permissoes'
     }
 
@@ -49,15 +43,15 @@ const TabsHeader = (props) => {
 
 
     const SetKeyConfig = (Key) => {
-        if (Key === 'Ativos' && AtivosPermit) {
+        if (Key === 'Ativos' && AtivosTabAccess()) {
             setKey(Key)
             props.setKey(Key)
         }
-        else if (Key === 'Setores e Usuários' && SetoresUsuariosPermit) {
+        else if (Key === 'Setores e Usuários' && SetoresUsuariosTabAccess()) {
             setKey(Key)
             props.setKey(Key)
         }
-        else if (Key === 'Permissoes' && PermicoesPermit) {
+        else if (Key === 'Permissoes' && PermicoesTabAccess()) {
             setKey(Key)
             props.setKey(Key)
         }
@@ -77,10 +71,10 @@ const TabsHeader = (props) => {
 
 
 const ConnectedTabsHeader = connect((state) => {
-    return {       
+    return {
         Tema: state.Tema
     }
-  })(TabsHeader)
-  
-  export default ConnectedTabsHeader  
+})(TabsHeader)
+
+export default ConnectedTabsHeader
 

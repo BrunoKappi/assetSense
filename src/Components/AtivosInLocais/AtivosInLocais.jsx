@@ -6,8 +6,9 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { v4 } from 'uuid';
 import { connect } from 'react-redux'
 import NumbersOfList from '../NumbersOfList/NumbersOfList';
-import { EditAtivo, GetCurrentUserTypePermitFromStore, SaveAtivos } from '../../Functions/Middleware';
+import { EditAtivo, SaveAtivos } from '../../Functions/Middleware';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
+import { EDITAR_ATIVOS } from '../../Functions/Permits';
 
 const breakpointColumnsObj = {
     default: 3,
@@ -19,7 +20,7 @@ const breakpointColumnsObj = {
 const AtivosInLocais = (props) => {
 
 
-    const AtivosPermit = (GetCurrentUserTypePermitFromStore('EDITAR_ATIVOS'))
+    const AtivosPermit = (EDITAR_ATIVOS())
 
 
     const [LocaisArmazenamento, setLocaisArmazenamento] = useState([
@@ -109,4 +110,4 @@ const ConnectedAtivosInLocais = connect((state) => {
 })(AtivosInLocais)
 
 export default ConnectedAtivosInLocais
- 
+
