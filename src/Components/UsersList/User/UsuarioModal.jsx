@@ -125,8 +125,7 @@ const UsuarioModal = (props) => {
 
 
     // QUANDO TEM UM USER VALIDO PASSADO PELA PROP
-    useEffect(() => {
-        console.log(props.User)
+    useEffect(() => {       
         if (props.Function === 'Add') {
             setUser({ ...DefaultUser })
         } else {
@@ -332,8 +331,7 @@ const UsuarioModal = (props) => {
 
         // SE ESTIVER ADICIONANDO E COLOCAR UMA FOTO, SET EM UM ID
         if (props.Function === 'Add') {
-            setIdToUse(Id)
-            console.log("ID RECEBIDO", Id)
+            setIdToUse(Id)           
         }
     }
 

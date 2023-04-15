@@ -1,36 +1,27 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
-import Masonry from "react-masonry-css";
 import { connect } from 'react-redux'
-import { PermitDesc, PermitIndexs } from '../../GlobalVars';
+import { PermitDesc } from '../../GlobalVars';
 import './UserTypesPermits.css'
 import { Tooltip } from 'react-tippy';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
 import { EditUserType, SaveUserTipos } from '../../Functions/Middleware';
 import { v4 } from 'uuid';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
-
 import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
 import Show from '../LayoutComponents/Show/Show';
 
-const breakpointColumnsObj = {
-    default: 3,
-    1250: 2,
-    950: 1,
-    700: 1
-};
-
 const UserTypesPermits = (props) => {
 
+    //STATES
     const [TiposUsuarios, setTiposUsuarios] = useState([...props.TiposUsuarios])
+    const [TipoUserKey, setTipoUserKey] = useState(props.TiposUsuarios[0].id)
 
-    const [TipoUserKey, setTipoUserKey] = useState(props.TiposUsuarios[0].id);
-
+    //FILL USER TYPES
     useEffect(() => {
         setTiposUsuarios([...props.TiposUsuarios])
     }, [props.TiposUsuarios])
-
 
     // CHECK USER TYPE AS ADMIN
     const CheckAdmin = (TipoIndex) => {
@@ -52,6 +43,7 @@ const UserTypesPermits = (props) => {
 
     }
 
+    //CHANGE PERMIT
     const handleChangePermit = (TipoIndex, PermitIndex) => {
         var TiposCopy = [...props.TiposUsuarios]
         TiposCopy[TipoIndex].Permits[PermitIndex] = !TiposCopy[TipoIndex].Permits[PermitIndex]
@@ -73,7 +65,6 @@ const UserTypesPermits = (props) => {
 
     return (
         <div className={props.Tema === 'Escuro' ? 'UserTypesPermitsContainerEscuro UserTypesPermitsContainer' : 'UserTypesPermitsContainerClaro UserTypesPermitsContainer'}>
-
 
             <TabsContainer Tema={props.Tema}>
                 {TiposUsuarios.map((TipoUsuario) => {

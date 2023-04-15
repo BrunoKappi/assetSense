@@ -10,6 +10,8 @@ import { PermitIndexs } from '../../GlobalVars';
 import Ativo from './Ativo/Ativo';
 import { v4 } from 'uuid';
 import AtivoModal from './Ativo/AtivoModal'
+import Show from '../LayoutComponents/Show/Show';
+import Warning from '../LayoutComponents/Warning/Warning';
 
 
 
@@ -36,26 +38,30 @@ const AtivosList = (props) => {
 
 
 
-
+    //GET LOCAIS AND AND TIPOS FOR FILTERS
     useEffect(() => {
         GetLocaisSelect().then(Options => { setLocaisOptions(Options) })
         GetTiposAtivosSelect().then(Options => { setAtivosTypesOptions(Options) })
     }, [])
 
-
+    // FILL LIST
     useEffect(() => {
         const Ativos = GetAtivosFromStore()
         setListaDeAtivos(Ativos.sort((a, b) => a.Item.localeCompare(b.Item)))
         setLoaded(true)
     }, [props.Ativos])
 
-
-
-
+    // SORT AND FILTER
     useEffect(() => {
         const Ativos = GetAtivosFromStore()
         setListaDeAtivos(Ativos.filter(Ativo => {
-            const TextFilter = FiltroDeTexto === '' || (Ativo.Item.toLowerCase().includes(FiltroDeTexto.toLowerCase()) || Ativo.Brand.toLowerCase().includes(FiltroDeTexto.toLowerCase()) || GetLocalArmazenamentoNameWithIdFromStore(Ativo.StorageLocation.id).toLowerCase().includes(FiltroDeTexto.toLowerCase()) || GetTipoAtivoNameWithIdFromStore(Ativo.Type.id).toLowerCase().includes(FiltroDeTexto.toLowerCase()) || GetTipoDeUsoNameWithIdFromStore(Ativo.Usage.id).toLowerCase().includes(FiltroDeTexto.toLowerCase()))
+            const TextFilter = FiltroDeTexto === '' || (
+                Ativo.Item.toLowerCase().includes(FiltroDeTexto.toLowerCase()) ||
+                Ativo.Brand.toLowerCase().includes(FiltroDeTexto.toLowerCase()) ||
+                GetLocalArmazenamentoNameWithIdFromStore(Ativo.StorageLocation.id).toLowerCase().includes(FiltroDeTexto.toLowerCase()) ||
+                GetTipoAtivoNameWithIdFromStore(Ativo.Type.id).toLowerCase().includes(FiltroDeTexto.toLowerCase()) ||
+                GetTipoDeUsoNameWithIdFromStore(Ativo.Usage.id).toLowerCase().includes(FiltroDeTexto.toLowerCase())
+            )
             const TipoAtivoFiler = FiltroDeTipoAtivo === 'Todos' || FiltroDeTipoAtivo === '' || Ativo.Type.id === FiltroDeTipoAtivo
             const LocalArmazenamentoFilter = FiltroLocal === 'Todos' || FiltroLocal === '' || Ativo.StorageLocation.id === FiltroLocal
             return TextFilter && TipoAtivoFiler && LocalArmazenamentoFilter
@@ -65,34 +71,35 @@ const AtivosList = (props) => {
 
     }, [FiltroDeTexto, FiltroDeTipoAtivo, FiltroLocal])
 
-
-
+    //SET SECTOR FILTER
     const handleSetorOptionChange = (Setor) => {
         setFiltroDeTipoAtivo(Setor.value)
         setTipoAtivoLabel(Setor.label)
     }
 
+    //SET TYPE FILTER
     const handleTypeOptionChange = (Type) => {
         setFiltroLocal(Type.value)
         setLocalLabel(Type.label)
     }
 
+    //RESET FILTERS
     const handleResetFiltros = () => {
         setFiltroDeTexto('')
         setFiltroDeTipoAtivo('')
         setFiltroLocal('')
     }
 
-
+    //HANDLE CLICK ON USER ROW
     const handleUserClick = (AtivoClicked) => {
-        //console.log("CLICKsa")
         setModalShow(true);
-        setSelectedAtivo({ ...AtivoClicked });
+        setSelectedAtivo({ ...AtivoClicked })
     }
 
+    //RESET SELECTED ATIVO
     const ResetSelectedAtivo = () => {
-        setModalShow(false);
-        setSelectedAtivo({});
+        setModalShow(false)
+        setSelectedAtivo({})
     }
 
 
@@ -126,7 +133,7 @@ const AtivosList = (props) => {
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
                                     {AtivosTypesOptions.map(Setor => {
-                                        return <Dropdown.Item  key={v4()} onClick={e => handleSetorOptionChange(Setor)} >{Setor.label}</Dropdown.Item>
+                                        return <Dropdown.Item key={v4()} onClick={e => handleSetorOptionChange(Setor)} >{Setor.label}</Dropdown.Item>
                                     })}
                                 </Dropdown.Menu>
                             </Dropdown>
@@ -158,32 +165,32 @@ const AtivosList = (props) => {
 
 
 
+            <Show Show={ListaDeAtivos.length !== 0 || Loaded}>
+                {ListaDeAtivos.map(Item =>
+                    <div key={v4()} onClick={e => handleUserClick(Item)}>
+                        <Ativo key={v4()} Ativo={Item} />
+                    </div>
+                )}
+            </Show>
 
+            <Show Show={ListaDeAtivos.length === 0 && !Loaded} Width='100%'>
+                <Loading />
+            </Show>
 
-            {(ListaDeAtivos.length !== 0 || Loaded) && ListaDeAtivos.map((Item, Index) => {
-                return <div key={v4()} onClick={e => handleUserClick(Item)}>
-                    <Ativo key={v4()} Ativo={Item} />
-                </div>
-            })}
+            <Show Show={ListaDeAtivos.length === 0 && Loaded} Width='100%'>
+                <Warning Text='Nenhum Ativo encontrado' />
+            </Show>
 
-            {ListaDeAtivos.length === 0 && !Loaded && <Loading />}
-
-            {ListaDeAtivos.length === 0 && Loaded && <div className='AtivosList-FilterNoResultsContainer'>
-                <UilExclamationCircle />
-                <h3>Nenhum Ativo encontrado</h3>
-            </div>}
-
-
-            {PermitToAddAtivos &&
+            <Show Show={PermitToAddAtivos} Width='100%'>
                 <button className='AtivosListAddButton' onClick={e => setAddModalShow(true)}>
                     Adicionar Ativo
                 </button>
-            }
+            </Show>
+
 
         </div>
     )
 }
-
 
 
 const ConnectedAtivosList = connect((state) => {

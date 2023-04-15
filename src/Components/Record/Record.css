@@ -1,0 +1,267 @@
+.AtivoRecord-ContainerClaro {
+
+
+    --AtivoRecord-Container-Border: white;
+    --AtivoRecord-Container-BackGround: white;
+    --AtivoRecord-Container-BackGround-Hover: var(--PrimaryBackGroundFaded1);
+    --AtivoRecord-UpRow-Name-Color: var(--ComplementaryColor);
+    --AtivoRecord-UpRow-Name-Color-Hover: var(--PrimaryBackGroundFaded);
+
+    --AtivoRecord-UpRow-Status-Background: var(--SecondaryBackground);
+    --AtivoRecord-UpRow-Status-Color: white;
+
+
+    --AtivoRecord-UpRow-Date-Color: var(--SecondaryBackground);
+    --AtivoRecord-UpRow-Obs-Color: var(--SecondaryBackground);
+    --AtivoRecord-UpRow-Time-Color: var(--SecondaryBackground);
+
+    --AtivoRecord-UpRow-OrderBy-Color: var(--SecondaryBackground);
+
+
+    --RecordRetiradaTitle-Color: var(--ComplementaryColor)
+}
+
+
+
+
+.AtivoRecord-ContainerEscuro {
+
+
+    --AtivoRecord-Container-Border: var(--ComplementaryColor);
+    --AtivoRecord-Container-BackGround: transparent;
+    --AtivoRecord-Container-BackGround-Hover: var(--PrimaryBackGroundFaded30);
+
+    --AtivoRecord-UpRow-Name-Color: var(--ComplementaryColor);
+    --AtivoRecord-UpRow-Name-Color-Hover: var(--ComplementaryColor);
+
+    --AtivoRecord-UpRow-Status-Background: var(--SecondaryBackground);
+    --AtivoRecord-UpRow-Status-Color: white;
+
+    --AtivoRecord-UpRow-Date-Color: white;
+    --AtivoRecord-UpRow-Obs-Color: white;
+    --AtivoRecord-UpRow-Time-Color: white;
+
+    --AtivoRecord-UpRow-OrderBy-Color: var(--ComplementaryColor);
+
+
+    --RecordRetiradaTitle-Color: var(--ComplementaryColor)
+}
+
+
+
+
+.AtivoRecord-Container {
+    border: 1px solid var(--AtivoRecord-Container-Border);
+    border-radius: .5rem;
+    padding: .6rem .5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+    margin-bottom: .6rem;
+    cursor: pointer;
+    background-color: var(--AtivoRecord-Container-BackGround);
+    -webkit-box-shadow: 1px 1px 1px 0px rgba(59, 59, 59, 1);
+    -moz-box-shadow: 1px 1px 1px 0px rgba(59, 59, 59, 1);
+    box-shadow: 1px 1px 1px 0px rgba(59, 59, 59, 1);
+}
+
+.AtivoRecord-Container:hover {
+    background-color: var(--AtivoRecord-Container-BackGround-Hover);
+    border: 1px solid var(--AtivoRecord-Container-BackGround-Hover);
+}
+
+.AtivoRecord-UpRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+.RecordTitle {
+    display: grid;
+    grid-template-columns: 30% 50%;
+    gap: 1%;
+}
+
+
+
+
+
+
+@media (max-width: 900px) {
+    .UserAtivoRecord-UpRow {
+        flex-wrap: wrap;
+        row-gap: .2rem;
+    }
+}
+
+
+.AtivoRecord-DownRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.AtivoRecord-MiddleRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+
+
+.Record-RetiradaSection {
+    margin-top: 1rem;
+}
+
+
+.Record-ReturnSection {
+    margin-top: 1rem;
+}
+
+
+.Record-SectionTitle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .1rem;
+    color: var(--RecordRetiradaTitle-Color);
+    font-family: var(--Fonte);
+    font-weight: 500;
+}
+
+
+
+
+
+.AtivoRecord-UpRow-Name {
+    font-family: var(--Fonte);
+    color: var(--AtivoRecord-UpRow-Name-Color);
+    font-size: 1rem;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 600;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .3rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+}
+
+.AtivoRecord-UpRow-Name span {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+}
+
+.AtivoRecord-UpRow-Name>svg {
+    width: 1rem;
+}
+
+
+
+.AtivoRecord-UpRow-UserName {
+    font-family: var(--Fonte);
+    color: var(--AtivoRecord-UpRow-Name-Color);
+    font-size: .9rem;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 500;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .3rem;
+}
+
+.AtivoRecord-UpRow-UserName>svg {
+    width: 1rem;
+}
+
+
+.AtivoRecord-UpRow-Name:hover {
+    color: var(--AtivoRecord-UpRow-Name-Color-Hover);
+    text-decoration: underline;
+}
+
+.AtivoRecord-MiddleRow-Name {
+    font-family: var(--Fonte);
+    color: var(--AtivoRecord-UpRow-Name-Color);
+    font-size: .7rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .2rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.AtivoRecord-MiddleRow-Name:hover {
+    color: var(--AtivoRecord-UpRow-Name-Color-Hover);
+    text-decoration: underline;
+}
+
+.AtivoRecord-MiddleRow-Name>svg {
+    width: 1rem;
+}
+
+.AtivoRecord-UpRow-Status {
+    border-radius: 1rem;
+    background-color: var(--AtivoRecord-UpRow-Status-Background);
+    padding: 0rem 1rem;
+    font-size: .75rem;
+    font-family: var(--Fonte);
+    color: var(--AtivoRecord-UpRow-Status-Color);
+
+}
+
+
+.AtivoRecord-DownRow-Date {
+    font-family: var(--Fonte);
+    color: var(--AtivoRecord-UpRow-Date-Color);
+    font-size: .8rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .2rem;
+    cursor: pointer;
+}
+
+.AtivoRecord-DownRow-Date>svg {
+    width: .8rem;
+}
+
+.AtivoRecord-DownRow-Obs {
+    font-family: var(--Fonte);
+    color: var(--AtivoRecord-UpRow-Obs-Color);
+    font-size: .9rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .2rem;
+    cursor: pointer;
+}
+
+.AtivoRecord-DownRow-Obs>svg {
+    width: 1rem;
+}
+
+.AtivoRecord-DownRow-Time {
+    font-family: var(--Fonte);
+    color: var(--AtivoRecord-UpRow-Time-Color);
+    font-size: .8rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .2rem;
+    cursor: pointer;
+}
+
+.AtivoRecord-DownRow-Time>svg {
+    width: .8rem;
+}

@@ -11,13 +11,9 @@ import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
 import { TodosUsersTab, UsersInSetoresTab, UsersInTypesTab } from '../../Functions/Permits';
 
-
-
-
 const Users = (props) => {
 
-
-
+  //GET INITIAL TAB BASED ON PERMITS
   const getInitialTab = () => {
     if (TodosUsersTab())
       return 'TodosUsuarios'
@@ -27,8 +23,10 @@ const Users = (props) => {
       return 'UsersInTipos'
   }
 
+  //KEY OF TAB
   const [key, setKey] = useState(getInitialTab());
 
+  //SET KEY OF TAB BASED ON PERMITS
   const SetKeyConfig = (Key) => {
     if (Key === 'TodosUsuarios' && TodosUsersTab())
       setKey(Key)
@@ -43,15 +41,11 @@ const Users = (props) => {
   return (
     <div className={props.Tema === 'Escuro' ? 'UsersContainerEscuro UsersContainer' : 'UsersContainerClaro UsersContainer'}>
 
-
-
-
       <TabsContainer Tema={props.Tema}>
         <TabButton ButtonName="TodosUsuarios" Key={key} onClick={(k) => SetKeyConfig('TodosUsuarios')} />
         <TabButton ButtonName="UsersInSetores" Key={key} onClick={(k) => SetKeyConfig('UsersInSetores')} />
         <TabButton ButtonName="UsersInTipos" Key={key} onClick={(k) => SetKeyConfig('UsersInTipos')} />
       </TabsContainer>
-
 
       <Tabs id="UsersTabs" activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
         <Tab className='TabItem' eventKey="TodosUsuarios" >
@@ -67,8 +61,6 @@ const Users = (props) => {
     </div>
   )
 }
-
-
 
 const ConnectedUsers = connect((state) => {
   return {

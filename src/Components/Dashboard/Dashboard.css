@@ -73,7 +73,7 @@
 
     .DashBoard-Charts-Container {
         border-width: 1px;
-        border-style: solid;
+        border-style: solid; 
         display: flex;
         flex-direction: column;
         justify-content: stretch;

@@ -7,7 +7,7 @@ import {
     FIREBASE_AddTipoAtivo,
     FIREBASE_AddTipoUso,
     FIREBASE_AddTipoUsuario,
-    FIREBASE_AddUsuario,
+    FIREBASE_AddUsuario, 
 } from '../Config/firebase/metodos';
 import moment from 'moment';
 

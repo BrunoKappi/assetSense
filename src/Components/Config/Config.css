@@ -44,7 +44,7 @@
 .CamposListItensContainer {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: wrap; 
     gap: 0rem;
     justify-content: stretch;
     margin-top: 3rem;

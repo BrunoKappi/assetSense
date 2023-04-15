@@ -18,7 +18,7 @@ const Profile = (props) => {
                 CurrentUser={CurrentUser}
                 User={CurrentUser}
                 show={ModalShow}
-                Function="View"
+                Function="View" 
                 onHide={() => {
                     setModalShow(false);
                     navigate('../' + props.LoggedUser.CurrentSidebarTab);

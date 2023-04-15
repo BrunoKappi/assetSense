@@ -7,11 +7,9 @@ const RecordsAtivos = (state = [], action) => {
             return []
         case 'SET_RECORDS': 
             return action.Records
-        case 'ADD_RECORD':
-            //console.log("No Reducer Addicionando", state)
+        case 'ADD_RECORD':           
             return state.concat(action.NovoRecord)
-        case 'EDIT_RECORD':
-            //console.log("No Reducer Editando", state)
+        case 'EDIT_RECORD':         
             return state.filter(Record => {
                 return Record.id !== action.EditedRecord.id
             }).concat(action.EditedRecord)

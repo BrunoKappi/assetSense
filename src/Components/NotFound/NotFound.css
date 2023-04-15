@@ -3,13 +3,13 @@
 =======================*/
 
 .NotFoundContainer {
+   
     width: 100%;
     height: 100%;
     
 }
 
-.page_404 { 
-
+.page_404 {     
     font-family: var(--Fonte);
 }
 
@@ -18,14 +18,13 @@
 }
 
 .four_zero_four_bg {
-
     background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
     height: 400px;
     background-position: center;
 }
 
 
-.four_zero_four_bg h1 {
+.four_zero_four_bg h1 { 
     font-size: 80px;
     text-align: center;
 }

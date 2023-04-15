@@ -9,27 +9,23 @@ import NumbersOfList from '../NumbersOfList/NumbersOfList';
 import { EditUser, GetSetoresFromStore, GetUsersFromStore, GetUserTypesFromStore, SaveUsers } from '../../Functions/Middleware';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import { EDITAR_USUARIOS } from '../../Functions/Permits';
-
-const breakpointColumnsObj = {
-    default: 4,
-    1250: 3,
-    950: 2,
-    700: 1
-};
+import { UsersInSectorsBreakpoints } from '../../GlobalVars';
 
 
 const UsersInSetores = (props) => {
 
+    //PERMITS
     const SetoresPermit = (EDITAR_USUARIOS())
 
+    //LISTS
     const ListaSetores = GetSetoresFromStore()
     const TiposUsuarios = GetUserTypesFromStore()
     const Usuarios = GetUsersFromStore()
 
+    //STATES
     const [Setores, setSetores] = useState([GetSetoresFromStore()])
 
-
-
+    //FILL
     useEffect(() => {
         setSetores([
             ...ListaSetores.map(element => {
@@ -38,10 +34,7 @@ const UsersInSetores = (props) => {
             })])
     }, [props.Usuarios, props.Setores])
 
-
-    //COMENTADO  console.log("SETORES")
-
-
+    //HANDLE DRAG
     const HandleDrag = (Resultado) => {
         if (!Resultado.destination) return;
         if (SetoresPermit) {
@@ -52,7 +45,6 @@ const UsersInSetores = (props) => {
             if (User.Sector.id === SectorDestinationID) return
             User.Sector.id = SectorDestinationID
             EditUser(User).then(() => {
-                //COMENTADO  console.log("Movido")
                 const copiedItems = [...Usuarios];
                 copiedItems[IndexOfUser] = { ...User }
                 SaveUsers(copiedItems)
@@ -67,24 +59,14 @@ const UsersInSetores = (props) => {
     return (
         <DragDropContext onDragEnd={(result) => { HandleDrag(result) }}>
             <div className='UsersInSetoresContainers'>
-
-
                 <NumbersOfList Values={Setores} />
-
-                <Masonry breakpointCols={breakpointColumnsObj} className="my-masonry-grid" columnClassName="my-masonry-grid_column"   >
-
-                    {ListaSetores.map((Setor, Index) => {
-                        return <SectorList key={v4()} Setor={Setor} Users={Usuarios} UserTypes={TiposUsuarios} />
-                    })}
-
+                <Masonry breakpointCols={UsersInSectorsBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column">
+                    {ListaSetores.map(Setor => <SectorList key={v4()} Setor={Setor} Users={Usuarios} UserTypes={TiposUsuarios} />)}
                 </Masonry>
             </div >
         </DragDropContext>
     )
 }
-
-
-
 
 
 const ConnectedUsersInSetores = connect((state) => {

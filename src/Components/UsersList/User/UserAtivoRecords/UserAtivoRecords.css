@@ -6,7 +6,7 @@
     --UserAtivoRecord-UpRow-Status-Background: var(--SecondaryBackground);
     --UserAtivoRecord-UpRow-Status-Color: white;
 
-
+ 
     --UserAtivoRecord-UpRow-Date-Color: var(--SecondaryBackground);
     --UserAtivoRecord-UpRow-Time-Color: var(--SecondaryBackground);
 
@@ -60,113 +60,6 @@
 
 
 
-.UserAtivoRecord-Container {
-    border: 1px solid var(--UserAtivoRecord-Container-Border);
-    border-radius: .5rem;
-    padding: .3rem .5rem;
-    display: flex;
-    flex-direction: column;
-    gap: .15rem;
-    margin-bottom: .7rem;
-}
-
-.UserAtivoRecord-UpRow {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1rem;
-}
-
-.UserAtivoRecord-DownRow {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1rem;
-}
-
-.UserAtivoRecord-MiddleRow {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.UserAtivoRecord-UpRow-Name {
-    font-family: var(--Fonte);
-    color: var(--UserAtivoRecord-UpRow-Name-Color);
-    font-weight: 500;
-    font-size: 1rem;
-    cursor: pointer;
-    user-select: none;
-}
-
-.UserAtivoRecord-UpRow-Name:hover {
-    color: var(--UserAtivoRecord-UpRow-Name-Color-Hover);
-    text-decoration: underline;
-}
-
-.UserAtivoRecord-MiddleRow-Name {
-    font-family: var(--Fonte);
-    color: var(--UserAtivoRecord-UpRow-Name-Color);
-    font-size: .7rem;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: .2rem;
-    cursor: pointer;
-    user-select: none;
-}
-
-.UserAtivoRecord-MiddleRow-Name:hover {
-    color: var(--UserAtivoRecord-UpRow-Name-Color-Hover);
-    text-decoration: underline;
-}
-
-.UserAtivoRecord-MiddleRow-Name>svg {
-    width: 1rem;
-}
-
-.UserAtivoRecord-UpRow-Status {
-    border-radius: 1rem;
-    background-color: var(--UserAtivoRecord-UpRow-Status-Background);
-    padding: 0rem 1rem;
-    font-size: .75rem;
-    font-family: var(--Fonte);
-    color: var(--UserAtivoRecord-UpRow-Status-Color);
-
-}
-
-
-.UserAtivoRecord-DownRow-Date {
-    font-family: var(--Fonte);
-    color: var(--UserAtivoRecord-UpRow-Date-Color);
-    font-size: .9rem;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: .2rem;
-    cursor: pointer;
-}
-
-.UserAtivoRecord-DownRow-Date>svg {
-    width: 1rem;
-}
-
-.UserAtivoRecord-DownRow-Time {
-    font-family: var(--Fonte);
-    color: var(--UserAtivoRecord-UpRow-Time-Color);
-    font-size: .9rem;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: .2rem;
-    cursor: pointer;
-}
-
-.UserAtivoRecord-DownRow-Time>svg {
-    width: 1rem;
-}
-
-
 
 /* ============  DROPDOWN  ===================*/
 
@@ -190,7 +83,7 @@
 }
 
 .UserAtivoRecords-FormFilter>button {
-    font-family: var(--Fonte);
+    font-family: var(--Fonte); 
     font-size: .8rem;
     outline: none;
     border: 1px solid var(--AtivosRecordsFormFilter-Button-Border);

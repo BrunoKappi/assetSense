@@ -15,7 +15,7 @@ const DefaultNotification = {
     onScreen: true
   },
   showIcon: true
-}
+} 
 
 
 

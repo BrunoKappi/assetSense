@@ -6,7 +6,7 @@
 .AtivosContainerEscuro {
     --AtivosContainer-Background:  var(--BackgroundDark);
     --AtivosContainer-NoAtivos-Color: var(--ComplementaryColor);
-}
+} 
 
 
 

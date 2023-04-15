@@ -8,7 +8,7 @@ export const SetTab = (Tab) => {
 
 export const GetSidebarItemClass = (Item, Tab) => {
     if (Item === Tab)
-        return "SidebarItem ActiveSidebar"
+        return "SidebarItem ActiveSidebar" 
     else
         return "SidebarItem"
 }

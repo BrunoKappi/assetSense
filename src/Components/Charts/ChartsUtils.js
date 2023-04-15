@@ -6,7 +6,7 @@ import {
     GetStatusAtivosFromStore,
     GetTiposAtivosFromStore,
     GetTiposDeUsoFromStore,
-    GetUserTypesFromStore,
+    GetUserTypesFromStore, 
     GetUsersFromStore
 } from "../../Functions/Middleware"
 
@@ -152,8 +152,6 @@ export const GetTop5UsuariosRetirados_SeriesLabels = () => {
 
 
 }
-
-
 
 
 

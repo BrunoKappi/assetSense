@@ -4,4 +4,4 @@ const DefaultLog = {
     UserName: '',
     Action: '',
     Message: ''
-}
+} 

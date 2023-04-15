@@ -2,9 +2,7 @@ import React from 'react'
 import { v4 } from 'uuid'
 import './NumbersOfList.css'
 
-export default function NumbersOfList(props) {
-
-    //console.log("VALUES",props.Values)
+export default function NumbersOfList(props) {   
 
     return (
         <div className='NumbersOfListContainer'>
@@ -18,3 +16,4 @@ export default function NumbersOfList(props) {
         </div>
     )
 }
+  

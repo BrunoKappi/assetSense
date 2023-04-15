@@ -49,7 +49,7 @@ const Forget = (props) => {
                 </form>
             </div>
 
-        </div>
+        </div> 
     )
 }
 

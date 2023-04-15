@@ -18,13 +18,24 @@
 }
 
 
-
 .NavBar-Hamburguer {
   border-radius: 50%;
   color: white;
   margin-right: .5rem;
   cursor: pointer;
 }
+
+.NavBar-HamburguerNav {
+  border-radius: 50%;
+  color: white; 
+  margin-right: .5rem;
+  cursor: pointer;
+}
+
+.NavBar-HamburguerNav svg {
+  color: var(--PrimaryBackground) !important;
+}
+
 
 .NavSidebarUserPhotoContainer {
   min-width: 20px !important;
@@ -438,6 +449,12 @@
   align-items: center;
 }
 
+
+@media (max-width: 750px) {
+  .LogoAndCollpse svg {
+    display: none;
+  }
+}
 
 
 

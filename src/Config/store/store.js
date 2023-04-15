@@ -55,8 +55,7 @@ GetTiposDeUso().then((Tipos) => {
     store.dispatch(SetTiposDeUso(Tipos))
 })
 
-GetRecordsFromFirebase().then((Records) => {
-    console.log("PEGANDO RECORDS",Records)
+GetRecordsFromFirebase().then((Records) => {   
     store.dispatch(SetRecords(Records))
 })
 

@@ -13,7 +13,7 @@
 .SetoresShowOnlyCustomGroupListEscuro {
     --Setores-Title-Backround: var(--PrimaryBackground);
     --Setores-Title-Color: white;
-
+ 
     --Setores-Item-Backround:  var(--BackgroundDark);
     --Setores-Item-Border: rgb(88, 86, 86);
     --Setores-Item-Border-LR: rgb(88, 86, 86);

@@ -20,6 +20,6 @@ export default function Home({ CheckedLogin, Email }) {
         strokeWidth={7}
         strokeWidthSecondary={7}
       />
-    </div> 
+    </div>
   }
 }

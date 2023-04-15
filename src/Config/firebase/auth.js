@@ -43,8 +43,7 @@ const onAuthStateChangedHandler = (currentUser) => {
 
   setTimeout(() => {
     const CurrentUserFromStore = GetUserWithEmailFromStore(CurrentUserEmail)
-    GetUserUrlImage(`images/${CurrentUserFromStore.id}`).then((url) => {
-      console.log("BUSQUEI O URL", url)
+    GetUserUrlImage(`images/${CurrentUserFromStore.id}`).then((url) => {    
       const user2 = {
         ...DefaultLoggedUser,
         Email: currentUser.email,

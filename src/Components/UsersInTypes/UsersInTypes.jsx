@@ -5,36 +5,25 @@ import Masonry from "react-masonry-css";
 import { DragDropContext } from "react-beautiful-dnd";
 import { v4 } from 'uuid';
 import { connect } from 'react-redux'
-import Chart from 'react-apexcharts'
-import { DefaultTypesProps, GetOptionsAndSeries } from './UsersInTypesUtils';
 import NumbersOfList from '../NumbersOfList/NumbersOfList';
 import { EditUser, GetUserTypesFromStore, SaveUsers } from '../../Functions/Middleware';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import { EDITAR_USUARIOS } from '../../Functions/Permits';
-
-
-const breakpointColumnsObj = {
-    default: 4,
-    1250: 3,
-    950: 2,
-    700: 1
-};
+import { UsersInTypesBreakpoints } from '../../GlobalVars';
 
 
 
 const UsersInTypes = (props) => {
 
+    //PERMITS
     const TiposPermit = (EDITAR_USUARIOS())
 
-
-    const [Options, setOptions] = useState({ ...DefaultTypesProps })
+    //STATES   
     const Tipos = GetUserTypesFromStore()
-
     const [TiposUsuarios, setTiposUsuarios] = useState([])
 
-
-    useEffect(() => {
-        setOptions(GetOptionsAndSeries(props.Usuarios, Tipos))
+    //FILL
+    useEffect(() => {      
         setTiposUsuarios([
             ...Tipos.map(element => {
                 var Users = props.Usuarios.filter(el => el.Type.id === element.id).length
@@ -42,11 +31,7 @@ const UsersInTypes = (props) => {
             })])
     }, [props.Usuarios])
 
-
-
-    //COMENTADO  console.log("TIPOS")
-
-
+    //HANDLE DRAG USER TO TYPE
     const HandleDrag = (Resultado) => {
         if (!Resultado.destination) return;
 
@@ -58,10 +43,7 @@ const UsersInTypes = (props) => {
             if (User.Type.id === TypeDestinationID) return
             User.Type.id = TypeDestinationID
 
-
-
             EditUser(User).then(() => {
-                //COMENTADO  console.log("Movido")
                 const copiedItems = [...props.Usuarios];
                 copiedItems[IndexOfUser] = { ...User }
                 SaveUsers(copiedItems)
@@ -75,26 +57,22 @@ const UsersInTypes = (props) => {
 
     return (
         <DragDropContext onDragEnd={(result) => { HandleDrag(result) }}>
-
             <div className='UsersInSetoresContainers'>
-
                 <NumbersOfList Values={TiposUsuarios} />
-
-                <Masonry breakpointCols={breakpointColumnsObj} className="my-masonry-grid" columnClassName="my-masonry-grid_column"   >
-
-                    {Tipos.map((TipoUsuario, Index) => {
-                        return <TypesList key={v4()} TipoUsuario={TipoUsuario} Users={props.Usuarios} UserTypes={Tipos} />
-                    })}
-
+                <Masonry breakpointCols={UsersInTypesBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column">
+                    {Tipos.map(TipoUsuario =>
+                        <TypesList
+                            key={v4()}
+                            TipoUsuario={TipoUsuario}
+                            Users={props.Usuarios}
+                            UserTypes={Tipos}
+                        />
+                    )}
                 </Masonry>
-                <Chart options={Options.options} series={Options.series} type="pie" width={400} />
             </div >
         </DragDropContext>
     )
 }
-
-
-
 
 
 const ConnectedUsersInTypes = connect((state) => {
@@ -104,4 +82,4 @@ const ConnectedUsersInTypes = connect((state) => {
     }
 })(UsersInTypes)
 
-export default ConnectedUsersInTypes 
+export default ConnectedUsersInTypes  

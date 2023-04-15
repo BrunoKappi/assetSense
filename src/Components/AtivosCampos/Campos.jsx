@@ -1,26 +1,26 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
+import './Campos.css'
+//LIBRARIES
+import { v4 } from 'uuid';
 import Masonry from "react-masonry-css";
 import { connect } from 'react-redux'
-import './Campos.css'
+//ICONS
+import { UilPlusCircle, UilBackspace, UilTrashAlt, UilLabel } from '@iconscout/react-unicons'
+//TOOLTIP 
+import { Tooltip } from 'react-tippy';
+//COMPONENTS
+import Loading from '../LoadingForTabs/Loading'
+//LAYOUT COMPONENTS
 import Stack from '../LayoutComponents/Stack/Stack'
 import Show from '../LayoutComponents/Show/Show'
-import { UilPlusCircle, UilBackspace, UilTrashAlt, UilLabel } from '@iconscout/react-unicons'
-import { DefaultCustomField } from '../../Data/Items';
-import { EditLocalArmazenamento, EditSetor, EditTipoAtivo, EditUserType } from '../../Functions/Middleware';
+//FUNCTIONS
+import { EditSetor, EditTipoAtivo, EditUserType } from '../../Functions/Middleware';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
-//Tooltip
-import { Tooltip } from 'react-tippy';
-import Loading from '../LoadingForTabs/Loading'
-import { v4 } from 'uuid';
+//VARIABLES
+import { DefaultCustomField } from '../../Data/Items';
+import { CamposMasoryBreakpoints } from '../../GlobalVars';
 
-
-const breakpointColumnsObj = {
-    default: 3,
-    1250: 2,
-    950: 1,
-    700: 1
-};
 
 const EditFunctions = {
     TiposAtivos: EditTipoAtivo,
@@ -30,15 +30,17 @@ const EditFunctions = {
 
 const Campos = (props) => {
 
+    //STATES
     const [Items, setItems] = useState([])
     const [IsLoading, setIsLoading] = useState()
     const [IsEditing, setIsEditing] = useState()
-    const [SelectedListItem, setSelectedListItem] = useState()
     const [SelectedItem, setSelectedItem] = useState()
+    const [SelectedListItem, setSelectedListItem] = useState()
     const [SelectedListItemIndex, setSelectedListItemIndex] = useState()
     const [SelectedListItemValue, setSelectedListItemValue] = useState()
-    const [SelectedListItemId, setSelectedListItemId] = useState()
 
+
+    //SET ITENS DEPENDING ON FUNCTION
     useEffect(() => {
         if (props.Function === 'TiposAtivos')
             setItems([...props.TiposAtivos])
@@ -49,7 +51,7 @@ const Campos = (props) => {
     }, [props.Items, props.TiposAtivos, props.TiposUsuarios, props.Setores])
 
 
-    // HANDLE ERROR
+    //HANDLE ERROR
     const HandleError = (Erro) => {
         console.log(Erro)
         setIsLoading(false)
@@ -57,10 +59,10 @@ const Campos = (props) => {
         NotificationErro("Erro", "Algo deu errado, tente novamete")
     }
 
-    // EDIT FUNCTION 
+    //EDIT FUNCTION 
     const EditFunction = EditFunctions[props.Function]
 
-    // CHANGE VALUE
+    //CHANGE VALUE
     const ChangeCustomFieldName = (e) => {
         e.preventDefault()
 
@@ -86,7 +88,7 @@ const Campos = (props) => {
         }).catch(HandleError)
     }
 
-    // DELETE VALUE
+    //DELETE VALUE
     const DeleteCustomField = () => {
 
         const SelectedItemCopy = { ...SelectedItem }
@@ -108,7 +110,7 @@ const Campos = (props) => {
         }).catch(HandleError)
     }
 
-    // ADD CUSTOM FIELD
+    //ADD CUSTOM FIELD
     const AddCustomField = (e, InputId, ItemType) => {
         e.preventDefault()
         const NewItemValue = document.getElementById(InputId).value
@@ -142,18 +144,16 @@ const Campos = (props) => {
 
     }
 
-    // INIT
-    const InitEditing = (SelectedCustomField, Index, SelectedItemToSet) => {
-        console.log(SelectedCustomField)
+    //INIT EDITING
+    const InitEditing = (SelectedCustomField, Index, SelectedItemToSet) => {    
         setIsEditing(true)
         setSelectedListItemIndex(Index)
         setSelectedListItem(SelectedCustomField)
         setSelectedListItemValue(SelectedCustomField?.Value)
-        setSelectedListItemId(SelectedCustomField?.id)
         setSelectedItem(SelectedItemToSet)
     }
 
-    // END
+    //END
     const EndEditing = () => {
         setIsEditing(false)
         setSelectedListItem()
@@ -164,7 +164,7 @@ const Campos = (props) => {
     return (
         <div className={props.Tema === 'Escuro' ? 'CamposContainerEscuro CamposContainer' : 'CamposContainerClaro CamposContainer'}>
 
-            <Masonry breakpointCols={breakpointColumnsObj} className="my-masonry-grid" columnClassName="my-masonry-grid_column"   >
+            <Masonry breakpointCols={CamposMasoryBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column"   >
 
                 {Items.map(Item => {
                     return <>

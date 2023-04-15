@@ -15,7 +15,7 @@
 .UsersContainerEscuro {   
     background-color: var(--BackgroundDark);
 }
-
+ 
 @media (max-width: 750px) {
     .UsersContainer {
 

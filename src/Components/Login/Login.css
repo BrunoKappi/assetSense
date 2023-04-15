@@ -19,7 +19,7 @@
   --LoginContainer-LoginButton-Background-Hover: var(--PrimaryBackGroundFaded);
   --LoginContainer-LoginButton-Border-Hover: var(--PrimaryBackGroundFaded);
   --LoginContainer-LoginButton-Color-Hover: white;
-}
+} 
 
 
 .LoginContainerEscuro {

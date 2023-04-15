@@ -12,13 +12,6 @@ export const DefaultLoggedUser = {
   PhotoUrl: ''
 };
 
-
-
-
-
-
-
-
 export const UserModalSelectcustomStyles = {
   option: (provided, state) => ({
     ...provided,
@@ -41,35 +34,15 @@ export const UserModalSelectcustomStyles = {
   }),
 };
 
-
 export const DefaultTooltipStyles = {
   fontFamily: "var(--Fonte) !important;",
   color: 'red'
 }
 
 
-export const Filteroptions = [
-  { value: "Mais recentes", label: "Mais Recentes" },
-  { value: "Mais antigos", label: "Mais antigos" },
-  { value: "Status", label: "Status" },
-  { value: "Descrição", label: "Descrição" },
-];
-export const FilterStatusoptions = [
-  { value: "Todos", label: "Todos" },
-  { value: "Aberto", label: "Aberto" },
-  { value: "Em Andamento", label: "Em andamento" },
-  { value: "Concluído", label: "Concluído" },
-];
-
-
-
-
-
 ///////////// PERMIÇÔES ///////////
 
 var Index = 0
-
-
 
 export const PermitIndexs = {
   // ================ ATIVOS ================== // 
@@ -146,22 +119,59 @@ export const PermitDesc = [
 ]
 
 
+///////////// PERMIÇÔES ///////////
 
 
 
 
-export const DefaultChartStyle = {
-  series: [],
-  options: {
-    chart: {
-      type: "pie", // define o tipo de gráfico como "pie"
-      width: "100%" // define a largura do gráfico como 100%
-    },
-    theme: {
-      monochrome: {
-        enabled: true
-      }
-    },
-    labels: []
-  }
+
+
+
+
+
+
+
+
+/////////////////// Masonry OBJECTS ///////////////
+
+
+export const CamposMasoryBreakpoints = {
+  default: 3,
+  1250: 2,
+  950: 1,
+  700: 1
+}
+
+export const AtivosInLocaisBreakpoints = {
+  default: 3,
+  1250: 2,
+  950: 1
+}
+
+export const AtivosInTypesBreakpoints = {
+  default: 4,
+  1250: 3,
+  950: 2,
+  700: 1
+
+}
+export const ConfigBreakpoints = {
+  default: 3,
+  1250: 2,
+  950: 1
+}
+
+
+export const UsersInSectorsBreakpoints = {
+  default: 4,
+  1250: 3,
+  950: 2,
+  700: 1
+}
+
+export const UsersInTypesBreakpoints = {
+  default: 4,
+  1250: 3,
+  950: 2,
+  700: 1
 }

@@ -8,7 +8,7 @@ import { DefaultTooltipStyles } from '../../../GlobalVars';
 import { connect } from 'react-redux'
 
 const Ativo = (props) => {
-
+ 
     return (
  
         <div className={props.Tema === 'Escuro' ? 'AtivoContainrEscuro AtivoContainr' : 'AtivoContainrClaro AtivoContainr'} >

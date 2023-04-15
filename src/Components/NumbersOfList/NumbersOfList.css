@@ -26,7 +26,7 @@
     color: white;
     border-radius: .5rem;
     padding: .5rem 1.5rem;
-    font-family: var(--Fonte);
+    font-family: var(--Fonte); 
     user-select: none;
     box-shadow: none;
 }

@@ -71,8 +71,7 @@ const UserPhotoModal = (props) => {
                     setImageUpload('')
                     fileInputRef.current.value = ''
                     setUploading(false) 
-                    props.OnChangePhoto(url, IdToUseToAdd)
-                    console.log("ID ENVIADO", IdToUseToAdd)
+                    props.OnChangePhoto(url, IdToUseToAdd)                   
                     if (props.IsCurrentUser) {
                         SetLoggedUserPhotoUrl(url)
                     } else {
@@ -87,9 +86,7 @@ const UserPhotoModal = (props) => {
     const ApagarFotoDeUsuario = () => {
         setUploading(false)
         setLoading(true)
-        const path = `images/${props.User?.id}` 
-
-        console.log("APAGANDO DE ", path)
+        const path = `images/${props.User?.id}`       
 
         DeleteFile(path).then(() => {
             setUploading(false)

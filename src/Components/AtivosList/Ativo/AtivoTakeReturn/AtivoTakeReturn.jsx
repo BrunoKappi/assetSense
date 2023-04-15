@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react'
 import './AtivoTakeReturn.css'
 import { DevolverTabTitle, RetirarTabTitle } from './AtivoTakeReturnUtils';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
-import { UilUser, UilEnvelope, UilBookmark, UilCalendarAlt, UilCheck, UilBackward, UilArchive, UilArrowUp, UilComment, UilArrowDown, UilCommentInfoAlt } from '@iconscout/react-unicons'
-import { AddRecord, EditAtivo, EditRecord, EditRecordStore, GetCurrentUserFromStore, GetRecordByAtivoIdAndUserId, GetRecords, GetRecordsFromStore, GetTakesOfAtivo, GetTakesOfAtivoOfCurrentUser, GetUsersFromStore, GetUsersFromStoreWithNoCurrentUser, GetUsersThatTookAtivo, SaveRecords } from '../../../../Functions/Middleware';
+import { UilUser, UilEnvelope, UilBookmark, UilCalendarAlt, UilArchive, UilArrowUp, UilComment, UilArrowDown, UilCommentInfoAlt } from '@iconscout/react-unicons'
+import { AddRecord, EditAtivo, EditRecord, EditRecordStore, GetCurrentUserFromStore, GetQtdInUseOfAtivoWithId, GetRecordByAtivoIdAndUserId, GetRecords, GetTakesOfAtivoOfCurrentUser, GetUsersFromStoreWithNoCurrentUser, GetUsersThatTookAtivo, SaveRecords } from '../../../../Functions/Middleware';
 import { AtivoModalSelectcustomStyles, noOptionsMessage } from '../AtivoModalUtils';
 import Select from "react-select";
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
 import { DefaultRecord } from '../../../../Data/Items';
-import { v4 } from 'uuid';
-import moment from 'moment' 
+import { v4 } from 'uuid'; 
+import moment from 'moment'
 import { Tooltip } from 'react-tippy';
 import { connect } from 'react-redux'
 import { FIREBASE_GetRecordDocIDById, FIREBASE_GetRecordsPendentesDeUmAtivo } from '../../../../Config/firebase/metodos';
@@ -20,6 +20,8 @@ import TwoColumns from '../../../LayoutComponents/TwoColumns/TwoColumns';
 import FormGroupLabel from '../../../LayoutComponents/FormGroupLabel/FormGroupLabel';
 import Show from '../../../LayoutComponents/Show/Show';
 import ConfirmTab from '../../../LayoutComponents/ConfirmTab/ConfirmTab';
+import SidebarItem from '../../../LayoutComponents/SidebarItem/SidebarItem';
+import Warning from '../../../LayoutComponents/Warning/Warning';
 
 const AtivoTakeReturn = (props) => {
 
@@ -35,7 +37,7 @@ const AtivoTakeReturn = (props) => {
 
     //QUANTIDADES
     const QuantidadeDoAtivo = props.Ativo?.Qtd
-    const [QuantidadeRetirada, SetQuantidadeRetirada] = useState(props.Ativo?.QtdInUse)
+    const [QuantidadeRetirada, SetQuantidadeRetirada] = useState()
     const [QuantidadeRetiradaPeloCurrentUser, SetQuantidadeRetiradaPeloCurrentUser] = useState(GetTakesOfAtivoOfCurrentUser(props.Ativo?.id))
 
     //CONFIRM 
@@ -44,6 +46,11 @@ const AtivoTakeReturn = (props) => {
     const [ConfirmBtAction, SetConfirmBtAction] = useState('')
     const [ConfirmBtBack, SetConfirmBtBack] = useState('')
 
+    //UPDATE QUANTIDADES
+    useEffect(() => {
+        SetQuantidadeRetirada(GetQtdInUseOfAtivoWithId(props.Ativo?.id))
+    }, [props.Ativos])
+
     // HANDLE ERROR
     const HandleError = (Erro) => {
         console.log(Erro)
@@ -51,10 +58,9 @@ const AtivoTakeReturn = (props) => {
         NotificationErro("Erro", "Ocorreu um problema, tente novamente")
     }
 
-
     //UPDATE QUANTIDADES
     useEffect(() => {
-        SetQuantidadeRetirada(props.Ativo?.QtdInUse)
+        SetQuantidadeRetirada(GetQtdInUseOfAtivoWithId(props.Ativo?.id))
         SetQuantidadeRetiradaPeloCurrentUser(GetTakesOfAtivoOfCurrentUser(props.Ativo?.id))
     }, [props.Ativo?.id, props.RecordsAtivos])
 
@@ -80,7 +86,7 @@ const AtivoTakeReturn = (props) => {
         setActionFor('Me')
         setObs('')
         setReturnFor()
-        setTimeout(() => { SetQuantidadeRetirada(props.Ativo?.QtdInUse) }, 500);
+        setTimeout(() => { SetQuantidadeRetirada(GetQtdInUseOfAtivoWithId(props.Ativo?.id)) }, 500);
         setTimeout(() => { SetQuantidadeRetiradaPeloCurrentUser(GetTakesOfAtivoOfCurrentUser(props.Ativo?.id)) }, 500);
     }
 
@@ -193,7 +199,7 @@ const AtivoTakeReturn = (props) => {
 
                         //ADD PLUS 1 RETIRADA 
                         const NewAtivo = { ...props.Ativo, QtdInUse: props.Ativo.QtdInUse + 1 }
-                        EditAtivo(NewAtivo)
+                        EditAtivo(NewAtivo)                      
                         SetQuantidadeRetirada(prev => prev + 1)
 
                         GetRecords().then(Lista => {
@@ -231,6 +237,12 @@ const AtivoTakeReturn = (props) => {
             if (!RecordToEdit.docId) {
                 FIREBASE_GetRecordDocIDById(RecordToEdit.id).then((docID) => {
                     RecordToEdit.docID = docID
+
+                    //ADD MINUS 1 RETIRADA 
+                    const NewAtivo = { ...props.Ativo, QtdInUse: props.Ativo.QtdInUse - 1 }
+                    EditAtivo(NewAtivo)
+                    SetQuantidadeRetirada(prev => prev - 1)
+
                     EditRecord(RecordToEdit).then(() => {
                         EditRecordStore(RecordToEdit)
                         setLoadingAction(false)
@@ -267,6 +279,9 @@ const AtivoTakeReturn = (props) => {
             setKey(Action)
     }
 
+
+
+
     return (
         <div className={props.Tema === 'Escuro' ? 'AtivoTakeReturn-ContainerEscuro AtivoTakeReturn-Container' : 'AtivoTakeReturn-ContainerClaro AtivoTakeReturn-Container'}>
 
@@ -294,242 +309,91 @@ const AtivoTakeReturn = (props) => {
                 <div>
 
                     <div className={props.Tema === 'Escuro' ? 'AtivoTRTabsContainerEscuro AtivoTRTabsContainer' : 'AtivoTRTabsContainerClaro AtivoTRTabsContainer'}>
-                        <button onClick={(k) => SetKey('Retirar')} className={key === 'Retirar' ? 'AtivoTRTabsButtonActive' : ''}>{RetirarTabTitle()}</button>
-                        <button onClick={(k) => SetKey('Devolver')} className={key === 'Devolver' ? 'AtivoTRTabsButtonActive' : ''}>{DevolverTabTitle()}</button>
+                        <SidebarItem Active={key === 'Retirar'}
+                            onClick={e => SetKey('Retirar')}>
+                            {RetirarTabTitle()}
+                        </SidebarItem>
+                        <SidebarItem Active={key === 'Devolver'}
+                            onClick={e => SetKey('Devolver')}>
+                            {DevolverTabTitle()}
+                        </SidebarItem>
                     </div>
 
-                    {/*     RETIRADA         */}
+                    {/*****************************    RETIRADA        *****************************/}
+                    <Show Show={key === 'Retirar' && (QuantidadeDoAtivo > QuantidadeRetirada)}>
+                        <div className='AtivoTakeReturn-TakeForm'>
 
-                    {key === 'Retirar' && (QuantidadeDoAtivo > QuantidadeRetirada) && <div className='AtivoTakeReturn-TakeForm'>
+                            <Show Show={ActionFor === 'Me'}>
+                                <h4 className='AtivoModalBody-AtivoInfoForm-SectionTitle-TakeReturn'>Registro de Retirada de Ativo para {CurrentUser?.Name + ' ' + CurrentUser?.LastName} </h4>
+                            </Show>
 
-                        {ActionFor === 'Me' &&
-                            <h4 className='AtivoModalBody-AtivoInfoForm-SectionTitle-TakeReturn'>Registro de Retirada de Ativo para {CurrentUser?.Name + ' ' + CurrentUser?.LastName} </h4>
-                        }
+                            <Show Show={ActionFor !== 'Me'}>
+                                <h4 className='AtivoModalBody-AtivoInfoForm-SectionTitle-TakeReturn'>Registro de Retirada de Ativo
+                                    {(TakenFor?.Name ? (' para ' + TakenFor?.Name) : '') + ' ' + (TakenFor?.LastName ? TakenFor?.LastName : '')}
+                                </h4>
+                            </Show>
 
-                        {ActionFor !== 'Me' &&
-                            <h4 className='AtivoModalBody-AtivoInfoForm-SectionTitle-TakeReturn'>Registro de Retirada de Ativo
-                                {(TakenFor?.Name ? (' para ' + TakenFor?.Name) : '') + ' ' + (TakenFor?.LastName ? TakenFor?.LastName : '')}
-                            </h4>
-                        }
-
-
-
-                        <div className='AtivoTakeReturn-TakeFor'>
-                            {ActionFor === 'Me' ? <ImCheckboxUnchecked onClick={ToggleActionFor} /> : <ImCheckboxChecked onClick={ToggleActionFor} />}
-                            Registrar para outra pessoa
-                        </div>
-
-                        {QuantidadeRetiradaPeloCurrentUser >= props.Ativo?.QtdPerUser &&
-
-                            <div className='AtivoTakeReturn-AvisoInfo'>
-                                <Tooltip title="Poderá apenas registrar uma retirada para outros usuários" position="bottom" >
-                                    <div className='AtivoTakeReturn-AvisoInfo-Item'>
-                                        <UilCommentInfoAlt />
-                                        <span>Você já retirou a quantidade máxima permitida por usuário para este item</span>
-                                    </div>
-                                </Tooltip>
+                            <div className='AtivoTakeReturn-TakeFor'>
+                                {ActionFor === 'Me' ? <ImCheckboxUnchecked onClick={ToggleActionFor} /> : <ImCheckboxChecked onClick={ToggleActionFor} />}
+                                Registrar para outra pessoa
                             </div>
-                        }
 
-
-                        <div className='TakeForm'>
-
-                            {ActionFor !== 'Me' && <>
-                                <TwoColumns>
-                                    <div className='AtivoModalBody-AtivoInfoForm-Group'>
-                                        <FormGroupLabel>
-                                            <UilEnvelope />
-                                            Email (Retirado para)
-                                        </FormGroupLabel>
-                                        <Select
-                                            className='AtivoModalBody-AtivoInfoForm-LocationSelect'
-                                            placeholder="Digite o Email"
-                                            noOptionsMessage={noOptionsMessage}
-                                            options={GetUsersFromStoreWithNoCurrentUser(props?.Ativo?.id)}
-                                            getOptionLabel={(options) => { return options["Email"]; }}
-                                            getOptionValue={(options) => { return options["Id"]; }}
-                                            styles={AtivoModalSelectcustomStyles}
-                                            value={TakenFor}
-                                            onChange={(item) => { setTakenFor(item); }}
-                                        />
-                                    </div>
-                                    <div className='AtivoModalBody-AtivoInfoForm-Group'>
-                                        <FormGroupLabel>
-                                            <UilUser />
-                                            Nome (Retirado para)
-                                        </FormGroupLabel>
-                                        <Select
-                                            className='AtivoModalBody-AtivoInfoForm-LocationSelect'
-                                            placeholder="Digite o Nome"
-                                            noOptionsMessage={noOptionsMessage}
-                                            options={GetUsersFromStoreWithNoCurrentUser(props?.Ativo?.id)}
-                                            getOptionLabel={(options) => { return options["Name"] + ' ' + options["LastName"]; }}
-                                            getOptionValue={(options) => { return options["Id"]; }}
-                                            styles={AtivoModalSelectcustomStyles}
-                                            value={TakenFor}
-                                            onChange={(item) => { setTakenFor(item); }}
-                                        />
-                                    </div>
-                                </TwoColumns>
-
-                            </>
-                            }
-
-                            <div>
-                                <div className='AtivoModalBody-AtivoInfoForm-Group'>
-                                    <FormGroupLabel>
-                                        <UilCalendarAlt />
-                                        Data
-                                    </FormGroupLabel>
-                                    <DatePicker className='AtivoModalBody-AtivoInfoForm-Group-Input' showTimeSelect={true} dateFormat="dd/MM/yyyy" selected={EventDate} onChange={(date) => setEventDate(date)} />
+                            <Show Show={QuantidadeRetiradaPeloCurrentUser >= props.Ativo?.QtdPerUser}>
+                                <div className='AtivoTakeReturn-AvisoInfo'>
+                                    <Tooltip title="Poderá apenas registrar uma retirada para outros usuários" position="bottom" >
+                                        <Warning Text='Você já retirou a quantidade máxima permitida por usuário para este item' />
+                                    </Tooltip>
                                 </div>
-                            </div>
+                            </Show>
 
-                            <div>
-                                <div className='AtivoModalBody-AtivoInfoForm-Group'>
-                                    <FormGroupLabel>
-                                        <UilComment />
-                                        Observação
-                                    </FormGroupLabel>
-                                    <textarea className='AtivoModalBody-AtivoInfoForm-Group-Input' value={Obs} onChange={e => setObs(e.target.value)} placeholder='Digite uma Observação(Opcional)' name="" id="" rows="2"></textarea>
-                                </div>
+                            <div className='TakeForm'>
 
-                            </div>
-
-                            <div className='AtivoModalBody-AtivoInfoForm-Button'>
-                                <button onClick={InitConfirm}>
-                                    <UilBookmark />
-                                    Registrar
-                                </button>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    }
-
-                    {key === 'Retirar' && (QuantidadeDoAtivo <= QuantidadeRetirada) && <div className='AtivoTakeReturn-TakeForm'>
-                        <div className='AtivoTakeReturn-AvisoInfo'>
-                            <div className='AtivoTakeReturn-AvisoInfo-Item'>
-                                <UilCommentInfoAlt />
-                                <span>No momento todas as unidades deste Ativo já foram retiradas</span>
-                            </div>
-                        </div>
-                    </div>}
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    {/*     DEVOLUÇÂO         */}
-
-
-                    {key === 'Devolver' && (QuantidadeRetirada > 0) && <div className='AtivoTakeReturn-TakeForm'>
-
-                        {ActionFor === 'Me' &&
-                            <h4 className='AtivoModalBody-AtivoInfoForm-SectionTitle-TakeReturn'>Registro de Devolução de Ativo para {CurrentUser?.Name + ' ' + CurrentUser?.LastName} </h4>
-                        }
-
-                        {ActionFor !== 'Me' &&
-                            <h4 className='AtivoModalBody-AtivoInfoForm-SectionTitle-TakeReturn'>Registro de Devolução de Ativo
-                                {(ReturnFor?.Name ? (' para ' + ReturnFor?.Name) : '') + ' ' + (ReturnFor?.LastName ? ReturnFor?.LastName : '')}
-                            </h4>
-                        }
-
-                        <div className='AtivoTakeReturn-TakeFor'>
-                            {ActionFor === 'Me' ? <ImCheckboxUnchecked onClick={ToggleActionFor} /> : <ImCheckboxChecked onClick={ToggleActionFor} />}
-                            Registrar Devolução para outra pessoa
-                        </div>
-
-                        {QuantidadeRetiradaPeloCurrentUser === 0 &&
-
-                            <div className='AtivoTakeReturn-AvisoInfo'>
-                                <Tooltip title="Poderá apenas registrar uma devolução para outros usuários" position="bottom" >
-                                    <div className='AtivoTakeReturn-AvisoInfo-Item'>
-                                        <UilCommentInfoAlt />
-                                        <span>Você não possui nenhuma retirada deste item em seu nome</span>
-                                    </div>
-                                </Tooltip>
-                            </div>
-                        }
-
-                        <div className='TakeForm'>
-
-                            {ActionFor !== 'Me' && <>
-
-                                {(QuantidadeRetirada - QuantidadeRetiradaPeloCurrentUser) === 0 &&
-
-                                    <div className='AtivoTakeReturn-AvisoInfo'>
-                                        <Tooltip title="Poderá apenas registrar uma devolução em seu nome" position="bottom" >
-                                            <div className='AtivoTakeReturn-AvisoInfo-Item'>
-                                                <UilCommentInfoAlt />
-                                                <span>No momento nenhum outro usuário registrou uma retirada deste item</span>
+                                <Show Show={ActionFor !== 'Me'}>
+                                    <>
+                                        <TwoColumns>
+                                            <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                                <FormGroupLabel>
+                                                    <UilEnvelope />
+                                                    Email (Retirado para)
+                                                </FormGroupLabel>
+                                                <Select
+                                                    className='AtivoModalBody-AtivoInfoForm-LocationSelect'
+                                                    placeholder="Digite o Email"
+                                                    noOptionsMessage={noOptionsMessage}
+                                                    options={GetUsersFromStoreWithNoCurrentUser(props?.Ativo?.id)}
+                                                    getOptionLabel={(options) => { return options["Email"]; }}
+                                                    getOptionValue={(options) => { return options["Id"]; }}
+                                                    styles={AtivoModalSelectcustomStyles}
+                                                    value={TakenFor}
+                                                    onChange={(item) => { setTakenFor(item); }}
+                                                />
                                             </div>
-                                        </Tooltip>
-                                    </div>
-                                }
-
-
-                                {(QuantidadeRetirada - QuantidadeRetiradaPeloCurrentUser) !== 0 &&
-
-                                    <TwoColumns>
-                                        <div className='AtivoModalBody-AtivoInfoForm-Group'>
-                                            <FormGroupLabel>
-                                                <UilEnvelope />
-                                                Email (De quem vai devolver)
-                                            </FormGroupLabel>
-                                            <Select
-                                                className='AtivoModalBody-AtivoInfoForm-LocationSelect'
-                                                placeholder="Digite o Email"
-                                                noOptionsMessage={noOptionsMessage}
-                                                options={GetUsersThatTookAtivo(props.Ativo?.id)}
-                                                getOptionLabel={(options) => { return options["Email"]; }}
-                                                getOptionValue={(options) => { return options["Id"]; }}
-                                                styles={AtivoModalSelectcustomStyles}
-                                                value={ReturnFor}
-                                                onChange={(item) => { setReturnFor(item); }}
-                                            />
-                                        </div>
-                                        <div className='AtivoModalBody-AtivoInfoForm-Group'>
-                                            <FormGroupLabel>
-                                                <UilUser />
-                                                Nome (De quem vai devolver)
-                                            </FormGroupLabel>
-                                            <Select
-                                                className='AtivoModalBody-AtivoInfoForm-LocationSelect'
-                                                placeholder="Digite o Nome"
-                                                noOptionsMessage={noOptionsMessage}
-                                                options={GetUsersThatTookAtivo(props.Ativo?.id)}
-                                                getOptionLabel={(options) => { return options["Name"] + ' ' + options["LastName"]; }}
-                                                getOptionValue={(options) => { return options["Id"]; }}
-                                                styles={AtivoModalSelectcustomStyles}
-                                                value={ReturnFor}
-                                                onChange={(item) => { setReturnFor(item); }}
-                                            />
-                                        </div>
-                                    </TwoColumns>
-
-                                }
-
-                            </>
-                            }
-
-
-                            {((QuantidadeRetirada - QuantidadeRetiradaPeloCurrentUser) !== 0 || ActionFor === 'Me') && <>
+                                            <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                                <FormGroupLabel>
+                                                    <UilUser />
+                                                    Nome (Retirado para)
+                                                </FormGroupLabel>
+                                                <Select
+                                                    className='AtivoModalBody-AtivoInfoForm-LocationSelect'
+                                                    placeholder="Digite o Nome"
+                                                    noOptionsMessage={noOptionsMessage}
+                                                    options={GetUsersFromStoreWithNoCurrentUser(props?.Ativo?.id)}
+                                                    getOptionLabel={(options) => { return options["Name"] + ' ' + options["LastName"]; }}
+                                                    getOptionValue={(options) => { return options["Id"]; }}
+                                                    styles={AtivoModalSelectcustomStyles}
+                                                    value={TakenFor}
+                                                    onChange={(item) => { setTakenFor(item); }}
+                                                />
+                                            </div>
+                                        </TwoColumns>
+                                    </>
+                                </Show>
 
                                 <div>
                                     <div className='AtivoModalBody-AtivoInfoForm-Group'>
                                         <FormGroupLabel>
                                             <UilCalendarAlt />
-                                            Data e Hora de Devolução
+                                            Data
                                         </FormGroupLabel>
                                         <DatePicker className='AtivoModalBody-AtivoInfoForm-Group-Input' showTimeSelect={true} dateFormat="dd/MM/yyyy" selected={EventDate} onChange={(date) => setEventDate(date)} />
                                     </div>
@@ -543,9 +407,8 @@ const AtivoTakeReturn = (props) => {
                                         </FormGroupLabel>
                                         <textarea className='AtivoModalBody-AtivoInfoForm-Group-Input' value={Obs} onChange={e => setObs(e.target.value)} placeholder='Digite uma Observação(Opcional)' name="" id="" rows="2"></textarea>
                                     </div>
+
                                 </div>
-
-
 
                                 <div className='AtivoModalBody-AtivoInfoForm-Button'>
                                     <button onClick={InitConfirm}>
@@ -553,28 +416,138 @@ const AtivoTakeReturn = (props) => {
                                         Registrar
                                     </button>
                                 </div>
-                            </>
-                            }
+
+                            </div>
 
                         </div>
 
+                    </Show>
 
-                    </div>
-                    }
+                    {/*****************************    TODAS UNIDADES RETIRADAS        *****************************/}
+                    <Show Show={key === 'Retirar' && (QuantidadeDoAtivo <= QuantidadeRetirada)}>
+                        <Warning Text='No momento todas as unidades deste Ativo já foram retiradas' />
+                    </Show>
+
+                    {/*****************************    DEVOLUÇÂO        *****************************/}
+                    <Show Show={key === 'Devolver' && (QuantidadeRetirada > 0)}>
+                        <div className='AtivoTakeReturn-TakeForm'>
+                            <Show Show={ActionFor === 'Me'}>
+                                <h4 className='AtivoModalBody-AtivoInfoForm-SectionTitle-TakeReturn'>Registro de Devolução de Ativo para {CurrentUser?.Name + ' ' + CurrentUser?.LastName} </h4>
+                            </Show>
+
+                            <Show Show={ActionFor !== 'Me'}>
+                                <h4 className='AtivoModalBody-AtivoInfoForm-SectionTitle-TakeReturn'>Registro de Devolução de Ativo
+                                    {(ReturnFor?.Name ? (' para ' + ReturnFor?.Name) : '') + ' ' + (ReturnFor?.LastName ? ReturnFor?.LastName : '')}
+                                </h4>
+                            </Show>
+
+                            <div className='AtivoTakeReturn-TakeFor'>
+                                {ActionFor === 'Me' ? <ImCheckboxUnchecked onClick={ToggleActionFor} /> : <ImCheckboxChecked onClick={ToggleActionFor} />}
+                                Registrar Devolução para outra pessoa
+                            </div>
+
+                            <Show Show={QuantidadeRetiradaPeloCurrentUser === 0}>
+                                <Tooltip title="Poderá apenas registrar uma devolução para outros usuários" position="bottom" >
+                                    <Warning Text='Você não possui nenhuma retirada deste item em seu nome' />
+                                </Tooltip>
+                            </Show>
+
+                            <div className='TakeForm'>
+
+                                {/*****************************    DEVOLUÇÃO PARA OUTRO USUÁRIO        *****************************/}
+                                <Show Show={ActionFor !== 'Me'}>
+
+                                    {/*****************************    SOMENTE O CURRENT USER TEM RETIRADAS DESTE ATIVO        *****************************/}
+                                    <Show Show={(QuantidadeRetirada - QuantidadeRetiradaPeloCurrentUser) === 0}>
+                                        <div className='AtivoTakeReturn-AvisoInfo'>
+                                            <Tooltip title="Poderá apenas registrar uma devolução em seu nome" position="bottom" >
+                                                <Warning Text='No momento nenhum outro usuário registrou uma retirada deste item' />
+                                            </Tooltip>
+                                        </div>
+                                    </Show>
+
+                                    <Show Show={(QuantidadeRetirada - QuantidadeRetiradaPeloCurrentUser) !== 0}>
+                                        <TwoColumns>
+                                            <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                                <FormGroupLabel>
+                                                    <UilEnvelope />
+                                                    Email (De quem vai devolver)
+                                                </FormGroupLabel>
+                                                <Select
+                                                    className='AtivoModalBody-AtivoInfoForm-LocationSelect'
+                                                    placeholder="Digite o Email"
+                                                    noOptionsMessage={noOptionsMessage}
+                                                    options={GetUsersThatTookAtivo(props.Ativo?.id)}
+                                                    getOptionLabel={(options) => { return options["Email"]; }}
+                                                    getOptionValue={(options) => { return options["Id"]; }}
+                                                    styles={AtivoModalSelectcustomStyles}
+                                                    value={ReturnFor}
+                                                    onChange={(item) => { setReturnFor(item); }}
+                                                />
+                                            </div>
+                                            <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                                <FormGroupLabel>
+                                                    <UilUser />
+                                                    Nome (De quem vai devolver)
+                                                </FormGroupLabel>
+                                                <Select
+                                                    className='AtivoModalBody-AtivoInfoForm-LocationSelect'
+                                                    placeholder="Digite o Nome"
+                                                    noOptionsMessage={noOptionsMessage}
+                                                    options={GetUsersThatTookAtivo(props.Ativo?.id)}
+                                                    getOptionLabel={(options) => { return options["Name"] + ' ' + options["LastName"]; }}
+                                                    getOptionValue={(options) => { return options["Id"]; }}
+                                                    styles={AtivoModalSelectcustomStyles}
+                                                    value={ReturnFor}
+                                                    onChange={(item) => { setReturnFor(item); }}
+                                                />
+                                            </div>
+                                        </TwoColumns>
+                                    </Show>
+
+                                </Show>
 
 
-                    {key === 'Devolver' && (QuantidadeRetirada === 0) && <div className='AtivoTakeReturn-TakeForm'>
-                        <div className='AtivoTakeReturn-AvisoInfo'>
-                            <div className='AtivoTakeReturn-AvisoInfo-Item'>
-                                <UilCommentInfoAlt />
-                                <span>No momento não há nenhum registro de retirada para este Item</span>
+                                {/*****************************    DEVOLUÇÃO PARA CURRENT USER        *****************************/}
+                                <Show Show={((QuantidadeRetirada - QuantidadeRetiradaPeloCurrentUser) !== 0 || ActionFor === 'Me')}>
+
+                                    <div>
+                                        <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                            <FormGroupLabel>
+                                                <UilCalendarAlt />
+                                                Data e Hora de Devolução
+                                            </FormGroupLabel>
+                                            <DatePicker className='AtivoModalBody-AtivoInfoForm-Group-Input' showTimeSelect={true} dateFormat="dd/MM/yyyy" selected={EventDate} onChange={(date) => setEventDate(date)} />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                            <FormGroupLabel>
+                                                <UilComment />
+                                                Observação
+                                            </FormGroupLabel>
+                                            <textarea className='AtivoModalBody-AtivoInfoForm-Group-Input' value={Obs} onChange={e => setObs(e.target.value)} placeholder='Digite uma Observação(Opcional)' name="" id="" rows="2"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div className='AtivoModalBody-AtivoInfoForm-Button'>
+                                        <button onClick={InitConfirm}>
+                                            <UilBookmark />
+                                            Registrar
+                                        </button>
+                                    </div>
+
+                                </Show>
+
                             </div>
                         </div>
-                    </div>}
+                    </Show>
 
-
-
-
+                    {/***********************   NENHUMA RETIRADA **********************/}
+                    <Show Show={key === 'Devolver' && (QuantidadeRetirada === 0)}>
+                        <Warning Text='No momento não há nenhum registro de retirada para este Item' />
+                    </Show>
 
                 </div>
             </Show>
@@ -595,7 +568,6 @@ const AtivoTakeReturn = (props) => {
                 <Loading />
             </Show>
 
-
         </div>
     )
 }
@@ -604,7 +576,8 @@ const AtivoTakeReturn = (props) => {
 const ConnectedAtivoTakeReturn = connect((state) => {
     return {
         Tema: state.Tema,
-        RecordsAtivos: state.RecordsAtivos
+        RecordsAtivos: state.RecordsAtivos,
+        Ativos: state.Ativos
 
     }
 })(AtivoTakeReturn)

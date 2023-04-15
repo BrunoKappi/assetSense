@@ -38,8 +38,6 @@ import CustomFields from '../../LayoutComponents/CustomFields/CustomFields';
 import ConfirmTab from '../../LayoutComponents/ConfirmTab/ConfirmTab';
 
 
-
-
 const AtivoModal = (props) => {
 
     //DEPENDENCIAS 
@@ -112,7 +110,7 @@ const AtivoModal = (props) => {
                 break
             case 'Usage':
                 newAtivo.Usage = { id: Value }
-                break
+                break 
             case 'StorageLocation':
                 newAtivo.StorageLocation = { id: Value }
                 break

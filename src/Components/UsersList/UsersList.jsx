@@ -7,9 +7,10 @@ import { connect } from 'react-redux'
 import { v4 } from 'uuid';
 import { MdFilterList } from 'react-icons/md';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { UilExclamationCircle } from '@iconscout/react-unicons'
 import { GetCurrentUserFromStore, GetCurrentUserTypeFromStore, GetSetoresSelect, GetUsersFromStore, GetUsersTypesSelect } from '../../Functions/Middleware';
 import { PermitIndexs } from '../../GlobalVars';
+import Warning from '../LayoutComponents/Warning/Warning';
+import Show from '../LayoutComponents/Show/Show';
 
 
 
@@ -31,9 +32,9 @@ const UsersList = (props) => {
     const [CurrentUser,] = useState(GetCurrentUserFromStore())
 
     //PERMITS E USER TYPE
-    const [CurrentUserType] = useState(GetCurrentUserTypeFromStore())    
+    const [CurrentUserType] = useState(GetCurrentUserTypeFromStore())
     var PermitToAddUsers = CurrentUserType?.Permits[PermitIndexs['ADICIONAR_USUARIOS']]
- 
+
 
 
 
@@ -82,15 +83,14 @@ const UsersList = (props) => {
     }
 
 
-    const handleUserClick = (UserClicked) => {
-        //console.log("CLICKsa")
+    const handleUserClick = (UserClicked) => {   
         setModalShow(true);
         setSelectedUser({ ...UserClicked });
     }
 
     const ResetSelectedUser = (UserClicked) => {
         setModalShow(false);
-        setSelectedUser({}); 
+        setSelectedUser({});
     }
 
 
@@ -99,8 +99,8 @@ const UsersList = (props) => {
         <div className={props.Tema === 'Escuro' ? 'UsersListContainerEscuro UsersListContainer' : 'UsersListContainerClaro UsersListContainer'}>
 
             <UsuarioModal FromModal={false} Users={ListaDeUsuarios} CurrentUser={CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
-            
-            <UsuarioModal FromModal={false}Users={ListaDeUsuarios} CurrentUser={CurrentUser} User={{}} show={AddmodalShow} onHide={() => setAddModalShow(false)} Function="Add" />
+
+            <UsuarioModal FromModal={false} Users={ListaDeUsuarios} CurrentUser={CurrentUser} User={{}} show={AddmodalShow} onHide={() => setAddModalShow(false)} Function="Add" />
 
             <div className='UsersLisFormFilter'>
                 <input value={FiltroDeTexto} placeholder='Procurar Usuário...' onChange={e => setFiltroDeTexto(e.target.value)}></input>
@@ -154,29 +154,27 @@ const UsersList = (props) => {
                 <button onClick={handleResetFiltros}>Limpar Filtro</button>
             </div>
 
+            <Show Show={ListaDeUsuarios.length !== 0 || Loaded}>
+                {ListaDeUsuarios.map((Item) =>
+                    <div key={v4()} onClick={e => handleUserClick(Item)}>
+                        <User User={Item} key={v4()} />
+                    </div>
+                )}
+            </Show>
 
+            <Show Show={ListaDeUsuarios.length === 0 && !Loaded}>
+                <Loading />
+            </Show>
 
+            <Show Show={ListaDeUsuarios.length === 0 && Loaded}>
+                <Warning Text='Nenhum Usuário encontrado' />
+            </Show>
 
-
-            {(ListaDeUsuarios.length !== 0 || Loaded) && ListaDeUsuarios.map((Item, Index) => {
-                return <div key={v4()} onClick={e => handleUserClick(Item)}>
-                    <User User={Item} key={v4()} />
-                </div>
-            })}
-
-            {ListaDeUsuarios.length === 0 && !Loaded && <Loading />}
-
-            {ListaDeUsuarios.length === 0 && Loaded && <div className='FilterNoResultsContainer'>
-                <UilExclamationCircle />
-                <h3>Nenhum Usuário encontrado</h3>
-            </div>}
-
-
-            {PermitToAddUsers &&
+            <Show Show={PermitToAddUsers}>
                 <button className='UsersListAddUserButton' onClick={e => setAddModalShow(true)}>
                     Adicionar Usuário
                 </button>
-            }
+            </Show>
 
         </div>
     )
@@ -188,7 +186,7 @@ const ConnectedUsersList = connect((state) => {
     return {
         LoggedUser: state.LoggedUser,
         Usuarios: state.Usuarios,
-        Tema : state.Tema
+        Tema: state.Tema
     }
 })(UsersList)
 

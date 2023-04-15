@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './TypesList.css'
 //ICONES
 import ListGroup from 'react-bootstrap/ListGroup';
 import { v4 } from 'uuid';
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { Tooltip } from 'react-tippy';
-import { UilPuzzlePiece,UilShieldCheck,UilUser   } from '@iconscout/react-unicons'
+import { UilPuzzlePiece, UilShieldCheck, UilUser } from '@iconscout/react-unicons'
 import { connect } from 'react-redux'
 
 
 const TypesList = (props) => {
 
-
-  const [ListaDeItens,] = useState([...props.Users.filter(User => User.Type.id === props.TipoUsuario.id)]);
+  //ITENS
+  const ListaDeItens = [...props.Users.filter(User => User.Type.id === props.TipoUsuario.id)]
 
 
   return (
@@ -22,17 +22,17 @@ const TypesList = (props) => {
         <ListGroup as="ul">
           <ListGroup.Item as="li" className='UserTypesShowOnlyCustomGroupListTitle' >
             <Tooltip title="Arraste e solte ítens nesta área" position="bottom" >
-              <span className='UserTypesShowOnlyCustomGroupListTitleSpan'> <UilPuzzlePiece/> { props.TipoUsuario.Value }</span>
+              <span className='UserTypesShowOnlyCustomGroupListTitleSpan'> <UilPuzzlePiece /> {props.TipoUsuario.Value}</span>
             </Tooltip>
-           
+
           </ListGroup.Item>
 
-          <Droppable droppableId={props.TipoUsuario.id + '/' +  v4()} key={props.TipoUsuario.id + '/' +  v4()}>
+          <Droppable droppableId={props.TipoUsuario.id + '/' + v4()} key={props.TipoUsuario.id + '/' + v4()}>
             {(provided, snapshot) => {
               return (
                 <div className={snapshot.isDraggingOver ? 'MarginBottom' : ''} {...provided.droppableProps} ref={provided.innerRef}>
                   {ListaDeItens.sort((a, b) => a.Name.localeCompare(b.Name)).map((Item, index) => {
-                    const IsAdmin = props.UserTypes.find(UserType => UserType.id === Item.Type.id).IsAdmin                   
+                    const IsAdmin = props.UserTypes.find(UserType => UserType.id === Item.Type.id).IsAdmin
                     return <Draggable action as="li" key={Item.id} draggableId={Item.id} index={index} >
                       {(DragProvided) => {
                         return (
@@ -62,8 +62,6 @@ const TypesList = (props) => {
             }}
           </Droppable>
 
-
-
           {ListaDeItens.length === 0 && <ListGroup.Item key={v4()} >
 
             <Droppable droppableId={props.TipoUsuario.id} key={props.TipoUsuario.id}>
@@ -83,18 +81,12 @@ const TypesList = (props) => {
 
 
           </ListGroup.Item>
-
           }
 
           <ListGroup.Item action as="li"></ListGroup.Item>
 
-
         </ListGroup>
-
-
-
-
-
+        
       </div>
 
     </div>
@@ -106,8 +98,8 @@ const TypesList = (props) => {
 
 
 const ConnectedTypesList = connect((state) => {
-  return {       
-      Tema: state.Tema
+  return {
+    Tema: state.Tema
   }
 })(TypesList)
 

@@ -1,0 +1,27 @@
+.Warning {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: .5rem;
+    margin-bottom: 1rem;
+}
+
+
+.Warning-Item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .3rem;
+    color: white;
+    font-family: var(--Fonte);
+    background-color: #f0ad4e;
+    padding: .2rem .8rem;
+    border-radius: 1rem;
+    font-size: .8rem;
+}
+
+.Warning-Item>svg {
+    width: 1rem;
+}

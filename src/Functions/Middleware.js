@@ -13,7 +13,7 @@ import { EditRecordAction, SetRecords } from "../Config/store/actions/RecordsAct
 import moment from "moment"
 import { FIREBASE_AddAtivo, FIREBASE_AddLocalArmazenamento, FIREBASE_AddRecord, FIREBASE_AddSetor, FIREBASE_AddStatusAtivo, FIREBASE_AddTipoAtivo, FIREBASE_AddTipoUso, FIREBASE_AddTipoUsuario, FIREBASE_AddUsuario, FIREBASE_DeleteLocalArmazenamento, FIREBASE_DeleteSetor, FIREBASE_DeleteStatusAtivo, FIREBASE_DeleteTipoAtivo, FIREBASE_DeleteTipoDeUsuario, FIREBASE_DeleteTipoUso, FIREBASE_GetAtivos, FIREBASE_GetLocaisArmazenamento, FIREBASE_GetRecords, FIREBASE_GetSetores, FIREBASE_GetStatusAtivos, FIREBASE_GetTiposAtivo, FIREBASE_GetTiposUso, FIREBASE_GetTiposUsuarios, FIREBASE_GetUsuarios, FIREBASE_UpdateAtivo, FIREBASE_UpdateLocalArmazenamento, FIREBASE_UpdateRecord, FIREBASE_UpdateSetor, FIREBASE_UpdateStatusAtivo, FIREBASE_UpdateTipoAtivo, FIREBASE_UpdateTipoDeUsuario, FIREBASE_UpdateTipoUso, FIREBASE_UpdateUsuario } from "../Config/firebase/metodos"
 import { DefaultUserRole } from "../Data/Items"
-import { SetTemaAction } from "../Config/store/actions/TemaActions" 
+import { SetTemaAction } from "../Config/store/actions/TemaActions"
 import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { storage } from "../Config/firebase"
 import { SetLoggedUserPhotoUrlAction, ToggleSideBar } from "../Config/store/actions/LoggedUserActions"
@@ -23,7 +23,7 @@ import { auth } from "../Config/firebase/index";
 //UTILS
 
 export const LoginUtil = (email, password) => {
-    // console.log("Recebdno login", email, password)
+
     return FIREBASE_LoginAuth(email, password)
 }
 
@@ -41,7 +41,6 @@ export const FoprgetPasswordUtil = (email, password) => {
 
 
 export const ImageUpload = (ImagePath, ImageToUpload) => {
-    // console.log("Recebendo para Atualizar", ImagePath)
     const imageRef = ref(storage, ImagePath);
     return uploadBytes(imageRef, ImageToUpload)
 }
@@ -52,14 +51,12 @@ export const GetUserUrlImage = (path) => {
 }
 
 export const DeleteFile = (path) => {
-    // console.log("Mandando apagar", path)
     const desertRef = ref(storage, path);
     return deleteObject(desertRef)
 }
 
 
 export const SetLoggedUserPhotoUrl = (URL) => {
-    //console.log("Recebendo URL", URL)
     const User = GetCurrentUserFromStore()
     User.PhotoUrl = URL
     EditUser(User)
@@ -73,19 +70,17 @@ export const SetLoggedUserPhotoUrlJustStore = (URL) => {
 
 
 export const SetOtherUserPhotoUrl = (URL, ID) => {
-    //console.log("Recebendo URL", URL)
+
     const User = GetUserWithIdFromStore(ID)
     User.PhotoUrl = URL
     EditUser(User)
 }
 
 export const SetAtivoPhotoUrl = (URL, AtivoId) => {
-    //console.log("Recebendo URL", URL)
     const Ativo = GetAtivoWithIdFromStore(AtivoId)
     Ativo.PhotoUrl = URL
     Ativo.LastEditedAt = moment().valueOf()
     EditAtivo(Ativo)
-    //store.dispatch(SetLoggedUserPhotoUrlAction(URL))
 }
 
 
@@ -506,7 +501,7 @@ export async function SaveUsers(Users) {
 
 export const ResetonAuthStateChanged = () => {
     onAuthStateChanged(auth, () => {
-        // console.log("Usuário Registrado AUTH")
+
     })
 }
 
@@ -786,8 +781,17 @@ export const CheckIfAnyAtivoOfStatusTaken = (StatusId) => {
     const AtivosOfStatus = Ativos.filter(Ativo => Ativo.Status.id === StatusId)
     const AtivosTaken = AtivosOfStatus.filter(Ativo => Records.some(Record => Record.AtivoId === Ativo.id && Record.Duration === 0));
     return AtivosTaken?.length > 0 ? true : false
-
 }
+
+
+//VERIFICA SE  ALGUM ATIVO DO TIPO FOI RETIRADO
+export const CheckIfAnyAtivoOfStatusTaken2 = (StatusId) => {
+    const Ativos = GetAtivosFromStore()
+    const AtivosOfStatus = Ativos.filter(Ativo => Ativo.Status.id === StatusId)
+    const AtivosTaken = AtivosOfStatus.filter(Ativo => Ativo.QtdInUse > 0);
+    return AtivosTaken?.length > 0 ? true : false
+}
+
 
 //VERIFICA SE  ALGUM ATIVO DO TIPO FOI RETIRADO
 export const ReturnAllAtivosOfUserWithId = (UserId) => {
@@ -864,15 +868,21 @@ export const GetTakesOfAtivoOfCurrentUser = (ID) => {
     return Qtd ? Qtd.length : 0
 }
 
+//Quantidade Retirada DE UM ATIVO PELO ID
+export const GetQtdInUseOfAtivoWithId = (ID) => {
+    const Ativo = GetAtivoWithIdFromStore(ID)
+    return Ativo?.QtdInUse ? Ativo?.QtdInUse : 0
+}
+
 //Usuarios que Pegaram um determinado Ativo, menos o currentuser
 export const GetUsersThatTookAtivo = (ID) => {
     const CurrentUser = GetCurrentUserFromStore()
     var Records3 = [...GetRecordsFromStore()]
     const AtivosPegos = Records3.filter(Record => Record.AtivoId === ID && !Record.ReturnDate)
-    //console.log("RECORDS", AtivosPegos)
+
     const Users = GetUsersFromStore()
     const UsersThatTook = Users.filter(user => AtivosPegos.some(AtivoPego => AtivoPego.TakenFor.id === user.id && user.id !== CurrentUser.id));
-    //console.log("PEGARAM", UsersThatTook)
+
     return UsersThatTook
 }
 

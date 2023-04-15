@@ -16,7 +16,7 @@ export default function BarChart(props) {
                 data: [...props.Series],
 
             },
-
+ 
 
         ],
         options: {

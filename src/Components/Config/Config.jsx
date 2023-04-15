@@ -14,12 +14,8 @@ import TabButton from '../LayoutComponents/TabButton/TabButton';
 import Show from '../LayoutComponents/Show/Show';
 //FUNCTIONS
 import { AtivosTabAccess, PermicoesTabAccess, SetoresUsuariosTabAccess } from '../../Functions/Permits';
+import { ConfigBreakpoints } from '../../GlobalVars';
 
-const breakpointColumnsObj = {
-  default: 3,
-  1250: 2,
-  950: 1
-};
 
 const Config = (props) => {
 
@@ -71,7 +67,7 @@ const Config = (props) => {
         {/******************************     ATIVOS TAB    ************************************/}
         <Tab eventKey="Ativos" >
           <div className='ListItensContainer'>
-            <Masonry breakpointCols={breakpointColumnsObj} className="my-masonry-grid" columnClassName="my-masonry-grid_column"   >
+            <Masonry breakpointCols={ConfigBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column"   >
               <EditableCustomList Title="Tipos de Ativos" Module="TiposAtivos" />
               <EditableCustomList Title="Locais de Armazenamento" Module="Locais" />
               <EditableCustomList Title="Status de Ativos" Module="StatusAtivos" />
@@ -101,7 +97,7 @@ const Config = (props) => {
         {/******************************     SETORES E USUARIOS TAB    ************************************/}
         <Tab eventKey="Setores e Usuários"  >
           <div className='ListItensContainer'>
-            <Masonry breakpointCols={breakpointColumnsObj} className="my-masonry-grid" columnClassName="my-masonry-grid_column"  >
+            <Masonry breakpointCols={ConfigBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column"  >
               <EditableCustomList Title="Setores da Empresa" Module="Setores" />
               <EditableCustomList Title="Tipos de Usuários" Module="TiposUsuarios" />
             </Masonry>
@@ -120,7 +116,7 @@ const Config = (props) => {
 
   )
 }
- 
+
 
 const ConnectedConfig = connect((state) => {
   return {

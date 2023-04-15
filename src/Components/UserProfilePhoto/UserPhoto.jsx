@@ -5,3 +5,4 @@ export default function UserPhoto(props) {
         <img alt='User' className='LastNavLogoIcon' src={props.src}></img>
     )
 }
+ 

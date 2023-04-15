@@ -4,7 +4,7 @@ import { UilArrowDown, UilArrowUp } from '@iconscout/react-unicons'
 
 export const RetirarTabTitle = () => {
     return <div className='TabsTitle'>
-        <UilArrowUp />
+        <UilArrowUp /> 
         <span>Retirada</span>
     </div>
 }

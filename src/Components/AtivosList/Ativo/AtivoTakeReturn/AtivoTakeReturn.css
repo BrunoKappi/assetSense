@@ -30,7 +30,7 @@
     color: var(--AtivoTakeReturn-TakeFor-Color);
     user-select: none;
     margin-bottom: 1.5rem;
-}
+} 
 
 .AtivoTakeReturn-TakeFor>svg {
     cursor: pointer;

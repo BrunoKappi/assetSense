@@ -4,10 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { SetTab } from './SidebarUtils';
 import { connect } from 'react-redux'
 import User from '../../assets/Images/SerranoLogoFuncoBranco.jpg'
-
 import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilClipboardNotes, UilHistory, UilBars } from '@iconscout/react-unicons'
 import { NotificationErro } from '../../NotificationUtils';
-import { GetCurrentUserFromStore,  SetLoggedUserPhotoUrlJustStore } from '../../Functions/Middleware';
+import { GetCurrentUserFromStore, SetLoggedUserPhotoUrlJustStore } from '../../Functions/Middleware';
 import Loading from '../LoadingForTabs/Loading'
 import UserPhotoModal from '../UsersList/User/UserPhotoModal/UserPhotoModal'
 //Tooltip
@@ -18,18 +17,16 @@ import Stack from '../LayoutComponents/Stack/Stack';
 import { AtivosTela, ConfigTela, UsuariosTela } from '../../Functions/Permits';
 
 
-
-
-
 const Sidebar = (props) => {
 
+    //STATES AND REF
     const SidebarRef = useRef()
-
     const navigate = useNavigate();
     const [CurrentUser, SetCurrentUser] = useState({ ...props.Usuarios.find(user => user.Email === props.LoggedUser.Email) })
     const [SidebarActive, setSidebarActive] = useState(true)
+    const [ShowPhotoModal, setShowPhotoModal] = useState(false)
 
-
+    //SET CURRENT USER AND PHOTO URL
     useEffect(() => {
         SetCurrentUser({ ...props.Usuarios.find(user => user.Email === props.LoggedUser.Email) })
         const User = GetCurrentUserFromStore()
@@ -40,8 +37,7 @@ const Sidebar = (props) => {
         }
     }, [props.Usuarios])
 
-
-
+    //SET TAB BASED ON PERMITS
     const SetTabSidebar = (Tab, To) => {
         if (Tab === 'Dash') {
             SetTab(Tab)
@@ -51,7 +47,7 @@ const Sidebar = (props) => {
         } else if (Tab === 'Ativos' && AtivosTela()) {
             SetTab(Tab)
             navigate(To)
-        } else if (Tab === 'Users' && UsuariosTela()) { 
+        } else if (Tab === 'Users' && UsuariosTela()) {
             SetTab(Tab)
             navigate(To)
         } else if (Tab === 'Config' && ConfigTela()) {
@@ -64,13 +60,10 @@ const Sidebar = (props) => {
             NotificationErro("Não Autorizado", "Você não possui permissão para acessar essa aba, solicite acesso ao seu Administrador")
     }
 
-    const [ShowPhotoModal, setShowPhotoModal] = useState(false)
-
-    const onChangePhoto = () => { }
-
+    //VERIFY WHAT TAB IS ACTIVE
     const IsActive = (Tab) => props.LoggedUser.CurrentSidebarTab === Tab
 
-
+    //SIDEBAR TOGGLE
     useEffect(() => {
         if (!SidebarActive) {
             SidebarRef.current.style.width = '0'
@@ -84,21 +77,11 @@ const Sidebar = (props) => {
 
     }, [SidebarActive])
 
-
-
-
     return (
-
         <>
-
-            <UserPhotoModal Add={false} OnChangePhoto={onChangePhoto} User={CurrentUser} IsCurrentUser={true} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
-
-
+            <UserPhotoModal Add={false} OnChangePhoto={() => { }} User={CurrentUser} IsCurrentUser={true} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
 
             <div ref={SidebarRef} className={(props.Tema === 'Escuro' ? 'SidebarContainerEscuro SidebarContainer' : 'SidebarContainerClaro SidebarContainer')} >
-
-
-
                 <Tooltip title="Recolher/Expandir barra lateral" position="bottom" >
                     <div className='NavBar-Hamburguer ToggleSidebarButton' onClick={e => setSidebarActive(!SidebarActive)}>
                         <UilBars />
@@ -110,10 +93,6 @@ const Sidebar = (props) => {
                         <img onClick={e => setShowPhotoModal(true)} alt='User' className='SidebarUserPhoto' src={props.LoggedUser.PhotoUrl || User}></img>
                     </Tooltip>
                 </div>
-
-
-
-
 
                 <Show Show={!CurrentUser.Name}>
                     <Loading />
@@ -164,10 +143,6 @@ const Sidebar = (props) => {
                         </SidebarItem>
                     </Stack>
                 </Show>
-
-
-
-
             </div>
 
         </>

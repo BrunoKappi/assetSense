@@ -8,13 +8,14 @@ import { UilTimes, UilTrashAlt, UilCheck, UilBackward, UilPen } from '@iconscout
 import { DeleteFile, GetUserUrlImage, ImageUpload, SetAtivoPhotoUrl } from '../../../../Functions/Middleware';
 import LoadingSpiner from '../../../LoadingForTabs/Loading'
 import { v4 } from 'uuid';
+import Show from '../../../LayoutComponents/Show/Show'
 
 const AtivoPhotoModal = (props) => {
 
     // REFS
     const fileInputRef = useRef(null)
 
-    //ESTATES
+    //STATES
     const [Loading, setLoading] = useState(false);
     const [imageUpload, setImageUpload] = useState(null);
     const [ImageToShowUser, setImageToShowUser] = useState(props?.Ativo?.PhotoUrl);
@@ -118,45 +119,46 @@ const AtivoPhotoModal = (props) => {
 
 
                 <div className={'AtivoPhotoModal' + (props.CanEdit ? '' : ' OnlyView')}>
-                    {!Loading &&
-                        <>
-                            <div className={'AtivoPhotoModal-ImageColumn '}>
-                                <img src={ImageToShowUser || UserPhoto} alt="Ativo" />
-                            </div>
 
-                            {props.CanEdit &&
+                    <Show Show={!Loading}>
+                        <div className={'AtivoPhotoModal-ImageColumn '}>
+                            <img src={ImageToShowUser || UserPhoto} alt="Ativo" />
+                        </div>
+                        {props.CanEdit &&
+                            <div className='AtivoPhotoModal-OptionsColumn'>
+                                <button className={'AtivoPhotoModal-ChangePhotoButton ' + (imageUpload ? ' AtivoPhotoModal-ChangePhotoButton-Ready' : '')} onClick={handleButtonClick}>
+                                    {imageUpload ? <UilCheck /> : <UilPen />}
+                                    {imageUpload ? 'Definir Imagem' : 'Trocar de Foto'}
+                                    <input ref={fileInputRef} accept="image/apng, image/avif, image/gif, image/jpeg, image/png, image/svg+xml, image/webp" type="file" onChange={handleChangePicture} />
+                                </button>
 
-                                <div className='AtivoPhotoModal-OptionsColumn'>
-                                    <button className={'AtivoPhotoModal-ChangePhotoButton ' + (imageUpload ? ' AtivoPhotoModal-ChangePhotoButton-Ready' : '')} onClick={handleButtonClick}>
-                                        {imageUpload ? <UilCheck /> : <UilPen />}
-                                        {imageUpload ? 'Definir Imagem' : 'Trocar de Foto'}
-                                        <input ref={fileInputRef} accept="image/apng, image/avif, image/gif, image/jpeg, image/png, image/svg+xml, image/webp" type="file" onChange={handleChangePicture} />
-                                    </button>
-                                    {!imageUpload && <button onClick={ApagarFotoDoAtivo} className='AtivoPhotoModal-DeletePhoto'>
+                                <Show Show={!imageUpload}>
+                                    <button onClick={ApagarFotoDoAtivo} className='AtivoPhotoModal-DeletePhoto'>
                                         <UilTrashAlt />
                                         Remover Foto
-                                    </button>}
-                                    {imageUpload && <button className='AtivoPhotoModal-CancelChangePhoto' onClick={Cancel}>
+                                    </button>
+                                </Show>
+
+                                <Show Show={imageUpload}>
+                                    <button className='AtivoPhotoModal-CancelChangePhoto' onClick={Cancel}>
                                         <UilBackward />
                                         Cancelar
-                                    </button>} 
+                                    </button>
+                                </Show>
 
-                                </div>
+                            </div>
+                        }
+                    </Show>
 
-                            }
-                        </>
-                    }
-                    {Loading && <LoadingSpiner />}
+                    <Show Show={Loading}>
+                        <LoadingSpiner />
+                    </Show>
 
-                    {!props.CanEdit &&
+                    <Show Show={!props.CanEdit}>
                         <span className='AtivoPhotoModal-Warning'>Você não possui permissão para editar, somente visualização</span>
-                    }
+                    </Show>
+
                 </div>
-
-
-
-
-
 
             </Modal.Body >
 

@@ -47,7 +47,7 @@ const Login = (props) => {
                 NotificationErro('Login', HandleFirebaseEmailPasswordLogin(error.toString()))
             })
         }
-    };
+    }; 
 
     return (
         <div className={props.Tema === 'Escuro' ? 'LoginContainerEscuro LoginContainer' : 'LoginContainerClaro LoginContainer'}>

@@ -4,6 +4,8 @@ export const noOptionsMessage = ({ inputValue }) => {
     return inputValue ? 'Nenhuma opção encontrada para "' + inputValue + '"' : 'Nenhuma opção disponível';
 };
 
+
+
 export const AtivoModalSelectcustomStyles = {
 
     option: (provided, state) => ({
