@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import './Users.css'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import UsersInSetores from '../UsersInSetores/UsersInSetores';
-import UsersInTypes from '../UsersInTypes/UsersInTypes';
+import DraggableLists from '../DraggableLists/DraggableLists'
 import UsersList from '../UsersList/UsersList';
 import { NotificationErro } from '../../NotificationUtils';
 import { connect } from 'react-redux'
@@ -52,10 +51,10 @@ const Users = (props) => {
           <UsersList />
         </Tab>
         <Tab eventKey="UsersInSetores" >
-          <UsersInSetores />
+          <DraggableLists Module='UsersInSectores' />
         </Tab>
         <Tab eventKey="UsersInTipos"  >
-          <UsersInTypes />
+          <DraggableLists Module='UsersInTypes' />
         </Tab>
       </Tabs>
     </div>

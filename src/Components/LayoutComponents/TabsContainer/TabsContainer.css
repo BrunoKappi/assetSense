@@ -1,7 +1,7 @@
 .TabsContainerClaro {
     --TabsContainer-Background: #eceff1;
-    --TabsContainer-Button-Background:  var(--PrimaryBackGroundFaded2);
-    --TabsContainer-Button-Border:  var(--PrimaryBackGroundFaded2);
+    --TabsContainer-Button-Background: var(--PrimaryBackGroundFaded2);
+    --TabsContainer-Button-Border: var(--PrimaryBackGroundFaded2);
     --TabsContainer-Button-Color: var(--PrimaryBackground);
     --TabsContainer-Button-Background-Active: var(--PrimaryBackground);
     --TabsContainer-Button-Border-Active: var(--PrimaryBackground);
@@ -13,15 +13,15 @@
 
 .TabsContainerEscuro {
     --TabsContainer-Background: var(--BackgroundDark);
-    --TabsContainer-Button-Background:  var(--PrimaryBackGroundFaded2);
-    --TabsContainer-Button-Border:  var(--PrimaryBackGroundFaded50);
+    --TabsContainer-Button-Background: var(--PrimaryBackGroundFaded2);
+    --TabsContainer-Button-Border: var(--PrimaryBackGroundFaded50);
     --TabsContainer-Button-Color: var(--PrimaryBackground);
     --TabsContainer-Button-Background-Active: var(--PrimaryBackground);
     --TabsContainer-Button-Border-Active: var(--PrimaryBackground);
     --TabsContainer-Button-Color-Active: white;
     --TabsContainer-Button-Background-Hover: var(--PrimaryBackground);
     --TabsContainer-Button-Border-Hover: var(--PrimaryBackground);
-    --TabsContainer-Button-Color-Hover: white; 
+    --TabsContainer-Button-Color-Hover: white;
 }
 
 
@@ -29,8 +29,12 @@
     display: flex;
     flex-direction: row;
     gap: 1rem;
-    background-color: var(--TabsContainer-Background);    
- 
+    background-color: var(--TabsContainer-Background);
+
+}
+
+.nav-tabs {
+    border: none !important;
 }
 
 .TabsContainer>button {

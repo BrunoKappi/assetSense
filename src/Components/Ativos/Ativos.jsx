@@ -5,8 +5,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { connect } from 'react-redux'
 //COMPONENTS
-import AtivosInTypes from '../AtivosInTypes/AtivosInTypes'
-import AtivosInLocais from '../AtivosInLocais/AtivosInLocais'
+import DraggableLists from '../DraggableLists/DraggableLists'
 import AtivosList from '../AtivosList/AtivosList'
 //LAYOUT COMPONENTS
 import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
@@ -56,7 +55,7 @@ const Ativos = (props) => {
       </TabsContainer>
 
       {/****************************** BOOTSTRAP TABS  *********************************/}
-      <Tabs id="UsersTabs" activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
+      <Tabs activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
 
         {/******************************  TODOS ATIVOS TAB  *********************************/}
         <Tab eventKey="TodosAtivos" >
@@ -65,13 +64,13 @@ const Ativos = (props) => {
         {/******************************  ATIVOS IN TYPES TAB  *********************************/}
         <Tab eventKey="AtivosInTipos" >
           <div className='ListItensContainer'>
-            <AtivosInTypes />
+            <DraggableLists Module='AtivosInTypes' />
           </div>
         </Tab>
         {/******************************  ATIVOS IN LOCAIS TAB  *********************************/}
         <Tab eventKey="AtivosInArmazenamento">
           <div className='ListItensContainer'>
-            <AtivosInLocais />
+            <DraggableLists Module='AtivosInLocais' />
           </div>
         </Tab>
       </Tabs>

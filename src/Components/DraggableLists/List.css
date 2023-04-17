@@ -1,4 +1,4 @@
-.SetoresShowOnlyCustomGroupListClaro {
+.AtivosTypesShowOnlyCustomGroupListClaro {
     --Setores-Title-Backround: var(--PrimaryBackground);
     --Setores-Title-Color: white;
 
@@ -10,10 +10,10 @@
 }
 
 
-.SetoresShowOnlyCustomGroupListEscuro {
+.AtivosTypesShowOnlyCustomGroupListEscuro {
     --Setores-Title-Backround: var(--PrimaryBackground);
     --Setores-Title-Color: white;
- 
+
     --Setores-Item-Backround:  var(--BackgroundDark);
     --Setores-Item-Border: rgb(88, 86, 86);
     --Setores-Item-Border-LR: rgb(88, 86, 86);
@@ -21,20 +21,20 @@
     --Setores-Item-Span-Color: white;
 }
 
+ 
+ 
 
 
-
-
-.SetoresShowOnlyCustomGroupList {
+.AtivosTypesShowOnlyCustomGroupList {
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
 
-.SetoresShowOnlyCustomGroupList span {
+.AtivosTypesShowOnlyCustomGroupList span {
     cursor: pointer;
 }
 
-.SetoresShowOnlyCustomGroupList .list-group-item {
+.AtivosTypesShowOnlyCustomGroupList .list-group-item {
     background-color: var(--Setores-Item-Backround);
     border-bottom: 1px solid var(--Setores-Item-Border);
     border-left: 1px solid var(--Setores-Item-Border-LR);
@@ -42,7 +42,7 @@
 }
 
 
-.SetoresShowOnlyCustomGroupListItem {
+.AtivosTypesShowOnlyCustomGroupListItem {
     width: 100%;
     display: flex;
     align-items: center;
@@ -50,20 +50,20 @@
     cursor: pointer;
 }
 
-.SetoresShowOnlyCustomGroupListItem span {
+.AtivosTypesShowOnlyCustomGroupListItem span {
     font-family: var(--Fonte);
     font-size: 12px;
     color: var(--Setores-Item-Span-Color);
 }
 
-.SetoresShowOnlyCustomGroupListItem>svg {
+.AtivosTypesShowOnlyCustomGroupListItem>svg {
     font-family: var(--Fonte);
     font-size: .9rem;
     margin-right: .3rem;
 }
 
 
-.SetoresShowOnlyCustomGroupListItem svg {
+.AtivosTypesShowOnlyCustomGroupListItem svg {
     float: right;
     margin-left: .6rem;
     font-size: .9rem;
@@ -81,13 +81,13 @@
     width: .4rem !important;
 }
 
-.SetoresShowOnlyCustomGroupListCheckbox {
+.AtivosTypesShowOnlyCustomGroupListCheckbox {
     color: var(--PrimaryColor);
     cursor: pointer;
 }
 
 
-.SetoresShowOnlyCustomGroupListItem input {
+.AtivosTypesShowOnlyCustomGroupListItem input {
     padding: 4px 12px;
     border: none;
     outline: none;
@@ -104,7 +104,7 @@
 }
 
 
-.SetoresShowOnlyCustomGroupListItem span {
+.AtivosTypesShowOnlyCustomGroupListItem span {
     user-select: none;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -117,18 +117,18 @@
     text-overflow: ellipsis;
 }
 
-.SetoresShowOnlyCustomGroupListItem button {
+.AtivosTypesShowOnlyCustomGroupListItem button {
     border: none;
     background-color: var(--FundoTransparente);
     padding: 5px;
 }
 
-.SetoresShowOnlyCustomGroupListItem form button svg {
+.AtivosTypesShowOnlyCustomGroupListItem form button svg {
     color: var(--Dark) !important;
 }
 
 
-.SetoresShowOnlyCustomGroupListInput {
+.AtivosTypesShowOnlyCustomGroupListInput {
     padding: 0 !important;
     margin: 0 !important;
     font-family: var(--Fonte) !important;
@@ -137,11 +137,11 @@
 }
 
 
-.SetoresShowOnlyCustomGroupList .list-group-item {
+.AtivosTypesShowOnlyCustomGroupList .list-group-item {
     padding: .2rem .7rem !important;
 }
 
-.SetoresShowOnlyCustomGroupListTitle.list-group-item {
+.AtivosTypesShowOnlyCustomGroupListTitle.list-group-item {
     padding: .6rem .7rem !important;
 }
 
@@ -152,7 +152,7 @@
     background-color: aqua !important;
 }
 
-.SetoresShowOnlyCustomGroupListTitle {
+.AtivosTypesShowOnlyCustomGroupListTitle {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
@@ -161,9 +161,11 @@
     background-color: var(--Setores-Title-Backround) !important;
     color: var(--Setores-Title-Color) !important;
     user-select: none;
+    border-top-right-radius: .5rem !important;
+    border-top-left-radius: .5rem !important;
 }
 
-.SetoresShowOnlyCustomGroupListTitleSpan {
+.AtivosTypesShowOnlyCustomGroupListTitleSpan {
     white-space: nowrap;
     /* Evita que o texto seja quebrado */
     overflow: hidden;
@@ -178,11 +180,20 @@
     color: var(--Setores-Title-Color);
 }
 
-.SetoresShowOnlyCustomGroupListTitleSpan>svg {
+.AtivosTypesShowOnlyCustomGroupListTitleSpan>svg {
     width: 1.1rem;
     color: var(--Setores-Title-Color);
 }
 
 .MarginBottom {
     margin-bottom: 2.5rem;
+}
+
+
+
+.NoBreak {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
 }
