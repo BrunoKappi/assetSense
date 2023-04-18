@@ -1,0 +1,17 @@
+.CustomSelectClaro {
+    --CustomSelect-Color-Input: var(--SecondaryBackground);
+    --CustomSelect-Background-Input: transparent;
+}
+
+.CustomSelectEscuro {
+    --CustomSelect-Color-Input: white; 
+    --CustomSelect-Background-Input: transparent;
+}
+
+
+.CustomSelect {
+    flex-grow: 1 !important;
+    font-family: var(--Fonte) !important;
+    font-size: .9rem !important;
+    width: 100% !important;
+}

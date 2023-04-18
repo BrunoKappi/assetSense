@@ -1,18 +1,17 @@
 
 //REACT
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 //CSS
 import './UserModal.css'
 //ICONS
-import { UilUserCircle, UilClipboardNotes, UilEnvelope, UilPhone, UilAsterisk, UilMap, UilMapMarker, UilPen, UilPuzzlePiece, UilLabel, UilListUl, UilSave, UilHistory, UilTimes, UilBuilding, UilKeySkeleton, UilCheck, UilBackward, UilTrash } from '@iconscout/react-unicons'
+import { UilUserCircle, UilClipboardNotes, UilEnvelope, UilPhone, UilMap, UilMapMarker, UilPen, UilPuzzlePiece, UilLabel, UilListUl, UilSave, UilHistory, UilTimes, UilBuilding, UilKeySkeleton, UilCheck, UilBackward, UilTrash } from '@iconscout/react-unicons'
 //COMPONENTS
 import UserAtivoRecords from './UserAtivoRecords/UserAtivoRecords';
 import UserPhoto from '../../../assets/Images/SerranoLogoFuncoBranco.jpg'
 //LIBRARIES
-import PI from 'react-phone-input-2' 
+import PI from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { Country, State, City } from "country-state-city";
-import Select from "react-select";
 import { connect } from 'react-redux'
 import { Tooltip } from 'react-tippy';
 import BootstrapModal from 'react-bootstrap/Modal';
@@ -22,7 +21,6 @@ import { DefaultSetor, DefaultUserType, DefaultUser } from '../../../Data/Items'
 //FUNCTIONS
 import UserPhotoModal from './UserPhotoModal/UserPhotoModal';
 import { FIREBASE_GetUserDocIDById } from '../../../Config/firebase/metodos';
-import { noOptionsMessage, UserModalSelectcustomStyles } from './UserModalUtils';
 import { v4 } from 'uuid';
 import { FIREBASE_LogouyAuth, mudarSenha, unsubscribe } from '../../../Config/firebase/auth';
 import Loading from '../../LoadingForTabs/Loading';
@@ -40,6 +38,7 @@ import EditList from '../../LayoutComponents/EditList/EditList';
 import CustomFields from '../../LayoutComponents/CustomFields/CustomFields';
 import SectionTitle from '../../LayoutComponents/SectionTitle/SectionTitle';
 import ConfirmTab from '../../LayoutComponents/ConfirmTab/ConfirmTab';
+import CustomSelect from '../../LayoutComponents/CustomSelect/CustomSelect'
 
 const UsuarioModal = (props) => {
 
@@ -125,7 +124,7 @@ const UsuarioModal = (props) => {
 
 
     // QUANDO TEM UM USER VALIDO PASSADO PELA PROP
-    useEffect(() => {       
+    useEffect(() => {
         if (props.Function === 'Add') {
             setUser({ ...DefaultUser })
         } else {
@@ -331,7 +330,7 @@ const UsuarioModal = (props) => {
 
         // SE ESTIVER ADICIONANDO E COLOCAR UMA FOTO, SET EM UM ID
         if (props.Function === 'Add') {
-            setIdToUse(Id)           
+            setIdToUse(Id)
         }
     }
 
@@ -361,7 +360,7 @@ const UsuarioModal = (props) => {
 
 
     const IsActive = (tab) => tab === Tab
-
+ 
     return (
 
         <>
@@ -529,15 +528,11 @@ const UsuarioModal = (props) => {
                                                                 <UilMap />
                                                                 País
                                                             </FormGroupLabel>
-                                                            <Select
-                                                                className='UserModalBody-UserInfoForm-LocationSelect'
-
+                                                            <CustomSelect
                                                                 placeholder="Selecione o País"
-                                                                noOptionsMessage={noOptionsMessage}
                                                                 options={Country.getAllCountries()}
                                                                 getOptionLabel={(options) => { return options["name"]; }}
                                                                 getOptionValue={(options) => { return options["name"]; }}
-                                                                styles={UserModalSelectcustomStyles}
                                                                 value={User?.Country}
                                                                 isDisabled={!CanEdit}
                                                                 onChange={(item) => { HandleChangeInfo('Country', item) }}
@@ -548,15 +543,11 @@ const UsuarioModal = (props) => {
                                                                 <UilMapMarker />
                                                                 Estado
                                                             </FormGroupLabel>
-                                                            <Select
-                                                                className='UserModalBody-UserInfoForm-LocationSelect'
-
+                                                            <CustomSelect
                                                                 placeholder="Selecione o Estado"
-                                                                noOptionsMessage={noOptionsMessage}
                                                                 options={State?.getStatesOfCountry(User?.Country?.isoCode)}
                                                                 getOptionLabel={(options) => { return options["name"]; }}
                                                                 getOptionValue={(options) => { return options["name"]; }}
-                                                                styles={UserModalSelectcustomStyles}
                                                                 isDisabled={!CanEdit}
                                                                 value={User?.Estate}
                                                                 onChange={(item) => { HandleChangeInfo("Estate", item); }}
@@ -571,14 +562,11 @@ const UsuarioModal = (props) => {
                                                                 <UilBuilding />
                                                                 Cidade
                                                             </FormGroupLabel>
-                                                            <Select
-                                                                className='UserModalBody-UserInfoForm-LocationSelect'
+                                                            <CustomSelect
                                                                 placeholder="Selecione a Cidade"
-                                                                noOptionsMessage={noOptionsMessage}
                                                                 options={City.getCitiesOfState(User?.Estate?.countryCode, User?.Estate?.isoCode)}
                                                                 getOptionLabel={(options) => { return options["name"]; }}
                                                                 getOptionValue={(options) => { return options["name"]; }}
-                                                                styles={UserModalSelectcustomStyles}
                                                                 isDisabled={!CanEdit}
                                                                 value={User?.City}
                                                                 onChange={(item) => { HandleChangeInfo("City", item); }}

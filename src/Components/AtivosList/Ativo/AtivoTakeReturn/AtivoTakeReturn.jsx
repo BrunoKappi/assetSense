@@ -4,11 +4,9 @@ import { DevolverTabTitle, RetirarTabTitle } from './AtivoTakeReturnUtils';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
 import { UilUser, UilEnvelope, UilBookmark, UilCalendarAlt, UilArchive, UilArrowUp, UilComment, UilArrowDown, UilCommentInfoAlt } from '@iconscout/react-unicons'
 import { AddRecord, EditAtivo, EditRecord, EditRecordStore, GetCurrentUserFromStore, GetQtdInUseOfAtivoWithId, GetRecordByAtivoIdAndUserId, GetRecords, GetTakesOfAtivoOfCurrentUser, GetUsersFromStoreWithNoCurrentUser, GetUsersThatTookAtivo, SaveRecords } from '../../../../Functions/Middleware';
-import { AtivoModalSelectcustomStyles, noOptionsMessage } from '../AtivoModalUtils';
-import Select from "react-select";
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
 import { DefaultRecord } from '../../../../Data/Items';
-import { v4 } from 'uuid'; 
+import { v4 } from 'uuid';
 import moment from 'moment'
 import { Tooltip } from 'react-tippy';
 import { connect } from 'react-redux'
@@ -22,6 +20,7 @@ import Show from '../../../LayoutComponents/Show/Show';
 import ConfirmTab from '../../../LayoutComponents/ConfirmTab/ConfirmTab';
 import SidebarItem from '../../../LayoutComponents/SidebarItem/SidebarItem';
 import Warning from '../../../LayoutComponents/Warning/Warning';
+import CustomSelect from '../../../LayoutComponents/CustomSelect/CustomSelect'
 
 const AtivoTakeReturn = (props) => {
 
@@ -199,7 +198,7 @@ const AtivoTakeReturn = (props) => {
 
                         //ADD PLUS 1 RETIRADA 
                         const NewAtivo = { ...props.Ativo, QtdInUse: props.Ativo.QtdInUse + 1 }
-                        EditAtivo(NewAtivo)                      
+                        EditAtivo(NewAtivo)
                         SetQuantidadeRetirada(prev => prev + 1)
 
                         GetRecords().then(Lista => {
@@ -356,14 +355,11 @@ const AtivoTakeReturn = (props) => {
                                                     <UilEnvelope />
                                                     Email (Retirado para)
                                                 </FormGroupLabel>
-                                                <Select
-                                                    className='AtivoModalBody-AtivoInfoForm-LocationSelect'
+                                                <CustomSelect
                                                     placeholder="Digite o Email"
-                                                    noOptionsMessage={noOptionsMessage}
                                                     options={GetUsersFromStoreWithNoCurrentUser(props?.Ativo?.id)}
                                                     getOptionLabel={(options) => { return options["Email"]; }}
                                                     getOptionValue={(options) => { return options["Id"]; }}
-                                                    styles={AtivoModalSelectcustomStyles}
                                                     value={TakenFor}
                                                     onChange={(item) => { setTakenFor(item); }}
                                                 />
@@ -373,14 +369,11 @@ const AtivoTakeReturn = (props) => {
                                                     <UilUser />
                                                     Nome (Retirado para)
                                                 </FormGroupLabel>
-                                                <Select
-                                                    className='AtivoModalBody-AtivoInfoForm-LocationSelect'
+                                                <CustomSelect
                                                     placeholder="Digite o Nome"
-                                                    noOptionsMessage={noOptionsMessage}
                                                     options={GetUsersFromStoreWithNoCurrentUser(props?.Ativo?.id)}
                                                     getOptionLabel={(options) => { return options["Name"] + ' ' + options["LastName"]; }}
                                                     getOptionValue={(options) => { return options["Id"]; }}
-                                                    styles={AtivoModalSelectcustomStyles}
                                                     value={TakenFor}
                                                     onChange={(item) => { setTakenFor(item); }}
                                                 />
@@ -473,14 +466,11 @@ const AtivoTakeReturn = (props) => {
                                                     <UilEnvelope />
                                                     Email (De quem vai devolver)
                                                 </FormGroupLabel>
-                                                <Select
-                                                    className='AtivoModalBody-AtivoInfoForm-LocationSelect'
+                                                <CustomSelect
                                                     placeholder="Digite o Email"
-                                                    noOptionsMessage={noOptionsMessage}
                                                     options={GetUsersThatTookAtivo(props.Ativo?.id)}
                                                     getOptionLabel={(options) => { return options["Email"]; }}
                                                     getOptionValue={(options) => { return options["Id"]; }}
-                                                    styles={AtivoModalSelectcustomStyles}
                                                     value={ReturnFor}
                                                     onChange={(item) => { setReturnFor(item); }}
                                                 />
@@ -490,14 +480,11 @@ const AtivoTakeReturn = (props) => {
                                                     <UilUser />
                                                     Nome (De quem vai devolver)
                                                 </FormGroupLabel>
-                                                <Select
-                                                    className='AtivoModalBody-AtivoInfoForm-LocationSelect'
+                                                <CustomSelect
                                                     placeholder="Digite o Nome"
-                                                    noOptionsMessage={noOptionsMessage}
                                                     options={GetUsersThatTookAtivo(props.Ativo?.id)}
                                                     getOptionLabel={(options) => { return options["Name"] + ' ' + options["LastName"]; }}
                                                     getOptionValue={(options) => { return options["Id"]; }}
-                                                    styles={AtivoModalSelectcustomStyles}
                                                     value={ReturnFor}
                                                     onChange={(item) => { setReturnFor(item); }}
                                                 />

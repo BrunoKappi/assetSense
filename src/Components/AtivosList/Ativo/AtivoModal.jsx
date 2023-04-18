@@ -13,13 +13,11 @@ import { UilUserCircle, UilClipboardNotes, UilLabel, UilLabelAlt, UilCog, UilBox
 //FUNCTIONS
 import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
 import { GetTipoDeUsoNameWithIdFromStore } from '../../../Functions/Middleware';
-import { noOptionsMessage, AtivoModalSelectcustomStyles } from './AtivoModalUtils';
 import { AddAtivo, AddAtivoFirebase, DeleteAtivo, EditAtivo, GetAtivoStatusNameWithIdFromStore, GetAtivoStatusWithIdFromStore, GetAtivoTypeWithIdFromStore, GetAtivoWithIdFromStore, GetCurrentUserTypeFromStore, GetLocaisArmazenamentoFromStore, GetLocalArmazenamentoNameWithIdFromStore, GetLocalArmazenamentoWithIdFromStore, GetStatusAtivosFromStore, GetTakesOfAtivo, GetTipoAtivoNameWithIdFromStore, GetTipoDeUsoWithIdFromStore, GetTiposAtivosFromStore, GetTiposDeUsoFromStore, ReturnAllRecordOfAtivowithId } from '../../../Functions/Middleware'
 //VARIABLES
 import { DefaultAtivo, DefaultAtivosType, DefaultLocal, } from '../../../Data/Items';
 //LIBRARIES
 import 'react-phone-input-2/lib/style.css'
-import Select from "react-select";
 import { PermitIndexs } from '../../../GlobalVars'
 import { v4 } from 'uuid';
 import { connect } from 'react-redux'
@@ -36,6 +34,7 @@ import FormInput from '../../LayoutComponents/FormInput/FormInput';
 import EditList from '../../LayoutComponents/EditList/EditList';
 import CustomFields from '../../LayoutComponents/CustomFields/CustomFields';
 import ConfirmTab from '../../LayoutComponents/ConfirmTab/ConfirmTab';
+import CustomSelect from '../../LayoutComponents/CustomSelect/CustomSelect'
 
 
 const AtivoModal = (props) => {
@@ -110,7 +109,7 @@ const AtivoModal = (props) => {
                 break
             case 'Usage':
                 newAtivo.Usage = { id: Value }
-                break 
+                break
             case 'StorageLocation':
                 newAtivo.StorageLocation = { id: Value }
                 break
@@ -350,7 +349,7 @@ const AtivoModal = (props) => {
                                     </Show>
                                     <UilTimes className='AtivoModalHeader-Right-Close' onClick={props.onHide} />
                                 </div>
- 
+
 
                                 <div className='AtivoModalHeader-Right-Setor'>
                                     <UilBox />
@@ -500,14 +499,11 @@ const AtivoModal = (props) => {
                                                                 <UilTag />
                                                                 Status do Ativo
                                                             </FormGroupLabel>
-                                                            <Select
-                                                                className='AtivoModalBody-AtivoInfoForm-LocationSelect'
+                                                            <CustomSelect
                                                                 placeholder="Selecione o Status"
-                                                                noOptionsMessage={noOptionsMessage}
                                                                 options={GetStatusAtivosFromStore()}
                                                                 getOptionLabel={(options) => { return options["Value"]; }}
                                                                 getOptionValue={(options) => { return options["id"]; }}
-                                                                styles={AtivoModalSelectcustomStyles}
                                                                 value={{
                                                                     id: Ativo?.Status?.id,
                                                                     Value: GetAtivoStatusNameWithIdFromStore(Ativo?.Status?.id)
@@ -521,14 +517,11 @@ const AtivoModal = (props) => {
                                                                 <UilPlay />
                                                                 Tipo de Uso
                                                             </FormGroupLabel>
-                                                            <Select
-                                                                className='AtivoModalBody-AtivoInfoForm-LocationSelect'
+                                                            <CustomSelect
                                                                 placeholder="Selecione o Tipo de Uso"
-                                                                noOptionsMessage={noOptionsMessage}
                                                                 options={GetTiposDeUsoFromStore()}
                                                                 getOptionLabel={(options) => { return options["Value"]; }}
                                                                 getOptionValue={(options) => { return options["id"]; }}
-                                                                styles={AtivoModalSelectcustomStyles}
                                                                 value={{
                                                                     id: Ativo?.Usage?.id,
                                                                     Value: GetTipoDeUsoNameWithIdFromStore(Ativo?.Usage?.id)
