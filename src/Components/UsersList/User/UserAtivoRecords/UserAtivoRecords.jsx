@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import './UserAtivoRecords.css'
 import { GetAtivoWithIdFromStore, GetCurrentUserFromStore, GetRecordsOfUser } from '../../../../Functions/Middleware';
 import { connect } from 'react-redux'
-import { UilCommentInfoAlt } from '@iconscout/react-unicons'
 import AtivoModal from '../../../AtivosList/Ativo/AtivoModal'
 import { NotificationAlerta } from '../../../../NotificationUtils';
 import { v4 } from 'uuid';
@@ -55,7 +54,7 @@ const UserAtivoRecords = (props) => {
                 />
 
                 {/***********   RECORDS  *************/}
-                {Records.map(Registro =>
+                {Records.map(Registro => 
                     <Record
                         key={v4()}
                         Record={Registro}

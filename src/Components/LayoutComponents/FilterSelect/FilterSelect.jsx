@@ -5,7 +5,7 @@ import { CustomLabel, CustomPlaceholder, FilterSelectStyles, InputOption, noOpti
 import { useState,useEffect } from "react";
 
 
-const FilterSelect = (props) => {
+const FilterSelect = (props) => { 
 
     //ATIVOS OPTIONS
     const AtivosFilterOptions = [

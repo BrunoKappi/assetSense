@@ -6,10 +6,12 @@
     --AtivoRecords-FormFilter-Input-Background: white;
     --AtivoRecords-FormFilter-Input-Border: transparent;
     --AtivoRecords-FormFilter-Input-Color: var(--SecondaryBackground);
-} 
+
+    --AtivoRecord-UpRow-OrderBy-Color: var(--SecondaryBackground);
+}
 
 
- 
+
 
 .AtivoRecords-FormFilterEscuro {
     --AtivosRecordsFormFilter-Button-Background: var(--ComplementaryColor);
@@ -19,6 +21,8 @@
     --AtivoRecords-FormFilter-Input-Background: transparent;
     --AtivoRecords-FormFilter-Input-Border: var(--ComplementaryColor);
     --AtivoRecords-FormFilter-Input-Color: var(--ComplementaryColor);
+
+    --AtivoRecord-UpRow-OrderBy-Color: var(--ComplementaryColor);
 }
 
 

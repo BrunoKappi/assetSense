@@ -6,7 +6,7 @@ import { getStorage } from "firebase/storage";
 var firebaseConfig
  
 const BANCO = 'Final'
-
+ 
 // BANCO ASSET SENSE FINAL 
 if (BANCO === 'Final') {
   firebaseConfig = {

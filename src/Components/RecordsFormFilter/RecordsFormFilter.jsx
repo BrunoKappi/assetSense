@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react'
+import './RecordsFormFilter.css'
 import { GetAtivoNameWithIdFromStore, GetuserNameWithIdFromStore } from '../../Functions/Middleware'
 import Dropdown from 'react-bootstrap/Dropdown';
 import moment from 'moment';
 import { MdFilterList } from 'react-icons/md'
 import { connect } from 'react-redux'
 
-const RecordsFormFilter = (props) => { 
+const RecordsFormFilter = (props) => {
 
     //STATES
     const [OrdenarPor, setOrdenarPor] = useState('Mais Recentes')
     const [FiltroDeTexto, setFiltroDeTexto] = useState('')
 
+
     //SORT AND FILTER LIST
     useEffect(() => {
         const Registros = props.GetRecords(props.Ativo?.id)
+        console.log(Registros)
         props.SetRecords(Registros.filter(Record => {
             const TakenForName = GetuserNameWithIdFromStore(Record.TakenFor.id)
             const TakenByName = GetuserNameWithIdFromStore(Record.TakenBy.id)
@@ -50,7 +53,7 @@ const RecordsFormFilter = (props) => {
             }
         }))
 
-    }, [FiltroDeTexto, OrdenarPor, props.RecordsAtivos])
+    }, [FiltroDeTexto, OrdenarPor, props.RecordsAtivos, props.Ativo])
 
 
     //RESET FILTERS
@@ -85,7 +88,7 @@ const RecordsFormFilter = (props) => {
 
 }
 
- 
+
 
 const ConnectedRecordsFormFilter = connect((state) => {
     return {

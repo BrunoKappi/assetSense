@@ -61,7 +61,6 @@ const AtivosList = (props) => {
         }).sort((a, b) => a.Item.localeCompare(b.Item)))
 
 
-
     }, [FiltroDeTexto, Filters]) 
 
 
