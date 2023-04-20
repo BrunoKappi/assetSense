@@ -55,13 +55,14 @@ const AtivosList = (props) => {
             const TipoAtivoFiler = Filters?.TiposAtivos?.find(option => option.id === Ativo.Type.id)
             const LocalArmazenamentoFilter = Filters?.LocaisArmazenamento?.find(option => option.id === Ativo.StorageLocation.id)
             const StatusFilter = Filters?.StatusAtivos?.find(option => option.id === Ativo.Status.id)
+            const UsageFilter = Filters?.TiposDeUso?.find(option => option.id === Ativo.Usage.id)
 
-            return TextFilter && TipoAtivoFiler && LocalArmazenamentoFilter && StatusFilter
+            return TextFilter && TipoAtivoFiler && LocalArmazenamentoFilter && StatusFilter && UsageFilter
         }).sort((a, b) => a.Item.localeCompare(b.Item)))
 
 
 
-    }, [FiltroDeTexto, Filters])
+    }, [FiltroDeTexto, Filters]) 
 
 
     //RESET FILTERS

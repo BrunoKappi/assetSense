@@ -21,6 +21,10 @@ const FilterSelect = (props) => {
             label: <CustomLabel List='TiposAtivos' text='Tipos de Ativos' />,
             options: props.TiposAtivos.map((tipo) => ({ ...tipo, list: 'TiposAtivos' })),
         },
+        {
+            label: <CustomLabel List='TiposDeUso' text='Tipos de Uso' />,
+            options: props.TiposDeUso.map((tipo) => ({ ...tipo, list: 'TiposDeUso' })),
+        },
     ]
 
     //USER OPTIONS
