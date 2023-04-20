@@ -9,6 +9,21 @@ import { connect } from 'react-redux'
 import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
 import { TodosUsersTab, UsersInSetoresTab, UsersInTypesTab } from '../../Functions/Permits';
+import FilterSelect from '../LayoutComponents/FilterSelect/FilterSelect'
+
+
+export const colourOptions = [
+  { value: "ocean1", label: "Ocean" },
+  { value: "blue", label: "Blue" },
+  { value: "purple", label: "Purple" },
+  { value: "red", label: "Red" },
+  { value: "orange", label: "Orange" },
+  { value: "yellow", label: "Yellow" },
+  { value: "green", label: "Green" },
+  { value: "forest", label: "Forest" },
+  { value: "slate", label: "Slate" },
+  { value: "silver", label: "Silver" }
+];
 
 const Users = (props) => {
 
@@ -40,14 +55,18 @@ const Users = (props) => {
   return (
     <div className={props.Tema === 'Escuro' ? 'UsersContainerEscuro UsersContainer' : 'UsersContainerClaro UsersContainer'}>
 
+
+
       <TabsContainer Tema={props.Tema}>
         <TabButton ButtonName="TodosUsuarios" Key={key} onClick={(k) => SetKeyConfig('TodosUsuarios')} />
         <TabButton ButtonName="UsersInSetores" Key={key} onClick={(k) => SetKeyConfig('UsersInSetores')} />
         <TabButton ButtonName="UsersInTipos" Key={key} onClick={(k) => SetKeyConfig('UsersInTipos')} />
       </TabsContainer>
 
+    
+
       <Tabs id="UsersTabs" activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
-        <Tab className='TabItem' eventKey="TodosUsuarios" >
+        <Tab eventKey="TodosUsuarios" >
           <UsersList />
         </Tab>
         <Tab eventKey="UsersInSetores" >
@@ -57,6 +76,8 @@ const Users = (props) => {
           <DraggableLists Module='UsersInTypes' />
         </Tab>
       </Tabs>
+
+
     </div>
   )
 }

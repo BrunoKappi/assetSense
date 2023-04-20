@@ -5,95 +5,76 @@ import Loading from '../LoadingForTabs/Loading';
 import User from './User/User';
 import { connect } from 'react-redux'
 import { v4 } from 'uuid';
-import { MdFilterList } from 'react-icons/md';
-import Dropdown from 'react-bootstrap/Dropdown';
-import { GetCurrentUserFromStore, GetCurrentUserTypeFromStore, GetSetoresSelect, GetUsersFromStore, GetUsersTypesSelect } from '../../Functions/Middleware';
+import { GetCurrentUserFromStore, GetCurrentUserTypeFromStore, GetUsersFromStore } from '../../Functions/Middleware';
 import { PermitIndexs } from '../../GlobalVars';
 import Warning from '../LayoutComponents/Warning/Warning';
 import Show from '../LayoutComponents/Show/Show';
-
+import FilterSelect from '../LayoutComponents/FilterSelect/FilterSelect'
 
 
 const UsersList = (props) => {
 
+    //STATES
     const [SelectedUser, setSelectedUser] = useState({})
     const [ListaDeUsuarios, setListaDeUsuarios] = useState([])
-    const [SetoresOptions, setSetoresOptions] = useState([])
-    const [SetorLabel, setSetorLabel] = useState('')
-    const [TypeLabel, setTypeLabel] = useState('')
-    const [UserTypesOptions, setUserTypesOptions] = useState([])
     const [Loaded, setLoaded] = useState(false);
     const [FiltroDeTexto, setFiltroDeTexto] = useState('');
-    const [FiltroSetor, setFiltroSetor] = useState('Todos');
-    const [FiltroTipo, setFiltroTipo] = useState('Todos');
-
     const [modalShow, setModalShow] = useState(false);
     const [AddmodalShow, setAddModalShow] = useState(false);
     const [CurrentUser,] = useState(GetCurrentUserFromStore())
+    const [Filters, setFilters] = useState([]);
+    const [ResetFilters, setResetFilters] = useState([]);
+    const Users = GetUsersFromStore()
 
-    //PERMITS E USER TYPE
-    const [CurrentUserType] = useState(GetCurrentUserTypeFromStore())
-    var PermitToAddUsers = CurrentUserType?.Permits[PermitIndexs['ADICIONAR_USUARIOS']]
+    //PERMITS E USER TYPE   
+    var PermitToAddUsers = GetCurrentUserTypeFromStore()?.Permits[PermitIndexs['ADICIONAR_USUARIOS']]
 
-
-
-
+    //FILL USERS LIST
     useEffect(() => {
-        GetUsersTypesSelect().then(Options => { setUserTypesOptions(Options) })
-        GetSetoresSelect().then(Options => { setSetoresOptions(Options) })
-    }, [])
-
-
-    useEffect(() => {
-        const Users = GetUsersFromStore()
         setListaDeUsuarios(Users.sort((a, b) => a.Name.localeCompare(b.Name)))
-        setLoaded(true)
+        setTimeout(() => {
+            setLoaded(true)
+        }, 500);
     }, [props.Usuarios])
+ 
 
-
+    //FILTER AND SORT USERSLIST
     useEffect(() => {
-        const Users = GetUsersFromStore()
-        setListaDeUsuarios(Users.filter(Usuario => {
-            const TextFilter = FiltroDeTexto === '' || (Usuario.Name.toLowerCase().includes(FiltroDeTexto.toLowerCase()) || Usuario.Email.toLowerCase().includes(FiltroDeTexto.toLowerCase()))
-            const SetorFilter = FiltroSetor === 'Todos' || FiltroSetor === '' || Usuario.Sector.id === FiltroSetor
-            const TipoFilter = FiltroTipo === 'Todos' || FiltroTipo === '' || Usuario.Type.id === FiltroTipo
-            return TextFilter && SetorFilter && TipoFilter
-        }).sort((a, b) => a.Name.localeCompare(b.Name)))
+        setListaDeUsuarios(
+            Users.filter(Usuario => {
+                //FILTER LIST
+                const TextFilter = FiltroDeTexto === '' || (Usuario.Name.toLowerCase().includes(FiltroDeTexto.toLowerCase()) || Usuario.Email.toLowerCase().includes(FiltroDeTexto.toLowerCase()))
+                const SetorFilter = Filters?.Setores?.find(option => option.id === Usuario.Sector.id)
+                const TipoFilter = Filters?.TiposUsuarios?.find(option => option.id === Usuario.Type.id)
+                return TextFilter && SetorFilter && TipoFilter
+            }).sort(
+                //SORT LIST
+                (a, b) => a.Name.localeCompare(b.Name)
+            ))
+       
+    }, [FiltroDeTexto, Filters])
 
-        setLoaded(true)
 
-    }, [FiltroDeTexto, FiltroSetor, FiltroTipo])
-
-
-
-    const handleSetorOptionChange = (Setor) => {
-        setFiltroSetor(Setor.value)
-        setSetorLabel(Setor.label)
-    }
-
-    const handleTypeOptionChange = (Type) => {
-        setFiltroTipo(Type.value)
-        setTypeLabel(Type.label)
-    }
-
+    //RESET FILTERS
     const handleResetFiltros = () => {
         setFiltroDeTexto('')
-        setFiltroSetor('')
-        setFiltroTipo('')
+        setResetFilters(true)
+        setTimeout(() => {
+            setResetFilters(false)
+        }, 1000);
     }
 
-
-    const handleUserClick = (UserClicked) => {   
+    //USER CLICK
+    const handleUserClick = (UserClicked) => {
         setModalShow(true);
         setSelectedUser({ ...UserClicked });
     }
 
-    const ResetSelectedUser = (UserClicked) => {
+    //RESET SELECTED USER
+    const ResetSelectedUser = () => {
         setModalShow(false);
         setSelectedUser({});
     }
-
-
 
     return (
         <div className={props.Tema === 'Escuro' ? 'UsersListContainerEscuro UsersListContainer' : 'UsersListContainerClaro UsersListContainer'}>
@@ -104,53 +85,11 @@ const UsersList = (props) => {
 
             <div className='UsersLisFormFilter'>
                 <input value={FiltroDeTexto} placeholder='Procurar Usuário...' onChange={e => setFiltroDeTexto(e.target.value)}></input>
-                <Dropdown autoClose="outside">
-                    <Dropdown.Toggle id="Filtros">
-                        <div className='FiltrosTitle'>
-                            Filtros
-                            <MdFilterList />
-                        </div>
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-
-                        <Dropdown.Item id='FiltrosItem'>
-
-                            <Dropdown>
-                                <Dropdown.Toggle id="FiltroDeSetor">
-                                    <div className='FiltroDeSetorTitle'>
-                                        {(FiltroSetor !== 'Todos' && FiltroSetor) ? SetorLabel : 'Filtro de Setor'}
-                                        <MdFilterList />
-                                    </div>
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                    {SetoresOptions.map(Setor => {
-                                        return <Dropdown.Item key={v4()} onClick={e => handleSetorOptionChange(Setor)} >{Setor.label}</Dropdown.Item>
-                                    })}
-                                </Dropdown.Menu>
-                            </Dropdown>
-
-
-
-                            <Dropdown>
-                                <Dropdown.Toggle id="FiltroDeTipo">
-                                    <div className='FiltroDeTipoTitle'>
-                                        {(FiltroTipo !== 'Todos' && FiltroTipo) ? TypeLabel : 'Tipo de Usuário'}
-                                        <MdFilterList />
-                                    </div>
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                    {UserTypesOptions.map(Type => {
-                                        return <Dropdown.Item key={v4()} onClick={e => handleTypeOptionChange(Type)} >{Type.label}</Dropdown.Item>
-                                    })}
-                                </Dropdown.Menu>
-                            </Dropdown>
-
-
-                        </Dropdown.Item>
-
-                    </Dropdown.Menu>
-                </Dropdown>
-
+                <FilterSelect
+                    Module="FilterUsers"
+                    OnChange={setFilters}
+                    Reset={ResetFilters}
+                />
                 <button onClick={handleResetFiltros}>Limpar Filtro</button>
             </div>
 

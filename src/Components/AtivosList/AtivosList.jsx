@@ -12,48 +12,38 @@ import { v4 } from 'uuid';
 import AtivoModal from './Ativo/AtivoModal'
 import Show from '../LayoutComponents/Show/Show';
 import Warning from '../LayoutComponents/Warning/Warning';
-
+import FilterSelect from '../LayoutComponents/FilterSelect/FilterSelect'
 
 
 const AtivosList = (props) => {
 
     const [SelectedAtivo, setSelectedAtivo] = useState({})
     const [ListaDeAtivos, setListaDeAtivos] = useState([])
-    const [AtivosTypesOptions, setAtivosTypesOptions] = useState([])
-    const [TipoAtivoLabel, setTipoAtivoLabel] = useState('')
-    const [LocalLabel, setLocalLabel] = useState('')
-    const [LocaisOptions, setLocaisOptions] = useState([])
     const [Loaded, setLoaded] = useState(false);
     const [FiltroDeTexto, setFiltroDeTexto] = useState('');
-    const [FiltroDeTipoAtivo, setFiltroDeTipoAtivo] = useState('Todos');
-    const [FiltroLocal, setFiltroLocal] = useState('Todos');
 
     const [modalShow, setModalShow] = useState(false);
     const [AddmodalShow, setAddModalShow] = useState(false);
     const [CurrentUser,] = useState(GetCurrentUserFromStore())
+    const [Filters, setFilters] = useState([]);
+    const [ResetFilters, setResetFilters] = useState([]);
 
-    //PERMITS E USER TYPE
-    const [CurrentUserType] = useState(GetCurrentUserTypeFromStore())
-    var PermitToAddAtivos = CurrentUserType?.Permits[PermitIndexs['ADICIONAR_ATIVOS']]
-
-
-
-    //GET LOCAIS AND AND TIPOS FOR FILTERS
-    useEffect(() => {
-        GetLocaisSelect().then(Options => { setLocaisOptions(Options) })
-        GetTiposAtivosSelect().then(Options => { setAtivosTypesOptions(Options) })
-    }, [])
+    //PERMITS E USER TYPE   
+    var PermitToAddAtivos = GetCurrentUserTypeFromStore()?.Permits[PermitIndexs['ADICIONAR_ATIVOS']]
 
     // FILL LIST
     useEffect(() => {
         const Ativos = GetAtivosFromStore()
         setListaDeAtivos(Ativos.sort((a, b) => a.Item.localeCompare(b.Item)))
-        setLoaded(true)
+        setTimeout(() => {
+            setLoaded(true)
+        }, 500);
     }, [props.Ativos])
 
     // SORT AND FILTER
     useEffect(() => {
         const Ativos = GetAtivosFromStore()
+
         setListaDeAtivos(Ativos.filter(Ativo => {
             const TextFilter = FiltroDeTexto === '' || (
                 Ativo.Item.toLowerCase().includes(FiltroDeTexto.toLowerCase()) ||
@@ -62,32 +52,25 @@ const AtivosList = (props) => {
                 GetTipoAtivoNameWithIdFromStore(Ativo.Type.id).toLowerCase().includes(FiltroDeTexto.toLowerCase()) ||
                 GetTipoDeUsoNameWithIdFromStore(Ativo.Usage.id).toLowerCase().includes(FiltroDeTexto.toLowerCase())
             )
-            const TipoAtivoFiler = FiltroDeTipoAtivo === 'Todos' || FiltroDeTipoAtivo === '' || Ativo.Type.id === FiltroDeTipoAtivo
-            const LocalArmazenamentoFilter = FiltroLocal === 'Todos' || FiltroLocal === '' || Ativo.StorageLocation.id === FiltroLocal
-            return TextFilter && TipoAtivoFiler && LocalArmazenamentoFilter
+            const TipoAtivoFiler = Filters?.TiposAtivos?.find(option => option.id === Ativo.Type.id)
+            const LocalArmazenamentoFilter = Filters?.LocaisArmazenamento?.find(option => option.id === Ativo.StorageLocation.id)
+            const StatusFilter = Filters?.StatusAtivos?.find(option => option.id === Ativo.Status.id)
+
+            return TextFilter && TipoAtivoFiler && LocalArmazenamentoFilter && StatusFilter
         }).sort((a, b) => a.Item.localeCompare(b.Item)))
 
-        setLoaded(true)
 
-    }, [FiltroDeTexto, FiltroDeTipoAtivo, FiltroLocal])
 
-    //SET SECTOR FILTER
-    const handleSetorOptionChange = (Setor) => {
-        setFiltroDeTipoAtivo(Setor.value)
-        setTipoAtivoLabel(Setor.label)
-    }
+    }, [FiltroDeTexto, Filters])
 
-    //SET TYPE FILTER
-    const handleTypeOptionChange = (Type) => {
-        setFiltroLocal(Type.value)
-        setLocalLabel(Type.label)
-    }
 
     //RESET FILTERS
     const handleResetFiltros = () => {
         setFiltroDeTexto('')
-        setFiltroDeTipoAtivo('')
-        setFiltroLocal('')
+        setResetFilters(true)
+        setTimeout(() => {
+            setResetFilters(false)
+        }, 1000);
     }
 
     //HANDLE CLICK ON USER ROW
@@ -113,52 +96,12 @@ const AtivosList = (props) => {
 
             <div className='AtivosListFormFilter'>
                 <input value={FiltroDeTexto} placeholder='Procurar Item...' onChange={e => setFiltroDeTexto(e.target.value)}></input>
-                <Dropdown autoClose="outside">
-                    <Dropdown.Toggle id="AtivosList-Filtros">
-                        <div className='AtivosList-FiltrosTitle'>
-                            Filtros
-                            <MdFilterList />
-                        </div>
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
 
-                        <Dropdown.Item id='AtivosList-FiltrosItem'>
-
-                            <Dropdown>
-                                <Dropdown.Toggle id="FiltroDeTipoDeAtivo">
-                                    <div className='FiltroDeTipoDeAtivoTitle'>
-                                        {(FiltroDeTipoAtivo !== 'Todos' && FiltroDeTipoAtivo) ? TipoAtivoLabel : 'Filtro de Tipo'}
-                                        <MdFilterList />
-                                    </div>
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                    {AtivosTypesOptions.map(Setor => {
-                                        return <Dropdown.Item key={v4()} onClick={e => handleSetorOptionChange(Setor)} >{Setor.label}</Dropdown.Item>
-                                    })}
-                                </Dropdown.Menu>
-                            </Dropdown>
-
-
-
-                            <Dropdown>
-                                <Dropdown.Toggle id="FiltroLocalDeAtivo">
-                                    <div className='FiltroLocalDeAtivoTitle'>
-                                        {(FiltroLocal !== 'Todos' && FiltroLocal) ? LocalLabel : 'Local Armazenamento'}
-                                        <MdFilterList />
-                                    </div>
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                    {LocaisOptions.map(Type => {
-                                        return <Dropdown.Item key={v4()} onClick={e => handleTypeOptionChange(Type)} >{Type.label}</Dropdown.Item>
-                                    })}
-                                </Dropdown.Menu>
-                            </Dropdown>
-
-
-                        </Dropdown.Item>
-
-                    </Dropdown.Menu>
-                </Dropdown>
+                <FilterSelect
+                    Module="FilterAtivos"
+                    OnChange={setFilters}
+                    Reset={ResetFilters}
+                />
 
                 <button onClick={handleResetFiltros}>Limpar Filtro</button>
             </div>

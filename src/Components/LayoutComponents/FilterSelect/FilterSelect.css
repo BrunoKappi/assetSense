@@ -1,0 +1,72 @@
+.FilterSelectClaro {
+    --FilterSelect-Color-Input: var(--SecondaryBackground);
+    --FilterSelect-Background-Input: transparent;
+
+    --FilterSelect-CustomPlaceholder-Color: var(--SecondaryBackground);
+}
+
+.FilterSelectEscuro {
+    --FilterSelect-Color-Input: white;
+    --FilterSelect-Background-Input: transparent;
+
+    --FilterSelect-CustomPlaceholder-Color: var(--ComplementaryColor);
+}
+
+
+
+.FilterSelect {
+    flex-grow: 1 !important;
+    font-family: var(--Fonte) !important;
+    font-size: .9rem !important;
+    width: 100% !important;
+}
+
+
+/********* ********* *********  CUSTOM PLACEHOLDER  ********* ********* ********* ***/
+.FilterSelect-CustomPlaceholder {
+    cursor: pointer;
+    color: var(--FilterSelect-CustomPlaceholder-Color);
+    font-size: 1rem;
+}
+
+.FilterSelect-CustomPlaceholder:hover {
+    transform: scale(1.1);
+}
+
+
+
+/********* ********* *********  CUSTOM LABEL  ********* ********* ********* ***/
+.FilterSelect-CustomLabel {
+    display: flex;
+    flex-direction: row;
+    gap: .2rem;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.FilterSelect-CustomLabel svg {
+    width: 1rem;
+}
+
+
+
+
+/********* ********* *********  CUSTOM OPTION  ********* ********* ********* ***/
+
+.FilterSelect-CustomOption {
+    display: flex;
+    flex-direction: row;
+    gap: .2rem;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer !important;
+}
+
+
+.FilterSelect-CustomOptionText {
+    color: var(--ComplementaryColor);
+}
+
+.FilterSelect-CustomOptionIcon {
+    color: var(--ComplementaryColor);
+}
