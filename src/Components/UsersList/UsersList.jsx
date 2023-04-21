@@ -29,6 +29,16 @@ const UsersList = (props) => {
     //PERMITS E USER TYPE   
     var PermitToAddUsers = GetCurrentUserTypeFromStore()?.Permits[PermitIndexs['ADICIONAR_USUARIOS']]
 
+    //CHECK
+    const CheckIncludesText = (What) => {
+        return What.toLowerCase().includes(FiltroDeTexto.trim().toLowerCase())
+    }
+
+    //CHECK IN OBJECT
+    const CheckIncludesInObject = (Item, What, Key) => {
+        return What?.find(option => option.id === Item.id)
+    }
+
     //FILL USERS LIST
     useEffect(() => {
         setListaDeUsuarios(Users.sort((a, b) => a.Name.localeCompare(b.Name)))
@@ -36,22 +46,22 @@ const UsersList = (props) => {
             setLoaded(true)
         }, 500);
     }, [props.Usuarios])
- 
+
 
     //FILTER AND SORT USERSLIST
     useEffect(() => {
         setListaDeUsuarios(
             Users.filter(Usuario => {
                 //FILTER LIST
-                const TextFilter = FiltroDeTexto === '' || (Usuario.Name.toLowerCase().includes(FiltroDeTexto.toLowerCase()) || Usuario.Email.toLowerCase().includes(FiltroDeTexto.toLowerCase()))
-                const SetorFilter = Filters?.Setores?.find(option => option.id === Usuario.Sector.id)
-                const TipoFilter = Filters?.TiposUsuarios?.find(option => option.id === Usuario.Type.id)
-                return TextFilter && SetorFilter && TipoFilter
+                return (
+                    (FiltroDeTexto === '' || CheckIncludesText(Usuario.Name) || CheckIncludesText(Usuario.Email)) &&
+                    CheckIncludesInObject(Usuario.Sector, Filters?.Setores) &&
+                    CheckIncludesInObject(Usuario.Type, Filters?.TiposUsuarios)
+                )
             }).sort(
                 //SORT LIST
                 (a, b) => a.Name.localeCompare(b.Name)
             ))
-       
     }, [FiltroDeTexto, Filters])
 
 

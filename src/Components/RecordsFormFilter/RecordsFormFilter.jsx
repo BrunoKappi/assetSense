@@ -1,91 +1,132 @@
 import React, { useState, useEffect } from 'react'
 import './RecordsFormFilter.css'
 import { GetAtivoNameWithIdFromStore, GetuserNameWithIdFromStore } from '../../Functions/Middleware'
-import Dropdown from 'react-bootstrap/Dropdown';
 import moment from 'moment';
-import { MdFilterList } from 'react-icons/md'
 import { connect } from 'react-redux'
+import OrderBy, { GetDefautlOption } from '../LayoutComponents/OrderBy/OrderBy'
+
+
+function GetUserName(item, who) {
+    if (who === 'For')
+        return GetuserNameWithIdFromStore(item.TakenFor.id)
+    else if ('By')
+        return GetuserNameWithIdFromStore(item.TakenBy.id)
+}
+
+function GetAtivoName(item) {
+    return GetAtivoNameWithIdFromStore(item.AtivoId)
+}
+
+function GetUsage(item) {
+    if (!item.ReturnDate) {
+        return moment().valueOf() - item.TakeDate;
+    }
+    return item.ReturnDate - item.TakeDate;
+}
+
+function GetStatus(item) {
+    return item.ReturnDate ? 'Devolvido' : 'Em uso';
+}
+
+function GetRecordDate(item, what) {
+    if (what === 'Take')
+        return moment(item.TakeDate).format("DD/MM/YY")
+    else if ('Return')
+        return moment(item.ReturnDate).format("DD/MM/YY")
+}
+
 
 const RecordsFormFilter = (props) => {
 
-    //STATES
-    const [OrdenarPor, setOrdenarPor] = useState('Mais Recentes')
+    //STATES 
+    const [OrdenarPor, setOrdenarPor] = useState('')
     const [FiltroDeTexto, setFiltroDeTexto] = useState('')
+    const [ResetFilters, setResetFilters] = useState(false);
 
+    const CheckIncludes = (What) => {
+        return What.toLowerCase().includes(FiltroDeTexto.trim().toLowerCase())
+    }
 
     //SORT AND FILTER LIST
     useEffect(() => {
-        const Registros = props.GetRecords(props.Ativo?.id)
-        console.log(Registros)
-        props.SetRecords(Registros.filter(Record => {
-            const TakenForName = GetuserNameWithIdFromStore(Record.TakenFor.id)
-            const TakenByName = GetuserNameWithIdFromStore(Record.TakenBy.id)
-            const AtivoName = GetAtivoNameWithIdFromStore(Record.AtivoId)
-            const Status = Record.ReturnDate ? 'Devolvido' : 'Em uso'
-            const TextFilter = FiltroDeTexto === '' || (
-                TakenForName.toLowerCase().includes(FiltroDeTexto.trim().toLowerCase()) ||
-                TakenByName.toLowerCase().includes(FiltroDeTexto.trim().toLowerCase()) ||
-                AtivoName.toLowerCase().includes(FiltroDeTexto.trim().toLowerCase()) ||
-                moment(Record.TakeDate).format("DD/MM/YY").includes(FiltroDeTexto.trim().toLowerCase()) ||
-                moment(Record.ReturnDate).format("DD/MM/YY").includes(FiltroDeTexto.trim().toLowerCase()) ||
-                Status.toLowerCase().includes(FiltroDeTexto.trim().toLowerCase())
-            )
-            return TextFilter
-        }).sort((a, b) => {
-            if (OrdenarPor === 'Mais recentes' || OrdenarPor === 'Ordenar por') {
-                return a.TakeDate < b.TakeDate ? 1 : -1
-            } else if (OrdenarPor === 'Mais Antigos') {
-                return a.TakeDate < b.TakeDate ? - 1 : 1
-            } else if (OrdenarPor === 'Nome') {
-                const TakenForNameA = GetuserNameWithIdFromStore(a.TakenFor.id)
-                const TakenForNameB = GetuserNameWithIdFromStore(b.TakenFor.id)
-                return TakenForNameA.localeCompare(TakenForNameB);
-            } else if (OrdenarPor === 'Tempo de Uso') {
-                const UsoA = a.Duration === 0 ? (moment().valueOf() - a.TakeDate) : a.Duration
-                const UsoB = b.Duration === 0 ? (moment().valueOf() - b.TakeDate) : b.Duration
-                return UsoA < UsoB ? 1 : -1
-            } else if (OrdenarPor === 'Status') {
-                const UsoA = a.Duration === 0 ? 'Em uso' : 'Devolvido'
-                const UsoB = b.Duration === 0 ? 'Em uso' : 'Devolvido'
-                return UsoA.localeCompare(UsoB);
-            } else {
-                return a.TakeDate < b.TakeDate ? 1 : -1
-            }
-        }))
+        const Registros = props.GetRecords(props?.Ativo?.id)
+        props.SetRecords(
+            Registros.filter(Record => {
+                //FILTER
+                const TakenForName = GetUserName(Record, 'For')
+                const TakenByName = GetUserName(Record, 'By')
+                const AtivoName = GetAtivoName(Record)
+                const Status = GetStatus(Record)
+                const TakeDate = GetRecordDate(Record, 'Take')
+                const ReturnDate = GetRecordDate(Record, 'Return')
+                return (
+                    FiltroDeTexto === '' ||
+                    CheckIncludes(TakenForName) ||
+                    CheckIncludes(TakenByName) ||
+                    CheckIncludes(AtivoName) ||
+                    CheckIncludes(Status) ||
+                    CheckIncludes(TakeDate) ||
+                    CheckIncludes(ReturnDate)
+                )
 
-    }, [FiltroDeTexto, OrdenarPor, props.RecordsAtivos, props.Ativo])
+            }).sort(
+                (Primeiro, Segundo) => {
+                    //SORT
+                    const TakenForNamePrimeiro = GetUserName(Primeiro, 'For')
+                    const TakenForNameSegundo = GetUserName(Segundo, 'For')
+                    const UsoA = GetUsage(Primeiro)
+                    const UsoB = GetUsage(Segundo)
+                    const StatusPrimeiro = GetStatus(Primeiro)
+                    const StatusSegundo = GetStatus(Segundo)
+                    switch (OrdenarPor) {
+                        case 'Mais Recentes':
+                            return Primeiro.TakeDate < Segundo.TakeDate ? 1 : -1
+                        case 'Mais Antigos':
+                            return Primeiro.TakeDate > Segundo.TakeDate ? 1 : -1
+                        case 'Nome':
+                            return TakenForNamePrimeiro.localeCompare(TakenForNameSegundo)
+                        case 'Tempo de Uso':
+                            return UsoA < UsoB ? 1 : -1
+                        case 'Status':
+                            return StatusPrimeiro.localeCompare(StatusSegundo)
+                        default:
+                            return Primeiro.TakeDate < Segundo.TakeDate ? 1 : -1
+                    }
+                }))
+    }, [FiltroDeTexto, OrdenarPor, props.Ativo])
+
+
+    useEffect(() => {
+        setResetFilters(true)
+        setTimeout(() => {
+            setResetFilters(false)
+        }, 1000);
+    }, [])
+
 
 
     //RESET FILTERS
     const handleResetFiltros = () => {
         setFiltroDeTexto('')
-        setOrdenarPor('Mais Recentes')
+        setOrdenarPor('')
+        setResetFilters(true)
+        setTimeout(() => {
+            setResetFilters(false)
+        }, 1000);
     }
 
 
     return (
         <div className={props.Tema === 'Escuro' ? 'AtivoRecords-FormFilterEscuro AtivoRecords-FormFilter' : 'AtivoRecords-FormFilterClaro AtivoRecords-FormFilter'}        >
             <input value={FiltroDeTexto} placeholder='Buscar...' onChange={e => setFiltroDeTexto(e.target.value)}></input>
-            <Dropdown>
-                <Dropdown.Toggle variant="success" id="AtivoRecords-OrderBy">
-                    <div className='AtivoRecords-OrdenarPorTitle'>
-                        {OrdenarPor ? OrdenarPor : 'Ordenar por'}
-                        <MdFilterList />
-                    </div>
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                    <Dropdown.Item onClick={e => setOrdenarPor('Mais Recentes')}>Mais Recentes</Dropdown.Item>
-                    <Dropdown.Item onClick={e => setOrdenarPor('Mais Antigos')}>Mais Antigos</Dropdown.Item>
-                    <Dropdown.Item onClick={e => setOrdenarPor('Nome')}>Nome</Dropdown.Item>
-                    <Dropdown.Item onClick={e => setOrdenarPor('Tempo de Uso')}>Tempo de Uso</Dropdown.Item>
-                    <Dropdown.Item onClick={e => setOrdenarPor('Status')}>Status</Dropdown.Item>
-                </Dropdown.Menu>
-            </Dropdown>
+            <OrderBy
+                Module="Records"
+                OnChange={(SelectedOption) => setOrdenarPor(SelectedOption.Value)}
+                Reset={ResetFilters}
+            />
             <button onClick={handleResetFiltros} >Limpar filtro</button>
         </div>
     )
-
 }
 
 
@@ -96,4 +137,5 @@ const ConnectedRecordsFormFilter = connect((state) => {
     }
 })(RecordsFormFilter)
 
-export default ConnectedRecordsFormFilter 
+export default ConnectedRecordsFormFilter
+

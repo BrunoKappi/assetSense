@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import './Records.css'
-import { GetAtivoWithIdFromStore, GetCurrentUserFromStore, GetRecordsFromStore, GetRecordsOfAtivo, GetuserNameWithIdFromStore, GetUserWithIdFromStore } from '../../Functions/Middleware';
-import { UilCommentInfoAlt } from '@iconscout/react-unicons'
+import { GetAtivoWithIdFromStore, GetCurrentUserFromStore, GetRecordsFromStore, GetUserWithIdFromStore } from '../../Functions/Middleware';
 import UsuarioModal from '../../Components/UsersList/User/UsuarioModal'
 import AtivoModal from '../../Components/AtivosList/Ativo/AtivoModal'
 import { v4 } from 'uuid';
@@ -14,10 +13,10 @@ import Warning from '../LayoutComponents/Warning/Warning';
 
 const Records = (props) => {
 
-    const CurrentUser = GetCurrentUserFromStore()
+    const CurrentUser = GetCurrentUserFromStore() 
 
     //Quantidades 
-    const [Records, SetRecords] = useState(GetRecordsFromStore())
+    const [Records, SetRecords] = useState([])
     const [SelectedUser, setSelectedUser] = useState({})
     const [SelectedAtivo, setSelectedAtivo] = useState({})
     const [modalShow, setModalShow] = useState(false);
@@ -69,8 +68,8 @@ const Records = (props) => {
                 <RecordsFormFilter
                     GetRecords={GetRecordsFromStore}
                     SetRecords={SetRecords}
-                    Ativo={props?.Ativo || {}}
-                />
+                    Ativo={SelectedUser} 
+                /> 
 
                 {/***********   RECORDS   *************/}
                 {Records.map(Registro =>

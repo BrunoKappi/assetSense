@@ -17,6 +17,8 @@ import FilterSelect from '../LayoutComponents/FilterSelect/FilterSelect'
 
 const AtivosList = (props) => {
 
+
+
     const [SelectedAtivo, setSelectedAtivo] = useState({})
     const [ListaDeAtivos, setListaDeAtivos] = useState([])
     const [Loaded, setLoaded] = useState(false);
@@ -27,6 +29,16 @@ const AtivosList = (props) => {
     const [CurrentUser,] = useState(GetCurrentUserFromStore())
     const [Filters, setFilters] = useState([]);
     const [ResetFilters, setResetFilters] = useState([]);
+
+    //CHECK
+    const CheckIncludesText = (What) => {
+        return What.toLowerCase().includes(FiltroDeTexto.trim().toLowerCase())
+    }
+
+    //CHECK IN OBJECT
+    const CheckIncludesInObject = (Item, What, Key) => {
+        return What?.find(option => option.id === Item.id)
+    }
 
     //PERMITS E USER TYPE   
     var PermitToAddAtivos = GetCurrentUserTypeFromStore()?.Permits[PermitIndexs['ADICIONAR_ATIVOS']]
@@ -43,25 +55,18 @@ const AtivosList = (props) => {
     // SORT AND FILTER
     useEffect(() => {
         const Ativos = GetAtivosFromStore()
-
         setListaDeAtivos(Ativos.filter(Ativo => {
-            const TextFilter = FiltroDeTexto === '' || (
-                Ativo.Item.toLowerCase().includes(FiltroDeTexto.toLowerCase()) ||
-                Ativo.Brand.toLowerCase().includes(FiltroDeTexto.toLowerCase()) ||
-                GetLocalArmazenamentoNameWithIdFromStore(Ativo.StorageLocation.id).toLowerCase().includes(FiltroDeTexto.toLowerCase()) ||
-                GetTipoAtivoNameWithIdFromStore(Ativo.Type.id).toLowerCase().includes(FiltroDeTexto.toLowerCase()) ||
-                GetTipoDeUsoNameWithIdFromStore(Ativo.Usage.id).toLowerCase().includes(FiltroDeTexto.toLowerCase())
+            return (
+                (FiltroDeTexto === '' || CheckIncludesText(Ativo.Item) || CheckIncludesText(Ativo.Brand)) &&
+                CheckIncludesInObject(Ativo.Type, Filters?.TiposAtivos) &&
+                CheckIncludesInObject(Ativo.StorageLocation, Filters?.LocaisArmazenamento) &&
+                CheckIncludesInObject(Ativo.Status, Filters?.StatusAtivos) &&
+                CheckIncludesInObject(Ativo.Usage, Filters?.TiposDeUso)
             )
-            const TipoAtivoFiler = Filters?.TiposAtivos?.find(option => option.id === Ativo.Type.id)
-            const LocalArmazenamentoFilter = Filters?.LocaisArmazenamento?.find(option => option.id === Ativo.StorageLocation.id)
-            const StatusFilter = Filters?.StatusAtivos?.find(option => option.id === Ativo.Status.id)
-            const UsageFilter = Filters?.TiposDeUso?.find(option => option.id === Ativo.Usage.id)
-
-            return TextFilter && TipoAtivoFiler && LocalArmazenamentoFilter && StatusFilter && UsageFilter
         }).sort((a, b) => a.Item.localeCompare(b.Item)))
 
 
-    }, [FiltroDeTexto, Filters]) 
+    }, [FiltroDeTexto, Filters])
 
 
     //RESET FILTERS

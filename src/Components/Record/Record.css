@@ -1,7 +1,7 @@
 .AtivoRecord-ContainerClaro {
 
 
-    --AtivoRecord-Container-Border: white;
+    --AtivoRecord-Container-Border: rgb(228, 226, 226);
     --AtivoRecord-Container-BackGround: white;
     --AtivoRecord-Container-BackGround-Hover: var(--PrimaryBackGroundFaded1);
     --AtivoRecord-UpRow-Name-Color: var(--ComplementaryColor);

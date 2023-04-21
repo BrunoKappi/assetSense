@@ -37,6 +37,8 @@
     flex-direction: row;
     gap: 1rem;
     margin-bottom: 2rem;
+    justify-content: flex-start;
+    align-items: flex-end;
     flex-wrap: wrap;
 }
 
@@ -88,64 +90,4 @@
 
 .AtivoRecords-FormFilter>button:active {
     transform: scale(1);
-}
-
-
-#AtivoRecords-OrderBy::after {
-    display: none !important;
-}
-
-#AtivoRecords-OrderBy {
-    background-color: transparent !important;
-    border: none !important;
-    padding: 0 !important;
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    height: 100%;
-}
-
-.AtivoRecords-OrdenarPorTitle {
-    display: flex;
-    flex-direction: row;
-    gap: .5rem;
-    align-items: center;
-    font-family: var(--Fonte);
-    border-radius: 1rem;
-    font-size: .9rem;
-    font-family: var(--Fonte);
-    color: var(--AtivoRecord-UpRow-OrderBy-Color) !important;
-}
-
-
-
-
-
-
-.AtivosRecords-AvisoInfo {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: .5rem;
-    margin-bottom: 2rem;
-}
-
-
-.AtivosRecords-AvisoInfo-Item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: .3rem;
-    color: var(--AtivoModal-Ativos-Warning-Color);
-    font-family: var(--Fonte);
-    background-color: var(--AtivoModal-Ativos-Warning-Background);
-    padding: .2rem .8rem;
-    border-radius: 1rem;
-    font-size: .8rem;
-}
-
-.AtivosRecords-AvisoInfo-Item>svg {
-    width: 1rem;
 }

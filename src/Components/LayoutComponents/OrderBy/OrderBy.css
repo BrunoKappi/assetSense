@@ -1,0 +1,72 @@
+.OrderByClaro {
+    --OrderBy-Color-Input: var(--SecondaryBackground);
+    --OrderBy-Background-Input: transparent;
+
+    --OrderBy-CustomPlaceholder-Color: var(--SecondaryBackground);
+}
+
+.OrderByEscuro {
+    --OrderBy-Color-Input: white;
+    --OrderBy-Background-Input: transparent;
+
+    --OrderBy-CustomPlaceholder-Color: var(--ComplementaryColor);
+}
+
+ 
+
+.OrderBy {
+    flex-grow: 1 !important;
+    font-family: var(--Fonte) !important;
+    font-size: .9rem !important;
+    width: 100% !important;
+}
+
+
+/********* ********* *********  CUSTOM PLACEHOLDER  ********* ********* ********* ***/
+.OrderBy-CustomPlaceholder {
+    cursor: pointer;
+    color: var(--OrderBy-CustomPlaceholder-Color);
+    font-size: 1rem;
+}
+
+.OrderBy-CustomPlaceholder:hover {
+    transform: scale(1.1);
+}
+
+
+
+/********* ********* *********  CUSTOM LABEL  ********* ********* ********* ***/
+.OrderBy-CustomLabel {
+    display: flex;
+    flex-direction: row;
+    gap: .2rem;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.OrderBy-CustomLabel svg {
+    width: 1rem;
+}
+
+
+
+
+/********* ********* *********  CUSTOM OPTION  ********* ********* ********* ***/
+
+.OrderBy-CustomOption {
+    display: flex;
+    flex-direction: row;
+    gap: .2rem;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer !important;
+}
+
+
+.OrderBy-CustomOptionText {
+    color: var(--ComplementaryColor);
+}
+
+.OrderBy-CustomOptionIcon {
+    color: var(--ComplementaryColor);
+}
