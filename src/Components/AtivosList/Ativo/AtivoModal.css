@@ -108,12 +108,14 @@
 
 .AtivoModal {
     z-index: 0 !important;
+    padding: 0 !important;
 }
 
 
 .AtivoModal-Modal .modal-content {
     background-color: var(--AtivoModal-Backgound) !important;
     border: 1px solid var(--AtivoModal-Border) !important;
+   
 }
 
 

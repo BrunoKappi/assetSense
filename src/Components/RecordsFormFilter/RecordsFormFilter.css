@@ -42,6 +42,20 @@
     flex-wrap: wrap;
 }
 
+
+@media (max-width: 500px) {
+    .AtivoRecords-FormFilter {
+        flex-direction: column;
+        align-items: center;
+        row-gap: .3rem;
+    }
+
+    .AtivoRecords-FormFilter>input {
+        width: 100%;
+    }
+}
+
+
 .AtivoRecords-FormFilter>button {
     font-family: var(--Fonte);
     font-size: .8rem;

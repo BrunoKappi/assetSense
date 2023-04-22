@@ -16,7 +16,7 @@ export default function BarChart(props) {
                 data: [...props.Series],
 
             },
- 
+
 
         ],
         options: {
@@ -34,6 +34,11 @@ export default function BarChart(props) {
                 width: "100%", // adiciona a propriedade de altura com valor 100%
                 height: "700px", // adiciona a propriedade de altura com valor 100%
                 fontFamily: 'Kanit, Sans-serif',
+                toolbar: {
+                    tools: {
+                        download: false
+                    }
+                }
 
             },
 
@@ -81,7 +86,7 @@ export default function BarChart(props) {
                 }
             },
 
-           
+
             yaxis: {
                 labels: {
                     show: false, // Mostrar as legendas do eixo y
@@ -99,6 +104,6 @@ export default function BarChart(props) {
 
 
     return (
-        <Chart options={ChartProps.options} series={ChartProps.series} type='bar' height={'100%'} />
+        <Chart options={ChartProps.options} series={ChartProps.series} type='bar' height={'100%'} download={false} />
     )
 }

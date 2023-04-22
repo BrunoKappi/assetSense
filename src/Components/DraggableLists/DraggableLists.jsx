@@ -10,6 +10,10 @@ import { EditAtivo, EditUser, SaveAtivos, SaveUsers } from '../../Functions/Midd
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import { EDITAR_ATIVOS, EDITAR_USUARIOS } from '../../Functions/Permits';
 import { AtivosInTypesBreakpoints } from '../../GlobalVars';
+import Warning from '../LayoutComponents/Warning/Warning'
+import Info from '../LayoutComponents/Info/Info'
+import Show from '../LayoutComponents/Show/Show';
+import LoadingAnimate from '../LoadingForTabs/Loading'
 
 const EditFunctions = {
     'AtivosInTypes': EditAtivo,
@@ -17,7 +21,7 @@ const EditFunctions = {
     'UsersInTypes': EditUser,
     'UsersInSectores': EditUser,
 }
- 
+
 const SaveFunctions = {
     'AtivosInTypes': SaveAtivos,
     'AtivosInLocais': SaveAtivos,
@@ -61,9 +65,13 @@ const DraggableLists = (props) => {
     //PERMIT
     const PermitFunction = PermitsMap[props.Module]
     const EditPermit = (PermitFunction())
- 
+
     //STATE
     const [ListaDeItens, setListaDeItens] = useState([])
+    const [isMobile, setisMobile] = useState(window.innerWidth <= 768)
+    const [Loading, setLoading] = useState(false)
+
+
 
     //SET STATE WHEN ITENS CHANGE
     useEffect(() => {
@@ -76,6 +84,8 @@ const DraggableLists = (props) => {
 
     //HANDLE DRAG
     const HandleDrag = (Resultado) => {
+
+
         if (!Resultado.destination) return
 
         if (!EditPermit) {
@@ -83,8 +93,12 @@ const DraggableLists = (props) => {
             return
         }
 
+
+
         const TypeDestinationID = Resultado.destination.droppableId.split("/")[0];
         const ItemId = Resultado.draggableId
+
+        setLoading(TypeDestinationID)
 
         const Item = props[ListaDeitensMap[props.Module]].find(U => U.id === ItemId)
         const IndexOfItem = props[ListaDeitensMap[props.Module]].indexOf(Item)
@@ -99,9 +113,18 @@ const DraggableLists = (props) => {
             copiedItems[IndexOfItem] = { ...Item }
             SaveFunction(copiedItems)
             NotificationSucesso("Edição", "Alteração salva com sucesso!")
+            setLoading(false)
+        }).catch(() => {
+            setLoading(false)
         })
 
     }
+
+    const handleResize = () => {
+        setisMobile(window.innerWidth <= 768) // Largura máxima da tela em que o recurso de drag and drop será habilitado      
+    };
+
+    window.addEventListener('resize', handleResize)
 
     return (
         <DragDropContext onDragEnd={(result) => { HandleDrag(result) }}>
@@ -109,14 +132,35 @@ const DraggableLists = (props) => {
 
                 <NumbersOfList Values={ListaDeItens} />
 
+                <Show Show={isMobile}>
+                    <Warning Text='A funcionalide de "Arraste e Solte" é habilitada somente em telas maiores' />
+                </Show>
+
+                <Show Show={!isMobile}>
+                    <Info Text='Você pode arrastar e soltar os itens em outros grupos' />
+                </Show>
+
+
                 <Masonry breakpointCols={AtivosInTypesBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column"   >
+                    {props[List].map(Item => {
 
-                    {props[List].map(Item => <Lists key={v4()} Item={Item} Ativos={props[ListaDeitensMap[props.Module]]} Key={Key} Module={props.Module} />)}
-
+                        return <>
+                            <Show Show={Loading !== Item.id}>
+                                <Lists LoadingList={Loading} key={v4()} Item={Item} Ativos={props[ListaDeitensMap[props.Module]]} Key={Key} Module={props.Module} />
+                            </Show>
+                            <Show Show={Loading === Item.id}>
+                                <LoadingAnimate />
+                            </Show>
+                        </>
+                    })}
                 </Masonry>
-            </div > 
+
+
+
+
+            </div >
         </DragDropContext>
-    )  
+    )
 }
 
 

@@ -19,8 +19,11 @@ export const FilterSelectStyles = {
     }),
     menu: (provided) => ({
         ...provided,
-        width: 'auto', // define a largura do menu como auto para se ajustar ao tamanho das opções
-        position: 'absolute' // define a posição do menu como absoluta para ser posicionado abaixo do control
+        width: 'auto',
+        position: 'absolute',
+        left: '-8rem',
+        backgroundColor: 'var(--FilterSelect-Menu-Background)',
+        border: '1px solid var(--FilterSelect-Menu-Border)'
     }),
     option: (provided, state) => ({
         ...provided,
@@ -155,5 +158,22 @@ export const InputOption = ({ getStyles, Icon, isDisabled, isFocused, isSelected
                 {children}
             </span>
         </components.Option>
+    );
+};
+
+
+export const MenuList = ({ children, CheckAll, UncheckAll, ...props }) => {
+    return (
+        <components.MenuList {...props}>
+            <div className='FilterSelect-MenuList-Header'>
+                <button className='FilterSelect-MenuList-CheckAll' onClick={CheckAll}>
+                    Marcar todas
+                </button>
+                <button className='FilterSelect-MenuList-UncheckAll' onClick={UncheckAll}>
+                    Desmarcar todas
+                </button>
+            </div>
+            {children}
+        </components.MenuList>
     );
 };

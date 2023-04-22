@@ -14,16 +14,25 @@
     --Setores-Title-Backround: var(--PrimaryBackground);
     --Setores-Title-Color: white;
 
-    --Setores-Item-Backround:  var(--BackgroundDark);
+    --Setores-Item-Backround: var(--BackgroundDark);
     --Setores-Item-Border: rgb(88, 86, 86);
     --Setores-Item-Border-LR: rgb(88, 86, 86);
     --Setores-Item-Icon-Color: var(--ComplementaryColor);
     --Setores-Item-Span-Color: white;
 }
 
- 
- 
 
+
+.UserTypesShowOnlyCustomGroupListTitleSpan {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem;
+}
+
+.UserTypesShowOnlyCustomGroupListTitleSpan svg {
+    width: 1rem;
+}
 
 .AtivosTypesShowOnlyCustomGroupList {
     margin-top: 1rem;

@@ -120,35 +120,37 @@ const AtivoPhotoModal = (props) => {
 
                 <div className={'AtivoPhotoModal' + (props.CanEdit ? '' : ' OnlyView')}>
 
-                    <Show Show={!Loading}>
+                    {!Loading &&
                         <div className={'AtivoPhotoModal-ImageColumn '}>
                             <img src={ImageToShowUser || UserPhoto} alt="Ativo" />
                         </div>
-                        {props.CanEdit &&
-                            <div className='AtivoPhotoModal-OptionsColumn'>
-                                <button className={'AtivoPhotoModal-ChangePhotoButton ' + (imageUpload ? ' AtivoPhotoModal-ChangePhotoButton-Ready' : '')} onClick={handleButtonClick}>
-                                    {imageUpload ? <UilCheck /> : <UilPen />}
-                                    {imageUpload ? 'Definir Imagem' : 'Trocar de Foto'}
-                                    <input ref={fileInputRef} accept="image/apng, image/avif, image/gif, image/jpeg, image/png, image/svg+xml, image/webp" type="file" onChange={handleChangePicture} />
+                    }
+
+                    {props.CanEdit && !Loading &&
+                        <div className='AtivoPhotoModal-OptionsColumn'>
+                            <button className={'AtivoPhotoModal-ChangePhotoButton ' + (imageUpload ? ' AtivoPhotoModal-ChangePhotoButton-Ready' : '')} onClick={handleButtonClick}>
+                                {imageUpload ? <UilCheck /> : <UilPen />}
+                                {imageUpload ? 'Definir Imagem' : 'Trocar de Foto'}
+                                <input ref={fileInputRef} accept="image/apng, image/avif, image/gif, image/jpeg, image/png, image/svg+xml, image/webp" type="file" onChange={handleChangePicture} />
+                            </button>
+
+                            <Show Show={!imageUpload}>
+                                <button onClick={ApagarFotoDoAtivo} className='AtivoPhotoModal-DeletePhoto'>
+                                    <UilTrashAlt />
+                                    Remover Foto
                                 </button>
+                            </Show>
 
-                                <Show Show={!imageUpload}>
-                                    <button onClick={ApagarFotoDoAtivo} className='AtivoPhotoModal-DeletePhoto'>
-                                        <UilTrashAlt />
-                                        Remover Foto
-                                    </button>
-                                </Show>
+                            <Show Show={imageUpload}>
+                                <button className='AtivoPhotoModal-CancelChangePhoto' onClick={Cancel}>
+                                    <UilBackward />
+                                    Cancelar
+                                </button>
+                            </Show>
 
-                                <Show Show={imageUpload}>
-                                    <button className='AtivoPhotoModal-CancelChangePhoto' onClick={Cancel}>
-                                        <UilBackward />
-                                        Cancelar
-                                    </button>
-                                </Show>
+                        </div>
+                    }
 
-                            </div>
-                        }
-                    </Show>
 
                     <Show Show={Loading}>
                         <LoadingSpiner />

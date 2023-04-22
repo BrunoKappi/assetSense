@@ -14,7 +14,7 @@ const AtivoRecords = (props) => {
 
     const CurrentUser = GetCurrentUserFromStore()
 
-    //QUANTIDADES
+    //QUANTIDADES 
     const [Records, SetRecords] = useState([])
     const [SelectedUser, setSelectedUser] = useState({})
     const [modalShow, setModalShow] = useState(false);

@@ -1,11 +1,12 @@
-import Select from "react-select";
+import Select, { components } from "react-select";
 import { connect } from 'react-redux'
 import './FilterSelect.css'
-import { CustomLabel, CustomPlaceholder, FilterSelectStyles, InputOption, noOptionsMessage } from "./FilterSelectUtils";
-import { useState,useEffect } from "react";
+import { CustomLabel, CustomPlaceholder, FilterSelectStyles, InputOption, MenuList, noOptionsMessage } from "./FilterSelectUtils";
+import { useState, useEffect } from "react";
 
 
-const FilterSelect = (props) => { 
+
+const FilterSelect = (props) => {
 
     //ATIVOS OPTIONS
     const AtivosFilterOptions = [
@@ -69,18 +70,22 @@ const FilterSelect = (props) => {
     const [SelectedOptions, setSelectedOptions] = useState(GetInitialValues().flatMap((option) => option.options))
     const allOptions = GetInitialValues().flatMap((option) => option.options)
 
+    useEffect(() => {
+        props.OnChange(GetInitialValuesChecked())
+    }, [])
+
+
     //RESET FILTERS ALL CHECKED
     const ResetFilters = () => {
         setSelectedOptions(allOptions)
+        props.OnChange(GetInitialValuesChecked())
     }
 
-    //HANDLE RESET FILTER PROP AND SEND ALL CHECKED
-    useEffect(() => {
-        if (props.Reset) {
-            ResetFilters()
-            props.OnChange(GetInitialValuesChecked())
-        }
-    }, [props.Reset])
+    //RESET FILTERS ALL CHECKED
+    const UncheckAll = () => {
+        setSelectedOptions([])
+        props.OnChange({})
+    }
 
     //ON CHANGE HANDLER FOR SELECT
     function onChange(selectedOptions) {
@@ -111,7 +116,10 @@ const FilterSelect = (props) => {
                 options={options}
                 components={{
                     Option: InputOption,
-                    Placeholder: e => CustomPlaceholder('Filtros')
+                    Placeholder: e => CustomPlaceholder('Filtros'),
+                    MenuList: props => (
+                        <MenuList {...props} CheckAll={ResetFilters} UncheckAll={UncheckAll} />
+                    )
                 }}
                 noOptionsMessage={noOptionsMessage}
                 styles={FilterSelectStyles}

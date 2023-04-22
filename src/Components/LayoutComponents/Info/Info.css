@@ -1,0 +1,27 @@
+.Info {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: .5rem;
+    margin-bottom: 1rem;
+}
+
+
+.Info-Item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .3rem;
+    color: white;
+    font-family: var(--Fonte);
+    background-color: var(--ComplementaryColor);
+    padding: .2rem .8rem;
+    border-radius: 1rem;
+    font-size: .8rem;
+}
+
+.Info-Item>svg {
+    width: 1rem;
+}

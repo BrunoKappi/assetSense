@@ -124,7 +124,7 @@ const RecordsFormFilter = (props) => {
                 OnChange={(SelectedOption) => setOrdenarPor(SelectedOption.Value)}
                 Reset={ResetFilters}
             />
-            <button onClick={handleResetFiltros} >Limpar filtro</button>
+           
         </div>
     )
 }

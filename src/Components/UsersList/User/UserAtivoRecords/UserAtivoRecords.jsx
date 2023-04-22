@@ -19,7 +19,7 @@ const UserAtivoRecords = (props) => {
     const [SelectedAtivo, setSelectedAtivo] = useState({})
     const [modalShow, setModalShow] = useState(false);
 
-    //RESET SELECTED ATIVO
+    //RESET SELECTED ATIVO 
     const ResetSelectedAtivo = () => {
         setModalShow(false);
         setSelectedAtivo({});
@@ -40,7 +40,7 @@ const UserAtivoRecords = (props) => {
     }
 
 
- 
+
 
     return (
         <>
@@ -55,7 +55,7 @@ const UserAtivoRecords = (props) => {
                 />
 
                 {/***********   RECORDS  *************/}
-                {Records.map(Registro => 
+                {Records.map(Registro =>
                     <Record
                         key={v4()}
                         Record={Registro}

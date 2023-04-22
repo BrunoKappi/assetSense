@@ -11,11 +11,11 @@
     --AtivoRecord-UpRow-Obs-Color: var(--SecondaryBackground);
     --AtivoRecord-UpRow-Time-Color: var(--SecondaryBackground);
 
-    --AtivoRecord-UpRow-OrderBy-Color: var(--SecondaryBackground);   
+    --AtivoRecord-UpRow-OrderBy-Color: var(--SecondaryBackground);
 
     --AtivoModal-Ativos-Warning-Color: white;
     --AtivoModal-Ativos-Warning-Background: #f0ad4e;
- 
+
 
 }
 
@@ -29,14 +29,14 @@
 
     --AtivoRecord-UpRow-Status-Background: var(--SecondaryBackground);
     --AtivoRecord-UpRow-Status-Color: white;
- 
+
     --AtivoRecord-UpRow-Date-Color: white;
     --AtivoRecord-UpRow-Obs-Color: white;
     --AtivoRecord-UpRow-Time-Color: white;
 
     --AtivoRecord-UpRow-OrderBy-Color: var(--ComplementaryColor);
 
- 
+
 
     --AtivoModal-Ativos-Warning-Color: white;
     --AtivoModal-Ativos-Warning-Background: #f0ad4e;
@@ -44,7 +44,9 @@
 
 
 
-
+.AtivoRecords-Container {
+    padding: 0 !important;
+}
 
 
 .AtivosRecords-AvisoInfo {

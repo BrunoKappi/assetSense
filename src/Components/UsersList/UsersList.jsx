@@ -23,7 +23,6 @@ const UsersList = (props) => {
     const [AddmodalShow, setAddModalShow] = useState(false);
     const [CurrentUser,] = useState(GetCurrentUserFromStore())
     const [Filters, setFilters] = useState([]);
-    const [ResetFilters, setResetFilters] = useState([]);
     const Users = GetUsersFromStore()
 
     //PERMITS E USER TYPE   
@@ -65,15 +64,6 @@ const UsersList = (props) => {
     }, [FiltroDeTexto, Filters])
 
 
-    //RESET FILTERS
-    const handleResetFiltros = () => {
-        setFiltroDeTexto('')
-        setResetFilters(true)
-        setTimeout(() => {
-            setResetFilters(false)
-        }, 1000);
-    }
-
     //USER CLICK
     const handleUserClick = (UserClicked) => {
         setModalShow(true);
@@ -95,12 +85,8 @@ const UsersList = (props) => {
 
             <div className='UsersLisFormFilter'>
                 <input value={FiltroDeTexto} placeholder='Procurar Usuário...' onChange={e => setFiltroDeTexto(e.target.value)}></input>
-                <FilterSelect
-                    Module="FilterUsers"
-                    OnChange={setFilters}
-                    Reset={ResetFilters}
-                />
-                <button onClick={handleResetFiltros}>Limpar Filtro</button>
+                <FilterSelect Module="FilterUsers" OnChange={setFilters} />
+
             </div>
 
             <Show Show={ListaDeUsuarios.length !== 0 || Loaded}>

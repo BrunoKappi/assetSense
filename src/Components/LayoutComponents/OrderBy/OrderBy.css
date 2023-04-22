@@ -3,6 +3,9 @@
     --OrderBy-Background-Input: transparent;
 
     --OrderBy-CustomPlaceholder-Color: var(--SecondaryBackground);
+
+    --OrderBy-Menu-Background: white;
+    --OrderBy-Menu-Border: white;
 }
 
 .OrderByEscuro {
@@ -10,6 +13,9 @@
     --OrderBy-Background-Input: transparent;
 
     --OrderBy-CustomPlaceholder-Color: var(--ComplementaryColor);
+
+    --OrderBy-Menu-Background: black;
+    --OrderBy-Menu-Border: gray
 }
 
  

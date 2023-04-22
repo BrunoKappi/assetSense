@@ -92,8 +92,8 @@
     flex-wrap: wrap;
     row-gap: 1rem;
     align-items: flex-end;
-
 }
+
 
 .UsersLisFormFilter>input {
     flex-grow: 1;

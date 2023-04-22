@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react'
 import './AtivosList.css'
 import Loading from '../LoadingForTabs/Loading';
 import { connect } from 'react-redux'
-import { MdFilterList } from 'react-icons/md';
-import Dropdown from 'react-bootstrap/Dropdown';
-import { UilExclamationCircle } from '@iconscout/react-unicons'
 import { GetAtivosFromStore, GetCurrentUserFromStore, GetCurrentUserTypeFromStore, GetLocaisSelect, GetLocalArmazenamentoNameWithIdFromStore, GetTipoAtivoNameWithIdFromStore, GetTipoDeUsoNameWithIdFromStore, GetTiposAtivosSelect } from '../../Functions/Middleware';
 import { PermitIndexs } from '../../GlobalVars';
 import Ativo from './Ativo/Ativo';
@@ -28,7 +25,6 @@ const AtivosList = (props) => {
     const [AddmodalShow, setAddModalShow] = useState(false);
     const [CurrentUser,] = useState(GetCurrentUserFromStore())
     const [Filters, setFilters] = useState([]);
-    const [ResetFilters, setResetFilters] = useState([]);
 
     //CHECK
     const CheckIncludesText = (What) => {
@@ -68,16 +64,6 @@ const AtivosList = (props) => {
 
     }, [FiltroDeTexto, Filters])
 
-
-    //RESET FILTERS
-    const handleResetFiltros = () => {
-        setFiltroDeTexto('')
-        setResetFilters(true)
-        setTimeout(() => {
-            setResetFilters(false)
-        }, 1000);
-    }
-
     //HANDLE CLICK ON USER ROW
     const handleUserClick = (AtivoClicked) => {
         setModalShow(true);
@@ -99,16 +85,9 @@ const AtivosList = (props) => {
             <AtivoModal FromModal={false} CurrentUser={CurrentUser} Ativo={{}} show={AddmodalShow} onHide={() => setAddModalShow(false)} Function="Add" />
 
 
-            <div className='AtivosListFormFilter'>
+            <div className='AtivosListFormFilter'>                
                 <input value={FiltroDeTexto} placeholder='Procurar Item...' onChange={e => setFiltroDeTexto(e.target.value)}></input>
-
-                <FilterSelect
-                    Module="FilterAtivos"
-                    OnChange={setFilters}
-                    Reset={ResetFilters}
-                />
-
-                <button onClick={handleResetFiltros}>Limpar Filtro</button>
+                <FilterSelect Module="FilterAtivos" OnChange={setFilters} />
             </div>
 
 

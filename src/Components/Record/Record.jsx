@@ -19,6 +19,33 @@ const Record = (props) => {
         setOpen(!open)
     }
 
+    const handleAtivoSelection = () => {
+        if (!open) return
+        setOpen(true)
+        setTimeout(() => {
+            setOpen(true)
+        }, 2000);
+        props.handleAtivoSelection(props.Record.AtivoId)
+    }
+
+    const handleUserSelection = () => {
+        if (!open) return
+        setOpen(true)
+        setTimeout(() => {
+            setOpen(true)
+        }, 2000);
+        props.handleUserSelection(props.Record.TakenFor.id)
+    }
+
+    const handleUserBySelection = () => {
+        if (!open) return
+        setOpen(true)
+        setTimeout(() => {
+            setOpen(true)
+        }, 2000);
+        props.handleUserSelection(props.Record.TakenBy.id)
+    }
+
     const Momento = moment.unix(props.Record.TakeDate / 1000); //dividir por 1000 porque o valor está em milissegundos, mas moment.unix() espera segundos
     const HoraMinuto = Momento.format('HH:mm'); //exemplo de formato "HH:mm"
 
@@ -36,8 +63,8 @@ const Record = (props) => {
     const Hours = Duration.hours();
     const Minutes = Duration.minutes();
 
-    //Formatar a duração no formato desejado
-    const tempoFormatado = `${Hours.toString().padStart(2, '0')}:${Minutes.toString().padStart(2, '0')}`;
+    //Formatar a duração no formato 
+    const tempoFormatado = `${Days > 0 ? Days : ''}${Days > 0 ? 'D' : ''}  ${Hours.toString().padStart(2, '0')}:${Minutes.toString().padStart(2, '0')}`;
 
     return (
 
@@ -48,7 +75,7 @@ const Record = (props) => {
             <div className='RecordTitle'>
                 <Show Show={props.PerspectiveOf === 'Ativo'}>
                     <Tooltip title="Item retirado" position="bottom" >
-                        <span className='AtivoRecord-UpRow-Name' onClick={e => props.handleAtivoSelection(props.Record.AtivoId)}>
+                        <span className='AtivoRecord-UpRow-Name' onClick={handleAtivoSelection}>
                             <UilWrench />
                             <span>{GetAtivoNameWithIdFromStore(props.Record.AtivoId)}</span>
                         </span>
@@ -56,129 +83,140 @@ const Record = (props) => {
                 </Show>
                 <Show Show={props.PerspectiveOf === 'User'}>
                     <Tooltip title="Para quem a retirada foi registrada" position="bottom" >
-                        <span className='AtivoRecord-UpRow-Name' onClick={e => props.handleUserSelection(props.Record.TakenFor.id)}>
+                        <span className='AtivoRecord-UpRow-Name' onClick={handleUserSelection}>
                             <UilUserCircle />
                             <span>{GetuserNameWithIdFromStore(props.Record.TakenFor.id)}</span>
                         </span>
                     </Tooltip>
                 </Show>
-                <div>
-                    <span className='AtivoRecord-UpRow-Status'>
-                        {!props.Record.ReturnDate ? 'Em uso' : 'Devolvido'}
-                    </span>
-                </div>
+                <Show Show={!open}>
+                    <div>
+                        <span className={`AtivoRecord-UpRow-Status ${!props.Record.ReturnDate ? 'RecordInUseStatus' : 'RecordNotInUseStatus'}`}>
+                            {!props.Record.ReturnDate ? 'Em uso' : 'Devolvido'}
+                        </span>
+                    </div>
+                </Show>
+
             </div>
 
             <Collapse in={open}>
-                <div>
-                    
-                    {/******** RETIRADA SECTION **********/}
-                    <div className='Record-RetiradaSection'>
+                <div className='RecordsItens'>
 
-                        <span className='SectionTitle'>
-                            Informações da Retirada
+                    <div className='RecordsItensHeader'>
+                        <span className={`AtivoRecord-UpRow-Status ${!props.Record.ReturnDate ? 'RecordInUseStatus' : 'RecordNotInUseStatus'}`}>
+                            {!props.Record.ReturnDate ? 'Status: Em uso' : 'Status: Devolvido'}
+                        </span>
+                        <span className='AtivoRecord-UpRow-Status'>
+                            Tempo em Uso: <span>{tempoFormatado}</span>
                         </span>
 
-                        {/******** PARA QUEM/ ATIVO RETIRADO **********/}
-                        <div className='AtivoRecord-UpRow'>
-                            <Show Show={props.PerspectiveOf === 'Ativo'}>
-                                <Tooltip title="Para quem a retirada foi registrada" position="bottom" >
-                                    <span className='AtivoRecord-UpRow-UserName' onClick={e => props.handleUserSelection(props.Record.TakenFor.id)}>
-                                        <UilUserCircle />
-                                        <span>{GetuserNameWithIdFromStore(props.Record.TakenFor.id)}</span>
-                                    </span>
-                                </Tooltip>
-                            </Show>
-                            <Show Show={props.PerspectiveOf === 'User'}>
-                                <Tooltip title="Ativo Retirado" position="bottom" >
-                                    <span className='AtivoRecord-UpRow-UserName' onClick={e => props.handleAtivoSelection(props.Record.AtivoId)}>
-                                        <UilWrench />
-                                        <span>{GetAtivoNameWithIdFromStore(props.Record.AtivoId)}</span>
-                                    </span>
-                                </Tooltip>
-                            </Show>
+                    </div>
+
+                    {/******** RETIRADA MESSAGE **********/}
+                    <div className='RecordMessage'>
+                        <div className='RecordMessageText'>
+                            Registro de Retirada de
+                            <span onClick={handleAtivoSelection}> {GetAtivoNameWithIdFromStore(props.Record.AtivoId)} </span>
+                            para
+                            <span onClick={handleUserSelection}> {GetuserNameWithIdFromStore(props.Record.TakenFor.id)}. </span>
+
+                            {props.Record.TakenBy.id !== props.Record.TakenFor.id && 'Registro feito por'}
+
+                            {props.Record.TakenBy.id !== props.Record.TakenFor.id &&
+                                <span onClick={handleUserBySelection}> {GetuserNameWithIdFromStore(props.Record.TakenBy.id)}</span>
+                            }
+
                         </div>
-
-                        {/******** USUÁRIO QUE REGISTROU A RETIRADA **********/}
-                        <Show Show={props.Record.TakenBy.id !== props.Record.TakenFor.id}>
-                            <div className='AtivoRecord-MiddleRow'>
-                                <Tooltip title="Usuário que Registoru a retirada" position="bottom" >
-                                    <span className='AtivoRecord-MiddleRow-Name' onClick={e => props.handleUserSelection(props.Record.TakenBy.id)}>
-                                        <UilBookmark />
-                                        {GetuserNameWithIdFromStore(props.Record.TakenBy.id)}
-                                    </span>
-                                </Tooltip>
-                            </div>
-                        </Show>
-
-                        {/******** COMENTÁRIO DE RETIRADA **********/}
-                        <Show Show={props.Record.Obs}>
-                            <div className='AtivoRecord-DownRow'>
-                                <Tooltip title="Observação de Retirada" position="bottom" >
-                                    <span className='AtivoRecord-DownRow-Obs'>
-                                        <UilCommentAltMessage />
-                                        {props.Record.Obs}
-                                    </span>
-                                </Tooltip>
-                            </div>
-                        </Show>
-
-                        {/******** DATA RETIRADA HORA E TEMPO DE USO **********/}
-                        <div className='AtivoRecord-DownRow'>
+                        <div className='RecordMessageDate'>
                             <Tooltip title="Data de Retirada" position="bottom" >
-                                <span className='AtivoRecord-DownRow-Date'>
+                                <span className='RecordMessageDate-Item'>
                                     <UilCalendarAlt />
                                     {moment(props.Record.TakeDate).format("DD/MM/YY")}
                                 </span>
                             </Tooltip>
                             <Tooltip title="Hora da Retirada" position="bottom" >
-                                <span className='AtivoRecord-DownRow-Time'>
+                                <span className='RecordMessageDate-Item'>
                                     <UilClock />
                                     {HoraMinuto}
                                 </span>
                             </Tooltip>
-                            <Tooltip title="Tempo de Uso (HH:mm)" position="bottom" >
-                                <span className='AtivoRecord-DownRow-Time'>
-                                    <UilPlay />
-                                    {tempoFormatado}
-                                </span>
-                            </Tooltip>
                         </div>
-
                     </div>
 
-                    {/******** DEVOLUÇÂO SECTION **********/}
-                    <Show Show={props.Record.ReturnDate}>
-                        <div className='Record-ReturnSection'>
-
-                            <span className='SectionTitle'>
-                                Informações da Devolução
-                            </span>
-
-                            {/******** COMENTÁRIO DE DEVOLUÇÃO **********/}
-                            <Show Show={props.Record.ReturnObs}>
-                                <div className='AtivoRecord-DownRow'>
-                                    <Tooltip title="Observação de devolução" position="bottom" >
-                                        <span className='AtivoRecord-DownRow-Obs'>
-                                            <UilCommentAltMessage />
-                                            {props.Record.ReturnObs}
-                                        </span>
-                                    </Tooltip>
-                                </div>
-                            </Show>
 
 
-                            {/******** DEVOLVIDO EM **********/}
-                            <Show Show={props.Record.ReturnDate}>
-                                <div className='AtivoRecord-DownRow'>
-                                    <span className='AtivoRecord-UpRow-Status'>
-                                        {"Devolvido em " + moment(props.Record.ReturnDate).format("DD/MM/YY") + " " + HoraMinutoReturn}
+                    {/******** RETIRADA OBS **********/}
+                    <Show Show={props.Record.Obs}>
+                        <div className='RecordMessage'>
+                            <div className='RecordMessageText'>
+                                Comentário: {props.Record.Obs}
+                            </div>
+                            <div className='RecordMessageDate'>
+                                <Tooltip title="Data de Retirada" position="bottom" >
+                                    <span className='RecordMessageDate-Item'>
+                                        <UilCalendarAlt />
+                                        {moment(props.Record.TakeDate).format("DD/MM/YY")}
                                     </span>
-                                </div>
-                            </Show>
-
+                                </Tooltip>
+                                <Tooltip title="Hora da Retirada" position="bottom" >
+                                    <span className='RecordMessageDate-Item'>
+                                        <UilClock />
+                                        {HoraMinuto}
+                                    </span>
+                                </Tooltip>
+                            </div>
                         </div>
                     </Show>
+
+
+
+                    {/******** REGISTRO DE DEVOLUCAO **********/}
+                    <Show Show={props.Record.ReturnDate}>
+                        <div className='RecordMessage'>
+                            <div className='RecordMessageText'>
+                                Registro de Devolução do  <span onClick={handleAtivoSelection}> {GetAtivoNameWithIdFromStore(props.Record.AtivoId)} </span>
+                            </div>
+                            <div className='RecordMessageDate'>
+                                <Tooltip title="Data de Devolução" position="bottom" >
+                                    <span className='RecordMessageDate-Item'>
+                                        <UilCalendarAlt />
+                                        {moment(props.Record.ReturnDate).format("DD/MM/YY")}
+                                    </span>
+                                </Tooltip>
+                                <Tooltip title="Hora da Devolução" position="bottom" >
+                                    <span className='RecordMessageDate-Item'>
+                                        <UilClock />
+                                        {HoraMinutoReturn}
+                                    </span>
+                                </Tooltip>
+                            </div>
+                        </div>
+                    </Show>
+
+
+                    {/******** DEVOLUCAO OBS **********/}
+                    <Show Show={props.Record.ReturnObs}>
+                        <div className='RecordMessage'>
+                            <div className='RecordMessageText'>
+                                Comentário: {props.Record.ReturnObs}
+                            </div>
+                            <div className='RecordMessageDate'>
+                                <Tooltip title="Data de Devolução" position="bottom" >
+                                    <span className='RecordMessageDate-Item'>
+                                        <UilCalendarAlt />
+                                        {moment(props.Record.ReturnDate).format("DD/MM/YY")}
+                                    </span>
+                                </Tooltip>
+                                <Tooltip title="Hora da Devolução" position="bottom" >
+                                    <span className='RecordMessageDate-Item'>
+                                        <UilClock />
+                                        {HoraMinutoReturn}
+                                    </span>
+                                </Tooltip>
+                            </div>
+                        </div>
+                    </Show>
+
 
                 </div>
             </Collapse>

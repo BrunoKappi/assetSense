@@ -14,13 +14,16 @@ export const OrderByStyles = {
     groupHeading: (provided) => ({
         ...provided,
         padding: '4px 8px',
-        whiteSpace: 'nowrap', 
+        whiteSpace: 'nowrap',
         marginRight: '2rem'
     }),
     menu: (provided) => ({
         ...provided,
         width: 'auto', // define a largura do menu como auto para se ajustar ao tamanho das opções
-        position: 'absolute' // define a posição do menu como absoluta para ser posicionado abaixo do control
+        position: 'absolute', // define a posição do menu como absoluta para ser posicionado abaixo do control
+        left: '-4rem',
+        backgroundColor: 'var(--OrderBy-Menu-Background)',
+        border: '1px solid var(--OrderBy-Menu-Border)'
     }),
     option: (provided, state) => ({
         ...provided,
