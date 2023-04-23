@@ -101,7 +101,7 @@ const EditableCustomList = (props) => {
       setListaDeItens(Lista)
       setLoaded(true)
     }).catch(HandleError)
-  }, [props.Module, props.TiposAtivos, props.Setores, props.TiposUsuarios, props.LocaisArmazenamento, props.StatusAtivos])
+  }, [props.Module, props.TiposAtivos, props.Setores, props.TiposUsuarios, props.StorageLocations, props.StatusAtivos])
 
   //INIT EDITING AND CHECK PERMITS
   const InitEditing = () => {
@@ -384,7 +384,7 @@ const ConnectedEditableCustomList = connect((state) => {
     TiposUsuarios: state.TiposUsuarios,
     Ativos: state.Ativos,
     Setores: state.Setores,
-    LocaisArmazenamento: state.LocaisArmazenamento,
+    StorageLocations: state.StorageLocations,
     Usuarios: state.Usuarios,
     StatusAtivos: state.StatusAtivos,
     Tema: state.Tema

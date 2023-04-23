@@ -25,7 +25,7 @@ import { v4 } from 'uuid';
 import { FIREBASE_LogouyAuth, mudarSenha, unsubscribe } from '../../../Config/firebase/auth';
 import Loading from '../../LoadingForTabs/Loading';
 import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
-import { AddUser, AddUserFirebase, DeleteUser, EditUser, GetCurrentUserFromStore, GetCurrentUserSetorNameWithIdFromStore, GetCurrentUserTypeFromStore, GetCurrentUserTypeNameWithIdFromStore, GetCurrentUserTypeWithIdFromStore, GetSetoresFromStore, GetUserTypeWithIdFromStore, GetUserTypesFromStore, GetUserWithIdFromStore, LoginUtil, RegisterUser, ReturnAllAtivosOfUserWithId } from '../../../Functions/Middleware'
+import { AddUser, AddUserFirebase, DeleteUser, EditUser, GetCurrentUserFromStore, GetCurrentUserSetorNameWithIdFromStore, GetCurrentUserTypeFromStore, GetCurrentUserTypeNameWithIdFromStore, GetCurrentUserTypeWithIdFromStore, GetFromStore,  GetUserTypeWithIdFromStore, GetUserWithIdFromStore, LoginUtil, RegisterUser, ReturnAllAtivosOfUserWithId } from '../../../Functions/Middleware'
 //LAYOUT COMPONENTS
 import TwoColumns from '../../LayoutComponents/TwoColumns/TwoColumns';
 import FormGroupLabel from '../../LayoutComponents/FormGroupLabel/FormGroupLabel';
@@ -48,10 +48,10 @@ const UsuarioModal = (props) => {
 
     // DEPENDENCIAS
     const [User, setUser] = useState({ ...DefaultUser })
-    const [Setores] = useState(GetSetoresFromStore())
+    const [Setores] = useState(GetFromStore('Setores'))
     const [UserType, setUserType] = useState({ ...DefaultUserType })
     const [UserSetor, setUserSetor] = useState({ ...DefaultSetor })
-    const [TiposUsuarios] = useState(GetUserTypesFromStore())
+    const [TiposUsuarios] = useState(GetFromStore('TiposUsuarios'))
     const [ProfileImageUrl, setProfileImageUrl] = useState('')
     const [UserTypeCustomFields, setUserTypeCustomFields] = useState([])
     const [SenhaAtual, setSenhaAtual] = useState('')
@@ -141,7 +141,7 @@ const UsuarioModal = (props) => {
     //QUANDO O USERTYPE MUDA, PEGA O NOVO TYPE
     useEffect(() => {
         setUserType(GetCurrentUserTypeWithIdFromStore(User?.Type?.id))
-        setUserSetor({ ...GetSetoresFromStore().find(U => U.id === User?.Sector?.id) })
+        setUserSetor({ ...GetFromStore('Setores').find(U => U.id === User?.Sector?.id) })
     }, [User?.Type, props.CurrentUser])
 
 
@@ -360,7 +360,7 @@ const UsuarioModal = (props) => {
 
 
     const IsActive = (tab) => tab === Tab
- 
+
     return (
 
         <>

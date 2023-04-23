@@ -11,8 +11,8 @@ const FilterSelect = (props) => {
     //ATIVOS OPTIONS
     const AtivosFilterOptions = [
         {
-            label: <CustomLabel List='LocaisArmazenamento' text='Locais de Armazenamento' />,
-            options: props.LocaisArmazenamento.map((tipo) => ({ ...tipo, list: 'LocaisArmazenamento' })),
+            label: <CustomLabel List='StorageLocations' text='Locais de Armazenamento' />,
+            options: props.StorageLocations.map((tipo) => ({ ...tipo, list: 'StorageLocations' })),
         },
         {
             label: <CustomLabel List='StatusAtivos' text='Status de Ativos' />,
@@ -140,7 +140,7 @@ const ConnectedFilterSelect = connect((state) => {
         Setores: state.Setores,
         TiposUsuarios: state.TiposUsuarios,
         TiposAtivos: state.TiposAtivos,
-        LocaisArmazenamento: state.LocaisArmazenamento,
+        StorageLocations: state.StorageLocations,
         StatusAtivos: state.StatusAtivos,
         TiposDeUso: state.TiposDeUso,
     }

@@ -97,29 +97,28 @@ export const FIREBASE_DeleteTipoAtivo = (Todelete) => {
 
 
 
-
 ///////////////// LOCAIS ARMAZENAMENTO /////////////////////
-export var LocaisArmazenamento = collection(db, "LocaisArmazenamento")
+export var StorageLocations = collection(db, "LocaisArmazenamento")
 
 
 export const FIREBASE_AddLocalArmazenamento = async (ItemToAdd) => {
-  return addDoc(LocaisArmazenamento, ItemToAdd);
+  return addDoc(StorageLocations, ItemToAdd);
 };
 
-export const FIREBASE_GetLocaisArmazenamento = async () => {
-  const data = await getDocs(LocaisArmazenamento);
+export const FIREBASE_GetStorageLocations = async () => {
+  const data = await getDocs(StorageLocations);
   const dados = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
   return dados
 }
 
 export const FIREBASE_UpdateLocalArmazenamento = (EditedItem) => {
-  const Doc = doc(db, "LocaisArmazenamento", EditedItem.docID);
+  const Doc = doc(db, "StorageLocations", EditedItem.docID);
   const NewItem = { ...EditedItem };
   return updateDoc(Doc, NewItem);
 };
 
 export const FIREBASE_DeleteLocalArmazenamento = (Todelete) => {
-  const Doc = doc(db, "LocaisArmazenamento", Todelete.docID);
+  const Doc = doc(db, "StorageLocations", Todelete.docID);
   const DeleteDoc = { ...Todelete };
   return deleteDoc(Doc, DeleteDoc);
 };

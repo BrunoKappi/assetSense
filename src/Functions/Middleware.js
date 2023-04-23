@@ -3,7 +3,7 @@ import { FIREBASE_LoginAuth, FIREBASE_LogouyAuth, FIREBASE_RegisterUserAuth, FIR
 import { AddTipoAtivo, SetTiposAtivos } from "../Config/store/actions/TiposAtivosActions"
 import { SetSetores } from "../Config/store/actions/SetoresActions"
 import { SetTiposUsuarios } from "../Config/store/actions/TiposUsuariosActions"
-import { SetLocaisArmazenamento } from "../Config/store/actions/LocaisArmazenamentoActions"
+import { SetStorageLocations } from "../Config/store/actions/StorageLocationsActions"
 import { SetStatusAtivos } from "../Config/store/actions/AtivosStatusActions"
 import { SetTiposDeUso } from "../Config/store/actions/TiposDeUsoActions"
 import { AddAtivoAction, SetAtivos } from "../Config/store/actions/AtivosActions"
@@ -11,7 +11,7 @@ import { AddUsuarioAction, SetUsuarios } from "../Config/store/actions/UsuariosA
 import { PermitIndexs } from "../GlobalVars"
 import { EditRecordAction, SetRecords } from "../Config/store/actions/RecordsActions"
 import moment from "moment"
-import { FIREBASE_AddAtivo, FIREBASE_AddLocalArmazenamento, FIREBASE_AddRecord, FIREBASE_AddSetor, FIREBASE_AddStatusAtivo, FIREBASE_AddTipoAtivo, FIREBASE_AddTipoUso, FIREBASE_AddTipoUsuario, FIREBASE_AddUsuario, FIREBASE_DeleteLocalArmazenamento, FIREBASE_DeleteSetor, FIREBASE_DeleteStatusAtivo, FIREBASE_DeleteTipoAtivo, FIREBASE_DeleteTipoDeUsuario, FIREBASE_DeleteTipoUso, FIREBASE_GetAtivos, FIREBASE_GetLocaisArmazenamento, FIREBASE_GetRecords, FIREBASE_GetSetores, FIREBASE_GetStatusAtivos, FIREBASE_GetTiposAtivo, FIREBASE_GetTiposUso, FIREBASE_GetTiposUsuarios, FIREBASE_GetUsuarios, FIREBASE_UpdateAtivo, FIREBASE_UpdateLocalArmazenamento, FIREBASE_UpdateRecord, FIREBASE_UpdateSetor, FIREBASE_UpdateStatusAtivo, FIREBASE_UpdateTipoAtivo, FIREBASE_UpdateTipoDeUsuario, FIREBASE_UpdateTipoUso, FIREBASE_UpdateUsuario } from "../Config/firebase/metodos"
+import { FIREBASE_AddAtivo, FIREBASE_AddLocalArmazenamento, FIREBASE_AddRecord, FIREBASE_AddSetor, FIREBASE_AddStatusAtivo, FIREBASE_AddTipoAtivo, FIREBASE_AddTipoUso, FIREBASE_AddTipoUsuario, FIREBASE_AddUsuario, FIREBASE_DeleteLocalArmazenamento, FIREBASE_DeleteSetor, FIREBASE_DeleteStatusAtivo, FIREBASE_DeleteTipoAtivo, FIREBASE_DeleteTipoDeUsuario, FIREBASE_DeleteTipoUso, FIREBASE_GetAtivos, FIREBASE_GetStorageLocations, FIREBASE_GetRecords, FIREBASE_GetSetores, FIREBASE_GetStatusAtivos, FIREBASE_GetTiposAtivo, FIREBASE_GetTiposUso, FIREBASE_GetTiposUsuarios, FIREBASE_GetUsuarios, FIREBASE_UpdateAtivo, FIREBASE_UpdateLocalArmazenamento, FIREBASE_UpdateRecord, FIREBASE_UpdateSetor, FIREBASE_UpdateStatusAtivo, FIREBASE_UpdateTipoAtivo, FIREBASE_UpdateTipoDeUsuario, FIREBASE_UpdateTipoUso, FIREBASE_UpdateUsuario } from "../Config/firebase/metodos"
 import { DefaultUserRole } from "../Data/Items"
 import { SetTemaAction } from "../Config/store/actions/TemaActions"
 import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage"
@@ -103,7 +103,7 @@ export const fetchFunctions = {
     TiposAtivos: GetTipos,
     Setores: FIREBASE_GetSetores,
     TiposUsuarios: GetUserTipos,
-    Locais: GetLocaisArmazenamento,
+    Locais: GetStorageLocations,
     StatusAtivos: GetStatusAtivos,
     TiposUso: GetTiposDeUso
 };
@@ -129,7 +129,7 @@ export function GetTiposAtivosSelect() {
 
     return new Promise((resolve, reject) => {
 
-        const Types = [...GetTiposAtivosFromStore()].map((item) => {
+        const Types = [...GetFromStore('TiposAtivos')].map((item) => {
             return {
                 value: item.id,
                 label: item.Value,
@@ -159,7 +159,6 @@ export const EditTipoAtivo = (EditedItem) => {
 //////////// SETORES //////////////////
 
 export async function GetSetores() {
-
     return FIREBASE_GetSetores()
 }
 
@@ -175,7 +174,7 @@ export async function SaveSetores(Setores) {
 export async function GetSetoresSelect() {
     return new Promise((resolve, reject) => {
 
-        const Types = [...GetSetoresFromStore()].map((item) => {
+        const Types = [...GetFromStore('Setores')].map((item) => {
             return {
                 value: item.id,
                 label: item.Value,
@@ -209,7 +208,7 @@ export async function GetUserTiposFromFirebase() {
     return FIREBASE_GetTiposUsuarios()
 }
 export async function GetUserTipos() {
-    return GetUserTypesFromStore()
+    return GetFromStore('TiposUsuarios')
 }
 
 
@@ -224,7 +223,7 @@ export async function SaveUserTipos(Tipos) {
 export async function GetUsersTypesSelect() {
     return new Promise((resolve, reject) => {
 
-        const Types = [...GetUserTypesFromStore()].map((item) => {
+        const Types = [...GetFromStore('TiposUsuarios')].map((item) => {
             return {
                 value: item.id,
                 label: item.Value,
@@ -254,15 +253,15 @@ export const EditUserType = (EditedItem) => {
 //////////// LOCAIS //////////////////
 
 
-export async function GetLocaisArmazenamento() {
-    return FIREBASE_GetLocaisArmazenamento()
+export async function GetStorageLocations() {
+    return FIREBASE_GetStorageLocations()
 }
 
 
-export async function SaveLocaisArmazenamento(Locais) {
+export async function SaveStorageLocations(Locais) {
     return new Promise((resolve, reject) => {
-        localStorage.setItem('AssetSenseLocaisArmazenamento', JSON.stringify(Locais))
-        store.dispatch(SetLocaisArmazenamento(Locais))
+        localStorage.setItem('AssetSenseStorageLocations', JSON.stringify(Locais))
+        store.dispatch(SetStorageLocations(Locais))
         resolve('Ok');
     });
 }
@@ -271,7 +270,7 @@ export async function GetLocaisSelect() {
 
     return new Promise((resolve, reject) => {
 
-        const Types = [...GetLocaisArmazenamentoFromStore()].map((item) => {
+        const Types = [...GetFromStore('StorageLocations')].map((item) => {
             return {
                 value: item.id,
                 label: item.Value,
@@ -597,48 +596,56 @@ export async function ToggleTema() {
 
 ///// GETTERS DA STORE /////
 
-export const GetCurrentUserEmailFromStore = () => {
-    return store.getState().LoggedUser.Email
+//GET LOGGED USER INFO BY KEY
+export const GetLoggedUserInfo = (Key) => {
+    return store.getState().LoggedUser[Key]
 }
-export const GetCurrentUserCheckedLoginFromStore = () => {
-    return store.getState().LoggedUser.CheckedLogin
+
+//GET FROM STORE WITH KEY
+export const GetFromStore = (Key) => {
+    if (Key === 'Ativos' || Key === 'Usuarios')
+        return store.getState()[Key].filter(Item => Item.Deleted === false)
+    else if (Key === 'AtivosWithDeleted' || Key === 'UsuariosWithDeleted')
+        return store.getState()[Key]
+    else if (Key === 'CurrentUser')
+        return store.getState()[Key]
+    else
+        return store.getState()[Key]
 }
-export const GetCurrentUserPhotoUrlFromStore = () => {
-    return store.getState().LoggedUser.PhotoUrl
-}
-export const GetCurrentCurrentSidebarTabFromStore = () => {
-    return store.getState().LoggedUser.CurrentSidebarTab
-}
-export const GetUserTypesFromStore = () => {
+
+
+
+export const GetUserTypesFromStore = (prop) => {
     return [...store.getState().TiposUsuarios]
 }
-export const GetLocaisArmazenamentoFromStore = () => {
-    return [...store.getState().LocaisArmazenamento]
+export const GetStorageLocationsFromStore = (prop) => {
+    return [...store.getState().StorageLocations]
 }
-export const GetTiposAtivosFromStore = () => {
+export const GetTiposAtivosFromStore = (prop) => {
     return [...store.getState().TiposAtivos]
 }
-export const GetTiposDeUsoFromStore = () => {
+export const GetTiposDeUsoFromStore = (prop) => {
     return [...store.getState().TiposDeUso]
 }
-export const GetAtivosFromStore = () => {
+export const GetAtivosFromStore = (prop) => {
     return [...store.getState().Ativos].filter(User => User.Deleted === false)
 }
-export const GetAtivosFromStoreWithDeleted = () => {
+export const GetAtivosFromStoreWithDeleted = (prop) => {
     return [...store.getState().Ativos]
 }
-export const GetStatusAtivosFromStore = () => {
+export const GetStatusAtivosFromStore = (prop) => {
     return [...store.getState().StatusAtivos]
 }
-export const GetSetoresFromStore = () => {
+export const GetSetoresFromStore = (prop) => {
     return [...store.getState().Setores] ? [...store.getState().Setores] : []
 }
 
 
-export const GetUsersFromStore = () => {
+
+export const GetUsersFromStore = (prop) => {
     return [...store.getState().Usuarios].filter(User => User.Deleted === false)
 }
-export const GetUsersFromStoreWithDeleted = () => {
+export const GetUsersFromStoreWithDeleted = (prop) => {
     return [...store.getState().Usuarios]
 }
 export const GetUsersFromStoreWithNoCurrentUser = (AtivoId) => {
@@ -646,24 +653,23 @@ export const GetUsersFromStoreWithNoCurrentUser = (AtivoId) => {
     const UsersThatTook = GetUsersThatTookAtivo(AtivoId)
     const Users = [...store.getState().Usuarios].filter(User => User.id !== Current.id)
     const UsersNotTook = Users.filter(user => !UsersThatTook.some(took => took.id === user.id));
-
     return UsersNotTook
 }
-export const GetRecordsFromStore = () => {
+export const GetRecordsFromStore = (prop) => {
     return [...store.getState().RecordsAtivos]
 }
 
-export const GetCurrentUserFromStore = () => {
-    const Email = GetCurrentUserEmailFromStore()
+export const GetCurrentUserFromStore = (prop) => {
+    const Email = GetLoggedUserInfo('Email')
     const Users = GetUsersFromStore()
     const CurrentUser = Users.find(U => U.Email === Email)
     return CurrentUser
 }
 
 export const GetCurrentUserTypeFromStore = () => {
-    const Email = GetCurrentUserEmailFromStore()
+    const Email = GetLoggedUserInfo('Email')
     const Users = GetUsersFromStore()
-    const Types = GetUserTypesFromStore()
+    const Types = GetFromStore('TiposUsuarios')
     const CurrentUser = Users.find(U => U.Email === Email)
     const CurrentUserType = Types.find(U => U.id === CurrentUser?.Type?.id)
     return CurrentUserType ? CurrentUserType : DefaultUserRole
@@ -673,35 +679,35 @@ export const GetCurrentUserTypeFromStore = () => {
 /// OBJECT GET WITH ID
 
 export const GetCurrentUserTypeWithIdFromStore = (Id) => {
-    const Types = GetUserTypesFromStore()
+    const Types = GetFromStore('TiposUsuarios')
     const Type = Types.find(U => U.id === Id)
     return Type
 }
 
 export const GetUserTypeWithIdFromStore = (Id) => {
-    const Types = GetUserTypesFromStore()
+    const Types = GetFromStore('TiposUsuarios')
     const Type = Types.find(U => U.id === Id)
     return Type
 }
 export const GetAtivoTypeWithIdFromStore = (Id) => {
-    const Types = GetTiposAtivosFromStore()
+    const Types = GetFromStore('TiposAtivos')
     const Type = Types.find(U => U.id === Id)
     return Type
 }
 
 export const GetLocalArmazenamentoWithIdFromStore = (Id) => {
-    const Locais = GetLocaisArmazenamentoFromStore()
+    const Locais = GetFromStore('StorageLocations')
     const Local = Locais.find(U => U.id === Id)
     return Local
 }
 export const GetAtivoStatusWithIdFromStore = (Id) => {
 
-    const Statuses = GetStatusAtivosFromStore()
+    const Statuses = GetFromStore('StatusAtivos')
     const Status = Statuses.find(U => U.id === Id)
     return Status
 }
 export const GetTipoDeUsoWithIdFromStore = (Id) => {
-    const TiposDeUso = GetTiposDeUsoFromStore()
+    const TiposDeUso = GetFromStore('TiposDeUso')
     const TipoDeUso = TiposDeUso.find(U => U.id === Id)
     return TipoDeUso
 }
@@ -718,7 +724,7 @@ export const GetUserWithEmailFromStore = (Email) => {
 }
 
 export const GetAtivoWithIdFromStore = (Id) => {
-    const Ativos = GetAtivosFromStoreWithDeleted()
+    const Ativos = GetFromStore('AtivosWithDeleted')
     const Ativo = Ativos.find(U => U.id === Id)
     return Ativo ? Ativo : {}
 }
@@ -728,36 +734,36 @@ export const GetAtivoWithIdFromStore = (Id) => {
 // GET NAME WITH ID
 
 export const GetLocalArmazenamentoNameWithIdFromStore = (Id) => {
-    const Locais = GetLocaisArmazenamentoFromStore()
+    const Locais = GetFromStore('StorageLocations')
     const LocalName = Locais.find(U => U.id === Id)?.Value
     return LocalName
 }
 export const GetTipoAtivoNameWithIdFromStore = (Id) => {
-    const Tipos = GetTiposAtivosFromStore()
+    const Tipos = GetFromStore('TiposAtivos')
     const TiposName = Tipos.find(U => U.id === Id)?.Value
     return TiposName ? TiposName : ''
 }
 export const GetTipoDeUsoNameWithIdFromStore = (Id) => {
-    const Tipos = GetTiposDeUsoFromStore()
+    const Tipos = GetFromStore('TiposDeUso')
     const TiposName = Tipos.find(U => U.id === Id)?.Value
     return TiposName ? TiposName : ''
 }
 
 export const GetAtivoStatusNameWithIdFromStore = (Id) => {
-    const Status = GetStatusAtivosFromStore()
+    const Status = GetFromStore('StatusAtivos')
     const StatusName = Status.find(U => U.id === Id)?.Value
     return StatusName ? StatusName : ''
 }
 
 export const GetCurrentUserSetorNameWithIdFromStore = (Id) => {
     if (!Id) return 'Selecione um Setor'
-    const Setores = GetSetoresFromStore()
+    const Setores = GetFromStore('Setores')
     const Name = Setores.find(Setor => Setor.id === Id).Value
     return Name ? Name : ''
 }
 export const GetCurrentUserTypeNameWithIdFromStore = (Id) => {
     if (!Id) return 'Selecione um Tipo de Usuário'
-    const Types = GetUserTypesFromStore()
+    const Types = GetFromStore('TiposUsuarios')
     const Name = Types.find(Type => Type.id === Id).Value
     return Name
 }
@@ -768,7 +774,7 @@ export const GetuserNameWithIdFromStore = (Id) => {
     return Name
 }
 export const GetAtivoNameWithIdFromStore = (Id) => {
-    const Ativos = GetAtivosFromStoreWithDeleted()
+    const Ativos = GetFromStore('AtivosWithDeleted')
     const Ativo = Ativos.find(ativo => ativo.id === Id)
     const Name = Ativo.Item
     return Name
@@ -777,7 +783,7 @@ export const GetAtivoNameWithIdFromStore = (Id) => {
 //VERIFICA SE  ALGUM ATIVO DO TIPO FOI RETIRADO
 export const CheckIfAnyAtivoOfStatusTaken = (StatusId) => {
     const Records = GetRecordsFromStore()
-    const Ativos = GetAtivosFromStore()
+    const Ativos = GetFromStore('Ativos')
     const AtivosOfStatus = Ativos.filter(Ativo => Ativo.Status.id === StatusId)
     const AtivosTaken = AtivosOfStatus.filter(Ativo => Records.some(Record => Record.AtivoId === Ativo.id && Record.Duration === 0));
     return AtivosTaken?.length > 0 ? true : false
@@ -786,7 +792,7 @@ export const CheckIfAnyAtivoOfStatusTaken = (StatusId) => {
 
 //VERIFICA SE  ALGUM ATIVO DO TIPO FOI RETIRADO
 export const CheckIfAnyAtivoOfStatusTaken2 = (StatusId) => {
-    const Ativos = GetAtivosFromStore()
+    const Ativos = GetFromStore('Ativos')
     const AtivosOfStatus = Ativos.filter(Ativo => Ativo.Status.id === StatusId)
     const AtivosTaken = AtivosOfStatus.filter(Ativo => Ativo.QtdInUse > 0);
     return AtivosTaken?.length > 0 ? true : false
@@ -913,7 +919,7 @@ export const saveFunctions = {
     "TiposAtivos": SaveTipos,
     "Setores": SaveSetores,
     "TiposUsuarios": SaveUserTipos,
-    "Locais": SaveLocaisArmazenamento,
+    "Locais": SaveStorageLocations,
     "StatusAtivos": SaveStatusAtivos,
     "TiposUso": SaveTiposDeUso
 };

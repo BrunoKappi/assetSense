@@ -1,34 +1,21 @@
-import {
-    GetAtivosFromStore,
-    GetLocaisArmazenamentoFromStore,
-    GetRecordsFromStore,
-    GetSetoresFromStore,
-    GetStatusAtivosFromStore,
-    GetTiposAtivosFromStore,
-    GetTiposDeUsoFromStore,
-    GetUserTypesFromStore, 
-    GetUsersFromStore
-} from "../../Functions/Middleware"
-
-
-
+import { GetFromStore } from "../../Functions/Middleware"
 
 const IdsGetFunctions = {
-    'StatusAtivos': GetStatusAtivosFromStore,
-    'TiposUso': GetTiposDeUsoFromStore,
-    'Locais': GetLocaisArmazenamentoFromStore,
-    'TiposAtivos': GetTiposAtivosFromStore,
-    'Setores': GetSetoresFromStore,
-    'TiposUsuarios': GetUserTypesFromStore,
+    'StatusAtivos': () => GetFromStore('StatusAtivos'),
+    'TiposUso': () => GetFromStore('TiposDeUso'),
+    'Locais': () => GetFromStore('StorageLocations'),
+    'TiposAtivos': () => GetFromStore('TiposAtivos'), 
+    'Setores': () => GetFromStore('Setores'),
+    'TiposUsuarios': () => GetFromStore('TiposUsuarios'),
 }
 
 const ItensGetFunctions = {
-    'StatusAtivos': GetAtivosFromStore,
-    'TiposUso': GetAtivosFromStore,
-    'Locais': GetAtivosFromStore,
-    'TiposAtivos': GetAtivosFromStore,
-    'Setores': GetUsersFromStore,
-    'TiposUsuarios': GetUsersFromStore,
+    'StatusAtivos': () => GetFromStore('Ativos'),
+    'TiposUso': () => GetFromStore('Ativos'),
+    'Locais': () => GetFromStore('Ativos'),
+    'TiposAtivos': () => GetFromStore('Ativos'),
+    'Setores': () => GetFromStore('Usuarios'),
+    'TiposUsuarios': () => GetFromStore('Usuarios'),
 }
 
 const KeysGetFunctions = {
@@ -78,7 +65,7 @@ export const GetRecordsPendentesUso_SeriesLabels = () => {
     const TiposDeUsoAtivosLabels = ['Em Uso', 'Devolvidos']
     const TiposDeUsoAtivosQtd = [0, 0]
 
-    const Records = [...GetRecordsFromStore()]
+    const Records = [...GetFromStore('RecordsAtivos')]
 
 
     Records.map(Record => {
@@ -98,8 +85,8 @@ export const GetRecordsPendentesUso_SeriesLabels = () => {
 
 export const GetTop5ItensRetirados_SeriesLabels = () => {
 
-    const Records = GetRecordsFromStore()
-    const Ativos = GetAtivosFromStore()
+    const Records = GetFromStore('RecordsAtivos')
+    const Ativos = GetFromStore('Ativos')
 
     const AtivosIds = Records.map(Record => { return Record.AtivoId })
 
@@ -129,8 +116,8 @@ export const GetTop5ItensRetirados_SeriesLabels = () => {
 
 export const GetTop5UsuariosRetirados_SeriesLabels = () => {
 
-    const Records = GetRecordsFromStore()
-    const Users = GetUsersFromStore()
+    const Records = GetFromStore('RecordsAtivos')
+    const Users = GetFromStore('Usuarios')
 
     const UsersIds = Records.map(Record => { return Record.TakenFor.id })
 

@@ -12,8 +12,8 @@ import Loading from '../../LoadingForTabs/Loading';
 import { UilUserCircle, UilClipboardNotes, UilLabel, UilLabelAlt, UilCog, UilBox, UilSave, UilPostcard, UilUsersAlt, UilCommentAltChartLines, UilTag, UilTimes, UilBuilding, UilCircleLayer, UilPlay, UilWrench, UilCheck, UilBackward, UilTrash, UilArrow } from '@iconscout/react-unicons'
 //FUNCTIONS
 import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
-import { GetTipoDeUsoNameWithIdFromStore } from '../../../Functions/Middleware';
-import { AddAtivo, AddAtivoFirebase, DeleteAtivo, EditAtivo, GetAtivoStatusNameWithIdFromStore, GetAtivoStatusWithIdFromStore, GetAtivoTypeWithIdFromStore, GetAtivoWithIdFromStore, GetCurrentUserTypeFromStore, GetLocaisArmazenamentoFromStore, GetLocalArmazenamentoNameWithIdFromStore, GetLocalArmazenamentoWithIdFromStore, GetStatusAtivosFromStore, GetTakesOfAtivo, GetTipoAtivoNameWithIdFromStore, GetTipoDeUsoWithIdFromStore, GetTiposAtivosFromStore, GetTiposDeUsoFromStore, ReturnAllRecordOfAtivowithId } from '../../../Functions/Middleware'
+import { GetFromStore, GetTipoDeUsoNameWithIdFromStore } from '../../../Functions/Middleware';
+import { AddAtivo, AddAtivoFirebase, DeleteAtivo, EditAtivo, GetAtivoStatusNameWithIdFromStore, GetAtivoStatusWithIdFromStore, GetAtivoTypeWithIdFromStore, GetAtivoWithIdFromStore, GetCurrentUserTypeFromStore, GetLocalArmazenamentoNameWithIdFromStore, GetLocalArmazenamentoWithIdFromStore, GetTipoAtivoNameWithIdFromStore, ReturnAllRecordOfAtivowithId } from '../../../Functions/Middleware'
 //VARIABLES
 import { DefaultAtivo, DefaultAtivosType, DefaultLocal, } from '../../../Data/Items';
 //LIBRARIES
@@ -46,8 +46,8 @@ const AtivoModal = (props) => {
     const [AtivoTypeCustomFields, setAtivoTypeCustomFields] = useState([])
     const [AtivoLocalArmazenamento, setAtivoLocalArmazenamento] = useState({ ...DefaultLocal })
     const [Ativo, setAtivo] = useState({ ...DefaultAtivo })
-    const [LocaisArmazenamento] = useState(GetLocaisArmazenamentoFromStore())
-    const [TiposAtivos] = useState(GetTiposAtivosFromStore())
+    const [StorageLocations] = useState(GetFromStore('StorageLocations'))
+    const [TiposAtivos] = useState(GetFromStore('TiposAtivos'))
     const QuantidadeRetirada = props.Ativo?.QtdInUse
 
 
@@ -501,7 +501,7 @@ const AtivoModal = (props) => {
                                                             </FormGroupLabel>
                                                             <CustomSelect
                                                                 placeholder="Selecione o Status"
-                                                                options={GetStatusAtivosFromStore()}
+                                                                options={GetFromStore('StatusAtivos')}
                                                                 getOptionLabel={(options) => { return options["Value"]; }}
                                                                 getOptionValue={(options) => { return options["id"]; }}
                                                                 value={{
@@ -519,7 +519,7 @@ const AtivoModal = (props) => {
                                                             </FormGroupLabel>
                                                             <CustomSelect
                                                                 placeholder="Selecione o Tipo de Uso"
-                                                                options={GetTiposDeUsoFromStore()}
+                                                                options={GetFromStore('TiposDeUso')}
                                                                 getOptionLabel={(options) => { return options["Value"]; }}
                                                                 getOptionValue={(options) => { return options["id"]; }}
                                                                 value={{
@@ -571,7 +571,7 @@ const AtivoModal = (props) => {
                                                     <TwoColumns>
                                                         <EditList
                                                             Item={Ativo}
-                                                            List={LocaisArmazenamento}
+                                                            List={StorageLocations}
                                                             Icon={<UilBox />}
                                                             Title="Local de Armazenamento"
                                                             Key='StorageLocation'

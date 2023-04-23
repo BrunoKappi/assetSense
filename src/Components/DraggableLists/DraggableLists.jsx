@@ -38,7 +38,7 @@ const ListaDeitensMap = {
 
 const ListMap = {
     'AtivosInTypes': 'TiposAtivos',
-    'AtivosInLocais': 'LocaisArmazenamento',
+    'AtivosInLocais': 'StorageLocations',
     'UsersInTypes': 'TiposUsuarios',
     'UsersInSectores': 'Setores',
 }
@@ -98,7 +98,8 @@ const DraggableLists = (props) => {
         const TypeDestinationID = Resultado.destination.droppableId.split("/")[0];
         const ItemId = Resultado.draggableId
 
-        setLoading(TypeDestinationID)
+
+
 
         const Item = props[ListaDeitensMap[props.Module]].find(U => U.id === ItemId)
         const IndexOfItem = props[ListaDeitensMap[props.Module]].indexOf(Item)
@@ -107,6 +108,8 @@ const DraggableLists = (props) => {
 
         const EditFunction = EditFunctions[props.Module]
         const SaveFunction = SaveFunctions[props.Module]
+
+        setLoading(TypeDestinationID)
 
         EditFunction(Item).then(() => {
             const copiedItems = [...props[ListaDeitensMap[props.Module]]];
@@ -170,7 +173,7 @@ const ConnectedDraggableLists = connect((state) => {
         Usuarios: state.Usuarios,
         TiposUsuarios: state.TiposUsuarios,
         TiposAtivos: state.TiposAtivos,
-        LocaisArmazenamento: state.LocaisArmazenamento,
+        StorageLocations: state.StorageLocations,
         Setores: state.Setores,
         Tema: state.Tema
     }

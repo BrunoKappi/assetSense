@@ -9,16 +9,16 @@ import Tema from './reducers/Tema'
 import StatusAtivos from './reducers/StatusAtivos'
 import TiposDeUso from './reducers/TiposDeUso'
 import RecordsAtivos from './reducers/RecordsAtivos'
-import LocaisArmazenamento from './reducers/LocaisArmazenamento'
+import StorageLocations from './reducers/StorageLocations'
 import { SetTiposUsuarios } from './actions/TiposUsuariosActions'
 import { SetSetores } from './actions/SetoresActions'
 import { SetUsuarios } from './actions/UsuariosActions'
 import { SetTiposAtivos } from './actions/TiposAtivosActions'
 import { SetAtivos } from './actions/AtivosActions'
-import { SetLocaisArmazenamento } from './actions/LocaisArmazenamentoActions'
+import { SetStorageLocations } from './actions/StorageLocationsActions'
 import { SetStatusAtivos } from './actions/AtivosStatusActions'
 import { SetTiposDeUso } from './actions/TiposDeUsoActions'
-import { GetAtivos, GetLocaisArmazenamento, GetRecordsFromFirebase, GetSetores, GetStatusAtivos, GetTipos, GetTiposDeUso, GetUsers, GetUserTipos,GetUserTiposFromFirebase } from '../../Functions/Middleware'
+import { GetAtivos, GetStorageLocations, GetRecordsFromFirebase, GetSetores, GetStatusAtivos, GetTipos, GetTiposDeUso, GetUsers, GetUserTipos,GetUserTiposFromFirebase } from '../../Functions/Middleware'
 import { SetRecords } from './actions/RecordsActions'
 import {  FIREBASE_AddLocalArmazenamento, FIREBASE_AddSetor, FIREBASE_GetSetores } from '../firebase/metodos'
 
@@ -43,8 +43,8 @@ GetAtivos().then((Ativos) => {
     store.dispatch(SetAtivos(Ativos))
 })
 
-GetLocaisArmazenamento().then((Locais) => {
-    store.dispatch(SetLocaisArmazenamento(Locais))
+GetStorageLocations().then((Locais) => {
+    store.dispatch(SetStorageLocations(Locais))
 })
 
 GetStatusAtivos().then((StatusAtivos) => {
@@ -62,8 +62,6 @@ GetRecordsFromFirebase().then((Records) => {
 
 
 
-
-
 const store = createStore(
     combineReducers({
         LoggedUser,
@@ -72,7 +70,7 @@ const store = createStore(
         Usuarios,
         TiposAtivos,
         Ativos,
-        LocaisArmazenamento,
+        StorageLocations,
         StatusAtivos,
         TiposDeUso,
         RecordsAtivos,
@@ -83,7 +81,7 @@ const store = createStore(
 
 store.subscribe(() => {
     localStorage.setItem("AssetSense", JSON.stringify(store.getState()))
-    //console.log("Store Changed", store.getState())
+    console.log("Store Changed", store.getState())
 })
 
 

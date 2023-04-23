@@ -87,7 +87,7 @@ const Dashboard = (props) => {
         props.Ativos.length === 0 ||
         props.Setores.length === 0 ||
         props.Usuarios.length === 0 ||
-        props.LocaisArmazenamento.length === 0 ||
+        props.StorageLocations.length === 0 ||
         props.TiposUsuarios.length === 0 ||
         props.TiposDeUso.length === 0 ||
         props.TiposAtivos.length === 0
@@ -101,7 +101,7 @@ const Dashboard = (props) => {
         props.Ativos &&
         props.Setores &&
         props.Usuarios &&
-        props.LocaisArmazenamento &&
+        props.StorageLocations &&
         props.TiposUsuarios &&
         props.TiposDeUso &&
         props.TiposAtivos &&
@@ -248,7 +248,7 @@ const ConnectedDashboard = connect((state) => {
     Usuarios: state.Usuarios,
     RecordsAtivos: state.RecordsAtivos,
     TiposUsuarios: state.TiposUsuarios,
-    LocaisArmazenamento: state.LocaisArmazenamento,
+    StorageLocations: state.StorageLocations,
     TiposDeUso: state.TiposDeUso,
     TiposAtivos: state.TiposAtivos,
   }

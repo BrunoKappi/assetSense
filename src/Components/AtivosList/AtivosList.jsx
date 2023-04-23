@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './AtivosList.css'
 import Loading from '../LoadingForTabs/Loading';
 import { connect } from 'react-redux'
-import { GetAtivosFromStore, GetCurrentUserFromStore, GetCurrentUserTypeFromStore, GetLocaisSelect, GetLocalArmazenamentoNameWithIdFromStore, GetTipoAtivoNameWithIdFromStore, GetTipoDeUsoNameWithIdFromStore, GetTiposAtivosSelect } from '../../Functions/Middleware';
+import { GetCurrentUserFromStore, GetCurrentUserTypeFromStore, GetFromStore, GetLocaisSelect, GetLocalArmazenamentoNameWithIdFromStore, GetTipoAtivoNameWithIdFromStore, GetTipoDeUsoNameWithIdFromStore, GetTiposAtivosSelect } from '../../Functions/Middleware';
 import { PermitIndexs } from '../../GlobalVars';
 import Ativo from './Ativo/Ativo';
 import { v4 } from 'uuid';
@@ -41,7 +41,7 @@ const AtivosList = (props) => {
 
     // FILL LIST
     useEffect(() => {
-        const Ativos = GetAtivosFromStore()
+        const Ativos = GetFromStore('Ativos')
         setListaDeAtivos(Ativos.sort((a, b) => a.Item.localeCompare(b.Item)))
         setTimeout(() => {
             setLoaded(true)
@@ -50,12 +50,12 @@ const AtivosList = (props) => {
 
     // SORT AND FILTER
     useEffect(() => {
-        const Ativos = GetAtivosFromStore()
+        const Ativos = GetFromStore('Ativos')
         setListaDeAtivos(Ativos.filter(Ativo => {
             return (
                 (FiltroDeTexto === '' || CheckIncludesText(Ativo.Item) || CheckIncludesText(Ativo.Brand)) &&
                 CheckIncludesInObject(Ativo.Type, Filters?.TiposAtivos) &&
-                CheckIncludesInObject(Ativo.StorageLocation, Filters?.LocaisArmazenamento) &&
+                CheckIncludesInObject(Ativo.StorageLocation, Filters?.StorageLocations) &&
                 CheckIncludesInObject(Ativo.Status, Filters?.StatusAtivos) &&
                 CheckIncludesInObject(Ativo.Usage, Filters?.TiposDeUso)
             )
@@ -85,7 +85,7 @@ const AtivosList = (props) => {
             <AtivoModal FromModal={false} CurrentUser={CurrentUser} Ativo={{}} show={AddmodalShow} onHide={() => setAddModalShow(false)} Function="Add" />
 
 
-            <div className='AtivosListFormFilter'>                
+            <div className='AtivosListFormFilter'>
                 <input value={FiltroDeTexto} placeholder='Procurar Item...' onChange={e => setFiltroDeTexto(e.target.value)}></input>
                 <FilterSelect Module="FilterAtivos" OnChange={setFilters} />
             </div>

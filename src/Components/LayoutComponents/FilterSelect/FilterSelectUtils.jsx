@@ -102,7 +102,7 @@ const CustomLabelIconsMap = {
     'Setores': <UilPuzzlePiece />,
     'TiposUsuarios': <UilLabel />,
     'TiposAtivos': <UilLabel />,
-    'LocaisArmazenamento': <UilBox />,
+    'StorageLocations': <UilBox />,
     'StatusAtivos': <UilLabel />,
     'TiposDeUso': <UilPlay />,
 }

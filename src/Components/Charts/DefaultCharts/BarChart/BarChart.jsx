@@ -1,6 +1,6 @@
 import React from 'react'
 import Chart from 'react-apexcharts'
-import { GetUserTypesFromStore, GetUsersFromStore } from '../../../../Functions/Middleware'
+
 
 export default function BarChart(props) {
 

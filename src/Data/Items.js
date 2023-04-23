@@ -934,8 +934,8 @@ if ((!localStorage.getItem('AssetSenseAtivos') || Update) && !Reset && !Nothing)
     localStorage.setItem('AssetSenseAtivos', JSON.stringify([]))
 }
 
-if ((!localStorage.getItem('AssetSenseLocaisArmazenamento') || Update) && !Reset && !Nothing) {
-    localStorage.setItem('AssetSenseLocaisArmazenamento', JSON.stringify(LocaisDeArmazenamento))
+if ((!localStorage.getItem('AssetSenseStorageLocations') || Update) && !Reset && !Nothing) {
+    localStorage.setItem('AssetSenseStorageLocations', JSON.stringify(LocaisDeArmazenamento))
 } else if (Reset) {
-    localStorage.setItem('AssetSenseLocaisArmazenamento', JSON.stringify(LocaisDeArmazenamentoReset)) //RESET
+    localStorage.setItem('AssetSenseStorageLocations', JSON.stringify(LocaisDeArmazenamentoReset)) //RESET
 }

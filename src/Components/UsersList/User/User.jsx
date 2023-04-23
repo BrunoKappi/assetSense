@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './User.css'
 import { UilEnvelope, UilUser } from '@iconscout/react-unicons'
-import { GetSetoresFromStore, GetUserTypesFromStore } from '../../../Functions/Middleware'
+import { GetFromStore } from '../../../Functions/Middleware'
 
 import { connect } from 'react-redux'
 
@@ -14,13 +14,13 @@ const User = (props) => {
 
 
     useEffect(() => {
-        const Tipos = GetUserTypesFromStore()
+        const Tipos = GetFromStore('TiposUsuarios')
         setUserType(Tipos.find(U => U.id === props.User.Type.id))
     }, [props.User.Type.id])
 
 
     useEffect(() => {
-        const Setores = GetSetoresFromStore()
+        const Setores = GetFromStore('Setores')
         setUserSetor({ ...Setores.find(U => U.id === props.User.Sector.id) })
     }, [props.User.Sector.id])
 

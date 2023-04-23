@@ -4,14 +4,14 @@ import store from '../store/store'
 import { setLoggedUser, clearLoggedUser, SetCheckLogin } from '../store/actions/LoggedUserActions'
 import { sendPasswordResetEmail, updatePassword } from "firebase/auth";
 import { DefaultLoggedUser } from "../../GlobalVars";
-import { GetCurrentUserEmailFromStore, GetUserUrlImage, GetUserWithEmailFromStore } from "../../Functions/Middleware";
+import { GetLoggedUserInfo, GetUserUrlImage, GetUserWithEmailFromStore } from "../../Functions/Middleware";
 
 
 
 const onAuthStateChangedHandler = (currentUser) => {
   console.log("AUTHCHANGED", currentUser ? currentUser : 'VAZIO');
 
-  const LoggedUserEmail = GetCurrentUserEmailFromStore()
+  const LoggedUserEmail = GetLoggedUserInfo('Email')
   const CurrentUserEmail = currentUser?.email
 
 
@@ -43,7 +43,7 @@ const onAuthStateChangedHandler = (currentUser) => {
 
   setTimeout(() => {
     const CurrentUserFromStore = GetUserWithEmailFromStore(CurrentUserEmail)
-    GetUserUrlImage(`images/${CurrentUserFromStore.id}`).then((url) => {    
+    GetUserUrlImage(`images/${CurrentUserFromStore.id}`).then((url) => {
       const user2 = {
         ...DefaultLoggedUser,
         Email: currentUser.email,
