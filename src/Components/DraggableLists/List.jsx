@@ -56,72 +56,72 @@ const List = (props) => {
   return (
     <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'AtivosTypesShowOnlyCustomGroupListEscuro AtivosTypesShowOnlyCustomGroupList' : 'AtivosTypesShowOnlyCustomGroupListClaro AtivosTypesShowOnlyCustomGroupList'}>
 
-      
 
-        <ListGroup as="ul">
-          <ListGroup.Item as="li" className='AtivosTypesShowOnlyCustomGroupListTitle' >
-            <Tooltip title="Arraste e solte ítens nesta área" position="bottom" >
-              <span className='UserTypesShowOnlyCustomGroupListTitleSpan'>
-                {IconMap[props.Module]}
-                {props.Item.Value}
-              </span>
-            </Tooltip>
-          </ListGroup.Item>
 
-          <Droppable droppableId={props.Item.id + '/' + v4()} key={props.Item.id + '/' + v4()}>
-            {(provided, snapshot) => {
-              return (
-                <div className={snapshot.isDraggingOver ? 'MarginBottom' : ''} {...provided.droppableProps} ref={provided.innerRef}>
-                  {ListaDeItens.sort((a, b) => a[NameKey[props.Module]].localeCompare(b[NameKey[props.Module]])).map((Item, index) => {
-                    return <Draggable action as="li" key={Item.id} draggableId={Item.id} index={index} isDragDisabled={isMobile} >
-                      {(DragProvided) => {
-                        return (
-                          <div ref={DragProvided.innerRef} {...DragProvided.draggableProps} {...DragProvided.dragHandleProps}>
-                            <ListGroup.Item key={Item[NameKey[props.Module]] + v4()} >
-                              <span className='AtivosTypesShowOnlyCustomGroupListItem'>
-                                <span>
-                                  {(props.Module === 'UsersInTypes' || props.Module === 'UsersInSectores') ?
-                                    Item[NameKey[props.Module]] + ' ' + Item?.LastName : Item[NameKey[props.Module]]
-                                  }
+      <ListGroup as="ul">
+        <ListGroup.Item as="li" className='AtivosTypesShowOnlyCustomGroupListTitle' >
+          <Tooltip title="Arraste e solte ítens nesta área" position="bottom" >
+            <span className='UserTypesShowOnlyCustomGroupListTitleSpan'>
+              {IconMap[props.Module]}
+              {props.Item.Value}
+            </span>
+          </Tooltip>
+        </ListGroup.Item>
 
-                                </span>
+        <Droppable droppableId={props.Item.id + '/' + v4()} key={props.Item.id + '/' + v4()}>
+          {(provided, snapshot) => {
+            return (
+              <div className={snapshot.isDraggingOver ? 'MarginBottom' : ''} {...provided.droppableProps} ref={provided.innerRef}>
+                {ListaDeItens.filter(Item => Item.Deleted === false).sort((a, b) => a[NameKey[props.Module]].localeCompare(b[NameKey[props.Module]])).map((Item, index) => {
+                  return <Draggable action as="li" key={Item.id} draggableId={Item.id} index={index} isDragDisabled={isMobile} >
+                    {(DragProvided) => {
+                      return (
+                        <div ref={DragProvided.innerRef} {...DragProvided.draggableProps} {...DragProvided.dragHandleProps}>
+                          <ListGroup.Item key={Item[NameKey[props.Module]] + v4()} >
+                            <span className='AtivosTypesShowOnlyCustomGroupListItem'>
+                              <span>
+                                {(props.Module === 'UsersInTypes' || props.Module === 'UsersInSectores') ?
+                                  Item[NameKey[props.Module]] + ' ' + Item?.LastName : Item[NameKey[props.Module]]
+                                }
+
                               </span>
-                            </ListGroup.Item>
-                          </div>
-                        )
-                      }}
-                    </Draggable>
-                  })}
-                </div>
+                            </span>
+                          </ListGroup.Item>
+                        </div>
+                      )
+                    }}
+                  </Draggable>
+                })}
+              </div>
 
-              );
-            }}
-          </Droppable>
-
-
-          <Show Show={ListaDeItens.length === 0}>
-            <ListGroup.Item key={v4()} >
-              <Droppable droppableId={props.Item.id} key={props.Item.id}>
-                {(provided, snapshot) => {
-                  return (
-                    <div  {...provided.droppableProps} ref={provided.innerRef}>
-                      <Tooltip title="Arraste e solte usuários nesta área" position="bottom" >
-                        <span className='AtivosTypesShowOnlyCustomGroupListItem'>
-                          <span className='AtivosTypesShowOnlyCustomGroupListItemSpan'>Nenhum Ítem</span>
-                        </span>
-                      </Tooltip>
-                    </div>
-                  );
-                }}
-              </Droppable>
-            </ListGroup.Item>
-          </Show>
+            );
+          }}
+        </Droppable>
 
 
-          <ListGroup.Item action as="li"></ListGroup.Item>
+        <Show Show={ListaDeItens.length === 0}>
+          <ListGroup.Item key={v4()} >
+            <Droppable droppableId={props.Item.id} key={props.Item.id}>
+              {(provided, snapshot) => {
+                return (
+                  <div  {...provided.droppableProps} ref={provided.innerRef}>
+                    <Tooltip title="Arraste e solte usuários nesta área" position="bottom" >
+                      <span className='AtivosTypesShowOnlyCustomGroupListItem'>
+                        <span className='AtivosTypesShowOnlyCustomGroupListItemSpan'>Nenhum Ítem</span>
+                      </span>
+                    </Tooltip>
+                  </div>
+                );
+              }}
+            </Droppable>
+          </ListGroup.Item>
+        </Show>
 
 
-        </ListGroup>
+        <ListGroup.Item action as="li"></ListGroup.Item>
+
+
+      </ListGroup>
 
 
 
