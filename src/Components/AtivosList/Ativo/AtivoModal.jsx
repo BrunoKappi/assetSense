@@ -35,6 +35,8 @@ import EditList from '../../LayoutComponents/EditList/EditList';
 import CustomFields from '../../LayoutComponents/CustomFields/CustomFields';
 import ConfirmTab from '../../LayoutComponents/ConfirmTab/ConfirmTab';
 import CustomSelect from '../../LayoutComponents/CustomSelect/CustomSelect'
+import store from '../../../Config/store/store';
+import { EditAtivoAction } from '../../../Config/store/actions/AtivosActions';
 
 
 const AtivoModal = (props) => {
@@ -243,6 +245,7 @@ const AtivoModal = (props) => {
         //EDIT ATIVO
         if (ConfirmAction === 'Edit') {
             EditAtivo(Ativo).then(() => {
+                store.dispatch(EditAtivoAction(Ativo))
                 setLoadingAction(false)
                 NotificationSucesso('Alteração', 'Alterações salvas com sucesso!')
             }).catch(HandleError)

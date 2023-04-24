@@ -25,6 +25,15 @@ export const AddAtivoAction = (NovoAtivo = {}) => {
     })
 }
 
+
+export const EditAtivoAction = (EditedAtivo = {}) => {
+
+    return ({
+        type: 'EDIT_ATIVO',
+        EditedAtivo
+    })
+}
+
 export const DeleteAtivoAction = (AtivoToDelete = {}) => {
 
     return ({

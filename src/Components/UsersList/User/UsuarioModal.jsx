@@ -39,6 +39,8 @@ import CustomFields from '../../LayoutComponents/CustomFields/CustomFields';
 import SectionTitle from '../../LayoutComponents/SectionTitle/SectionTitle';
 import ConfirmTab from '../../LayoutComponents/ConfirmTab/ConfirmTab';
 import CustomSelect from '../../LayoutComponents/CustomSelect/CustomSelect'
+import store from '../../../Config/store/store';
+import { EditUsuarioAction } from '../../../Config/store/actions/UsuariosActions';
 
 const UsuarioModal = (props) => {
 
@@ -170,12 +172,14 @@ const UsuarioModal = (props) => {
                     EditedUser.docID = docID
                     setUser(EditedUser)
                     EditUser(User).then(() => {
+                        store.dispatch(EditUsuarioAction(User))
                         NotificationSucesso('Alteração', 'Alterações salvas com sucesso!')
                         setLoadingAction(false)
                     }).catch(HandleError)
                 }).catch(HandleError)
             } else {
                 EditUser(User).then(() => {
+                    store.dispatch(EditUsuarioAction(User))
                     NotificationSucesso('Alteração', 'Alterações salvas com sucesso!')
                     setLoadingAction(false)
                 }).catch(HandleError)

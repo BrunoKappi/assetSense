@@ -6,7 +6,7 @@ import { SetTiposUsuarios } from "../Config/store/actions/TiposUsuariosActions"
 import { SetStorageLocations } from "../Config/store/actions/StorageLocationsActions"
 import { SetStatusAtivos } from "../Config/store/actions/AtivosStatusActions"
 import { SetTiposDeUso } from "../Config/store/actions/TiposDeUsoActions"
-import { AddAtivoAction, SetAtivos } from "../Config/store/actions/AtivosActions"
+import { AddAtivoAction, EditAtivoAction, SetAtivos } from "../Config/store/actions/AtivosActions"
 import { AddUsuarioAction, SetUsuarios } from "../Config/store/actions/UsuariosActions"
 import { PermitIndexs } from "../GlobalVars"
 import { EditRecordAction, SetRecords } from "../Config/store/actions/RecordsActions"
@@ -99,183 +99,59 @@ export const fetchFunctions = {
 };
 
 
-//////////// TIPOS ATIVOS //////////////////
+
+
+/////////////////*********************** SAVES ********************////////////////////////
+
+export const SaveTipos = (Itens) => store.dispatch(SetTiposAtivos(Itens))
+
+export const SaveSetores = (Itens) => store.dispatch(SetSetores(Itens))
+
+export const SaveUserTipos = (Itens) => store.dispatch(SetTiposUsuarios(Itens))
+
+export const SaveStorageLocations = (Itens) => store.dispatch(SetStorageLocations(Itens))
+
+export const SaveRecords = (Itens) => store.dispatch(SetRecords(Itens))
+
+export const SaveStatusAtivos = (Itens) => store.dispatch(SetStatusAtivos(Itens))
+
+export const SaveTiposDeUso = (Itens) => store.dispatch(SetTiposDeUso(Itens))
+
+export const SaveAtivos = (Itens) => store.dispatch(SetAtivos(Itens))
+
+export const SaveUsers = (Itens) => store.dispatch(SetUsuarios(Itens))
+
+
+
+
+
+
+/////////////////*********************** GETTERS ********************////////////////////////
 
 export async function GetTipos() {
     return FIREBASE_GetTiposAtivo()
 }
 
-
-export async function SaveTipos(Tipos) {
-    return new Promise((resolve, reject) => {
-        localStorage.setItem('AssetSenseTipos', JSON.stringify(Tipos))
-        store.dispatch(SetTiposAtivos(Tipos))
-        resolve('Ok');
-    });
-}
-
-export async function AddTipo(TipoAtivo) {
-    TipoAtivo.CreatedAt = moment().valueOf()
-    TipoAtivo.LastEditedAt = moment().valueOf()
-    store.dispatch(AddTipoAtivo(TipoAtivo))
-}
-
-export const EditTipoAtivo = (EditedItem) => {
-    EditedItem.LastEditedAt = moment().valueOf()
-    return FIREBASE_UpdateTipoAtivo(EditedItem)
-}
-
-
-
-
-//////////// SETORES //////////////////
-
 export async function GetSetores() {
     return FIREBASE_GetSetores()
 }
 
-
-export async function SaveSetores(Setores) {
-    return new Promise((resolve, reject) => {
-        localStorage.setItem('AssetSenseSetores', JSON.stringify(Setores))
-        store.dispatch(SetSetores(Setores))
-        resolve('Ok');
-    });
-}
-
-export const EditSetor = (EditedSetor) => {
-    EditedSetor.LastEditedAt = moment().valueOf()
-    return FIREBASE_UpdateSetor(EditedSetor)
-}
-
-
-
-
-
-
-
-
-//////////// TIPOS USUARIOS //////////////////
-
 export async function GetUserTiposFromFirebase() {
     return FIREBASE_GetTiposUsuarios()
 }
-export async function GetUserTipos() {
-    return GetFromStore('TiposUsuarios')
-}
-
-
-export async function SaveUserTipos(Tipos) {
-    return new Promise((resolve, reject) => {
-        localStorage.setItem('AssetSenseUsersTypes', JSON.stringify(Tipos))
-        store.dispatch(SetTiposUsuarios(Tipos))
-        resolve('Ok');
-    });
-}
-
-
-export const EditUserType = (EditedItem) => {
-    EditedItem.LastEditedAt = moment().valueOf()
-    return FIREBASE_UpdateTipoDeUsuario(EditedItem)
-}
-
-
-
-
-
-
-
-
-
-
-
-//////////// LOCAIS //////////////////
 
 
 export async function GetStorageLocations() {
     return FIREBASE_GetStorageLocations()
 }
 
-
-export async function SaveStorageLocations(Locais) {
-    return new Promise((resolve, reject) => {
-        localStorage.setItem('AssetSenseStorageLocations', JSON.stringify(Locais))
-        store.dispatch(SetStorageLocations(Locais))
-        resolve('Ok');
-    });
-}
-
-export const EditLocalArmazenamento = (EditedItem) => {
-    EditedItem.LastEditedAt = moment().valueOf()
-    return FIREBASE_UpdateLocalArmazenamento(EditedItem)
-}
-
-
-
-
-
-
-
-
-//////////// RECORDS //////////////////
-
 export async function GetRecordsFromFirebase() {
     return FIREBASE_GetRecords()
 }
-export async function GetRecords() {
-    return new Promise((resolve) => {
-        resolve(GetFromStore('RecordsAtivos'))
-    });
+
+export async function GetTiposDeUso() {
+    return FIREBASE_GetTiposUso()
 }
-
-export async function SaveRecords(Records) {
-    store.dispatch(SetRecords(Records))
-    localStorage.setItem('AssetSenseRecords', JSON.stringify(Records))
-}
-
-export async function AddRecord(RecordToAdd) {
-    RecordToAdd.CreatedAt = moment().valueOf()
-    RecordToAdd.LastEditedAt = moment().valueOf()
-    return FIREBASE_AddRecord(RecordToAdd)
-}
-
-export const EditRecordStore = (EditedItem) => {
-    store.dispatch(EditRecordAction(EditedItem))
-}
-
-export const EditRecord = (EditedItem) => {
-    EditedItem.LastEditedAt = moment().valueOf()
-    return FIREBASE_UpdateRecord(EditedItem)
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//////////// STATUS ATIVOS //////////////////
 
 export async function GetStatusAtivosFromFirebase() {
     return FIREBASE_GetStatusAtivos()
@@ -284,63 +160,80 @@ export async function GetStatusAtivos() {
     return FIREBASE_GetStatusAtivos()
 }
 
-
-export async function SaveStatusAtivos(Locais) {
-    return new Promise((resolve, reject) => {
-        localStorage.setItem('AssetSenseStatusAtivos', JSON.stringify(Locais))
-        store.dispatch(SetStatusAtivos(Locais))
-        resolve('Ok')
-    });
+export async function GetUsers() {
+    return FIREBASE_GetUsuarios()
 }
-
-
-export const EditStatusAtivo = (EditedItem) => {
-    EditedItem.LastEditedAt = moment().valueOf()
-    return FIREBASE_UpdateStatusAtivo(EditedItem)
-}
-
-
-
-
-//////////// TIPOS DE USO  //////////////////
-
-
-export async function GetTiposDeUso() {
-    return FIREBASE_GetTiposUso()
-}
-
-
-export async function SaveTiposDeUso(Locais) {
-    return new Promise((resolve, reject) => {
-        localStorage.setItem('AssetSenseTiposDeUso', JSON.stringify(Locais))
-        store.dispatch(SetTiposDeUso(Locais))
-    });
-}
-
-
-export const EditTipoDeUso = (EditedItem) => {
-    EditedItem.LastEditedAt = moment().valueOf()
-    return FIREBASE_UpdateTipoUso(EditedItem)
-}
-
-
-
-
-////////////////////// ATIVOS //////////////////////////
-
 
 export async function GetAtivos() {
     return FIREBASE_GetAtivos()
 }
 
-export async function SaveAtivos(Ativos) {
-    return new Promise((resolve, reject) => {
-        localStorage.setItem('AssetSenseAtivos', JSON.stringify(Ativos))
-        store.dispatch(SetAtivos(Ativos))
-        resolve('Ok');
-    });
+export async function GetRecords() {
+    GetFromStore('RecordsAtivos')
 }
 
+export async function GetUserTipos() {
+    return GetFromStore('TiposUsuarios')
+}
+
+
+
+
+
+
+
+
+/////////////////*********************** EDIT/UPDATES ********************////////////////////////
+
+
+export const EditTipoAtivo = (Item) => FIREBASE_UpdateTipoAtivo({ ...Item, LastEditedAt: moment().valueOf() })
+
+export const EditSetor = (Item) => FIREBASE_UpdateSetor({ ...Item, LastEditedAt: moment().valueOf() })
+
+export const EditUserType = (Item) => FIREBASE_UpdateTipoDeUsuario({ ...Item, LastEditedAt: moment().valueOf() })
+
+export const EditLocalArmazenamento = (Item) => FIREBASE_UpdateLocalArmazenamento({ ...Item, LastEditedAt: moment().valueOf() })
+
+export const EditRecord = (Item) => FIREBASE_UpdateRecord({ ...Item, LastEditedAt: moment().valueOf() })
+
+export const EditTipoDeUso = (Item) => FIREBASE_UpdateTipoUso({ ...Item, LastEditedAt: moment().valueOf() })
+
+export const EditStatusAtivo = (Item) => FIREBASE_UpdateStatusAtivo({ ...Item, LastEditedAt: moment().valueOf() })
+
+export const EditAtivo = async (Item) => FIREBASE_UpdateAtivo({ ...Item, LastEditedAt: moment().valueOf() })
+
+export const EditUser = async (Item) => FIREBASE_UpdateUsuario({ ...Item, LastEditedAt: moment().valueOf() })
+
+export const EditRecordStore = (Item) => store.dispatch(EditRecordAction(Item))
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////// TIPOS ATIVOS //////////////////
+
+
+
+export async function AddTipo(TipoAtivo) {
+    TipoAtivo.CreatedAt = moment().valueOf()
+    TipoAtivo.LastEditedAt = moment().valueOf()
+    store.dispatch(AddTipoAtivo(TipoAtivo))
+}
+
+
+export async function AddRecord(RecordToAdd) {
+    RecordToAdd.CreatedAt = moment().valueOf()
+    RecordToAdd.LastEditedAt = moment().valueOf()
+    return FIREBASE_AddRecord(RecordToAdd)
+}
 
 export async function AddAtivo(Ativo) {
     Ativo.CreatedAt = moment().valueOf()
@@ -354,7 +247,6 @@ export async function AddAtivoFirebase(New) {
     store.dispatch(AddAtivoAction(New))
 }
 
-
 export async function DeleteAtivo(Ativo) {
     return new Promise((resolve, reject) => {
         Ativo.Deleted = true
@@ -366,52 +258,6 @@ export async function DeleteAtivo(Ativo) {
 
 
 
-export const EditAtivo = (EditedItem) => {
-    EditedItem.LastEditedAt = moment().valueOf()
-    return FIREBASE_UpdateAtivo(EditedItem).then(() => {
-        GetAtivos().then(Lista => {
-
-            const NewAtivos = Lista.filter(ativo => {
-                return ativo.id !== EditedItem.id
-            }).concat(EditedItem)
-
-            SaveAtivos(NewAtivos)
-
-        })
-    })
-}
-
-
-
-
-////////////////////// ATIVOS //////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-////////////////////// USUARIOS  //////////////////////////
-export async function GetUsers() {
-    return FIREBASE_GetUsuarios()
-}
-
-
-export async function SaveUsers(Users) {
-    return new Promise((resolve, reject) => {
-        localStorage.setItem('AssetSenseUsers', JSON.stringify(Users))
-        store.dispatch(SetUsuarios(Users))
-        resolve('Ok');
-    });
-}
-
-
 export const ResetonAuthStateChanged = () => {
     onAuthStateChanged(auth, () => {
 
@@ -421,8 +267,6 @@ export const ResetonAuthStateChanged = () => {
 export async function RegisterUser(Email) {
     return FIREBASE_RegisterUserAuth(Email)
 }
-
-
 
 export async function AddUser(User) {
     User.CreatedAt = moment().valueOf()
@@ -443,32 +287,6 @@ export async function DeleteUser(User) {
         resolve('Ok');
     });
 }
-
-
-
-
-export const EditUser = (EditedItem) => {
-    EditedItem.LastEditedAt = moment().valueOf()
-    return FIREBASE_UpdateUsuario(EditedItem).then(() => {
-        GetUsers().then(Lista => {
-
-            const NewUsers = Lista.filter(usuario => {
-                return usuario.id !== EditedItem.id
-            }).concat(EditedItem)
-
-            SaveUsers(NewUsers)
-
-        })
-    })
-}
-
-////////////////////// USUARIOS  //////////////////////////
-
-
-
-
-
-
 
 
 

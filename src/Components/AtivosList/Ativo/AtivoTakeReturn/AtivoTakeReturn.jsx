@@ -3,7 +3,7 @@ import './AtivoTakeReturn.css'
 import { DevolverTabTitle, RetirarTabTitle } from './AtivoTakeReturnUtils';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
 import { UilUser, UilEnvelope, UilBookmark, UilCalendarAlt, UilArchive, UilArrowUp, UilComment, UilArrowDown, UilCommentInfoAlt } from '@iconscout/react-unicons'
-import { AddRecord, EditAtivo, EditRecord, EditRecordStore, GetFromStore, GetQtdInUseOfAtivoWithId, GetRecordByAtivoIdAndUserId, GetRecords, GetTakesOfAtivoOfCurrentUser, GetUsersThatTookAsset, GetUsersThatTookAtivo, SaveRecords } from '../../../../Functions/Middleware';
+import { AddRecord, EditAtivo, EditRecord, EditRecordStore, GetFromStore, GetQtdInUseOfAtivoWithId, GetRecordByAtivoIdAndUserId,  GetTakesOfAtivoOfCurrentUser, GetUsersThatTookAsset, GetUsersThatTookAtivo, SaveRecords } from '../../../../Functions/Middleware';
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
 import { DefaultRecord } from '../../../../Data/Items';
 import { v4 } from 'uuid';
@@ -201,16 +201,20 @@ const AtivoTakeReturn = (props) => {
                         EditAtivo(NewAtivo)
                         SetQuantidadeRetirada(prev => prev + 1)
 
-                        GetRecords().then(Lista => {
-                            const Records = [...Lista]
-                            NewRecordToAdd.docID = Record?.id
-                            Records.push(NewRecordToAdd)
-                            SaveRecords(Records)
-                            EndConfirming()
-                            NotificationSucesso('Registro', 'Registro de Retirada registrado com Sucesso!')
-                            setLoadingAction(false)
-                            props.OnTake('Registros')
-                        })
+
+                        const Lista = GetFromStore('RecordsAtivos')
+
+                        const Records = [...Lista]
+                        NewRecordToAdd.docID = Record?.id
+                        Records.push(NewRecordToAdd)
+                        SaveRecords(Records)
+                        EndConfirming()
+                        NotificationSucesso('Registro', 'Registro de Retirada registrado com Sucesso!')
+                        setLoadingAction(false)
+                        props.OnTake('Registros')
+
+
+
                     }).catch(HandleError)
                 }
 
