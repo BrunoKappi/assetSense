@@ -53,6 +53,8 @@ const List = (props) => {
 
   const ListaDeItens = [...props[ListaDeitensMap[props.Module]].filter(Ativo => Ativo[props.Key].id === props.Item.id)]
 
+  console.log(props.Item.Value, ListaDeItens)
+
   return (
     <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'AtivosTypesShowOnlyCustomGroupListEscuro AtivosTypesShowOnlyCustomGroupList' : 'AtivosTypesShowOnlyCustomGroupListClaro AtivosTypesShowOnlyCustomGroupList'}>
 
@@ -99,7 +101,7 @@ const List = (props) => {
         </Droppable>
 
 
-        <Show Show={ListaDeItens.length === 0}>
+        <Show Show={ListaDeItens.filter(Item => Item.Deleted === false).length === 0}>
           <ListGroup.Item key={v4()} >
             <Droppable droppableId={props.Item.id} key={props.Item.id}>
               {(provided, snapshot) => {
