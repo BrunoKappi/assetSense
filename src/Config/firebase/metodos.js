@@ -112,13 +112,13 @@ export const FIREBASE_GetStorageLocations = async () => {
 }
 
 export const FIREBASE_UpdateLocalArmazenamento = (EditedItem) => {
-  const Doc = doc(db, "StorageLocations", EditedItem.docID);
+  const Doc = doc(db, "LocaisArmazenamento", EditedItem.docID);
   const NewItem = { ...EditedItem };
   return updateDoc(Doc, NewItem);
 };
 
 export const FIREBASE_DeleteLocalArmazenamento = (Todelete) => {
-  const Doc = doc(db, "StorageLocations", Todelete.docID);
+  const Doc = doc(db, "LocaisArmazenamento", Todelete.docID);
   const DeleteDoc = { ...Todelete };
   return deleteDoc(Doc, DeleteDoc);
 };
