@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './RecordsFormFilter.css'
-import { GetAtivoNameWithIdFromStore, GetuserNameWithIdFromStore } from '../../Functions/Middleware'
+import { GetNameFromStoreWithId } from '../../Functions/Middleware'
 import moment from 'moment';
 import { connect } from 'react-redux'
 import OrderBy, { GetDefautlOption } from '../LayoutComponents/OrderBy/OrderBy'
@@ -8,13 +8,13 @@ import OrderBy, { GetDefautlOption } from '../LayoutComponents/OrderBy/OrderBy'
 
 function GetUserName(item, who) {
     if (who === 'For')
-        return GetuserNameWithIdFromStore(item.TakenFor.id)
+        return GetNameFromStoreWithId('UsuariosWithDeleted',item.TakenFor.id)
     else if ('By')
-        return GetuserNameWithIdFromStore(item.TakenBy.id)
+        return GetNameFromStoreWithId('UsuariosWithDeleted',item.TakenBy.id)
 }
 
 function GetAtivoName(item) {
-    return GetAtivoNameWithIdFromStore(item.AtivoId)
+    return GetNameFromStoreWithId('AtivosWithDeleted',item.AtivoId)
 }
 
 function GetUsage(item) {

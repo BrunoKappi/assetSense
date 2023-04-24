@@ -44,9 +44,14 @@
 
 
 
-.AtivoRecords-Container {
-    padding: 0 !important;
+@media (max-width: 750px) {
+    .AtivoRecords-Container {
+        padding: 0 !important;
+    }
 }
+
+
+
 
 
 .AtivosRecords-AvisoInfo {

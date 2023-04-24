@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './Record.css'
-import { GetAtivoNameWithIdFromStore, GetuserNameWithIdFromStore } from '../../Functions/Middleware';
+import { GetNameFromStoreWithId } from '../../Functions/Middleware';
 import moment from 'moment';
 import { UilCalendarAlt, UilClock, UilWrench, UilUserCircle, UilBookmark, UilPlay, UilCommentAltMessage, UilArrowUp } from '@iconscout/react-unicons'
 //Tooltip
@@ -77,7 +77,7 @@ const Record = (props) => {
                     <Tooltip title="Item retirado" position="bottom" >
                         <span className='AtivoRecord-UpRow-Name' onClick={handleAtivoSelection}>
                             <UilWrench />
-                            <span>{GetAtivoNameWithIdFromStore(props.Record.AtivoId)}</span>
+                            <span>{GetNameFromStoreWithId('AtivosWithDeleted',props.Record.AtivoId)}</span>
                         </span>
                     </Tooltip>
                 </Show>
@@ -85,7 +85,7 @@ const Record = (props) => {
                     <Tooltip title="Para quem a retirada foi registrada" position="bottom" >
                         <span className='AtivoRecord-UpRow-Name' onClick={handleUserSelection}>
                             <UilUserCircle />
-                            <span>{GetuserNameWithIdFromStore(props.Record.TakenFor.id)}</span>
+                            <span>{GetNameFromStoreWithId('UsuariosWithDeleted',props.Record.TakenFor.id)}</span>
                         </span>
                     </Tooltip>
                 </Show>
@@ -116,14 +116,14 @@ const Record = (props) => {
                     <div className='RecordMessage'>
                         <div className='RecordMessageText'>
                             Registro de Retirada de
-                            <span onClick={handleAtivoSelection}> {GetAtivoNameWithIdFromStore(props.Record.AtivoId)} </span>
+                            <span onClick={handleAtivoSelection}> {GetNameFromStoreWithId('AtivosWithDeleted',props.Record.AtivoId)} </span>
                             para
-                            <span onClick={handleUserSelection}> {GetuserNameWithIdFromStore(props.Record.TakenFor.id)}. </span>
+                            <span onClick={handleUserSelection}> {GetNameFromStoreWithId('UsuariosWithDeleted',props.Record.TakenFor.id)}. </span>
 
                             {props.Record.TakenBy.id !== props.Record.TakenFor.id && 'Registro feito por'}
 
                             {props.Record.TakenBy.id !== props.Record.TakenFor.id &&
-                                <span onClick={handleUserBySelection}> {GetuserNameWithIdFromStore(props.Record.TakenBy.id)}</span>
+                                <span onClick={handleUserBySelection}> {GetNameFromStoreWithId('UsuariosWithDeleted',props.Record.TakenBy.id)}</span>
                             }
 
                         </div>
@@ -174,7 +174,7 @@ const Record = (props) => {
                     <Show Show={props.Record.ReturnDate}>
                         <div className='RecordMessage'>
                             <div className='RecordMessageText'>
-                                Registro de Devolução do  <span onClick={handleAtivoSelection}> {GetAtivoNameWithIdFromStore(props.Record.AtivoId)} </span>
+                                Registro de Devolução do  <span onClick={handleAtivoSelection}> {GetNameFromStoreWithId('AtivosWithDeleted',props.Record.AtivoId)} </span>
                             </div>
                             <div className='RecordMessageDate'>
                                 <Tooltip title="Data de Devolução" position="bottom" >

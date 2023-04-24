@@ -25,7 +25,7 @@ import { v4 } from 'uuid';
 import { FIREBASE_LogouyAuth, mudarSenha, unsubscribe } from '../../../Config/firebase/auth';
 import Loading from '../../LoadingForTabs/Loading';
 import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
-import { AddUser, AddUserFirebase, DeleteUser, EditUser, GetCurrentUserFromStore, GetCurrentUserSetorNameWithIdFromStore, GetCurrentUserTypeFromStore, GetCurrentUserTypeNameWithIdFromStore, GetCurrentUserTypeWithIdFromStore, GetFromStore,  GetUserTypeWithIdFromStore, GetUserWithIdFromStore, LoginUtil, RegisterUser, ReturnAllAtivosOfUserWithId } from '../../../Functions/Middleware'
+import { AddUser, AddUserFirebase, DeleteUser, EditUser, GetFromStore, GetCurrentUserSetorNameWithIdFromStore, GetCurrentUserTypeNameWithIdFromStore, LoginUtil, RegisterUser, ReturnAllAtivosOfUserWithId, GetFromStoreWithId } from '../../../Functions/Middleware'
 //LAYOUT COMPONENTS
 import TwoColumns from '../../LayoutComponents/TwoColumns/TwoColumns';
 import FormGroupLabel from '../../LayoutComponents/FormGroupLabel/FormGroupLabel';
@@ -73,7 +73,7 @@ const UsuarioModal = (props) => {
     const [ConfirmBtBack, SetConfirmBtBack] = useState('')
 
     //CURRENT USER AND PERMITS
-    const [CurrentUserType] = useState(GetCurrentUserTypeFromStore())
+    const [CurrentUserType] = useState(GetFromStore('CurrentUserType'))
 
 
 
@@ -81,7 +81,7 @@ const UsuarioModal = (props) => {
     var IsAdmin = CurrentUserType?.IsAdmin
     var PermitToEditUsers = CurrentUserType?.Permits[PermitIndexs['EDITAR_USUARIOS']]
     var PermitToDeleteUsers = CurrentUserType?.Permits[PermitIndexs['EXCLUIR_USUARIOS']]
-    var IsCurrentUser = props.User?.id === GetCurrentUserFromStore()?.id
+    var IsCurrentUser = props.User?.id === GetFromStore('CurrentUser')?.id
     var CanEdit = IsCurrentUser || IsAdmin || PermitToEditUsers
 
 
@@ -103,7 +103,7 @@ const UsuarioModal = (props) => {
                 break
             case 'Type':
                 newUser.Type = { id: Value }
-                const GotUserType = GetUserTypeWithIdFromStore(Value)
+                const GotUserType = GetFromStoreWithId('TiposUsuarios', Value)
                 setUserType(GotUserType)
                 break
             case 'Sector':
@@ -130,7 +130,7 @@ const UsuarioModal = (props) => {
         } else {
             const { id, Name, PhotoUrl } = props.User || {};
             if (!Name) return
-            setUser(GetUserWithIdFromStore(id))
+            setUser(GetFromStoreWithId('UsuariosWithDeleted', id))
             setIsEdited(false)
             setTab('UserInfo')
             setProfileImageUrl(IsCurrentUser ? props.LoggedUser.PhotoUrl : PhotoUrl || '')
@@ -140,7 +140,7 @@ const UsuarioModal = (props) => {
 
     //QUANDO O USERTYPE MUDA, PEGA O NOVO TYPE
     useEffect(() => {
-        setUserType(GetCurrentUserTypeWithIdFromStore(User?.Type?.id))
+        setUserType(GetFromStoreWithId('TiposUsuarios', User?.Type?.id))
         setUserSetor({ ...GetFromStore('Setores').find(U => U.id === User?.Sector?.id) })
     }, [User?.Type, props.CurrentUser])
 

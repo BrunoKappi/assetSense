@@ -20,7 +20,7 @@ import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import User from '../../assets/Images/User.png'
 import { useNavigate } from 'react-router-dom';
 import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilSignout, UilBars, UilMoon, UilBright, UilHistory } from '@iconscout/react-unicons'
-import { GetCurrentUserFromStore, GetLoggedUserInfo, LogoutUtil, ToggleTema } from '../../Functions/Middleware';
+import { GetFromStore, GetLoggedUserInfo, LogoutUtil, ToggleTema } from '../../Functions/Middleware';
 import UserPhotoModal from '../UsersList/User/UserPhotoModal/UserPhotoModal'
 import UserPhoto from '../UserProfilePhoto/UserPhoto';
 import { AtivosTela, ConfigTela, UsuariosTela } from '../../Functions/Permits';
@@ -46,7 +46,7 @@ const NavBar = (props) => {
 
     // SET CURRENT USER ALWAYS WHEN USERS CHANGE
     useEffect(() => {
-        SetCurrentUser({ ...GetCurrentUserFromStore() })
+        SetCurrentUser({ ...GetFromStore('CurrentUser') })
     }, [props.Usuarios])
 
 

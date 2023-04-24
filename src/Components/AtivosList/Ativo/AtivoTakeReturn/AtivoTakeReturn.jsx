@@ -3,7 +3,7 @@ import './AtivoTakeReturn.css'
 import { DevolverTabTitle, RetirarTabTitle } from './AtivoTakeReturnUtils';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
 import { UilUser, UilEnvelope, UilBookmark, UilCalendarAlt, UilArchive, UilArrowUp, UilComment, UilArrowDown, UilCommentInfoAlt } from '@iconscout/react-unicons'
-import { AddRecord, EditAtivo, EditRecord, EditRecordStore, GetCurrentUserFromStore, GetQtdInUseOfAtivoWithId, GetRecordByAtivoIdAndUserId, GetRecords, GetTakesOfAtivoOfCurrentUser, GetUsersFromStoreWithNoCurrentUser, GetUsersThatTookAtivo, SaveRecords } from '../../../../Functions/Middleware';
+import { AddRecord, EditAtivo, EditRecord, EditRecordStore, GetFromStore, GetQtdInUseOfAtivoWithId, GetRecordByAtivoIdAndUserId, GetRecords, GetTakesOfAtivoOfCurrentUser, GetUsersThatTookAsset, GetUsersThatTookAtivo, SaveRecords } from '../../../../Functions/Middleware';
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
 import { DefaultRecord } from '../../../../Data/Items';
 import { v4 } from 'uuid';
@@ -25,7 +25,7 @@ import CustomSelect from '../../../LayoutComponents/CustomSelect/CustomSelect'
 const AtivoTakeReturn = (props) => {
 
     // FUNCIONALIDADE
-    const [CurrentUser,] = useState(GetCurrentUserFromStore())
+    const [CurrentUser,] = useState(GetFromStore('CurrentUser'))
     const [key, setKey] = useState('');
     const [ActionFor, setActionFor] = useState('Me');
     const [TakenFor, setTakenFor] = useState();
@@ -357,7 +357,7 @@ const AtivoTakeReturn = (props) => {
                                                 </FormGroupLabel>
                                                 <CustomSelect
                                                     placeholder="Digite o Email"
-                                                    options={GetUsersFromStoreWithNoCurrentUser(props?.Ativo?.id)}
+                                                    options={GetUsersThatTookAsset(props?.Ativo?.id)}
                                                     getOptionLabel={(options) => { return options["Email"]; }}
                                                     getOptionValue={(options) => { return options["Id"]; }}
                                                     value={TakenFor}
@@ -371,7 +371,7 @@ const AtivoTakeReturn = (props) => {
                                                 </FormGroupLabel>
                                                 <CustomSelect
                                                     placeholder="Digite o Nome"
-                                                    options={GetUsersFromStoreWithNoCurrentUser(props?.Ativo?.id)}
+                                                    options={GetUsersThatTookAsset(props?.Ativo?.id)}
                                                     getOptionLabel={(options) => { return options["Name"] + ' ' + options["LastName"]; }}
                                                     getOptionValue={(options) => { return options["Id"]; }}
                                                     value={TakenFor}

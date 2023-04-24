@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './UserAtivoRecords.css'
-import { GetAtivoWithIdFromStore, GetCurrentUserFromStore, GetRecordsOfUser } from '../../../../Functions/Middleware';
+import { GetFromStoreWithId, GetFromStore, GetRecordsOfUser } from '../../../../Functions/Middleware';
 import { connect } from 'react-redux'
 import AtivoModal from '../../../AtivosList/Ativo/AtivoModal'
 import { NotificationAlerta } from '../../../../NotificationUtils';
@@ -12,7 +12,7 @@ import Warning from '../../../LayoutComponents/Warning/Warning';
 
 const UserAtivoRecords = (props) => {
 
-    const CurrentUser = GetCurrentUserFromStore()
+    const CurrentUser = GetFromStore('CurrentUser')
 
     //STATES
     const [Records, SetRecords] = useState([])
@@ -27,7 +27,7 @@ const UserAtivoRecords = (props) => {
 
     //HANDLE ATIVO SELECTION
     const handleAtivoSelection = (Id) => {
-        const Ativo = GetAtivoWithIdFromStore(Id)
+        const Ativo = GetFromStoreWithId('AtivosWithDeleted',Id)
         if (Ativo.Deleted === false) {
             if (props.FromModal === false) {
                 setSelectedAtivo(Ativo)

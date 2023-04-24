@@ -5,7 +5,7 @@ import Loading from '../LoadingForTabs/Loading';
 import User from './User/User';
 import { connect } from 'react-redux'
 import { v4 } from 'uuid';
-import { GetCurrentUserFromStore, GetCurrentUserTypeFromStore, GetUsersFromStore } from '../../Functions/Middleware';
+import { GetFromStore } from '../../Functions/Middleware';
 import { PermitIndexs } from '../../GlobalVars';
 import Warning from '../LayoutComponents/Warning/Warning';
 import Show from '../LayoutComponents/Show/Show';
@@ -21,12 +21,12 @@ const UsersList = (props) => {
     const [FiltroDeTexto, setFiltroDeTexto] = useState('');
     const [modalShow, setModalShow] = useState(false);
     const [AddmodalShow, setAddModalShow] = useState(false);
-    const [CurrentUser,] = useState(GetCurrentUserFromStore())
+    const [CurrentUser,] = useState(GetFromStore('CurrentUser'))
     const [Filters, setFilters] = useState([]);
-    const Users = GetUsersFromStore()
+    const Users = GetFromStore('Usuarios')
 
     //PERMITS E USER TYPE   
-    var PermitToAddUsers = GetCurrentUserTypeFromStore()?.Permits[PermitIndexs['ADICIONAR_USUARIOS']]
+    var PermitToAddUsers = GetFromStore('CurrentUserType')?.Permits[PermitIndexs['ADICIONAR_USUARIOS']]
 
     //CHECK
     const CheckIncludesText = (What) => {

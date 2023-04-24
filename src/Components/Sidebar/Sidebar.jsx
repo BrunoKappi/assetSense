@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import User from '../../assets/Images/SerranoLogoFuncoBranco.jpg'
 import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilClipboardNotes, UilHistory, UilBars } from '@iconscout/react-unicons'
 import { NotificationErro } from '../../NotificationUtils';
-import { GetCurrentUserFromStore, SetLoggedUserPhotoUrlJustStore } from '../../Functions/Middleware';
+import { GetFromStore, SetLoggedUserPhotoUrlJustStore } from '../../Functions/Middleware';
 import Loading from '../LoadingForTabs/Loading'
 import UserPhotoModal from '../UsersList/User/UserPhotoModal/UserPhotoModal'
 //Tooltip
@@ -29,7 +29,7 @@ const Sidebar = (props) => {
     //SET CURRENT USER AND PHOTO URL
     useEffect(() => {
         SetCurrentUser({ ...props.Usuarios.find(user => user.Email === props.LoggedUser.Email) })
-        const User = GetCurrentUserFromStore()
+        const User = GetFromStore('CurrentUser')
         if (User?.PhotoUrl) {
             if (props.LoggedUser.PhotoUrl !== User?.PhotoUrl) {
                 SetLoggedUserPhotoUrlJustStore(User?.PhotoUrl)

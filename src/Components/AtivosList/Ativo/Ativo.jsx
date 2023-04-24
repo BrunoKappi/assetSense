@@ -1,16 +1,16 @@
 import React from 'react'
 import './Ativo.css'
 import { UilWrench, UilBox, UilPlay, UilArchive, UilLabelAlt } from '@iconscout/react-unicons'
-import { GetLocalArmazenamentoNameWithIdFromStore, GetTipoAtivoNameWithIdFromStore } from '../../../Functions/Middleware'
+import { GetNameFromStoreWithId } from '../../../Functions/Middleware'
 //Tooltip
 import { Tooltip } from 'react-tippy';
 import { DefaultTooltipStyles } from '../../../GlobalVars';
 import { connect } from 'react-redux'
 
 const Ativo = (props) => {
- 
+
     return (
- 
+
         <div className={props.Tema === 'Escuro' ? 'AtivoContainrEscuro AtivoContainr' : 'AtivoContainrClaro AtivoContainr'} >
 
             <span className='AtivoContainrColumn NameColumnContainer'>
@@ -41,7 +41,7 @@ const Ativo = (props) => {
                 <Tooltip title="Local de Armazenamento" position="bottom" >
                     <span className='LocalArmazenamentoColumn'>
                         <UilBox />
-                        <span>{GetLocalArmazenamentoNameWithIdFromStore(props.Ativo.StorageLocation.id)}</span>
+                        <span>{GetNameFromStoreWithId('StorageLocations', props.Ativo.StorageLocation.id)}</span>
                     </span>
                 </Tooltip>
             </div>
@@ -49,7 +49,7 @@ const Ativo = (props) => {
                 <Tooltip title="Tipo do Ativo" position="bottom" >
                     <span className='AtivoTypeColumn'>
                         <UilLabelAlt />
-                        <span>{GetTipoAtivoNameWithIdFromStore(props.Ativo.Type.id)}</span>
+                        <span>{GetNameFromStoreWithId('TiposAtivos', props.Ativo.Type.id)}</span>
                     </span>
                 </Tooltip>
             </span>

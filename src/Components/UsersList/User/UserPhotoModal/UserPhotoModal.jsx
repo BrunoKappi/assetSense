@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import UserPhoto from '../../../../assets/Images/SerranoLogoFuncoBranco.jpg'
 import { UilCameraPlus, UilTimes, UilTrashAlt, UilCheck, UilBackward, UilPen } from '@iconscout/react-unicons'
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
-import { DeleteFile, GetCurrentUserFromStore, GetUserUrlImage, ImageUpload, SetLoggedUserPhotoUrl, SetOtherUserPhotoUrl } from '../../../../Functions/Middleware';
+import { DeleteFile, GetFromStore, GetUserUrlImage, ImageUpload, SetLoggedUserPhotoUrl, SetOtherUserPhotoUrl } from '../../../../Functions/Middleware';
 import LoadingSpiner from '../../../LoadingForTabs/Loading'
 import { v4 } from 'uuid';
 import Show from '../../../LayoutComponents/Show/Show';

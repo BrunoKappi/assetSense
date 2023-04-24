@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './Records.css'
-import { GetAtivoWithIdFromStore, GetCurrentUserFromStore, GetRecordsFromStore, GetUserWithIdFromStore } from '../../Functions/Middleware';
+import {  GetFromStore, GetFromStoreWithId } from '../../Functions/Middleware';
 import UsuarioModal from '../../Components/UsersList/User/UsuarioModal'
 import AtivoModal from '../../Components/AtivosList/Ativo/AtivoModal'
 import { v4 } from 'uuid';
@@ -13,7 +13,7 @@ import Warning from '../LayoutComponents/Warning/Warning';
 
 const Records = (props) => {
 
-    const CurrentUser = GetCurrentUserFromStore() 
+    const CurrentUser = GetFromStore('CurrentUser')
 
     //Quantidades 
     const [Records, SetRecords] = useState([])
@@ -36,7 +36,7 @@ const Records = (props) => {
 
     //HANDLE USER SELECTION INSIDE RECORD
     const handleUserSelection = (Id) => {
-        const User = GetUserWithIdFromStore(Id)
+        const User = GetFromStoreWithId('UsuariosWithDeleted', Id)
         if (User.Deleted === false) {
             setSelectedUser(User)
             setModalShow(true)
@@ -47,7 +47,7 @@ const Records = (props) => {
 
     //HANDLE ATIVO SELECTION INSIDE RECORD
     const handleAtivoSelection = (Id) => {
-        const Ativo = GetAtivoWithIdFromStore(Id)
+        const Ativo = GetFromStoreWithId('AtivosWithDeleted',Id)
         if (Ativo.Deleted === false) {
             setSelectedAtivo(Ativo)
             setModalShowAtivo(true)
@@ -66,10 +66,10 @@ const Records = (props) => {
 
                 {/***********   FORM FILTER   *************/}
                 <RecordsFormFilter
-                    GetRecords={GetRecordsFromStore}
+                    GetRecords={() => GetFromStore('RecordsAtivos')}
                     SetRecords={SetRecords}
-                    Ativo={SelectedUser} 
-                /> 
+                    Ativo={SelectedUser}
+                />
 
                 {/***********   RECORDS   *************/}
                 {Records.map(Registro =>

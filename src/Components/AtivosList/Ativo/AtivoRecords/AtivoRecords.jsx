@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './AtivoRecords.css'
-import { GetCurrentUserFromStore, GetRecordsOfAtivo, GetUserWithIdFromStore } from '../../../../Functions/Middleware';
+import { GetFromStore, GetFromStoreWithId, GetRecordsOfAtivo } from '../../../../Functions/Middleware';
 import { UilCommentInfoAlt } from '@iconscout/react-unicons'
 //Tooltip
 import UsuarioModal from '../../../UsersList/User/UsuarioModal'
@@ -12,7 +12,7 @@ import Show from '../../../LayoutComponents/Show/Show';
 import RecordsFormFilter from '../../../RecordsFormFilter/RecordsFormFilter'
 const AtivoRecords = (props) => {
 
-    const CurrentUser = GetCurrentUserFromStore()
+    const CurrentUser = GetFromStore('CurrentUser')
 
     //QUANTIDADES 
     const [Records, SetRecords] = useState([])
@@ -32,7 +32,7 @@ const AtivoRecords = (props) => {
 
     //WHEN CLICK USER
     const handleUserSelection = (Id) => {
-        const User = GetUserWithIdFromStore(Id)
+        const User = GetFromStoreWithId('UsuariosWithDeleted', Id)
         if (User.Deleted === false && props.FromModal === false) {
             setSelectedUser(User)
             setModalShow(true)

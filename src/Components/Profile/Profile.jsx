@@ -3,12 +3,12 @@ import './Profile.css'
 import { connect } from 'react-redux'
 import UsuarioModal from '../UsersList/User/UsuarioModal'
 import { useNavigate } from 'react-router-dom';
-import { GetCurrentUserFromStore } from '../../Functions/Middleware';
+import { GetFromStore } from '../../Functions/Middleware';
 
 const Profile = (props) => {
 
     const navigate = useNavigate();
-    const [CurrentUser] = useState(GetCurrentUserFromStore())
+    const [CurrentUser] = useState(GetFromStore('CurrentUser'))
     const [ModalShow, setModalShow] = useState(true)
 
     return (

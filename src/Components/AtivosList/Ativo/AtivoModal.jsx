@@ -12,8 +12,8 @@ import Loading from '../../LoadingForTabs/Loading';
 import { UilUserCircle, UilClipboardNotes, UilLabel, UilLabelAlt, UilCog, UilBox, UilSave, UilPostcard, UilUsersAlt, UilCommentAltChartLines, UilTag, UilTimes, UilBuilding, UilCircleLayer, UilPlay, UilWrench, UilCheck, UilBackward, UilTrash, UilArrow } from '@iconscout/react-unicons'
 //FUNCTIONS
 import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
-import { GetFromStore, GetTipoDeUsoNameWithIdFromStore } from '../../../Functions/Middleware';
-import { AddAtivo, AddAtivoFirebase, DeleteAtivo, EditAtivo, GetAtivoStatusNameWithIdFromStore, GetAtivoStatusWithIdFromStore, GetAtivoTypeWithIdFromStore, GetAtivoWithIdFromStore, GetCurrentUserTypeFromStore, GetLocalArmazenamentoNameWithIdFromStore, GetLocalArmazenamentoWithIdFromStore, GetTipoAtivoNameWithIdFromStore, ReturnAllRecordOfAtivowithId } from '../../../Functions/Middleware'
+import { GetFromStore, GetNameFromStoreWithId } from '../../../Functions/Middleware';
+import { AddAtivo, AddAtivoFirebase, DeleteAtivo, EditAtivo,  GetFromStoreWithId, ReturnAllRecordOfAtivowithId } from '../../../Functions/Middleware'
 //VARIABLES
 import { DefaultAtivo, DefaultAtivosType, DefaultLocal, } from '../../../Data/Items';
 //LIBRARIES
@@ -40,7 +40,7 @@ import CustomSelect from '../../LayoutComponents/CustomSelect/CustomSelect'
 const AtivoModal = (props) => {
 
     //DEPENDENCIAS 
-    const StatusAtivo = GetAtivoStatusWithIdFromStore(props?.Ativo?.Status?.id)
+    const StatusAtivo = GetFromStoreWithId('StatusAtivos', props?.Ativo?.Status?.id)
     const [ProfileImageUrl, setProfileImageUrl] = useState('')
     const [AtivoType, setAtivoType] = useState({ ...DefaultAtivosType })
     const [AtivoTypeCustomFields, setAtivoTypeCustomFields] = useState([])
@@ -58,7 +58,7 @@ const AtivoModal = (props) => {
     const [LoadingAction, setLoadingAction] = useState(false)
 
     //CURRENT ATIVO AND PERMITS
-    const [CurrentUserType] = useState(GetCurrentUserTypeFromStore())
+    const [CurrentUserType] = useState(GetFromStore('CurrentUserType'))
 
 
     //CONFIRM 
@@ -101,7 +101,7 @@ const AtivoModal = (props) => {
         switch (Info) {
             case 'Type':
                 newAtivo.Type = { id: Value }
-                const GotAtivoType = GetAtivoTypeWithIdFromStore(Value)
+                const GotAtivoType = GetFromStoreWithId('TiposAtivos', Value)
                 setAtivoType(GotAtivoType)
                 break
             case 'Status':
@@ -126,7 +126,7 @@ const AtivoModal = (props) => {
     // QUANDO TEM UM ATIVO VALIDO PASSADO PELA PROP
     useEffect(() => {
         if (!props.Ativo?.Item) return
-        setAtivo(GetAtivoWithIdFromStore(props.Ativo?.id))
+        setAtivo(GetFromStoreWithId('AtivosWithDeleted', props.Ativo?.id))
         setIsEdited(false)
         setTab('AtivoInfo')
         if (props.Ativo?.PhotoUrl) {
@@ -158,8 +158,8 @@ const AtivoModal = (props) => {
 
     //QUANDO O ATIVO TYPE MUDA, PEGA O NOVO TYPE
     useEffect(() => {
-        setAtivoType(GetAtivoTypeWithIdFromStore(Ativo?.Type?.id))
-        setAtivoLocalArmazenamento(GetLocalArmazenamentoWithIdFromStore(Ativo?.StorageLocation?.id))
+        setAtivoType(GetFromStoreWithId('TiposAtivos', Ativo?.Type?.id))
+        setAtivoLocalArmazenamento(GetFromStoreWithId('StorageLocations', Ativo?.StorageLocation?.id))
     }, [Ativo, props.CurrentUser])
 
 
@@ -353,11 +353,11 @@ const AtivoModal = (props) => {
 
                                 <div className='AtivoModalHeader-Right-Setor'>
                                     <UilBox />
-                                    {props.Function === 'Add' ? GetLocalArmazenamentoNameWithIdFromStore(Ativo?.StorageLocation?.id) : AtivoLocalArmazenamento?.Value}
+                                    {props.Function === 'Add' ? GetNameFromStoreWithId('StorageLocations', Ativo?.StorageLocation?.id) : AtivoLocalArmazenamento?.Value}
                                 </div>
                                 <div className='AtivoModalHeader-Right-Tipo'>
                                     <UilLabel />
-                                    {props.Function === 'Add' ? GetTipoAtivoNameWithIdFromStore(Ativo?.Type?.id) : AtivoType?.Value}
+                                    {props.Function === 'Add' ? GetNameFromStoreWithId('TiposAtivos', Ativo?.Type?.id) : AtivoType?.Value}
                                 </div>
 
                             </div>
@@ -506,7 +506,7 @@ const AtivoModal = (props) => {
                                                                 getOptionValue={(options) => { return options["id"]; }}
                                                                 value={{
                                                                     id: Ativo?.Status?.id,
-                                                                    Value: GetAtivoStatusNameWithIdFromStore(Ativo?.Status?.id)
+                                                                    Value: GetNameFromStoreWithId('StatusAtivos', Ativo?.Status?.id)
                                                                 }}
                                                                 isDisabled={!CanEdit}
                                                                 onChange={(item) => { HandleChangeInfo('Status', item.id); }}
@@ -524,7 +524,7 @@ const AtivoModal = (props) => {
                                                                 getOptionValue={(options) => { return options["id"]; }}
                                                                 value={{
                                                                     id: Ativo?.Usage?.id,
-                                                                    Value: GetTipoDeUsoNameWithIdFromStore(Ativo?.Usage?.id)
+                                                                    Value: GetNameFromStoreWithId('TiposDeUso', Ativo?.Usage?.id)
                                                                 }}
                                                                 isDisabled={!CanEdit}
                                                                 onChange={(item) => { HandleChangeInfo('Usage', item.id); }}

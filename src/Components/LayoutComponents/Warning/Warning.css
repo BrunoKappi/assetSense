@@ -9,11 +9,6 @@
 
 
 .Warning-Item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: .3rem;
     color: white;
     font-family: var(--Fonte);
     background-color: #f0ad4e;
@@ -24,4 +19,5 @@
 
 .Warning-Item>svg {
     width: 1rem;
+    margin-right: .3rem;
 }

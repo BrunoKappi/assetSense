@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './AtivosList.css'
 import Loading from '../LoadingForTabs/Loading';
 import { connect } from 'react-redux'
-import { GetCurrentUserFromStore, GetCurrentUserTypeFromStore, GetFromStore, GetLocaisSelect, GetLocalArmazenamentoNameWithIdFromStore, GetTipoAtivoNameWithIdFromStore, GetTipoDeUsoNameWithIdFromStore, GetTiposAtivosSelect } from '../../Functions/Middleware';
+import { GetFromStore } from '../../Functions/Middleware';
 import { PermitIndexs } from '../../GlobalVars';
 import Ativo from './Ativo/Ativo';
 import { v4 } from 'uuid';
@@ -23,7 +23,7 @@ const AtivosList = (props) => {
 
     const [modalShow, setModalShow] = useState(false);
     const [AddmodalShow, setAddModalShow] = useState(false);
-    const [CurrentUser,] = useState(GetCurrentUserFromStore())
+    const [CurrentUser,] = useState(GetFromStore('CurrentUser'))
     const [Filters, setFilters] = useState([]);
 
     //CHECK
@@ -37,7 +37,7 @@ const AtivosList = (props) => {
     }
 
     //PERMITS E USER TYPE   
-    var PermitToAddAtivos = GetCurrentUserTypeFromStore()?.Permits[PermitIndexs['ADICIONAR_ATIVOS']]
+    var PermitToAddAtivos = GetFromStore('CurrentUserType')?.Permits[PermitIndexs['ADICIONAR_ATIVOS']]
 
     // FILL LIST
     useEffect(() => {
