@@ -51,9 +51,9 @@ const List = (props) => {
   window.addEventListener('resize', handleResize)
 
 
-  const ListaDeItens = [...props[ListaDeitensMap[props.Module]].filter(Ativo => Ativo[props.Key].id === props.Item.id)]
+  const ListaDeItens = [...props[ListaDeitensMap[props.Module]].filter(Ativo => Ativo[props.Key].id === props.Item.id && Ativo.Deleted === false)]
 
-  console.log(props.Item.Value, ListaDeItens)
+
 
   return (
     <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'AtivosTypesShowOnlyCustomGroupListEscuro AtivosTypesShowOnlyCustomGroupList' : 'AtivosTypesShowOnlyCustomGroupListClaro AtivosTypesShowOnlyCustomGroupList'}>
@@ -74,7 +74,7 @@ const List = (props) => {
           {(provided, snapshot) => {
             return (
               <div className={snapshot.isDraggingOver ? 'MarginBottom' : ''} {...provided.droppableProps} ref={provided.innerRef}>
-                {ListaDeItens.filter(Item => Item.Deleted === false).sort((a, b) => a[NameKey[props.Module]].localeCompare(b[NameKey[props.Module]])).map((Item, index) => {
+                {ListaDeItens.sort((a, b) => a[NameKey[props.Module]].localeCompare(b[NameKey[props.Module]])).map((Item, index) => {
                   return <Draggable action as="li" key={Item.id} draggableId={Item.id} index={index} isDragDisabled={isMobile} >
                     {(DragProvided) => {
                       return (
@@ -92,7 +92,7 @@ const List = (props) => {
                         </div>
                       )
                     }}
-                  </Draggable>
+                  </Draggable> 
                 })}
               </div>
 
@@ -101,7 +101,7 @@ const List = (props) => {
         </Droppable>
 
 
-        <Show Show={ListaDeItens.filter(Item => Item.Deleted === false).length === 0}>
+        <Show Show={ListaDeItens.length === 0}>
           <ListGroup.Item key={v4()} >
             <Droppable droppableId={props.Item.id} key={props.Item.id}>
               {(provided, snapshot) => {

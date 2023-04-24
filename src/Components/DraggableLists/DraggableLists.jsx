@@ -77,7 +77,7 @@ const DraggableLists = (props) => {
     useEffect(() => {
         setListaDeItens([
             ...props[List].map(element => {
-                var ItensQtd = props[ListaDeitensMap[props.Module]].filter(el => el[Key].id === element.id).length
+                var ItensQtd = props[ListaDeitensMap[props.Module]].filter(el => el[Key].id === element.id && el.Deleted === false).length
                 return { id: element.id, Value: element.Value, Qtd: ItensQtd }
             })])
     }, [props[ListaDeitensMap[props.Module]], props[List]])
