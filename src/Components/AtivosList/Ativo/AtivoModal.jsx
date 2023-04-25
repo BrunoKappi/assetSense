@@ -12,8 +12,8 @@ import Loading from '../../LoadingForTabs/Loading';
 import { UilUserCircle, UilClipboardNotes, UilLabel, UilLabelAlt, UilCog, UilBox, UilSave, UilPostcard, UilUsersAlt, UilCommentAltChartLines, UilTag, UilTimes, UilBuilding, UilCircleLayer, UilPlay, UilWrench, UilCheck, UilBackward, UilTrash, UilArrow } from '@iconscout/react-unicons'
 //FUNCTIONS
 import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
-import { GetFromStore, GetNameFromStoreWithId, UpdateInFirebase } from '../../../Functions/Middleware';
-import { AddAtivo, AddAtivoFirebase, DeleteAtivo,   GetFromStoreWithId, ReturnAllRecordOfAtivowithId } from '../../../Functions/Middleware'
+import { AddToFirebase, GetFromStore, GetNameFromStoreWithId, UpdateInFirebase } from '../../../Functions/Middleware';
+import { AddAtivoStore, DeleteAtivo, GetFromStoreWithId, ReturnAllRecordOfAtivowithId } from '../../../Functions/Middleware'
 //VARIABLES
 import { DefaultAtivo, DefaultAtivosType, DefaultLocal, } from '../../../Data/Items';
 //LIBRARIES
@@ -245,7 +245,7 @@ const AtivoModal = (props) => {
         setLoadingAction(true)
         //EDIT ATIVO
         if (ConfirmAction === 'Edit') {
-            UpdateInFirebase(AssetsCollectionName,Ativo).then(() => {
+            UpdateInFirebase(AssetsCollectionName, Ativo).then(() => {
                 store.dispatch(EditAtivoAction(Ativo))
                 setLoadingAction(false)
                 NotificationSucesso('Alteração', 'Alterações salvas com sucesso!')
@@ -256,11 +256,11 @@ const AtivoModal = (props) => {
         else if (ConfirmAction === 'Add') {
             const NewAtivo = { ...Ativo }
             NewAtivo.id = IdToUse ? IdToUse : v4()
-            AddAtivo(NewAtivo).then((AddedRecordDoc) => {
+            AddToFirebase(AssetsCollectionName, NewAtivo).then((AddedRecordDoc) => {
                 NewAtivo.docID = AddedRecordDoc?.id
                 setAtivo({ ...NewAtivo })
                 setLoadingAction(false)
-                AddAtivoFirebase(NewAtivo)
+                AddAtivoStore(NewAtivo)
                 CancelEditions()
                 props.onHide()
                 NotificationSucesso('Adição', 'Ativo Adicionado com Sucesso!')

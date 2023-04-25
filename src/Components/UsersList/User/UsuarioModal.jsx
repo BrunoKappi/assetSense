@@ -25,7 +25,7 @@ import { v4 } from 'uuid';
 import { FIREBASE_LogouyAuth, mudarSenha, unsubscribe } from '../../../Config/firebase/auth';
 import Loading from '../../LoadingForTabs/Loading';
 import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
-import { AddUser, AddUserFirebase, DeleteUser,  GetFromStore, GetCurrentUserSetorNameWithIdFromStore, GetCurrentUserTypeNameWithIdFromStore, LoginUtil, RegisterUser, ReturnAllAtivosOfUserWithId, GetFromStoreWithId, UpdateInFirebase } from '../../../Functions/Middleware'
+import { AddUserToStore, DeleteUser, GetFromStore, GetCurrentUserSetorNameWithIdFromStore, GetCurrentUserTypeNameWithIdFromStore, LoginUtil, RegisterUser, ReturnAllAtivosOfUserWithId, GetFromStoreWithId, UpdateInFirebase, AddToFirebase } from '../../../Functions/Middleware'
 //LAYOUT COMPONENTS
 import TwoColumns from '../../LayoutComponents/TwoColumns/TwoColumns';
 import FormGroupLabel from '../../LayoutComponents/FormGroupLabel/FormGroupLabel';
@@ -197,11 +197,11 @@ const UsuarioModal = (props) => {
             setTimeout(() => { FIREBASE_LogouyAuth() }, 5000);
 
             RegisterUser(NewUser.Email).then(() => {
-                AddUser(NewUser).then((AddedUserDoc) => {
+                AddToFirebase(UsersCollectionName, NewUser).then((AddedUserDoc) => {
                     NewUser.docID = AddedUserDoc?.id // PEGA O docID gerado pelo firebase e coloca no objeto do novo User
                     setUser(NewUser)
                     setLoadingAction(false)
-                    AddUserFirebase(User)
+                    AddUserToStore(User)
                     CancelEditions()
                     props.onHide()
                     NotificationSucesso('Adição', 'Usuário Adicionado com Sucesso!')

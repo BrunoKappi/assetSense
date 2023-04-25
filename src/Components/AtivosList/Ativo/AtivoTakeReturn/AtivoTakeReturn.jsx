@@ -3,7 +3,7 @@ import './AtivoTakeReturn.css'
 import { DevolverTabTitle, RetirarTabTitle } from './AtivoTakeReturnUtils';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
 import { UilUser, UilEnvelope, UilBookmark, UilCalendarAlt, UilArchive, UilArrowUp, UilComment, UilArrowDown, UilCommentInfoAlt } from '@iconscout/react-unicons'
-import { AddRecord,  EditRecordStore, GetFromStore, GetQtdInUseOfAtivoWithId, GetRecordByAtivoIdAndUserId, GetTakesOfAtivoOfCurrentUser, GetUsersThatTookAsset, GetUsersThatTookAtivo, SaveRecords, UpdateInFirebase } from '../../../../Functions/Middleware';
+import { AddToFirebase, EditRecordStore, GetFromStore, GetQtdInUseOfAtivoWithId, GetRecordByAtivoIdAndUserId, GetTakesOfAtivoOfCurrentUser, GetUsersThatTookAsset, GetUsersThatTookAtivo, SaveRecords, UpdateInFirebase } from '../../../../Functions/Middleware';
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
 import { DefaultRecord } from '../../../../Data/Items';
 import { v4 } from 'uuid';
@@ -194,7 +194,7 @@ const AtivoTakeReturn = (props) => {
                     NotificationErro("Ação negada", "Parece que alguém ja reitrou esse item, atualize sua página para infomações atualizadas")
                 } else {
 
-                    AddRecord(NewRecordToAdd).then((Record) => {
+                    AddToFirebase(RecordsCollectionName, NewRecordToAdd).then((Record) => {
 
                         //ADD PLUS 1 RETIRADA 
                         const NewAtivo = { ...props.Ativo, QtdInUse: props.Ativo.QtdInUse + 1 }

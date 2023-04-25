@@ -206,7 +206,6 @@ export const FIREBASE_GetUserDocIDById = async (id) => {
   const Query = query(Usuarios, where('id', '==', id));
   const data = await getDocs(Query);
   const dados = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
-
   return dados[0].docID;
 };
 

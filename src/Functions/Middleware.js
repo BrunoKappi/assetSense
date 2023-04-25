@@ -11,7 +11,7 @@ import { AddUsuarioAction, SetUsuarios } from "../Config/store/actions/UsuariosA
 import { PermitIndexs } from "../GlobalVars"
 import { EditRecordAction, SetRecords } from "../Config/store/actions/RecordsActions"
 import moment from "moment"
-import { FIREBASE_AddAtivo, FIREBASE_AddLocalArmazenamento, FIREBASE_AddRecord, FIREBASE_AddSetor, FIREBASE_AddStatusAtivo, FIREBASE_AddTipoAtivo, FIREBASE_AddTipoUso, FIREBASE_AddTipoUsuario, FIREBASE_AddUsuario, FIREBASE_DeleteLocalArmazenamento, FIREBASE_DeleteSetor, FIREBASE_DeleteStatusAtivo, FIREBASE_DeleteTipoAtivo, FIREBASE_DeleteTipoDeUsuario, FIREBASE_DeleteTipoUso, FIREBASE_Get, FIREBASE_Update, AssetTypesCollectionName, SectorsCollectionName, UserTypesCollectionName, StorageLocationsCollectionName, RecordsCollectionName, UsageTypesCollectionName, AssetStatusCollectionName, AssetsCollectionName, UsersCollectionName } from "../Config/firebase/metodos"
+import { FIREBASE_DeleteLocalArmazenamento, FIREBASE_DeleteSetor, FIREBASE_DeleteStatusAtivo, FIREBASE_DeleteTipoAtivo, FIREBASE_DeleteTipoDeUsuario, FIREBASE_DeleteTipoUso, FIREBASE_Get, FIREBASE_Update, AssetTypesCollectionName, SectorsCollectionName, UserTypesCollectionName, StorageLocationsCollectionName, RecordsCollectionName, UsageTypesCollectionName, AssetStatusCollectionName, AssetsCollectionName, UsersCollectionName, FIREBASE_Add } from "../Config/firebase/metodos"
 import { DefaultUserRole } from "../Data/Items"
 import { SetTemaAction } from "../Config/store/actions/TemaActions"
 import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage"
@@ -74,6 +74,15 @@ export const SetAtivoPhotoUrl = (URL, AtivoId) => {
 }
 
 
+export const ResetonAuthStateChanged = () => {
+    onAuthStateChanged(auth, () => {
+    })
+}
+
+export async function RegisterUser(Email) {
+    return FIREBASE_RegisterUserAuth(Email)
+}
+
 
 
 export const ToggleSideBarVisibility = () => {
@@ -82,8 +91,8 @@ export const ToggleSideBarVisibility = () => {
 
 
 
-// Define um objeto de mapeamento que relaciona o nome do módulo/prop com a função get correspondente
-export const fetchFunctions = {
+
+export const GetFromStoreFunctions = {
     TiposAtivos: () => GetFromStore('TiposAtivos'),
     Setores: () => GetFromStore('Setores'),
     TiposUsuarios: () => GetFromStore('TiposUsuarios'),
@@ -94,54 +103,43 @@ export const fetchFunctions = {
 
 
 
-/////////////////*********************** SAVES ********************////////////////////////
+/////////////////*********************** STORE SAVES ********************////////////////////////
 
 export const SaveTipos = (Itens) => store.dispatch(SetTiposAtivos(Itens))
-
 export const SaveSetores = (Itens) => store.dispatch(SetSetores(Itens))
-
 export const SaveUserTipos = (Itens) => store.dispatch(SetTiposUsuarios(Itens))
-
 export const SaveStorageLocations = (Itens) => store.dispatch(SetStorageLocations(Itens))
-
 export const SaveRecords = (Itens) => store.dispatch(SetRecords(Itens))
-
 export const SaveStatusAtivos = (Itens) => store.dispatch(SetStatusAtivos(Itens))
-
 export const SaveTiposDeUso = (Itens) => store.dispatch(SetTiposDeUso(Itens))
-
 export const SaveAtivos = (Itens) => store.dispatch(SetAtivos(Itens))
-
 export const SaveUsers = (Itens) => store.dispatch(SetUsuarios(Itens))
 
 
 
-
-
-
-/////////////////*********************** GETTERS ********************////////////////////////
+///********* FIREBASE GET **********//////
 
 export async function GetFromFirebase(Collection) {
     return FIREBASE_Get(Collection)
 }
 
 
-
-
-export async function GetRecords() {
-    GetFromStore('RecordsAtivos')
-}
-
-export async function GetUserTipos() {
-    return GetFromStore('TiposUsuarios')
-}
-
-
-
-
-/////////////////*********************** EDIT/UPDATES ********************////////////////////////
+///********* FIREBASE EDIT/UPDATES **********//////
 
 export const UpdateInFirebase = (Collection, Item) => FIREBASE_Update(Collection, { ...Item, LastEditedAt: moment().valueOf() })
+
+
+
+///********* FIREBASE ADD **********//////
+
+export const AddToFirebase = (Collection, Item) => {
+    return FIREBASE_Add(Collection, { ...Item, CreatedAt: moment().valueOf(), LastEditedAt: moment().valueOf() })
+}
+
+
+
+
+
 
 export const EditRecordStore = (Item) => store.dispatch(EditRecordAction(Item))
 
@@ -150,73 +148,26 @@ export const EditRecordStore = (Item) => store.dispatch(EditRecordAction(Item))
 
 
 
-
-
-
-
-
-
-
-//////////// TIPOS ATIVOS //////////////////
-
-
-
-export async function AddTipo(TipoAtivo) {
-    TipoAtivo.CreatedAt = moment().valueOf()
-    TipoAtivo.LastEditedAt = moment().valueOf()
-    store.dispatch(AddTipoAtivo(TipoAtivo))
+export async function AddAtivoStore(Item) {
+    Item.CreatedAt = moment().valueOf()
+    Item.LastEditedAt = moment().valueOf()
+    store.dispatch(AddAtivoAction(Item))
 }
 
-
-export async function AddRecord(RecordToAdd) {
-    RecordToAdd.CreatedAt = moment().valueOf()
-    RecordToAdd.LastEditedAt = moment().valueOf()
-    return FIREBASE_AddRecord(RecordToAdd)
-}
-
-export async function AddAtivo(Ativo) {
-    Ativo.CreatedAt = moment().valueOf()
-    Ativo.LastEditedAt = moment().valueOf()
-    return FIREBASE_AddAtivo(Ativo)
-}
-
-export async function AddAtivoFirebase(New) {
-    New.CreatedAt = moment().valueOf()
-    New.LastEditedAt = moment().valueOf()
-    store.dispatch(AddAtivoAction(New))
-}
-
-export async function DeleteAtivo(Ativo) {
-    return new Promise((resolve, reject) => {
-        Ativo.Deleted = true
-        UpdateInFirebase(AssetsCollectionName, Ativo)
-        resolve('Ok');
-    });
-}
-
-
-
-
-export const ResetonAuthStateChanged = () => {
-    onAuthStateChanged(auth, () => {
-
-    })
-}
-
-export async function RegisterUser(Email) {
-    return FIREBASE_RegisterUserAuth(Email)
-}
-
-export async function AddUser(User) {
-    User.CreatedAt = moment().valueOf()
-    User.LastEditedAt = moment().valueOf()
-    return FIREBASE_AddUsuario(User)
-}
-
-export async function AddUserFirebase(New) {
+export async function AddUserToStore(New) {
     New.CreatedAt = moment().valueOf()
     New.LastEditedAt = moment().valueOf()
     store.dispatch(AddUsuarioAction(New))
+}
+
+
+
+export async function DeleteAtivo(Item) {
+    return new Promise((resolve, reject) => {
+        Item.Deleted = true
+        UpdateInFirebase(AssetsCollectionName, Item)
+        resolve('Ok');
+    });
 }
 
 export async function DeleteUser(User) {
@@ -226,6 +177,12 @@ export async function DeleteUser(User) {
         resolve('Ok');
     });
 }
+
+
+
+
+
+
 
 
 
@@ -509,11 +466,11 @@ export const DeleteFunctions = {
     "TiposUso": FIREBASE_DeleteTipoUso
 };
 
-export const AddFunctions = {
-    "TiposAtivos": FIREBASE_AddTipoAtivo,
-    "Setores": FIREBASE_AddSetor,
-    "TiposUsuarios": FIREBASE_AddTipoUsuario,
-    "Locais": FIREBASE_AddLocalArmazenamento,
-    "StatusAtivos": FIREBASE_AddStatusAtivo,
-    "TiposUso": FIREBASE_AddTipoUso
+export const AddFunctions = { 
+    "TiposAtivos": (Item) => AddToFirebase(AssetTypesCollectionName, Item),
+    "Setores": (Item) => AddToFirebase(SectorsCollectionName, Item),
+    "TiposUsuarios": (Item) => AddToFirebase(UserTypesCollectionName, Item),
+    "Locais": (Item) => AddToFirebase(StorageLocationsCollectionName, Item),
+    "StatusAtivos": (Item) => AddToFirebase(AssetTypesCollectionName, Item),
+    "TiposUso": (Item) => AddToFirebase(UsageTypesCollectionName, Item),
 };

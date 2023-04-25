@@ -11,7 +11,7 @@ import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import { Tooltip } from 'react-tippy';
 import { GetNotificationErrorMessageDelete, GetNotificationSuccessMessageAdd, GetNotificationExistsMessageAdd, GetNotificationSuccessMessageDelete, GetNotificationSuccessMessageChangeName } from './EditableCustomListUtils';
 import Loading from '../LoadingForTabs/Loading'
-import { AddFunctions, CheckIfAnyAtivoOfStatusTaken2, DeleteFunctions, EditFunctions, fetchFunctions, saveFunctions, SaveStatusAtivos, UpdateInFirebase } from '../../Functions/Middleware';
+import { AddFunctions, CheckIfAnyAtivoOfStatusTaken2, DeleteFunctions, EditFunctions, GetFromStoreFunctions, saveFunctions, SaveStatusAtivos, UpdateInFirebase } from '../../Functions/Middleware';
 import { DefaultUserRole } from '../../Data/Items';
 import { EDITAR_LOCAIS, EDITAR_SETORES, EDITAR_STATUS_ATIVOS, EDITAR_TIPOS_ATIVOS, EDITAR_TIPOS_DE_USO, EDITAR_TIPOS_DE_USUARIO } from '../../Functions/Permits';
 import Show from '../LayoutComponents/Show/Show'
@@ -95,7 +95,7 @@ const EditableCustomList = (props) => {
   //GET FUNCTION
   useEffect(() => {
     //Procura a função get correspondente com base no nome do módulo/prop
-    const fetchFunction = fetchFunctions[props.Module] || [];
+    const fetchFunction = GetFromStoreFunctions[props.Module] || [];
 
     //Executa a função get e atualiza o estado com o resultado 
     setListaDeItens(fetchFunction())
