@@ -11,10 +11,11 @@ import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import { Tooltip } from 'react-tippy';
 import { GetNotificationErrorMessageDelete, GetNotificationSuccessMessageAdd, GetNotificationExistsMessageAdd, GetNotificationSuccessMessageDelete, GetNotificationSuccessMessageChangeName } from './EditableCustomListUtils';
 import Loading from '../LoadingForTabs/Loading'
-import { AddFunctions, CheckIfAnyAtivoOfStatusTaken2, DeleteFunctions, EditFunctions, EditStatusAtivo, fetchFunctions, saveFunctions, SaveStatusAtivos } from '../../Functions/Middleware';
+import { AddFunctions, CheckIfAnyAtivoOfStatusTaken2, DeleteFunctions, EditFunctions, fetchFunctions, saveFunctions, SaveStatusAtivos, UpdateInFirebase } from '../../Functions/Middleware';
 import { DefaultUserRole } from '../../Data/Items';
 import { EDITAR_LOCAIS, EDITAR_SETORES, EDITAR_STATUS_ATIVOS, EDITAR_TIPOS_ATIVOS, EDITAR_TIPOS_DE_USO, EDITAR_TIPOS_DE_USUARIO } from '../../Functions/Permits';
 import Show from '../LayoutComponents/Show/Show'
+import { AssetStatusCollectionName } from '../../Config/firebase/metodos';
 
 
 
@@ -94,13 +95,12 @@ const EditableCustomList = (props) => {
   //GET FUNCTION
   useEffect(() => {
     //Procura a função get correspondente com base no nome do módulo/prop
-    const fetchFunction = fetchFunctions[props.Module] || (() => Promise.resolve());
+    const fetchFunction = fetchFunctions[props.Module] || [];
 
-    //Executa a função get e atualiza o estado com o resultado
-    fetchFunction().then((Lista) => {
-      setListaDeItens(Lista)
-      setLoaded(true)
-    }).catch(HandleError)
+    //Executa a função get e atualiza o estado com o resultado 
+    setListaDeItens(fetchFunction())
+    setLoaded(true)
+
   }, [props.Module, props.TiposAtivos, props.Setores, props.TiposUsuarios, props.StorageLocations, props.StatusAtivos])
 
   //INIT EDITING AND CHECK PERMITS
@@ -161,11 +161,10 @@ const EditableCustomList = (props) => {
           NewItem.docID = AddedItemFirebase?.id
           ItensCopy.push(NewItem)
           if (saveFunction) {
-            saveFunction(ItensCopy).then(() => {           
-              setListaDeItens([...ItensCopy])
-              GetNotificationSuccessMessageAdd(props.Module)
-              setNewItemList('')
-            }).catch(HandleError)
+            saveFunction(ItensCopy)
+            setListaDeItens([...ItensCopy])
+            GetNotificationSuccessMessageAdd(props.Module)
+            setNewItemList('')
           }
         }).catch(HandleError)
 
@@ -201,10 +200,9 @@ const EditableCustomList = (props) => {
         const deleteFunction = DeleteFunctions[props.Module]
 
         deleteFunction(ItemToDelete).then(() => {
-          saveFunction(ItensCopy).then(() => {
-            setListaDeItens([...ItensCopy])
-            GetNotificationSuccessMessageDelete(props.Module)
-          })
+          saveFunction(ItensCopy)
+          setListaDeItens([...ItensCopy])
+          GetNotificationSuccessMessageDelete(props.Module)
         }).catch(HandleError)
 
       }
@@ -225,9 +223,8 @@ const EditableCustomList = (props) => {
       const [removed] = copiedItems.splice(IndexSource, 1)
       copiedItems.splice(IndexDestination, 0, removed);
       const saveFunction = saveFunctions[props.Module]
-      saveFunction(copiedItems).then(() => {
-        setListaDeItens([...copiedItems])
-      }).catch(HandleError)
+      saveFunction(copiedItems)
+      setListaDeItens([...copiedItems])
     } else {
       NotificationErro("Não Autorizado", "Você não possui permissão para fazer essa alteração, solicite autorização para seu Administrador")
     }
@@ -244,12 +241,11 @@ const EditableCustomList = (props) => {
     } else {
       ItensCopy[index].CanTake = !ItensCopy[index].CanTake
 
-      EditStatusAtivo(ItensCopy[index]).then(() => {
-        SaveStatusAtivos(ItensCopy).then(() => {
-          setListaDeItens([...ItensCopy])
-          EndEditing()
-          NotificationSucesso('Alteração', 'Status alterado com sucesso!')
-        })
+      UpdateInFirebase(AssetStatusCollectionName, ItensCopy[index]).then(() => {
+        SaveStatusAtivos(ItensCopy)
+        setListaDeItens([...ItensCopy])
+        EndEditing()
+        NotificationSucesso('Alteração', 'Status alterado com sucesso!')
       }).catch(HandleError)
     }
   }

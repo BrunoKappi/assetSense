@@ -5,12 +5,15 @@ import { PermitDesc } from '../../GlobalVars';
 import './UserTypesPermits.css'
 import { Tooltip } from 'react-tippy';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
-import { EditUserType, SaveUserTipos } from '../../Functions/Middleware';
+import { UpdateInFirebase, SaveUserTipos } from '../../Functions/Middleware';
 import { v4 } from 'uuid';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
 import Show from '../LayoutComponents/Show/Show';
+import { UserTypesCollectionName } from '../../Config/firebase/metodos';
+
+
 
 const UserTypesPermits = (props) => {
 
@@ -33,7 +36,7 @@ const UserTypesPermits = (props) => {
 
         TiposCopy[TipoIndex].IsAdmin = true
 
-        EditUserType(TiposCopy[TipoIndex]).then(() => {
+        UpdateInFirebase(UserTypesCollectionName, TiposCopy[TipoIndex]).then(() => {
             SaveUserTipos(TiposCopy)
             setTiposUsuarios(TiposCopy)
             NotificationSucesso("Permissões", "Permissões editadas com sucesso!")
@@ -52,7 +55,7 @@ const UserTypesPermits = (props) => {
 
         TiposCopy[TipoIndex].IsAdmin = AllTrue
 
-        EditUserType(TiposCopy[TipoIndex]).then(() => {
+        UpdateInFirebase(UserTypesCollectionName, TiposCopy[TipoIndex]).then(() => {
             SaveUserTipos(TiposCopy)
             setTiposUsuarios(TiposCopy)
             NotificationSucesso("Permissões", "Permissões editadas com sucesso!")

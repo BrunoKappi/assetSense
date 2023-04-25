@@ -15,17 +15,18 @@ import Loading from '../LoadingForTabs/Loading'
 import Stack from '../LayoutComponents/Stack/Stack'
 import Show from '../LayoutComponents/Show/Show'
 //FUNCTIONS
-import { EditSetor, EditTipoAtivo, EditUserType } from '../../Functions/Middleware';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 //VARIABLES
 import { DefaultCustomField } from '../../Data/Items';
 import { CamposMasoryBreakpoints } from '../../GlobalVars';
+import { AssetTypesCollectionName, SectorsCollectionName, UserTypesCollectionName } from '../../Config/firebase/metodos';
+import { UpdateInFirebase } from '../../Functions/Middleware';
 
 
 const EditFunctions = {
-    TiposAtivos: EditTipoAtivo,
-    TiposUsuarios: EditUserType,
-    Setores: EditSetor
+    TiposAtivos: (Item) => UpdateInFirebase(AssetTypesCollectionName, Item),
+    TiposUsuarios: (Item) => UpdateInFirebase(UserTypesCollectionName, Item),
+    Setores: (Item) => UpdateInFirebase(SectorsCollectionName, Item)
 }
 
 const Campos = (props) => {
@@ -145,7 +146,7 @@ const Campos = (props) => {
     }
 
     //INIT EDITING
-    const InitEditing = (SelectedCustomField, Index, SelectedItemToSet) => {    
+    const InitEditing = (SelectedCustomField, Index, SelectedItemToSet) => {
         setIsEditing(true)
         setSelectedListItemIndex(Index)
         setSelectedListItem(SelectedCustomField)

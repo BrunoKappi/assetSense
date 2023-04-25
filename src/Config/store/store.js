@@ -18,46 +18,28 @@ import { SetAtivos } from './actions/AtivosActions'
 import { SetStorageLocations } from './actions/StorageLocationsActions'
 import { SetStatusAtivos } from './actions/AtivosStatusActions'
 import { SetTiposDeUso } from './actions/TiposDeUsoActions'
-import { GetUserTiposFromFirebase, GetAtivos, GetStorageLocations, GetRecordsFromFirebase, GetStatusAtivos, GetTipos, GetTiposDeUso, GetUsers, GetSetores } from '../../Functions/Middleware'
+import { GetFromFirebase } from '../../Functions/Middleware'
 import { SetRecords } from './actions/RecordsActions'
-import { FIREBASE_GetSetores } from '../firebase/metodos'
+import { AssetStatusCollectionName, AssetTypesCollectionName, AssetsCollectionName, RecordsCollectionName, SectorsCollectionName, StorageLocationsCollectionName, UsageTypesCollectionName, UserTypesCollectionName, UsersCollectionName } from '../firebase/metodos'
 
 
-GetUserTiposFromFirebase().then((Tipos) => {
-    store.dispatch(SetTiposUsuarios(Tipos))
-})
+GetFromFirebase(UserTypesCollectionName).then((Tipos) => store.dispatch(SetTiposUsuarios(Tipos)))
 
-GetUsers().then((Users) => {
-    store.dispatch(SetUsuarios(Users))
-})
+GetFromFirebase(UsersCollectionName).then((Users) => store.dispatch(SetUsuarios(Users)))
 
-GetSetores().then((Setores) => {
-    store.dispatch(SetSetores(Setores))
-})
+GetFromFirebase(SectorsCollectionName).then((Setores) => store.dispatch(SetSetores(Setores)))
 
-GetTipos().then((TiposAtivos) => {
-    store.dispatch(SetTiposAtivos(TiposAtivos))
-})
+GetFromFirebase(AssetTypesCollectionName).then((TiposAtivos) => store.dispatch(SetTiposAtivos(TiposAtivos)))
 
-GetAtivos().then((Ativos) => {
-    store.dispatch(SetAtivos(Ativos))
-})
+GetFromFirebase(AssetsCollectionName).then((Ativos) => store.dispatch(SetAtivos(Ativos)))
 
-GetStorageLocations().then((Locais) => {
-    store.dispatch(SetStorageLocations(Locais))
-})
+GetFromFirebase(StorageLocationsCollectionName).then((Locais) => store.dispatch(SetStorageLocations(Locais)))
 
-GetStatusAtivos().then((StatusAtivos) => {
-    store.dispatch(SetStatusAtivos(StatusAtivos))
-})
+GetFromFirebase(AssetStatusCollectionName).then((StatusAtivos) => store.dispatch(SetStatusAtivos(StatusAtivos)))
 
-GetTiposDeUso().then((Tipos) => {
-    store.dispatch(SetTiposDeUso(Tipos))
-})
+GetFromFirebase(UsageTypesCollectionName).then((Tipos) => store.dispatch(SetTiposDeUso(Tipos)))
 
-GetRecordsFromFirebase().then((Records) => {
-    store.dispatch(SetRecords(Records))
-})
+GetFromFirebase(RecordsCollectionName).then((Records) => store.dispatch(SetRecords(Records)))
 
 
 

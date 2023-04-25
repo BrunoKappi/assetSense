@@ -12,8 +12,8 @@ import Loading from '../../LoadingForTabs/Loading';
 import { UilUserCircle, UilClipboardNotes, UilLabel, UilLabelAlt, UilCog, UilBox, UilSave, UilPostcard, UilUsersAlt, UilCommentAltChartLines, UilTag, UilTimes, UilBuilding, UilCircleLayer, UilPlay, UilWrench, UilCheck, UilBackward, UilTrash, UilArrow } from '@iconscout/react-unicons'
 //FUNCTIONS
 import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
-import { GetFromStore, GetNameFromStoreWithId } from '../../../Functions/Middleware';
-import { AddAtivo, AddAtivoFirebase, DeleteAtivo, EditAtivo,  GetFromStoreWithId, ReturnAllRecordOfAtivowithId } from '../../../Functions/Middleware'
+import { GetFromStore, GetNameFromStoreWithId, UpdateInFirebase } from '../../../Functions/Middleware';
+import { AddAtivo, AddAtivoFirebase, DeleteAtivo,   GetFromStoreWithId, ReturnAllRecordOfAtivowithId } from '../../../Functions/Middleware'
 //VARIABLES
 import { DefaultAtivo, DefaultAtivosType, DefaultLocal, } from '../../../Data/Items';
 //LIBRARIES
@@ -37,6 +37,7 @@ import ConfirmTab from '../../LayoutComponents/ConfirmTab/ConfirmTab';
 import CustomSelect from '../../LayoutComponents/CustomSelect/CustomSelect'
 import store from '../../../Config/store/store';
 import { EditAtivoAction } from '../../../Config/store/actions/AtivosActions';
+import { AssetsCollectionName } from '../../../Config/firebase/metodos';
 
 
 const AtivoModal = (props) => {
@@ -244,7 +245,7 @@ const AtivoModal = (props) => {
         setLoadingAction(true)
         //EDIT ATIVO
         if (ConfirmAction === 'Edit') {
-            EditAtivo(Ativo).then(() => {
+            UpdateInFirebase(AssetsCollectionName,Ativo).then(() => {
                 store.dispatch(EditAtivoAction(Ativo))
                 setLoadingAction(false)
                 NotificationSucesso('Alteração', 'Alterações salvas com sucesso!')

@@ -6,12 +6,12 @@ import { SetTiposUsuarios } from "../Config/store/actions/TiposUsuariosActions"
 import { SetStorageLocations } from "../Config/store/actions/StorageLocationsActions"
 import { SetStatusAtivos } from "../Config/store/actions/AtivosStatusActions"
 import { SetTiposDeUso } from "../Config/store/actions/TiposDeUsoActions"
-import { AddAtivoAction, EditAtivoAction, SetAtivos } from "../Config/store/actions/AtivosActions"
+import { AddAtivoAction, SetAtivos } from "../Config/store/actions/AtivosActions"
 import { AddUsuarioAction, SetUsuarios } from "../Config/store/actions/UsuariosActions"
 import { PermitIndexs } from "../GlobalVars"
 import { EditRecordAction, SetRecords } from "../Config/store/actions/RecordsActions"
 import moment from "moment"
-import { FIREBASE_AddAtivo, FIREBASE_AddLocalArmazenamento, FIREBASE_AddRecord, FIREBASE_AddSetor, FIREBASE_AddStatusAtivo, FIREBASE_AddTipoAtivo, FIREBASE_AddTipoUso, FIREBASE_AddTipoUsuario, FIREBASE_AddUsuario, FIREBASE_DeleteLocalArmazenamento, FIREBASE_DeleteSetor, FIREBASE_DeleteStatusAtivo, FIREBASE_DeleteTipoAtivo, FIREBASE_DeleteTipoDeUsuario, FIREBASE_DeleteTipoUso, FIREBASE_GetAtivos, FIREBASE_GetStorageLocations, FIREBASE_GetRecords, FIREBASE_GetSetores, FIREBASE_GetStatusAtivos, FIREBASE_GetTiposAtivo, FIREBASE_GetTiposUso, FIREBASE_GetTiposUsuarios, FIREBASE_GetUsuarios, FIREBASE_UpdateAtivo, FIREBASE_UpdateLocalArmazenamento, FIREBASE_UpdateRecord, FIREBASE_UpdateSetor, FIREBASE_UpdateStatusAtivo, FIREBASE_UpdateTipoAtivo, FIREBASE_UpdateTipoDeUsuario, FIREBASE_UpdateTipoUso, FIREBASE_UpdateUsuario } from "../Config/firebase/metodos"
+import { FIREBASE_AddAtivo, FIREBASE_AddLocalArmazenamento, FIREBASE_AddRecord, FIREBASE_AddSetor, FIREBASE_AddStatusAtivo, FIREBASE_AddTipoAtivo, FIREBASE_AddTipoUso, FIREBASE_AddTipoUsuario, FIREBASE_AddUsuario, FIREBASE_DeleteLocalArmazenamento, FIREBASE_DeleteSetor, FIREBASE_DeleteStatusAtivo, FIREBASE_DeleteTipoAtivo, FIREBASE_DeleteTipoDeUsuario, FIREBASE_DeleteTipoUso, FIREBASE_Get, FIREBASE_Update, AssetTypesCollectionName, SectorsCollectionName, UserTypesCollectionName, StorageLocationsCollectionName, RecordsCollectionName, UsageTypesCollectionName, AssetStatusCollectionName, AssetsCollectionName, UsersCollectionName } from "../Config/firebase/metodos"
 import { DefaultUserRole } from "../Data/Items"
 import { SetTemaAction } from "../Config/store/actions/TemaActions"
 import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage"
@@ -52,7 +52,7 @@ export const DeleteFile = (path) => {
 export const SetLoggedUserPhotoUrl = (URL) => {
     const User = GetFromStore('CurrentUser')
     User.PhotoUrl = URL
-    EditUser(User)
+    UpdateInFirebase(UsersCollectionName, User)
     store.dispatch(SetLoggedUserPhotoUrlAction(URL))
 }
 
@@ -63,14 +63,14 @@ export const SetLoggedUserPhotoUrlJustStore = (URL) => {
 export const SetOtherUserPhotoUrl = (URL, ID) => {
     const User = GetFromStoreWithId('UsuariosWithDeleted', ID)
     User.PhotoUrl = URL
-    EditUser(User)
+    UpdateInFirebase(UsersCollectionName, User)
 }
 
 export const SetAtivoPhotoUrl = (URL, AtivoId) => {
     const Ativo = GetFromStoreWithId('AtivosWithDeleted', AtivoId)
     Ativo.PhotoUrl = URL
     Ativo.LastEditedAt = moment().valueOf()
-    EditAtivo(Ativo)
+    UpdateInFirebase(AssetsCollectionName, Ativo)
 }
 
 
@@ -82,22 +82,15 @@ export const ToggleSideBarVisibility = () => {
 
 
 
-
-
-
-
-
-
 // Define um objeto de mapeamento que relaciona o nome do módulo/prop com a função get correspondente
 export const fetchFunctions = {
-    TiposAtivos: GetTipos,
-    Setores: FIREBASE_GetSetores,
-    TiposUsuarios: GetUserTipos,
-    Locais: GetStorageLocations,
-    StatusAtivos: GetStatusAtivos,
-    TiposUso: GetTiposDeUso
+    TiposAtivos: () => GetFromStore('TiposAtivos'),
+    Setores: () => GetFromStore('Setores'),
+    TiposUsuarios: () => GetFromStore('TiposUsuarios'),
+    Locais: () => GetFromStore('StorageLocations'),
+    StatusAtivos: () => GetFromStore('StatusAtivos'),
+    TiposUso: () => GetFromStore('TiposDeUso')
 };
-
 
 
 
@@ -128,45 +121,12 @@ export const SaveUsers = (Itens) => store.dispatch(SetUsuarios(Itens))
 
 /////////////////*********************** GETTERS ********************////////////////////////
 
-export async function GetTipos() {
-    return FIREBASE_GetTiposAtivo()
-}
-
-export async function GetSetores() {
-    return FIREBASE_GetSetores()
-}
-
-export async function GetUserTiposFromFirebase() {
-    return FIREBASE_GetTiposUsuarios()
+export async function GetFromFirebase(Collection) {
+    return FIREBASE_Get(Collection)
 }
 
 
-export async function GetStorageLocations() {
-    return FIREBASE_GetStorageLocations()
-}
 
-export async function GetRecordsFromFirebase() {
-    return FIREBASE_GetRecords()
-}
-
-export async function GetTiposDeUso() {
-    return FIREBASE_GetTiposUso()
-}
-
-export async function GetStatusAtivosFromFirebase() {
-    return FIREBASE_GetStatusAtivos()
-}
-export async function GetStatusAtivos() {
-    return FIREBASE_GetStatusAtivos()
-}
-
-export async function GetUsers() {
-    return FIREBASE_GetUsuarios()
-}
-
-export async function GetAtivos() {
-    return FIREBASE_GetAtivos()
-}
 
 export async function GetRecords() {
     GetFromStore('RecordsAtivos')
@@ -179,30 +139,9 @@ export async function GetUserTipos() {
 
 
 
-
-
-
-
 /////////////////*********************** EDIT/UPDATES ********************////////////////////////
 
-
-export const EditTipoAtivo = (Item) => FIREBASE_UpdateTipoAtivo({ ...Item, LastEditedAt: moment().valueOf() })
-
-export const EditSetor = (Item) => FIREBASE_UpdateSetor({ ...Item, LastEditedAt: moment().valueOf() })
-
-export const EditUserType = (Item) => FIREBASE_UpdateTipoDeUsuario({ ...Item, LastEditedAt: moment().valueOf() })
-
-export const EditLocalArmazenamento = (Item) => FIREBASE_UpdateLocalArmazenamento({ ...Item, LastEditedAt: moment().valueOf() })
-
-export const EditRecord = (Item) => FIREBASE_UpdateRecord({ ...Item, LastEditedAt: moment().valueOf() })
-
-export const EditTipoDeUso = (Item) => FIREBASE_UpdateTipoUso({ ...Item, LastEditedAt: moment().valueOf() })
-
-export const EditStatusAtivo = (Item) => FIREBASE_UpdateStatusAtivo({ ...Item, LastEditedAt: moment().valueOf() })
-
-export const EditAtivo = async (Item) => FIREBASE_UpdateAtivo({ ...Item, LastEditedAt: moment().valueOf() })
-
-export const EditUser = async (Item) => FIREBASE_UpdateUsuario({ ...Item, LastEditedAt: moment().valueOf() })
+export const UpdateInFirebase = (Collection, Item) => FIREBASE_Update(Collection, { ...Item, LastEditedAt: moment().valueOf() })
 
 export const EditRecordStore = (Item) => store.dispatch(EditRecordAction(Item))
 
@@ -250,7 +189,7 @@ export async function AddAtivoFirebase(New) {
 export async function DeleteAtivo(Ativo) {
     return new Promise((resolve, reject) => {
         Ativo.Deleted = true
-        EditAtivo(Ativo)
+        UpdateInFirebase(AssetsCollectionName, Ativo)
         resolve('Ok');
     });
 }
@@ -283,7 +222,7 @@ export async function AddUserFirebase(New) {
 export async function DeleteUser(User) {
     return new Promise((resolve, reject) => {
         User.Deleted = true
-        EditUser(User)
+        UpdateInFirebase(UsersCollectionName, User)
         resolve('Ok');
     });
 }
@@ -448,11 +387,11 @@ export const ReturnAllAtivosOfUserWithId = (UserId) => {
             Record.TakenForDeleted = true
             if (Record.TakenBy.id === UserId)
                 Record.TakenByDeleted = true
-            EditRecord(Record)
+            UpdateInFirebase(RecordsCollectionName, Record)
         }
         else if (Record.TakenBy.id === UserId) {
             Record.TakenByDeleted = true
-            EditRecord(Record)
+            UpdateInFirebase(RecordsCollectionName, Record)
         }
 
 
@@ -470,7 +409,7 @@ export const ReturnAllRecordOfAtivowithId = (AtivoId) => {
             Record.ReturnDate = moment().valueOf()
             Record.Duration = moment().valueOf() - Record.TakeDate
             Record.AtivoDeleted = true
-            EditRecord(Record)
+            UpdateInFirebase(RecordsCollectionName, Record)
         }
     })
 
@@ -543,15 +482,6 @@ export const GetRecordByAtivoIdAndUserId = (AtivoId, UserId) => {
 
 
 
-
-
-
-
-
-
-
-
-
 export const saveFunctions = {
     "TiposAtivos": SaveTipos,
     "Setores": SaveSetores,
@@ -562,12 +492,12 @@ export const saveFunctions = {
 };
 
 export const EditFunctions = {
-    "TiposAtivos": EditTipoAtivo,
-    "Setores": EditSetor,
-    "TiposUsuarios": EditUserType,
-    "Locais": EditLocalArmazenamento,
-    "StatusAtivos": EditStatusAtivo,
-    "TiposUso": EditTipoDeUso
+    "TiposAtivos": (Item) => UpdateInFirebase(AssetTypesCollectionName, Item),
+    "Setores": (Item) => UpdateInFirebase(SectorsCollectionName, Item),
+    "TiposUsuarios": (Item) => UpdateInFirebase(UserTypesCollectionName, Item),
+    "Locais": (Item) => UpdateInFirebase(StorageLocationsCollectionName, Item),
+    "StatusAtivos": (Item) => UpdateInFirebase(AssetStatusCollectionName, Item),
+    "TiposUso": (Item) => UpdateInFirebase(UsageTypesCollectionName, Item)
 };
 
 export const DeleteFunctions = {

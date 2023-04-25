@@ -6,7 +6,7 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { v4 } from 'uuid';
 import { connect } from 'react-redux'
 import NumbersOfList from '../NumbersOfList/NumbersOfList';
-import { EditAtivo, EditUser, SaveAtivos, SaveUsers } from '../../Functions/Middleware';
+import { SaveAtivos, SaveUsers, UpdateInFirebase } from '../../Functions/Middleware';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import { EDITAR_ATIVOS, EDITAR_USUARIOS } from '../../Functions/Permits';
 import { AtivosInTypesBreakpoints } from '../../GlobalVars';
@@ -14,12 +14,13 @@ import Warning from '../LayoutComponents/Warning/Warning'
 import Info from '../LayoutComponents/Info/Info'
 import Show from '../LayoutComponents/Show/Show';
 import LoadingAnimate from '../LoadingForTabs/Loading'
+import { AssetsCollectionName, UsersCollectionName } from '../../Config/firebase/metodos';
 
 const EditFunctions = {
-    'AtivosInTypes': EditAtivo,
-    'AtivosInLocais': EditAtivo,
-    'UsersInTypes': EditUser,
-    'UsersInSectores': EditUser,
+    'AtivosInTypes': (Item) => UpdateInFirebase(AssetsCollectionName, Item),
+    'AtivosInLocais': (Item) => UpdateInFirebase(AssetsCollectionName, Item),
+    'UsersInTypes': (Item) => UpdateInFirebase(UsersCollectionName, Item),
+    'UsersInSectores': (Item) => UpdateInFirebase(UsersCollectionName, Item),
 }
 
 const SaveFunctions = {

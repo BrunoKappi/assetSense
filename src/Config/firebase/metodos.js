@@ -3,6 +3,60 @@ import { db } from '../firebase/index'
 import { collection, query } from "firebase/firestore";
 import { getDocs, addDoc, updateDoc, deleteDoc, doc, where } from "firebase/firestore";
 
+///////////////////************    COLLECTIONS NAMES   *************//////////////////////////
+
+export const SectorsCollectionName = 'Setores'
+export const UserTypesCollectionName = 'TiposUsuarios'
+export const AssetTypesCollectionName = 'TiposAtivo'
+export const StorageLocationsCollectionName = 'LocaisArmazenamento'
+export const AssetStatusCollectionName = 'StatusAtivos'
+export const UsageTypesCollectionName = 'TiposUso'
+export const UsersCollectionName = 'Usuarios'
+export const AssetsCollectionName = 'Ativos'
+export const RecordsCollectionName = 'Records'
+
+
+///////////////////************    GET   *************//////////////////////////
+
+export const FIREBASE_Get = async (Collection) => {
+  var CollectionRef = collection(db, Collection)
+  const data = await getDocs(CollectionRef)
+  const dados = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
+  return dados
+}
+
+
+///////////////////************   ADD   *************//////////////////////////
+
+export const FIREBASE_Add = async (Collection, ItemToAdd) => {
+  var CollectionRef = collection(db, Collection)
+  return addDoc(CollectionRef, ItemToAdd);
+}
+
+
+
+///////////////////************   UPDATE   *************//////////////////////////
+
+export const FIREBASE_Update = async (Collection, EditedItem) => {
+  const Doc = doc(db, Collection, EditedItem.docID);
+  const NewItem = { ...EditedItem };
+  return updateDoc(Doc, NewItem);
+}
+
+
+///////////////////************   DELETE   *************//////////////////////////
+
+export const FIREBASE_Delete = async (Collection, Todelete) => {
+  const Doc = doc(db, Collection, Todelete.docID);
+  const DeleteDoc = { ...Todelete };
+  return deleteDoc(Doc, DeleteDoc);
+}
+
+
+
+
+
+
 
 
 
@@ -14,19 +68,6 @@ export var SetoresCollectionRef = collection(db, "Setores")
 export const FIREBASE_AddSetor = async (ItemToAdd) => {
   return addDoc(SetoresCollectionRef, ItemToAdd);
 };
-
-export const FIREBASE_GetSetores = async () => {
-  const data = await getDocs(SetoresCollectionRef);
-  const dados = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
-  return dados
-}
-
-export const FIREBASE_UpdateSetor = (EditedItem) => {
-  const Doc = doc(db, "Setores", EditedItem.docID);
-  const NewItem = { ...EditedItem };
-  return updateDoc(Doc, NewItem);
-};
-
 
 export const FIREBASE_DeleteSetor = (Todelete) => {
   const Doc = doc(db, "Setores", Todelete.docID);
@@ -47,17 +88,6 @@ export const FIREBASE_AddTipoUsuario = async (ItemToAdd) => {
   return addDoc(TiposUsuarios, ItemToAdd);
 };
 
-export const FIREBASE_GetTiposUsuarios = async () => {
-  const data = await getDocs(TiposUsuarios);
-  const dados = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
-  return dados
-}
-
-export const FIREBASE_UpdateTipoDeUsuario = (EditedItem) => {
-  const Doc = doc(db, "TiposUsuarios", EditedItem.docID);
-  const NewItem = { ...EditedItem };
-  return updateDoc(Doc, NewItem);
-};
 
 export const FIREBASE_DeleteTipoDeUsuario = (Todelete) => {
   const Doc = doc(db, "TiposUsuarios", Todelete.docID);
@@ -73,18 +103,6 @@ export var TiposAtivo = collection(db, "TiposAtivo")
 
 export const FIREBASE_AddTipoAtivo = async (ItemToAdd) => {
   return addDoc(TiposAtivo, ItemToAdd);
-};
-
-export const FIREBASE_GetTiposAtivo = async () => {
-  const data = await getDocs(TiposAtivo);
-  const dados = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
-  return dados
-}
-
-export const FIREBASE_UpdateTipoAtivo = (EditedItem) => {
-  const Doc = doc(db, "TiposAtivo", EditedItem.docID);
-  const NewItem = { ...EditedItem };
-  return updateDoc(Doc, NewItem);
 };
 
 export const FIREBASE_DeleteTipoAtivo = (Todelete) => {
@@ -105,17 +123,6 @@ export const FIREBASE_AddLocalArmazenamento = async (ItemToAdd) => {
   return addDoc(StorageLocations, ItemToAdd);
 };
 
-export const FIREBASE_GetStorageLocations = async () => {
-  const data = await getDocs(StorageLocations);
-  const dados = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
-  return dados
-}
-
-export const FIREBASE_UpdateLocalArmazenamento = (EditedItem) => {
-  const Doc = doc(db, "LocaisArmazenamento", EditedItem.docID);
-  const NewItem = { ...EditedItem };
-  return updateDoc(Doc, NewItem);
-};
 
 export const FIREBASE_DeleteLocalArmazenamento = (Todelete) => {
   const Doc = doc(db, "LocaisArmazenamento", Todelete.docID);
@@ -134,19 +141,6 @@ export var StatusAtivos = collection(db, "StatusAtivos")
 export const FIREBASE_AddStatusAtivo = async (ItemToAdd) => {
   return addDoc(StatusAtivos, ItemToAdd);
 };
-
-export const FIREBASE_GetStatusAtivos = async () => {
-  const data = await getDocs(StatusAtivos);
-  const dados = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
-  return dados
-}
-
-export const FIREBASE_UpdateStatusAtivo = (EditedItem) => {
-  const Doc = doc(db, "StatusAtivos", EditedItem.docID);
-  const NewItem = { ...EditedItem };
-  return updateDoc(Doc, NewItem);
-};
-
 
 export const FIREBASE_DeleteStatusAtivo = (Todelete) => {
   const Doc = doc(db, "StatusAtivos", Todelete.docID);
@@ -171,19 +165,6 @@ export const FIREBASE_AddTipoUso = async (ItemToAdd) => {
   return addDoc(TiposUso, ItemToAdd);
 };
 
-export const FIREBASE_GetTiposUso = async () => {
-  const data = await getDocs(TiposUso);
-  const dados = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
-  return dados
-}
-
-export const FIREBASE_UpdateTipoUso = (EditedItem) => {
-  const Doc = doc(db, "TiposUso", EditedItem.docID);
-  const NewItem = { ...EditedItem };
-  return updateDoc(Doc, NewItem);
-};
-
-
 export const FIREBASE_DeleteTipoUso = (Todelete) => {
   const Doc = doc(db, "TiposUso", Todelete.docID);
   const DeleteDoc = { ...Todelete };
@@ -205,18 +186,6 @@ export const FIREBASE_AddAtivo = async (ItemToAdd) => {
   return addDoc(Ativos, ItemToAdd);
 };
 
-export const FIREBASE_GetAtivos = async () => {
-  const data = await getDocs(Ativos);
-  const dados = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
-  return dados
-}
-
-export const FIREBASE_UpdateAtivo = (EditedItem) => {
-  const Doc = doc(db, "Ativos", EditedItem.docID);
-  const NewItem = { ...EditedItem };
-  return updateDoc(Doc, NewItem);
-};
-
 
 
 
@@ -233,12 +202,6 @@ export const FIREBASE_AddUsuario = async (ItemToAdd) => {
   return addDoc(Usuarios, ItemToAdd);
 };
 
-export const FIREBASE_GetUsuarios = async () => {
-  const data = await getDocs(Usuarios);
-  const dados = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
-  return dados
-}
-
 export const FIREBASE_GetUserDocIDById = async (id) => {
   const Query = query(Usuarios, where('id', '==', id));
   const data = await getDocs(Query);
@@ -247,11 +210,7 @@ export const FIREBASE_GetUserDocIDById = async (id) => {
   return dados[0].docID;
 };
 
-export const FIREBASE_UpdateUsuario = (EditedItem) => {
-  const Doc = doc(db, "Usuarios", EditedItem.docID);
-  const NewItem = { ...EditedItem };
-  return updateDoc(Doc, NewItem);
-};
+
 
 
 
@@ -268,11 +227,6 @@ export const FIREBASE_AddRecord = async (ItemToAdd) => {
   return addDoc(Records, ItemToAdd)
 };
 
-export const FIREBASE_GetRecords = async () => {
-  const data = await getDocs(Records);
-  const dados = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
-  return dados
-}
 
 export const FIREBASE_GetRecordsPendentesDeUmAtivo = async (ativoId) => {
   const Query = query(
@@ -285,20 +239,6 @@ export const FIREBASE_GetRecordsPendentesDeUmAtivo = async (ativoId) => {
 
   return dados.length;
 };
-
-export const FIREBASE_GetRecordsOfRange = async (StartDate, EndDate) => {
-  const Query = query(
-    Records,
-    where('TakeDate', '>=', StartDate),
-    where('TakeDate', '<=', EndDate)
-  );
-  const data = await getDocs(Query);
-  const dados = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }));
-
-  return dados;
-};
-
-
 
 
 
@@ -314,12 +254,6 @@ export const FIREBASE_GetRecordDocIDById = async (id) => {
   return dados[0].docID;
 };
 
-
-export const FIREBASE_UpdateRecord = (EditedItem) => {
-  const Doc = doc(db, "Records", EditedItem.docID);
-  const NewItem = { ...EditedItem };
-  return updateDoc(Doc, NewItem);
-};
 
 
 
