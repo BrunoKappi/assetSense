@@ -1,9 +1,9 @@
-import { SetSidebarTag } from '../../Config/store/actions/LoggedUserActions'
-import store from '../../Config/store/store'
+
+import { SetSidebarTagOnStore } from '../../Functions/Middleware';
 import { PermitIndexs } from '../../GlobalVars';
 
 export const SetTab = (Tab) => {
-    store.dispatch(SetSidebarTag(Tab))
+    SetSidebarTagOnStore(Tab)
 }
 
 export const GetSidebarItemClass = (Item, Tab) => {

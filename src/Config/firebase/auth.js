@@ -1,10 +1,8 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, } from "firebase/auth";
 import { auth } from "./index";
-import store from '../store/store'
-import { setLoggedUser, clearLoggedUser, SetCheckLogin } from '../store/actions/LoggedUserActions'
 import { sendPasswordResetEmail, updatePassword } from "firebase/auth";
 import { DefaultLoggedUser } from "../../GlobalVars";
-import { GetLoggedUserInfo, GetUserUrlImage, GetUserWithEmailFromStore } from "../../Functions/Middleware";
+import { GetLoggedUserInfo, GetUserUrlImage, GetUserWithEmailFromStore, SetCheckLoginOnStore, SetLoggedUserOnStore } from "../../Functions/Middleware";
 
 
 
@@ -16,7 +14,7 @@ const onAuthStateChangedHandler = (currentUser) => {
 
 
 
-
+ 
   if (((LoggedUserEmail === CurrentUserEmail) || (!LoggedUserEmail)) && currentUser) {
     const user = {
       ...DefaultLoggedUser,
@@ -24,19 +22,19 @@ const onAuthStateChangedHandler = (currentUser) => {
       uid: currentUser.uid,
       CurrentSidebarTab: 'Dash'
     }
-    store.dispatch(setLoggedUser(user))
+    SetLoggedUserOnStore(user)
 
 
 
 
   } else {
     if (!CurrentUserEmail)
-      store.dispatch(clearLoggedUser())
+      SetLoggedUserOnStore(DefaultLoggedUser)
   }
 
-  if (store.getState().LoggedUser.CheckedLogin === false)
+  if (GetLoggedUserInfo('CheckedLogin') === false)
     setTimeout(() => {
-      store.dispatch(SetCheckLogin())
+      SetCheckLoginOnStore()
     }, 5);
 
 
@@ -51,7 +49,7 @@ const onAuthStateChangedHandler = (currentUser) => {
         CurrentSidebarTab: 'Dash',
         PhotoUrl: url
       }
-      store.dispatch(setLoggedUser(user2))
+      SetLoggedUserOnStore(user2)
     })
   }, 100000);
 

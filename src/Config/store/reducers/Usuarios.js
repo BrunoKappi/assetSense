@@ -12,7 +12,7 @@ const Usuarios = (state = [], action) => {
         case 'EDIT_USUARIO':
             return state.filter(usuario => {
                 return usuario.id !== action.EditedUser.id
-            }).concat(action.EditedUser)
+            }).concat({ ...action.EditedUser, CreatedAt: moment().valueOf(), LastEditedAt: moment().valueOf() })
         case 'DELETE_USUARIO':
             return state.filter(usuario => {
                 return usuario.id !== action.UsuarioToDelete.id

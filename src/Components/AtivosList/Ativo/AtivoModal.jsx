@@ -12,7 +12,7 @@ import Loading from '../../LoadingForTabs/Loading';
 import { UilUserCircle, UilClipboardNotes, UilLabel, UilLabelAlt, UilCog, UilBox, UilSave, UilPostcard, UilUsersAlt, UilCommentAltChartLines, UilTag, UilTimes, UilBuilding, UilCircleLayer, UilPlay, UilWrench, UilCheck, UilBackward, UilTrash, UilArrow } from '@iconscout/react-unicons'
 //FUNCTIONS
 import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
-import { AddToFirebase, GetFromStore, GetNameFromStoreWithId, UpdateInFirebase } from '../../../Functions/Middleware';
+import { AddAssetToFirebase, EditAssetInFirebase, EditAssetOnStore, GetFromStore, GetNameFromStoreWithId } from '../../../Functions/Middleware';
 import { AddAtivoStore, DeleteAtivo, GetFromStoreWithId, ReturnAllRecordOfAtivowithId } from '../../../Functions/Middleware'
 //VARIABLES
 import { DefaultAtivo, DefaultAtivosType, DefaultLocal, } from '../../../Data/Items';
@@ -35,8 +35,6 @@ import EditList from '../../LayoutComponents/EditList/EditList';
 import CustomFields from '../../LayoutComponents/CustomFields/CustomFields';
 import ConfirmTab from '../../LayoutComponents/ConfirmTab/ConfirmTab';
 import CustomSelect from '../../LayoutComponents/CustomSelect/CustomSelect'
-import store from '../../../Config/store/store';
-import { EditAtivoAction } from '../../../Config/store/actions/AtivosActions';
 import { AssetsCollectionName } from '../../../Config/firebase/metodos';
 
 
@@ -245,8 +243,8 @@ const AtivoModal = (props) => {
         setLoadingAction(true)
         //EDIT ATIVO
         if (ConfirmAction === 'Edit') {
-            UpdateInFirebase(AssetsCollectionName, Ativo).then(() => {
-                store.dispatch(EditAtivoAction(Ativo))
+            EditAssetInFirebase(Ativo).then(() => {
+                EditAssetOnStore(Ativo)
                 setLoadingAction(false)
                 NotificationSucesso('Alteração', 'Alterações salvas com sucesso!')
             }).catch(HandleError)
@@ -256,7 +254,7 @@ const AtivoModal = (props) => {
         else if (ConfirmAction === 'Add') {
             const NewAtivo = { ...Ativo }
             NewAtivo.id = IdToUse ? IdToUse : v4()
-            AddToFirebase(AssetsCollectionName, NewAtivo).then((AddedRecordDoc) => {
+            AddAssetToFirebase(NewAtivo).then((AddedRecordDoc) => {
                 NewAtivo.docID = AddedRecordDoc?.id
                 setAtivo({ ...NewAtivo })
                 setLoadingAction(false)

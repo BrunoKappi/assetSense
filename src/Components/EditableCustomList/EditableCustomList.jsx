@@ -11,7 +11,7 @@ import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import { Tooltip } from 'react-tippy';
 import { GetNotificationErrorMessageDelete, GetNotificationSuccessMessageAdd, GetNotificationExistsMessageAdd, GetNotificationSuccessMessageDelete, GetNotificationSuccessMessageChangeName } from './EditableCustomListUtils';
 import Loading from '../LoadingForTabs/Loading'
-import { AddFunctions, CheckIfAnyAtivoOfStatusTaken2, DeleteFunctions, EditFunctions, GetFromStoreFunctions, saveFunctions, SaveStatusAtivos, UpdateInFirebase } from '../../Functions/Middleware';
+import { AddToFirebaseFunctions, CheckIfAnyAtivoOfStatusTaken2, DeleteFromFirebaseFunctions, UpdateInFirebaseFunctions, GetFromStoreFunctions, SetInStoreFunctions, SetAssetStatusOnStore, EditAssetStatuInFirebase } from '../../Functions/Middleware';
 import { DefaultUserRole } from '../../Data/Items';
 import { EDITAR_LOCAIS, EDITAR_SETORES, EDITAR_STATUS_ATIVOS, EDITAR_TIPOS_ATIVOS, EDITAR_TIPOS_DE_USO, EDITAR_TIPOS_DE_USUARIO } from '../../Functions/Permits';
 import Show from '../LayoutComponents/Show/Show'
@@ -120,7 +120,7 @@ const EditableCustomList = (props) => {
   const HandleSubmiChangeItemName = (e, index, ID) => {
     e.preventDefault();
 
-    const EditFunction = EditFunctions[props.Module]
+    const EditFunction = UpdateInFirebaseFunctions[props.Module]
     var ListaDeItensCopy = [...ListaDeItens]
     if (!document.getElementById(ID).value) return
     ListaDeItensCopy[index].Value = document.getElementById(ID).value
@@ -154,8 +154,8 @@ const EditableCustomList = (props) => {
         var ItensCopy = [...ListaDeItens]
         const DefaultObject = DefaultObjets[props.Module]
         const NewItem = { ...DefaultObject, id: v4(), Value: NewItemList }
-        const addFunction = AddFunctions[props.Module]
-        const saveFunction = saveFunctions[props.Module]
+        const addFunction = AddToFirebaseFunctions[props.Module]
+        const saveFunction = SetInStoreFunctions[props.Module]
 
         addFunction(NewItem).then((AddedItemFirebase) => {
           NewItem.docID = AddedItemFirebase?.id
@@ -191,13 +191,13 @@ const EditableCustomList = (props) => {
 
       const Associated = Lists[props.Module].find(Ativo => Ativo[ObjectKeys[props.Module]].id === Id)
 
-      const saveFunction = saveFunctions[props.Module]
+      const saveFunction = SetInStoreFunctions[props.Module]
 
       if (Associated) {
         GetNotificationErrorMessageDelete(props.Module)
       } else {
 
-        const deleteFunction = DeleteFunctions[props.Module]
+        const deleteFunction = DeleteFromFirebaseFunctions[props.Module]
 
         deleteFunction(ItemToDelete).then(() => {
           saveFunction(ItensCopy)
@@ -222,7 +222,7 @@ const EditableCustomList = (props) => {
       const copiedItems = [...ListaDeItens];
       const [removed] = copiedItems.splice(IndexSource, 1)
       copiedItems.splice(IndexDestination, 0, removed);
-      const saveFunction = saveFunctions[props.Module]
+      const saveFunction = SetInStoreFunctions[props.Module]
       saveFunction(copiedItems)
       setListaDeItens([...copiedItems])
     } else {
@@ -241,8 +241,8 @@ const EditableCustomList = (props) => {
     } else {
       ItensCopy[index].CanTake = !ItensCopy[index].CanTake
 
-      UpdateInFirebase(AssetStatusCollectionName, ItensCopy[index]).then(() => {
-        SaveStatusAtivos(ItensCopy)
+      EditAssetStatuInFirebase(ItensCopy[index]).then(() => {
+        SetAssetStatusOnStore(ItensCopy)
         setListaDeItens([...ItensCopy])
         EndEditing()
         NotificationSucesso('Alteração', 'Status alterado com sucesso!')

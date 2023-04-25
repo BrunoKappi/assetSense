@@ -20,12 +20,12 @@ import { PermitIndexs } from '../../../GlobalVars'
 import { DefaultSetor, DefaultUserType, DefaultUser } from '../../../Data/Items';
 //FUNCTIONS
 import UserPhotoModal from './UserPhotoModal/UserPhotoModal';
-import { FIREBASE_GetUserDocIDById, UsersCollectionName } from '../../../Config/firebase/metodos';
+import { UsersCollectionName } from '../../../Config/firebase/metodos';
 import { v4 } from 'uuid';
 import { FIREBASE_LogouyAuth, mudarSenha, unsubscribe } from '../../../Config/firebase/auth';
 import Loading from '../../LoadingForTabs/Loading';
 import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
-import { AddUserToStore, DeleteUser, GetFromStore, GetCurrentUserSetorNameWithIdFromStore, GetCurrentUserTypeNameWithIdFromStore, LoginUtil, RegisterUser, ReturnAllAtivosOfUserWithId, GetFromStoreWithId, UpdateInFirebase, AddToFirebase } from '../../../Functions/Middleware'
+import { AddUserToStore, DeleteUser, GetFromStore, GetCurrentUserSetorNameWithIdFromStore, GetCurrentUserTypeNameWithIdFromStore, LoginUtil, RegisterUser, ReturnAllAtivosOfUserWithId, GetFromStoreWithId, AddToFirebase, EditUserOnStore, EditUserInFirebase, AddUserToFirebase } from '../../../Functions/Middleware'
 //LAYOUT COMPONENTS
 import TwoColumns from '../../LayoutComponents/TwoColumns/TwoColumns';
 import FormGroupLabel from '../../LayoutComponents/FormGroupLabel/FormGroupLabel';
@@ -39,8 +39,6 @@ import CustomFields from '../../LayoutComponents/CustomFields/CustomFields';
 import SectionTitle from '../../LayoutComponents/SectionTitle/SectionTitle';
 import ConfirmTab from '../../LayoutComponents/ConfirmTab/ConfirmTab';
 import CustomSelect from '../../LayoutComponents/CustomSelect/CustomSelect'
-import store from '../../../Config/store/store';
-import { EditUsuarioAction } from '../../../Config/store/actions/UsuariosActions';
 
 const UsuarioModal = (props) => {
 
@@ -167,23 +165,14 @@ const UsuarioModal = (props) => {
             const EditedUser = { ...User }
             EditedUser.id = v4()
 
-            if (!EditedUser.docID) {
-                FIREBASE_GetUserDocIDById(User.id).then((docID) => {
-                    EditedUser.docID = docID
-                    setUser(EditedUser)
-                    UpdateInFirebase(UsersCollectionName, User).then(() => {
-                        store.dispatch(EditUsuarioAction(User))
-                        NotificationSucesso('Alteração', 'Alterações salvas com sucesso!')
-                        setLoadingAction(false)
-                    }).catch(HandleError)
-                }).catch(HandleError)
-            } else {
-                UpdateInFirebase(UsersCollectionName, User).then(() => {
-                    store.dispatch(EditUsuarioAction(User))
-                    NotificationSucesso('Alteração', 'Alterações salvas com sucesso!')
-                    setLoadingAction(false)
-                }).catch(HandleError)
-            }
+
+            EditUserInFirebase(User).then(() => {
+                EditUserOnStore(User)
+                NotificationSucesso('Alteração', 'Alterações salvas com sucesso!')
+                setLoadingAction(false)
+            }).catch(HandleError)
+
+
             EndConfirming()
 
         }
@@ -197,7 +186,7 @@ const UsuarioModal = (props) => {
             setTimeout(() => { FIREBASE_LogouyAuth() }, 5000);
 
             RegisterUser(NewUser.Email).then(() => {
-                AddToFirebase(UsersCollectionName, NewUser).then((AddedUserDoc) => {
+                AddUserToFirebase(NewUser).then((AddedUserDoc) => {
                     NewUser.docID = AddedUserDoc?.id // PEGA O docID gerado pelo firebase e coloca no objeto do novo User
                     setUser(NewUser)
                     setLoadingAction(false)

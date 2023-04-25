@@ -1,10 +1,6 @@
 
-import { setLoggedUser } from "../../Config/store/actions/LoggedUserActions";
-import store from "../../Config/store/store";
+import { SetLoggedUserOnStore } from "../../Functions/Middleware";
 import { DefaultLoggedUser } from "../../GlobalVars";
-
-
-
 
 
 
@@ -15,12 +11,12 @@ export const LoginSuccess = (message) => {
         uid: message.user.uid,
         CurrentSidebarTab: 'Dash'
     }
-    store.dispatch(setLoggedUser(user))
+    SetLoggedUserOnStore(user)
 }
 
 
 
-export const HandleFirebaseEmailPasswordLogin = (ErrorMessage) => {   
+export const HandleFirebaseEmailPasswordLogin = (ErrorMessage) => {
     if (ErrorMessage.includes("found"))
         return 'Usuário não encontrado'
     else if (ErrorMessage.includes("wrong"))

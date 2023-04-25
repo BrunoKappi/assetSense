@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react'
 import './AtivoTakeReturn.css'
 import { DevolverTabTitle, RetirarTabTitle } from './AtivoTakeReturnUtils';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
-import { UilUser, UilEnvelope, UilBookmark, UilCalendarAlt, UilArchive, UilArrowUp, UilComment, UilArrowDown, UilCommentInfoAlt } from '@iconscout/react-unicons'
-import { AddToFirebase, EditRecordStore, GetFromStore, GetQtdInUseOfAtivoWithId, GetRecordByAtivoIdAndUserId, GetTakesOfAtivoOfCurrentUser, GetUsersThatTookAsset, GetUsersThatTookAtivo, SaveRecords, UpdateInFirebase } from '../../../../Functions/Middleware';
+import { UilUser, UilEnvelope, UilBookmark, UilCalendarAlt, UilArchive, UilArrowUp, UilComment, UilArrowDown } from '@iconscout/react-unicons'
+import { AddRecordToFirebase, EditAssetInFirebase, EditAssetOnStore, EditRecordInFirebase, EditRecordStore, GetFromStore, GetQtdInUseOfAtivoWithId, GetRecordByAtivoIdAndUserId, GetTakesOfAtivoOfCurrentUser, GetUsersThatTookAsset, GetUsersThatTookAtivo, SetRecordsOnStore } from '../../../../Functions/Middleware';
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
 import { DefaultRecord } from '../../../../Data/Items';
 import { v4 } from 'uuid';
 import moment from 'moment'
 import { Tooltip } from 'react-tippy';
 import { connect } from 'react-redux'
-import { AssetsCollectionName, FIREBASE_GetRecordDocIDById, FIREBASE_GetRecordsPendentesDeUmAtivo, RecordsCollectionName } from '../../../../Config/firebase/metodos';
+import { FIREBASE_GetRecordsNotReturnByAsset } from '../../../../Config/firebase/metodos';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Loading from '../../../LoadingForTabs/Loading'
@@ -188,17 +188,18 @@ const AtivoTakeReturn = (props) => {
             NewRecordToAdd.Obs = Obs
 
 
-            FIREBASE_GetRecordsPendentesDeUmAtivo(props.Ativo?.id).then(QuantidadeFirebaseRetirada => {
+            FIREBASE_GetRecordsNotReturnByAsset(props.Ativo?.id).then(QuantidadeFirebaseRetirada => {
 
                 if (QuantidadeDoAtivo <= QuantidadeFirebaseRetirada) {
                     NotificationErro("Ação negada", "Parece que alguém ja reitrou esse item, atualize sua página para infomações atualizadas")
                 } else {
 
-                    AddToFirebase(RecordsCollectionName, NewRecordToAdd).then((Record) => {
+                    AddRecordToFirebase(NewRecordToAdd).then((Record) => {
 
                         //ADD PLUS 1 RETIRADA 
                         const NewAtivo = { ...props.Ativo, QtdInUse: props.Ativo.QtdInUse + 1 }
-                        UpdateInFirebase(AssetsCollectionName, NewAtivo)
+                        EditAssetOnStore(NewAtivo)
+                        EditAssetInFirebase(NewAtivo)
                         SetQuantidadeRetirada(prev => prev + 1)
 
 
@@ -207,7 +208,7 @@ const AtivoTakeReturn = (props) => {
                         const Records = [...Lista]
                         NewRecordToAdd.docID = Record?.id
                         Records.push(NewRecordToAdd)
-                        SaveRecords(Records)
+                        SetRecordsOnStore(Records)
                         EndConfirming()
                         NotificationSucesso('Registro', 'Registro de Retirada registrado com Sucesso!')
                         setLoadingAction(false)
@@ -237,31 +238,23 @@ const AtivoTakeReturn = (props) => {
             RecordToEdit.ReturnObs = Obs
             RecordToEdit.Duration = RecordToEdit.ReturnDate - RecordToEdit.TakeDate
 
-            if (!RecordToEdit.docId) {
-                FIREBASE_GetRecordDocIDById(RecordToEdit.id).then((docID) => {
-                    RecordToEdit.docID = docID
 
-                    //ADD MINUS 1 RETIRADA 
-                    const NewAtivo = { ...props.Ativo, QtdInUse: props.Ativo.QtdInUse - 1 }
-                    UpdateInFirebase(AssetsCollectionName, NewAtivo)
-                    SetQuantidadeRetirada(prev => prev - 1)
 
-                    UpdateInFirebase(RecordsCollectionName, RecordToEdit).then(() => {
-                        EditRecordStore(RecordToEdit)
-                        setLoadingAction(false)
-                        NotificationSucesso('Registro', 'Registro de Devolução registrado com Sucesso!')
-                        EndConfirming()
-                        props.OnTake('Registros')
-                    }).catch(HandleError)
-                })
-            } else {
-                UpdateInFirebase(RecordsCollectionName, RecordToEdit).then(() => {
-                    setLoadingAction(false)
-                    NotificationSucesso('Registro', 'Registro de Devolução registrado com Sucesso!')
-                    EndConfirming()
-                    props.OnTake('Registros')
-                }).catch(HandleError)
-            }
+
+            //ADD MINUS 1 RETIRADA 
+            const NewAtivo = { ...props.Ativo, QtdInUse: props.Ativo.QtdInUse - 1 }
+            EditAssetOnStore(NewAtivo)
+            EditAssetInFirebase(NewAtivo)
+            SetQuantidadeRetirada(prev => prev - 1)
+
+            EditRecordInFirebase(RecordToEdit).then(() => {
+                EditRecordStore(RecordToEdit)
+                setLoadingAction(false)
+                NotificationSucesso('Registro', 'Registro de Devolução registrado com Sucesso!')
+                EndConfirming()
+                props.OnTake('Registros')
+            }).catch(HandleError)
+
 
 
 

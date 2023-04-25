@@ -1,4 +1,4 @@
-
+import moment from "moment"
 
 const Ativos = (state = [], action) => {
     switch (action.type) {
@@ -11,7 +11,7 @@ const Ativos = (state = [], action) => {
         case 'EDIT_ATIVO':
             return state.filter(ativo => {
                 return ativo.id !== action.EditedAtivo.id
-            }).concat(action.EditedAtivo)
+            }).concat({ ...action.EditedAtivo, CreatedAt: moment().valueOf(), LastEditedAt: moment().valueOf() })
         case 'DELETE_ATIVO':
             return state.filter(ativo => {
                 return ativo.id !== action.AtivoToDelete.id

@@ -1,15 +1,16 @@
 import { v4 } from 'uuid';
 import {
-    FIREBASE_AddAtivo,
-    FIREBASE_AddLocalArmazenamento,
-    FIREBASE_AddSetor,
-    FIREBASE_AddStatusAtivo,
-    FIREBASE_AddTipoAtivo,
-    FIREBASE_AddTipoUso,
-    FIREBASE_AddTipoUsuario,
-    FIREBASE_AddUsuario, 
+    AssetStatusCollectionName,
+    AssetTypesCollectionName,
+    AssetsCollectionName,
+    SectorsCollectionName,
+    StorageLocationsCollectionName,
+    UsageTypesCollectionName,
+    UserTypesCollectionName,
+
 } from '../Config/firebase/metodos';
 import moment from 'moment';
+import { AddAssetStatuToFirebase, AddAssetToFirebase, AddAssetTypeToFirebase, AddSectorToFirebase, AddStorageLocationToFirebase, AddToFirebase, AddUsageTypeToFirebase, AddUserToFirebase, AddUserTypeToFirebase } from '../Functions/Middleware';
 
 //COMANDOS LOCALSTORAGE
 const Update = false
@@ -24,8 +25,8 @@ const ADD_FIREBASE = false
 
 //////////// ================================== DEFAULT ITENS ======================== ////////
 
-const DefaultPermits =     [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
-const DefaultAdminPermis = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+const DefaultPermits = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+const DefaultAdminPermis = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
 
 
 export const DefaultUserType = {
@@ -773,7 +774,7 @@ export const Records = []
 //TIPO SDE USUARIOS
 if (ADD_FIREBASE) {
     UserRoles.forEach(Tipo => {
-        FIREBASE_AddTipoUsuario(Tipo).then((Document) => {
+        AddUserTypeToFirebase(Tipo).then((Document) => {
             console.log("Tipo Usuario Adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
@@ -784,7 +785,7 @@ if (ADD_FIREBASE) {
 //ATIVOS
 if (ADD_FIREBASE) {
     Items.forEach(Tipo => {
-        FIREBASE_AddAtivo(Tipo).then((Document) => {
+        AddAssetToFirebase(Tipo).then((Document) => {
             console.log("Item Adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
@@ -795,7 +796,7 @@ if (ADD_FIREBASE) {
 // USUARIOS
 if (ADD_FIREBASE) {
     Users.forEach(Tipo => {
-        FIREBASE_AddUsuario(Tipo).then((Document) => {
+        AddUserToFirebase(Tipo).then((Document) => {
             console.log("Usuario adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
@@ -806,7 +807,7 @@ if (ADD_FIREBASE) {
 //TIPOS DE ATIVOS
 if (ADD_FIREBASE) {
     ItemTypes.forEach(Tipo => {
-        FIREBASE_AddTipoAtivo(Tipo).then((Document) => {
+        AddAssetTypeToFirebase(Tipo).then((Document) => {
             console.log("Tipo Adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
@@ -817,7 +818,7 @@ if (ADD_FIREBASE) {
 //SETORES
 if (ADD_FIREBASE) {
     Setores.forEach(Setor => {
-        FIREBASE_AddSetor(Setor).then((Document) => {
+        AddSectorToFirebase(Setor).then((Document) => {
             console.log("Setor Adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
@@ -828,7 +829,7 @@ if (ADD_FIREBASE) {
 //LOCAIS 
 if (ADD_FIREBASE) {
     LocaisDeArmazenamento.forEach(Tipo => {
-        FIREBASE_AddLocalArmazenamento(Tipo).then((Document) => {
+        AddStorageLocationToFirebase(Tipo).then((Document) => {
             console.log("Local Adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
@@ -839,7 +840,7 @@ if (ADD_FIREBASE) {
 //STATUS
 if (ADD_FIREBASE) {
     AtivosStatus.forEach(Tipo => {
-        FIREBASE_AddStatusAtivo(Tipo).then((Document) => {
+        AddAssetStatuToFirebase(Tipo).then((Document) => {
             console.log("Status Adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
@@ -850,7 +851,7 @@ if (ADD_FIREBASE) {
 //TIPOS DE USO
 if (ADD_FIREBASE) {
     TiposDeUso.forEach(Tipo => {
-        FIREBASE_AddTipoUso(Tipo).then((Document) => {
+        AddUsageTypeToFirebase(Tipo).then((Document) => {
             console.log("Tipo Adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)

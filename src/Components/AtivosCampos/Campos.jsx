@@ -19,14 +19,14 @@ import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 //VARIABLES
 import { DefaultCustomField } from '../../Data/Items';
 import { CamposMasoryBreakpoints } from '../../GlobalVars';
-import { AssetTypesCollectionName, SectorsCollectionName, UserTypesCollectionName } from '../../Config/firebase/metodos';
-import { UpdateInFirebase } from '../../Functions/Middleware';
+
+import { EditAssetTypeInFirebase, EditSectorInFirebase, EditUserTypeInFirebase } from '../../Functions/Middleware';
 
 
-const EditFunctions = {
-    TiposAtivos: (Item) => UpdateInFirebase(AssetTypesCollectionName, Item),
-    TiposUsuarios: (Item) => UpdateInFirebase(UserTypesCollectionName, Item),
-    Setores: (Item) => UpdateInFirebase(SectorsCollectionName, Item)
+const UpdateInFirebaseFunctions = {
+    TiposAtivos: (Item) => EditAssetTypeInFirebase(Item),
+    TiposUsuarios: (Item) => EditUserTypeInFirebase(Item),
+    Setores: (Item) => EditSectorInFirebase(Item)
 }
 
 const Campos = (props) => {
@@ -61,7 +61,7 @@ const Campos = (props) => {
     }
 
     //EDIT FUNCTION 
-    const EditFunction = EditFunctions[props.Function]
+    const EditFunction = UpdateInFirebaseFunctions[props.Function]
 
     //CHANGE VALUE
     const ChangeCustomFieldName = (e) => {

@@ -10,36 +10,52 @@ import StatusAtivos from './reducers/StatusAtivos'
 import TiposDeUso from './reducers/TiposDeUso'
 import RecordsAtivos from './reducers/RecordsAtivos'
 import StorageLocations from './reducers/StorageLocations'
-import { SetTiposUsuarios } from './actions/TiposUsuariosActions'
-import { SetSetores } from './actions/SetoresActions'
-import { SetUsuarios } from './actions/UsuariosActions'
-import { SetTiposAtivos } from './actions/TiposAtivosActions'
-import { SetAtivos } from './actions/AtivosActions'
-import { SetStorageLocations } from './actions/StorageLocationsActions'
-import { SetStatusAtivos } from './actions/AtivosStatusActions'
-import { SetTiposDeUso } from './actions/TiposDeUsoActions'
-import { GetFromFirebase } from '../../Functions/Middleware'
-import { SetRecords } from './actions/RecordsActions'
-import { AssetStatusCollectionName, AssetTypesCollectionName, AssetsCollectionName, RecordsCollectionName, SectorsCollectionName, StorageLocationsCollectionName, UsageTypesCollectionName, UserTypesCollectionName, UsersCollectionName } from '../firebase/metodos'
+
+import {
+    GetAssetStatusFromFirebase,
+    GetAssetTypesFromFirebase,
+    GetAssetsFromFirebase,
+    GetRecordsFromFirebase,
+    GetSectorsFromFirebase,
+    GetStorageLocationsFromFirebase,
+    GetUsageTypesFromFirebase,
+    GetUserTypesFromFirebase,
+    GetUsersFromFirebase,
+    SetAssetStatusOnStore,
+    SetAssetTypesOnStore,
+    SetAssetsOnStore,
+    SetRecordsOnStore,
+    SetSectorsOnStore,
+    SetStorageLocationsOnStore,
+    SetUsageTypesOnStore,
+    SetUserTypesOnStore,
+    SetUsersOnStore
+} from '../../Functions/Middleware'
+
+//TO INITIATE COLLECTIONS NAMES
+import { AssetsCollectionName } from '../firebase/metodos'
 
 
-GetFromFirebase(UserTypesCollectionName).then((Tipos) => store.dispatch(SetTiposUsuarios(Tipos)))
 
-GetFromFirebase(UsersCollectionName).then((Users) => store.dispatch(SetUsuarios(Users)))
+GetUserTypesFromFirebase().then((Itens) => SetUserTypesOnStore(Itens))
 
-GetFromFirebase(SectorsCollectionName).then((Setores) => store.dispatch(SetSetores(Setores)))
+GetUsersFromFirebase().then((Itens) => SetUsersOnStore(Itens))
 
-GetFromFirebase(AssetTypesCollectionName).then((TiposAtivos) => store.dispatch(SetTiposAtivos(TiposAtivos)))
+GetSectorsFromFirebase().then((Itens) => SetSectorsOnStore(Itens))
 
-GetFromFirebase(AssetsCollectionName).then((Ativos) => store.dispatch(SetAtivos(Ativos)))
+GetAssetTypesFromFirebase().then((Itens) => SetAssetTypesOnStore(Itens))
 
-GetFromFirebase(StorageLocationsCollectionName).then((Locais) => store.dispatch(SetStorageLocations(Locais)))
+GetAssetsFromFirebase().then((Itens) => SetAssetsOnStore(Itens))
 
-GetFromFirebase(AssetStatusCollectionName).then((StatusAtivos) => store.dispatch(SetStatusAtivos(StatusAtivos)))
+GetStorageLocationsFromFirebase().then((Itens) => SetStorageLocationsOnStore(Itens))
 
-GetFromFirebase(UsageTypesCollectionName).then((Tipos) => store.dispatch(SetTiposDeUso(Tipos)))
+GetAssetStatusFromFirebase().then((Itens) => SetAssetStatusOnStore(Itens))
 
-GetFromFirebase(RecordsCollectionName).then((Records) => store.dispatch(SetRecords(Records)))
+GetUsageTypesFromFirebase().then((Itens) => SetUsageTypesOnStore(Itens))
+
+GetRecordsFromFirebase().then((Itens) => SetRecordsOnStore(Itens))
+
+
 
 
 
@@ -63,7 +79,7 @@ const store = createStore(
 
 store.subscribe(() => {
     localStorage.setItem("AssetSense", JSON.stringify(store.getState()))
-    //console.log("Store Changed", store.getState())
+    console.log("Store Changed", store.getState())
 })
 
 
