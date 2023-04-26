@@ -21,6 +21,8 @@ const UpdateInFirebaseFunctions = {
     'AtivosInLocais': (Item) => EditAssetInFirebase(Item),
     'UsersInTypes': (Item) => EditUserInFirebase(Item),
     'UsersInSectores': (Item) => EditUserInFirebase(Item),
+    'AtivosInStatus': (Item) => EditAssetInFirebase(Item),
+    'AtivosInUsageTypes': (Item) => EditAssetInFirebase(Item),
 }
 
 const SetInStoreFunctions = {
@@ -28,6 +30,8 @@ const SetInStoreFunctions = {
     'AtivosInLocais': SetAssetsOnStore,
     'UsersInTypes': SetUsersOnStore,
     'UsersInSectores': SetUsersOnStore,
+    'AtivosInStatus': SetAssetsOnStore,
+    'AtivosInUsageTypes': SetAssetsOnStore,
 }
 
 const ListaDeitensMap = {
@@ -35,13 +39,17 @@ const ListaDeitensMap = {
     'AtivosInLocais': 'Ativos',
     'UsersInTypes': 'Usuarios',
     'UsersInSectores': 'Usuarios',
+    'AtivosInStatus': 'Ativos',
+    'AtivosInUsageTypes': 'Ativos',
 }
 
 const ListMap = {
-    'AtivosInTypes': 'TiposAtivos',
+    'AtivosInTypes': 'AssetTypess',
     'AtivosInLocais': 'StorageLocations',
-    'UsersInTypes': 'TiposUsuarios',
+    'UsersInTypes': 'UserTypes',
     'UsersInSectores': 'Sectors',
+    'AtivosInStatus': 'AssetsStatus',
+    'AtivosInUsageTypes': 'UsageTypes',
 }
 
 const KeyMap = {
@@ -49,6 +57,8 @@ const KeyMap = {
     'AtivosInLocais': 'StorageLocation',
     'UsersInTypes': 'Type',
     'UsersInSectores': 'Sector',
+    'AtivosInStatus': 'Status',
+    'AtivosInUsageTypes': 'Usage',
 }
 
 const PermitsMap = {
@@ -56,6 +66,8 @@ const PermitsMap = {
     'AtivosInLocais': EDITAR_ATIVOS,
     'UsersInTypes': EDITAR_USUARIOS,
     'UsersInSectores': EDITAR_USUARIOS,
+    'AtivosInStatus': EDITAR_ATIVOS,
+    'AtivosInUsageTypes': EDITAR_ATIVOS,
 }
 
 const DraggableLists = (props) => {
@@ -172,8 +184,10 @@ const ConnectedDraggableLists = connect((state) => {
     return {
         Ativos: state.Ativos,
         Usuarios: state.Usuarios,
-        TiposUsuarios: state.TiposUsuarios,
-        TiposAtivos: state.TiposAtivos,
+        UserTypes: state.UserTypes,
+        AssetTypess: state.AssetTypess,
+        AssetsStatus: state.AssetsStatus,
+        UsageTypes: state.UsageTypes,
         StorageLocations: state.StorageLocations,
         Sectors: state.Sectors,
         Tema: state.Tema

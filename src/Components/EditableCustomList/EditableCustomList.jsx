@@ -26,60 +26,60 @@ const EditableCustomList = (props) => {
 
   //LISTS OF ITENS RELATED WITH EACH MODULE
   const Lists = {
-    TiposAtivos: props.Ativos,
+    AssetTypess: props.Ativos,
     Sectors: props.Usuarios,
-    TiposUsuarios: props.Usuarios,
+    UserTypes: props.Usuarios,
     Locais: props.Ativos,
-    StatusAtivos: props.Ativos,
-    TiposUso: props.Ativos
+    AssetsStatus: props.Ativos,
+    UsageTypes: props.Ativos
   }
 
   //ICONS FOR EACH MODULE
   const CustomListIcon = {
-    TiposAtivos: <UilLabel />,
+    AssetTypess: <UilLabel />,
     Sectors: <UilPuzzlePiece />,
-    TiposUsuarios: <UilLabel />,
+    UserTypes: <UilLabel />,
     Locais: <UilBox />,
-    StatusAtivos: <UilLabel />,
-    TiposUso: <UilPlay />
+    AssetsStatus: <UilLabel />,
+    UsageTypes: <UilPlay />
   };
 
   //DEFAULT ITEM OBJECTS FOR EACH MODULE
   const DefaultObjets = {
-    TiposAtivos: DefaultAtivosType,
+    AssetTypess: DefaultAtivosType,
     Sectors: DefaultItemType,
-    TiposUsuarios: DefaultUserRole,
+    UserTypes: DefaultUserRole,
     Locais: DefaultItemType,
-    StatusAtivos: DefaultAtivoStatus,
-    TiposUso: DefaultItemType
+    AssetsStatus: DefaultAtivoStatus,
+    UsageTypes: DefaultItemType
   }
 
   //DEFAULT ITENS KEY FOR EACH MODULE
   const ObjectKeys = {
-    TiposAtivos: 'Type',
+    AssetTypess: 'Type',
     Sectors: 'Sector',
-    TiposUsuarios: 'Type',
+    UserTypes: 'Type',
     Locais: 'StorageLocation',
-    StatusAtivos: 'Status',
-    TiposUso: 'Usage'
+    AssetsStatus: 'Status',
+    UsageTypes: 'Usage'
   }
 
   //PERMITS
   const TiposAtvisoPermit = EDITAR_TIPOS_ATIVOS()
   const LocaisPermit = EDITAR_LOCAIS()
-  const StatusAtivosPermit = EDITAR_STATUS_ATIVOS()
-  const TiposUsoPermit = EDITAR_TIPOS_DE_USO()
+  const AssetsStatusPermit = EDITAR_STATUS_ATIVOS()
+  const UsageTypesPermit = EDITAR_TIPOS_DE_USO()
   const SectorsPermit = EDITAR_SECTORS()
-  const TiposUsuariosPermit = EDITAR_TIPOS_DE_USUARIO()
+  const UserTypesPermit = EDITAR_TIPOS_DE_USUARIO()
 
   //PERMITS MAP
   const CustomListPermits = {
-    TiposAtivos: TiposAtvisoPermit,
+    AssetTypess: TiposAtvisoPermit,
     Sectors: SectorsPermit,
-    TiposUsuarios: TiposUsuariosPermit,
+    UserTypes: UserTypesPermit,
     Locais: LocaisPermit,
-    StatusAtivos: StatusAtivosPermit,
-    TiposUso: TiposUsoPermit
+    AssetsStatus: AssetsStatusPermit,
+    UsageTypes: UsageTypesPermit
   };
 
   //STATES
@@ -98,7 +98,7 @@ const EditableCustomList = (props) => {
     setListaDeItens(fetchFunction())
     setLoaded(true)
 
-  }, [props.Module, props.TiposAtivos, props.Sectors, props.TiposUsuarios, props.StorageLocations, props.StatusAtivos])
+  }, [props.Module, props.AssetTypess, props.Sectors, props.UserTypes, props.StorageLocations, props.AssetsStatus])
 
   //INIT EDITING AND CHECK PERMITS
   const InitEditing = () => {
@@ -275,7 +275,7 @@ const EditableCustomList = (props) => {
 
 
 
-                                  <Show Show={props.Module === "StatusAtivos"}>
+                                  <Show Show={props.Module === "AssetsStatus"}>
                                     <Tooltip title="Pode ser Utilizado/Retirado" position="bottom" >
                                       <label class="containerCheck">
                                         <input checked={Item.CanTake} type="checkbox" onChange={e => HandleSubmiChangeCanTake(index)} ></input>
@@ -373,13 +373,13 @@ const EditableCustomList = (props) => {
 
 const ConnectedEditableCustomList = connect((state) => {
   return {
-    TiposAtivos: state.TiposAtivos,
-    TiposUsuarios: state.TiposUsuarios,
+    AssetTypess: state.AssetTypess,
+    UserTypes: state.UserTypes,
     Ativos: state.Ativos,
     Sectors: state.Sectors,
     StorageLocations: state.StorageLocations,
     Usuarios: state.Usuarios,
-    StatusAtivos: state.StatusAtivos,
+    AssetsStatus: state.AssetsStatus,
     Tema: state.Tema
   }
 })(EditableCustomList)

@@ -18,17 +18,17 @@ import Show from '../LayoutComponents/Show/Show';
 const UserTypesPermits = (props) => {
 
     //STATES
-    const [TiposUsuarios, setTiposUsuarios] = useState([...props.TiposUsuarios])
-    const [TipoUserKey, setTipoUserKey] = useState(props.TiposUsuarios[0].id)
+    const [UserTypes, setUserTypes] = useState([...props.UserTypes])
+    const [TipoUserKey, setTipoUserKey] = useState(props.UserTypes[0].id)
 
     //FILL USER TYPES
     useEffect(() => {
-        setTiposUsuarios([...props.TiposUsuarios])
-    }, [props.TiposUsuarios])
+        setUserTypes([...props.UserTypes])
+    }, [props.UserTypes])
 
     // CHECK USER TYPE AS ADMIN
     const CheckAdmin = (TipoIndex) => {
-        var TiposCopy = [...props.TiposUsuarios]
+        var TiposCopy = [...props.UserTypes]
 
         TiposCopy[TipoIndex].Permits.forEach(function (valor, indice) {
             TiposCopy[TipoIndex].Permits[indice] = true
@@ -38,7 +38,7 @@ const UserTypesPermits = (props) => {
 
         EditUserTypeInFirebase(TiposCopy[TipoIndex]).then(() => {
             SetUserTypesOnStore(TiposCopy)
-            setTiposUsuarios(TiposCopy)
+            setUserTypes(TiposCopy)
             NotificationSucesso("Permissões", "Permissões editadas com sucesso!")
         }).catch(() => {
             NotificationErro("Erro", "Ocorreu um problema, tente novamente")
@@ -48,7 +48,7 @@ const UserTypesPermits = (props) => {
 
     //CHANGE PERMIT
     const handleChangePermit = (TipoIndex, PermitIndex) => {
-        var TiposCopy = [...props.TiposUsuarios]
+        var TiposCopy = [...props.UserTypes]
         TiposCopy[TipoIndex].Permits[PermitIndex] = !TiposCopy[TipoIndex].Permits[PermitIndex]
 
         const AllTrue = TiposCopy[TipoIndex].Permits.every(function (valor) { return valor === true; })
@@ -57,7 +57,7 @@ const UserTypesPermits = (props) => {
 
         EditUserTypeInFirebase(TiposCopy[TipoIndex]).then(() => {
             SetUserTypesOnStore(TiposCopy)
-            setTiposUsuarios(TiposCopy)
+            setUserTypes(TiposCopy)
             NotificationSucesso("Permissões", "Permissões editadas com sucesso!")
         }).catch(() => {
             NotificationErro("Erro", "Ocorreu um problema, tente novamente")
@@ -70,12 +70,12 @@ const UserTypesPermits = (props) => {
         <div className={props.Tema === 'Escuro' ? 'UserTypesPermitsContainerEscuro UserTypesPermitsContainer' : 'UserTypesPermitsContainerClaro UserTypesPermitsContainer'}>
 
             <TabsContainer Tema={props.Tema}>
-                {TiposUsuarios.map((TipoUsuario) => {
+                {UserTypes.map((TipoUsuario) => {
                     return <TabButton Text={TipoUsuario.Value} ButtonName={TipoUsuario.id} Key={TipoUserKey} onClick={(k) => setTipoUserKey(TipoUsuario.id)} />
                 })}
             </TabsContainer>
 
-            {TiposUsuarios.map((TipoUsuario, IndexTipoUsuario) => {
+            {UserTypes.map((TipoUsuario, IndexTipoUsuario) => {
                 return <Show Show={TipoUserKey === TipoUsuario.id}>
                     <div key={v4()} className='UserTypesPermits-TypeContainer'>
                         <div className='UserTypesPermits-TypeContainer-Title'>
@@ -119,7 +119,7 @@ const ConnectedUserTypesPermits = connect((state) => {
     return {
         Sectors: state.Sectors,
         Usuarios: state.Usuarios,
-        TiposUsuarios: state.TiposUsuarios,
+        UserTypes: state.UserTypes,
         Tema: state.Tema
     }
 })(UserTypesPermits)

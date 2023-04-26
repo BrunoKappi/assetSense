@@ -19,11 +19,11 @@ export const editNotaAction = (docID, editedNota = {}) => {
 
 
 
-export const SetTiposDeUso = (TiposDeUso) => {
+export const SetUsageTypes = (UsageTypes) => {
 
     return ({
         type: 'SET_TIPOS_USO',
-        TiposDeUso
+        UsageTypes
     })
 }
 

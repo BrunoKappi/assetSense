@@ -19,7 +19,7 @@ export const editNotaAction = (docID, editedNota = {}) => {
 
 
 
-export const SetStatusAtivos = (AtivosStatus) => {
+export const SetAssetsStatus = (AtivosStatus) => {
 
     return ({
         type: 'SET_STATUS_ATIVOS',

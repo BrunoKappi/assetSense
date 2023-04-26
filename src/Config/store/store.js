@@ -1,13 +1,13 @@
 import { combineReducers, createStore } from 'redux'
 import LoggedUser from './reducers/LoggedUser'
 import Sectors from './reducers/Sectors'
-import TiposUsuarios from './reducers/UserTypes'
+import UserTypes from './reducers/UserTypes'
 import Usuarios from './reducers/Users'
-import TiposAtivos from './reducers/AssetTypes'
+import AssetTypess from './reducers/AssetTypes'
 import Ativos from './reducers/Assets'
 import Tema from './reducers/Theme'
-import StatusAtivos from './reducers/AssetsStatus'
-import TiposDeUso from './reducers/UsageTypes'
+import AssetsStatus from './reducers/AssetsStatus'
+import UsageTypes from './reducers/UsageTypes'
 import RecordsAtivos from './reducers/Records'
 import StorageLocations from './reducers/StorageLocations'
 
@@ -64,13 +64,13 @@ const store = createStore(
     combineReducers({
         LoggedUser,
         Sectors,
-        TiposUsuarios,
+        UserTypes,
         Usuarios,
-        TiposAtivos,
+        AssetTypess,
         Ativos,
         StorageLocations,
-        StatusAtivos,
-        TiposDeUso,
+        AssetsStatus,
+        UsageTypes,
         RecordsAtivos,
         Tema
     }),

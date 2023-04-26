@@ -50,7 +50,7 @@ const UsuarioModal = (props) => {
     const [Sectors] = useState(GetFromStore('Sectors'))
     const [UserType, setUserType] = useState({ ...DefaultUserType })
     const [UserSector, setUserSector] = useState({ ...DefaultSector })
-    const [TiposUsuarios] = useState(GetFromStore('TiposUsuarios'))
+    const [UserTypes] = useState(GetFromStore('UserTypes'))
     const [ProfileImageUrl, setProfileImageUrl] = useState('')
     const [UserTypeCustomFields, setUserTypeCustomFields] = useState([])
     const [SenhaAtual, setSenhaAtual] = useState('')
@@ -102,7 +102,7 @@ const UsuarioModal = (props) => {
                 break
             case 'Type':
                 newUser.Type = { id: Value }
-                const GotUserType = GetFromStoreWithId('TiposUsuarios', Value)
+                const GotUserType = GetFromStoreWithId('UserTypes', Value)
                 setUserType(GotUserType)
                 break
             case 'Sector':
@@ -139,7 +139,7 @@ const UsuarioModal = (props) => {
 
     //QUANDO O USERTYPE MUDA, PEGA O NOVO TYPE
     useEffect(() => {
-        setUserType(GetFromStoreWithId('TiposUsuarios', User?.Type?.id))
+        setUserType(GetFromStoreWithId('UserTypes', User?.Type?.id))
         setUserSector({ ...GetFromStore('Sectors').find(U => U.id === User?.Sector?.id) })
     }, [User?.Type, props.CurrentUser])
 
@@ -635,7 +635,7 @@ const UsuarioModal = (props) => {
                                                         <FormGroup>
                                                             <EditList
                                                                 Item={User}
-                                                                List={TiposUsuarios}
+                                                                List={UserTypes}
                                                                 Title="Tipos de Usuarios"
                                                                 Key='Type'
                                                                 Handle={HandleChangeInfo}

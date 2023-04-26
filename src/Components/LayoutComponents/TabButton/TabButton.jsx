@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './TabButton.css'
-import { UilListUl, UilSitemap, UilShieldCheck, UilAsterisk, UilLabel, UilBox, UilUsersAlt, UilSetting } from '@iconscout/react-unicons'
+import { UilListUl, UilSitemap, UilShieldCheck, UilAsterisk, UilLabel, UilBox, UilUsersAlt, UilSetting, UilPlay } from '@iconscout/react-unicons'
 
 const TabButton = ({ children, onClick, className = '', ButtonName, Key, Text }) => {
 
@@ -89,6 +89,24 @@ export const TiposTabTitle = () => {
         <span>Tipos</span>
     </div>
 }
+
+
+
+export const StatusTabTitle = () => {
+    return <div className='TabsTitle'>
+        <UilLabel />
+        <span>Status</span>
+    </div>
+}
+
+export const UsageTabTitle = () => {
+    return <div className='TabsTitle'>
+        <UilPlay />
+        <span>Tipo de Uso</span>
+    </div>
+}
+
+
 export const TodosTabTitle = () => {
     return <div className='TabsTitle'>
         <UilListUl />
@@ -153,14 +171,14 @@ export const DashAtivosTabTitle = () => {
 
 
 
-export const CustomTiposAtivos = () => {
+export const CustomAssetTypess = () => {
     return <div className='TabsTitle'>
         <UilSetting />
         <span>Tipos de Ativos</span>
     </div>
 }
 
-export const CustomTiposUsuarios = () => {
+export const CustomUserTypes = () => {
     return <div className='TabsTitle'>
         <UilSetting />
         <span>Tipos de Usuários</span>
@@ -190,13 +208,15 @@ const Tabs = {
     "TodosAtivos": TodosTabTitle(),
     "AtivosInArmazenamento": ArmazenamentoTabTitle(),
     "AtivosInTipos": TiposTabTitle(),
+    "AtivosInStatus": StatusTabTitle(),
+    "AtivosInUsageTypes": UsageTabTitle(),
     "TodosUsuarios": UsersTodosTabTitle(),
     "UsersInSectors": SectorsTabTitle(),
     "UsersInTipos": UsersTiposTabTitle(),
     "DashAtivos": DashAtivosTabTitle(),
     "DahUsuarios": DashUsuariosTabTitle(),
     "DashTipos": DashRecordsTabTitle(),
-    "CustomAtivos": CustomTiposAtivos(),
-    "CustomUserTypes": CustomTiposUsuarios(),
-    "UserType": CustomTiposUsuarios(),
+    "CustomAtivos": CustomAssetTypess(),
+    "CustomUserTypes": CustomUserTypes(),
+    "UserType": CustomUserTypes(),
 }

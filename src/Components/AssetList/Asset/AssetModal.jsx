@@ -40,14 +40,14 @@ import CustomSelect from '../../LayoutComponents/CustomSelect/CustomSelect'
 const AtivoModal = (props) => {
 
     //DEPENDENCIAS 
-    const StatusAtivo = GetFromStoreWithId('StatusAtivos', props?.Ativo?.Status?.id)
+    const StatusAtivo = GetFromStoreWithId('AssetsStatus', props?.Ativo?.Status?.id)
     const [ProfileImageUrl, setProfileImageUrl] = useState('')
     const [AtivoType, setAtivoType] = useState({ ...DefaultAtivosType })
     const [AtivoTypeCustomFields, setAtivoTypeCustomFields] = useState([])
     const [AtivoLocalArmazenamento, setAtivoLocalArmazenamento] = useState({ ...DefaultLocal })
     const [Ativo, setAtivo] = useState({ ...DefaultAtivo })
     const [StorageLocations] = useState(GetFromStore('StorageLocations'))
-    const [TiposAtivos] = useState(GetFromStore('TiposAtivos'))
+    const [AssetTypess] = useState(GetFromStore('AssetTypess'))
     const QuantidadeRetirada = props.Ativo?.QtdInUse
 
 
@@ -101,7 +101,7 @@ const AtivoModal = (props) => {
         switch (Info) {
             case 'Type':
                 newAtivo.Type = { id: Value }
-                const GotAtivoType = GetFromStoreWithId('TiposAtivos', Value)
+                const GotAtivoType = GetFromStoreWithId('AssetTypess', Value)
                 setAtivoType(GotAtivoType)
                 break
             case 'Status':
@@ -158,7 +158,7 @@ const AtivoModal = (props) => {
 
     //QUANDO O ATIVO TYPE MUDA, PEGA O NOVO TYPE
     useEffect(() => {
-        setAtivoType(GetFromStoreWithId('TiposAtivos', Ativo?.Type?.id))
+        setAtivoType(GetFromStoreWithId('AssetTypess', Ativo?.Type?.id))
         setAtivoLocalArmazenamento(GetFromStoreWithId('StorageLocations', Ativo?.StorageLocation?.id))
     }, [Ativo, props.CurrentUser])
 
@@ -358,7 +358,7 @@ const AtivoModal = (props) => {
                                 </div>
                                 <div className='AtivoModalHeader-Right-Tipo'>
                                     <UilLabel />
-                                    {props.Function === 'Add' ? GetNameFromStoreWithId('TiposAtivos', Ativo?.Type?.id) : AtivoType?.Value}
+                                    {props.Function === 'Add' ? GetNameFromStoreWithId('AssetTypess', Ativo?.Type?.id) : AtivoType?.Value}
                                 </div>
 
                             </div>
@@ -502,12 +502,12 @@ const AtivoModal = (props) => {
                                                             </FormGroupLabel>
                                                             <CustomSelect
                                                                 placeholder="Selecione o Status"
-                                                                options={GetFromStore('StatusAtivos')}
+                                                                options={GetFromStore('AssetsStatus')}
                                                                 getOptionLabel={(options) => { return options["Value"]; }}
                                                                 getOptionValue={(options) => { return options["id"]; }}
                                                                 value={{
                                                                     id: Ativo?.Status?.id,
-                                                                    Value: GetNameFromStoreWithId('StatusAtivos', Ativo?.Status?.id)
+                                                                    Value: GetNameFromStoreWithId('AssetsStatus', Ativo?.Status?.id)
                                                                 }}
                                                                 isDisabled={!CanEdit}
                                                                 onChange={(item) => { HandleChangeInfo('Status', item.id); }}
@@ -520,12 +520,12 @@ const AtivoModal = (props) => {
                                                             </FormGroupLabel>
                                                             <CustomSelect
                                                                 placeholder="Selecione o Tipo de Uso"
-                                                                options={GetFromStore('TiposDeUso')}
+                                                                options={GetFromStore('UsageTypes')}
                                                                 getOptionLabel={(options) => { return options["Value"]; }}
                                                                 getOptionValue={(options) => { return options["id"]; }}
                                                                 value={{
                                                                     id: Ativo?.Usage?.id,
-                                                                    Value: GetNameFromStoreWithId('TiposDeUso', Ativo?.Usage?.id)
+                                                                    Value: GetNameFromStoreWithId('UsageTypes', Ativo?.Usage?.id)
                                                                 }}
                                                                 isDisabled={!CanEdit}
                                                                 onChange={(item) => { HandleChangeInfo('Usage', item.id); }}
@@ -580,7 +580,7 @@ const AtivoModal = (props) => {
 
                                                         <EditList
                                                             Item={Ativo}
-                                                            List={TiposAtivos}
+                                                            List={AssetTypess}
                                                             Icon={<UilLabelAlt />}
                                                             Title="Tipo de Ativo"
                                                             Key='Type'

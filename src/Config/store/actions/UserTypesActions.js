@@ -1,11 +1,11 @@
 
 
 
-export const SetTiposUsuarios = (TiposUsuarios) => {
+export const SetUserTypes = (UserTypes) => {
 
     return ({
         type: 'SET_TIPOS_USUARIOS',
-        TiposUsuarios
+        UserTypes
     })
 }
 

@@ -24,8 +24,8 @@ import { EditAssetTypeInFirebase, EditSectorInFirebase, EditUserTypeInFirebase }
 
 
 const UpdateInFirebaseFunctions = {
-    TiposAtivos: (Item) => EditAssetTypeInFirebase(Item),
-    TiposUsuarios: (Item) => EditUserTypeInFirebase(Item),
+    AssetTypess: (Item) => EditAssetTypeInFirebase(Item),
+    UserTypes: (Item) => EditUserTypeInFirebase(Item),
     Sectors: (Item) => EditSectorInFirebase(Item)
 }
 
@@ -43,13 +43,13 @@ const Campos = (props) => {
 
     //SET ITENS DEPENDING ON FUNCTION
     useEffect(() => {
-        if (props.Function === 'TiposAtivos')
-            setItems([...props.TiposAtivos])
-        else if (props.Function === 'TiposUsuarios')
-            setItems([...props.TiposUsuarios])
+        if (props.Function === 'AssetTypess')
+            setItems([...props.AssetTypess])
+        else if (props.Function === 'UserTypes')
+            setItems([...props.UserTypes])
         else if (props.Function === 'Sectors')
             setItems([...props.Sectors])
-    }, [props.Items, props.TiposAtivos, props.TiposUsuarios, props.Sectors])
+    }, [props.Items, props.AssetTypess, props.UserTypes, props.Sectors])
 
 
     //HANDLE ERROR
@@ -239,9 +239,9 @@ const Campos = (props) => {
 
 const ConnectedCampos = connect((state) => {
     return {
-        Items: state.TiposAtivos,
-        TiposAtivos: state.TiposAtivos,
-        TiposUsuarios: state.TiposUsuarios,
+        Items: state.AssetTypess,
+        AssetTypess: state.AssetTypess,
+        UserTypes: state.UserTypes,
         Sectors: state.Sectors,
         Tema: state.Tema
     }

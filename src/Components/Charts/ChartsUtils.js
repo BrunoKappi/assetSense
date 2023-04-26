@@ -1,30 +1,30 @@
 import { GetFromStore } from "../../Functions/Middleware"
 
 const IdsGetFunctions = {
-    'StatusAtivos': () => GetFromStore('StatusAtivos'),
-    'TiposUso': () => GetFromStore('TiposDeUso'),
+    'AssetsStatus': () => GetFromStore('AssetsStatus'),
+    'UsageTypes': () => GetFromStore('UsageTypes'),
     'Locais': () => GetFromStore('StorageLocations'),
-    'TiposAtivos': () => GetFromStore('TiposAtivos'), 
+    'AssetTypess': () => GetFromStore('AssetTypess'), 
     'Sectors': () => GetFromStore('Sectors'),
-    'TiposUsuarios': () => GetFromStore('TiposUsuarios'),
+    'UserTypes': () => GetFromStore('UserTypes'),
 }
 
 const ItensGetFunctions = {
-    'StatusAtivos': () => GetFromStore('Ativos'),
-    'TiposUso': () => GetFromStore('Ativos'),
+    'AssetsStatus': () => GetFromStore('Ativos'),
+    'UsageTypes': () => GetFromStore('Ativos'),
     'Locais': () => GetFromStore('Ativos'),
-    'TiposAtivos': () => GetFromStore('Ativos'),
+    'AssetTypess': () => GetFromStore('Ativos'),
     'Sectors': () => GetFromStore('Usuarios'),
-    'TiposUsuarios': () => GetFromStore('Usuarios'),
+    'UserTypes': () => GetFromStore('Usuarios'),
 }
 
 const KeysGetFunctions = {
-    'StatusAtivos': 'Status',
-    'TiposUso': 'Usage',
+    'AssetsStatus': 'Status',
+    'UsageTypes': 'Usage',
     'Locais': 'StorageLocation',
-    'TiposAtivos': 'Type',
+    'AssetTypess': 'Type',
     'Sectors': 'Sector',
-    'TiposUsuarios': 'Type',
+    'UserTypes': 'Type',
 }
 
 
@@ -62,24 +62,24 @@ export const GetSeriesAndLabels = (Tipo) => {
 
 export const GetRecordsPendentesUso_SeriesLabels = () => {
 
-    const TiposDeUsoAtivosLabels = ['Em Uso', 'Devolvidos']
-    const TiposDeUsoAtivosQtd = [0, 0]
+    const UsageTypesAtivosLabels = ['Em Uso', 'Devolvidos']
+    const UsageTypesAtivosQtd = [0, 0]
 
     const Records = [...GetFromStore('RecordsAtivos')]
 
 
     Records.map(Record => {
         if (Record.ReturnDate)
-            TiposDeUsoAtivosQtd[1] = TiposDeUsoAtivosQtd[1] + 1
+            UsageTypesAtivosQtd[1] = UsageTypesAtivosQtd[1] + 1
         else
-            TiposDeUsoAtivosQtd[0] = TiposDeUsoAtivosQtd[0] + 1
+            UsageTypesAtivosQtd[0] = UsageTypesAtivosQtd[0] + 1
     })
 
 
 
     const optionsCopy = {}
-    optionsCopy.labels = [...TiposDeUsoAtivosLabels]
-    optionsCopy.series = [...TiposDeUsoAtivosQtd]
+    optionsCopy.labels = [...UsageTypesAtivosLabels]
+    optionsCopy.series = [...UsageTypesAtivosQtd]
     return optionsCopy
 }
 
@@ -143,12 +143,12 @@ export const GetTop5UsuariosRetirados_SeriesLabels = () => {
 
 
 export const GetFunctions = {
-    "TiposAtivos": GetSeriesAndLabels,
+    "AssetTypess": GetSeriesAndLabels,
     "Sectors": GetSeriesAndLabels,
-    "TiposUsuarios": GetSeriesAndLabels,
+    "UserTypes": GetSeriesAndLabels,
     "Locais": GetSeriesAndLabels,
-    "StatusAtivos": GetSeriesAndLabels,
-    "TiposUso": GetSeriesAndLabels,
+    "AssetsStatus": GetSeriesAndLabels,
+    "UsageTypes": GetSeriesAndLabels,
     "RecordsPendentesUso": GetRecordsPendentesUso_SeriesLabels,
     "Top5AtivosRetirados": GetTop5ItensRetirados_SeriesLabels,
     "Top5UsersRetirados": GetTop5UsuariosRetirados_SeriesLabels,

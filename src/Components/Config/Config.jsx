@@ -68,10 +68,10 @@ const Config = (props) => {
         <Tab eventKey="Ativos" >
           <div className='ListItensContainer'>
             <Masonry breakpointCols={ConfigBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column"   >
-              <EditableCustomList Title="Tipos de Ativos" Module="TiposAtivos" />
+              <EditableCustomList Title="Tipos de Ativos" Module="AssetTypess" />
               <EditableCustomList Title="Locais de Armazenamento" Module="Locais" />
-              <EditableCustomList Title="Status de Ativos" Module="StatusAtivos" />
-              <EditableCustomList Title="Tipos de Uso" Module="TiposUso" />
+              <EditableCustomList Title="Status de Ativos" Module="AssetsStatus" />
+              <EditableCustomList Title="Tipos de Uso" Module="UsageTypes" />
             </Masonry>
           </div>
         </Tab>
@@ -84,11 +84,11 @@ const Config = (props) => {
             </TabsContainer>
 
             <Show Show={Camposkey === 'CustomAtivos'} Width='100%'>
-              <Campos Function="TiposAtivos" />
+              <Campos Function="AssetTypess" />
             </Show>
 
             <Show Show={Camposkey === 'CustomUserTypes'} Width='100%'>
-              <Campos Function="TiposUsuarios" />
+              <Campos Function="UserTypes" />
             </Show>
 
 
@@ -99,7 +99,7 @@ const Config = (props) => {
           <div className='ListItensContainer'>
             <Masonry breakpointCols={ConfigBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column"  >
               <EditableCustomList Title="Setores da Empresa" Module="Sectors" />
-              <EditableCustomList Title="Tipos de Usuários" Module="TiposUsuarios" />
+              <EditableCustomList Title="Tipos de Usuários" Module="UserTypes" />
             </Masonry>
           </div> 
         </Tab>

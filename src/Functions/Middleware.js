@@ -1,11 +1,11 @@
 import store from "../Config/store/store"
 import { FIREBASE_LoginAuth, FIREBASE_LogouyAuth, FIREBASE_RegisterUserAuth, FIREBASE_SendEMailResetPassword } from "../Config/firebase/auth"
-import { SetTiposAtivos } from "../Config/store/actions/AssetTypesActions"
+import { SetAssetTypess } from "../Config/store/actions/AssetTypesActions"
 import { SetSectors } from "../Config/store/actions/SectorsActions"
-import { SetTiposUsuarios } from "../Config/store/actions/UserTypesActions"
+import { SetUserTypes } from "../Config/store/actions/UserTypesActions"
 import { SetStorageLocations } from "../Config/store/actions/StorageLocationsActions"
-import { SetStatusAtivos } from "../Config/store/actions/AssetsStatusActions"
-import { SetTiposDeUso } from "../Config/store/actions/UsageTypesActions"
+import { SetAssetsStatus } from "../Config/store/actions/AssetsStatusActions"
+import { SetUsageTypes } from "../Config/store/actions/UsageTypesActions"
 import { AddAtivoAction, EditAtivoAction, SetAtivos } from "../Config/store/actions/AssetsActions"
 import { AddUsuarioAction, EditUsuarioAction, SetUsuarios } from "../Config/store/actions/UsersActions"
 import { PermitIndexs } from "../GlobalVars"
@@ -196,14 +196,14 @@ export const EditUserOnStore = (Item) => Dispatch(EditUsuarioAction(Item))
 export const SetLoggedUserOnStore = (Item) => Dispatch(setLoggedUser(Item))
 export const SetSidebarTagOnStore = (Item) => Dispatch(SetSidebarTag(Item))
 export const SetCheckLoginOnStore = (Item) => Dispatch(SetCheckLogin())
-export const SetUserTypesOnStore = (Itens) => Dispatch(SetTiposUsuarios(Itens))
+export const SetUserTypesOnStore = (Itens) => Dispatch(SetUserTypes(Itens))
 export const SetUsersOnStore = (Itens) => Dispatch(SetUsuarios(Itens))
 export const SetSectorsOnStore = (Itens) => Dispatch(SetSectors(Itens))
-export const SetAssetTypesOnStore = (Itens) => Dispatch(SetTiposAtivos(Itens))
+export const SetAssetTypesOnStore = (Itens) => Dispatch(SetAssetTypess(Itens))
 export const SetAssetsOnStore = (Itens) => Dispatch(SetAtivos(Itens))
 export const SetStorageLocationsOnStore = (Itens) => Dispatch(SetStorageLocations(Itens))
-export const SetAssetStatusOnStore = (Itens) => Dispatch(SetStatusAtivos(Itens))
-export const SetUsageTypesOnStore = (Itens) => Dispatch(SetTiposDeUso(Itens))
+export const SetAssetStatusOnStore = (Itens) => Dispatch(SetAssetsStatus(Itens))
+export const SetUsageTypesOnStore = (Itens) => Dispatch(SetUsageTypes(Itens))
 export const SetRecordsOnStore = (Itens) => Dispatch(SetRecords(Itens))
 export const ToggleSideBarVisibility = (Item) => Dispatch(ToggleSideBar())
 //STORE ADD
@@ -255,7 +255,7 @@ export const GetFromStore = (Key) => {
         return StoreList.Usuarios.find(U => U.Email === GetLoggedUserInfo('Email'))
     else if (Key === 'CurrentUserType') {
         const CurrentUser = StoreList.Usuarios.find(U => U.Email === GetLoggedUserInfo('Email'))
-        const CurrentUserType = GetFromStore('TiposUsuarios').find(U => U.id === CurrentUser?.Type?.id)
+        const CurrentUserType = GetFromStore('UserTypes').find(U => U.id === CurrentUser?.Type?.id)
         return CurrentUserType ? CurrentUserType : DefaultUserRole
     }
     else
@@ -312,7 +312,7 @@ export const GetCurrentUserSectorNameWithIdFromStore = (Id) => {
 
 export const GetCurrentUserTypeNameWithIdFromStore = (Id) => {
     if (!Id) return 'Selecione um Tipo de Usuário'
-    const Types = GetFromStore('TiposUsuarios')
+    const Types = GetFromStore('UserTypes')
     const Name = Types.find(Type => Type.id === Id).Value
     return Name
 }
@@ -432,46 +432,46 @@ export const GetRecordByAtivoIdAndUserId = (AtivoId, UserId) => {
 
 
 export const SetInStoreFunctions = {
-    "TiposAtivos": SetAssetTypesOnStore,
+    "AssetTypess": SetAssetTypesOnStore,
     "Sectors": SetSectorsOnStore,
-    "TiposUsuarios": SetUserTypesOnStore,
+    "UserTypes": SetUserTypesOnStore,
     "Locais": SetStorageLocationsOnStore,
-    "StatusAtivos": SetAssetStatusOnStore,
-    "TiposUso": SetUsageTypesOnStore
+    "AssetsStatus": SetAssetStatusOnStore,
+    "UsageTypes": SetUsageTypesOnStore
 };
 
 export const UpdateInFirebaseFunctions = {
-    "TiposAtivos": (Item) => EditAssetTypeInFirebase(Item),
+    "AssetTypess": (Item) => EditAssetTypeInFirebase(Item),
     "Sectors": (Item) => EditSectorInFirebase(Item),
-    "TiposUsuarios": (Item) => EditUserTypeInFirebase(Item),
+    "UserTypes": (Item) => EditUserTypeInFirebase(Item),
     "Locais": (Item) => EditStorageLocationInFirebase(Item),
-    "StatusAtivos": (Item) => EditAssetStatuInFirebase(Item),
-    "TiposUso": (Item) => EditUsageTypeInFirebase(Item),
+    "AssetsStatus": (Item) => EditAssetStatuInFirebase(Item),
+    "UsageTypes": (Item) => EditUsageTypeInFirebase(Item),
 };
 
 export const DeleteFromFirebaseFunctions = {
-    "TiposAtivos": (Item) => DeleteAssetTypeFromFirebase(Item),
+    "AssetTypess": (Item) => DeleteAssetTypeFromFirebase(Item),
     "Sectors": (Item) => DeleteSectorFromFirebase(Item),
-    "TiposUsuarios": (Item) => DeleteUserTypeFromFirebase(Item),
+    "UserTypes": (Item) => DeleteUserTypeFromFirebase(Item),
     "Locais": (Item) => DeleteStorageLocationFromFirebase(Item),
-    "StatusAtivos": (Item) => DeleteAssetStatuFromFirebase(Item),
-    "TiposUso": (Item) => DeleteUsageTypeFromFirebase(Item),
+    "AssetsStatus": (Item) => DeleteAssetStatuFromFirebase(Item),
+    "UsageTypes": (Item) => DeleteUsageTypeFromFirebase(Item),
 };
 
 export const AddToFirebaseFunctions = {
-    "TiposAtivos": (Item) => AddAssetTypeToFirebase(Item),
+    "AssetTypess": (Item) => AddAssetTypeToFirebase(Item),
     "Sectors": (Item) => AddSectorToFirebase(Item),
-    "TiposUsuarios": (Item) => AddUserTypeToFirebase(Item),
+    "UserTypes": (Item) => AddUserTypeToFirebase(Item),
     "Locais": (Item) => AddStorageLocationToFirebase(Item),
-    "StatusAtivos": (Item) => AddAssetStatuToFirebase(Item),
-    "TiposUso": (Item) => AddUsageTypeToFirebase(Item),
+    "AssetsStatus": (Item) => AddAssetStatuToFirebase(Item),
+    "UsageTypes": (Item) => AddUsageTypeToFirebase(Item),
 };
 
 export const GetFromStoreFunctions = {
-    "TiposAtivos": () => GetFromStore('TiposAtivos'),
+    "AssetTypess": () => GetFromStore('AssetTypess'),
     "Sectors": () => GetFromStore('Sectors'),
-    "TiposUsuarios": () => GetFromStore('TiposUsuarios'),
+    "UserTypes": () => GetFromStore('UserTypes'),
     "Locais": () => GetFromStore('StorageLocations'),
-    "StatusAtivos": () => GetFromStore('StatusAtivos'),
-    "TiposUso": () => GetFromStore('TiposDeUso')
+    "AssetsStatus": () => GetFromStore('AssetsStatus'),
+    "UsageTypes": () => GetFromStore('UsageTypes')
 };

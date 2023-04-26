@@ -20,14 +20,14 @@ const Dashboard = (props) => {
   const SectorsSeries = GetSectorsData('Sectors').series
 
   //TiposUsuaios
-  const GetTiposUsuaiosData = GetFunctions["TiposUsuarios"]
-  const TiposUsuaiosLabels = GetTiposUsuaiosData('TiposUsuarios').labels
-  const TiposUsuaiosSeries = GetTiposUsuaiosData('TiposUsuarios').series
+  const GetTiposUsuaiosData = GetFunctions["UserTypes"]
+  const TiposUsuaiosLabels = GetTiposUsuaiosData('UserTypes').labels
+  const TiposUsuaiosSeries = GetTiposUsuaiosData('UserTypes').series
 
-  //TiposAtivos
-  const GetTiposAtivosData = GetFunctions["TiposAtivos"]
-  const TiposAtivosLabels = GetTiposAtivosData('TiposAtivos').labels
-  const TiposAtivosSeries = GetTiposAtivosData('TiposAtivos').series
+  //AssetTypess
+  const GetAssetTypessData = GetFunctions["AssetTypess"]
+  const AssetTypessLabels = GetAssetTypessData('AssetTypess').labels
+  const AssetTypessSeries = GetAssetTypessData('AssetTypess').series
 
   //Locais de Armazenamento
   const GetAtivosLocaisData = GetFunctions["Locais"]
@@ -35,16 +35,16 @@ const Dashboard = (props) => {
   const AtivosLocaisSeries = GetAtivosLocaisData('Locais').series
 
   //Status de Ativos
-  const GetAtivosStatusData = GetFunctions["StatusAtivos"]
-  const AtivosStatusLabels = GetAtivosStatusData('StatusAtivos').labels
-  const AtivosStatusSeries = GetAtivosStatusData('StatusAtivos').series
+  const GetAtivosStatusData = GetFunctions["AssetsStatus"]
+  const AtivosStatusLabels = GetAtivosStatusData('AssetsStatus').labels
+  const AtivosStatusSeries = GetAtivosStatusData('AssetsStatus').series
 
-  //TiposUso
-  const GetTiposUsoData = GetFunctions["TiposUso"]
-  const TiposUsoLabels = GetTiposUsoData('TiposUso').labels
-  const TiposUsoSeries = GetTiposUsoData('TiposUso').series
+  //UsageTypes
+  const GetUsageTypesData = GetFunctions["UsageTypes"]
+  const UsageTypesLabels = GetUsageTypesData('UsageTypes').labels
+  const UsageTypesSeries = GetUsageTypesData('UsageTypes').series
 
-  //TiposUso
+  //UsageTypes
   const GetRecordsPendentesEmUsoData = GetFunctions["RecordsPendentesUso"]
   const RecordsPendentesEmUsoLabels = GetRecordsPendentesEmUsoData().labels
   const RecordsPendentesEmUsoSeries = GetRecordsPendentesEmUsoData().series
@@ -88,9 +88,9 @@ const Dashboard = (props) => {
         props.Sectors.length === 0 ||
         props.Usuarios.length === 0 ||
         props.StorageLocations.length === 0 ||
-        props.TiposUsuarios.length === 0 ||
-        props.TiposDeUso.length === 0 ||
-        props.TiposAtivos.length === 0
+        props.UserTypes.length === 0 ||
+        props.UsageTypes.length === 0 ||
+        props.AssetTypess.length === 0
       }>
         <Loading />
       </Show>
@@ -102,9 +102,9 @@ const Dashboard = (props) => {
         props.Sectors &&
         props.Usuarios &&
         props.StorageLocations &&
-        props.TiposUsuarios &&
-        props.TiposDeUso &&
-        props.TiposAtivos &&
+        props.UserTypes &&
+        props.UsageTypes &&
+        props.AssetTypess &&
         <>
 
           <div className='ColorPickerButton'>
@@ -134,7 +134,7 @@ const Dashboard = (props) => {
             <div className='DashBoard-Charts-Container'>
 
               <div className='ChartCointer'>
-                <BarChart Mono={Color} Title="Ativos por Tipo" Series={TiposAtivosSeries} Labels={TiposAtivosLabels} />
+                <BarChart Mono={Color} Title="Ativos por Tipo" Series={AssetTypessSeries} Labels={AssetTypessLabels} />
               </div>
 
               <div className='ChartCointer'>
@@ -146,11 +146,11 @@ const Dashboard = (props) => {
               </div>
 
               <div className='ChartCointer'>
-                <BarChart Mono={Color} Title="Ativos por Tipo de Uso" Series={TiposUsoSeries} Labels={TiposUsoLabels} />
+                <BarChart Mono={Color} Title="Ativos por Tipo de Uso" Series={UsageTypesSeries} Labels={UsageTypesLabels} />
               </div>
 
               <div className='ChartCointer'>
-                <PieChart Mono={Color} Title="Ativos por Tipo" Series={TiposAtivosSeries} Labels={TiposAtivosLabels} />
+                <PieChart Mono={Color} Title="Ativos por Tipo" Series={AssetTypessSeries} Labels={AssetTypessLabels} />
               </div>
 
               <div className='ChartCointer'>
@@ -162,7 +162,7 @@ const Dashboard = (props) => {
               </div>
 
               <div className='ChartCointer'>
-                <PieChart Mono={Color} Title="Ativos por Tipo de Uso" Series={TiposUsoSeries} Labels={TiposUsoLabels} />
+                <PieChart Mono={Color} Title="Ativos por Tipo de Uso" Series={UsageTypesSeries} Labels={UsageTypesLabels} />
               </div>
 
             </div>
@@ -247,10 +247,10 @@ const ConnectedDashboard = connect((state) => {
     Sectors: state.Sectors,
     Usuarios: state.Usuarios,
     RecordsAtivos: state.RecordsAtivos,
-    TiposUsuarios: state.TiposUsuarios,
+    UserTypes: state.UserTypes,
     StorageLocations: state.StorageLocations,
-    TiposDeUso: state.TiposDeUso,
-    TiposAtivos: state.TiposAtivos,
+    UsageTypes: state.UsageTypes,
+    AssetTypess: state.AssetTypess,
   }
 })(Dashboard)
 

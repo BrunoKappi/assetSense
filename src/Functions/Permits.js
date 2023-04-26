@@ -21,7 +21,7 @@ export const EXCLUIR_USUARIOS = () => GetCurrentUserTypePermitFromStore('EXCLUIR
 
 
 
- 
+
 
 
 
@@ -134,6 +134,18 @@ export const AtivosInLocaisTab = () => {
     )
 }
 export const AtivosInTypesTab = () => {
+    return (
+        EDITAR_ATIVOS() || VISUALIZAR_ATIVOS()
+    )
+}
+
+export const AtivosInStatusTab = () => {
+    return (
+        EDITAR_ATIVOS() || VISUALIZAR_ATIVOS()
+    )
+}
+
+export const AtivosInUsageTypesTab = () => {
     return (
         EDITAR_ATIVOS() || VISUALIZAR_ATIVOS()
     )

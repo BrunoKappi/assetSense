@@ -12,7 +12,7 @@ export const AssetStatusCollectionName = 'StatusAtivos'
 export const UsageTypesCollectionName = 'TiposUso'
 export const UsersCollectionName = 'Usuarios'
 export const AssetsCollectionName = 'Ativos'
-export const RecordsCollectionName = 'Records'
+export const RecordsCollectionName = 'Records' 
  
 
 //GET   

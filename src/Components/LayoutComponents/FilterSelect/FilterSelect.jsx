@@ -15,28 +15,28 @@ const FilterSelect = (props) => {
             options: props.StorageLocations.map((tipo) => ({ ...tipo, list: 'StorageLocations' })),
         },
         {
-            label: <CustomLabel List='StatusAtivos' text='Status de Ativos' />,
-            options: props.StatusAtivos.map((tipo) => ({ ...tipo, list: 'StatusAtivos' })),
+            label: <CustomLabel List='AssetsStatus' text='Status de Ativos' />,
+            options: props.AssetsStatus.map((tipo) => ({ ...tipo, list: 'AssetsStatus' })),
         },
         {
-            label: <CustomLabel List='TiposAtivos' text='Tipos de Ativos' />,
-            options: props.TiposAtivos.map((tipo) => ({ ...tipo, list: 'TiposAtivos' })),
+            label: <CustomLabel List='AssetTypess' text='Tipos de Ativos' />,
+            options: props.AssetTypess.map((tipo) => ({ ...tipo, list: 'AssetTypess' })),
         },
         {
-            label: <CustomLabel List='TiposDeUso' text='Tipos de Uso' />,
-            options: props.TiposDeUso.map((tipo) => ({ ...tipo, list: 'TiposDeUso' })),
+            label: <CustomLabel List='UsageTypes' text='Tipos de Uso' />,
+            options: props.UsageTypes.map((tipo) => ({ ...tipo, list: 'UsageTypes' })),
         },
     ]
 
     //USER OPTIONS
     const UserFilterOptions = [
         {
-            label: <CustomLabel List='Sectors' text="Filtro de Sectors" />,
+            label: <CustomLabel List='Sectors' text="Filtro de Setores" />,
             options: props.Sectors.map((sector) => ({ ...sector, list: 'Sectors' })),
         },
         {
-            label: <CustomLabel List='TiposUsuarios' text='Filtro de Tipo de Usuarios' />,
-            options: props.TiposUsuarios.map((tipo) => ({ ...tipo, list: 'TiposUsuarios' })),
+            label: <CustomLabel List='UserTypes' text='Filtro de Tipo de Usuarios' />,
+            options: props.UserTypes.map((tipo) => ({ ...tipo, list: 'UserTypes' })),
         },
     ]
 
@@ -138,11 +138,11 @@ const ConnectedFilterSelect = connect((state) => {
     return {
         Tema: state.Tema,
         Sectors: state.Sectors,
-        TiposUsuarios: state.TiposUsuarios,
-        TiposAtivos: state.TiposAtivos,
+        UserTypes: state.UserTypes,
+        AssetTypess: state.AssetTypess,
         StorageLocations: state.StorageLocations,
-        StatusAtivos: state.StatusAtivos,
-        TiposDeUso: state.TiposDeUso,
+        AssetsStatus: state.AssetsStatus,
+        UsageTypes: state.UsageTypes,
     }
 })(FilterSelect)
 

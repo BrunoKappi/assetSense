@@ -49,7 +49,7 @@ const Ativo = (props) => {
                 <Tooltip title="Tipo do Ativo" position="bottom" >
                     <span className='AtivoTypeColumn'>
                         <UilLabelAlt />
-                        <span>{GetNameFromStoreWithId('TiposAtivos', props.Ativo.Type.id)}</span>
+                        <span>{GetNameFromStoreWithId('AssetTypess', props.Ativo.Type.id)}</span>
                     </span>
                 </Tooltip>
             </span>

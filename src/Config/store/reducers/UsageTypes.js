@@ -1,17 +1,17 @@
 
 
-const TiposDeUso = (state = [], action) => {
+const UsageTypes = (state = [], action) => {
     switch (action.type) {
         case 'ADD_STATUS_ATIVO':
             return state.concat(action.NovoStatus)
         case 'CLEAR_ALL':
             return []
         case 'SET_TIPOS_USO':
-            return action.TiposDeUso
+            return action.UsageTypes
         default:
             return state
     }
 }
 
 
-export default TiposDeUso
+export default UsageTypes

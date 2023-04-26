@@ -300,7 +300,7 @@ export const UsersReset = [{ Deleted: false, docID: '', id: v4(), Phone: '555199
 export const ItemTypesReset = [{ docID: '', id: '5c292f1a-1fc1-400b-b44c-ca0fa68458ad', Value: 'Cabo' }]
 
 export const UserRolesReset = [{ docID: '', id: '784c4def-b901-4883-b481-a4a6cf6dd070', Value: 'Administrador', IsAdmin: true }]
-export const TiposDeUsoReset = [{ docID: '', id: 'd0e718ac-9cdc-4d7a-ba00-711d68d2c108', Value: 'Uso contínuo' }]
+export const UsageTypesReset = [{ docID: '', id: 'd0e718ac-9cdc-4d7a-ba00-711d68d2c108', Value: 'Uso contínuo' }]
 export const AtivosStatusReset = [
     {
         LastEditedAt: moment().valueOf(),
@@ -616,7 +616,7 @@ export const AtivosStatus = [
 
 
 /// ==================== TIPOS DE USOS  =================== ///
-export const TiposDeUso = [
+export const UsageTypes = [
     {
         ...DefaultTipoDeUso,
         docID: '',
@@ -849,7 +849,7 @@ if (ADD_FIREBASE) {
 
 //TIPOS DE USO
 if (ADD_FIREBASE) {
-    TiposDeUso.forEach(Tipo => {
+    UsageTypes.forEach(Tipo => {
         AddUsageTypeToFirebase(Tipo).then((Document) => {
             console.log("Tipo Adicionado", Document)
         }).catch((erro) => {
@@ -893,18 +893,18 @@ if ((!localStorage.getItem('AssetSenseUsersTypes') || Update) && !Reset && !Noth
 }
 
 //STATUS ATIVOS
-if ((!localStorage.getItem('AssetSenseStatusAtivos') || Update) && !Reset && !Nothing) {
-    localStorage.setItem('AssetSenseStatusAtivos', JSON.stringify(AtivosStatus))
+if ((!localStorage.getItem('AssetSenseAssetsStatus') || Update) && !Reset && !Nothing) {
+    localStorage.setItem('AssetSenseAssetsStatus', JSON.stringify(AtivosStatus))
 } else if (Reset) {
-    localStorage.setItem('AssetSenseStatusAtivos', JSON.stringify(AtivosStatusReset)) //RESET
+    localStorage.setItem('AssetSenseAssetsStatus', JSON.stringify(AtivosStatusReset)) //RESET
 }
 
 
 // TIPOS DE USO
-if ((!localStorage.getItem('AssetSenseTiposDeUso') || Update) && !Reset && !Nothing) {
-    localStorage.setItem('AssetSenseTiposDeUso', JSON.stringify(TiposDeUso))
+if ((!localStorage.getItem('AssetSenseUsageTypes') || Update) && !Reset && !Nothing) {
+    localStorage.setItem('AssetSenseUsageTypes', JSON.stringify(UsageTypes))
 } else if (Reset) {
-    localStorage.setItem('AssetSenseTiposDeUso', JSON.stringify(TiposDeUsoReset)) //RESET
+    localStorage.setItem('AssetSenseUsageTypes', JSON.stringify(UsageTypesReset)) //RESET
 }
 
 // SECTORS

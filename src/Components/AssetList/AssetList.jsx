@@ -54,10 +54,10 @@ const AtivosList = (props) => {
         setListaDeAtivos(Ativos.filter(Ativo => {
             return (
                 (FiltroDeTexto === '' || CheckIncludesText(Ativo.Item) || CheckIncludesText(Ativo.Brand)) &&
-                CheckIncludesInObject(Ativo.Type, Filters?.TiposAtivos) &&
+                CheckIncludesInObject(Ativo.Type, Filters?.AssetTypess) &&
                 CheckIncludesInObject(Ativo.StorageLocation, Filters?.StorageLocations) &&
-                CheckIncludesInObject(Ativo.Status, Filters?.StatusAtivos) &&
-                CheckIncludesInObject(Ativo.Usage, Filters?.TiposDeUso)
+                CheckIncludesInObject(Ativo.Status, Filters?.AssetsStatus) &&
+                CheckIncludesInObject(Ativo.Usage, Filters?.UsageTypes)
             )
         }).sort((a, b) => a.Item.localeCompare(b.Item)))
 

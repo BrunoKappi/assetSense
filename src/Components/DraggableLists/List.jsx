@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 //ICONES
-import { UilLabel, UilBox, UilPuzzlePiece } from '@iconscout/react-unicons'
+import { UilLabel, UilBox, UilPuzzlePiece,UilPlay } from '@iconscout/react-unicons'
 //LIBRARIES
 import ListGroup from 'react-bootstrap/ListGroup';
 import { v4 } from 'uuid';
@@ -18,6 +18,9 @@ const ListaDeitensMap = {
   'AtivosInLocais': 'Ativos',
   'UsersInTypes': 'Usuarios',
   'UsersInSectores': 'Usuarios',
+  'AtivosInStatus': 'Ativos',
+  'AtivosInUsageTypes': 'Ativos',
+
 }
 
 
@@ -26,6 +29,8 @@ const NameKey = {
   'AtivosInLocais': 'Item',
   'UsersInTypes': 'Name',
   'UsersInSectores': 'Name',
+  'AtivosInStatus': 'Item',
+  'AtivosInUsageTypes': 'Item',
 }
 
 
@@ -34,6 +39,8 @@ const IconMap = {
   'AtivosInLocais': <UilBox />,
   'UsersInTypes': <UilLabel />,
   'UsersInSectores': <UilPuzzlePiece />,
+  'AtivosInStatus': <UilLabel />,
+  'AtivosInUsageTypes': <UilPlay />,
 }
 
 
@@ -92,7 +99,7 @@ const List = (props) => {
                         </div>
                       )
                     }}
-                  </Draggable> 
+                  </Draggable>
                 })}
               </div>
 

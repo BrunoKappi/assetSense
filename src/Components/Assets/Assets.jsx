@@ -11,7 +11,7 @@ import AtivosList from '../AssetList/AssetList'
 import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
 //FUNCTIONS
-import { AtivosInLocaisTab, AtivosInTypesTab, TodosAtivosTab } from '../../Functions/Permits';
+import { AtivosInLocaisTab, AtivosInTypesTab, TodosAtivosTab, AtivosInStatusTab, AtivosInUsageTypesTab } from '../../Functions/Permits';
 import { NotificationErro } from '../../NotificationUtils';
 
 
@@ -38,6 +38,10 @@ const Ativos = (props) => {
       setKey(Key)
     else if (Key === 'AtivosInTipos' && AtivosInTypesTab())
       setKey(Key)
+    else if (Key === 'AtivosInStatus' && AtivosInStatusTab())
+      setKey(Key)
+    else if (Key === 'AtivosInUsageTypes' && AtivosInUsageTypesTab())
+      setKey(Key)
     else
       NotificationErro("Não Autorizado", "Você não possui permissão para acessar essa aba, solicite acesso ao seu Administrador")
   }
@@ -52,6 +56,9 @@ const Ativos = (props) => {
         <TabButton ButtonName="TodosAtivos" Key={key} onClick={(k) => SetKeyAtivos('TodosAtivos')} />
         <TabButton ButtonName="AtivosInArmazenamento" Key={key} onClick={(k) => SetKeyAtivos('AtivosInArmazenamento')} />
         <TabButton ButtonName="AtivosInTipos" Key={key} onClick={(k) => SetKeyAtivos('AtivosInTipos')} />
+        <TabButton ButtonName="AtivosInUsageTypes" Key={key} onClick={(k) => SetKeyAtivos('AtivosInUsageTypes')} />
+        <TabButton ButtonName="AtivosInStatus" Key={key} onClick={(k) => SetKeyAtivos('AtivosInStatus')} />
+
       </TabsContainer>
 
       {/****************************** BOOTSTRAP TABS  *********************************/}
@@ -73,6 +80,17 @@ const Ativos = (props) => {
             <DraggableLists Module='AtivosInLocais' />
           </div>
         </Tab>
+        <Tab eventKey="AtivosInUsageTypes">
+          <div className='ListItensContainer'>
+            <DraggableLists Module='AtivosInUsageTypes' />
+          </div>
+        </Tab>
+        <Tab eventKey="AtivosInStatus">
+          <div className='ListItensContainer'>
+            <DraggableLists Module='AtivosInStatus' />
+          </div>
+        </Tab>
+
       </Tabs>
     </div>
   )
