@@ -12,7 +12,8 @@ export const AssetStatusCollectionName = 'StatusAtivos'
 export const UsageTypesCollectionName = 'TiposUso'
 export const UsersCollectionName = 'Usuarios'
 export const AssetsCollectionName = 'Ativos'
-export const RecordsCollectionName = 'Records' 
+export const RecordsCollectionName = 'Records'
+ 
  
 
 //GET   
@@ -69,14 +70,14 @@ export const FIREBASE_GetDocIDById = async (Collection, ID) => {
 
 
 
-export const FIREBASE_GetRecordsNotReturnByAsset = async (ativoId) => {
+export const FIREBASE_GetRecordsNotReturnByAsset = async (assetId) => {
 
   var CollectionRef = collection(db, RecordsCollectionName)
 
   const Query = query(
     CollectionRef,
     where('ReturnDate', '==', ''),
-    where('AtivoId', '==', ativoId)
+    where('AssetId', '==', assetId)
   );
   const data = await getDocs(Query);
   const dados = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }));

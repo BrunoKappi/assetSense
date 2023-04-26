@@ -1,32 +1,32 @@
-.AtivoContainrClaro {
-    --AtivoContainr-Background: white;
-    --AtivoContainr-Background-Hover: whitesmoke;
-    --AtivoContainr-Border: transparent;
+.AssetContainerClaro {
+    --AssetContainer-Background: white;
+    --AssetContainer-Background-Hover: whitesmoke;
+    --AssetContainer-Border: transparent;
 
-    --AtivoContainr-LocalArmazenamento-Background: var(--PrimaryBackground);
-    --AtivoContainr-LocalArmazenamento-Color: white;
+    --AssetContainer-StorageLocation-Background: var(--PrimaryBackground);
+    --AssetContainer-StorageLocation-Color: white;
 
-    --AtivoContainr-Tipo-Background: var(--SecondaryBackground);
-    --AtivoContainr-Tipo-Color: white;
+    --AssetContainer-Type-Background: var(--SecondaryBackground);
+    --AssetContainer-Type-Color: white;
 
-    --AtivoContainr-Name-Color: var(--ComplementaryColor);
-    --AtivoContainr-Email-Color: var(--SecondaryBackground);
+    --AssetContainer-Name-Color: var(--ComplementaryColor);
+    --AssetContainer-Email-Color: var(--SecondaryBackground);
 
 }
 
-.AtivoContainrEscuro {
-    --AtivoContainr-Background: var(--BackgroundDark);
-    --AtivoContainr-Background-Hover: var(--PrimaryBackGroundFaded30);
-    --AtivoContainr-Border: var(--ComplementaryColor);
+.AssetContainerEscuro {
+    --AssetContainer-Background: var(--BackgroundDark);
+    --AssetContainer-Background-Hover: var(--PrimaryBackGroundFaded30);
+    --AssetContainer-Border: var(--ComplementaryColor);
 
-    --AtivoContainr-LocalArmazenamento-Background: var(--PrimaryBackground);
-    --AtivoContainr-LocalArmazenamento-Color: white;
+    --AssetContainer-StorageLocation-Background: var(--PrimaryBackground);
+    --AssetContainer-StorageLocation-Color: white;
 
-    --AtivoContainr-Tipo-Background: var(--SecondaryBackground);
-    --AtivoContainr-Tipo-Color: white;
+    --AssetContainer-Type-Background: var(--SecondaryBackground);
+    --AssetContainer-Type-Color: white;
 
-    --AtivoContainr-Name-Color: var(--ComplementaryColor);
-    --AtivoContainr-Email-Color: white;
+    --AssetContainer-Name-Color: var(--ComplementaryColor);
+    --AssetContainer-Email-Color: white;
 }
 
 
@@ -38,26 +38,26 @@
 
 
 
-.AtivoContainr {
+.AssetContainer {
     display: grid;
-    grid-template-columns: 35% 10% 15% 20% 20%;
+    grid-template-columns: 30% 10% 20% 20% 20%;
     gap: 1%;
     align-items: center;
     margin-bottom: .3rem;
     padding: .7rem .5rem;
     cursor: pointer;
-    background-color: var(--AtivoContainr-Background);
-    border: 1px solid var(--AtivoContainr-Border);
+    background-color: var(--AssetContainer-Background);
+    border: 1px solid var(--AssetContainer-Border);
     user-select: none;
     border-radius: .5rem;
 
 }
 
-.AtivoContainr:hover {
-    background-color: var(--AtivoContainr-Background-Hover);
+.AssetContainer:hover {
+    background-color: var(--AssetContainer-Background-Hover);
 }
 
-.AtivoContainrColumn {
+.AssetContainerColumn {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -69,17 +69,16 @@
     justify-content: flex-start;
 }
 
-.AtivoContainrColumn>img {
+.AssetContainerColumn>img {
     width: 50%;
     border-radius: 50%;
 }
 
-.LocalArmazenamentoColumn {
-    background-color: var(--AtivoContainr-LocalArmazenamento-Background);
-    color: var(--AtivoContainr-LocalArmazenamento-Color);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+
+
+.StorageLocationColumn {
+    background-color: var(--AssetContainer-StorageLocation-Background);
+    color: var(--AssetContainer-StorageLocation-Color);
     padding: .05rem .5rem;
     border-radius: 1rem;
     font-size: .7rem;
@@ -87,21 +86,22 @@
     align-items: center;
     justify-content: flex-start;
     gap: .1rem;
+    max-width: 100%;
 }
 
-.LocalArmazenamentoColumn>svg {
+.StorageLocationColumn svg {
     width: 1rem;
 }
 
-.LocalArmazenamentoColumn>span {
+.StorageLocationColumn span {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.AtivoTypeColumn {
-    background-color: var(--AtivoContainr-Tipo-Background);
-    color: var(--AtivoContainr-Tipo-Color);
+.AssetTypeColumn {
+    background-color: var(--AssetContainer-Type-Background);
+    color: var(--AssetContainer-Type-Color);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -114,17 +114,17 @@
     gap: .1rem;
 }
 
-.AtivoTypeColumn>svg {
+.AssetTypeColumn>svg {
     width: .9rem;
 }
 
-.AtivoTypeColumn>span {
+.AssetTypeColumn>span {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.AtivoNameColumn {
+.AssetNameColumn {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -133,19 +133,19 @@
     align-items: center;
     flex-direction: row;
     gap: .3rem;
-    color: var(--AtivoContainr-Name-Color);
+    color: var(--AssetContainer-Name-Color);
     font-size: .9rem;
 }
 
 
 
-.AtivoNameColumn>span {
+.AssetNameColumn>span {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.AtivoNameColumnIcon {
+.AssetNameColumnIcon {
     padding: 0;
     width: 1.5rem;
     height: 1.5rem;
@@ -158,19 +158,19 @@
     font-size: .9rem;
 }
 
-.AtivoNameColumn>svg {
+.AssetNameColumn>svg {
     width: 1rem;
 }
 
 
-.AtivoQuantidadesContainer {
+.AssetQuantidadesContainer {
     display: flex !important;
     align-items: center !important;
     flex-direction: row !important;
     gap: 1rem !important;
 }
 
-.AtivoQuantidades {
+.AssetQuantidades {
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -179,11 +179,17 @@
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: .8rem;
-    color: var(--AtivoContainr-Email-Color);
+    color: var(--AssetContainer-Email-Color);
     font-family: var(--Fonte);
 }
 
-.AtivoQuantidades svg {
+.AssetQuantidades span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.AssetQuantidades svg {
     width: .9rem;
 }
 
@@ -191,36 +197,36 @@
 
 @media (max-width: 750px) {
 
-    .AtivoContainr {
+    .AssetContainer {
         display: grid;
         grid-template-columns: 50% 25% 25%;
     }
 
-    .LocalArmazenamentoColumn {
+    .StorageLocationColumn {
         font-size: .6rem;
     }
 
-    .LocalArmazenamentoColumn>svg {
+    .StorageLocationColumn>svg {
         display: none;
     }
 
-    .AtivoTypeColumn {
+    .AssetTypeColumn {
         font-size: .6rem;
     }
 
-    .AtivoTypeColumn>svg {
+    .AssetTypeColumn>svg {
         display: none;
     }
 
-    .AtivoNameColumn>svg {
+    .AssetNameColumn>svg {
         display: none;
     }
 
-    .AtivoQuantidadesContainer {
+    .AssetQuantidadesContainer {
         display: none !important;
     }
 
-    .AtivoQuantidades {
+    .AssetQuantidades {
         display: none;
     }
 }

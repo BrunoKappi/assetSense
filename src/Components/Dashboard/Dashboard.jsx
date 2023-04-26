@@ -19,10 +19,10 @@ const Dashboard = (props) => {
   const SectorsLabels = GetSectorsData('Sectors').labels
   const SectorsSeries = GetSectorsData('Sectors').series
 
-  //TiposUsuaios
-  const GetTiposUsuaiosData = GetFunctions["UserTypes"]
-  const TiposUsuaiosLabels = GetTiposUsuaiosData('UserTypes').labels
-  const TiposUsuaiosSeries = GetTiposUsuaiosData('UserTypes').series
+  //TypesUsuaios
+  const GetTypesUsuaiosData = GetFunctions["UserTypes"]
+  const TypesUsuaiosLabels = GetTypesUsuaiosData('UserTypes').labels
+  const TypesUsuaiosSeries = GetTypesUsuaiosData('UserTypes').series
 
   //AssetTypess
   const GetAssetTypessData = GetFunctions["AssetTypess"]
@@ -30,14 +30,14 @@ const Dashboard = (props) => {
   const AssetTypessSeries = GetAssetTypessData('AssetTypess').series
 
   //Locais de Armazenamento
-  const GetAtivosLocaisData = GetFunctions["Locais"]
-  const AtivosLocaisLabels = GetAtivosLocaisData('Locais').labels
-  const AtivosLocaisSeries = GetAtivosLocaisData('Locais').series
+  const GetAssetsStorageLocationsData = GetFunctions["StorageLocations"]
+  const AssetsStorageLocationsLabels = GetAssetsStorageLocationsData('StorageLocations').labels
+  const AssetsStorageLocationsSeries = GetAssetsStorageLocationsData('StorageLocations').series
 
   //Status de Ativos
-  const GetAtivosStatusData = GetFunctions["AssetsStatus"]
-  const AtivosStatusLabels = GetAtivosStatusData('AssetsStatus').labels
-  const AtivosStatusSeries = GetAtivosStatusData('AssetsStatus').series
+  const GetAssetsStatusData = GetFunctions["AssetsStatus"]
+  const AssetsStatusLabels = GetAssetsStatusData('AssetsStatus').labels
+  const AssetsStatusSeries = GetAssetsStatusData('AssetsStatus').series
 
   //UsageTypes
   const GetUsageTypesData = GetFunctions["UsageTypes"]
@@ -50,9 +50,9 @@ const Dashboard = (props) => {
   const RecordsPendentesEmUsoSeries = GetRecordsPendentesEmUsoData().series
 
   //TOP 5 ATIVOS RETIRADO
-  const GetTop5AtivosRetiradosEmUsoData = GetFunctions["Top5AtivosRetirados"]
-  const Top5AtivosRetiradosEmUsoLabels = GetTop5AtivosRetiradosEmUsoData().labels
-  const Top5AtivosRetiradosEmUsoSeries = GetTop5AtivosRetiradosEmUsoData().series
+  const GetTop5AssetsRetiradosEmUsoData = GetFunctions["Top5AssetsRetirados"]
+  const Top5AssetsRetiradosEmUsoLabels = GetTop5AssetsRetiradosEmUsoData().labels
+  const Top5AssetsRetiradosEmUsoSeries = GetTop5AssetsRetiradosEmUsoData().series
 
   //TOP 5 USERS RETIRADO
   const GetTop5UsersRetiradosEmUsoData = GetFunctions["Top5UsersRetirados"]
@@ -62,7 +62,7 @@ const Dashboard = (props) => {
 
   //STATES
   const [Color, setColor] = useState('#2b5aa6')
-  const [key, setKey] = useState('DashAtivos');
+  const [key, setKey] = useState('DashAssets');
 
   //SET KEY OF TAB
   const SetKeyConfig = (Key) => {
@@ -84,9 +84,9 @@ const Dashboard = (props) => {
 
       <Show Show={
         !props.Tema ||
-        props.Ativos.length === 0 ||
+        props.Assets.length === 0 ||
         props.Sectors.length === 0 ||
-        props.Usuarios.length === 0 ||
+        props.Users.length === 0 ||
         props.StorageLocations.length === 0 ||
         props.UserTypes.length === 0 ||
         props.UsageTypes.length === 0 ||
@@ -98,9 +98,9 @@ const Dashboard = (props) => {
 
       {
         props.Tema &&
-        props.Ativos &&
+        props.Assets &&
         props.Sectors &&
-        props.Usuarios &&
+        props.Users &&
         props.StorageLocations &&
         props.UserTypes &&
         props.UsageTypes &&
@@ -123,13 +123,13 @@ const Dashboard = (props) => {
 
 
           <TabsContainer Tema={props.Tema}>
-            <TabButton ButtonName="DashAtivos" Key={key} onClick={(k) => SetKeyConfig('DashAtivos')} />
-            <TabButton ButtonName="DahUsuarios" Key={key} onClick={(k) => SetKeyConfig('DahUsuarios')} />
-            <TabButton ButtonName="DashTipos" Key={key} onClick={(k) => SetKeyConfig('DashTipos')} />
+            <TabButton ButtonName="DashAssets" Key={key} onClick={(k) => SetKeyConfig('DashAssets')} />
+            <TabButton ButtonName="DahUsers" Key={key} onClick={(k) => SetKeyConfig('DahUsers')} />
+            <TabButton ButtonName="DashTypes" Key={key} onClick={(k) => SetKeyConfig('DashTypes')} />
           </TabsContainer>
 
 
-          {key === 'DashAtivos' &&
+          {key === 'DashAssets' &&
 
             <div className='DashBoard-Charts-Container'>
 
@@ -138,11 +138,11 @@ const Dashboard = (props) => {
               </div>
 
               <div className='ChartCointer'>
-                <BarChart Mono={Color} Title="Ativos por Local de Armazenamento" Series={AtivosLocaisSeries} Labels={AtivosLocaisLabels} />
+                <BarChart Mono={Color} Title="Ativos por Local de Armazenamento" Series={AssetsStorageLocationsSeries} Labels={AssetsStorageLocationsLabels} />
               </div>
 
               <div className='ChartCointer'>
-                <BarChart Mono={Color} Title="Ativos por Status" Series={AtivosStatusSeries} Labels={AtivosStatusLabels} />
+                <BarChart Mono={Color} Title="Ativos por Status" Series={AssetsStatusSeries} Labels={AssetsStatusLabels} />
               </div>
 
               <div className='ChartCointer'>
@@ -154,11 +154,11 @@ const Dashboard = (props) => {
               </div>
 
               <div className='ChartCointer'>
-                <PieChart Mono={Color} Title="Ativos por Local de Armazenamento" Series={AtivosLocaisSeries} Labels={AtivosLocaisLabels} />
+                <PieChart Mono={Color} Title="Ativos por Local de Armazenamento" Series={AssetsStorageLocationsSeries} Labels={AssetsStorageLocationsLabels} />
               </div>
 
               <div className='ChartCointer'>
-                <PieChart Mono={Color} Title="Ativos por Status" Series={AtivosStatusSeries} Labels={AtivosStatusLabels} />
+                <PieChart Mono={Color} Title="Ativos por Status" Series={AssetsStatusSeries} Labels={AssetsStatusLabels} />
               </div>
 
               <div className='ChartCointer'>
@@ -170,7 +170,7 @@ const Dashboard = (props) => {
           }
 
 
-          {key === 'DahUsuarios' &&
+          {key === 'DahUsers' &&
             <div className='DashBoard-Charts-Container'>
 
               <div className='ChartCointer'>
@@ -178,7 +178,7 @@ const Dashboard = (props) => {
               </div>
 
               <div className='ChartCointer'>
-                <BarChart Mono={Color} Title="Usuários por Tipo" Series={TiposUsuaiosSeries} Labels={TiposUsuaiosLabels} />
+                <BarChart Mono={Color} Title="Usuários por Tipo" Series={TypesUsuaiosSeries} Labels={TypesUsuaiosLabels} />
               </div>
 
               <div className='ChartCointer'>
@@ -187,7 +187,7 @@ const Dashboard = (props) => {
 
 
               <div className='ChartCointer'>
-                <PieChart Mono={Color} Title="Usuários por Tipo" Series={TiposUsuaiosSeries} Labels={TiposUsuaiosLabels} />
+                <PieChart Mono={Color} Title="Usuários por Tipo" Series={TypesUsuaiosSeries} Labels={TypesUsuaiosLabels} />
               </div>
 
 
@@ -195,7 +195,7 @@ const Dashboard = (props) => {
             </div>
           }
 
-          {key === 'DashTipos' &&
+          {key === 'DashTypes' &&
             <>
               <div className='DashBoard-Charts-Container'>
 
@@ -204,7 +204,7 @@ const Dashboard = (props) => {
                 </div>
 
                 <div className='ChartCointer'>
-                  <BarChart Mono={Color} Title="Top 5 Ativos retirados" Series={Top5AtivosRetiradosEmUsoSeries} Labels={Top5AtivosRetiradosEmUsoLabels} />
+                  <BarChart Mono={Color} Title="Top 5 Ativos retirados" Series={Top5AssetsRetiradosEmUsoSeries} Labels={Top5AssetsRetiradosEmUsoLabels} />
                 </div>
 
                 <div className='ChartCointer'>
@@ -217,7 +217,7 @@ const Dashboard = (props) => {
                 </div>
 
                 <div className='ChartCointer'>
-                  <PieChart Mono={Color} Title="Top 5 Ativos retirados" Series={Top5AtivosRetiradosEmUsoSeries} Labels={Top5AtivosRetiradosEmUsoLabels} />
+                  <PieChart Mono={Color} Title="Top 5 Ativos retirados" Series={Top5AssetsRetiradosEmUsoSeries} Labels={Top5AssetsRetiradosEmUsoLabels} />
                 </div>
 
                 <div className='ChartCointer'>
@@ -243,10 +243,10 @@ const Dashboard = (props) => {
 const ConnectedDashboard = connect((state) => {
   return {
     Tema: state.Tema,
-    Ativos: state.Ativos,
+    Assets: state.Assets,
     Sectors: state.Sectors,
-    Usuarios: state.Usuarios,
-    RecordsAtivos: state.RecordsAtivos,
+    Users: state.Users,
+    RecordsAssets: state.RecordsAssets,
     UserTypes: state.UserTypes,
     StorageLocations: state.StorageLocations,
     UsageTypes: state.UsageTypes,

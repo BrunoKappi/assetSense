@@ -1,10 +1,10 @@
 
 
-export const AddTipoAtivo = (NovoAtivo = {}) => {
+export const AddTypeAsset = (NovoAsset = {}) => {
 
     return ({
-        type: 'ADD_TIPO_ATIVO',
-        NovoAtivo
+        type: 'ADD_TYPE_ASSET',
+        NovoAsset
     })
 }
 
@@ -22,7 +22,7 @@ export const editNotaAction = (docID, editedNota = {}) => {
 export const SetAssetTypess = (AssetTypess) => {
     
     return ({
-        type: 'SET_TIPOS_ATIVOS',
+        type: 'SET_TYPES_ASSETS',
         AssetTypess
     })
 }

@@ -1,27 +1,27 @@
 import moment from "moment"
 
-const Ativos = (state = [], action) => {
+const Assets = (state = [], action) => {
     switch (action.type) {
         case 'ADD_SECTOR':
             return state.concat(action.NovoSector)
-        case 'ADD_ATIVO':
-            return state.concat(action.NovoAtivo)
+        case 'ADD_ASSET':
+            return state.concat(action.NovoAsset)
         case 'CLEAR_ALL':
             return []
-        case 'EDIT_ATIVO':
-            return state.filter(ativo => {
-                return ativo.id !== action.EditedAtivo.id
-            }).concat({ ...action.EditedAtivo, CreatedAt: moment().valueOf(), LastEditedAt: moment().valueOf() })
-        case 'DELETE_ATIVO':
-            return state.filter(ativo => {
-                return ativo.id !== action.AtivoToDelete.id
+        case 'EDIT_ASSET':
+            return state.filter(asset => {
+                return asset.id !== action.EditedAsset.id
+            }).concat({ ...action.EditedAsset, CreatedAt: moment().valueOf(), LastEditedAt: moment().valueOf() })
+        case 'DELETE_ASSET':
+            return state.filter(asset => {
+                return asset.id !== action.AssetToDelete.id
             })
-        case 'SET_ATIVOS':
-            return action.Ativos
+        case 'SET_ASSETS':
+            return action.Assets
         default:
             return state
     }
 }
 
 
-export default Ativos
+export default Assets

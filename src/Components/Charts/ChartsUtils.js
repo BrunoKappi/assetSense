@@ -3,35 +3,35 @@ import { GetFromStore } from "../../Functions/Middleware"
 const IdsGetFunctions = {
     'AssetsStatus': () => GetFromStore('AssetsStatus'),
     'UsageTypes': () => GetFromStore('UsageTypes'),
-    'Locais': () => GetFromStore('StorageLocations'),
+    'StorageLocations': () => GetFromStore('StorageLocations'),
     'AssetTypess': () => GetFromStore('AssetTypess'), 
     'Sectors': () => GetFromStore('Sectors'),
     'UserTypes': () => GetFromStore('UserTypes'),
 }
 
 const ItensGetFunctions = {
-    'AssetsStatus': () => GetFromStore('Ativos'),
-    'UsageTypes': () => GetFromStore('Ativos'),
-    'Locais': () => GetFromStore('Ativos'),
-    'AssetTypess': () => GetFromStore('Ativos'),
-    'Sectors': () => GetFromStore('Usuarios'),
-    'UserTypes': () => GetFromStore('Usuarios'),
+    'AssetsStatus': () => GetFromStore('Assets'),
+    'UsageTypes': () => GetFromStore('Assets'),
+    'StorageLocations': () => GetFromStore('Assets'),
+    'AssetTypess': () => GetFromStore('Assets'),
+    'Sectors': () => GetFromStore('Users'),
+    'UserTypes': () => GetFromStore('Users'),
 }
 
 const KeysGetFunctions = {
     'AssetsStatus': 'Status',
     'UsageTypes': 'Usage',
-    'Locais': 'StorageLocation',
+    'StorageLocations': 'StorageLocation',
     'AssetTypess': 'Type',
     'Sectors': 'Sector',
     'UserTypes': 'Type',
 }
 
 
-export const GetSeriesAndLabels = (Tipo) => {
+export const GetSeriesAndLabels = (Type) => {
 
-    const GetIds = IdsGetFunctions[Tipo]
-    const GetItens = ItensGetFunctions[Tipo]
+    const GetIds = IdsGetFunctions[Type]
+    const GetItens = ItensGetFunctions[Type]
 
     const Ids = [...GetIds().map(element => { return element.id })]
     const Labels = [...GetIds().map(element => { return element.Value })]
@@ -40,7 +40,7 @@ export const GetSeriesAndLabels = (Tipo) => {
     const Itens = GetItens()
     Ids.map((ID, Index) => {
         return Itens.map(Item => {
-            if (Item[KeysGetFunctions[Tipo]].id === ID) {
+            if (Item[KeysGetFunctions[Type]].id === ID) {
                 QtdsCopy[Index].Qtd = QtdsCopy[Index].Qtd + 1
                 QtdsCopy[Index].Label = Labels[Index]
             }
@@ -62,40 +62,42 @@ export const GetSeriesAndLabels = (Tipo) => {
 
 export const GetRecordsPendentesUso_SeriesLabels = () => {
 
-    const UsageTypesAtivosLabels = ['Em Uso', 'Devolvidos']
-    const UsageTypesAtivosQtd = [0, 0]
+    const UsageTypesAssetsLabels = ['Em Uso', 'Devolvidos']
+    const UsageTypesAssetsQtd = [0, 0]
 
-    const Records = [...GetFromStore('RecordsAtivos')]
+    const Records = [...GetFromStore('RecordsAssets')]
 
 
     Records.map(Record => {
         if (Record.ReturnDate)
-            UsageTypesAtivosQtd[1] = UsageTypesAtivosQtd[1] + 1
+            UsageTypesAssetsQtd[1] = UsageTypesAssetsQtd[1] + 1
         else
-            UsageTypesAtivosQtd[0] = UsageTypesAtivosQtd[0] + 1
+            UsageTypesAssetsQtd[0] = UsageTypesAssetsQtd[0] + 1
     })
 
 
 
     const optionsCopy = {}
-    optionsCopy.labels = [...UsageTypesAtivosLabels]
-    optionsCopy.series = [...UsageTypesAtivosQtd]
+    optionsCopy.labels = [...UsageTypesAssetsLabels]
+    optionsCopy.series = [...UsageTypesAssetsQtd]
     return optionsCopy
 }
 
 export const GetTop5ItensRetirados_SeriesLabels = () => {
 
-    const Records = GetFromStore('RecordsAtivos')
-    const Ativos = GetFromStore('Ativos')
+    const Records = GetFromStore('RecordsAssets')
+    const Assets = GetFromStore('Assets')
 
-    const AtivosIds = Records.map(Record => { return Record.AtivoId })
+    const AssetsIds = Records.map(Record => { return Record.AtivoId })
 
-    const AtivosRetirados = []
+    console.log("IDS",AssetsIds)
 
-    Ativos.map(Ativo => {
-        if (AtivosIds.some(AtivoId => AtivoId === Ativo.id)) {
-            const Qtd = Records.filter(Record => Record.AtivoId === Ativo.id).length
-            AtivosRetirados.push({ Item: Ativo.Item, Qtd: Qtd })
+    const AssetsRetirados = []
+
+    Assets.map(Asset => {
+        if (AssetsIds.some(AssetId => AssetId === Asset.id)) {
+            const Qtd = Records.filter(Record => Record.AtivoId === Asset.id).length
+            AssetsRetirados.push({ Item: Asset.Item, Qtd: Qtd })
         } else
             return
     })
@@ -105,8 +107,8 @@ export const GetTop5ItensRetirados_SeriesLabels = () => {
 
 
     const optionsCopy = {}
-    optionsCopy.labels = AtivosRetirados.sort((a, b) => b.Qtd - a.Qtd).slice(0, 5).map(Ativo => { return Ativo.Item })
-    optionsCopy.series = AtivosRetirados.sort((a, b) => b.Qtd - a.Qtd).slice(0, 5).map(Ativo => { return Ativo.Qtd })
+    optionsCopy.labels = AssetsRetirados.sort((a, b) => b.Qtd - a.Qtd).slice(0, 5).map(Asset => { return Asset.Item })
+    optionsCopy.series = AssetsRetirados.sort((a, b) => b.Qtd - a.Qtd).slice(0, 5).map(Asset => { return Asset.Qtd })
 
     return optionsCopy
 
@@ -114,10 +116,10 @@ export const GetTop5ItensRetirados_SeriesLabels = () => {
 }
 
 
-export const GetTop5UsuariosRetirados_SeriesLabels = () => {
+export const GetTop5UsersRetirados_SeriesLabels = () => {
 
-    const Records = GetFromStore('RecordsAtivos')
-    const Users = GetFromStore('Usuarios')
+    const Records = GetFromStore('RecordsAssets')
+    const Users = GetFromStore('Users')
 
     const UsersIds = Records.map(Record => { return Record.TakenFor.id })
 
@@ -131,8 +133,8 @@ export const GetTop5UsuariosRetirados_SeriesLabels = () => {
             return
     })
     const optionsCopy = {}
-    optionsCopy.labels = UsersRetirados.sort((a, b) => b.Qtd - a.Qtd).slice(0, 5).map(Ativo => { return Ativo.Nome })
-    optionsCopy.series = UsersRetirados.sort((a, b) => b.Qtd - a.Qtd).slice(0, 5).map(Ativo => { return Ativo.Qtd })
+    optionsCopy.labels = UsersRetirados.sort((a, b) => b.Qtd - a.Qtd).slice(0, 5).map(Asset => { return Asset.Nome })
+    optionsCopy.series = UsersRetirados.sort((a, b) => b.Qtd - a.Qtd).slice(0, 5).map(Asset => { return Asset.Qtd })
 
     return optionsCopy
 
@@ -146,10 +148,10 @@ export const GetFunctions = {
     "AssetTypess": GetSeriesAndLabels,
     "Sectors": GetSeriesAndLabels,
     "UserTypes": GetSeriesAndLabels,
-    "Locais": GetSeriesAndLabels,
+    "StorageLocations": GetSeriesAndLabels,
     "AssetsStatus": GetSeriesAndLabels,
     "UsageTypes": GetSeriesAndLabels,
     "RecordsPendentesUso": GetRecordsPendentesUso_SeriesLabels,
-    "Top5AtivosRetirados": GetTop5ItensRetirados_SeriesLabels,
-    "Top5UsersRetirados": GetTop5UsuariosRetirados_SeriesLabels,
+    "Top5AssetsRetirados": GetTop5ItensRetirados_SeriesLabels,
+    "Top5UsersRetirados": GetTop5UsersRetirados_SeriesLabels,
 }; 

@@ -8,8 +8,8 @@ import { connect } from 'react-redux'
 import NumbersOfList from '../NumbersOfList/NumbersOfList';
 import { EditAssetInFirebase, EditUserInFirebase, SetAssetsOnStore, SetUsersOnStore } from '../../Functions/Middleware';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
-import { EDITAR_ATIVOS, EDITAR_USUARIOS } from '../../Functions/Permits';
-import { AtivosInTypesBreakpoints } from '../../GlobalVars';
+import { EDITAR_ASSETS, EDITAR_USERS } from '../../Functions/Permits';
+import { AssetsInTypesBreakpoints } from '../../GlobalVars';
 import Warning from '../LayoutComponents/Warning/Warning'
 import Info from '../LayoutComponents/Info/Info'
 import Show from '../LayoutComponents/Show/Show';
@@ -17,57 +17,57 @@ import LoadingAnimate from '../LoadingForTabs/Loading'
 
 
 const UpdateInFirebaseFunctions = {
-    'AtivosInTypes': (Item) => EditAssetInFirebase(Item),
-    'AtivosInLocais': (Item) => EditAssetInFirebase(Item),
+    'AssetsInTypes': (Item) => EditAssetInFirebase(Item),
+    'AssetsInStorageLocations': (Item) => EditAssetInFirebase(Item),
     'UsersInTypes': (Item) => EditUserInFirebase(Item),
     'UsersInSectores': (Item) => EditUserInFirebase(Item),
-    'AtivosInStatus': (Item) => EditAssetInFirebase(Item),
-    'AtivosInUsageTypes': (Item) => EditAssetInFirebase(Item),
+    'AssetsInStatus': (Item) => EditAssetInFirebase(Item),
+    'AssetsInUsageTypes': (Item) => EditAssetInFirebase(Item),
 }
 
 const SetInStoreFunctions = {
-    'AtivosInTypes': SetAssetsOnStore,
-    'AtivosInLocais': SetAssetsOnStore,
+    'AssetsInTypes': SetAssetsOnStore,
+    'AssetsInStorageLocations': SetAssetsOnStore,
     'UsersInTypes': SetUsersOnStore,
     'UsersInSectores': SetUsersOnStore,
-    'AtivosInStatus': SetAssetsOnStore,
-    'AtivosInUsageTypes': SetAssetsOnStore,
+    'AssetsInStatus': SetAssetsOnStore,
+    'AssetsInUsageTypes': SetAssetsOnStore,
 }
 
 const ListaDeitensMap = {
-    'AtivosInTypes': 'Ativos',
-    'AtivosInLocais': 'Ativos',
-    'UsersInTypes': 'Usuarios',
-    'UsersInSectores': 'Usuarios',
-    'AtivosInStatus': 'Ativos',
-    'AtivosInUsageTypes': 'Ativos',
+    'AssetsInTypes': 'Assets',
+    'AssetsInStorageLocations': 'Assets',
+    'UsersInTypes': 'Users',
+    'UsersInSectores': 'Users',
+    'AssetsInStatus': 'Assets',
+    'AssetsInUsageTypes': 'Assets',
 }
 
 const ListMap = {
-    'AtivosInTypes': 'AssetTypess',
-    'AtivosInLocais': 'StorageLocations',
+    'AssetsInTypes': 'AssetTypess',
+    'AssetsInStorageLocations': 'StorageLocations',
     'UsersInTypes': 'UserTypes',
     'UsersInSectores': 'Sectors',
-    'AtivosInStatus': 'AssetsStatus',
-    'AtivosInUsageTypes': 'UsageTypes',
+    'AssetsInStatus': 'AssetsStatus',
+    'AssetsInUsageTypes': 'UsageTypes',
 }
 
 const KeyMap = {
-    'AtivosInTypes': 'Type',
-    'AtivosInLocais': 'StorageLocation',
+    'AssetsInTypes': 'Type',
+    'AssetsInStorageLocations': 'StorageLocation',
     'UsersInTypes': 'Type',
     'UsersInSectores': 'Sector',
-    'AtivosInStatus': 'Status',
-    'AtivosInUsageTypes': 'Usage',
+    'AssetsInStatus': 'Status',
+    'AssetsInUsageTypes': 'Usage',
 }
 
 const PermitsMap = {
-    'AtivosInTypes': EDITAR_ATIVOS,
-    'AtivosInLocais': EDITAR_ATIVOS,
-    'UsersInTypes': EDITAR_USUARIOS,
-    'UsersInSectores': EDITAR_USUARIOS,
-    'AtivosInStatus': EDITAR_ATIVOS,
-    'AtivosInUsageTypes': EDITAR_ATIVOS,
+    'AssetsInTypes': EDITAR_ASSETS,
+    'AssetsInStorageLocations': EDITAR_ASSETS,
+    'UsersInTypes': EDITAR_USERS,
+    'UsersInSectores': EDITAR_USERS,
+    'AssetsInStatus': EDITAR_ASSETS,
+    'AssetsInUsageTypes': EDITAR_ASSETS,
 }
 
 const DraggableLists = (props) => {
@@ -144,7 +144,7 @@ const DraggableLists = (props) => {
 
     return (
         <DragDropContext onDragEnd={(result) => { HandleDrag(result) }}>
-            <div className='AtivosInTypesContainer'>
+            <div className='AssetsInTypesContainer'>
 
                 <NumbersOfList Values={ListaDeItens} />
 
@@ -157,12 +157,12 @@ const DraggableLists = (props) => {
                 </Show>
 
 
-                <Masonry breakpointCols={AtivosInTypesBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column"   >
+                <Masonry breakpointCols={AssetsInTypesBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column"   >
                     {props[List].map(Item => {
 
                         return <>
                             <Show Show={Loading !== Item.id}>
-                                <Lists LoadingList={Loading} key={v4()} Item={Item} Ativos={props[ListaDeitensMap[props.Module]]} Key={Key} Module={props.Module} />
+                                <Lists LoadingList={Loading} key={v4()} Item={Item} Assets={props[ListaDeitensMap[props.Module]]} Key={Key} Module={props.Module} />
                             </Show>
                             <Show Show={Loading === Item.id}>
                                 <LoadingAnimate />
@@ -182,8 +182,8 @@ const DraggableLists = (props) => {
 
 const ConnectedDraggableLists = connect((state) => {
     return {
-        Ativos: state.Ativos,
-        Usuarios: state.Usuarios,
+        Assets: state.Assets,
+        Users: state.Users,
         UserTypes: state.UserTypes,
         AssetTypess: state.AssetTypess,
         AssetsStatus: state.AssetsStatus,

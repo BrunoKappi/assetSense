@@ -1,20 +1,20 @@
-.AtivoRecords-ContainerClaro {
-    --AtivoRecord-Container-Border: var(--ComplementaryColor);
-    --AtivoRecord-UpRow-Name-Color: var(--ComplementaryColor);
-    --AtivoRecord-UpRow-Name-Color-Hover: var(--PrimaryBackGroundFaded);
+.AssetRecords-ContainerClaro {
+    --AssetRecord-Container-Border: var(--ComplementaryColor);
+    --AssetRecord-UpRow-Name-Color: var(--ComplementaryColor);
+    --AssetRecord-UpRow-Name-Color-Hover: var(--PrimaryBackGroundFaded);
 
-    --AtivoRecord-UpRow-Status-Background: var(--SecondaryBackground);
-    --AtivoRecord-UpRow-Status-Color: white;
+    --AssetRecord-UpRow-Status-Background: var(--SecondaryBackground);
+    --AssetRecord-UpRow-Status-Color: white;
 
 
-    --AtivoRecord-UpRow-Date-Color: var(--SecondaryBackground);
-    --AtivoRecord-UpRow-Obs-Color: var(--SecondaryBackground);
-    --AtivoRecord-UpRow-Time-Color: var(--SecondaryBackground);
+    --AssetRecord-UpRow-Date-Color: var(--SecondaryBackground);
+    --AssetRecord-UpRow-Obs-Color: var(--SecondaryBackground);
+    --AssetRecord-UpRow-Time-Color: var(--SecondaryBackground);
 
-    --AtivoRecord-UpRow-OrderBy-Color: var(--SecondaryBackground);
+    --AssetRecord-UpRow-OrderBy-Color: var(--SecondaryBackground);
 
-    --AtivoModal-Ativos-Warning-Color: white;
-    --AtivoModal-Ativos-Warning-Background: #f0ad4e;
+    --AssetModal-Assets-Warning-Color: white;
+    --AssetModal-Assets-Warning-Background: #f0ad4e;
 
 
 }
@@ -22,30 +22,30 @@
 
 
 
-.AtivoRecords-ContainerEscuro {
-    --AtivoRecord-Container-Border: var(--ComplementaryColor);
-    --AtivoRecord-UpRow-Name-Color: var(--ComplementaryColor);
-    --AtivoRecord-UpRow-Name-Color-Hover: var(--ComplementaryColor);
+.AssetRecords-ContainerEscuro {
+    --AssetRecord-Container-Border: var(--ComplementaryColor);
+    --AssetRecord-UpRow-Name-Color: var(--ComplementaryColor);
+    --AssetRecord-UpRow-Name-Color-Hover: var(--ComplementaryColor);
 
-    --AtivoRecord-UpRow-Status-Background: var(--SecondaryBackground);
-    --AtivoRecord-UpRow-Status-Color: white;
+    --AssetRecord-UpRow-Status-Background: var(--SecondaryBackground);
+    --AssetRecord-UpRow-Status-Color: white;
 
-    --AtivoRecord-UpRow-Date-Color: white;
-    --AtivoRecord-UpRow-Obs-Color: white;
-    --AtivoRecord-UpRow-Time-Color: white;
+    --AssetRecord-UpRow-Date-Color: white;
+    --AssetRecord-UpRow-Obs-Color: white;
+    --AssetRecord-UpRow-Time-Color: white;
 
-    --AtivoRecord-UpRow-OrderBy-Color: var(--ComplementaryColor);
+    --AssetRecord-UpRow-OrderBy-Color: var(--ComplementaryColor);
 
 
 
-    --AtivoModal-Ativos-Warning-Color: white;
-    --AtivoModal-Ativos-Warning-Background: #f0ad4e;
+    --AssetModal-Assets-Warning-Color: white;
+    --AssetModal-Assets-Warning-Background: #f0ad4e;
 }
 
 
 
 @media (max-width: 750px) {
-    .AtivoRecords-Container {
+    .AssetRecords-Container {
         padding: 0 !important;
     }
 }
@@ -54,7 +54,7 @@
 
 
 
-.AtivosRecords-AvisoInfo {
+.AssetsRecords-AvisoInfo {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -64,20 +64,20 @@
 }
 
 
-.AtivosRecords-AvisoInfo-Item {
+.AssetsRecords-AvisoInfo-Item {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
     gap: .3rem;
-    color: var(--AtivoModal-Ativos-Warning-Color);
+    color: var(--AssetModal-Assets-Warning-Color);
     font-family: var(--Fonte);
-    background-color: var(--AtivoModal-Ativos-Warning-Background);
+    background-color: var(--AssetModal-Assets-Warning-Background);
     padding: .2rem .8rem;
     border-radius: 1rem;
     font-size: .8rem;
 }
 
-.AtivosRecords-AvisoInfo-Item>svg {
+.AssetsRecords-AvisoInfo-Item>svg {
     width: 1rem;
 }

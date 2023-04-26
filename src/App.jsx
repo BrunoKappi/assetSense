@@ -6,7 +6,7 @@ import Forget from './Components/Forget/Forget';
 import NotFound from './Components/NotFound/NotFound';
 import Layout from './Components/Layout/Layout'
 import Home from './Home';
-import Ativos from './Components/Assets/Assets'
+import Assets from './Components/Assets/Assets'
 import Users from './Components/Users/Users'
 import Profile from './Components/Profile/Profile'
 import Config from './Components/Config/Config'
@@ -42,7 +42,7 @@ const App = (props) => {
         <Route path="/Forget" element={<Forget />} />
         <Route path="/Assets" element={<RequireAuth> <Layout /> </RequireAuth>}>
           <Route path="/Assets/Dash" element={<RequireAuth> <Dashboard /> </RequireAuth>} />
-          <Route path="/Assets/Ativos" element={<RequireAuth> <Ativos /> </RequireAuth>} />
+          <Route path="/Assets/Assets" element={<RequireAuth> <Assets /> </RequireAuth>} />
           <Route path="/Assets/Profile" element={<RequireAuth> <Profile /> </RequireAuth>} />
           <Route path="/Assets/Config" element={<RequireAuth> <Config /> </RequireAuth>} />
           <Route path="/Assets/Users" element={<RequireAuth> <Users /> </RequireAuth>} />

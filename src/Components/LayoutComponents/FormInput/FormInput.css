@@ -1,16 +1,16 @@
 .FormInputClaro {
-    --AtivoModal-IconeELabe-Input: var(--ComplementaryColor);
-    --AtivoModal-Borda-Input: var(--PrimaryBackGroundFaded50);
-    --AtivoModal-Color-Input: var(--SecondaryBackground);
-    --AtivoModal-Background-Input: transparent;
+    --AssetModal-IconeELabe-Input: var(--ComplementaryColor);
+    --AssetModal-Borda-Input: var(--PrimaryBackGroundFaded50);
+    --AssetModal-Color-Input: var(--SecondaryBackground);
+    --AssetModal-Background-Input: transparent;
 }
 
 
 .FormInputEscuro {
-    --AtivoModal-IconeELabe-Input: var(--ComplementaryColor);
-    --AtivoModal-Borda-Input: var(--PrimaryBackGroundFaded50);
-    --AtivoModal-Color-Input: white;
-    --AtivoModal-Background-Input: transparent;
+    --AssetModal-IconeELabe-Input: var(--ComplementaryColor);
+    --AssetModal-Borda-Input: var(--PrimaryBackGroundFaded50);
+    --AssetModal-Color-Input: white;
+    --AssetModal-Background-Input: transparent;
 }
 
 
@@ -19,12 +19,12 @@
 .FormInput {
     border-radius: .5rem;
     outline: none;
-    border: 1px solid var(--AtivoModal-Borda-Input);
+    border: 1px solid var(--AssetModal-Borda-Input);
     padding: .5rem .8rem;
-    color: var(--AtivoModal-Color-Input);
+    color: var(--AssetModal-Color-Input);
     font-family: var(--Fonte);
     font-size: .9rem;
-    background-color: var(--AtivoModal-Background-Input);
+    background-color: var(--AssetModal-Background-Input);
     width: 100% !important;
 }
 

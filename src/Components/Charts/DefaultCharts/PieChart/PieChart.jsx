@@ -7,8 +7,8 @@ export default function PieChart(props) {
         series: props.Series,
         options: {
             chart: {
-                type: "pie", // TIPO DO GRÁFICO             
-                fontFamily: 'Kanit, Sans-serif',
+                type: "pie", // TYPE DO GRÁFICO             
+                fontFamily: 'var(--Fonte)',
                 fontWeight: 400
             },
             title: {

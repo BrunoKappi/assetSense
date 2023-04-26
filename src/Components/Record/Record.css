@@ -1,47 +1,21 @@
-.AtivoRecord-ContainerClaro {
+.AssetRecord-ContainerClaro {
 
 
-    --AtivoRecord-Container-Border: rgb(228, 226, 226);
-    --AtivoRecord-Container-BackGround: white;
-    --AtivoRecord-Container-BackGround-Hover: white;
-    --AtivoRecord-UpRow-Name-Color: var(--ComplementaryColor);
-    --AtivoRecord-UpRow-Name-Color-Hover: var(--PrimaryBackGroundFaded);
+    --AssetRecord-Container-Border: rgb(228, 226, 226);
+    --AssetRecord-Container-BackGround: white;
+    --AssetRecord-Container-BackGround-Hover: white;
+    --AssetRecord-UpRow-Name-Color: var(--ComplementaryColor);
+    --AssetRecord-UpRow-Name-Color-Hover: var(--PrimaryBackGroundFaded);
 
-    --AtivoRecord-UpRow-Status-Background: var(--SecondaryBackground);
-    --AtivoRecord-UpRow-Status-Color: white;
-
-
-    --AtivoRecord-UpRow-Date-Color: white;
-    --AtivoRecord-UpRow-Obs-Color: var(--SecondaryBackground);
-    --AtivoRecord-UpRow-Time-Color: white;
-
-    --AtivoRecord-UpRow-OrderBy-Color: var(--SecondaryBackground);
+    --AssetRecord-UpRow-Status-Background: var(--SecondaryBackground);
+    --AssetRecord-UpRow-Status-Color: white;
 
 
-    --RecordRetiradaTitle-Color: var(--ComplementaryColor)
-}
+    --AssetRecord-UpRow-Date-Color: white;
+    --AssetRecord-UpRow-Obs-Color: var(--SecondaryBackground);
+    --AssetRecord-UpRow-Time-Color: white;
 
-
-
-
-.AtivoRecord-ContainerEscuro {
-
-
-    --AtivoRecord-Container-Border: var(--ComplementaryColor);
-    --AtivoRecord-Container-BackGround: transparent;
-    --AtivoRecord-Container-BackGround-Hover: transparent;
-
-    --AtivoRecord-UpRow-Name-Color: var(--ComplementaryColor);
-    --AtivoRecord-UpRow-Name-Color-Hover: var(--ComplementaryColor);
-
-    --AtivoRecord-UpRow-Status-Background: var(--SecondaryBackground);
-    --AtivoRecord-UpRow-Status-Color: white;
-
-    --AtivoRecord-UpRow-Date-Color: white;
-    --AtivoRecord-UpRow-Obs-Color: white;
-    --AtivoRecord-UpRow-Time-Color: white;
-
-    --AtivoRecord-UpRow-OrderBy-Color: var(--ComplementaryColor);
+    --AssetRecord-UpRow-OrderBy-Color: var(--SecondaryBackground);
 
 
     --RecordRetiradaTitle-Color: var(--ComplementaryColor)
@@ -50,8 +24,34 @@
 
 
 
-.AtivoRecord-Container {
-    border: 1px solid var(--AtivoRecord-Container-Border);
+.AssetRecord-ContainerEscuro {
+
+
+    --AssetRecord-Container-Border: var(--ComplementaryColor);
+    --AssetRecord-Container-BackGround: transparent;
+    --AssetRecord-Container-BackGround-Hover: transparent;
+
+    --AssetRecord-UpRow-Name-Color: var(--ComplementaryColor);
+    --AssetRecord-UpRow-Name-Color-Hover: var(--ComplementaryColor);
+
+    --AssetRecord-UpRow-Status-Background: var(--SecondaryBackground);
+    --AssetRecord-UpRow-Status-Color: white;
+
+    --AssetRecord-UpRow-Date-Color: white;
+    --AssetRecord-UpRow-Obs-Color: white;
+    --AssetRecord-UpRow-Time-Color: white;
+
+    --AssetRecord-UpRow-OrderBy-Color: var(--ComplementaryColor);
+
+
+    --RecordRetiradaTitle-Color: var(--ComplementaryColor)
+}
+
+
+
+
+.AssetRecord-Container {
+    border: 1px solid var(--AssetRecord-Container-Border);
     border-radius: .5rem;
     padding: .8rem .5rem;
     display: flex;
@@ -59,16 +59,16 @@
     gap: .15rem;
     margin-bottom: .2rem;
     cursor: pointer;
-    background-color: var(--AtivoRecord-Container-BackGround);
+    background-color: var(--AssetRecord-Container-BackGround);
 
 }
 
-.AtivoRecord-Container:hover {
-    background-color: var(--AtivoRecord-Container-BackGround);
-    border: 1px solid var(--AtivoRecord-Container-Border);
+.AssetRecord-Container:hover {
+    background-color: var(--AssetRecord-Container-BackGround);
+    border: 1px solid var(--AssetRecord-Container-Border);
 }
 
-.AtivoRecord-UpRow {
+.AssetRecord-UpRow {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -95,7 +95,7 @@
 
 
 @media (max-width: 900px) {
-    .UserAtivoRecord-UpRow {
+    .UserAssetRecord-UpRow {
         flex-wrap: wrap;
         row-gap: .2rem;
     }
@@ -159,13 +159,13 @@
 }
 
 
-.AtivoRecord-UpRow-Status {
+.AssetRecord-UpRow-Status {
     border-radius: 1rem;
-    background-color: var(--AtivoRecord-UpRow-Status-Background);
+    background-color: var(--AssetRecord-UpRow-Status-Background);
     padding: 0rem 1rem;
     font-size: .75rem;
     font-family: var(--Fonte);
-    color: var(--AtivoRecord-UpRow-Status-Color);
+    color: var(--AssetRecord-UpRow-Status-Color);
 }
 
 .RecordInUseStatus {
@@ -173,14 +173,14 @@
 }
 
 .RecordNotInUseStatus {
-    background-color: var(--AtivoRecord-UpRow-Status-Background);
+    background-color: var(--AssetRecord-UpRow-Status-Background);
 }
 
 
 
 
 
-.AtivoRecord-UpRow-Status svg {
+.AssetRecord-UpRow-Status svg {
     width: 1rem;
 }
 
@@ -194,9 +194,9 @@
 }
 
 
-.AtivoRecord-UpRow-Name {
+.AssetRecord-UpRow-Name {
     font-family: var(--Fonte);
-    color: var(--AtivoRecord-UpRow-Name-Color);
+    color: var(--AssetRecord-UpRow-Name-Color);
     font-size: 1rem;
     cursor: pointer;
     user-select: none;
@@ -210,21 +210,21 @@
 
 }
 
-.AtivoRecord-UpRow-Name span {
+.AssetRecord-UpRow-Name span {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 
 }
 
-.AtivoRecord-UpRow-Name>svg {
+.AssetRecord-UpRow-Name>svg {
     width: 1rem;
 }
 
 
 .RecordMessageDate-Time {
     font-family: var(--Fonte);
-    color: var(--AtivoRecord-UpRow-Time-Color);
+    color: var(--AssetRecord-UpRow-Time-Color);
     font-size: .8rem;
     display: flex;
     flex-direction: row;
@@ -241,7 +241,7 @@
 
 .RecordMessageDate-Item {
     font-family: var(--Fonte);
-    color: var(--AtivoRecord-UpRow-Time-Color);
+    color: var(--AssetRecord-UpRow-Time-Color);
     font-size: .8rem;
     display: flex;
     flex-direction: row;

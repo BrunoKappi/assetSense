@@ -1,30 +1,30 @@
-.AtivosContainerClaro {
-    --AtivosContainer-Background: #eceff1;
-    --AtivosContainer-NoAtivos-Color: var(--ComplementaryColor);
+.AssetsContainerClaro {
+    --AssetsContainer-Background: #eceff1;
+    --AssetsContainer-NoAssets-Color: var(--ComplementaryColor);
 }
 
-.AtivosContainerEscuro {
-    --AtivosContainer-Background:  var(--BackgroundDark);
-    --AtivosContainer-NoAtivos-Color: var(--ComplementaryColor);
+.AssetsContainerEscuro {
+    --AssetsContainer-Background:  var(--BackgroundDark);
+    --AssetsContainer-NoAssets-Color: var(--ComplementaryColor);
 } 
 
 
 
 
-.AtivosContainer {
+.AssetsContainer {
     width: 100%;
     height: 100%;
     padding: 2rem;
     max-height: 100%;
     overflow-y: scroll;
-    background-color: var(--AtivosContainer-Background) !important;
+    background-color: var(--AssetsContainer-Background) !important;
 }
 
-.AtivosContainer::-webkit-scrollbar {
+.AssetsContainer::-webkit-scrollbar {
     display: none;
 }
 
-.AtivoTabTitle {
+.AssetTabTitle {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -32,7 +32,7 @@
 }
 
 
-.NoAtivosRegistered {
+.NoAssetsRegistered {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -42,15 +42,15 @@
     font-family: var(--Fonte);
 }
 
-.NoAtivosRegistered>p {
+.NoAssetsRegistered>p {
     font-size: 1.2rem;
     width: 100%;
-    color: var(--AtivosContainer-NoAtivos-Color);
+    color: var(--AssetsContainer-NoAssets-Color);
     font-weight: 500;
 }
 
 @media (max-width: 900px) {
-    .AtivosContainer {
+    .AssetsContainer {
 
         padding: .5rem;
 

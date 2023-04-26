@@ -5,12 +5,12 @@ import { connect } from 'react-redux'
 import UserPhoto from '../../../../assets/Images/SerranoLogoFuncoBranco.jpg'
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
 import { UilTimes, UilTrashAlt, UilCheck, UilBackward, UilPen } from '@iconscout/react-unicons'
-import { DeleteFile, GetUserUrlImage, ImageUpload, SetAtivoPhotoUrl } from '../../../../Functions/Middleware';
+import { DeleteFile, GetUserUrlImage, ImageUpload, SetAssetPhotoUrl } from '../../../../Functions/Middleware';
 import LoadingSpiner from '../../../LoadingForTabs/Loading'
 import { v4 } from 'uuid';
 import Show from '../../../LayoutComponents/Show/Show'
 
-const AtivoPhotoModal = (props) => {
+const AssetPhotoModal = (props) => {
 
     // REFS
     const fileInputRef = useRef(null)
@@ -18,13 +18,13 @@ const AtivoPhotoModal = (props) => {
     //STATES
     const [Loading, setLoading] = useState(false);
     const [imageUpload, setImageUpload] = useState(null);
-    const [ImageToShowUser, setImageToShowUser] = useState(props?.Ativo?.PhotoUrl);
+    const [ImageToShowUser, setImageToShowUser] = useState(props?.Asset?.PhotoUrl);
 
 
-    // WHEN THERE IS ATIVO, GET ITS PHOTO URL
+    // WHEN THERE IS ASSET, GET ITS PHOTO URL
     useEffect(() => {
-        setImageToShowUser(props?.Ativo?.PhotoUrl)
-    }, [props.Ativo])
+        setImageToShowUser(props?.Asset?.PhotoUrl)
+    }, [props.Asset])
 
 
     // HANDLE ERROR
@@ -45,7 +45,7 @@ const AtivoPhotoModal = (props) => {
         if (props.Add) {
             path = `images/${IdToUseToAdd}`
         } else {
-            path = `images/${props.Ativo.id}`
+            path = `images/${props.Asset.id}`
         }
 
         ImageUpload(path, imageUpload, props.LoggedUser.Email).then(() => {
@@ -58,16 +58,16 @@ const AtivoPhotoModal = (props) => {
                     setImageToShowUser(url)
                     props.OnChange(url, IdToUseToAdd)
                 }, 1500);
-                SetAtivoPhotoUrl(url, props.Ativo.id)
+                SetAssetPhotoUrl(url, props.Asset.id)
             })
         }).catch(HandleError)
     }
 
     // DELETE PHOTO
-    const ApagarFotoDoAtivo = () => {
+    const ApagarFotoDoAsset = () => {
         setLoading(true)
-        DeleteFile(`images/${props.Ativo.id}`).then(() => {
-            SetAtivoPhotoUrl('', props.Ativo.id)
+        DeleteFile(`images/${props.Asset.id}`).then(() => {
+            SetAssetPhotoUrl('', props.Asset.id)
             NotificationSucesso("Exlusão", "Foto apagada com sucesso!")
             setLoading(false)
             props.OnChange('')
@@ -107,42 +107,42 @@ const AtivoPhotoModal = (props) => {
 
 
     return (
-        <Modal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Escuro' ? 'AtivoPhotoModal-ModalEscuro AtivoPhotoModal-Modal' : 'AtivoPhotoModal-ModalClaro AtivoPhotoModal-Modal'}>
+        <Modal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Escuro' ? 'AssetPhotoModal-ModalEscuro AssetPhotoModal-Modal' : 'AssetPhotoModal-ModalClaro AssetPhotoModal-Modal'}>
 
-            <Modal.Body closeButton className="AtivoPhotoModal-Body">
+            <Modal.Body closeButton className="AssetPhotoModal-Body">
 
-                <UilTimes className='AtivoPhotoModalHeader-Right-Close' onClick={props.onHide} />
+                <UilTimes className='AssetPhotoModalHeader-Right-Close' onClick={props.onHide} />
 
-                <h3 className='AtivoPhotoModal-Title'>
+                <h3 className='AssetPhotoModal-Title'>
                     {props.CanEdit ? 'Atualização de Foto do Ativo' : 'Foto do Ativo'}
                 </h3>
 
 
-                <div className={'AtivoPhotoModal' + (props.CanEdit ? '' : ' OnlyView')}>
+                <div className={'AssetPhotoModal' + (props.CanEdit ? '' : ' OnlyView')}>
 
                     {!Loading &&
-                        <div className={'AtivoPhotoModal-ImageColumn '}>
-                            <img src={ImageToShowUser || UserPhoto} alt="Ativo" />
+                        <div className={'AssetPhotoModal-ImageColumn '}>
+                            <img src={ImageToShowUser || UserPhoto} alt="Asset" />
                         </div>
                     }
 
                     {props.CanEdit && !Loading &&
-                        <div className='AtivoPhotoModal-OptionsColumn'>
-                            <button className={'AtivoPhotoModal-ChangePhotoButton ' + (imageUpload ? ' AtivoPhotoModal-ChangePhotoButton-Ready' : '')} onClick={handleButtonClick}>
+                        <div className='AssetPhotoModal-OptionsColumn'>
+                            <button className={'AssetPhotoModal-ChangePhotoButton ' + (imageUpload ? ' AssetPhotoModal-ChangePhotoButton-Ready' : '')} onClick={handleButtonClick}>
                                 {imageUpload ? <UilCheck /> : <UilPen />}
                                 {imageUpload ? 'Definir Imagem' : 'Trocar de Foto'}
                                 <input ref={fileInputRef} accept="image/apng, image/avif, image/gif, image/jpeg, image/png, image/svg+xml, image/webp" type="file" onChange={handleChangePicture} />
                             </button>
 
                             <Show Show={!imageUpload}>
-                                <button onClick={ApagarFotoDoAtivo} className='AtivoPhotoModal-DeletePhoto'>
+                                <button onClick={ApagarFotoDoAsset} className='AssetPhotoModal-DeletePhoto'>
                                     <UilTrashAlt />
                                     Remover Foto
                                 </button>
                             </Show>
 
                             <Show Show={imageUpload}>
-                                <button className='AtivoPhotoModal-CancelChangePhoto' onClick={Cancel}>
+                                <button className='AssetPhotoModal-CancelChangePhoto' onClick={Cancel}>
                                     <UilBackward />
                                     Cancelar
                                 </button>
@@ -157,7 +157,7 @@ const AtivoPhotoModal = (props) => {
                     </Show>
 
                     <Show Show={!props.CanEdit}>
-                        <span className='AtivoPhotoModal-Warning'>Você não possui permissão para editar, somente visualização</span>
+                        <span className='AssetPhotoModal-Warning'>Você não possui permissão para editar, somente visualização</span>
                     </Show>
 
                 </div>
@@ -169,11 +169,11 @@ const AtivoPhotoModal = (props) => {
 }
 
 
-const ConnectedAtivoPhotoModal = connect((state) => {
+const ConnectedAssetPhotoModal = connect((state) => {
     return {
         Tema: state.Tema,
         LoggedUser: state.LoggedUser
     }
-})(AtivoPhotoModal)
+})(AssetPhotoModal)
 
-export default ConnectedAtivoPhotoModal
+export default ConnectedAssetPhotoModal

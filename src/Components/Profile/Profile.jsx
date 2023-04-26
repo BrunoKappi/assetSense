@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './Profile.css'
 import { connect } from 'react-redux'
-import UsuarioModal from '../UsersList/User/UserModal'
+import UserModal from '../UsersList/User/UserModal'
 import { useNavigate } from 'react-router-dom';
 import { GetFromStore } from '../../Functions/Middleware';
 
@@ -13,7 +13,7 @@ const Profile = (props) => {
 
     return (
         <div className={props.Tema === 'Escuro' ? 'ProfileContainerEscuro ProfileContainer' : 'ProfileContainerClaro ProfileContainer'}>
-            <UsuarioModal
+            <UserModal
                 FromModal={false}
                 CurrentUser={CurrentUser}
                 User={CurrentUser}

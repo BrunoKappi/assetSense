@@ -4,7 +4,7 @@
 export const SetUserTypes = (UserTypes) => {
 
     return ({
-        type: 'SET_TIPOS_USUARIOS',
+        type: 'SET_TYPES_USERS',
         UserTypes
     })
 }

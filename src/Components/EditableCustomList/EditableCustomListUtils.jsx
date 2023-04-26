@@ -4,10 +4,10 @@ import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../..
 export const GetNotificationErrorMessageDelete = (Module) => {
     switch (Module) {
         case "AssetTypess":
-            NotificationErro('Erro | Exclusão', 'Não é possível excluir este Tipo de Ativo pois existem ativos associados a este tipo')
+            NotificationErro('Erro | Exclusão', 'Não é possível excluir este Tipo de Ativo pois existem assets associados a este tipo')
             break;
         case "UsageTypes":
-            NotificationErro('Erro | Exclusão', 'Não é possível excluir este Tipo de Uso pois existem ativos associados a este tipo')
+            NotificationErro('Erro | Exclusão', 'Não é possível excluir este Tipo de Uso pois existem assets associados a este tipo')
             break;
         case "Sectors":
             NotificationErro('Erro | Exclusão', 'Não é possível excluir este Setor pois existem Usuários associados a ele')
@@ -15,11 +15,11 @@ export const GetNotificationErrorMessageDelete = (Module) => {
         case "UserTypes":
             NotificationErro('Erro | Exclusão', 'Não é possível excluir este Tipo pois existem Usuários associados a ele')
             break;
-        case "Locais":
-            NotificationErro('Erro | Exclusão', 'Não é possível excluir este Local pois existem Ativos associados a ele')
+        case "StorageLocations":
+            NotificationErro('Erro | Exclusão', 'Não é possível excluir este Local pois existem Assets associados a ele')
             break;
         case "AssetsStatus":
-            NotificationErro('Erro | Exclusão', 'Não é possível excluir este Satus pois existem Ativos associados a ele')
+            NotificationErro('Erro | Exclusão', 'Não é possível excluir este Satus pois existem Assets associados a ele')
             break;
         default:
             NotificationErro('Erro | Exclusão', 'Não é possível excluir este item pois existem outros itens associados a ele')
@@ -41,7 +41,7 @@ export const GetNotificationSuccessMessageAdd = (Module) => {
         case "UserTypes":
             NotificationSucesso('Tipo de Usuário', "Tipo de Usuário adicionado com sucesso!")
             break;
-        case "Locais":
+        case "StorageLocations":
             NotificationSucesso('Local de Armazenamento', "Local de Armazenamento adicionado com sucesso!")
             break;
         case "AssetsStatus":
@@ -66,7 +66,7 @@ export const GetNotificationSuccessMessageChangeName = (Module) => {
         case "UserTypes":
             NotificationSucesso('Tipo de Usuário', "Tipo de Usuário Alterado com sucesso!")
             break;
-        case "Locais":
+        case "StorageLocations":
             NotificationSucesso('Local de Armazenamento', "Local de Armazenamento Alterado com sucesso!")
             break;
         case "AssetsStatus":
@@ -92,7 +92,7 @@ export const GetNotificationSuccessMessageDelete = (Module) => {
         case "UserTypes":
             NotificationSucesso('Tipo de Usuário', "Tipo de Usuário deletado com sucesso!")
             break;
-        case "Locais":
+        case "StorageLocations":
             NotificationSucesso('Local de Armazenamento', "Local de Armazenamento deletado com sucesso!")
             break;
         case "AssetsStatus":
@@ -117,7 +117,7 @@ export const GetNotificationExistsMessageAdd = (Module) => {
         case "UserTypes":
             NotificationAlerta('Tipo de Usuário', "Este Tipo de Usuário já existe")
             break;
-        case "Locais":
+        case "StorageLocations":
             NotificationAlerta('Local de Armazenamento', "Este local item já existe")
             break;
         case "AssetsStatus":

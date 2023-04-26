@@ -14,7 +14,7 @@ import { Tooltip } from 'react-tippy';
 import SidebarItem from '../LayoutComponents/SidebarItem/SidebarItem';
 import Show from '../LayoutComponents/Show/Show';
 import Stack from '../LayoutComponents/Stack/Stack';
-import { AtivosTela, ConfigTela, UsuariosTela } from '../../Functions/Permits';
+import { AssetsTela, ConfigTela, UsersTela } from '../../Functions/Permits';
 
 
 const Sidebar = (props) => {
@@ -22,20 +22,20 @@ const Sidebar = (props) => {
     //STATES AND REF
     const SidebarRef = useRef()
     const navigate = useNavigate();
-    const [CurrentUser, SetCurrentUser] = useState({ ...props.Usuarios.find(user => user.Email === props.LoggedUser.Email) })
+    const [CurrentUser, SetCurrentUser] = useState({ ...props.Users.find(user => user.Email === props.LoggedUser.Email) })
     const [SidebarActive, setSidebarActive] = useState(true)
     const [ShowPhotoModal, setShowPhotoModal] = useState(false)
 
     //SET CURRENT USER AND PHOTO URL
     useEffect(() => {
-        SetCurrentUser({ ...props.Usuarios.find(user => user.Email === props.LoggedUser.Email) })
+        SetCurrentUser({ ...props.Users.find(user => user.Email === props.LoggedUser.Email) })
         const User = GetFromStore('CurrentUser')
         if (User?.PhotoUrl) {
             if (props.LoggedUser.PhotoUrl !== User?.PhotoUrl) {
                 SetLoggedUserPhotoUrlJustStore(User?.PhotoUrl)
             }
         }
-    }, [props.Usuarios])
+    }, [props.Users])
 
     //SET TAB BASED ON PERMITS
     const SetTabSidebar = (Tab, To) => {
@@ -44,10 +44,10 @@ const Sidebar = (props) => {
             navigate(To)
         } else if (Tab === 'Profile') {
             navigate(To)
-        } else if (Tab === 'Ativos' && AtivosTela()) {
+        } else if (Tab === 'Assets' && AssetsTela()) {
             SetTab(Tab)
             navigate(To)
-        } else if (Tab === 'Users' && UsuariosTela()) {
+        } else if (Tab === 'Users' && UsersTela()) {
             SetTab(Tab)
             navigate(To)
         } else if (Tab === 'Config' && ConfigTela()) {
@@ -112,15 +112,15 @@ const Sidebar = (props) => {
                             <UilChartPieAlt />
                             Dashboard
                         </SidebarItem>
-                        <SidebarItem Active={IsActive('Ativos')}
-                            onClick={e => SetTabSidebar('Ativos', '/Assets/Ativos')}>
+                        <SidebarItem Active={IsActive('Assets')}
+                            onClick={e => SetTabSidebar('Assets', '/Assets/Assets')}>
                             <UilListUl />
                             Ativos
                         </SidebarItem>
                         <SidebarItem Active={IsActive('Users')}
                             onClick={e => SetTabSidebar('Users', '/Assets/Users')}>
                             <UilUsersAlt />
-                            Usuarios
+                            Usuários
                         </SidebarItem>
                         <SidebarItem Active={IsActive('Profile')}
                             onClick={e => SetTabSidebar('Profile', '/Assets/Profile')} >
@@ -153,7 +153,7 @@ const Sidebar = (props) => {
 const ConnectedSidebar = connect((state) => {
     return {
         LoggedUser: state.LoggedUser,
-        Usuarios: state.Usuarios,
+        Users: state.Users,
         Tema: state.Tema
     }
 })(Sidebar)

@@ -45,22 +45,22 @@ export const DefaultTooltipStyles = {
 var Index = 0
 
 export const PermitIndexs = {
-  // ================ ATIVOS ================== // 
-  VISUALIZAR_ATIVOS: Index++,
-  RETIRAR_ATIVOS: Index++,
-  ADICIONAR_ATIVOS: Index++,
-  EDITAR_ATIVOS: Index++,
-  EXCLUIR_ATIVOS: Index++,
+  // ================ ASSETS ================== // 
+  VISUALIZAR_ASSETS: Index++,
+  RETIRAR_ASSETS: Index++,
+  ADICIONAR_ASSETS: Index++,
+  EDITAR_ASSETS: Index++,
+  EXCLUIR_ASSETS: Index++,
   ____: Index++,
   ____: Index++,
   ____: Index++,
   ____: Index++,
   ____: Index++,
-  // ================ USUARIOS ================== // 
-  VISUALIZAR_USUARIOS: Index++,
-  ADICIONAR_USUARIOS: Index++,
-  EDITAR_USUARIOS: Index++,
-  EXCLUIR_USUARIOS: Index++,
+  // ================ USERS ================== // 
+  VISUALIZAR_USERS: Index++,
+  ADICIONAR_USERS: Index++,
+  EDITAR_USERS: Index++,
+  EXCLUIR_USERS: Index++,
   ____: Index++,
   ____: Index++,
   ____: Index++,
@@ -68,12 +68,12 @@ export const PermitIndexs = {
   ____: Index++,
   ____: Index++,
   // ================ CONFIGURAÇÔES ================== // 
-  EDITAR_TIPOS_ATIVOS: Index++,
-  EDITAR_LOCAIS: Index++,
-  EDITAR_STATUS_ATIVOS: Index++,
-  EDITAR_TIPOS_DE_USO: Index++,
+  EDITAR_TYPES_ASSETS: Index++,
+  EDITAR_STORAGELOCATIONS: Index++,
+  EDITAR_STATUS_ASSETS: Index++,
+  EDITAR_TYPES_DE_USO: Index++,
   EDITAR_SECTORS: Index++,
-  EDITAR_TIPOS_DE_USUARIO: Index++,
+  EDITAR_TYPES_DE_USER: Index++,
   EDITAR_PERMICOES: Index++,
   ____: Index++,
   ____: Index++,
@@ -82,7 +82,7 @@ export const PermitIndexs = {
 }
 
 export const PermitDesc = [
-  // ================ ATIVOS ================== // 
+  // ================ ASSETS ================== // 
   'Visualizar Ativos',
   'Retirar Ativos',
   'Adicionar Ativos',
@@ -93,7 +93,7 @@ export const PermitDesc = [
   '',
   '',
   '',
-  // ================ USUARIOS ================== //
+  // ================ USERS ================== //
   'Visualizar Usuários',
   'Adicionar Usuários',
   'Editar Usuários',
@@ -106,12 +106,12 @@ export const PermitDesc = [
   '',
   // ================ CONFIGURAÇÔES ================== //
 
-  'Editar Tipos de Ativos',
+  'Editar Tipos de  Ativos',
   'Editar Locais de Armazenamento',
   'Editar Status de Ativos',
-  'Editar Tipos de Uso',
+  'Editar Tipos de  Uso',
   'Editar Setores',
-  'Editar Tipos de Usuários',
+  'Editar Tipos de  Usuários',
   'Editar Permissões',
   '',
   '',
@@ -142,13 +142,13 @@ export const CamposMasoryBreakpoints = {
   700: 1
 }
 
-export const AtivosInLocaisBreakpoints = {
+export const AssetsInStorageLocationsBreakpoints = {
   default: 3,
   1250: 2,
   950: 1
 }
 
-export const AtivosInTypesBreakpoints = {
+export const AssetsInTypesBreakpoints = {
   default: 4,
   1250: 3,
   950: 2,

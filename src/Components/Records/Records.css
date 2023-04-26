@@ -1,47 +1,47 @@
-.AtivoRecords-ContainerClaro {
-    --AtivoRecords-Container-Background: transparent;
+.AssetRecords-ContainerClaro {
+    --AssetRecords-Container-Background: transparent;
 
-    --AtivosRecordsFormFilter-Button-Background: var(--ComplementaryColor);
-    --AtivosRecordsFormFilter-Button-Border: var(--ComplementaryColor);
-    --AtivosRecordsFormFilter-Button-Color: white;
+    --AssetsRecordsFormFilter-Button-Background: var(--ComplementaryColor);
+    --AssetsRecordsFormFilter-Button-Border: var(--ComplementaryColor);
+    --AssetsRecordsFormFilter-Button-Color: white;
 
-    --AtivoRecords-FormFilter-Input-Background: white;
-    --AtivoRecords-FormFilter-Input-Border: transparent;
-    --AtivoRecords-FormFilter-Input-Color: var(--SecondaryBackground);
+    --AssetRecords-FormFilter-Input-Background: white;
+    --AssetRecords-FormFilter-Input-Border: transparent;
+    --AssetRecords-FormFilter-Input-Color: var(--SecondaryBackground);
 
-    --AtivoModal-Ativos-Warning-Color: white;
-    --AtivoModal-Ativos-Warning-Background: #f0ad4e;
+    --AssetModal-Assets-Warning-Color: white;
+    --AssetModal-Assets-Warning-Background: #f0ad4e;
 
 }
 
 
 
 
-.AtivoRecords-ContainerEscuro {
-    --AtivoRecords-Container-Background: var(--BackgroundDark);
+.AssetRecords-ContainerEscuro {
+    --AssetRecords-Container-Background: var(--BackgroundDark);
 
-    --AtivosRecordsFormFilter-Button-Background: var(--ComplementaryColor);
-    --AtivosRecordsFormFilter-Button-Border: var(--ComplementaryColor);
-    --AtivosRecordsFormFilter-Button-Color: white;
+    --AssetsRecordsFormFilter-Button-Background: var(--ComplementaryColor);
+    --AssetsRecordsFormFilter-Button-Border: var(--ComplementaryColor);
+    --AssetsRecordsFormFilter-Button-Color: white;
 
-    --AtivoRecords-FormFilter-Input-Background: transparent;
-    --AtivoRecords-FormFilter-Input-Border: var(--ComplementaryColor);
-    --AtivoRecords-FormFilter-Input-Color: var(--ComplementaryColor);
+    --AssetRecords-FormFilter-Input-Background: transparent;
+    --AssetRecords-FormFilter-Input-Border: var(--ComplementaryColor);
+    --AssetRecords-FormFilter-Input-Color: var(--ComplementaryColor);
 
-    --AtivoModal-Ativos-Warning-Color: white;
-    --AtivoModal-Ativos-Warning-Background: #f0ad4e;
+    --AssetModal-Assets-Warning-Color: white;
+    --AssetModal-Assets-Warning-Background: #f0ad4e;
 }
 
 
-.AtivoRecords-Container {
+.AssetRecords-Container {
     width: 100%;
     padding: 2rem;
-    background-color: var(--AtivoRecords-Container-Background);
+    background-color: var(--AssetRecords-Container-Background);
     overflow-y: scroll;
 }
 
 @media (max-width: 900px) {
-    .AtivoRecords-Container {
+    .AssetRecords-Container {
         padding: .5rem;
     }
 }

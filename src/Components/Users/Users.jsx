@@ -30,11 +30,11 @@ const Users = (props) => {
   //GET INITIAL TAB BASED ON PERMITS
   const getInitialTab = () => {
     if (TodosUsersTab())
-      return 'TodosUsuarios'
+      return 'TodosUsers'
     else if (UsersInSectorsTab())
       return 'UsersInSectors'
     else if (UsersInTypesTab())
-      return 'UsersInTipos'
+      return 'UsersInTypes'
   }
 
   //KEY OF TAB
@@ -42,11 +42,11 @@ const Users = (props) => {
 
   //SET KEY OF TAB BASED ON PERMITS
   const SetKeyConfig = (Key) => {
-    if (Key === 'TodosUsuarios' && TodosUsersTab())
+    if (Key === 'TodosUsers' && TodosUsersTab())
       setKey(Key)
     else if (Key === 'UsersInSectors' && UsersInSectorsTab())
       setKey(Key)
-    else if (Key === 'UsersInTipos' && UsersInTypesTab())
+    else if (Key === 'UsersInTypes' && UsersInTypesTab())
       setKey(Key)
     else
       NotificationErro("Não Autorizado", "Você não possui permissão para acessar essa aba, solicite acesso ao seu Administrador")
@@ -58,21 +58,21 @@ const Users = (props) => {
 
 
       <TabsContainer Tema={props.Tema}>
-        <TabButton ButtonName="TodosUsuarios" Key={key} onClick={(k) => SetKeyConfig('TodosUsuarios')} />
+        <TabButton ButtonName="TodosUsers" Key={key} onClick={(k) => SetKeyConfig('TodosUsers')} />
         <TabButton ButtonName="UsersInSectors" Key={key} onClick={(k) => SetKeyConfig('UsersInSectors')} />
-        <TabButton ButtonName="UsersInTipos" Key={key} onClick={(k) => SetKeyConfig('UsersInTipos')} />
+        <TabButton ButtonName="UsersInTypes" Key={key} onClick={(k) => SetKeyConfig('UsersInTypes')} />
       </TabsContainer>
 
     
 
       <Tabs id="UsersTabs" activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
-        <Tab eventKey="TodosUsuarios" >
+        <Tab eventKey="TodosUsers" >
           <UsersList />
         </Tab>
         <Tab eventKey="UsersInSectors" >
           <DraggableLists Module='UsersInSectores' />
         </Tab>
-        <Tab eventKey="UsersInTipos"  >
+        <Tab eventKey="UsersInTypes"  >
           <DraggableLists Module='UsersInTypes' />
         </Tab>
       </Tabs>

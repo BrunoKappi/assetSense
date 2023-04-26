@@ -4,18 +4,18 @@ import React, { useState, useEffect } from 'react'
 import './AssetModal.css'
 //COMPONENTS
 import UserPhoto from '../../../assets/Images/SerranoLogoFuncoBranco.jpg'
-import AtivoPhotoModal from './AssetPhotoModal/AssetPhotoModal'
-import AtivoTakeReturn from './AssetTakeReturn/AssetTakeReturn';
-import AtivoRecords from './AssetRecords/AssetRecords';
+import AssetPhotoModal from './AssetPhotoModal/AssetPhotoModal'
+import AssetTakeReturn from './AssetTakeReturn/AssetTakeReturn';
+import AssetRecords from './AssetRecords/AssetRecords';
 import Loading from '../../LoadingForTabs/Loading';
 //ICONS
 import { UilUserCircle, UilClipboardNotes, UilLabel, UilLabelAlt, UilCog, UilBox, UilSave, UilPostcard, UilUsersAlt, UilCommentAltChartLines, UilTag, UilTimes, UilBuilding, UilCircleLayer, UilPlay, UilWrench, UilCheck, UilBackward, UilTrash, UilArrow } from '@iconscout/react-unicons'
 //FUNCTIONS
 import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
 import { AddAssetToFirebase, EditAssetInFirebase, EditAssetOnStore, GetFromStore, GetNameFromStoreWithId } from '../../../Functions/Middleware';
-import { AddAtivoStore, DeleteAtivo, GetFromStoreWithId, ReturnAllRecordOfAtivowithId } from '../../../Functions/Middleware'
+import { AddAssetStore, DeleteAsset, GetFromStoreWithId, ReturnAllRecordOfAssetwithId } from '../../../Functions/Middleware'
 //VARIABLES
-import { DefaultAtivo, DefaultAtivosType, DefaultLocal, } from '../../../Data/Items';
+import { DefaultAsset, DefaultAssetsType, DefaultLocal, } from '../../../Data/Items';
 //LIBRARIES 
 import 'react-phone-input-2/lib/style.css'
 import { PermitIndexs } from '../../../GlobalVars'
@@ -37,27 +37,27 @@ import ConfirmTab from '../../LayoutComponents/ConfirmTab/ConfirmTab';
 import CustomSelect from '../../LayoutComponents/CustomSelect/CustomSelect'
 
 
-const AtivoModal = (props) => {
+const AssetModal = (props) => {
 
     //DEPENDENCIAS 
-    const StatusAtivo = GetFromStoreWithId('AssetsStatus', props?.Ativo?.Status?.id)
+    const StatusAsset = GetFromStoreWithId('AssetsStatus', props?.Asset?.Status?.id)
     const [ProfileImageUrl, setProfileImageUrl] = useState('')
-    const [AtivoType, setAtivoType] = useState({ ...DefaultAtivosType })
-    const [AtivoTypeCustomFields, setAtivoTypeCustomFields] = useState([])
-    const [AtivoLocalArmazenamento, setAtivoLocalArmazenamento] = useState({ ...DefaultLocal })
-    const [Ativo, setAtivo] = useState({ ...DefaultAtivo })
+    const [AssetType, setAssetType] = useState({ ...DefaultAssetsType })
+    const [AssetTypeCustomFields, setAssetTypeCustomFields] = useState([])
+    const [AssetStorageLocation, setAssetStorageLocation] = useState({ ...DefaultLocal })
+    const [Asset, setAsset] = useState({ ...DefaultAsset })
     const [StorageLocations] = useState(GetFromStore('StorageLocations'))
     const [AssetTypess] = useState(GetFromStore('AssetTypess'))
-    const QuantidadeRetirada = props.Ativo?.QtdInUse
+    const QuantidadeRetirada = props.Asset?.QtdInUse
 
 
     //FUNCIONALIDADE 
-    const [Tab, setTab] = useState('AtivoInfo')
+    const [Tab, setTab] = useState('AssetInfo')
     const [IdToUse, setIdToUse] = useState('')
     const [IsEdited, setIsEdited] = useState(false)
     const [LoadingAction, setLoadingAction] = useState(false)
 
-    //CURRENT ATIVO AND PERMITS
+    //CURRENT ASSET AND PERMITS
     const [CurrentUserType] = useState(GetFromStore('CurrentUserType'))
 
 
@@ -79,10 +79,10 @@ const AtivoModal = (props) => {
     //PERMISSOES
     var IsCurrentUser = false
     var IsAdmin = CurrentUserType?.IsAdmin
-    var PermitToEditAtivos = CurrentUserType?.Permits[PermitIndexs['EDITAR_ATIVOS']]
-    var PermitToDeleteAtivos = CurrentUserType?.Permits[PermitIndexs['EXCLUIR_ATIVOS']]
-    var PermitToTakeAtivos = CurrentUserType?.Permits[PermitIndexs['RETIRAR_ATIVOS']]
-    var CanEdit = IsAdmin || PermitToEditAtivos
+    var PermitToEditAssets = CurrentUserType?.Permits[PermitIndexs['EDITAR_ASSETS']]
+    var PermitToDeleteAssets = CurrentUserType?.Permits[PermitIndexs['EXCLUIR_ASSETS']]
+    var PermitToTakeAssets = CurrentUserType?.Permits[PermitIndexs['RETIRAR_ASSETS']]
+    var CanEdit = IsAdmin || PermitToEditAssets
 
 
 
@@ -97,50 +97,50 @@ const AtivoModal = (props) => {
     const HandleChangeInfo = (Info, Value) => {
         if (!CanEdit) return
 
-        const newAtivo = { ...Ativo }
+        const newAsset = { ...Asset }
         switch (Info) {
             case 'Type':
-                newAtivo.Type = { id: Value }
-                const GotAtivoType = GetFromStoreWithId('AssetTypess', Value)
-                setAtivoType(GotAtivoType)
+                newAsset.Type = { id: Value }
+                const GotAssetType = GetFromStoreWithId('AssetTypess', Value)
+                setAssetType(GotAssetType)
                 break
             case 'Status':
-                newAtivo.Status = { id: Value }
+                newAsset.Status = { id: Value }
                 break
             case 'Usage':
-                newAtivo.Usage = { id: Value }
+                newAsset.Usage = { id: Value }
                 break
             case 'StorageLocation':
-                newAtivo.StorageLocation = { id: Value }
+                newAsset.StorageLocation = { id: Value }
                 break
             default:
-                newAtivo[Info] = Value
+                newAsset[Info] = Value
                 break
         }
 
-        setAtivo(newAtivo)
+        setAsset(newAsset)
         setIsEdited(true)
     }
 
 
-    // QUANDO TEM UM ATIVO VALIDO PASSADO PELA PROP
+    // QUANDO TEM UM ASSET VALIDO PASSADO PELA PROP
     useEffect(() => {
-        if (!props.Ativo?.Item) return
-        setAtivo(GetFromStoreWithId('AtivosWithDeleted', props.Ativo?.id))
+        if (!props.Asset?.Item) return
+        setAsset(GetFromStoreWithId('AssetsWithDeleted', props.Asset?.id))
         setIsEdited(false)
-        setTab('AtivoInfo')
-        if (props.Ativo?.PhotoUrl) {
-            setProfileImageUrl(props.Ativo?.PhotoUrl)
+        setTab('AssetInfo')
+        if (props.Asset?.PhotoUrl) {
+            setProfileImageUrl(props.Asset?.PhotoUrl)
         } else {
             setProfileImageUrl('')
         }
 
 
-    }, [props.Ativo, props.CurrentUser, CurrentUserType])
+    }, [props.Asset, props.CurrentUser, CurrentUserType])
 
 
     // PHOTO URL FROM PHOTO MODAL
-    const SetAtivoUrl = (url, Id) => {
+    const SetAssetUrl = (url, Id) => {
         HandleChangeInfo('PhotoUrl', url)
         setProfileImageUrl(url)
         setTimeout(() => {
@@ -156,22 +156,22 @@ const AtivoModal = (props) => {
 
 
 
-    //QUANDO O ATIVO TYPE MUDA, PEGA O NOVO TYPE
+    //QUANDO O ASSET TYPE MUDA, PEGA O NOVO TYPE
     useEffect(() => {
-        setAtivoType(GetFromStoreWithId('AssetTypess', Ativo?.Type?.id))
-        setAtivoLocalArmazenamento(GetFromStoreWithId('StorageLocations', Ativo?.StorageLocation?.id))
-    }, [Ativo, props.CurrentUser])
+        setAssetType(GetFromStoreWithId('AssetTypess', Asset?.Type?.id))
+        setAssetStorageLocation(GetFromStoreWithId('StorageLocations', Asset?.StorageLocation?.id))
+    }, [Asset, props.CurrentUser])
 
 
-    //QUANDO O ATIVOTYPE MUDA, PEGA OS CUSTOMS FIELDS
+    //QUANDO O ASSETTYPE MUDA, PEGA OS CUSTOMS FIELDS
     useEffect(() => {
-        if (AtivoType?.CustomFields?.length > 0) {
-            setAtivoTypeCustomFields([...AtivoType?.CustomFields])
+        if (AssetType?.CustomFields?.length > 0) {
+            setAssetTypeCustomFields([...AssetType?.CustomFields])
         } else {
-            setAtivoTypeCustomFields([])
+            setAssetTypeCustomFields([])
         }
 
-    }, [AtivoType])
+    }, [AssetType])
 
 
     // HANDLE ERROR
@@ -186,25 +186,25 @@ const AtivoModal = (props) => {
     const InitConfirm = (Action) => {
         //ADD AND EDIT
         if (Action !== 'Delete') {
-            if (Ativo?.Item.length === 0)
+            if (Asset?.Item.length === 0)
                 NotificationAlerta('Preenchimento inválido', 'O Item não pode ser vazio')
-            else if (!Ativo?.Qtd)
+            else if (!Asset?.Qtd)
                 NotificationAlerta('Preenchimento inválido', 'A quantidade não pode ser vazia')
-            else if (Ativo?.Qtd < QuantidadeRetirada)
-                NotificationAlerta('Preenchimento inválido', 'Não é possível alterar a quantidade para ' + Ativo?.Qtd + ' pois existem ' + QuantidadeRetirada + ' usuários atualmente em posse de Ativos deste tipo')
-            else if (Ativo?.Qtd === '0')
+            else if (Asset?.Qtd < QuantidadeRetirada)
+                NotificationAlerta('Preenchimento inválido', 'Não é possível alterar a quantidade para ' + Asset?.Qtd + ' pois existem ' + QuantidadeRetirada + ' usuários atualmente em posse de Ativos deste tipo')
+            else if (Asset?.Qtd === '0')
                 NotificationAlerta('Preenchimento inválido', 'A quantidade não pode ser 0')
-            else if (!Ativo?.QtdPerUser)
+            else if (!Asset?.QtdPerUser)
                 NotificationAlerta('Preenchimento inválido', 'A quantidade por usuário não pode ser vazia')
-            else if (Ativo?.QtdPerUser === '0')
+            else if (Asset?.QtdPerUser === '0')
                 NotificationAlerta('Preenchimento inválido', 'A quantidade por usuário não pode ser 0')
-            else if (!Ativo?.StorageLocation?.id)
+            else if (!Asset?.StorageLocation?.id)
                 NotificationAlerta('Preenchimento inválido', 'O Local de Armazenamento não pode ser vazio')
-            else if (!Ativo?.Status?.id)
+            else if (!Asset?.Status?.id)
                 NotificationAlerta('Preenchimento inválido', 'O Status não pode ser vazio')
-            else if (!Ativo?.Usage?.id)
+            else if (!Asset?.Usage?.id)
                 NotificationAlerta('Preenchimento inválido', 'Selecione um Tipo de Uso')
-            else if (!Ativo?.Type?.id)
+            else if (!Asset?.Type?.id)
                 NotificationAlerta('Preenchimento inválido', 'Selecione um Tipo de Ativo')
             else {
                 SetConfirm(true)
@@ -240,39 +240,39 @@ const AtivoModal = (props) => {
     // SUBMIT FINAL ACTION
     const Submit = () => {
         setLoadingAction(true)
-        //EDIT ATIVO
+        //EDIT ASSET
         if (ConfirmAction === 'Edit') {
-            EditAssetInFirebase(Ativo).then(() => {
-                EditAssetOnStore(Ativo)
+            EditAssetInFirebase(Asset).then(() => {
+                EditAssetOnStore(Asset)
                 setLoadingAction(false)
                 NotificationSucesso('Alteração', 'Alterações salvas com sucesso!')
             }).catch(HandleError)
             EndConfirming()
         }
-        // ADD ATIVO
+        // ADD ASSET
         else if (ConfirmAction === 'Add') {
-            const NewAtivo = { ...Ativo }
-            NewAtivo.id = IdToUse ? IdToUse : v4()
-            AddAssetToFirebase(NewAtivo).then((AddedRecordDoc) => {
-                NewAtivo.docID = AddedRecordDoc?.id
-                setAtivo({ ...NewAtivo })
+            const NewAsset = { ...Asset }
+            NewAsset.id = IdToUse ? IdToUse : v4()
+            AddAssetToFirebase(NewAsset).then((AddedRecordDoc) => {
+                NewAsset.docID = AddedRecordDoc?.id
+                setAsset({ ...NewAsset })
                 setLoadingAction(false)
-                AddAtivoStore(NewAtivo)
+                AddAssetStore(NewAsset)
                 CancelEditions()
                 props.onHide()
-                NotificationSucesso('Adição', 'Ativo Adicionado com Sucesso!')
+                NotificationSucesso('Adição', 'Asset Adicionado com Sucesso!')
             }).catch(HandleError)
             EndConfirming()
         }
-        // DELETE ATIVO
+        // DELETE ASSET
         else if (ConfirmAction === 'Delete') {
             setLoadingAction(false)
             EndConfirming()
             props.onDelete()
-            DeleteAtivo(Ativo).then(() => {
+            DeleteAsset(Asset).then(() => {
                 setLoadingAction(false)
-                ReturnAllRecordOfAtivowithId(Ativo.id)
-                NotificationSucesso('Exclusão', 'Ativo Deletado com Sucesso!')
+                ReturnAllRecordOfAssetwithId(Asset.id)
+                NotificationSucesso('Exclusão', 'Asset Deletado com Sucesso!')
             }).catch(HandleError)
         }
     }
@@ -289,10 +289,10 @@ const AtivoModal = (props) => {
 
     // HANDLE SET TAB
     const HandleSetTab = (TabToChange) => {
-        if (TabToChange === 'RetirarDevolver' && !PermitToTakeAtivos)
+        if (TabToChange === 'RetirarDevolver' && !PermitToTakeAssets)
             NotificationErro("Permissão", "Você não tem permissão para acessar essa área, solicite autorização para seu Administrador")
-        else if (TabToChange === 'RetirarDevolver' && StatusAtivo?.CanTake === false)
-            NotificationAlerta("Não permitido", "Este Ativo está com o Status '" + StatusAtivo?.Value + "' , sendo este status confiigurado para não aceitar retiradas")
+        else if (TabToChange === 'RetirarDevolver' && StatusAsset?.CanTake === false)
+            NotificationAlerta("Não permitido", "Este Ativo está com o Status '" + StatusAsset?.Value + "' , sendo este status confiigurado para não aceitar retiradas")
         else
             setTab(TabToChange)
     }
@@ -306,12 +306,12 @@ const AtivoModal = (props) => {
 
     // CHANGE CUSTOM FIELDS VALUES
     const handleChangeCustomField = (TypedValue, Index, CustomFieldId) => {
-        const NewAtivoCustomFieldsValues = [...Ativo?.CustomFieldsValues]
-        NewAtivoCustomFieldsValues[Index] = {
+        const NewAssetCustomFieldsValues = [...Asset?.CustomFieldsValues]
+        NewAssetCustomFieldsValues[Index] = {
             id: CustomFieldId,
             Value: TypedValue
         }
-        HandleChangeInfo('CustomFieldsValues', NewAtivoCustomFieldsValues)
+        HandleChangeInfo('CustomFieldsValues', NewAssetCustomFieldsValues)
         setIsEdited(true)
     }
 
@@ -322,43 +322,43 @@ const AtivoModal = (props) => {
 
 
         <>
-            <AtivoPhotoModal Add={props.Function === 'Add'} CanEdit={PermitToEditAtivos} OnChange={SetAtivoUrl} Ativo={props.Ativo} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
+            <AssetPhotoModal Add={props.Function === 'Add'} CanEdit={PermitToEditAssets} OnChange={SetAssetUrl} Asset={props.Asset} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
 
-            <Modal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Escuro' ? 'AtivoModal-ModalEscuro AtivoModal-Modal' : 'AtivoModal-ModalClaro AtivoModal-Modal'}>
+            <Modal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Escuro' ? 'AssetModal-ModalEscuro AssetModal-Modal' : 'AssetModal-ModalClaro AssetModal-Modal'}>
 
-                <Modal.Body closeButton className="AtivoModal-Body">
-
-
+                <Modal.Body closeButton className="AssetModal-Body">
 
 
-                    <div className='AtivoModal'>
-                        <div className='AtivoModalHeader'>
-                            <div className='AtivoModalHeader-Left'>
+
+
+                    <div className='AssetModal'>
+                        <div className='AssetModalHeader'>
+                            <div className='AssetModalHeader-Left'>
                                 <Tooltip title="Ver/Alterar Foto" position="bottom" >
-                                    <div className='AtivoModalHeader-Left-Photo'>
+                                    <div className='AssetModalHeader-Left-Photo'>
                                         <img onClick={handleShowPhotoModal} src={ProfileImageUrl || UserPhoto} alt="Item" />
                                     </div>
                                 </Tooltip>
                             </div>
-                            <div className='AtivoModalHeader-Right'>
-                                <div className='AtivoModalHeader-Right-Name'>
+                            <div className='AssetModalHeader-Right'>
+                                <div className='AssetModalHeader-Right-Name'>
                                     <Show Show={props.Function === 'Add'}>
-                                        {(props.Function === 'Add' && (!Ativo?.Item)) ? 'Nome do Item ' : Ativo?.Item}
+                                        {(props.Function === 'Add' && (!Asset?.Item)) ? 'Nome do Item ' : Asset?.Item}
                                     </Show>
                                     <Show Show={props.Function !== 'Add'}>
-                                        {Ativo?.Item}
+                                        {Asset?.Item}
                                     </Show>
-                                    <UilTimes className='AtivoModalHeader-Right-Close' onClick={props.onHide} />
+                                    <UilTimes className='AssetModalHeader-Right-Close' onClick={props.onHide} />
                                 </div>
 
 
-                                <div className='AtivoModalHeader-Right-Sector'>
+                                <div className='AssetModalHeader-Right-Sector'>
                                     <UilBox />
-                                    {props.Function === 'Add' ? GetNameFromStoreWithId('StorageLocations', Ativo?.StorageLocation?.id) : AtivoLocalArmazenamento?.Value}
+                                    {props.Function === 'Add' ? GetNameFromStoreWithId('StorageLocations', Asset?.StorageLocation?.id) : AssetStorageLocation?.Value}
                                 </div>
-                                <div className='AtivoModalHeader-Right-Tipo'>
+                                <div className='AssetModalHeader-Right-Type'>
                                     <UilLabel />
-                                    {props.Function === 'Add' ? GetNameFromStoreWithId('AssetTypess', Ativo?.Type?.id) : AtivoType?.Value}
+                                    {props.Function === 'Add' ? GetNameFromStoreWithId('AssetTypess', Asset?.Type?.id) : AssetType?.Value}
                                 </div>
 
                             </div>
@@ -367,10 +367,10 @@ const AtivoModal = (props) => {
 
 
                         <Show Show={!LoadingAction} Width='100%'>
-                            <div className='AtivoModalBody'>
-                                <Stack className='AtivoModalBody-Sidebar' Gap={'.5rem'} >
-                                    <SidebarItem Active={Tab === 'AtivoInfo'}
-                                        onClick={e => HandleSetTab('AtivoInfo')}>
+                            <div className='AssetModalBody'>
+                                <Stack className='AssetModalBody-Sidebar' Gap={'.5rem'} >
+                                    <SidebarItem Active={Tab === 'AssetInfo'}
+                                        onClick={e => HandleSetTab('AssetInfo')}>
                                         <UilUserCircle />
                                         Informações Cadastrais
                                     </SidebarItem>
@@ -396,15 +396,15 @@ const AtivoModal = (props) => {
 
 
                                 <Show Show={!Confirm} Width={'100%'}>
-                                    <div className='AtivoModalBody-AtivoInfo'>
+                                    <div className='AssetModalBody-AssetInfo'>
 
-                                        <Show Show={Tab === 'AtivoInfo'}>
+                                        <Show Show={Tab === 'AssetInfo'}>
 
-                                            <div className='AtivoModalBody-AtivoInfoForm'>
+                                            <div className='AssetModalBody-AssetInfoForm'>
 
                                                 <Stack Gap={'.8rem'}>
 
-                                                    <h4 className='AtivoModalBody-AtivoInfoForm-SectionTitle'>Dados Cadastrais</h4>
+                                                    <h4 className='AssetModalBody-AssetInfoForm-SectionTitle'>Dados Cadastrais</h4>
 
                                                     <FormGroup>
                                                         <FormGroupLabel>
@@ -413,7 +413,7 @@ const AtivoModal = (props) => {
                                                         </FormGroupLabel>
                                                         <FormInput
                                                             placeholder='Digite o Item'
-                                                            value={Ativo?.Item}
+                                                            value={Asset?.Item}
                                                             onChange={e => HandleChangeInfo('Item', e.target.value)}
                                                         />
                                                     </FormGroup>
@@ -428,7 +428,7 @@ const AtivoModal = (props) => {
                                                             <FormInput
                                                                 placeholder='Opcional'
                                                                 disabled={!CanEdit}
-                                                                value={Ativo?.Brand}
+                                                                value={Asset?.Brand}
                                                                 onChange={e => HandleChangeInfo('Brand', e.target.value)}
                                                             />
                                                         </FormGroup>
@@ -441,7 +441,7 @@ const AtivoModal = (props) => {
                                                                 placeholder='Digite a Quantidade'
                                                                 min='1'
                                                                 disabled={!CanEdit}
-                                                                value={Ativo?.Qtd}
+                                                                value={Asset?.Qtd}
                                                                 type="number"
                                                                 onChange={e => HandleChangeInfo('Qtd', e.target.value)}
                                                             />
@@ -455,7 +455,7 @@ const AtivoModal = (props) => {
                                                             Descrição
                                                         </FormGroupLabel>
                                                         <FormInput
-                                                            value={Ativo?.Description}
+                                                            value={Asset?.Description}
                                                             placeholder='Opcional'
                                                             onChange={e => HandleChangeInfo('Description', e.target.value)}
                                                         />
@@ -472,7 +472,7 @@ const AtivoModal = (props) => {
                                                             <FormInput
                                                                 placeholder='Opcional'
                                                                 disabled={!CanEdit}
-                                                                value={Ativo?.Manufacturer}
+                                                                value={Asset?.Manufacturer}
                                                                 onChange={e => HandleChangeInfo('Manufacturer', e.target.value)}
                                                             />
 
@@ -485,7 +485,7 @@ const AtivoModal = (props) => {
                                                             <FormInput
                                                                 placeholder='Opcional'
                                                                 min='1' disabled={!CanEdit}
-                                                                value={Ativo?.Model}
+                                                                value={Asset?.Model}
                                                                 onChange={e => HandleChangeInfo('Model', e.target.value)}
                                                             />
 
@@ -506,8 +506,8 @@ const AtivoModal = (props) => {
                                                                 getOptionLabel={(options) => { return options["Value"]; }}
                                                                 getOptionValue={(options) => { return options["id"]; }}
                                                                 value={{
-                                                                    id: Ativo?.Status?.id,
-                                                                    Value: GetNameFromStoreWithId('AssetsStatus', Ativo?.Status?.id)
+                                                                    id: Asset?.Status?.id,
+                                                                    Value: GetNameFromStoreWithId('AssetsStatus', Asset?.Status?.id)
                                                                 }}
                                                                 isDisabled={!CanEdit}
                                                                 onChange={(item) => { HandleChangeInfo('Status', item.id); }}
@@ -524,8 +524,8 @@ const AtivoModal = (props) => {
                                                                 getOptionLabel={(options) => { return options["Value"]; }}
                                                                 getOptionValue={(options) => { return options["id"]; }}
                                                                 value={{
-                                                                    id: Ativo?.Usage?.id,
-                                                                    Value: GetNameFromStoreWithId('UsageTypes', Ativo?.Usage?.id)
+                                                                    id: Asset?.Usage?.id,
+                                                                    Value: GetNameFromStoreWithId('UsageTypes', Asset?.Usage?.id)
                                                                 }}
                                                                 isDisabled={!CanEdit}
                                                                 onChange={(item) => { HandleChangeInfo('Usage', item.id); }}
@@ -540,7 +540,7 @@ const AtivoModal = (props) => {
                                                                 Retiradas Simultâneas por Usuário
                                                             </FormGroupLabel>
                                                             <FormInput
-                                                                value={Ativo?.QtdPerUser}
+                                                                value={Asset?.QtdPerUser}
                                                                 type="number"
                                                                 min={1}
                                                                 placeholder='Quantidade de Retiradas simultâneas por usuário'
@@ -557,7 +557,7 @@ const AtivoModal = (props) => {
                                                                 placeholder='Opcional'
                                                                 min='1'
                                                                 disabled={!CanEdit}
-                                                                value={Ativo?.SerialNumber}
+                                                                value={Asset?.SerialNumber}
                                                                 type="text"
                                                                 onChange={e => HandleChangeInfo('SerialNumber', e.target.value)}
                                                             />
@@ -571,7 +571,7 @@ const AtivoModal = (props) => {
 
                                                     <TwoColumns>
                                                         <EditList
-                                                            Item={Ativo}
+                                                            Item={Asset}
                                                             List={StorageLocations}
                                                             Icon={<UilBox />}
                                                             Title="Local de Armazenamento"
@@ -579,7 +579,7 @@ const AtivoModal = (props) => {
                                                             Handle={HandleChangeInfo} />
 
                                                         <EditList
-                                                            Item={Ativo}
+                                                            Item={Asset}
                                                             List={AssetTypess}
                                                             Icon={<UilLabelAlt />}
                                                             Title="Tipo de Ativo"
@@ -590,9 +590,9 @@ const AtivoModal = (props) => {
 
 
                                                     <CustomFields
-                                                        Container={AtivoTypeCustomFields}
+                                                        Container={AssetTypeCustomFields}
                                                         CanEdit={CanEdit}
-                                                        Item={Ativo}
+                                                        Item={Asset}
                                                         Handle={handleChangeCustomField}
                                                     />
 
@@ -603,13 +603,13 @@ const AtivoModal = (props) => {
                                                 </Stack>
 
 
-                                                <div className='AtivoModalBody-AtivoInfoForm-Button'>
+                                                <div className='AssetModalBody-AssetInfoForm-Button'>
 
 
-                                                    <Show Show={!IsEdited && !IsCurrentUser && PermitToDeleteAtivos && (props.Function !== 'Add')}>
-                                                        <button className='AtivoModalBody-AtivoInfoForm-Button-Delete' onClick={e => InitConfirm('Delete')}>
+                                                    <Show Show={!IsEdited && !IsCurrentUser && PermitToDeleteAssets && (props.Function !== 'Add')}>
+                                                        <button className='AssetModalBody-AssetInfoForm-Button-Delete' onClick={e => InitConfirm('Delete')}>
                                                             <UilTrash />
-                                                            Excluir Ativo
+                                                            Excluir Asset
                                                         </button>
                                                     </Show>
 
@@ -644,11 +644,11 @@ const AtivoModal = (props) => {
                                         </Show>
 
                                         <Show Show={Tab === 'RetirarDevolver'}>
-                                            <AtivoTakeReturn Ativo={Ativo} OnTake={setTab} />
+                                            <AssetTakeReturn Asset={Asset} OnTake={setTab} />
                                         </Show>
 
                                         <Show Show={Tab === 'Registros'}>
-                                            <AtivoRecords Ativo={Ativo} FromModal={props.FromModal} />
+                                            <AssetRecords Asset={Asset} FromModal={props.FromModal} />
                                         </Show>
 
                                     </div>
@@ -695,14 +695,14 @@ const AtivoModal = (props) => {
 }
 
 
-const ConnectedAtivoModal = connect((state) => {
+const ConnectedAssetModal = connect((state) => {
     return {
         Tema: state.Tema,
-        RecordsAtivos: state.RecordsAtivos
+        RecordsAssets: state.RecordsAssets
     }
-})(AtivoModal)
+})(AssetModal)
 
-export default ConnectedAtivoModal
+export default ConnectedAssetModal
 
 
 

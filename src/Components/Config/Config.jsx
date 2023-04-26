@@ -13,7 +13,7 @@ import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
 import Show from '../LayoutComponents/Show/Show';
 //FUNCTIONS
-import { AtivosTabAccess, PermicoesTabAccess, SectorsUsuariosTabAccess } from '../../Functions/Permits';
+import { AssetsTabAccess, PermicoesTabAccess, SectorsUsersTabAccess } from '../../Functions/Permits';
 import { ConfigBreakpoints } from '../../GlobalVars';
  
 
@@ -22,9 +22,9 @@ const Config = (props) => {
 
   // GET INITIAL TAB BASED ON PERMITS
   const getInitialTab = () => { 
-    if (AtivosTabAccess())
-      return 'Ativos'
-    else if (SectorsUsuariosTabAccess())
+    if (AssetsTabAccess())
+      return 'Assets'
+    else if (SectorsUsersTabAccess())
       return 'Sectors e Usuários'
     else if (PermicoesTabAccess()) 
       return 'Permissoes'
@@ -32,16 +32,16 @@ const Config = (props) => {
 
   //STATES
   const [key, setKey] = useState(getInitialTab());
-  const [Camposkey, setCamposKey] = useState('CustomAtivos');
+  const [Camposkey, setCamposKey] = useState('CustomAssets');
 
 
   // KEY TO CONFIG TAB
   const SetKeyConfig = (Key) => {
-    if (Key === 'Ativos' && AtivosTabAccess())
+    if (Key === 'Assets' && AssetsTabAccess())
       setKey(Key)
-    else if (Key === 'AtivosCampos')
+    else if (Key === 'AssetsCampos')
       setKey(Key)
-    else if (Key === 'Sectors e Usuários' && SectorsUsuariosTabAccess())
+    else if (Key === 'Sectors e Usuários' && SectorsUsersTabAccess())
       setKey(Key)
     else if (Key === 'Permissoes' && PermicoesTabAccess())
       setKey(Key)
@@ -55,8 +55,8 @@ const Config = (props) => {
 
       {/******************************     TABS    ************************************/}
       <TabsContainer Tema={props.Tema}>
-        <TabButton ButtonName="Ativos" Key={key} onClick={(k) => SetKeyConfig('Ativos')} />
-        <TabButton ButtonName="AtivosCampos" Key={key} onClick={(k) => SetKeyConfig('AtivosCampos')} />
+        <TabButton ButtonName="Assets" Key={key} onClick={(k) => SetKeyConfig('Assets')} />
+        <TabButton ButtonName="AssetsCampos" Key={key} onClick={(k) => SetKeyConfig('AssetsCampos')} />
         <TabButton ButtonName="Sectors e Usuários" Key={key} onClick={(k) => SetKeyConfig('Sectors e Usuários')} />
         <TabButton ButtonName="Permissoes" Key={key} onClick={(k) => SetKeyConfig('Permissoes')} />
       </TabsContainer>
@@ -64,26 +64,26 @@ const Config = (props) => {
 
 
       <Tabs id="UsersTabs" activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
-        {/******************************     ATIVOS TAB    ************************************/}
-        <Tab eventKey="Ativos" >
+        {/******************************     ASSETS TAB    ************************************/}
+        <Tab eventKey="Assets" >
           <div className='ListItensContainer'>
             <Masonry breakpointCols={ConfigBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column"   >
-              <EditableCustomList Title="Tipos de Ativos" Module="AssetTypess" />
-              <EditableCustomList Title="Locais de Armazenamento" Module="Locais" />
+              <EditableCustomList Title="Tipos de  Ativos" Module="AssetTypess" />
+              <EditableCustomList Title="Locais de Armazenamento" Module="StorageLocations" />
               <EditableCustomList Title="Status de Ativos" Module="AssetsStatus" />
-              <EditableCustomList Title="Tipos de Uso" Module="UsageTypes" />
+              <EditableCustomList Title="Tipos de  Uso" Module="UsageTypes" />
             </Masonry>
           </div>
         </Tab>
         {/******************************     CAMPOS TAB    ************************************/}
-        <Tab eventKey="AtivosCampos" >
+        <Tab eventKey="AssetsCampos" >
           <div className='CamposListItensContainer'>
             <TabsContainer Tema={props.Tema}>
-              <TabButton ButtonName="CustomAtivos" Key={Camposkey} onClick={(k) => setCamposKey('CustomAtivos')} />
+              <TabButton ButtonName="CustomAssets" Key={Camposkey} onClick={(k) => setCamposKey('CustomAssets')} />
               <TabButton ButtonName="CustomUserTypes" Key={Camposkey} onClick={(k) => setCamposKey('CustomUserTypes')} />
             </TabsContainer>
 
-            <Show Show={Camposkey === 'CustomAtivos'} Width='100%'>
+            <Show Show={Camposkey === 'CustomAssets'} Width='100%'>
               <Campos Function="AssetTypess" />
             </Show>
 
@@ -94,12 +94,12 @@ const Config = (props) => {
 
           </div>
         </Tab>
-        {/******************************     SECTORS E USUARIOS TAB    ************************************/}
+        {/******************************     SECTORS E USERS TAB    ************************************/}
         <Tab eventKey="Sectors e Usuários"  >
           <div className='ListItensContainer'>
             <Masonry breakpointCols={ConfigBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column"  >
               <EditableCustomList Title="Setores da Empresa" Module="Sectors" />
-              <EditableCustomList Title="Tipos de Usuários" Module="UserTypes" />
+              <EditableCustomList Title="Tipos de  Usuários" Module="UserTypes" />
             </Masonry>
           </div> 
         </Tab>

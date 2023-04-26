@@ -22,8 +22,8 @@
     --UserModal-Header-Name-Color: var(--ComplementaryColor);
     --UserModal-Header-Sector-Background: var(--SecondaryBackground);
     --UserModal-Header-Sector-Color: white;
-    --UserModal-Header-Tipo-Background: var(--PrimaryBackground);
-    --UserModal-Header-Tipo-Color: white;
+    --UserModal-Header-Type-Background: var(--PrimaryBackground);
+    --UserModal-Header-Type-Color: white;
 
     --UserModal-Sidebar-Item-Background: var(--PrimaryBackGroundFaded2);
     --UserModal-Sidebar-Item-Border: var(--PrimaryBackGroundFaded2);
@@ -68,8 +68,8 @@
     --UserModal-Header-Name-Color: var(--ComplementaryColor);
     --UserModal-Header-Sector-Background: var(--SecondaryBackground);
     --UserModal-Header-Sector-Color: white;
-    --UserModal-Header-Tipo-Background: var(--PrimaryBackground);
-    --UserModal-Header-Tipo-Color: white;
+    --UserModal-Header-Type-Background: var(--PrimaryBackground);
+    --UserModal-Header-Type-Color: white;
 
     --UserModal-Sidebar-Item-Background: var(--PrimaryBackGroundFaded2);
     --UserModal-Sidebar-Item-Border: var(--PrimaryBackGroundFaded2);
@@ -258,25 +258,25 @@
     width: 1.1rem;
 }
 
-.UserModalHeader-Right-Tipo {
+.UserModalHeader-Right-Type {
     border-radius: 1rem;
     padding: .1rem 1rem;
     font-family: var(--Fonte);
     font-size: .8rem;
-    color: var(--UserModal-Header-Tipo-Color);
-    background-color: var(--UserModal-Header-Tipo-Background);
+    color: var(--UserModal-Header-Type-Color);
+    background-color: var(--UserModal-Header-Type-Background);
     display: flex;
     justify-content: center;
     align-items: center;
     gap: .5rem;
 }
 
-.UserModalHeader-Right-Tipo>svg {
+.UserModalHeader-Right-Type>svg {
     width: 1.1rem;
 }
 
 @media (max-width: 1000px) {
-    .UserModalHeader-Right-Tipo {
+    .UserModalHeader-Right-Type {
         font-size: .7rem;
     }
 
@@ -556,7 +556,7 @@
 
 
 
-.UserModalBody-AtivoInfoForm-SectionTitle {
+.UserModalBody-AssetInfoForm-SectionTitle {
     font-family: var(--Fonte);
     color: var(--UserModal-SectionTitleColor);
     margin-top: .5rem;
@@ -638,7 +638,7 @@
 
 
 
-.UserModalBody-AtivoInfoForm-Group-Input {
+.UserModalBody-AssetInfoForm-Group-Input {
     border-radius: .5rem;
     outline: none;
     border: 1px solid var(--UserModal-Borda-Input);
@@ -651,7 +651,7 @@
 }
 
 @media (max-width: 1000px) {
-    .UserModalBody-AtivoInfoForm-Group-Input {
+    .UserModalBody-AssetInfoForm-Group-Input {
         font-size: .8rem;
     }
 

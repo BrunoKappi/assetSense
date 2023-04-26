@@ -6,8 +6,8 @@ import { SetUserTypes } from "../Config/store/actions/UserTypesActions"
 import { SetStorageLocations } from "../Config/store/actions/StorageLocationsActions"
 import { SetAssetsStatus } from "../Config/store/actions/AssetsStatusActions"
 import { SetUsageTypes } from "../Config/store/actions/UsageTypesActions"
-import { AddAtivoAction, EditAtivoAction, SetAtivos } from "../Config/store/actions/AssetsActions"
-import { AddUsuarioAction, EditUsuarioAction, SetUsuarios } from "../Config/store/actions/UsersActions"
+import { AddAssetAction, EditAssetAction, SetAssets } from "../Config/store/actions/AssetsActions"
+import { AddUserAction, EditUserAction, SetUsers } from "../Config/store/actions/UsersActions"
 import { PermitIndexs } from "../GlobalVars"
 import { EditRecordAction, SetRecords } from "../Config/store/actions/RecordsActions"
 import moment from "moment"
@@ -71,17 +71,17 @@ export const SetLoggedUserPhotoUrlJustStore = (URL) => {
 
 //SET USER PHOTO URL
 export const SetOtherUserPhotoUrl = (URL, ID) => {
-    const User = GetFromStoreWithId('UsuariosWithDeleted', ID)
+    const User = GetFromStoreWithId('UsersWithDeleted', ID)
     User.PhotoUrl = URL
     EditUserInFirebase(User)
 }
 
 //SET ASSET PHOTO URL
-export const SetAtivoPhotoUrl = (URL, AtivoId) => {
-    const Ativo = GetFromStoreWithId('AtivosWithDeleted', AtivoId)
-    Ativo.PhotoUrl = URL
-    Ativo.LastEditedAt = moment().valueOf()
-    UpdateInFirebase(AssetsCollectionName, Ativo)
+export const SetAssetPhotoUrl = (URL, AssetId) => {
+    const Asset = GetFromStoreWithId('AssetsWithDeleted', AssetId)
+    Asset.PhotoUrl = URL
+    Asset.LastEditedAt = moment().valueOf()
+    UpdateInFirebase(AssetsCollectionName, Asset)
 }
 
 
@@ -121,7 +121,7 @@ export const AddToFirebase = (Collection, Item) =>
 
 //FIREBASE DELETE 
 export const DeleteFromFirebase = (Collection, Item) => FIREBASE_Delete(Collection, Item)
-export const DeleteAtivo = (Item) => UpdateInFirebase(AssetsCollectionName, { ...Item, Deleted: true })
+export const DeleteAsset = (Item) => UpdateInFirebase(AssetsCollectionName, { ...Item, Deleted: true })
 export const DeleteUser = (Item) => UpdateInFirebase(UsersCollectionName, { ...Item, Deleted: true })
 
 
@@ -190,25 +190,25 @@ export const DeleteRecordFromFirebase = (Item) => DeleteFromFirebase(RecordsColl
 
 //STORE EDIT
 export const EditRecordStore = (Item) => Dispatch(EditRecordAction(Item))
-export const EditAssetOnStore = (Item) => Dispatch(EditAtivoAction(Item))
-export const EditUserOnStore = (Item) => Dispatch(EditUsuarioAction(Item))
+export const EditAssetOnStore = (Item) => Dispatch(EditAssetAction(Item))
+export const EditUserOnStore = (Item) => Dispatch(EditUserAction(Item))
 //STORE SET
 export const SetLoggedUserOnStore = (Item) => Dispatch(setLoggedUser(Item))
 export const SetSidebarTagOnStore = (Item) => Dispatch(SetSidebarTag(Item))
 export const SetCheckLoginOnStore = (Item) => Dispatch(SetCheckLogin())
 export const SetUserTypesOnStore = (Itens) => Dispatch(SetUserTypes(Itens))
-export const SetUsersOnStore = (Itens) => Dispatch(SetUsuarios(Itens))
+export const SetUsersOnStore = (Itens) => Dispatch(SetUsers(Itens))
 export const SetSectorsOnStore = (Itens) => Dispatch(SetSectors(Itens))
 export const SetAssetTypesOnStore = (Itens) => Dispatch(SetAssetTypess(Itens))
-export const SetAssetsOnStore = (Itens) => Dispatch(SetAtivos(Itens))
+export const SetAssetsOnStore = (Itens) => Dispatch(SetAssets(Itens))
 export const SetStorageLocationsOnStore = (Itens) => Dispatch(SetStorageLocations(Itens))
 export const SetAssetStatusOnStore = (Itens) => Dispatch(SetAssetsStatus(Itens))
 export const SetUsageTypesOnStore = (Itens) => Dispatch(SetUsageTypes(Itens))
 export const SetRecordsOnStore = (Itens) => Dispatch(SetRecords(Itens))
 export const ToggleSideBarVisibility = (Item) => Dispatch(ToggleSideBar())
 //STORE ADD
-export const AddAtivoStore = (Item) => Dispatch(AddAtivoAction(Item))
-export const AddUserToStore = (Item) => Dispatch(AddUsuarioAction(Item))
+export const AddAssetStore = (Item) => Dispatch(AddAssetAction(Item))
+export const AddUserToStore = (Item) => Dispatch(AddUserAction(Item))
 
 
 
@@ -247,14 +247,14 @@ export const GetFromStore = (Key) => {
 
     const StoreList = store.getState()
 
-    if (Key === 'Ativos' || Key === 'Usuarios')
+    if (Key === 'Assets' || Key === 'Users')
         return StoreList[Key].filter(Item => Item.Deleted === false)
-    else if (Key === 'AtivosWithDeleted' || Key === 'UsuariosWithDeleted')
+    else if (Key === 'AssetsWithDeleted' || Key === 'UsersWithDeleted')
         return StoreList[Key.replace(/WithDeleted/g, "")]
     else if (Key === 'CurrentUser')
-        return StoreList.Usuarios.find(U => U.Email === GetLoggedUserInfo('Email'))
+        return StoreList.Users.find(U => U.Email === GetLoggedUserInfo('Email'))
     else if (Key === 'CurrentUserType') {
-        const CurrentUser = StoreList.Usuarios.find(U => U.Email === GetLoggedUserInfo('Email'))
+        const CurrentUser = StoreList.Users.find(U => U.Email === GetLoggedUserInfo('Email'))
         const CurrentUserType = GetFromStore('UserTypes').find(U => U.id === CurrentUser?.Type?.id)
         return CurrentUserType ? CurrentUserType : DefaultUserRole
     }
@@ -264,10 +264,10 @@ export const GetFromStore = (Key) => {
 
 
 // USERS THAT TOOK AN ASSET / NO CURRENT USER 
-export const GetUsersThatTookAsset = (AtivoId) => {
+export const GetUsersThatNotTookAsset = (AssetId) => {
     const Current = GetFromStore('CurrentUser')
-    const UsersThatTook = GetUsersThatTookAtivo(AtivoId)
-    const Users = [...GetFromStore('Usuarios')].filter(User => User.id !== Current.id)
+    const UsersThatTook = GetUsersThatTookAsset(AssetId)
+    const Users = [...GetFromStore('Users')].filter(User => User.id !== Current.id)
     const UsersNotTook = Users.filter(user => !UsersThatTook.some(took => took.id === user.id));
     return UsersNotTook
 }
@@ -281,7 +281,7 @@ export const GetFromStoreWithId = (Reducer, Id) => {
 
 // GET USER BY EMAIL
 export const GetUserWithEmailFromStore = (Email) => {
-    const Users = GetFromStore('UsuariosWithDeleted')
+    const Users = GetFromStore('UsersWithDeleted')
     const User = Users.find(U => U.Email === Email)
     return User
 }
@@ -291,9 +291,9 @@ export const GetNameFromStoreWithId = (Reducer, Id) => {
     const StoreList = store.getState()
     const List = StoreList[Reducer.replace(/WithDeleted/g, "")]
 
-    if (Reducer === 'AtivosWithDeleted' || Reducer === 'Ativos')
+    if (Reducer === 'AssetsWithDeleted' || Reducer === 'Assets')
         return List.find(U => U.id === Id)?.Item || ''
-    if (Reducer === 'UsuariosWithDeleted' || Reducer === 'Usuarios') {
+    if (Reducer === 'UsersWithDeleted' || Reducer === 'Users') {
         const User = List.find(User => User.id === Id)
         const Name = User?.Name + ' ' + User?.LastName
         return Name
@@ -318,17 +318,17 @@ export const GetCurrentUserTypeNameWithIdFromStore = (Id) => {
 }
 
 
-//VERIFICA SE  ALGUM ATIVO DO TIPO FOI RETIRADO
-export const CheckIfAnyAtivoOfStatusTaken2 = (StatusId) => {
-    const Ativos = GetFromStore('Ativos')
-    const AtivosOfStatus = Ativos.filter(Ativo => Ativo.Status.id === StatusId)
-    const AtivosTaken = AtivosOfStatus.filter(Ativo => Ativo.QtdInUse > 0);
-    return AtivosTaken?.length > 0 ? true : false
+//VERIFICA SE  ALGUM ASSET DO TYPE FOI RETIRADO
+export const CheckIfAnyAssetOfStatusTaken2 = (StatusId) => {
+    const Assets = GetFromStore('Assets')
+    const AssetsOfStatus = Assets.filter(Asset => Asset.Status.id === StatusId)
+    const AssetsTaken = AssetsOfStatus.filter(Asset => Asset.QtdInUse > 0);
+    return AssetsTaken?.length > 0 ? true : false
 }
 
-//VERIFICA SE  ALGUM ATIVO DO TIPO FOI RETIRADO
-export const ReturnAllAtivosOfUserWithId = (UserId) => {
-    const Records = GetFromStore('RecordsAtivos')
+//VERIFICA SE  ALGUM ASSET DO TYPE FOI RETIRADO
+export const ReturnAllAssetsOfUserWithId = (UserId) => {
+    const Records = GetFromStore('RecordsAssets')
 
     Records.forEach(Record => {
         if (Record.TakenFor.id === UserId) {
@@ -351,15 +351,15 @@ export const ReturnAllAtivosOfUserWithId = (UserId) => {
 
 }
 
-//VERIFICA SE  ALGUM ATIVO DO TIPO FOI RETIRADO
-export const ReturnAllRecordOfAtivowithId = (AtivoId) => {
-    const Records = GetFromStore('RecordsAtivos')
+//VERIFICA SE  ALGUM ASSET DO TYPE FOI RETIRADO
+export const ReturnAllRecordOfAssetwithId = (AssetId) => {
+    const Records = GetFromStore('RecordsAssets')
 
     Records.forEach(Record => {
-        if (Record.AtivoId === AtivoId) {
+        if (Record.AtivoId === AssetId) {
             Record.ReturnDate = moment().valueOf()
             Record.Duration = moment().valueOf() - Record.TakeDate
-            Record.AtivoDeleted = true
+            Record.AssetDeleted = true
             UpdateInFirebase(RecordsCollectionName, Record)
         }
     })
@@ -375,74 +375,74 @@ export const GetCurrentUserTypePermitFromStore = (Permit) => {
 }
 
 //Quantidade Retirada sem devolução de um determinado Ativo 
-export const GetTakesOfAtivo = (ID) => {
-    var Records1 = [...GetFromStore('RecordsAtivos')]
+export const GetTakesOfAsset = (ID) => {
+    var Records1 = [...GetFromStore('RecordsAssets')]
     const Qtd = Records1.filter(Record => Record.AtivoId === ID && !Record.ReturnDate)
     return Qtd ? Qtd.length : 0
 }
 
 //Quantidade Retirada sem devolução de um determinado Ativo 
-export const GetRecordsOfAtivo = (ID) => {
-    var Records1 = [...GetFromStore('RecordsAtivos')]
+export const GetRecordsOfAsset = (ID) => {
+    var Records1 = [...GetFromStore('RecordsAssets')]
     return Records1.filter(Record => Record.AtivoId === ID)
 }
-//REGISTROS DE UM USUARIO
+//REGISTROS DE UM USER
 export const GetRecordsOfUser = (ID) => {
-    var Records1 = [...GetFromStore('RecordsAtivos')]
+    var Records1 = [...GetFromStore('RecordsAssets')]
     return Records1.filter(Record => Record.TakenFor.id === ID)
 }
 
 //Quantidade Retirada sem devolução de um determinado Ativo pelo CurrentUser
-export const GetTakesOfAtivoOfCurrentUser = (ID) => {
+export const GetTakesOfAssetOfCurrentUser = (ID) => {
     const CurrentUser = GetFromStore('CurrentUser')
-    var Records2 = [...GetFromStore('RecordsAtivos')]
+    var Records2 = [...GetFromStore('RecordsAssets')]
     const Qtd = Records2.filter(Record => Record.AtivoId === ID && !Record.ReturnDate && Record.TakenFor.id === CurrentUser.id)
     return Qtd ? Qtd.length : 0
 }
 
-//Quantidade Retirada DE UM ATIVO PELO ID
-export const GetQtdInUseOfAtivoWithId = (ID) => {
-    const Ativo = GetFromStoreWithId('AtivosWithDeleted', ID)
-    return Ativo?.QtdInUse ? Ativo?.QtdInUse : 0
+//Quantidade Retirada DE UM ASSET PELO ID
+export const GetQtdInUseOfAssetWithId = (ID) => {
+    const Asset = GetFromStoreWithId('AssetsWithDeleted', ID)
+    return Asset?.QtdInUse ? Asset?.QtdInUse : 0
 }
 
-//Usuarios que Pegaram um determinado Ativo, menos o currentuser
-export const GetUsersThatTookAtivo = (ID) => {
+//Users que Pegaram um determinado Ativo, menos o currentuser
+export const GetUsersThatTookAsset = (ID) => {
     const CurrentUser = GetFromStore('CurrentUser')
-    var Records3 = [...GetFromStore('RecordsAtivos')]
-    const AtivosPegos = Records3.filter(Record => Record.AtivoId === ID && !Record.ReturnDate)
+    var Records3 = [...GetFromStore('RecordsAssets')]
+    const AssetsPegos = Records3.filter(Record => Record.AtivoId === ID && !Record.ReturnDate)
 
-    const Users = GetFromStore('Usuarios')
-    const UsersThatTook = Users.filter(user => AtivosPegos.some(AtivoPego => AtivoPego.TakenFor.id === user.id && user.id !== CurrentUser.id));
-
-    return UsersThatTook
-}
-
-
-//Usuarios que Pegaram um determinado Ativo, menos o currentuser
-export const GetAllUsersThatTookAtivo = (ID) => {
-    var Records3 = [...GetFromStore('RecordsAtivos')]
-    const AtivosPegos = Records3.filter(Record => Record.AtivoId === ID && !Record.ReturnDate)
-
-    const Users = GetFromStore('Usuarios')
-    const UsersThatTook = Users.filter(user => AtivosPegos.some(AtivoPego => AtivoPego.TakenFor.id === user.id));
+    const Users = GetFromStore('Users')
+    const UsersThatTook = Users.filter(user => AssetsPegos.some(AssetPego => AssetPego.TakenFor.id === user.id && user.id !== CurrentUser.id));
 
     return UsersThatTook
 }
 
-//GET ALL NAMES OF USERS THAT TOOK ATIVOS
-export const GetNamesOfUsersThatTookAtivo = (AtivoId) => {
-    const UsersThatTook = GetAllUsersThatTookAtivo(AtivoId)
+
+//Users que Pegaram um determinado Ativo, menos o currentuser
+export const GetAllUsersThatTookAsset = (ID) => {
+    var Records3 = [...GetFromStore('RecordsAssets')]
+    const AssetsPegos = Records3.filter(Record => Record.AtivoId === ID && !Record.ReturnDate)
+
+    const Users = GetFromStore('Users')
+    const UsersThatTook = Users.filter(user => AssetsPegos.some(AssetPego => AssetPego.TakenFor.id === user.id));
+
+    return UsersThatTook
+}
+
+//GET ALL NAMES OF USERS THAT TOOK ASSETS
+export const GetNamesOfUsersThatTookAsset = (AssetId) => {
+    const UsersThatTook = GetAllUsersThatTookAsset(AssetId)
     const UserNames = UsersThatTook.map(User => {
         return User.Name
     })
-    console.log("USUARIOS QUE PEGARAM", UsersThatTook)
+    console.log("USERS QUE PEGARAM", UsersThatTook)
     return UserNames ? UserNames.join() : ''
 }
 
-export const GetRecordByAtivoIdAndUserId = (AtivoId, UserId) => {
-    var Records4 = [...GetFromStore('RecordsAtivos')]
-    const Record = Records4.filter(Record => Record.AtivoId === AtivoId && Record.TakenFor.id === UserId && !Record.ReturnDate)[0]
+export const GetRecordByAssetIdAndUserId = (AssetId, UserId) => {
+    var Records4 = [...GetFromStore('RecordsAssets')]
+    const Record = Records4.filter(Record => Record.AtivoId === AssetId && Record.TakenFor.id === UserId && !Record.ReturnDate)[0]
     return Record
 }
 
@@ -457,7 +457,7 @@ export const SetInStoreFunctions = {
     "AssetTypess": SetAssetTypesOnStore,
     "Sectors": SetSectorsOnStore,
     "UserTypes": SetUserTypesOnStore,
-    "Locais": SetStorageLocationsOnStore,
+    "StorageLocations": SetStorageLocationsOnStore,
     "AssetsStatus": SetAssetStatusOnStore,
     "UsageTypes": SetUsageTypesOnStore
 };
@@ -466,7 +466,7 @@ export const UpdateInFirebaseFunctions = {
     "AssetTypess": (Item) => EditAssetTypeInFirebase(Item),
     "Sectors": (Item) => EditSectorInFirebase(Item),
     "UserTypes": (Item) => EditUserTypeInFirebase(Item),
-    "Locais": (Item) => EditStorageLocationInFirebase(Item),
+    "StorageLocations": (Item) => EditStorageLocationInFirebase(Item),
     "AssetsStatus": (Item) => EditAssetStatuInFirebase(Item),
     "UsageTypes": (Item) => EditUsageTypeInFirebase(Item),
 };
@@ -475,7 +475,7 @@ export const DeleteFromFirebaseFunctions = {
     "AssetTypess": (Item) => DeleteAssetTypeFromFirebase(Item),
     "Sectors": (Item) => DeleteSectorFromFirebase(Item),
     "UserTypes": (Item) => DeleteUserTypeFromFirebase(Item),
-    "Locais": (Item) => DeleteStorageLocationFromFirebase(Item),
+    "StorageLocations": (Item) => DeleteStorageLocationFromFirebase(Item),
     "AssetsStatus": (Item) => DeleteAssetStatuFromFirebase(Item),
     "UsageTypes": (Item) => DeleteUsageTypeFromFirebase(Item),
 };
@@ -484,7 +484,7 @@ export const AddToFirebaseFunctions = {
     "AssetTypess": (Item) => AddAssetTypeToFirebase(Item),
     "Sectors": (Item) => AddSectorToFirebase(Item),
     "UserTypes": (Item) => AddUserTypeToFirebase(Item),
-    "Locais": (Item) => AddStorageLocationToFirebase(Item),
+    "StorageLocations": (Item) => AddStorageLocationToFirebase(Item),
     "AssetsStatus": (Item) => AddAssetStatuToFirebase(Item),
     "UsageTypes": (Item) => AddUsageTypeToFirebase(Item),
 };
@@ -493,7 +493,7 @@ export const GetFromStoreFunctions = {
     "AssetTypess": () => GetFromStore('AssetTypess'),
     "Sectors": () => GetFromStore('Sectors'),
     "UserTypes": () => GetFromStore('UserTypes'),
-    "Locais": () => GetFromStore('StorageLocations'),
+    "StorageLocations": () => GetFromStore('StorageLocations'),
     "AssetsStatus": () => GetFromStore('AssetsStatus'),
     "UsageTypes": () => GetFromStore('UsageTypes')
 };

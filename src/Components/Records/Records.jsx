@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import './Records.css'
 import {  GetFromStore, GetFromStoreWithId } from '../../Functions/Middleware';
-import UsuarioModal from '../UsersList/User/UserModal'
-import AtivoModal from '../../Components/AssetList/Asset/AssetModal'
+import UserModal from '../UsersList/User/UserModal'
+import AssetModal from '../../Components/AssetList/Asset/AssetModal'
 import { v4 } from 'uuid';
 import { connect } from 'react-redux'
 import { NotificationAlerta } from '../../NotificationUtils';
@@ -18,9 +18,9 @@ const Records = (props) => {
     //Quantidades 
     const [Records, SetRecords] = useState([])
     const [SelectedUser, setSelectedUser] = useState({})
-    const [SelectedAtivo, setSelectedAtivo] = useState({})
+    const [SelectedAsset, setSelectedAsset] = useState({})
     const [modalShow, setModalShow] = useState(false);
-    const [modalShowAtivo, setModalShowAtivo] = useState(false);
+    const [modalShowAsset, setModalShowAsset] = useState(false);
 
     //RESET SELECTED USER
     const ResetSelectedUser = () => {
@@ -28,15 +28,15 @@ const Records = (props) => {
         setSelectedUser({});
     }
 
-    //RESET SELECTED ATIVO
-    const ResetSelectedAtivo = () => {
+    //RESET SELECTED ASSET
+    const ResetSelectedAsset = () => {
         setModalShow(false);
-        setSelectedAtivo({});
+        setSelectedAsset({});
     }
 
     //HANDLE USER SELECTION INSIDE RECORD
     const handleUserSelection = (Id) => {
-        const User = GetFromStoreWithId('UsuariosWithDeleted', Id)
+        const User = GetFromStoreWithId('UsersWithDeleted', Id)
         if (User.Deleted === false) {
             setSelectedUser(User)
             setModalShow(true)
@@ -45,12 +45,12 @@ const Records = (props) => {
         }
     }
 
-    //HANDLE ATIVO SELECTION INSIDE RECORD
-    const handleAtivoSelection = (Id) => {
-        const Ativo = GetFromStoreWithId('AtivosWithDeleted',Id)
-        if (Ativo.Deleted === false) {
-            setSelectedAtivo(Ativo)
-            setModalShowAtivo(true)
+    //HANDLE ASSET SELECTION INSIDE RECORD
+    const handleAssetSelection = (Id) => {
+        const Asset = GetFromStoreWithId('AssetsWithDeleted',Id)
+        if (Asset.Deleted === false) {
+            setSelectedAsset(Asset)
+            setModalShowAsset(true)
         } else {
             NotificationAlerta("Aviso", "Este Ativo foi deletado da base de dados, não sendo possível exibir suas informações")
         }
@@ -59,16 +59,16 @@ const Records = (props) => {
 
     return (
         <>
-            <AtivoModal FromModal={true} CurrentUser={CurrentUser} Ativo={{ ...SelectedAtivo }} show={modalShowAtivo} onHide={() => setModalShowAtivo(false)} Function="View" onDelete={ResetSelectedAtivo} />
-            <UsuarioModal FromModal={true} CurrentUser={CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
+            <AssetModal FromModal={true} CurrentUser={CurrentUser} Asset={{ ...SelectedAsset }} show={modalShowAsset} onHide={() => setModalShowAsset(false)} Function="View" onDelete={ResetSelectedAsset} />
+            <UserModal FromModal={true} CurrentUser={CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
 
-            <div className={props.Tema === 'Escuro' ? 'AtivoRecords-ContainerEscuro AtivoRecords-Container' : 'AtivoRecords-ContainerClaro AtivoRecords-Container'} >
+            <div className={props.Tema === 'Escuro' ? 'AssetRecords-ContainerEscuro AssetRecords-Container' : 'AssetRecords-ContainerClaro AssetRecords-Container'} >
 
                 {/***********   FORM FILTER   *************/}
                 <RecordsFormFilter
-                    GetRecords={() => GetFromStore('RecordsAtivos')}
+                    GetRecords={() => GetFromStore('RecordsAssets')}
                     SetRecords={SetRecords}
-                    Ativo={SelectedUser}
+                    Asset={SelectedUser}
                 />
 
                 {/***********   RECORDS   *************/}
@@ -76,9 +76,9 @@ const Records = (props) => {
                     <Record
                         key={v4()}
                         Record={Registro}
-                        handleAtivoSelection={handleAtivoSelection}
+                        handleAssetSelection={handleAssetSelection}
                         handleUserSelection={handleUserSelection}
-                        PerspectiveOf='Ativo'
+                        PerspectiveOf='Asset'
                     />
                 )}
 

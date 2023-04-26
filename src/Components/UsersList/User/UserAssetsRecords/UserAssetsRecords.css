@@ -1,27 +1,27 @@
-.UserAtivoRecords-ContainerClaro {
-    --UserAtivoRecord-Container-Border: var(--ComplementaryColor);
-    --UserAtivoRecord-UpRow-Name-Color: var(--ComplementaryColor);
-    --UserAtivoRecord-UpRow-Name-Color-Hover: var(--PrimaryBackGroundFaded);
+.UserAssetRecords-ContainerClaro {
+    --UserAssetRecord-Container-Border: var(--ComplementaryColor);
+    --UserAssetRecord-UpRow-Name-Color: var(--ComplementaryColor);
+    --UserAssetRecord-UpRow-Name-Color-Hover: var(--PrimaryBackGroundFaded);
 
-    --UserAtivoRecord-UpRow-Status-Background: var(--SecondaryBackground);
-    --UserAtivoRecord-UpRow-Status-Color: white;
+    --UserAssetRecord-UpRow-Status-Background: var(--SecondaryBackground);
+    --UserAssetRecord-UpRow-Status-Color: white;
 
  
-    --UserAtivoRecord-UpRow-Date-Color: var(--SecondaryBackground);
-    --UserAtivoRecord-UpRow-Time-Color: var(--SecondaryBackground);
+    --UserAssetRecord-UpRow-Date-Color: var(--SecondaryBackground);
+    --UserAssetRecord-UpRow-Time-Color: var(--SecondaryBackground);
 
-    --UserAtivoRecord-UpRow-OrderBy-Color: var(--SecondaryBackground);
+    --UserAssetRecord-UpRow-OrderBy-Color: var(--SecondaryBackground);
 
-    --AtivosRecordsFormFilter-Button-Background: var(--ComplementaryColor);
-    --AtivosRecordsFormFilter-Button-Border: var(--ComplementaryColor);
-    --AtivosRecordsFormFilter-Button-Color: white;
+    --AssetsRecordsFormFilter-Button-Background: var(--ComplementaryColor);
+    --AssetsRecordsFormFilter-Button-Border: var(--ComplementaryColor);
+    --AssetsRecordsFormFilter-Button-Color: white;
 
-    --UserAtivoRecords-FormFilter-Input-Background: white;
-    --UserAtivoRecords-FormFilter-Input-Border: transparent;
-    --UserAtivoRecords-FormFilter-Input-Color: var(--SecondaryBackground);
+    --UserAssetRecords-FormFilter-Input-Background: white;
+    --UserAssetRecords-FormFilter-Input-Border: transparent;
+    --UserAssetRecords-FormFilter-Input-Color: var(--SecondaryBackground);
 
-    --UserModal-userAtivos-Warning-Color: white;
-    --UserModal-userAtivos-Warning-Background: #f0ad4e;
+    --UserModal-userAssets-Warning-Color: white;
+    --UserModal-userAssets-Warning-Background: #f0ad4e;
 
 
 }
@@ -29,29 +29,29 @@
 
 
 
-.UserAtivoRecords-ContainerEscuro {
-    --UserAtivoRecord-Container-Border: var(--ComplementaryColor);
-    --UserAtivoRecord-UpRow-Name-Color: var(--ComplementaryColor);
-    --UserAtivoRecord-UpRow-Name-Color-Hover: var(--ComplementaryColor);
+.UserAssetRecords-ContainerEscuro {
+    --UserAssetRecord-Container-Border: var(--ComplementaryColor);
+    --UserAssetRecord-UpRow-Name-Color: var(--ComplementaryColor);
+    --UserAssetRecord-UpRow-Name-Color-Hover: var(--ComplementaryColor);
 
-    --UserAtivoRecord-UpRow-Status-Background: var(--SecondaryBackground);
-    --UserAtivoRecord-UpRow-Status-Color: white;
+    --UserAssetRecord-UpRow-Status-Background: var(--SecondaryBackground);
+    --UserAssetRecord-UpRow-Status-Color: white;
  
-    --UserAtivoRecord-UpRow-Date-Color: white;
-    --UserAtivoRecord-UpRow-Time-Color: white;
+    --UserAssetRecord-UpRow-Date-Color: white;
+    --UserAssetRecord-UpRow-Time-Color: white;
 
-    --UserAtivoRecord-UpRow-OrderBy-Color: var(--ComplementaryColor);
+    --UserAssetRecord-UpRow-OrderBy-Color: var(--ComplementaryColor);
 
-    --AtivosRecordsFormFilter-Button-Background: var(--ComplementaryColor);
-    --AtivosRecordsFormFilter-Button-Border: var(--ComplementaryColor);
-    --AtivosRecordsFormFilter-Button-Color: white;
+    --AssetsRecordsFormFilter-Button-Background: var(--ComplementaryColor);
+    --AssetsRecordsFormFilter-Button-Border: var(--ComplementaryColor);
+    --AssetsRecordsFormFilter-Button-Color: white;
 
-    --UserAtivoRecords-FormFilter-Input-Background: transparent;
-    --UserAtivoRecords-FormFilter-Input-Border: var(--ComplementaryColor);
-    --UserAtivoRecords-FormFilter-Input-Color: var(--ComplementaryColor);
+    --UserAssetRecords-FormFilter-Input-Background: transparent;
+    --UserAssetRecords-FormFilter-Input-Border: var(--ComplementaryColor);
+    --UserAssetRecords-FormFilter-Input-Color: var(--ComplementaryColor);
 
-    --UserModal-userAtivos-Warning-Color: white;
-    --UserModal-userAtivos-Warning-Background: #f0ad4e;
+    --UserModal-userAssets-Warning-Color: white;
+    --UserModal-userAssets-Warning-Background: #f0ad4e;
 }
 
 
@@ -63,7 +63,7 @@
 
 /* ============  DROPDOWN  ===================*/
 
-.UserAtivoRecords-FormFilter {
+.UserAssetRecords-FormFilter {
     display: flex;
     flex-direction: row;
     gap: 1rem;
@@ -71,62 +71,62 @@
     flex-wrap: wrap;
 }
 
-.UserAtivoRecords-FormFilter>button {
+.UserAssetRecords-FormFilter>button {
     font-family: var(--Fonte);
     font-size: .8rem;
     outline: none;
-    border: 1px solid var(--AtivosRecordsFormFilter-Button-Border);
-    background-color: var(--AtivosRecordsFormFilter-Button-Background);
-    color: var(--AtivosRecordsFormFilter-Button-Color);
+    border: 1px solid var(--AssetsRecordsFormFilter-Button-Border);
+    background-color: var(--AssetsRecordsFormFilter-Button-Background);
+    color: var(--AssetsRecordsFormFilter-Button-Color);
     padding: .5rem 1rem;
     border-radius: .5rem;
 }
 
-.UserAtivoRecords-FormFilter>button {
+.UserAssetRecords-FormFilter>button {
     font-family: var(--Fonte); 
     font-size: .8rem;
     outline: none;
-    border: 1px solid var(--AtivosRecordsFormFilter-Button-Border);
-    background-color: var(--AtivosRecordsFormFilter-Button-Background);
-    color: var(--AtivosRecordsFormFilter-Button-Color);
+    border: 1px solid var(--AssetsRecordsFormFilter-Button-Border);
+    background-color: var(--AssetsRecordsFormFilter-Button-Background);
+    color: var(--AssetsRecordsFormFilter-Button-Color);
     padding: .5rem 1rem;
     border-radius: .5rem;
 }
 
 
-.UserAtivoRecords-FormFilter>input {
+.UserAssetRecords-FormFilter>input {
     flex-grow: 1;
     outline: none;
     padding: .5rem 1rem;
-    border: 1px solid var(--UserAtivoRecords-FormFilter-Input-Border);
+    border: 1px solid var(--UserAssetRecords-FormFilter-Input-Border);
     border-radius: .5rem;
     font-family: var(--Fonte);
     font-size: .8rem;
-    background-color: var(--UserAtivoRecords-FormFilter-Input-Background);
-    color: var(--UserAtivoRecords-FormFilter-Input-Color);
+    background-color: var(--UserAssetRecords-FormFilter-Input-Background);
+    color: var(--UserAssetRecords-FormFilter-Input-Color);
     -webkit-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
 }
 
-.UserAtivoRecords-FormFilter>input::placeholder {
-    color: var(--UserAtivoRecords-FormFilter-Input-Color);
+.UserAssetRecords-FormFilter>input::placeholder {
+    color: var(--UserAssetRecords-FormFilter-Input-Color);
 }
 
-.UserAtivoRecords-FormFilter>button:hover {
+.UserAssetRecords-FormFilter>button:hover {
     transform: scale(1.1);
 }
 
-.UserAtivoRecords-FormFilter>button:active {
+.UserAssetRecords-FormFilter>button:active {
     transform: scale(1);
 }
 
 
-#UserAtivoRecords-OrderBy::after {
+#UserAssetRecords-OrderBy::after {
     display: none !important;
 }
 
-#UserAtivoRecords-OrderBy {
+#UserAssetRecords-OrderBy {
     background-color: transparent !important;
     border: none !important;
     padding: 0 !important;
@@ -136,7 +136,7 @@
     height: 100%;
 }
 
-.UserAtivoRecords-OrdenarPorTitle {
+.UserAssetRecords-OrdenarPorTitle {
     display: flex;
     flex-direction: row;
     gap: .5rem;
@@ -145,7 +145,7 @@
     border-radius: 1rem;
     font-size: .9rem;
     font-family: var(--Fonte);
-    color: var(--UserAtivoRecord-UpRow-OrderBy-Color) !important;
+    color: var(--UserAssetRecord-UpRow-OrderBy-Color) !important;
 }
 
 
@@ -156,7 +156,7 @@
 
 
 
-.UserAtivosRecords-AvisoInfo {
+.UserAssetsRecords-AvisoInfo {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -166,20 +166,20 @@
 }
 
 
-.UserAtivosRecords-AvisoInfo-Item {
+.UserAssetsRecords-AvisoInfo-Item {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
     gap: .3rem;
-    color: var(--UserModal-userAtivos-Warning-Color);
+    color: var(--UserModal-userAssets-Warning-Color);
     font-family: var(--Fonte);
-    background-color: var(--UserModal-userAtivos-Warning-Background);
+    background-color: var(--UserModal-userAssets-Warning-Background);
     padding: .2rem .8rem;
     border-radius: 1rem;
     font-size: .8rem;
 }
 
-.UserAtivosRecords-AvisoInfo-Item>svg {
+.UserAssetsRecords-AvisoInfo-Item>svg {
     width: 1rem;
 }

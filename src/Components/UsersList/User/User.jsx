@@ -14,8 +14,8 @@ const User = (props) => {
 
 
     useEffect(() => {
-        const Tipos = GetFromStore('UserTypes')
-        setUserType(Tipos.find(U => U.id === props.User.Type.id))
+        const Types = GetFromStore('UserTypes')
+        setUserType(Types.find(U => U.id === props.User.Type.id))
     }, [props.User.Type.id])
 
 

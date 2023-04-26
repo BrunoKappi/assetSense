@@ -4,7 +4,7 @@
 export const SetStorageLocations = (StorageLocations) => {
     
     return ({
-        type: 'SET_LOCAIS_ARMAZENAMENTO',
+        type: 'SET_STORAGELOCATIONS_ARMAZENAMENTO',
         StorageLocations
     })
 }

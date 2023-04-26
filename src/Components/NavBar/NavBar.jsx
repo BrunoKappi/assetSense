@@ -23,7 +23,7 @@ import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilS
 import { GetFromStore, GetLoggedUserInfo, LogoutUtil, ToggleTema } from '../../Functions/Middleware';
 import UserPhotoModal from '../UsersList/User/UserPhotoModal/UserPhotoModal'
 import UserPhoto from '../UserProfilePhoto/UserPhoto';
-import { AtivosTela, ConfigTela, UsuariosTela } from '../../Functions/Permits';
+import { AssetsTela, ConfigTela, UsersTela } from '../../Functions/Permits';
 
 
 
@@ -47,7 +47,7 @@ const NavBar = (props) => {
     // SET CURRENT USER ALWAYS WHEN USERS CHANGE
     useEffect(() => {
         SetCurrentUser({ ...GetFromStore('CurrentUser') })
-    }, [props.Usuarios])
+    }, [props.Users])
 
 
     //SET NAVBAR TAB WITH PERMITS
@@ -60,10 +60,10 @@ const NavBar = (props) => {
         } else if (Tab === 'Records') {
             SetTab(Tab)
             navigate(To)
-        } else if (Tab === 'Ativos' && AtivosTela()) {
+        } else if (Tab === 'Assets' && AssetsTela()) {
             SetTab(Tab)
             navigate(To)
-        } else if (Tab === 'Users' && UsuariosTela()) {
+        } else if (Tab === 'Users' && UsersTela()) {
             SetTab(Tab)
             navigate(To)
         } else if (Tab === 'Config' && ConfigTela()) {
@@ -135,13 +135,13 @@ const NavBar = (props) => {
                                                 <span>Dashboard</span>
                                             </span>
 
-                                            <span className={GetNavbarSidebarItemClass('Ativos', GetLoggedUserInfo('CurrentSidebarTab')) + ' dropDownLink'} onClick={e => SetTabNavBar('Ativos', '/Assets/Ativos')}>
+                                            <span className={GetNavbarSidebarItemClass('Assets', GetLoggedUserInfo('CurrentSidebarTab')) + ' dropDownLink'} onClick={e => SetTabNavBar('Assets', '/Assets/Assets')}>
                                                 <UilListUl />
                                                 <span>Ativos</span>
                                             </span>
                                             <span className={GetNavbarSidebarItemClass('Users', GetLoggedUserInfo('CurrentSidebarTab')) + ' dropDownLink'} onClick={e => SetTabNavBar('Users', '/Assets/Users')}>
                                                 <UilUsersAlt />
-                                                <span>Usuarios</span>
+                                                <span>Usuários</span>
                                             </span>
                                             <span className={GetNavbarSidebarItemClass('Profile', GetLoggedUserInfo('CurrentSidebarTab')) + ' dropDownLink'} onClick={e => SetTabNavBar('Profile', '/Assets/Profile')} >
                                                 <UilUserCircle />
@@ -183,13 +183,13 @@ const NavBar = (props) => {
                                             <UilChartPieAlt />
                                             <span>Dashboard</span>
                                         </span>
-                                        <span className={GetNavbarSidebarItemClass('Ativos', GetLoggedUserInfo('CurrentSidebarTab'))} onClick={e => SetTabNavBar('Ativos', '/Assets/Ativos')}>
+                                        <span className={GetNavbarSidebarItemClass('Assets', GetLoggedUserInfo('CurrentSidebarTab'))} onClick={e => SetTabNavBar('Assets', '/Assets/Assets')}>
                                             <UilListUl />
                                             <span>Ativos</span>
                                         </span>
                                         <span className={GetNavbarSidebarItemClass('Users', GetLoggedUserInfo('CurrentSidebarTab'))} onClick={e => SetTabNavBar('Users', '/Assets/Users')}>
                                             <UilUsersAlt />
-                                            <span>Usuarios</span>
+                                            <span>Usuários</span>
                                         </span>
                                         <span className={GetNavbarSidebarItemClass('Profile', GetLoggedUserInfo('CurrentSidebarTab'))} onClick={e => SetTabNavBar('Profile', '/Assets/Profile')}>
                                             <UilUserCircle />
@@ -242,7 +242,7 @@ const NavBar = (props) => {
 const ConnectedNavBar = connect((state) => {
     return {
         Tema: state.Tema,
-        Usuarios: state.Usuarios
+        Users: state.Users
     }
 })(NavBar)
 

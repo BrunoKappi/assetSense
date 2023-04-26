@@ -6,7 +6,7 @@ import './UserModal.css'
 //ICONS
 import { UilUserCircle, UilClipboardNotes, UilEnvelope, UilPhone, UilMap, UilMapMarker, UilPen, UilPuzzlePiece, UilLabel, UilListUl, UilSave, UilHistory, UilTimes, UilBuilding, UilKeySkeleton, UilCheck, UilBackward, UilTrash } from '@iconscout/react-unicons'
 //COMPONENTS
-import UserAtivoRecords from './UserAssetsRecords/UserAssetsRecords';
+import UserAssetRecords from './UserAssetsRecords/UserAssetsRecords';
 import UserPhoto from '../../../assets/Images/SerranoLogoFuncoBranco.jpg'
 //LIBRARIES
 import PI from 'react-phone-input-2'
@@ -24,7 +24,7 @@ import { v4 } from 'uuid';
 import { FIREBASE_LogouyAuth, mudarSenha, unsubscribe } from '../../../Config/firebase/auth';
 import Loading from '../../LoadingForTabs/Loading';
 import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
-import { AddUserToStore, DeleteUser, GetFromStore, GetCurrentUserSectorNameWithIdFromStore, GetCurrentUserTypeNameWithIdFromStore, LoginUtil, RegisterUser, ReturnAllAtivosOfUserWithId, GetFromStoreWithId, AddToFirebase, EditUserOnStore, EditUserInFirebase, AddUserToFirebase } from '../../../Functions/Middleware'
+import { AddUserToStore, DeleteUser, GetFromStore, GetCurrentUserSectorNameWithIdFromStore, GetCurrentUserTypeNameWithIdFromStore, LoginUtil, RegisterUser, ReturnAllAssetsOfUserWithId, GetFromStoreWithId, AddToFirebase, EditUserOnStore, EditUserInFirebase, AddUserToFirebase } from '../../../Functions/Middleware'
 //LAYOUT COMPONENTS
 import TwoColumns from '../../LayoutComponents/TwoColumns/TwoColumns';
 import FormGroupLabel from '../../LayoutComponents/FormGroupLabel/FormGroupLabel';
@@ -39,7 +39,7 @@ import SectionTitle from '../../LayoutComponents/SectionTitle/SectionTitle';
 import ConfirmTab from '../../LayoutComponents/ConfirmTab/ConfirmTab';
 import CustomSelect from '../../LayoutComponents/CustomSelect/CustomSelect'
 
-const UsuarioModal = (props) => {
+const UserModal = (props) => {
 
     // PROBLEMA DA BIBLIOTECA PHONE INPUT
     const PhoneInput = PI.default ? PI.default : PI;
@@ -78,8 +78,8 @@ const UsuarioModal = (props) => {
 
     //PERMISSOES
     var IsAdmin = CurrentUserType?.IsAdmin
-    var PermitToEditUsers = CurrentUserType?.Permits[PermitIndexs['EDITAR_USUARIOS']]
-    var PermitToDeleteUsers = CurrentUserType?.Permits[PermitIndexs['EXCLUIR_USUARIOS']]
+    var PermitToEditUsers = CurrentUserType?.Permits[PermitIndexs['EDITAR_USERS']]
+    var PermitToDeleteUsers = CurrentUserType?.Permits[PermitIndexs['EXCLUIR_USERS']]
     var IsCurrentUser = props.User?.id === GetFromStore('CurrentUser')?.id
     var CanEdit = IsCurrentUser || IsAdmin || PermitToEditUsers
 
@@ -129,7 +129,7 @@ const UsuarioModal = (props) => {
         } else {
             const { id, Name, PhotoUrl } = props.User || {};
             if (!Name) return
-            setUser(GetFromStoreWithId('UsuariosWithDeleted', id))
+            setUser(GetFromStoreWithId('UsersWithDeleted', id))
             setIsEdited(false)
             setTab('UserInfo')
             setProfileImageUrl(IsCurrentUser ? props.LoggedUser.PhotoUrl : PhotoUrl || '')
@@ -158,7 +158,7 @@ const UsuarioModal = (props) => {
     // SUBMIT FINAL ACTION
     const Submit = () => {
         setLoadingAction(true)
-        // EDITAR USUARIO
+        // EDITAR USER
         if (ConfirmAction === 'Edit') {
 
             const EditedUser = { ...User }
@@ -199,13 +199,13 @@ const UsuarioModal = (props) => {
 
 
         }
-        //DELETAR USUARIO
+        //DELETAR USER
         else if (ConfirmAction === 'Delete') {
             EndConfirming()
             props.onDelete()
             DeleteUser(User).then(() => {
                 setLoadingAction(false)
-                ReturnAllAtivosOfUserWithId(User.id)
+                ReturnAllAssetsOfUserWithId(User.id)
                 NotificationSucesso('Exclusão', 'Usuário Deletado com Sucesso!')
             }).catch(HandleError)
         }
@@ -214,18 +214,18 @@ const UsuarioModal = (props) => {
 
     // INIT CONFIRMING ACTION
     const InitConfirm = (Action) => {
-        // ADICIONAR OU EDITAR USUARIO
+        // ADICIONAR OU EDITAR USER
         if (Action !== 'Delete') {
             if (User?.Email.length === 0 && Action === 'Add')
                 NotificationAlerta('Preenchimento inválido', 'O Email não pode ser vazio')
             else if (User?.Phone?.length < 11 && User?.Phone?.length > 0)
                 NotificationAlerta('Preenchimento inválido', 'O Telefone de ter um mínimo 12 digitos')
             else if (User?.Phone?.length === 0)
-                NotificationAlerta('Preenchimento inválido', 'O telefone não pode ser vazio')
+                NotificationAlerta('Preenchimento inválido', 'O Telefone não pode ser vazio')
             else if (User?.Name?.length === 0)
-                NotificationAlerta('Preenchimento inválido', 'O nome não pode ser vazio')
+                NotificationAlerta('Preenchimento inválido', 'O Nome não pode ser vazio')
             else if (User?.LastName.length === 0)
-                NotificationAlerta('Preenchimento inválido', 'O sobrenome não pode ser vazio')
+                NotificationAlerta('Preenchimento inválido', 'O Sobrenome não pode ser vazio')
             else if (!User?.Country.name)
                 NotificationAlerta('Preenchimento inválido', 'O País não pode ser vazio')
             else if (!User?.Estate.name)
@@ -233,7 +233,7 @@ const UsuarioModal = (props) => {
             else if (!User?.City.name)
                 NotificationAlerta('Preenchimento inválido', 'A Cidade não pode ser vazia')
             else if (!User?.Type?.id)
-                NotificationAlerta('Preenchimento inválido', 'Seleciona um Tipo de Usuário')
+                NotificationAlerta('Preenchimento inválido', 'Selecione um Tipo de Usuário')
             else if (!User?.Sector.id)
                 NotificationAlerta('Preenchimento inválido', 'Selecione um Setor')
             else {
@@ -256,7 +256,7 @@ const UsuarioModal = (props) => {
 
             }
         }
-        // DELETE USUARIO
+        // DELETE USER
         else {
 
             SetConfirm(true)
@@ -389,7 +389,7 @@ const UsuarioModal = (props) => {
                                     <UilPuzzlePiece />
                                     {props.Function === 'Add' ? GetCurrentUserSectorNameWithIdFromStore(User?.Sector?.id) : UserSector?.Value}
                                 </div>
-                                <div className='UserModalHeader-Right-Tipo'>
+                                <div className='UserModalHeader-Right-Type'>
                                     <UilLabel />
                                     {props.Function === 'Add' ? GetCurrentUserTypeNameWithIdFromStore(User?.Type?.id) : UserType?.Value}
                                 </div>
@@ -409,8 +409,8 @@ const UsuarioModal = (props) => {
                                     </SidebarItem>
 
                                     <Show Show={props.Function !== 'Add'}>
-                                        <SidebarItem Active={IsActive('Ativos')}
-                                            onClick={e => setTab('Ativos')}>
+                                        <SidebarItem Active={IsActive('Assets')}
+                                            onClick={e => setTab('Assets')}>
                                             <UilClipboardNotes />
                                             Ativos
                                         </SidebarItem>
@@ -636,7 +636,7 @@ const UsuarioModal = (props) => {
                                                             <EditList
                                                                 Item={User}
                                                                 List={UserTypes}
-                                                                Title="Tipos de Usuarios"
+                                                                Title="Tipos de  Users"
                                                                 Key='Type'
                                                                 Handle={HandleChangeInfo}
                                                                 Icon={<UilListUl />}
@@ -694,8 +694,8 @@ const UsuarioModal = (props) => {
                                             </div>
                                         </Show>
 
-                                        <Show Show={Tab === 'Ativos'}>
-                                            <UserAtivoRecords FromModal={props.FromModal} User={User} />
+                                        <Show Show={Tab === 'Assets'}>
+                                            <UserAssetRecords FromModal={props.FromModal} User={User} />
                                         </Show>
 
                                     </div>
@@ -732,14 +732,14 @@ const UsuarioModal = (props) => {
 
 
 
-const ConnectedUsuarioModal = connect((state) => {
+const ConnectedUserModal = connect((state) => {
     return {
         Tema: state.Tema,
         LoggedUser: state.LoggedUser
     }
-})(UsuarioModal)
+})(UserModal)
 
-export default ConnectedUsuarioModal
+export default ConnectedUserModal
 
 
 

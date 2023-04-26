@@ -1,17 +1,17 @@
-.AtivoPhotoModal-ModalClaro {
+.AssetPhotoModal-ModalClaro {
 
-    --AtivoPhotoModal-Backgound: white;
-    --AtivoPhotoModal-Border: white;
-    --AtivoPhotoModal-SectionTitleColor: var(--ComplementaryColor);
+    --AssetPhotoModal-Backgound: white;
+    --AssetPhotoModal-Border: white;
+    --AssetPhotoModal-SectionTitleColor: var(--ComplementaryColor);
 }
 
 
 
-.AtivoPhotoModal-ModalEscuro {
+.AssetPhotoModal-ModalEscuro {
 
-    --AtivoPhotoModal-Backgound: var(--BackgroundDark);
-    --AtivoPhotoModal-Border: rgb(127, 126, 126);
-    --AtivoPhotoModal-SectionTitleColor: var(--ComplementaryColor);
+    --AssetPhotoModal-Backgound: var(--BackgroundDark);
+    --AssetPhotoModal-Border: rgb(127, 126, 126);
+    --AssetPhotoModal-SectionTitleColor: var(--ComplementaryColor);
 }
 
 
@@ -28,19 +28,19 @@
     }
 }
 
-.AtivoPhotoModal {
+.AssetPhotoModal {
     z-index: 0 !important;
 }
 
 
-.AtivoPhotoModal-Modal .modal-content {
-    background-color: var(--AtivoPhotoModal-Backgound) !important;
-    border: 1px solid var(--AtivoPhotoModal-Border) !important;
+.AssetPhotoModal-Modal .modal-content {
+    background-color: var(--AssetPhotoModal-Backgound) !important;
+    border: 1px solid var(--AssetPhotoModal-Border) !important;
     min-height: 400px;
 }
 
 
-.AtivoPhotoModal {
+.AssetPhotoModal {
     display: grid;
     grid-template-columns: 50% 50%;
     max-height: 80vh;
@@ -56,7 +56,7 @@
     align-items: center;
 }
 
-.AtivoPhotoModal-ImageColumn {
+.AssetPhotoModal-ImageColumn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -64,7 +64,7 @@
 
 }
 
-.AtivoPhotoModal-Warning {
+.AssetPhotoModal-Warning {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -79,7 +79,7 @@
 }
 
 
-.AtivoPhotoModal-ImageColumn>img {
+.AssetPhotoModal-ImageColumn>img {
     width: 300px;
     height: 300px;
     margin-right: 1rem;
@@ -91,7 +91,7 @@
 }
 
 
-.AtivoPhotoModal-OptionsColumn {
+.AssetPhotoModal-OptionsColumn {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -102,7 +102,7 @@
 }
 
 @media (max-width: 750px) {
-    .AtivoPhotoModal {
+    .AssetPhotoModal {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -111,7 +111,7 @@
 }
 
 
-.AtivoPhotoModal-OptionsColumn button {
+.AssetPhotoModal-OptionsColumn button {
     background-color: var(--PrimaryBackground);
     font-family: var(--Fonte);
     padding: .5rem 1.5rem;
@@ -127,38 +127,38 @@
     gap: .5rem;
 }
 
-.AtivoPhotoModal-OptionsColumn button>svg {
+.AssetPhotoModal-OptionsColumn button>svg {
     width: 1.1rem;
 }
 
-.AtivoPhotoModal-OptionsColumn button:hover {
+.AssetPhotoModal-OptionsColumn button:hover {
     transform: scale(1.15);
 }
 
-.AtivoPhotoModal-OptionsColumn button:active {
+.AssetPhotoModal-OptionsColumn button:active {
     transform: scale(1);
 }
 
 
 
 
-.AtivoPhotoModal-ChangePhotoButton>input {
+.AssetPhotoModal-ChangePhotoButton>input {
     display: none;
 }
 
-.AtivoPhotoModal-CancelChangePhoto {
+.AssetPhotoModal-CancelChangePhoto {
     background-color: #0275d8 !important;
 }
 
-.AtivoPhotoModal-ChangePhotoButton-Ready {
+.AssetPhotoModal-ChangePhotoButton-Ready {
     background-color: #298a29 !important;
 }
 
-.AtivoPhotoModal-DeletePhoto {
+.AssetPhotoModal-DeletePhoto {
     background-color: #d9534f !important;
 }
 
-.AtivoPhotoModalHeader-Right-Close {
+.AssetPhotoModalHeader-Right-Close {
     position: absolute;
     top: 1rem;
     right: 1rem;
@@ -166,12 +166,12 @@
     color: var(--PrimaryBackground);
 }
 
-.AtivoPhotoModalHeader-Right-Close:hover {
+.AssetPhotoModalHeader-Right-Close:hover {
     transform: scale(1.1);
 }
 
 
-.AtivoPhotoModal-Title {
+.AssetPhotoModal-Title {
     color: var(--ComplementaryColor);
     font-family: var(--Fonte);
     display: flex;
@@ -185,7 +185,7 @@
 
 
 @media (max-width: 750px) {
-    .AtivoPhotoModal-Title {
+    .AssetPhotoModal-Title {
         margin-bottom: 2.5rem;
 
     }

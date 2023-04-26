@@ -1,40 +1,40 @@
 
 
-export const AddUsuarioAction = (NovoUsuario = {}) => {
+export const AddUserAction = (NovoUser = {}) => {
 
     return ({
-        type: 'ADD_USUARIO',
-        NovoUsuario
+        type: 'ADD_USER',
+        NovoUser
     })
 }
 
-export const DeleteUsuarioAction = (UsuarioToDelete = {}) => {
+export const DeleteUserAction = (UserToDelete = {}) => {
 
     return ({
-        type: 'DELETE_USUARIO',
-        UsuarioToDelete
+        type: 'DELETE_USER',
+        UserToDelete
     })
 }
 
 
-export const EditUsuarioAction = (EditedUser = {}) => {
+export const EditUserAction = (EditedUser = {}) => {
     return ({
-        type: 'EDIT_USUARIO',
+        type: 'EDIT_USER',
         EditedUser
     })
 }
 
 
-export const clearAllUsuarios = () => {
+export const clearAllUsers = () => {
     return ({
         type: 'CLEAR_ALL'
     })
 }
 
-export const SetUsuarios = (Usuarios) => {
+export const SetUsers = (Users) => {
     return ({
-        type: 'SET_USUARIOS',
-        Usuarios
+        type: 'SET_USERS',
+        Users
     })
 }
 

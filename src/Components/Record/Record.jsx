@@ -19,13 +19,13 @@ const Record = (props) => {
         setOpen(!open)
     }
 
-    const handleAtivoSelection = () => {
+    const handleAssetSelection = () => {
         if (!open) return
         setOpen(true)
         setTimeout(() => {
             setOpen(true)
         }, 2000);
-        props.handleAtivoSelection(props.Record.AtivoId)
+        props.handleAssetSelection(props.Record.AtivoId)
     }
 
     const handleUserSelection = () => {
@@ -68,30 +68,30 @@ const Record = (props) => {
 
     return (
 
-        <div className={props.Tema === 'Escuro' ? 'AtivoRecord-ContainerEscuro AtivoRecord-Container' : 'AtivoRecord-ContainerClaro AtivoRecord-Container'} onClick={() => handleCollapse(props.Record.id)}>
+        <div className={props.Tema === 'Escuro' ? 'AssetRecord-ContainerEscuro AssetRecord-Container' : 'AssetRecord-ContainerClaro AssetRecord-Container'} onClick={() => handleCollapse(props.Record.id)}>
 
 
-            {/******** PARA QUEM/ ATIVO RETIRADO **********/}
+            {/******** PARA QUEM/ ASSET RETIRADO **********/}
             <div className='RecordTitle'>
-                <Show Show={props.PerspectiveOf === 'Ativo'}>
+                <Show Show={props.PerspectiveOf === 'Asset'}>
                     <Tooltip title="Item retirado" position="bottom" >
-                        <span className='AtivoRecord-UpRow-Name' onClick={handleAtivoSelection}>
+                        <span className='AssetRecord-UpRow-Name' onClick={handleAssetSelection}>
                             <UilWrench />
-                            <span>{GetNameFromStoreWithId('AtivosWithDeleted',props.Record.AtivoId)}</span>
+                            <span>{GetNameFromStoreWithId('AssetsWithDeleted',props.Record.AtivoId)}</span>
                         </span>
                     </Tooltip>
                 </Show>
                 <Show Show={props.PerspectiveOf === 'User'}>
                     <Tooltip title="Para quem a retirada foi registrada" position="bottom" >
-                        <span className='AtivoRecord-UpRow-Name' onClick={handleUserSelection}>
+                        <span className='AssetRecord-UpRow-Name' onClick={handleUserSelection}>
                             <UilUserCircle />
-                            <span>{GetNameFromStoreWithId('UsuariosWithDeleted',props.Record.TakenFor.id)}</span>
+                            <span>{GetNameFromStoreWithId('UsersWithDeleted',props.Record.TakenFor.id)}</span>
                         </span>
                     </Tooltip>
                 </Show>
                 <Show Show={!open}>
                     <div>
-                        <span className={`AtivoRecord-UpRow-Status ${!props.Record.ReturnDate ? 'RecordInUseStatus' : 'RecordNotInUseStatus'}`}>
+                        <span className={`AssetRecord-UpRow-Status ${!props.Record.ReturnDate ? 'RecordInUseStatus' : 'RecordNotInUseStatus'}`}>
                             {!props.Record.ReturnDate ? 'Em uso' : 'Devolvido'}
                         </span>
                     </div>
@@ -103,10 +103,10 @@ const Record = (props) => {
                 <div className='RecordsItens'>
 
                     <div className='RecordsItensHeader'>
-                        <span className={`AtivoRecord-UpRow-Status ${!props.Record.ReturnDate ? 'RecordInUseStatus' : 'RecordNotInUseStatus'}`}>
+                        <span className={`AssetRecord-UpRow-Status ${!props.Record.ReturnDate ? 'RecordInUseStatus' : 'RecordNotInUseStatus'}`}>
                             {!props.Record.ReturnDate ? 'Status: Em uso' : 'Status: Devolvido'}
                         </span>
-                        <span className='AtivoRecord-UpRow-Status'>
+                        <span className='AssetRecord-UpRow-Status'>
                             Tempo em Uso: <span>{tempoFormatado}</span>
                         </span>
 
@@ -116,14 +116,14 @@ const Record = (props) => {
                     <div className='RecordMessage'>
                         <div className='RecordMessageText'>
                             Registro de Retirada de
-                            <span onClick={handleAtivoSelection}> {GetNameFromStoreWithId('AtivosWithDeleted',props.Record.AtivoId)} </span>
+                            <span onClick={handleAssetSelection}> {GetNameFromStoreWithId('AssetsWithDeleted',props.Record.AtivoId)} </span>
                             para
-                            <span onClick={handleUserSelection}> {GetNameFromStoreWithId('UsuariosWithDeleted',props.Record.TakenFor.id)}. </span>
+                            <span onClick={handleUserSelection}> {GetNameFromStoreWithId('UsersWithDeleted',props.Record.TakenFor.id)}. </span>
 
                             {props.Record.TakenBy.id !== props.Record.TakenFor.id && 'Registro feito por'}
 
                             {props.Record.TakenBy.id !== props.Record.TakenFor.id &&
-                                <span onClick={handleUserBySelection}> {GetNameFromStoreWithId('UsuariosWithDeleted',props.Record.TakenBy.id)}</span>
+                                <span onClick={handleUserBySelection}> {GetNameFromStoreWithId('UsersWithDeleted',props.Record.TakenBy.id)}</span>
                             }
 
                         </div>
@@ -174,7 +174,7 @@ const Record = (props) => {
                     <Show Show={props.Record.ReturnDate}>
                         <div className='RecordMessage'>
                             <div className='RecordMessageText'>
-                                Registro de Devolução do  <span onClick={handleAtivoSelection}> {GetNameFromStoreWithId('AtivosWithDeleted',props.Record.AtivoId)} </span>
+                                Registro de Devolução do  <span onClick={handleAssetSelection}> {GetNameFromStoreWithId('AssetsWithDeleted',props.Record.AtivoId)} </span>
                             </div>
                             <div className='RecordMessageDate'>
                                 <Tooltip title="Data de Devolução" position="bottom" >

@@ -6,7 +6,7 @@ export const noOptionsMessage = ({ inputValue }) => {
 
 
 
-export const AtivoModalSelectcustomStyles = {
+export const AssetModalSelectcustomStyles = {
 
     option: (provided, state) => ({
         ...provided,
@@ -21,9 +21,9 @@ export const AtivoModalSelectcustomStyles = {
         ...provided,
         border: 'none',
         outline: 'none',
-        color: 'var(--AtivoModal-Color-Input)',
+        color: 'var(--AssetModal-Color-Input)',
         ':placeholder': {
-            color: 'var(--AtivoModal-Color-Input)',
+            color: 'var(--AssetModal-Color-Input)',
         }
     }),
     control: (provided, state) => ({
@@ -31,12 +31,12 @@ export const AtivoModalSelectcustomStyles = {
         borderRadius: '.5rem',
         boxShadow: state.isFocused ? 'none' : 'none',
         border: state.isFocused ? '1px solid var(--PrimaryBackGroundFaded50)' : '1px solid var(--PrimaryBackGroundFaded50)',
-        backgroundColor: 'var(--AtivoModal-Background-Input)',
-        color: 'var(--AtivoModal-Color-Input)'
+        backgroundColor: 'var(--AssetModal-Background-Input)',
+        color: 'var(--AssetModal-Color-Input)'
     }),
     singleValue: (provided) => ({
         ...provided,
-        color: 'var(--AtivoModal-Color-Input)'
+        color: 'var(--AssetModal-Color-Input)'
     }),
 };
 

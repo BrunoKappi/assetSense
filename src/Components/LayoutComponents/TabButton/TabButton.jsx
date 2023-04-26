@@ -47,14 +47,14 @@ export default TabButton;
 
 
 
-export const AtivosTabTitle = () => {
+export const AssetsTabTitle = () => {
     return <div className='TabsTitle'>
         <UilListUl />
         <span>Ativos</span>
     </div>
 }
 
-export const AtivosCamposTabTitle = () => {
+export const AssetsCamposTabTitle = () => {
     return <div className='TabsTitle'>
         <UilAsterisk />
         <span>Campos Personalizados</span>
@@ -83,7 +83,7 @@ export const ArmazenamentoTabTitle = () => {
     </div>
 }
 
-export const TiposTabTitle = () => {
+export const TypesTabTitle = () => {
     return <div className='TabsTitle'>
         <UilLabel />
         <span>Tipos</span>
@@ -126,7 +126,7 @@ export const SectorsTabTitle = () => {
     </div>
 }
 
-export const UsersTiposTabTitle = () => {
+export const UsersTypesTabTitle = () => {
     return <div className='TabsTitle'>
         <UilListUl />
         <span>Tipos</span>
@@ -148,10 +148,10 @@ export const UsersTodosTabTitle = () => {
 
 
 
-export const DashUsuariosTabTitle = () => {
+export const DashUsersTabTitle = () => {
     return <div className='TabsTitle'>
         <UilSitemap />
-        <span>Usuarios</span>
+        <span>Usuários</span>
     </div>
 }
 
@@ -161,7 +161,7 @@ export const DashRecordsTabTitle = () => {
         <span>Retiradas</span>
     </div>
 }
-export const DashAtivosTabTitle = () => {
+export const DashAssetsTabTitle = () => {
     return <div className='TabsTitle'>
         <UilUsersAlt />
         <span>Ativos</span>
@@ -201,22 +201,22 @@ export const UserType = (Text) => {
 
 
 const Tabs = {
-    "Ativos": AtivosTabTitle(),
-    "AtivosCampos": AtivosCamposTabTitle(),
+    "Assets": AssetsTabTitle(),
+    "AssetsCampos": AssetsCamposTabTitle(),
     "Sectors e Usuários": SectorsEUsuáriosTabTitle(),
     "Permissoes": PermicoesTabTitle(),
-    "TodosAtivos": TodosTabTitle(),
-    "AtivosInArmazenamento": ArmazenamentoTabTitle(),
-    "AtivosInTipos": TiposTabTitle(),
-    "AtivosInStatus": StatusTabTitle(),
-    "AtivosInUsageTypes": UsageTabTitle(),
-    "TodosUsuarios": UsersTodosTabTitle(),
+    "TodosAssets": TodosTabTitle(),
+    "AssetsInArmazenamento": ArmazenamentoTabTitle(),
+    "AssetsInTypes": TypesTabTitle(),
+    "AssetsInStatus": StatusTabTitle(),
+    "AssetsInUsageTypes": UsageTabTitle(),
+    "TodosUsers": UsersTodosTabTitle(),
     "UsersInSectors": SectorsTabTitle(),
-    "UsersInTipos": UsersTiposTabTitle(),
-    "DashAtivos": DashAtivosTabTitle(),
-    "DahUsuarios": DashUsuariosTabTitle(),
-    "DashTipos": DashRecordsTabTitle(),
-    "CustomAtivos": CustomAssetTypess(),
+    "UsersInTypes": UsersTypesTabTitle(),
+    "DashAssets": DashAssetsTabTitle(),
+    "DahUsers": DashUsersTabTitle(),
+    "DashTypes": DashRecordsTabTitle(),
+    "CustomAssets": CustomAssetTypess(),
     "CustomUserTypes": CustomUserTypes(),
     "UserType": CustomUserTypes(),
 }

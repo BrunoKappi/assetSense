@@ -8,13 +8,13 @@ import OrderBy, { GetDefautlOption } from '../LayoutComponents/OrderBy/OrderBy'
 
 function GetUserName(item, who) {
     if (who === 'For')
-        return GetNameFromStoreWithId('UsuariosWithDeleted',item.TakenFor.id)
+        return GetNameFromStoreWithId('UsersWithDeleted',item.TakenFor.id)
     else if ('By')
-        return GetNameFromStoreWithId('UsuariosWithDeleted',item.TakenBy.id)
+        return GetNameFromStoreWithId('UsersWithDeleted',item.TakenBy.id)
 }
 
-function GetAtivoName(item) {
-    return GetNameFromStoreWithId('AtivosWithDeleted',item.AtivoId)
+function GetAssetName(item) {
+    return GetNameFromStoreWithId('AssetsWithDeleted',item.AtivoId)
 }
 
 function GetUsage(item) {
@@ -49,13 +49,13 @@ const RecordsFormFilter = (props) => {
 
     //SORT AND FILTER LIST
     useEffect(() => {
-        const Registros = props.GetRecords(props?.Ativo?.id)
+        const Registros = props.GetRecords(props?.Asset?.id)
         props.SetRecords(
             Registros.filter(Record => {
                 //FILTER
                 const TakenForName = GetUserName(Record, 'For')
                 const TakenByName = GetUserName(Record, 'By')
-                const AtivoName = GetAtivoName(Record)
+                const AssetName = GetAssetName(Record)
                 const Status = GetStatus(Record)
                 const TakeDate = GetRecordDate(Record, 'Take')
                 const ReturnDate = GetRecordDate(Record, 'Return')
@@ -63,7 +63,7 @@ const RecordsFormFilter = (props) => {
                     FiltroDeTexto === '' ||
                     CheckIncludes(TakenForName) ||
                     CheckIncludes(TakenByName) ||
-                    CheckIncludes(AtivoName) ||
+                    CheckIncludes(AssetName) ||
                     CheckIncludes(Status) ||
                     CheckIncludes(TakeDate) ||
                     CheckIncludes(ReturnDate)
@@ -93,7 +93,7 @@ const RecordsFormFilter = (props) => {
                             return Primeiro.TakeDate < Segundo.TakeDate ? 1 : -1
                     }
                 }))
-    }, [FiltroDeTexto, OrdenarPor, props.Ativo])
+    }, [FiltroDeTexto, OrdenarPor, props.Asset])
 
 
     useEffect(() => {
@@ -117,7 +117,7 @@ const RecordsFormFilter = (props) => {
 
 
     return (
-        <div className={props.Tema === 'Escuro' ? 'AtivoRecords-FormFilterEscuro AtivoRecords-FormFilter' : 'AtivoRecords-FormFilterClaro AtivoRecords-FormFilter'}        >
+        <div className={props.Tema === 'Escuro' ? 'AssetRecords-FormFilterEscuro AssetRecords-FormFilter' : 'AssetRecords-FormFilterClaro AssetRecords-FormFilter'}        >
             <input value={FiltroDeTexto} placeholder='Buscar...' onChange={e => setFiltroDeTexto(e.target.value)}></input>
             <OrderBy
                 Module="Records"

@@ -17,28 +17,28 @@ export const editNotaAction = (docID, editedNota = {}) => {
     })
 }
 
-export const AddAtivoAction = (NovoAtivo = {}) => {
+export const AddAssetAction = (NovoAsset = {}) => {
 
     return ({
-        type: 'ADD_ATIVO',
-        NovoAtivo
+        type: 'ADD_ASSET',
+        NovoAsset
     })
 }
 
 
-export const EditAtivoAction = (EditedAtivo = {}) => {
+export const EditAssetAction = (EditedAsset = {}) => {
 
     return ({
-        type: 'EDIT_ATIVO',
-        EditedAtivo
+        type: 'EDIT_ASSET',
+        EditedAsset
     })
 }
 
-export const DeleteAtivoAction = (AtivoToDelete = {}) => {
+export const DeleteAssetAction = (AssetToDelete = {}) => {
 
     return ({
-        type: 'DELETE_ATIVO',
-        AtivoToDelete
+        type: 'DELETE_ASSET',
+        AssetToDelete
     })
 }
 
@@ -49,10 +49,10 @@ export const clearAllNotas = () => {
     })
 }
 
-export const SetAtivos = (Ativos) => {
+export const SetAssets = (Assets) => {
     return ({
-        type: 'SET_ATIVOS',
-        Ativos
+        type: 'SET_ASSETS',
+        Assets
     })
 }
 

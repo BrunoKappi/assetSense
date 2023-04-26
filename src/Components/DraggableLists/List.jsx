@@ -14,33 +14,33 @@ import Show from '../LayoutComponents/Show/Show'
 
 
 const ListaDeitensMap = {
-  'AtivosInTypes': 'Ativos',
-  'AtivosInLocais': 'Ativos',
-  'UsersInTypes': 'Usuarios',
-  'UsersInSectores': 'Usuarios',
-  'AtivosInStatus': 'Ativos',
-  'AtivosInUsageTypes': 'Ativos',
+  'AssetsInTypes': 'Assets',
+  'AssetsInStorageLocations': 'Assets',
+  'UsersInTypes': 'Users',
+  'UsersInSectores': 'Users',
+  'AssetsInStatus': 'Assets',
+  'AssetsInUsageTypes': 'Assets',
 
 }
 
 
 const NameKey = {
-  'AtivosInTypes': 'Item',
-  'AtivosInLocais': 'Item',
+  'AssetsInTypes': 'Item',
+  'AssetsInStorageLocations': 'Item',
   'UsersInTypes': 'Name',
   'UsersInSectores': 'Name',
-  'AtivosInStatus': 'Item',
-  'AtivosInUsageTypes': 'Item',
+  'AssetsInStatus': 'Item',
+  'AssetsInUsageTypes': 'Item',
 }
 
 
 const IconMap = {
-  'AtivosInTypes': <UilLabel />,
-  'AtivosInLocais': <UilBox />,
+  'AssetsInTypes': <UilLabel />,
+  'AssetsInStorageLocations': <UilBox />,
   'UsersInTypes': <UilLabel />,
   'UsersInSectores': <UilPuzzlePiece />,
-  'AtivosInStatus': <UilLabel />,
-  'AtivosInUsageTypes': <UilPlay />,
+  'AssetsInStatus': <UilLabel />,
+  'AssetsInUsageTypes': <UilPlay />,
 }
 
 
@@ -58,17 +58,17 @@ const List = (props) => {
   window.addEventListener('resize', handleResize)
 
 
-  const ListaDeItens = [...props[ListaDeitensMap[props.Module]].filter(Ativo => Ativo[props.Key].id === props.Item.id && Ativo.Deleted === false)]
+  const ListaDeItens = [...props[ListaDeitensMap[props.Module]].filter(Asset => Asset[props.Key].id === props.Item.id && Asset.Deleted === false)]
 
 
 
   return (
-    <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'AtivosTypesShowOnlyCustomGroupListEscuro AtivosTypesShowOnlyCustomGroupList' : 'AtivosTypesShowOnlyCustomGroupListClaro AtivosTypesShowOnlyCustomGroupList'}>
+    <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'AssetsTypesShowOnlyCustomGroupListEscuro AssetsTypesShowOnlyCustomGroupList' : 'AssetsTypesShowOnlyCustomGroupListClaro AssetsTypesShowOnlyCustomGroupList'}>
 
 
 
       <ListGroup as="ul">
-        <ListGroup.Item as="li" className='AtivosTypesShowOnlyCustomGroupListTitle' >
+        <ListGroup.Item as="li" className='AssetsTypesShowOnlyCustomGroupListTitle' >
           <Tooltip title="Arraste e solte ítens nesta área" position="bottom" >
             <span className='UserTypesShowOnlyCustomGroupListTitleSpan'>
               {IconMap[props.Module]}
@@ -87,7 +87,7 @@ const List = (props) => {
                       return (
                         <div ref={DragProvided.innerRef} {...DragProvided.draggableProps} {...DragProvided.dragHandleProps}>
                           <ListGroup.Item key={Item[NameKey[props.Module]] + v4()} >
-                            <span className='AtivosTypesShowOnlyCustomGroupListItem'>
+                            <span className='AssetsTypesShowOnlyCustomGroupListItem'>
                               <span>
                                 {(props.Module === 'UsersInTypes' || props.Module === 'UsersInSectores') ?
                                   Item[NameKey[props.Module]] + ' ' + Item?.LastName : Item[NameKey[props.Module]]
@@ -115,8 +115,8 @@ const List = (props) => {
                 return (
                   <div  {...provided.droppableProps} ref={provided.innerRef}>
                     <Tooltip title="Arraste e solte usuários nesta área" position="bottom" >
-                      <span className='AtivosTypesShowOnlyCustomGroupListItem'>
-                        <span className='AtivosTypesShowOnlyCustomGroupListItemSpan'>Nenhum Ítem</span>
+                      <span className='AssetsTypesShowOnlyCustomGroupListItem'>
+                        <span className='AssetsTypesShowOnlyCustomGroupListItemSpan'>Nenhum Ítem</span>
                       </span>
                     </Tooltip>
                   </div>
@@ -140,8 +140,8 @@ const List = (props) => {
 
 const ConnectedList = connect((state) => {
   return {
-    Ativos: state.Ativos,
-    Usuarios: state.Usuarios
+    Assets: state.Assets,
+    Users: state.Users
   }
 })(List)
 

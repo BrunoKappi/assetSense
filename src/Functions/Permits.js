@@ -1,22 +1,22 @@
 import { GetCurrentUserTypePermitFromStore } from "./Middleware"
 
 
-export const EDITAR_TIPOS_ATIVOS = () => GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_ATIVOS')
-export const EDITAR_LOCAIS = () => GetCurrentUserTypePermitFromStore('EDITAR_LOCAIS')
-export const EDITAR_STATUS_ATIVOS = () => GetCurrentUserTypePermitFromStore('EDITAR_STATUS_ATIVOS')
-export const EDITAR_TIPOS_DE_USO = () => GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_DE_USO')
+export const EDITAR_TYPES_ASSETS = () => GetCurrentUserTypePermitFromStore('EDITAR_TYPES_ASSETS')
+export const EDITAR_STORAGELOCATIONS = () => GetCurrentUserTypePermitFromStore('EDITAR_STORAGELOCATIONS')
+export const EDITAR_STATUS_ASSETS = () => GetCurrentUserTypePermitFromStore('EDITAR_STATUS_ASSETS')
+export const EDITAR_TYPES_DE_USO = () => GetCurrentUserTypePermitFromStore('EDITAR_TYPES_DE_USO')
 export const EDITAR_SECTORS = () => GetCurrentUserTypePermitFromStore('EDITAR_SECTORS')
-export const EDITAR_TIPOS_DE_USUARIO = () => GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_DE_USUARIO')
+export const EDITAR_TYPES_DE_USER = () => GetCurrentUserTypePermitFromStore('EDITAR_TYPES_DE_USER')
 export const EDITAR_PERMICOES = () => GetCurrentUserTypePermitFromStore('EDITAR_PERMICOES')
-export const VISUALIZAR_ATIVOS = () => GetCurrentUserTypePermitFromStore('VISUALIZAR_ATIVOS')
-export const RETIRAR_ATIVOS = () => GetCurrentUserTypePermitFromStore('RETIRAR_ATIVOS')
-export const ADICIONAR_ATIVOS = () => GetCurrentUserTypePermitFromStore('ADICIONAR_ATIVOS')
-export const EDITAR_ATIVOS = () => GetCurrentUserTypePermitFromStore('EDITAR_ATIVOS')
-export const EXCLUIR_ATIVOS = () => GetCurrentUserTypePermitFromStore('EXCLUIR_ATIVOS')
-export const VISUALIZAR_USUARIOS = () => GetCurrentUserTypePermitFromStore('VISUALIZAR_USUARIOS')
-export const ADICIONAR_USUARIOS = () => GetCurrentUserTypePermitFromStore('ADICIONAR_USUARIOS')
-export const EDITAR_USUARIOS = () => GetCurrentUserTypePermitFromStore('EDITAR_USUARIOS')
-export const EXCLUIR_USUARIOS = () => GetCurrentUserTypePermitFromStore('EXCLUIR_USUARIOS')
+export const VISUALIZAR_ASSETS = () => GetCurrentUserTypePermitFromStore('VISUALIZAR_ASSETS')
+export const RETIRAR_ASSETS = () => GetCurrentUserTypePermitFromStore('RETIRAR_ASSETS')
+export const ADICIONAR_ASSETS = () => GetCurrentUserTypePermitFromStore('ADICIONAR_ASSETS')
+export const EDITAR_ASSETS = () => GetCurrentUserTypePermitFromStore('EDITAR_ASSETS')
+export const EXCLUIR_ASSETS = () => GetCurrentUserTypePermitFromStore('EXCLUIR_ASSETS')
+export const VISUALIZAR_USERS = () => GetCurrentUserTypePermitFromStore('VISUALIZAR_USERS')
+export const ADICIONAR_USERS = () => GetCurrentUserTypePermitFromStore('ADICIONAR_USERS')
+export const EDITAR_USERS = () => GetCurrentUserTypePermitFromStore('EDITAR_USERS')
+export const EXCLUIR_USERS = () => GetCurrentUserTypePermitFromStore('EXCLUIR_USERS')
 
 
 
@@ -29,35 +29,35 @@ export const EXCLUIR_USUARIOS = () => GetCurrentUserTypePermitFromStore('EXCLUIR
 
 
 // TELA DE ATIVOS
-export const AtivosTela = () => {
+export const AssetsTela = () => {
     return (
-        VISUALIZAR_ATIVOS() ||
-        RETIRAR_ATIVOS() ||
-        ADICIONAR_ATIVOS() ||
-        EDITAR_ATIVOS() ||
-        EXCLUIR_ATIVOS()
+        VISUALIZAR_ASSETS() ||
+        RETIRAR_ASSETS() ||
+        ADICIONAR_ASSETS() ||
+        EDITAR_ASSETS() ||
+        EXCLUIR_ASSETS()
     )
 }
 
-// TELA DE USUARIOS
-export const UsuariosTela = () => {
+// TELA DE USUÁRIOS
+export const UsersTela = () => {
     return (
-        VISUALIZAR_USUARIOS() ||
-        ADICIONAR_USUARIOS() ||
-        EDITAR_USUARIOS() ||
-        EXCLUIR_USUARIOS()
+        VISUALIZAR_USERS() ||
+        ADICIONAR_USERS() ||
+        EDITAR_USERS() ||
+        EXCLUIR_USERS()
     )
 }
 
 // TELA DE CONFIGURAÇÔES
 export const ConfigTela = () => {
     return (
-        EDITAR_TIPOS_ATIVOS() ||
-        EDITAR_LOCAIS() ||
-        EDITAR_STATUS_ATIVOS() ||
-        EDITAR_TIPOS_DE_USO() ||
+        EDITAR_TYPES_ASSETS() ||
+        EDITAR_STORAGELOCATIONS() ||
+        EDITAR_STATUS_ASSETS() ||
+        EDITAR_TYPES_DE_USO() ||
         EDITAR_SECTORS() ||
-        EDITAR_TIPOS_DE_USUARIO ||
+        EDITAR_TYPES_DE_USER ||
         EDITAR_PERMICOES()
     )
 }
@@ -88,19 +88,19 @@ export const ConfigTela = () => {
 
 ///////////////////////// TELA DE CONFIGURAÇÔES ///////////////////////////
 
-//ACCESS ATIVOS TAB
-export const AtivosTabAccess = () => {
+//ACCESS ASSETS TAB
+export const AssetsTabAccess = () => {
     return (
-        EDITAR_TIPOS_ATIVOS() ||
-        EDITAR_LOCAIS() ||
-        EDITAR_STATUS_ATIVOS() ||
-        EDITAR_TIPOS_DE_USO()
+        EDITAR_TYPES_ASSETS() ||
+        EDITAR_STORAGELOCATIONS() ||
+        EDITAR_STATUS_ASSETS() ||
+        EDITAR_TYPES_DE_USO()
     )
 }
 
-//ACCESS SECTORS E USUARIOS TAB
-export const SectorsUsuariosTabAccess = () => {
-    return EDITAR_SECTORS() || EDITAR_TIPOS_DE_USUARIO()
+//ACCESS SECTORS E USERS TAB
+export const SectorsUsersTabAccess = () => {
+    return EDITAR_SECTORS() || EDITAR_TYPES_DE_USER()
 }
 
 //ACCESS PERMITS TAB
@@ -123,31 +123,31 @@ export const PermicoesTabAccess = () => {
 ///////////////////////// TELA DE ATIVOS ////////////////////////////
 
 
-export const TodosAtivosTab = () => {
+export const TodosAssetsTab = () => {
     return (
-        EDITAR_ATIVOS() || VISUALIZAR_ATIVOS()
+        EDITAR_ASSETS() || VISUALIZAR_ASSETS()
     )
 }
-export const AtivosInLocaisTab = () => {
+export const AssetsInStorageLocationsTab = () => {
     return (
-        EDITAR_ATIVOS() || VISUALIZAR_ATIVOS()
+        EDITAR_ASSETS() || VISUALIZAR_ASSETS()
     )
 }
-export const AtivosInTypesTab = () => {
+export const AssetsInTypesTab = () => {
     return (
-        EDITAR_ATIVOS() || VISUALIZAR_ATIVOS()
-    )
-}
-
-export const AtivosInStatusTab = () => {
-    return (
-        EDITAR_ATIVOS() || VISUALIZAR_ATIVOS()
+        EDITAR_ASSETS() || VISUALIZAR_ASSETS()
     )
 }
 
-export const AtivosInUsageTypesTab = () => {
+export const AssetsInStatusTab = () => {
     return (
-        EDITAR_ATIVOS() || VISUALIZAR_ATIVOS()
+        EDITAR_ASSETS() || VISUALIZAR_ASSETS()
+    )
+}
+
+export const AssetsInUsageTypesTab = () => {
+    return (
+        EDITAR_ASSETS() || VISUALIZAR_ASSETS()
     )
 }
 
@@ -155,21 +155,21 @@ export const AtivosInUsageTypesTab = () => {
 
 
 
-///////////////////////// TELA DE USUARIOS ////////////////////////////
+///////////////////////// TELA DE USUÁRIOS ////////////////////////////
 
 
 export const TodosUsersTab = () => {
     return (
-        EDITAR_USUARIOS() || VISUALIZAR_USUARIOS()
+        EDITAR_USERS() || VISUALIZAR_USERS()
     )
 }
 export const UsersInSectorsTab = () => {
     return (
-        EDITAR_USUARIOS() || VISUALIZAR_USUARIOS()
+        EDITAR_USERS() || VISUALIZAR_USERS()
     )
 }
 export const UsersInTypesTab = () => {
     return (
-        EDITAR_USUARIOS() || VISUALIZAR_USUARIOS()
+        EDITAR_USERS() || VISUALIZAR_USERS()
     )
 }

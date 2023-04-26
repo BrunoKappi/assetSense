@@ -6,41 +6,41 @@ import Tabs from 'react-bootstrap/Tabs';
 import { connect } from 'react-redux'
 //COMPONENTS
 import DraggableLists from '../DraggableLists/DraggableLists'
-import AtivosList from '../AssetList/AssetList'
+import AssetsList from '../AssetList/AssetList'
 //LAYOUT COMPONENTS
 import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
 //FUNCTIONS
-import { AtivosInLocaisTab, AtivosInTypesTab, TodosAtivosTab, AtivosInStatusTab, AtivosInUsageTypesTab } from '../../Functions/Permits';
+import { AssetsInStorageLocationsTab, AssetsInTypesTab, TodosAssetsTab, AssetsInStatusTab, AssetsInUsageTypesTab } from '../../Functions/Permits';
 import { NotificationErro } from '../../NotificationUtils';
 
 
-const Ativos = (props) => {
+const Assets = (props) => {
 
   //GET INITIAL TAB BASED ON PERMITS 
   const getInitialTab = () => {
-    if (TodosAtivosTab())
-      return 'TodosAtivos'
-    else if (AtivosInLocaisTab())
-      return 'AtivosInArmazenamento'
-    else if (AtivosInTypesTab())
-      return 'AtivosInTipos'
+    if (TodosAssetsTab())
+      return 'TodosAssets'
+    else if (AssetsInStorageLocationsTab())
+      return 'AssetsInArmazenamento'
+    else if (AssetsInTypesTab())
+      return 'AssetsInTypes'
   }
 
   //STATES 
   const [key, setKey] = useState(getInitialTab());
 
   //KEY THAT CONTROL TABS
-  const SetKeyAtivos = (Key) => {
-    if (Key === 'TodosAtivos' && TodosAtivosTab())
+  const SetKeyAssets = (Key) => {
+    if (Key === 'TodosAssets' && TodosAssetsTab())
       setKey(Key)
-    else if (Key === 'AtivosInArmazenamento' && AtivosInLocaisTab())
+    else if (Key === 'AssetsInArmazenamento' && AssetsInStorageLocationsTab())
       setKey(Key)
-    else if (Key === 'AtivosInTipos' && AtivosInTypesTab())
+    else if (Key === 'AssetsInTypes' && AssetsInTypesTab())
       setKey(Key)
-    else if (Key === 'AtivosInStatus' && AtivosInStatusTab())
+    else if (Key === 'AssetsInStatus' && AssetsInStatusTab())
       setKey(Key)
-    else if (Key === 'AtivosInUsageTypes' && AtivosInUsageTypesTab())
+    else if (Key === 'AssetsInUsageTypes' && AssetsInUsageTypesTab())
       setKey(Key)
     else
       NotificationErro("Não Autorizado", "Você não possui permissão para acessar essa aba, solicite acesso ao seu Administrador")
@@ -49,45 +49,45 @@ const Ativos = (props) => {
 
   return (
 
-    <div className={props.Tema === 'Escuro' ? 'AtivosContainerEscuro AtivosContainer' : 'AtivosContainerClaro AtivosContainer'}>
+    <div className={props.Tema === 'Escuro' ? 'AssetsContainerEscuro AssetsContainer' : 'AssetsContainerClaro AssetsContainer'}>
 
       {/******************************  TABS  *********************************/}
       <TabsContainer Tema={props.Tema}>
-        <TabButton ButtonName="TodosAtivos" Key={key} onClick={(k) => SetKeyAtivos('TodosAtivos')} />
-        <TabButton ButtonName="AtivosInArmazenamento" Key={key} onClick={(k) => SetKeyAtivos('AtivosInArmazenamento')} />
-        <TabButton ButtonName="AtivosInTipos" Key={key} onClick={(k) => SetKeyAtivos('AtivosInTipos')} />
-        <TabButton ButtonName="AtivosInUsageTypes" Key={key} onClick={(k) => SetKeyAtivos('AtivosInUsageTypes')} />
-        <TabButton ButtonName="AtivosInStatus" Key={key} onClick={(k) => SetKeyAtivos('AtivosInStatus')} />
+        <TabButton ButtonName="TodosAssets" Key={key} onClick={(k) => SetKeyAssets('TodosAssets')} />
+        <TabButton ButtonName="AssetsInArmazenamento" Key={key} onClick={(k) => SetKeyAssets('AssetsInArmazenamento')} />
+        <TabButton ButtonName="AssetsInTypes" Key={key} onClick={(k) => SetKeyAssets('AssetsInTypes')} />
+        <TabButton ButtonName="AssetsInUsageTypes" Key={key} onClick={(k) => SetKeyAssets('AssetsInUsageTypes')} />
+        <TabButton ButtonName="AssetsInStatus" Key={key} onClick={(k) => SetKeyAssets('AssetsInStatus')} />
 
       </TabsContainer>
 
       {/****************************** BOOTSTRAP TABS  *********************************/}
       <Tabs activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
 
-        {/******************************  TODOS ATIVOS TAB  *********************************/}
-        <Tab eventKey="TodosAtivos" >
-          <AtivosList />
+        {/******************************  TODOS ASSETS TAB  *********************************/}
+        <Tab eventKey="TodosAssets" >
+          <AssetsList />
         </Tab>
-        {/******************************  ATIVOS IN TYPES TAB  *********************************/}
-        <Tab eventKey="AtivosInTipos" >
+        {/******************************  ASSETS IN TYPES TAB  *********************************/}
+        <Tab eventKey="AssetsInTypes" >
           <div className='ListItensContainer'>
-            <DraggableLists Module='AtivosInTypes' />
+            <DraggableLists Module='AssetsInTypes' />
           </div>
         </Tab>
-        {/******************************  ATIVOS IN LOCAIS TAB  *********************************/}
-        <Tab eventKey="AtivosInArmazenamento">
+        {/******************************  ASSETS IN STORAGELOCATIONS TAB  *********************************/}
+        <Tab eventKey="AssetsInArmazenamento">
           <div className='ListItensContainer'>
-            <DraggableLists Module='AtivosInLocais' />
+            <DraggableLists Module='AssetsInStorageLocations' />
           </div>
         </Tab>
-        <Tab eventKey="AtivosInUsageTypes">
+        <Tab eventKey="AssetsInUsageTypes">
           <div className='ListItensContainer'>
-            <DraggableLists Module='AtivosInUsageTypes' />
+            <DraggableLists Module='AssetsInUsageTypes' />
           </div>
         </Tab>
-        <Tab eventKey="AtivosInStatus">
+        <Tab eventKey="AssetsInStatus">
           <div className='ListItensContainer'>
-            <DraggableLists Module='AtivosInStatus' />
+            <DraggableLists Module='AssetsInStatus' />
           </div>
         </Tab>
 
@@ -97,10 +97,10 @@ const Ativos = (props) => {
 }
 
 
-const ConnectedAtivos = connect((state) => {
+const ConnectedAssets = connect((state) => {
   return {
     Tema: state.Tema
   }
-})(Ativos)
+})(Assets)
 
-export default ConnectedAtivos 
+export default ConnectedAssets 

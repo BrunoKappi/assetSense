@@ -6,14 +6,14 @@ import { UilLabel, UilPuzzlePiece, UilBox, UilPlay, UilPlus, UilTrashAlt, UilBac
 import ListGroup from 'react-bootstrap/ListGroup';
 import { v4 } from 'uuid';
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { DefaultAtivoStatus, DefaultAtivosType, DefaultItemType } from '../../Data/Items';
+import { DefaultAssetStatus, DefaultAssetsType, DefaultItemType } from '../../Data/Items';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import { Tooltip } from 'react-tippy';
 import { GetNotificationErrorMessageDelete, GetNotificationSuccessMessageAdd, GetNotificationExistsMessageAdd, GetNotificationSuccessMessageDelete, GetNotificationSuccessMessageChangeName } from './EditableCustomListUtils';
 import Loading from '../LoadingForTabs/Loading'
-import { AddToFirebaseFunctions, CheckIfAnyAtivoOfStatusTaken2, DeleteFromFirebaseFunctions, UpdateInFirebaseFunctions, GetFromStoreFunctions, SetInStoreFunctions, SetAssetStatusOnStore, EditAssetStatuInFirebase } from '../../Functions/Middleware';
+import { AddToFirebaseFunctions, CheckIfAnyAssetOfStatusTaken2, DeleteFromFirebaseFunctions, UpdateInFirebaseFunctions, GetFromStoreFunctions, SetInStoreFunctions, SetAssetStatusOnStore, EditAssetStatuInFirebase } from '../../Functions/Middleware';
 import { DefaultUserRole } from '../../Data/Items';
-import { EDITAR_LOCAIS, EDITAR_SECTORS, EDITAR_STATUS_ATIVOS, EDITAR_TIPOS_ATIVOS, EDITAR_TIPOS_DE_USO, EDITAR_TIPOS_DE_USUARIO } from '../../Functions/Permits';
+import { EDITAR_STORAGELOCATIONS, EDITAR_SECTORS, EDITAR_STATUS_ASSETS, EDITAR_TYPES_ASSETS, EDITAR_TYPES_DE_USO, EDITAR_TYPES_DE_USER } from '../../Functions/Permits';
 import Show from '../LayoutComponents/Show/Show'
 
 
@@ -26,12 +26,12 @@ const EditableCustomList = (props) => {
 
   //LISTS OF ITENS RELATED WITH EACH MODULE
   const Lists = {
-    AssetTypess: props.Ativos,
-    Sectors: props.Usuarios,
-    UserTypes: props.Usuarios,
-    Locais: props.Ativos,
-    AssetsStatus: props.Ativos,
-    UsageTypes: props.Ativos
+    AssetTypess: props.Assets,
+    Sectors: props.Users,
+    UserTypes: props.Users,
+    StorageLocations: props.Assets,
+    AssetsStatus: props.Assets,
+    UsageTypes: props.Assets
   }
 
   //ICONS FOR EACH MODULE
@@ -39,18 +39,18 @@ const EditableCustomList = (props) => {
     AssetTypess: <UilLabel />,
     Sectors: <UilPuzzlePiece />,
     UserTypes: <UilLabel />,
-    Locais: <UilBox />,
+    StorageLocations: <UilBox />,
     AssetsStatus: <UilLabel />,
     UsageTypes: <UilPlay />
   };
 
   //DEFAULT ITEM OBJECTS FOR EACH MODULE
   const DefaultObjets = {
-    AssetTypess: DefaultAtivosType,
+    AssetTypess: DefaultAssetsType,
     Sectors: DefaultItemType,
     UserTypes: DefaultUserRole,
-    Locais: DefaultItemType,
-    AssetsStatus: DefaultAtivoStatus,
+    StorageLocations: DefaultItemType,
+    AssetsStatus: DefaultAssetStatus,
     UsageTypes: DefaultItemType
   }
 
@@ -59,25 +59,25 @@ const EditableCustomList = (props) => {
     AssetTypess: 'Type',
     Sectors: 'Sector',
     UserTypes: 'Type',
-    Locais: 'StorageLocation',
+    StorageLocations: 'StorageLocation',
     AssetsStatus: 'Status',
     UsageTypes: 'Usage'
   }
 
   //PERMITS
-  const TiposAtvisoPermit = EDITAR_TIPOS_ATIVOS()
-  const LocaisPermit = EDITAR_LOCAIS()
-  const AssetsStatusPermit = EDITAR_STATUS_ATIVOS()
-  const UsageTypesPermit = EDITAR_TIPOS_DE_USO()
+  const TypesAtvisoPermit = EDITAR_TYPES_ASSETS()
+  const StorageLocationsPermit = EDITAR_STORAGELOCATIONS()
+  const AssetsStatusPermit = EDITAR_STATUS_ASSETS()
+  const UsageTypesPermit = EDITAR_TYPES_DE_USO()
   const SectorsPermit = EDITAR_SECTORS()
-  const UserTypesPermit = EDITAR_TIPOS_DE_USUARIO()
+  const UserTypesPermit = EDITAR_TYPES_DE_USER()
 
   //PERMITS MAP
   const CustomListPermits = {
-    AssetTypess: TiposAtvisoPermit,
+    AssetTypess: TypesAtvisoPermit,
     Sectors: SectorsPermit,
     UserTypes: UserTypesPermit,
-    Locais: LocaisPermit,
+    StorageLocations: StorageLocationsPermit,
     AssetsStatus: AssetsStatusPermit,
     UsageTypes: UsageTypesPermit
   };
@@ -186,7 +186,7 @@ const EditableCustomList = (props) => {
 
       ItensCopy.splice(Index, 1)
 
-      const Associated = Lists[props.Module].find(Ativo => Ativo[ObjectKeys[props.Module]].id === Id)
+      const Associated = Lists[props.Module].find(Asset => Asset[ObjectKeys[props.Module]].id === Id)
 
       const saveFunction = SetInStoreFunctions[props.Module]
 
@@ -231,10 +231,10 @@ const EditableCustomList = (props) => {
   const HandleSubmiChangeCanTake = (index) => {
     var ItensCopy = [...ListaDeItens]
 
-    const IsThereTakes = CheckIfAnyAtivoOfStatusTaken2(ItensCopy[index].id)
+    const IsThereTakes = CheckIfAnyAssetOfStatusTaken2(ItensCopy[index].id)
 
     if (IsThereTakes && (ItensCopy[index].CanTake === true)) {
-      NotificationErro("Ação não permitida", "Você não pode mudar este Status no momento, pois já existem ativos com este status em utilização")
+      NotificationErro("Ação não permitida", "Você não pode mudar este Status no momento, pois já existem assets com este status em utilização")
     } else {
       ItensCopy[index].CanTake = !ItensCopy[index].CanTake
 
@@ -375,10 +375,10 @@ const ConnectedEditableCustomList = connect((state) => {
   return {
     AssetTypess: state.AssetTypess,
     UserTypes: state.UserTypes,
-    Ativos: state.Ativos,
+    Assets: state.Assets,
     Sectors: state.Sectors,
     StorageLocations: state.StorageLocations,
-    Usuarios: state.Usuarios,
+    Users: state.Users,
     AssetsStatus: state.AssetsStatus,
     Tema: state.Tema
   }

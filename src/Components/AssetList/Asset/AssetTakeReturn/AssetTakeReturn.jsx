@@ -3,7 +3,7 @@ import './AssetTakeReturn.css'
 import { DevolverTabTitle, RetirarTabTitle } from './AssetTakeReturnUtils';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
 import { UilUser, UilEnvelope, UilBookmark, UilCalendarAlt, UilArchive, UilArrowUp, UilComment, UilArrowDown } from '@iconscout/react-unicons'
-import { AddRecordToFirebase, EditAssetInFirebase, EditAssetOnStore, EditRecordInFirebase, EditRecordStore, GetFromStore, GetQtdInUseOfAtivoWithId, GetRecordByAtivoIdAndUserId, GetTakesOfAtivoOfCurrentUser, GetUsersThatTookAsset, GetUsersThatTookAtivo, SetRecordsOnStore } from '../../../../Functions/Middleware';
+import { AddRecordToFirebase, EditAssetInFirebase, EditAssetOnStore, EditRecordInFirebase, EditRecordStore, GetFromStore, GetQtdInUseOfAssetWithId, GetRecordByAssetIdAndUserId, GetTakesOfAssetOfCurrentUser, GetUsersThatNotTookAsset, GetUsersThatTookAsset, SetRecordsOnStore } from '../../../../Functions/Middleware';
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
 import { DefaultRecord } from '../../../../Data/Items';
 import { v4 } from 'uuid';
@@ -22,7 +22,7 @@ import SidebarItem from '../../../LayoutComponents/SidebarItem/SidebarItem';
 import Warning from '../../../LayoutComponents/Warning/Warning';
 import CustomSelect from '../../../LayoutComponents/CustomSelect/CustomSelect'
 
-const AtivoTakeReturn = (props) => {
+const AssetTakeReturn = (props) => {
 
     // FUNCIONALIDADE
     const [CurrentUser,] = useState(GetFromStore('CurrentUser'))
@@ -35,9 +35,9 @@ const AtivoTakeReturn = (props) => {
     const [LoadingAction, setLoadingAction] = useState(false);
 
     //QUANTIDADES
-    const QuantidadeDoAtivo = props.Ativo?.Qtd
+    const QuantidadeDoAsset = props.Asset?.Qtd
     const [QuantidadeRetirada, SetQuantidadeRetirada] = useState()
-    const [QuantidadeRetiradaPeloCurrentUser, SetQuantidadeRetiradaPeloCurrentUser] = useState(GetTakesOfAtivoOfCurrentUser(props.Ativo?.id))
+    const [QuantidadeRetiradaPeloCurrentUser, SetQuantidadeRetiradaPeloCurrentUser] = useState(GetTakesOfAssetOfCurrentUser(props.Asset?.id))
 
     //CONFIRM 
     const [Confirm, SetConfirm] = useState(false)
@@ -47,8 +47,8 @@ const AtivoTakeReturn = (props) => {
 
     //UPDATE QUANTIDADES
     useEffect(() => {
-        SetQuantidadeRetirada(GetQtdInUseOfAtivoWithId(props.Ativo?.id))
-    }, [props.Ativos])
+        SetQuantidadeRetirada(GetQtdInUseOfAssetWithId(props.Asset?.id))
+    }, [props.Assets])
 
     // HANDLE ERROR
     const HandleError = (Erro) => {
@@ -59,16 +59,16 @@ const AtivoTakeReturn = (props) => {
 
     //UPDATE QUANTIDADES
     useEffect(() => {
-        SetQuantidadeRetirada(GetQtdInUseOfAtivoWithId(props.Ativo?.id))
-        SetQuantidadeRetiradaPeloCurrentUser(GetTakesOfAtivoOfCurrentUser(props.Ativo?.id))
-    }, [props.Ativo?.id, props.RecordsAtivos])
+        SetQuantidadeRetirada(GetQtdInUseOfAssetWithId(props.Asset?.id))
+        SetQuantidadeRetiradaPeloCurrentUser(GetTakesOfAssetOfCurrentUser(props.Asset?.id))
+    }, [props.Asset?.id, props.RecordsAssets])
 
 
     //TOGGLE TARGET OF ACTION
     const ToggleActionFor = () => {
         if (key === 'Devolver' && QuantidadeRetiradaPeloCurrentUser === 0)
             setActionFor('Other')
-        else if (key === 'Retirar' && (QuantidadeRetiradaPeloCurrentUser >= props.Ativo?.QtdPerUser))
+        else if (key === 'Retirar' && (QuantidadeRetiradaPeloCurrentUser >= props.Asset?.QtdPerUser))
             setActionFor('Other')
         else
             setActionFor(ActionFor === 'Me' ? 'Other' : 'Me')
@@ -85,8 +85,8 @@ const AtivoTakeReturn = (props) => {
         setActionFor('Me')
         setObs('')
         setReturnFor()
-        setTimeout(() => { SetQuantidadeRetirada(GetQtdInUseOfAtivoWithId(props.Ativo?.id)) }, 500);
-        setTimeout(() => { SetQuantidadeRetiradaPeloCurrentUser(GetTakesOfAtivoOfCurrentUser(props.Ativo?.id)) }, 500);
+        setTimeout(() => { SetQuantidadeRetirada(GetQtdInUseOfAssetWithId(props.Asset?.id)) }, 500);
+        setTimeout(() => { SetQuantidadeRetiradaPeloCurrentUser(GetTakesOfAssetOfCurrentUser(props.Asset?.id)) }, 500);
     }
 
 
@@ -128,7 +128,7 @@ const AtivoTakeReturn = (props) => {
         // DEVOLVER
         else {
             var UserId = ActionFor === 'Me' ? CurrentUser.id : ReturnFor.id
-            const RecordToEdit = GetRecordByAtivoIdAndUserId(props.Ativo?.id, UserId)
+            const RecordToEdit = GetRecordByAssetIdAndUserId(props.Asset?.id, UserId)
 
             if (!EventDate) {
                 NotificationErro("Preenchimento Inválido", "Selecione uma Data para registrar a retirada")
@@ -179,7 +179,7 @@ const AtivoTakeReturn = (props) => {
                 ForId = TakenFor.id
 
             NewRecordToAdd.id = v4()
-            NewRecordToAdd.AtivoId = props.Ativo?.id
+            NewRecordToAdd.AtivoId = props.Asset?.id
             NewRecordToAdd.TakeDate = SelectedDateTime
             NewRecordToAdd.TakenBy.id = CurrentUser.id
             NewRecordToAdd.TakenFor.id = ForId
@@ -188,22 +188,22 @@ const AtivoTakeReturn = (props) => {
             NewRecordToAdd.Obs = Obs
 
 
-            FIREBASE_GetRecordsNotReturnByAsset(props.Ativo?.id).then(QuantidadeFirebaseRetirada => {
+            FIREBASE_GetRecordsNotReturnByAsset(props.Asset?.id).then(QuantidadeFirebaseRetirada => {
 
-                if (QuantidadeDoAtivo <= QuantidadeFirebaseRetirada) {
+                if (QuantidadeDoAsset <= QuantidadeFirebaseRetirada) {
                     NotificationErro("Ação negada", "Parece que alguém ja reitrou esse item, atualize sua página para infomações atualizadas")
                 } else {
 
                     AddRecordToFirebase(NewRecordToAdd).then((Record) => {
 
                         //ADD PLUS 1 RETIRADA 
-                        const NewAtivo = { ...props.Ativo, QtdInUse: props.Ativo.QtdInUse + 1 }
-                        EditAssetOnStore(NewAtivo)
-                        EditAssetInFirebase(NewAtivo)
+                        const NewAsset = { ...props.Asset, QtdInUse: props.Asset.QtdInUse + 1 }
+                        EditAssetOnStore(NewAsset)
+                        EditAssetInFirebase(NewAsset)
                         SetQuantidadeRetirada(prev => prev + 1)
 
 
-                        const Lista = GetFromStore('RecordsAtivos')
+                        const Lista = GetFromStore('RecordsAssets')
 
                         const Records = [...Lista]
                         NewRecordToAdd.docID = Record?.id
@@ -232,7 +232,7 @@ const AtivoTakeReturn = (props) => {
         // DEVOLVER
         else {
             var UserId = ActionFor === 'Me' ? CurrentUser.id : ReturnFor.id
-            const RecordToEdit = GetRecordByAtivoIdAndUserId(props.Ativo?.id, UserId)
+            const RecordToEdit = GetRecordByAssetIdAndUserId(props.Asset?.id, UserId)
 
             RecordToEdit.ReturnDate = SelectedDateTime
             RecordToEdit.ReturnObs = Obs
@@ -242,9 +242,9 @@ const AtivoTakeReturn = (props) => {
 
 
             //ADD MINUS 1 RETIRADA 
-            const NewAtivo = { ...props.Ativo, QtdInUse: props.Ativo.QtdInUse - 1 }
-            EditAssetOnStore(NewAtivo)
-            EditAssetInFirebase(NewAtivo)
+            const NewAsset = { ...props.Asset, QtdInUse: props.Asset.QtdInUse - 1 }
+            EditAssetOnStore(NewAsset)
+            EditAssetInFirebase(NewAsset)
             SetQuantidadeRetirada(prev => prev - 1)
 
             EditRecordInFirebase(RecordToEdit).then(() => {
@@ -268,7 +268,7 @@ const AtivoTakeReturn = (props) => {
         if (Action === 'Devolver' && QuantidadeRetiradaPeloCurrentUser === 0) {
             setActionFor('Other')
             setKey(Action)
-        } else if (Action === 'Retirar' && (QuantidadeRetiradaPeloCurrentUser >= props.Ativo?.QtdPerUser)) {
+        } else if (Action === 'Retirar' && (QuantidadeRetiradaPeloCurrentUser >= props.Asset?.QtdPerUser)) {
             setActionFor('Other')
             setKey(Action)
         } else
@@ -277,23 +277,23 @@ const AtivoTakeReturn = (props) => {
 
 
 
-    console.log("QTD", props.Ativo?.QtdPerUser)
+    console.log("QTD", props.Asset?.QtdPerUser)
 
     return (
-        <div className={props.Tema === 'Escuro' ? 'AtivoTakeReturn-ContainerEscuro AtivoTakeReturn-Container' : 'AtivoTakeReturn-ContainerClaro AtivoTakeReturn-Container'}>
+        <div className={props.Tema === 'Escuro' ? 'AssetTakeReturn-ContainerEscuro AssetTakeReturn-Container' : 'AssetTakeReturn-ContainerClaro AssetTakeReturn-Container'}>
 
             {/***********************   QUANTIDADES  **********************/}
             <Show Show={!Confirm && !LoadingAction}>
-                <div className='AtivoTakeReturn-Quantidades'>
-                    <div className='AtivoTakeReturn-Quantidades-Item'>
+                <div className='AssetTakeReturn-Quantidades'>
+                    <div className='AssetTakeReturn-Quantidades-Item'>
                         <UilArchive />
-                        <span>Quantidade de Itens: {QuantidadeDoAtivo} </span>
+                        <span>Quantidade de Itens: {QuantidadeDoAsset} </span>
                     </div>
-                    <div className='AtivoTakeReturn-Quantidades-Item'>
+                    <div className='AssetTakeReturn-Quantidades-Item'>
                         <UilArrowUp />
                         <span>Itens Retirados: {QuantidadeRetirada} </span>
                     </div>
-                    <div className='AtivoTakeReturn-Quantidades-Item'>
+                    <div className='AssetTakeReturn-Quantidades-Item'>
                         <UilArrowDown />
                         <span>Retirador por você: {QuantidadeRetiradaPeloCurrentUser} </span>
                     </div>
@@ -305,7 +305,7 @@ const AtivoTakeReturn = (props) => {
             <Show Show={!Confirm && !LoadingAction}>
                 <div>
 
-                    <div className={props.Tema === 'Escuro' ? 'AtivoTRTabsContainerEscuro AtivoTRTabsContainer' : 'AtivoTRTabsContainerClaro AtivoTRTabsContainer'}>
+                    <div className={props.Tema === 'Escuro' ? 'AssetTRTabsContainerEscuro AssetTRTabsContainer' : 'AssetTRTabsContainerClaro AssetTRTabsContainer'}>
                         <SidebarItem Active={key === 'Retirar'}
                             onClick={e => SetKey('Retirar')}>
                             {RetirarTabTitle()}
@@ -317,26 +317,26 @@ const AtivoTakeReturn = (props) => {
                     </div>
 
                     {/*****************************    RETIRADA        *****************************/}
-                    <Show Show={key === 'Retirar' && (QuantidadeDoAtivo > QuantidadeRetirada)}>
-                        <div className='AtivoTakeReturn-TakeForm'>
+                    <Show Show={key === 'Retirar' && (QuantidadeDoAsset > QuantidadeRetirada)}>
+                        <div className='AssetTakeReturn-TakeForm'>
 
                             <Show Show={ActionFor === 'Me'}>
-                                <h4 className='AtivoModalBody-AtivoInfoForm-SectionTitle-TakeReturn'>Registro de Retirada de Ativo para {CurrentUser?.Name + ' ' + CurrentUser?.LastName} </h4>
+                                <h4 className='AssetModalBody-AssetInfoForm-SectionTitle-TakeReturn'>Registro de Retirada de Ativo para {CurrentUser?.Name + ' ' + CurrentUser?.LastName} </h4>
                             </Show>
 
                             <Show Show={ActionFor !== 'Me'}>
-                                <h4 className='AtivoModalBody-AtivoInfoForm-SectionTitle-TakeReturn'>Registro de Retirada de Ativo
+                                <h4 className='AssetModalBody-AssetInfoForm-SectionTitle-TakeReturn'>Registro de Retirada de Ativo
                                     {(TakenFor?.Name ? (' para ' + TakenFor?.Name) : '') + ' ' + (TakenFor?.LastName ? TakenFor?.LastName : '')}
                                 </h4>
                             </Show>
 
-                            <div className='AtivoTakeReturn-TakeFor'>
+                            <div className='AssetTakeReturn-TakeFor'>
                                 {ActionFor === 'Me' ? <ImCheckboxUnchecked onClick={ToggleActionFor} /> : <ImCheckboxChecked onClick={ToggleActionFor} />}
                                 Registrar para outra pessoa
                             </div>
 
-                            <Show Show={QuantidadeRetiradaPeloCurrentUser >= props.Ativo?.QtdPerUser}>
-                                <div className='AtivoTakeReturn-AvisoInfo'>
+                            <Show Show={QuantidadeRetiradaPeloCurrentUser >= props.Asset?.QtdPerUser}>
+                                <div className='AssetTakeReturn-AvisoInfo'>
                                     <Tooltip title="Poderá apenas registrar uma retirada para outros usuários" position="bottom" >
                                         <Warning Text='Você já retirou a quantidade máxima permitida por usuário para este item' />
                                     </Tooltip>
@@ -348,28 +348,28 @@ const AtivoTakeReturn = (props) => {
                                 <Show Show={ActionFor !== 'Me'}>
                                     <>
                                         <TwoColumns>
-                                            <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                            <div className='AssetModalBody-AssetInfoForm-Group'>
                                                 <FormGroupLabel>
                                                     <UilEnvelope />
                                                     Email (Retirado para)
                                                 </FormGroupLabel>
                                                 <CustomSelect
                                                     placeholder="Digite o Email"
-                                                    options={GetUsersThatTookAsset(props?.Ativo?.id)}
+                                                    options={GetUsersThatNotTookAsset(props?.Asset?.id)}
                                                     getOptionLabel={(options) => { return options["Email"]; }}
                                                     getOptionValue={(options) => { return options["Id"]; }}
                                                     value={TakenFor}
                                                     onChange={(item) => { setTakenFor(item); }}
                                                 />
                                             </div>
-                                            <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                            <div className='AssetModalBody-AssetInfoForm-Group'>
                                                 <FormGroupLabel>
                                                     <UilUser />
                                                     Nome (Retirado para)
                                                 </FormGroupLabel>
                                                 <CustomSelect
                                                     placeholder="Digite o Nome"
-                                                    options={GetUsersThatTookAsset(props?.Ativo?.id)}
+                                                    options={GetUsersThatNotTookAsset(props?.Asset?.id)}
                                                     getOptionLabel={(options) => { return options["Name"] + ' ' + options["LastName"]; }}
                                                     getOptionValue={(options) => { return options["Id"]; }}
                                                     value={TakenFor}
@@ -381,27 +381,27 @@ const AtivoTakeReturn = (props) => {
                                 </Show>
 
                                 <div>
-                                    <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                    <div className='AssetModalBody-AssetInfoForm-Group'>
                                         <FormGroupLabel>
                                             <UilCalendarAlt />
                                             Data
                                         </FormGroupLabel>
-                                        <DatePicker className='AtivoModalBody-AtivoInfoForm-Group-Input' showTimeSelect={true} dateFormat="dd/MM/yyyy" selected={EventDate} onChange={(date) => setEventDate(date)} />
+                                        <DatePicker className='AssetModalBody-AssetInfoForm-Group-Input' showTimeSelect={true} dateFormat="dd/MM/yyyy" selected={EventDate} onChange={(date) => setEventDate(date)} />
                                     </div>
                                 </div>
 
                                 <div>
-                                    <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                    <div className='AssetModalBody-AssetInfoForm-Group'>
                                         <FormGroupLabel>
                                             <UilComment />
                                             Observação
                                         </FormGroupLabel>
-                                        <textarea className='AtivoModalBody-AtivoInfoForm-Group-Input' value={Obs} onChange={e => setObs(e.target.value)} placeholder='Digite uma Observação(Opcional)' name="" id="" rows="2"></textarea>
+                                        <textarea className='AssetModalBody-AssetInfoForm-Group-Input' value={Obs} onChange={e => setObs(e.target.value)} placeholder='Digite uma Observação(Opcional)' name="" id="" rows="2"></textarea>
                                     </div>
 
                                 </div>
 
-                                <div className='AtivoModalBody-AtivoInfoForm-Button'>
+                                <div className='AssetModalBody-AssetInfoForm-Button'>
                                     <button onClick={InitConfirm}>
                                         <UilBookmark />
                                         Registrar
@@ -415,24 +415,24 @@ const AtivoTakeReturn = (props) => {
                     </Show>
 
                     {/*****************************    TODAS UNIDADES RETIRADAS        *****************************/}
-                    <Show Show={key === 'Retirar' && (QuantidadeDoAtivo <= QuantidadeRetirada)}>
+                    <Show Show={key === 'Retirar' && (QuantidadeDoAsset <= QuantidadeRetirada)}>
                         <Warning Text='No momento todas as unidades deste Ativo já foram retiradas' />
                     </Show>
 
                     {/*****************************    DEVOLUÇÂO        *****************************/}
                     <Show Show={key === 'Devolver' && (QuantidadeRetirada > 0)}>
-                        <div className='AtivoTakeReturn-TakeForm'>
+                        <div className='AssetTakeReturn-TakeForm'>
                             <Show Show={ActionFor === 'Me'}>
-                                <h4 className='AtivoModalBody-AtivoInfoForm-SectionTitle-TakeReturn'>Registro de Devolução de Ativo para {CurrentUser?.Name + ' ' + CurrentUser?.LastName} </h4>
+                                <h4 className='AssetModalBody-AssetInfoForm-SectionTitle-TakeReturn'>Registro de Devolução de Ativo para {CurrentUser?.Name + ' ' + CurrentUser?.LastName} </h4>
                             </Show>
 
                             <Show Show={ActionFor !== 'Me'}>
-                                <h4 className='AtivoModalBody-AtivoInfoForm-SectionTitle-TakeReturn'>Registro de Devolução de Ativo
+                                <h4 className='AssetModalBody-AssetInfoForm-SectionTitle-TakeReturn'>Registro de Devolução de Ativo
                                     {(ReturnFor?.Name ? (' para ' + ReturnFor?.Name) : '') + ' ' + (ReturnFor?.LastName ? ReturnFor?.LastName : '')}
                                 </h4>
                             </Show>
 
-                            <div className='AtivoTakeReturn-TakeFor'>
+                            <div className='AssetTakeReturn-TakeFor'>
                                 {ActionFor === 'Me' ? <ImCheckboxUnchecked onClick={ToggleActionFor} /> : <ImCheckboxChecked onClick={ToggleActionFor} />}
                                 Registrar Devolução para outra pessoa
                             </div>
@@ -450,7 +450,7 @@ const AtivoTakeReturn = (props) => {
 
                                     {/*****************************    SOMENTE O CURRENT USER TEM RETIRADAS DESTE ATIVO        *****************************/}
                                     <Show Show={(QuantidadeRetirada - QuantidadeRetiradaPeloCurrentUser) === 0}>
-                                        <div className='AtivoTakeReturn-AvisoInfo'>
+                                        <div className='AssetTakeReturn-AvisoInfo'>
                                             <Tooltip title="Poderá apenas registrar uma devolução em seu nome" position="bottom" >
                                                 <Warning Text='No momento nenhum outro usuário registrou uma retirada deste item' />
                                             </Tooltip>
@@ -459,28 +459,28 @@ const AtivoTakeReturn = (props) => {
 
                                     <Show Show={(QuantidadeRetirada - QuantidadeRetiradaPeloCurrentUser) !== 0}>
                                         <TwoColumns>
-                                            <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                            <div className='AssetModalBody-AssetInfoForm-Group'>
                                                 <FormGroupLabel>
                                                     <UilEnvelope />
                                                     Email (De quem vai devolver)
                                                 </FormGroupLabel>
                                                 <CustomSelect
                                                     placeholder="Digite o Email"
-                                                    options={GetUsersThatTookAtivo(props.Ativo?.id)}
+                                                    options={GetUsersThatTookAsset(props.Asset?.id)}
                                                     getOptionLabel={(options) => { return options["Email"]; }}
                                                     getOptionValue={(options) => { return options["Id"]; }}
                                                     value={ReturnFor}
                                                     onChange={(item) => { setReturnFor(item); }}
                                                 />
                                             </div>
-                                            <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                            <div className='AssetModalBody-AssetInfoForm-Group'>
                                                 <FormGroupLabel>
                                                     <UilUser />
                                                     Nome (De quem vai devolver)
                                                 </FormGroupLabel>
                                                 <CustomSelect
                                                     placeholder="Digite o Nome"
-                                                    options={GetUsersThatTookAtivo(props.Ativo?.id)}
+                                                    options={GetUsersThatTookAsset(props.Asset?.id)}
                                                     getOptionLabel={(options) => { return options["Name"] + ' ' + options["LastName"]; }}
                                                     getOptionValue={(options) => { return options["Id"]; }}
                                                     value={ReturnFor}
@@ -497,26 +497,26 @@ const AtivoTakeReturn = (props) => {
                                 <Show Show={((QuantidadeRetirada - QuantidadeRetiradaPeloCurrentUser) !== 0 || ActionFor === 'Me')}>
 
                                     <div>
-                                        <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                        <div className='AssetModalBody-AssetInfoForm-Group'>
                                             <FormGroupLabel>
                                                 <UilCalendarAlt />
                                                 Data e Hora de Devolução
                                             </FormGroupLabel>
-                                            <DatePicker className='AtivoModalBody-AtivoInfoForm-Group-Input' showTimeSelect={true} dateFormat="dd/MM/yyyy" selected={EventDate} onChange={(date) => setEventDate(date)} />
+                                            <DatePicker className='AssetModalBody-AssetInfoForm-Group-Input' showTimeSelect={true} dateFormat="dd/MM/yyyy" selected={EventDate} onChange={(date) => setEventDate(date)} />
                                         </div>
                                     </div>
 
                                     <div>
-                                        <div className='AtivoModalBody-AtivoInfoForm-Group'>
+                                        <div className='AssetModalBody-AssetInfoForm-Group'>
                                             <FormGroupLabel>
                                                 <UilComment />
                                                 Observação
                                             </FormGroupLabel>
-                                            <textarea className='AtivoModalBody-AtivoInfoForm-Group-Input' value={Obs} onChange={e => setObs(e.target.value)} placeholder='Digite uma Observação(Opcional)' name="" id="" rows="2"></textarea>
+                                            <textarea className='AssetModalBody-AssetInfoForm-Group-Input' value={Obs} onChange={e => setObs(e.target.value)} placeholder='Digite uma Observação(Opcional)' name="" id="" rows="2"></textarea>
                                         </div>
                                     </div>
 
-                                    <div className='AtivoModalBody-AtivoInfoForm-Button'>
+                                    <div className='AssetModalBody-AssetInfoForm-Button'>
                                         <button onClick={InitConfirm}>
                                             <UilBookmark />
                                             Registrar
@@ -558,13 +558,13 @@ const AtivoTakeReturn = (props) => {
 }
 
 
-const ConnectedAtivoTakeReturn = connect((state) => {
+const ConnectedAssetTakeReturn = connect((state) => {
     return {
         Tema: state.Tema,
-        RecordsAtivos: state.RecordsAtivos,
-        Ativos: state.Ativos
+        RecordsAssets: state.RecordsAssets,
+        Assets: state.Assets
 
     }
-})(AtivoTakeReturn)
+})(AssetTakeReturn)
 
-export default ConnectedAtivoTakeReturn  
+export default ConnectedAssetTakeReturn  

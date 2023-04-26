@@ -60,7 +60,7 @@ export const DefaultItemType = {
     Value: '',
     CustomFields: []
 }
-export const DefaultAtivosType = {
+export const DefaultAssetsType = {
     LastEditedAt: moment().valueOf(),
     CreatedAt: moment().valueOf(),
     docID: '',
@@ -78,7 +78,7 @@ export const DefaultCustomField = {
 }
 
 
-export const DefaultAtivoStatus = {
+export const DefaultAssetStatus = {
     LastEditedAt: moment().valueOf(),
     CreatedAt: moment().valueOf(),
     docID: '',
@@ -89,7 +89,7 @@ export const DefaultAtivoStatus = {
 }
 
 
-export const DefaultTipoDeUso = {
+export const DefaultTypeDeUso = {
     LastEditedAt: moment().valueOf(),
     CreatedAt: moment().valueOf(),
     docID: '',
@@ -125,7 +125,7 @@ const DefaultCity = {
 
 
 
-export const DefaultAtivo = {
+export const DefaultAsset = {
     PhotoUrl: '',
     LastEditedAt: moment().valueOf(),
     CreatedBy: '',
@@ -172,7 +172,7 @@ export const DefaultRecord = {
     LastEditedAt: moment().valueOf(),
     CreatedAt: moment().valueOf(),
     docID: '', id: '',
-    Ativoid: '',
+    Assetid: '',
     TakeDate: '',
     Obs: '',
     ReturnObs: '',
@@ -187,7 +187,7 @@ export const DefaultRecord = {
     ReturnDate: '',
     TakenForDeleted: false,
     TakenByDeleted: false,
-    AtivoDeleted: false,
+    AssetDeleted: false,
     CustomFieldsValues: []
 }
 
@@ -242,7 +242,7 @@ export const DefaultUser =
     Estate: { ...DefaultEstate },
     City: { ...DefaultCity },
     Phone: '555199999999',
-    QtdAtivos: 0,
+    QtdAssets: 0,
 
 }
 
@@ -265,28 +265,28 @@ const Integracao = { id: '0e13d17c-082e-400b-bf25-6ed0aaec5d57' }
 const Projeto = { id: '9268f2f9-249f-433c-880a-7dcd0492a466' }
 const RH = { id: 'ad01ba2f-aa9a-47a2-a771-1fee98ef54a5' }
 const Admin = { id: 'ea05229e-658a-415a-bc23-62cebd0bbe96' }
-//TIPOS 
+//TYPES 
 const Funcionario = { id: '8c25a156-04b7-479f-874f-b16e63383cbd' }
-const TipoAdmin = { id: '784c4def-b901-4883-b481-a4a6cf6dd070' }
+const TypeAdmin = { id: '784c4def-b901-4883-b481-a4a6cf6dd070' }
 //================== DEFAULTS PARA INICIAR USERS ====================//
 
 
 
 
-//================== DEFAULTS PARA INICIAR ATIVOS ====================//
-const DefaultAtivoType = { id: '5c292f1a-1fc1-400b-b44c-ca0fa68458ad' }
-const DefaultAtivoType2 = { id: '9bff9e15-f30d-4287-891b-565389906a35' }
-//LOCAIS
+//================== DEFAULTS PARA INICIAR ASSETS ====================//
+const DefaultAssetType = { id: '5c292f1a-1fc1-400b-b44c-ca0fa68458ad' }
+const DefaultAssetType2 = { id: '9bff9e15-f30d-4287-891b-565389906a35' }
+//STORAGELOCATIONS
 const DefaultStorageLocation = { id: 'b21e3ca1-985a-4958-9d16-9ff68579c576' }
 const DefaultStorageLocation1 = { id: '59ca3189-70cb-451c-a597-4320e0bf158f' }
 const DefaultStorageLocation2 = { id: '24d50296-fb80-473a-9eaa-f2745341b148' }
 //STATUS
-const DefautltAtivoStatus1 = { id: '693ae26e-399e-4a2f-a646-d6315fb9a516' }
-const DefautltAtivoStatus2 = { id: '144febcf-6a34-4c60-9166-1751ff5e8e6b' }
+const DefautltAssetStatus1 = { id: '693ae26e-399e-4a2f-a646-d6315fb9a516' }
+const DefautltAssetStatus2 = { id: '144febcf-6a34-4c60-9166-1751ff5e8e6b' }
 //USOS 
-const DefaultTipoUso = { id: 'd0e718ac-9cdc-4d7a-ba00-711d68d2c108' }
-const DefaultTipoUso2 = { id: 'a481167c-76f4-4412-a8ca-2e7c2569533b' }
-//================== DEFAULTS PARA INICIAR ATIVOS ====================//  
+const DefaultTypeUso = { id: 'd0e718ac-9cdc-4d7a-ba00-711d68d2c108' }
+const DefaultTypeUso2 = { id: 'a481167c-76f4-4412-a8ca-2e7c2569533b' }
+//================== DEFAULTS PARA INICIAR ASSETS ====================//  
 
 
 
@@ -295,13 +295,13 @@ const DefaultTipoUso2 = { id: 'a481167c-76f4-4412-a8ca-2e7c2569533b' }
 
 /////////////////// RESETS //////////////////////
 
-export const UsersReset = [{ Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Administrador', LastName: 'Serrano', Email: 'admin@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...RH } }]
+export const UsersReset = [{ Deleted: false, docID: '', id: v4(), Phone: '555199999999', Country: { ...DefaultCountry }, Estate: { ...DefaultEstate }, City: { ...DefaultCity }, Name: 'Administrador', LastName: 'Serrano', Email: 'admin@serranoautomacao.com.br', Type: { ...TypeAdmin }, Sector: { ...RH } }]
 
 export const ItemTypesReset = [{ docID: '', id: '5c292f1a-1fc1-400b-b44c-ca0fa68458ad', Value: 'Cabo' }]
 
 export const UserRolesReset = [{ docID: '', id: '784c4def-b901-4883-b481-a4a6cf6dd070', Value: 'Administrador', IsAdmin: true }]
 export const UsageTypesReset = [{ docID: '', id: 'd0e718ac-9cdc-4d7a-ba00-711d68d2c108', Value: 'Uso contínuo' }]
-export const AtivosStatusReset = [
+export const AssetsStatusReset = [
     {
         LastEditedAt: moment().valueOf(),
         CreatedAt: moment().valueOf(),
@@ -320,8 +320,8 @@ export const AtivosStatusReset = [
     }
 ]
 
-export const LocaisDeArmazenamentoReset = [{ docID: '', id: 'b21e3ca1-985a-4958-9d16-9ff68579c576', Value: 'Armário' }]
-export const SectorsReset = [{ docID: '', id: 'ad01ba2f-aa9a-47a2-a771-1fee98ef54a5', Value: 'Administrativo' }]
+export const StorageLocationsDeArmazenamentoReset = [{ docID: '', id: 'b21e3ca1-985a-4958-9d16-9ff68579c576', Value: 'Armário' }]
+export const SectorsReset = [{ docID: '', id: 'ad01ba2f-aa9a-47a2-a771-1fee98ef54a5', Value: 'Administrasset' }]
 
 
 /////////////////// RESETS //////////////////////
@@ -336,54 +336,54 @@ export const SectorsReset = [{ docID: '', id: 'ad01ba2f-aa9a-47a2-a771-1fee98ef5
 
 
 
-/////////// ATIVOS ////////////////
+/////////// ASSETS ////////////////
 export const Items = [
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CONVERSOR USB SERIAL', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO PANEL VIEW PLUS 1000', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: '1747-NET-UIC', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'ROCKWELL SERIAL SLC-500/MICROLOGIX/CONTROLLOGIX', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'ROCKWELL SERIAL PLC-5', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation }, Item: 'SIEMENS LOGO!', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO MICROLOGIX DIN', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso2 } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'SIEMENS S7-200 RS-232 - PPI', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO S5 RS-232 - TTY', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus2 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'SIEMENS SINAMICS', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation }, Item: 'SIEMENS S7-200/300 RS-232 - PPI/MPI', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'PC Adapter', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'FONTE PC ADAPTER', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'PC CABLE SIMOCODE', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation }, Item: 'CONFIF PROSOFT', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus2 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO ALTUS AL-1342', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO PANEL VIEW 500/600', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus2 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'SIEMENS S7-200 RS-232 - PPI', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'SIEMENS S7-200/300 RS-232 - PPI/MPI', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus2 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO PICCOLO', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO TCI S5-USB', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso2 } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CONVERSOR USB - RS485', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CONVERSOR UBS SERIAL TECNATRON', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CONVERSOR UBS SERIAL TECNATRON', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso2 } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation2 }, Item: 'CONVERSOR USB SERIAL ICP COM', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO OP7/17/27', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO RS-232 IHM HT 60', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO KLOCKNER MOELLER', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso2 } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'Cabo HDMI', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'Adaptador VGA-DP', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'Patch Cord', Type: { ...DefaultAtivoType }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int01', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int02', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso2 } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int03', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int04', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation2 }, Item: 'HD Externo SA_HdE_Int05', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus2 }, Usage: { ...DefaultTipoUso2 } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int06', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int07', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation2 }, Item: 'HD Externo SA_HdE_Int08', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus2 }, Usage: { ...DefaultTipoUso2 } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int09', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int10', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso2 } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int11', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation2 }, Item: 'HD Externo SA_HdE_Int12', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int13', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'Régua extensão', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
-    { ...DefaultAtivo, StorageLocation: { ...DefaultStorageLocation2 }, Item: 'Case HD externo 3.0', Type: { ...DefaultAtivoType2 }, Status: { ...DefautltAtivoStatus1 }, Usage: { ...DefaultTipoUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CONVERSOR USB SERIAL', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO PANEL VIEW PLUS 1000', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: '1747-NET-UIC', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'ROCKWELL SERIAL SLC-500/MICROLOGIX/CONTROLLOGIX', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'ROCKWELL SERIAL PLC-5', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation }, Item: 'SIEMENS LOGO!', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO MICROLOGIX DIN', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso2 } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'SIEMENS S7-200 RS-232 - PPI', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO S5 RS-232 - TTY', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus2 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'SIEMENS SINAMICS', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation }, Item: 'SIEMENS S7-200/300 RS-232 - PPI/MPI', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'PC Adapter', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'FONTE PC ADAPTER', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'PC CABLE SIMOCODE', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation }, Item: 'CONFIF PROSOFT', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus2 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO ALTUS AL-1342', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO PANEL VIEW 500/600', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus2 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'SIEMENS S7-200 RS-232 - PPI', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'SIEMENS S7-200/300 RS-232 - PPI/MPI', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus2 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO PICCOLO', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO TCI S5-USB', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso2 } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CONVERSOR USB - RS485', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CONVERSOR UBS SERIAL TECNATRON', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CONVERSOR UBS SERIAL TECNATRON', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso2 } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation2 }, Item: 'CONVERSOR USB SERIAL ICP COM', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO OP7/17/27', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO RS-232 IHM HT 60', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'CABO KLOCKNER MOELLER', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso2 } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'Cabo HDMI', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'Adaptador VGA-DP', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'Patch Cord', Type: { ...DefaultAssetType }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int01', Type: { ...DefaultAssetType2 }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int02', Type: { ...DefaultAssetType2 }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso2 } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int03', Type: { ...DefaultAssetType2 }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int04', Type: { ...DefaultAssetType2 }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation2 }, Item: 'HD Externo SA_HdE_Int05', Type: { ...DefaultAssetType2 }, Status: { ...DefautltAssetStatus2 }, Usage: { ...DefaultTypeUso2 } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int06', Type: { ...DefaultAssetType2 }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int07', Type: { ...DefaultAssetType2 }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation2 }, Item: 'HD Externo SA_HdE_Int08', Type: { ...DefaultAssetType2 }, Status: { ...DefautltAssetStatus2 }, Usage: { ...DefaultTypeUso2 } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int09', Type: { ...DefaultAssetType2 }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int10', Type: { ...DefaultAssetType2 }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso2 } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int11', Type: { ...DefaultAssetType2 }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation2 }, Item: 'HD Externo SA_HdE_Int12', Type: { ...DefaultAssetType2 }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'HD Externo SA_HdE_Int13', Type: { ...DefaultAssetType2 }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation1 }, Item: 'Régua extensão', Type: { ...DefaultAssetType2 }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
+    { ...DefaultAsset, StorageLocation: { ...DefaultStorageLocation2 }, Item: 'Case HD externo 3.0', Type: { ...DefaultAssetType2 }, Status: { ...DefautltAssetStatus1 }, Usage: { ...DefaultTypeUso } },
 ]
 
 
@@ -402,11 +402,11 @@ export const Items = [
 
 
 export const Users = [
-    { ...DefaultUser, Name: 'Betina', LastName: 'Goldani', Email: 'betinagoldani@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Admin } },
-    { ...DefaultUser, Name: 'Bruno', LastName: 'Kappi', Email: 'brunokappi@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Betina', LastName: 'Goldani', Email: 'betinagoldani@serranoautomacao.com.br', Type: { ...TypeAdmin }, Sector: { ...Admin } },
+    { ...DefaultUser, Name: 'Bruno', LastName: 'Kappi', Email: 'brunokappi@serranoautomacao.com.br', Type: { ...TypeAdmin }, Sector: { ...Integracao } },
     { ...DefaultUser, Name: 'Cristiano', LastName: 'Melo', Email: 'cristianomelo@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Projeto } },
     { ...DefaultUser, Name: 'Demétrius', LastName: 'Figueiredo', Email: 'demetriusfigueiredo@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, Name: 'Douglas', LastName: 'Pinheiro', Email: 'douglaspinheiro@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Douglas', LastName: 'Pinheiro', Email: 'douglaspinheiro@serranoautomacao.com.br', Type: { ...TypeAdmin }, Sector: { ...Integracao } },
     { ...DefaultUser, Name: 'Ezequiel', LastName: 'Silva', Email: 'ezequielsilva@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
     { ...DefaultUser, Name: 'Filipe', LastName: 'Dias', Email: 'filipedias@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
     { ...DefaultUser, Name: 'Gabriel', LastName: 'Pedroso', Email: 'gabrielpedroso@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
@@ -414,15 +414,15 @@ export const Users = [
     { ...DefaultUser, Name: 'Henrique', LastName: 'Steigleder', Email: 'henriquesteigleder@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
     { ...DefaultUser, Name: 'Júlia', LastName: 'Kist', Email: 'juliakist@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
     { ...DefaultUser, Name: 'Júlia', LastName: 'Koch', Email: 'juliakoch@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, Name: 'Julio', LastName: 'Serrano', Email: 'julioserrano@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Admin } },
-    { ...DefaultUser, Name: 'Karen', LastName: 'Kist', Email: 'adm@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...RH } },
+    { ...DefaultUser, Name: 'Julio', LastName: 'Serrano', Email: 'julioserrano@serranoautomacao.com.br', Type: { ...TypeAdmin }, Sector: { ...Admin } },
+    { ...DefaultUser, Name: 'Karen', LastName: 'Kist', Email: 'adm@serranoautomacao.com.br', Type: { ...TypeAdmin }, Sector: { ...RH } },
     { ...DefaultUser, Name: 'Lucas', LastName: 'Ferreira', Email: 'lucasferreira@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
     { ...DefaultUser, Name: 'Lucas', LastName: 'Reis', Email: 'lucasreis@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
     { ...DefaultUser, Name: 'Lucian', LastName: 'Silva', Email: 'luciansilva@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
     { ...DefaultUser, Name: 'Luis', LastName: 'Pires', Email: 'luispires@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
     { ...DefaultUser, Name: 'Luiz', LastName: 'Krug', Email: 'luizgustavokrug@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
     { ...DefaultUser, Name: 'Marceli', LastName: 'Santos', Email: 'marcelisantos@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, Name: 'Marcelo', LastName: 'Eichenberg', Email: 'marceloeichenberg@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Marcelo', LastName: 'Eichenberg', Email: 'marceloeichenberg@serranoautomacao.com.br', Type: { ...TypeAdmin }, Sector: { ...Integracao } },
     { ...DefaultUser, Name: 'Marcelo', LastName: 'Silva', Email: 'marcelosilva@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
     { ...DefaultUser, Name: 'Marcio', LastName: 'Wentz', Email: 'marciowentz@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
     { ...DefaultUser, Name: 'Mariana', LastName: 'Coronel', Email: 'marianacoronel@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
@@ -434,15 +434,15 @@ export const Users = [
     { ...DefaultUser, Name: 'Nathan', LastName: 'Lopes', Email: 'nathanlopes@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Projeto } },
     { ...DefaultUser, Name: 'Octávio', LastName: 'Brandão', Email: 'octaviobrandao@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
     { ...DefaultUser, Name: 'Patrick', LastName: 'Souza', Email: 'patricksouza@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, Name: 'Sergio', LastName: 'Dutra', Email: 'sergiodutra@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Projeto } },
+    { ...DefaultUser, Name: 'Sergio', LastName: 'Dutra', Email: 'sergiodutra@serranoautomacao.com.br', Type: { ...TypeAdmin }, Sector: { ...Projeto } },
     { ...DefaultUser, Name: 'Silvia', LastName: 'Scheid', Email: 'silviascheid@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
     { ...DefaultUser, Name: 'Susana', LastName: 'Santana', Email: 'susanasantana@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, Name: 'Tales', LastName: 'Calliero', Email: 'talescalliero@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...Integracao } },
+    { ...DefaultUser, Name: 'Tales', LastName: 'Calliero', Email: 'talescalliero@serranoautomacao.com.br', Type: { ...TypeAdmin }, Sector: { ...Integracao } },
     { ...DefaultUser, Name: 'Tiago', LastName: 'Silva', Email: 'tiagosilva@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
     { ...DefaultUser, Name: 'Valéria', LastName: 'Rex', Email: 'valeriarex@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
     { ...DefaultUser, Name: 'Vera', LastName: 'Lucia Santos', Email: 'verasantos@serranoautomacao.com.br', Type: { ...Funcionario }, Sector: { ...Integracao } },
-    { ...DefaultUser, Name: 'Administrador', LastName: 'Serrano', Email: 'admin@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...RH } },
-    { ...DefaultUser, Name: 'Kátia', LastName: 'Santos', Email: 'katiasantos@serranoautomacao.com.br', Type: { ...TipoAdmin }, Sector: { ...RH } }
+    { ...DefaultUser, Name: 'Administrador', LastName: 'Serrano', Email: 'admin@serranoautomacao.com.br', Type: { ...TypeAdmin }, Sector: { ...RH } },
+    { ...DefaultUser, Name: 'Kátia', LastName: 'Santos', Email: 'katiasantos@serranoautomacao.com.br', Type: { ...TypeAdmin }, Sector: { ...RH } }
 ]
 
 
@@ -465,22 +465,22 @@ export const Users = [
 
 
 
-/// ==================== TIPOS DE ATIVOS =================== ///
+/// ==================== TIPOS DE  ATIVOS =================== ///
 export const ItemTypes = [
     {
-        ...DefaultAtivosType,
+        ...DefaultAssetsType,
         docID: '',
         id: '5c292f1a-1fc1-400b-b44c-ca0fa68458ad',
         Value: 'Cabo'
     },
     {
-        ...DefaultAtivosType,
+        ...DefaultAssetsType,
         docID: '',
         id: '9bff9e15-f30d-4287-891b-565389906a35',
         Value: 'Equipamento'
     }
 ]
-/// ==================== TIPOS DE ATIVOS =================== ///
+/// ==================== TIPOS DE  ATIVOS =================== ///
 
 
 
@@ -514,7 +514,7 @@ export const Sectors = [
         ...DefaultSector,
         docID: '',
         id: 'ad01ba2f-aa9a-47a2-a771-1fee98ef54a5',
-        Value: 'Administrativo'
+        Value: 'Administrasset'
     },
     {
         ...DefaultSector,
@@ -534,7 +534,7 @@ export const Sectors = [
 
 
 /// ==================== LOCAIS DE ARMZANEMAMENTO =================== ///
-export const LocaisDeArmazenamento = [
+export const StorageLocationsDeArmazenamento = [
     {
         ...DefaultLocal,
         docID: '',
@@ -546,7 +546,7 @@ export const LocaisDeArmazenamento = [
         ...DefaultLocal,
         docID: '',
         id: '59ca3189-70cb-451c-a597-4320e0bf158f',
-        Value: 'Armário Administrativo'
+        Value: 'Armário Administrasset'
     }
     ,
     {
@@ -580,9 +580,9 @@ export const LocaisDeArmazenamento = [
 
 
 /// ==================== STATUS DE ATIVOS =================== ///
-export const AtivosStatus = [
+export const AssetsStatus = [
     {
-        ...DefaultAtivoStatus,
+        ...DefaultAssetStatus,
         docID: '',
         id: '693ae26e-399e-4a2f-a646-d6315fb9a516',
         Value: 'Em Funcionamento',
@@ -590,7 +590,7 @@ export const AtivosStatus = [
     }
     ,
     {
-        ...DefaultAtivoStatus,
+        ...DefaultAssetStatus,
         docID: '',
         id: '144febcf-6a34-4c60-9166-1751ff5e8e6b',
         Value: 'Em Manutenção',
@@ -615,64 +615,64 @@ export const AtivosStatus = [
 
 
 
-/// ==================== TIPOS DE USOS  =================== ///
+/// ==================== TIPOS DE  USOS  =================== ///
 export const UsageTypes = [
     {
-        ...DefaultTipoDeUso,
+        ...DefaultTypeDeUso,
         docID: '',
         id: 'd0e718ac-9cdc-4d7a-ba00-711d68d2c108',
         Value: 'Uso contínuo'
     },
     {
-        ...DefaultTipoDeUso,
+        ...DefaultTypeDeUso,
         docID: '',
         id: 'a481167c-76f4-4412-a8ca-2e7c2569533b',
         Value: 'Uso momentâneo'
     },
     {
-        ...DefaultTipoDeUso,
+        ...DefaultTypeDeUso,
         docID: '',
         id: v4(),
         Value: 'Uso compartilhado'
     },
     {
-        ...DefaultTipoDeUso,
+        ...DefaultTypeDeUso,
         docID: '',
         id: v4(),
         Value: 'Uso pessoal'
     },
     {
-        ...DefaultTipoDeUso,
+        ...DefaultTypeDeUso,
         docID: '',
         id: v4(),
         Value: 'Uso limitado'
     },
     {
-        ...DefaultTipoDeUso,
+        ...DefaultTypeDeUso,
         docID: '',
         id: v4(),
         Value: 'Uso temporário'
     },
     {
-        ...DefaultTipoDeUso,
+        ...DefaultTypeDeUso,
         docID: '',
         id: v4(),
         Value: 'Uso remoto'
     },
     {
-        ...DefaultTipoDeUso,
+        ...DefaultTypeDeUso,
         docID: '',
         id: v4(),
         Value: 'Uso de treinamento'
     },
     {
-        ...DefaultTipoDeUso,
+        ...DefaultTypeDeUso,
         docID: '',
         id: v4(),
         Value: 'Uso de manutenção'
     },
     {
-        ...DefaultTipoDeUso,
+        ...DefaultTypeDeUso,
         docID: '',
         id: v4(),
         Value: 'Uso especializado'
@@ -690,7 +690,7 @@ export const UsageTypes = [
 
 
 
-/// ==================== TIPOS DE USUARIOS  =================== ///
+/// ==================== TIPOS DE  USERS  =================== ///
 
 
 
@@ -770,21 +770,21 @@ export const Records = []
 
 
 
-//TIPO SDE USUARIOS
+//TYPE SDE USUÁRIOS
 if (ADD_FIREBASE) {
-    UserRoles.forEach(Tipo => {
-        AddUserTypeToFirebase(Tipo).then((Document) => {
-            console.log("Tipo Usuario Adicionado", Document)
+    UserRoles.forEach(Type => {
+        AddUserTypeToFirebase(Type).then((Document) => {
+            console.log("Type User Adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
         })
     })
 }
 
-//ATIVOS
+//ASSETS
 if (ADD_FIREBASE) {
-    Items.forEach(Tipo => {
-        AddAssetToFirebase(Tipo).then((Document) => {
+    Items.forEach(Type => {
+        AddAssetToFirebase(Type).then((Document) => {
             console.log("Item Adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
@@ -792,22 +792,22 @@ if (ADD_FIREBASE) {
     })
 }
 
-// USUARIOS
+// USERS
 if (ADD_FIREBASE) {
-    Users.forEach(Tipo => {
-        AddUserToFirebase(Tipo).then((Document) => {
-            console.log("Usuario adicionado", Document)
+    Users.forEach(Type => {
+        AddUserToFirebase(Type).then((Document) => {
+            console.log("User adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
         })
     })
 }
 
-//TIPOS DE ATIVOS
+//TIPOS DE  ATIVOS
 if (ADD_FIREBASE) {
-    ItemTypes.forEach(Tipo => {
-        AddAssetTypeToFirebase(Tipo).then((Document) => {
-            console.log("Tipo Adicionado", Document)
+    ItemTypes.forEach(Type => {
+        AddAssetTypeToFirebase(Type).then((Document) => {
+            console.log("Type Adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
         })
@@ -825,10 +825,10 @@ if (ADD_FIREBASE) {
     })
 }
 
-//LOCAIS 
+//STORAGELOCATIONS 
 if (ADD_FIREBASE) {
-    LocaisDeArmazenamento.forEach(Tipo => {
-        AddStorageLocationToFirebase(Tipo).then((Document) => {
+    StorageLocationsDeArmazenamento.forEach(Type => {
+        AddStorageLocationToFirebase(Type).then((Document) => {
             console.log("Local Adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
@@ -838,8 +838,8 @@ if (ADD_FIREBASE) {
 
 //STATUS
 if (ADD_FIREBASE) {
-    AtivosStatus.forEach(Tipo => {
-        AddAssetStatuToFirebase(Tipo).then((Document) => {
+    AssetsStatus.forEach(Type => {
+        AddAssetStatuToFirebase(Type).then((Document) => {
             console.log("Status Adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
@@ -847,11 +847,11 @@ if (ADD_FIREBASE) {
     })
 }
 
-//TIPOS DE USO
+//TIPOS DE  USO
 if (ADD_FIREBASE) {
-    UsageTypes.forEach(Tipo => {
-        AddUsageTypeToFirebase(Tipo).then((Document) => {
-            console.log("Tipo Adicionado", Document)
+    UsageTypes.forEach(Type => {
+        AddUsageTypeToFirebase(Type).then((Document) => {
+            console.log("Type Adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
         })
@@ -892,15 +892,15 @@ if ((!localStorage.getItem('AssetSenseUsersTypes') || Update) && !Reset && !Noth
     localStorage.setItem('AssetSenseUsersTypes', JSON.stringify(UserRoles)) //RESET
 }
 
-//STATUS ATIVOS
+//STATUS ASSETS
 if ((!localStorage.getItem('AssetSenseAssetsStatus') || Update) && !Reset && !Nothing) {
-    localStorage.setItem('AssetSenseAssetsStatus', JSON.stringify(AtivosStatus))
+    localStorage.setItem('AssetSenseAssetsStatus', JSON.stringify(AssetsStatus))
 } else if (Reset) {
-    localStorage.setItem('AssetSenseAssetsStatus', JSON.stringify(AtivosStatusReset)) //RESET
+    localStorage.setItem('AssetSenseAssetsStatus', JSON.stringify(AssetsStatusReset)) //RESET
 }
 
 
-// TIPOS DE USO
+// TIPOS DE  USO
 if ((!localStorage.getItem('AssetSenseUsageTypes') || Update) && !Reset && !Nothing) {
     localStorage.setItem('AssetSenseUsageTypes', JSON.stringify(UsageTypes))
 } else if (Reset) {
@@ -920,22 +920,22 @@ if ((!localStorage.getItem('AssetSenseUsers') || Update) && !Reset && !Nothing) 
     localStorage.setItem('AssetSenseUsers', JSON.stringify(UsersReset)) //RESET
 }
 
-//TIPOS DE ATIVOS
-if ((!localStorage.getItem('AssetSenseTipos') || Update) && !Reset && !Nothing) {
-    localStorage.setItem('AssetSenseTipos', JSON.stringify(ItemTypes))
+//TIPOS DE  ATIVOS
+if ((!localStorage.getItem('AssetSenseTypes') || Update) && !Reset && !Nothing) {
+    localStorage.setItem('AssetSenseTypes', JSON.stringify(ItemTypes))
 } else if (Reset) {
-    localStorage.setItem('AssetSenseTipos', JSON.stringify(ItemTypesReset)) //RESET
+    localStorage.setItem('AssetSenseTypes', JSON.stringify(ItemTypesReset)) //RESET
 }
 
-//ATIVOS
-if ((!localStorage.getItem('AssetSenseAtivos') || Update) && !Reset && !Nothing) {
-    localStorage.setItem('AssetSenseAtivos', JSON.stringify(Items))
+//ASSETS
+if ((!localStorage.getItem('AssetSenseAssets') || Update) && !Reset && !Nothing) {
+    localStorage.setItem('AssetSenseAssets', JSON.stringify(Items))
 } else if (Reset) {
-    localStorage.setItem('AssetSenseAtivos', JSON.stringify([]))
+    localStorage.setItem('AssetSenseAssets', JSON.stringify([]))
 }
 
 if ((!localStorage.getItem('AssetSenseStorageLocations') || Update) && !Reset && !Nothing) {
-    localStorage.setItem('AssetSenseStorageLocations', JSON.stringify(LocaisDeArmazenamento))
+    localStorage.setItem('AssetSenseStorageLocations', JSON.stringify(StorageLocationsDeArmazenamento))
 } else if (Reset) {
-    localStorage.setItem('AssetSenseStorageLocations', JSON.stringify(LocaisDeArmazenamentoReset)) //RESET
+    localStorage.setItem('AssetSenseStorageLocations', JSON.stringify(StorageLocationsDeArmazenamentoReset)) //RESET
 }

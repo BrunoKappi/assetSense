@@ -28,14 +28,14 @@ export const GetNavbarSidebarItemClass = (Item, Tab) => {
 
 
 
-export const GetConfigPermits = (Tipo) => {
-    if (Tipo.Permits[PermitIndexs['EDITAR_TIPOS_ATIVOS']]
-        || Tipo.Permits[PermitIndexs['EDITAR_LOCAIS']]
-        || Tipo.Permits[PermitIndexs['EDITAR_STATUS_ATIVOS']]
-        || Tipo.Permits[PermitIndexs['EDITAR_TIPOS_DE_USO']]
-        || Tipo.Permits[PermitIndexs['EDITAR_SECTORS']]
-        || Tipo.Permits[PermitIndexs['EDITAR_TIPOS_DE_USUARIO']]
-        || Tipo.Permits[PermitIndexs['EDITAR_PERMICOES']]
+export const GetConfigPermits = (Type) => {
+    if (Type.Permits[PermitIndexs['EDITAR_TYPES_ASSETS']]
+        || Type.Permits[PermitIndexs['EDITAR_STORAGELOCATIONS']]
+        || Type.Permits[PermitIndexs['EDITAR_STATUS_ASSETS']]
+        || Type.Permits[PermitIndexs['EDITAR_TYPES_DE_USO']]
+        || Type.Permits[PermitIndexs['EDITAR_SECTORS']]
+        || Type.Permits[PermitIndexs['EDITAR_TYPES_DE_USER']]
+        || Type.Permits[PermitIndexs['EDITAR_PERMICOES']]
 
     )
         return true
@@ -43,23 +43,23 @@ export const GetConfigPermits = (Tipo) => {
         return false
 }
 
-export const GetUsuariosPermits = (Tipo) => {
-    if (Tipo.Permits[PermitIndexs['ADICIONAR_USUARIOS']]
-        || Tipo.Permits[PermitIndexs['EDITAR_USUARIOS']]
-        || Tipo.Permits[PermitIndexs['EXCLUIR_USUARIOS']]      
-        || Tipo.Permits[PermitIndexs['VISUALIZAR_USUARIOS']]
+export const GetUsersPermits = (Type) => {
+    if (Type.Permits[PermitIndexs['ADICIONAR_USERS']]
+        || Type.Permits[PermitIndexs['EDITAR_USERS']]
+        || Type.Permits[PermitIndexs['EXCLUIR_USERS']]      
+        || Type.Permits[PermitIndexs['VISUALIZAR_USERS']]
     )
         return true
     else
         return false
 }
 
-export const GetAtivosPermits = (Tipo) => {
-    if (Tipo.Permits[PermitIndexs['ADICIONAR_ATIVOS']]
-        || Tipo.Permits[PermitIndexs['EDITAR_ATIVOS']]
-        || Tipo.Permits[PermitIndexs['EXCLUIR_ATIVOS']]
-        || Tipo.Permits[PermitIndexs['RETIRAR_ATIVOS']]
-        || Tipo.Permits[PermitIndexs['VISUALIZAR_ATIVOS']]
+export const GetAssetsPermits = (Type) => {
+    if (Type.Permits[PermitIndexs['ADICIONAR_ASSETS']]
+        || Type.Permits[PermitIndexs['EDITAR_ASSETS']]
+        || Type.Permits[PermitIndexs['EXCLUIR_ASSETS']]
+        || Type.Permits[PermitIndexs['RETIRAR_ASSETS']]
+        || Type.Permits[PermitIndexs['VISUALIZAR_ASSETS']]
     )
         return true
     else
@@ -68,7 +68,7 @@ export const GetAtivosPermits = (Tipo) => {
 
 
 
-export const GetUsuariosPermits2 = () => {
+export const GetUsersPermits2 = () => {
 
 
 

@@ -8,23 +8,23 @@ import { useState, useEffect } from "react";
 
 const FilterSelect = (props) => {
 
-    //ATIVOS OPTIONS
-    const AtivosFilterOptions = [
+    //ASSETS OPTIONS
+    const AssetsFilterOptions = [
         {
             label: <CustomLabel List='StorageLocations' text='Locais de Armazenamento' />,
-            options: props.StorageLocations.map((tipo) => ({ ...tipo, list: 'StorageLocations' })),
+            options: props.StorageLocations.map((type) => ({ ...type, list: 'StorageLocations' })),
         },
         {
             label: <CustomLabel List='AssetsStatus' text='Status de Ativos' />,
-            options: props.AssetsStatus.map((tipo) => ({ ...tipo, list: 'AssetsStatus' })),
+            options: props.AssetsStatus.map((type) => ({ ...type, list: 'AssetsStatus' })),
         },
         {
-            label: <CustomLabel List='AssetTypess' text='Tipos de Ativos' />,
-            options: props.AssetTypess.map((tipo) => ({ ...tipo, list: 'AssetTypess' })),
+            label: <CustomLabel List='AssetTypess' text='Tipos de  Ativos' />,
+            options: props.AssetTypess.map((type) => ({ ...type, list: 'AssetTypess' })),
         },
         {
-            label: <CustomLabel List='UsageTypes' text='Tipos de Uso' />,
-            options: props.UsageTypes.map((tipo) => ({ ...tipo, list: 'UsageTypes' })),
+            label: <CustomLabel List='UsageTypes' text='Tipos de  Uso' />,
+            options: props.UsageTypes.map((type) => ({ ...type, list: 'UsageTypes' })),
         },
     ]
 
@@ -35,8 +35,8 @@ const FilterSelect = (props) => {
             options: props.Sectors.map((sector) => ({ ...sector, list: 'Sectors' })),
         },
         {
-            label: <CustomLabel List='UserTypes' text='Filtro de Tipo de Usuarios' />,
-            options: props.UserTypes.map((tipo) => ({ ...tipo, list: 'UserTypes' })),
+            label: <CustomLabel List='UserTypes' text='Filtro de Tipo de Usuários' />,
+            options: props.UserTypes.map((type) => ({ ...type, list: 'UserTypes' })),
         },
     ]
 
@@ -45,8 +45,8 @@ const FilterSelect = (props) => {
         switch (props.Module) {
             case 'FilterUsers':
                 return UserFilterOptions
-            case 'FilterAtivos':
-                return AtivosFilterOptions
+            case 'FilterAssets':
+                return AssetsFilterOptions
             default:
                 break;
         }
@@ -164,7 +164,7 @@ export default ConnectedFilterSelect
 
 /////////////
 
-const AtivosOrderByOptions = [
+const AssetsOrderByOptions = [
     {
         label: <CustomLabel text="Order por" />,
         options: [
@@ -182,7 +182,7 @@ const UserOrderByOptions = [
         options: [
             { list: 'OrdenarUser', id: 'Nome', Value: 'Nome' },
             { list: 'OrdenarUser', id: 'Sector', Value: 'Sector' },
-            { list: 'OrdenarUser', id: 'Tipo', Value: 'Tipo' },
+            { list: 'OrdenarUser', id: 'Type', Value: 'Type' },
         ],
     },
 ]

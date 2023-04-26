@@ -6,7 +6,7 @@ const StorageLocations = (state = [], action) => {
             return state.concat(action.NovoLocal)
         case 'CLEAR_ALL':
             return []
-        case 'SET_LOCAIS_ARMAZENAMENTO':
+        case 'SET_STORAGELOCATIONS_ARMAZENAMENTO':
             return action.StorageLocations
         default:
             return state

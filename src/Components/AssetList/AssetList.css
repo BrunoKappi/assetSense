@@ -1,78 +1,58 @@
-.AtivosListContainerClaro {
+.AssetsListContainerClaro {
 
-    --AtivosListContainer-Background: #eceff1;
+    --AssetsListContainer-Background: #eceff1;
 
-    --AtivosListFormFilter-Input-Background: white;
-    --AtivosListFormFilter-Input-Border: transparent;
-    --AtivosListFormFilter-Input-Color: var(--SecondaryBackground);
+    --AssetsListFormFilter-Input-Background: white;
+    --AssetsListFormFilter-Input-Border: transparent;
+    --AssetsListFormFilter-Input-Color: var(--SecondaryBackground);
 
-    --AtivosListFormFilter-Button-Background: var(--ComplementaryColor);
-    --AtivosListFormFilter-Button-Border: var(--ComplementaryColor);
-    --AtivosListFormFilter-Button-Color: white;
+    --AssetsListFormFilter-Button-Background: var(--ComplementaryColor);
+    --AssetsListFormFilter-Button-Border: var(--ComplementaryColor);
+    --AssetsListFormFilter-Button-Color: white;
 
-    --AtivosListFormFilter-Filtros-Title-Color: var(--SecondaryBackground);
-    --AtivosListFormFilter-Filtros-Dropdown-Background: white;
+    --AssetsListFormFilter-Filtros-Title-Color: var(--SecondaryBackground);
+    --AssetsListFormFilter-Filtros-Dropdown-Background: white;
 
-    --AtivosListFormFilter-Filtros-Tipo-Background: var(--SecondaryBackground);
-    --AtivosListFormFilter-Filtros-Tipo-Color: white;
+    --AssetsListFormFilter-Filtros-Type-Background: var(--SecondaryBackground);
+    --AssetsListFormFilter-Filtros-Type-Color: white;
 
-    --AtivosListFormFilter-Filtros-Sector-Background: var(--PrimaryBackground);
-    --AtivosListFormFilter-Filtros-Sector-Color: white;
+    --AssetsListFormFilter-Filtros-Sector-Background: var(--PrimaryBackground);
+    --AssetsListFormFilter-Filtros-Sector-Color: white;
 
-    --AtivosListFormFilter-Filtros-AddButton-Background: var(--ComplementaryColor);
-    --AtivosListFormFilter-Filtros-AddButton-Color: white;
-    --AtivosListFormFilter-Filtros-AddButton-Background-Hover: var(--PrimaryBackground);
-    --AtivosListFormFilter-Filtros-AddButton-Color-Hover: white;
+    --AssetsListFormFilter-Filtros-AddButton-Background: var(--ComplementaryColor);
+    --AssetsListFormFilter-Filtros-AddButton-Color: white;
+    --AssetsListFormFilter-Filtros-AddButton-Background-Hover: var(--PrimaryBackground);
+    --AssetsListFormFilter-Filtros-AddButton-Color-Hover: white;
 
 
 }
 
 
-.AtivosListContainerEscuro {
+.AssetsListContainerEscuro {
 
-    --AtivosListContainer-Background: var(--BackgroundDark);
+    --AssetsListContainer-Background: var(--BackgroundDark);
 
-    --AtivosListFormFilter-Input-Background: var(--BackgroundDark);
-    --AtivosListFormFilter-Input-Border: var(--PrimaryBackGroundFaded);
-    --AtivosListFormFilter-Input-Color: var(--ComplementaryColor);
+    --AssetsListFormFilter-Input-Background: var(--BackgroundDark);
+    --AssetsListFormFilter-Input-Border: var(--PrimaryBackGroundFaded);
+    --AssetsListFormFilter-Input-Color: var(--ComplementaryColor);
 
-    --AtivosListFormFilter-Button-Background: var(--ComplementaryColor);
-    --AtivosListFormFilter-Button-Border: var(--ComplementaryColor);
-    --AtivosListFormFilter-Button-Color: white;
+    --AssetsListFormFilter-Button-Background: var(--ComplementaryColor);
+    --AssetsListFormFilter-Button-Border: var(--ComplementaryColor);
+    --AssetsListFormFilter-Button-Color: white;
 
-    --AtivosListFormFilter-Filtros-Title-Color: var(--ComplementaryColor);
-    --AtivosListFormFilter-Filtros-Dropdown-Background: white;
+    --AssetsListFormFilter-Filtros-Title-Color: var(--ComplementaryColor);
+    --AssetsListFormFilter-Filtros-Dropdown-Background: white;
 
-    --AtivosListFormFilter-Filtros-Tipo-Background: var(--SecondaryBackground);
-    --AtivosListFormFilter-Filtros-Tipo-Color: white;
+    --AssetsListFormFilter-Filtros-Type-Background: var(--SecondaryBackground);
+    --AssetsListFormFilter-Filtros-Type-Color: white;
 
-    --AtivosListFormFilter-Filtros-Sector-Background: var(--PrimaryBackground);
-    --AtivosListFormFilter-Filtros-Sector-Color: white;
+    --AssetsListFormFilter-Filtros-Sector-Background: var(--PrimaryBackground);
+    --AssetsListFormFilter-Filtros-Sector-Color: white;
 
-    --AtivosListFormFilter-Filtros-AddButton-Background: var(--ComplementaryColor);
-    --AtivosListFormFilter-Filtros-AddButton-Color: white;
-    --AtivosListFormFilter-Filtros-AddButton-Background-Hover: var(--PrimaryBackground);
-    --AtivosListFormFilter-Filtros-AddButton-Color-Hover: white;
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.AtivosListContainer {
-    background-color: var(--AtivosListContainer-Background);
+    --AssetsListFormFilter-Filtros-AddButton-Background: var(--ComplementaryColor);
+    --AssetsListFormFilter-Filtros-AddButton-Color: white;
+    --AssetsListFormFilter-Filtros-AddButton-Background-Hover: var(--PrimaryBackground);
+    --AssetsListFormFilter-Filtros-AddButton-Color-Hover: white;
 
 }
 
@@ -82,9 +62,29 @@
 
 
 
-/* ============  FORM FILTRO DOS USUARIOS  ===================*/
 
-.AtivosListFormFilter {
+
+
+
+
+
+
+
+
+.AssetsListContainer {
+    background-color: var(--AssetsListContainer-Background);
+
+}
+
+
+
+
+
+
+
+/* ============  FORM FILTRO DOS USERS  ===================*/
+
+.AssetsListFormFilter {
     display: flex;
     flex-direction: row;
     gap: 1rem;
@@ -97,38 +97,38 @@
 
 
 @media (max-width: 500px) {
-    .AtivosListFormFilter {
+    .AssetsListFormFilter {
         flex-direction: column;
         align-items: center;
         row-gap: .3rem;
     }
 
-    .AtivosListFormFilter>input {
+    .AssetsListFormFilter>input {
         width: 100%;
     }
 }
 
-.AtivosListFormFilter>input {
+.AssetsListFormFilter>input {
     flex-grow: 1;
     outline: none;
     padding: .5rem 1rem;
-    border: 1px solid var(--AtivosListFormFilter-Input-Border);
+    border: 1px solid var(--AssetsListFormFilter-Input-Border);
     border-radius: .5rem;
     font-family: var(--Fonte);
     font-size: .8rem;
-    background-color: var(--AtivosListFormFilter-Input-Background);
-    color: var(--AtivosListFormFilter-Input-Color);
+    background-color: var(--AssetsListFormFilter-Input-Background);
+    color: var(--AssetsListFormFilter-Input-Color);
     -webkit-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
 }
 
-.AtivosListFormFilter>input::placeholder {
-    color: var(--AtivosListFormFilter-Input-Color);
+.AssetsListFormFilter>input::placeholder {
+    color: var(--AssetsListFormFilter-Input-Color);
 }
 
 
-.AtivosListFormFilter>span {
+.AssetsListFormFilter>span {
     font-family: var(--Fonte);
     display: flex;
     flex-direction: row;
@@ -141,29 +141,29 @@
 
 }
 
-.AtivosListFormFilter>button {
+.AssetsListFormFilter>button {
     font-family: var(--Fonte);
     font-size: .8rem;
     outline: none;
-    border: 1px solid var(--AtivosListFormFilter-Button-Border);
-    background-color: var(--AtivosListFormFilter-Button-Background);
-    color: var(--AtivosListFormFilter-Button-Color);
+    border: 1px solid var(--AssetsListFormFilter-Button-Border);
+    background-color: var(--AssetsListFormFilter-Button-Background);
+    color: var(--AssetsListFormFilter-Button-Color);
     padding: .5rem 1rem;
     border-radius: .5rem;
 }
 
 @media (max-width: 750px) {
-    .AtivosListFormFilter>button {
+    .AssetsListFormFilter>button {
         flex-grow: 1;
     }
 }
 
-.AtivosListAddButton {
+.AssetsListAddButton {
     position: absolute;
     right: 1rem;
     bottom: 1rem;
-    background-color: var(--AtivosListFormFilter-Filtros-AddButton-Background);
-    color: var(--AtivosListFormFilter-Filtros-AddButton-Color);
+    background-color: var(--AssetsListFormFilter-Filtros-AddButton-Background);
+    color: var(--AssetsListFormFilter-Filtros-AddButton-Color);
     padding: .5rem .7rem;
     border: none;
     border-radius: 1rem;
@@ -178,25 +178,25 @@
     gap: .5rem;
 }
 
-.AtivosListAddButton:hover {
-    background-color: var(--AtivosListFormFilter-Filtros-AddButton-Background);
-    color: var(--AtivosListFormFilter-Filtros-AddButton-Color-Hover);
+.AssetsListAddButton:hover {
+    background-color: var(--AssetsListFormFilter-Filtros-AddButton-Background);
+    color: var(--AssetsListFormFilter-Filtros-AddButton-Color-Hover);
     transform: scale(1.1);
 }
 
-.AtivosListAddButton:active {
+.AssetsListAddButton:active {
     transform: scale(1);
 }
 
-.AtivosListFormFilter>button:hover {
+.AssetsListFormFilter>button:hover {
     transform: scale(1.1);
 }
 
-.AtivosListFormFilter>button:active {
+.AssetsListFormFilter>button:active {
     transform: scale(1);
 }
 
-/* ============  FORM FILTRO DOS USUARIOS  ===================*/
+/* ============  FORM FILTRO DOS USERS  ===================*/
 
 
 
@@ -213,28 +213,28 @@
 
 /* ============  DROPDOWN FILTRO DE SECTOR ===================*/
 
-#FiltroDeTipoDeAtivo::after {
+#FiltroDeTypeDeAsset::after {
     display: none !important;
     background-color: aqua !important;
 }
 
-#FiltroDeTipoDeAtivo {
+#FiltroDeTypeDeAsset {
     background-color: transparent !important;
     border: none !important;
     color: var(--BackgroundDark) !important;
     padding: 0 !important;
 }
 
-.FiltroDeTipoDeAtivoTitle {
+.FiltroDeTypeDeAssetTitle {
     display: flex;
     flex-direction: row;
     gap: .5rem;
     align-items: center;
     font-family: var(--Fonte);
-    background-color: var(--AtivosListFormFilter-Filtros-Sector-Background);
+    background-color: var(--AssetsListFormFilter-Filtros-Sector-Background);
     padding: .3rem .6rem;
     border-radius: 1rem;
-    color: var(--AtivosListFormFilter-Filtros-Sector-Color);
+    color: var(--AssetsListFormFilter-Filtros-Sector-Color);
     font-size: .8rem;
 }
 
@@ -257,33 +257,33 @@
 
 
 
-/* ============  DROPDOWN FILTRO DE Tipo ===================*/
+/* ============  DROPDOWN FILTRO DE Type ===================*/
 
-#FiltroLocalDeAtivo::after {
+#FiltroLocalDeAsset::after {
     display: none !important;
 }
 
-#FiltroLocalDeAtivo {
+#FiltroLocalDeAsset {
     background-color: transparent !important;
     border: none !important;
     padding: 0 !important;
 }
 
-.FiltroLocalDeAtivoTitle {
+.FiltroLocalDeAssetTitle {
     display: flex;
     flex-direction: row;
     gap: .5rem;
     align-items: center;
     font-family: var(--Fonte);
-    background-color: var(--AtivosListFormFilter-Filtros-Tipo-Background);
+    background-color: var(--AssetsListFormFilter-Filtros-Type-Background);
     padding: .3rem .6rem;
     border-radius: 1rem;
-    color: var(--AtivosListFormFilter-Filtros-Tipo-Color);
+    color: var(--AssetsListFormFilter-Filtros-Type-Color);
     font-size: .8rem;
 }
 
-.AtivosListFormFilter .dropdown-menu {
-    background-color: var(--AtivosListFormFilter-Filtros-Dropdown-Background) !important;
+.AssetsListFormFilter .dropdown-menu {
+    background-color: var(--AssetsListFormFilter-Filtros-Dropdown-Background) !important;
 }
 
 /* ============  DROPDOWN FILTRO DE SECTOR ===================*/
@@ -307,18 +307,18 @@
 
 /* ============  DROPDOWN FILTROS ===================*/
 
-#AtivosList-Filtros::after {
+#AssetsList-Filtros::after {
     display: none !important;
 }
 
-#AtivosList-Filtros {
+#AssetsList-Filtros {
     background-color: transparent !important;
     border: none !important;
     color: var(--BackgroundDark);
     padding: 0 !important;
 }
 
-.AtivosList-FiltrosTitle {
+.AssetsList-FiltrosTitle {
     display: flex;
     flex-direction: row;
     gap: .5rem;
@@ -326,12 +326,12 @@
     font-family: var(--Fonte);
     padding: .3rem .6rem;
     border-radius: 1rem;
-    color: var(--AtivosListFormFilter-Filtros-Title-Color) !important;
+    color: var(--AssetsListFormFilter-Filtros-Title-Color) !important;
     font-size: 1rem;
     height: 100%;
 }
 
-#AtivosList-FiltrosItem {
+#AssetsList-FiltrosItem {
     display: flex !important;
     flex-direction: row !important;
     align-items: center;
@@ -339,11 +339,11 @@
     padding: 1rem;
 }
 
-#AtivosList-FiltrosItem:active {
+#AssetsList-FiltrosItem:active {
     background-color: red !important;
 }
 
-#AtivosList-FiltrosItem:hover {
+#AssetsList-FiltrosItem:hover {
     background-color: white !important;
 }
 
@@ -362,10 +362,10 @@
 
 
 
-/* ============== AtivosList-FilterNoResultsContainer ===================== */
+/* ============== AssetsList-FilterNoResultsContainer ===================== */
 
 
-.AtivosList-FilterNoResultsContainer {
+.AssetsList-FilterNoResultsContainer {
     width: 100%;
     height: 100%;
     display: flex;
@@ -376,12 +376,12 @@
     gap: 1rem;
 }
 
-.AtivosList-FilterNoResultsContainer svg {
+.AssetsList-FilterNoResultsContainer svg {
     height: 4rem;
     color: var(--ComplementaryColor);
 }
 
-.AtivosList-FilterNoResultsContainer>h3 {
+.AssetsList-FilterNoResultsContainer>h3 {
     margin: 0;
     color: var(--ComplementaryColor);
 }
@@ -389,4 +389,4 @@
 
 
 
-/* ============== AtivosList-FilterNoResultsContainer ===================== */
+/* ============== AssetsList-FilterNoResultsContainer ===================== */

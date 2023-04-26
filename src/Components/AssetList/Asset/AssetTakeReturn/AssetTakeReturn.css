@@ -1,25 +1,25 @@
-.AtivoTakeReturn-ContainerClaro {
-    --AtivoTakeReturn-TakeFor-Color: var(--ComplementaryColor);
-    --AtivoModal-SectionTitle-TakeReturn-Color: var(--ComplementaryColor);
-    --AtivoModal-TakeReturnQuantity-Color: white;
-    --AtivoModal-TakeReturnQuantity-Background: var(--SecondaryBackground);
-    --AtivoModal-TakeReturnWarningInfo-Color: white;
-    --AtivoModal-TakeReturnWarningInfo-Background: #f0ad4e;
+.AssetTakeReturn-ContainerClaro {
+    --AssetTakeReturn-TakeFor-Color: var(--ComplementaryColor);
+    --AssetModal-SectionTitle-TakeReturn-Color: var(--ComplementaryColor);
+    --AssetModal-TakeReturnQuantity-Color: white;
+    --AssetModal-TakeReturnQuantity-Background: var(--SecondaryBackground);
+    --AssetModal-TakeReturnWarningInfo-Color: white;
+    --AssetModal-TakeReturnWarningInfo-Background: #f0ad4e;
 }
 
 
-.AtivoTakeReturn-ContainerEscuro {
-    --AtivoTakeReturn-TakeFor-Color: var(--ComplementaryColor);
-    --AtivoModal-SectionTitle-TakeReturn-Color: var(--ComplementaryColor);
-    --AtivoModal-TakeReturnQuantity-Color: white;
-    --AtivoModal-TakeReturnQuantity-Background: var(--SecondaryBackground);
-    --AtivoModal-TakeReturnWarningInfo-Color: white;
-    --AtivoModal-TakeReturnWarningInfo-Background: #f0ad4e;
+.AssetTakeReturn-ContainerEscuro {
+    --AssetTakeReturn-TakeFor-Color: var(--ComplementaryColor);
+    --AssetModal-SectionTitle-TakeReturn-Color: var(--ComplementaryColor);
+    --AssetModal-TakeReturnQuantity-Color: white;
+    --AssetModal-TakeReturnQuantity-Background: var(--SecondaryBackground);
+    --AssetModal-TakeReturnWarningInfo-Color: white;
+    --AssetModal-TakeReturnWarningInfo-Background: #f0ad4e;
 }
 
 
 
-.AtivoTakeReturn-TakeFor {
+.AssetTakeReturn-TakeFor {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -27,31 +27,31 @@
     gap: .5rem;
     margin-top: 1rem;
     font-family: var(--Fonte);
-    color: var(--AtivoTakeReturn-TakeFor-Color);
+    color: var(--AssetTakeReturn-TakeFor-Color);
     user-select: none;
     margin-bottom: 1.5rem;
 } 
 
-.AtivoTakeReturn-TakeFor>svg {
+.AssetTakeReturn-TakeFor>svg {
     cursor: pointer;
 }
 
 
-.AtivoModalBody-AtivoInfoForm-SectionTitle-TakeReturn {
+.AssetModalBody-AssetInfoForm-SectionTitle-TakeReturn {
     font-family: var(--Fonte);
-    color: var(--AtivoModal-SectionTitle-TakeReturn-Color);
+    color: var(--AssetModal-SectionTitle-TakeReturn-Color);
     text-align: left;
 }
 
-.AtivoModalBody-AtivoInfoForm-SectionTitle-TakeReturn-Left {
+.AssetModalBody-AssetInfoForm-SectionTitle-TakeReturn-Left {
     font-family: var(--Fonte);
-    color: var(--AtivoModal-SectionTitle-TakeReturn-Color);
+    color: var(--AssetModal-SectionTitle-TakeReturn-Color);
     text-align: left;
 }
 
 
 
-.AtivoTakeReturn-Quantidades {
+.AssetTakeReturn-Quantidades {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -61,21 +61,21 @@
 }
 
 
-.AtivoTakeReturn-Quantidades-Item {
+.AssetTakeReturn-Quantidades-Item {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
     gap: .3rem;
-    color: var(--AtivoModal-TakeReturnQuantity-Color);
+    color: var(--AssetModal-TakeReturnQuantity-Color);
     font-family: var(--Fonte);
-    background-color: var(--AtivoModal-TakeReturnQuantity-Background);
+    background-color: var(--AssetModal-TakeReturnQuantity-Background);
     padding: .2rem .8rem;
     border-radius: 1rem;
     font-size: .8rem;
 }
 
-.AtivoTakeReturn-Quantidades-Item>svg {
+.AssetTakeReturn-Quantidades-Item>svg {
     width: 1rem;
 }
 
@@ -91,7 +91,7 @@
 
 
 
-.AtivoTakeReturn-AvisoInfo {
+.AssetTakeReturn-AvisoInfo {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -101,21 +101,21 @@
 }
 
 
-.AtivoTakeReturn-AvisoInfo-Item {
+.AssetTakeReturn-AvisoInfo-Item {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
     gap: .3rem;
-    color: var(--AtivoModal-TakeReturnWarningInfo-Color);
+    color: var(--AssetModal-TakeReturnWarningInfo-Color);
     font-family: var(--Fonte);
-    background-color: var(--AtivoModal-TakeReturnWarningInfo-Background);
+    background-color: var(--AssetModal-TakeReturnWarningInfo-Background);
     padding: .2rem .8rem;
     border-radius: 1rem;
     font-size: .8rem;
 }
 
-.AtivoTakeReturn-AvisoInfo-Item>svg {
+.AssetTakeReturn-AvisoInfo-Item>svg {
     width: 1rem;
 }
 
@@ -131,34 +131,34 @@
 /* =========== TABS BUTTONS ==================== */
 
 
-.AtivoTRTabsContainerClaro {
-    --AtivoTRTabsContainer-Background: #eceff1;
-    --AtivoTRTabsContainer-Button-Background: var(--PrimaryBackGroundFaded2);
-    --AtivoTRTabsContainer-Button-Border: var(--PrimaryBackGroundFaded2);
-    --AtivoTRTabsContainer-Button-Color: var(--PrimaryBackground);
-    --AtivoTRTabsContainer-Button-Background-Active: var(--PrimaryBackground);
-    --AtivoTRTabsContainer-Button-Border-Active: var(--PrimaryBackground);
-    --AtivoTRTabsContainer-Button-Color-Active: white;
-    --AtivoTRTabsContainer-Button-Background-Hover: var(--PrimaryBackground);
-    --AtivoTRTabsContainer-Button-Border-Hover: var(--PrimaryBackground);
-    --AtivoTRTabsContainer-Button-Color-Hover: white;
+.AssetTRTabsContainerClaro {
+    --AssetTRTabsContainer-Background: #eceff1;
+    --AssetTRTabsContainer-Button-Background: var(--PrimaryBackGroundFaded2);
+    --AssetTRTabsContainer-Button-Border: var(--PrimaryBackGroundFaded2);
+    --AssetTRTabsContainer-Button-Color: var(--PrimaryBackground);
+    --AssetTRTabsContainer-Button-Background-Active: var(--PrimaryBackground);
+    --AssetTRTabsContainer-Button-Border-Active: var(--PrimaryBackground);
+    --AssetTRTabsContainer-Button-Color-Active: white;
+    --AssetTRTabsContainer-Button-Background-Hover: var(--PrimaryBackground);
+    --AssetTRTabsContainer-Button-Border-Hover: var(--PrimaryBackground);
+    --AssetTRTabsContainer-Button-Color-Hover: white;
 }
 
-.AtivoTRTabsContainerEscuro {
-    --AtivoTRTabsContainer-Background: var(--BackgroundDark);
-    --AtivoTRTabsContainer-Button-Background: var(--PrimaryBackGroundFaded2);
-    --AtivoTRTabsContainer-Button-Border: var(--PrimaryBackGroundFaded50);
-    --AtivoTRTabsContainer-Button-Color: var(--PrimaryBackground);
-    --AtivoTRTabsContainer-Button-Background-Active: var(--PrimaryBackground);
-    --AtivoTRTabsContainer-Button-Border-Active: var(--PrimaryBackground);
-    --AtivoTRTabsContainer-Button-Color-Active: white;
-    --AtivoTRTabsContainer-Button-Background-Hover: var(--PrimaryBackground);
-    --AtivoTRTabsContainer-Button-Border-Hover: var(--PrimaryBackground);
-    --AtivoTRTabsContainer-Button-Color-Hover: white;
+.AssetTRTabsContainerEscuro {
+    --AssetTRTabsContainer-Background: var(--BackgroundDark);
+    --AssetTRTabsContainer-Button-Background: var(--PrimaryBackGroundFaded2);
+    --AssetTRTabsContainer-Button-Border: var(--PrimaryBackGroundFaded50);
+    --AssetTRTabsContainer-Button-Color: var(--PrimaryBackground);
+    --AssetTRTabsContainer-Button-Background-Active: var(--PrimaryBackground);
+    --AssetTRTabsContainer-Button-Border-Active: var(--PrimaryBackground);
+    --AssetTRTabsContainer-Button-Color-Active: white;
+    --AssetTRTabsContainer-Button-Background-Hover: var(--PrimaryBackground);
+    --AssetTRTabsContainer-Button-Border-Hover: var(--PrimaryBackground);
+    --AssetTRTabsContainer-Button-Color-Hover: white;
 }
 
 
-.AtivoTRTabsContainer {
+.AssetTRTabsContainer {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -167,31 +167,31 @@
     margin-bottom: 2rem;
 }
 
-.AtivoTRTabsContainer>button {
+.AssetTRTabsContainer>button {
     border-radius: .5rem;
-    border: 1px solid var(--AtivoTRTabsContainer-Button-Border);
+    border: 1px solid var(--AssetTRTabsContainer-Button-Border);
     padding: .5rem 1.5rem;
     font-family: var(--Fonte);
-    background-color: var(--AtivoTRTabsContainer-Button-Background);
-    color: var(--AtivoTRTabsContainer-Button-Color);
+    background-color: var(--AssetTRTabsContainer-Button-Background);
+    color: var(--AssetTRTabsContainer-Button-Color);
 }
 
-.AtivoTRTabsContainer>button:hover {
-    background-color: var(--AtivoTRTabsContainer-Button-Background-Hover) !important;
-    color: var(--AtivoTRTabsContainer-Button-Color-Hover) !important;
-    border: 1px solid var(--AtivoTRTabsContainer-Button-Border-Hover);
+.AssetTRTabsContainer>button:hover {
+    background-color: var(--AssetTRTabsContainer-Button-Background-Hover) !important;
+    color: var(--AssetTRTabsContainer-Button-Color-Hover) !important;
+    border: 1px solid var(--AssetTRTabsContainer-Button-Border-Hover);
 }
 
-.AtivoTRTabsButtonActive {
-    background-color: var(--AtivoTRTabsContainer-Button-Background-Active) !important;
-    color: var(--AtivoTRTabsContainer-Button-Color-Active) !important;
-    border: 1px solid var(--AtivoTRTabsContainer-Button-Border-Active);
+.AssetTRTabsButtonActive {
+    background-color: var(--AssetTRTabsContainer-Button-Background-Active) !important;
+    color: var(--AssetTRTabsContainer-Button-Color-Active) !important;
+    border: 1px solid var(--AssetTRTabsContainer-Button-Border-Active);
 }
 
 
 
 @media (max-width: 650px) {
-    .AtivoTRTabsContainer {
+    .AssetTRTabsContainer {
         flex-direction: column;
         gap: .5rem;
         margin-top: .5rem;

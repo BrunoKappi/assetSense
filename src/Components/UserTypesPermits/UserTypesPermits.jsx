@@ -19,7 +19,7 @@ const UserTypesPermits = (props) => {
 
     //STATES
     const [UserTypes, setUserTypes] = useState([...props.UserTypes])
-    const [TipoUserKey, setTipoUserKey] = useState(props.UserTypes[0].id)
+    const [TypeUserKey, setTypeUserKey] = useState(props.UserTypes[0].id)
 
     //FILL USER TYPES
     useEffect(() => {
@@ -27,18 +27,18 @@ const UserTypesPermits = (props) => {
     }, [props.UserTypes])
 
     // CHECK USER TYPE AS ADMIN
-    const CheckAdmin = (TipoIndex) => {
-        var TiposCopy = [...props.UserTypes]
+    const CheckAdmin = (TypeIndex) => {
+        var TypesCopy = [...props.UserTypes]
 
-        TiposCopy[TipoIndex].Permits.forEach(function (valor, indice) {
-            TiposCopy[TipoIndex].Permits[indice] = true
+        TypesCopy[TypeIndex].Permits.forEach(function (valor, indice) {
+            TypesCopy[TypeIndex].Permits[indice] = true
         });
 
-        TiposCopy[TipoIndex].IsAdmin = true
+        TypesCopy[TypeIndex].IsAdmin = true
 
-        EditUserTypeInFirebase(TiposCopy[TipoIndex]).then(() => {
-            SetUserTypesOnStore(TiposCopy)
-            setUserTypes(TiposCopy)
+        EditUserTypeInFirebase(TypesCopy[TypeIndex]).then(() => {
+            SetUserTypesOnStore(TypesCopy)
+            setUserTypes(TypesCopy)
             NotificationSucesso("Permissões", "Permissões editadas com sucesso!")
         }).catch(() => {
             NotificationErro("Erro", "Ocorreu um problema, tente novamente")
@@ -47,17 +47,17 @@ const UserTypesPermits = (props) => {
     }
 
     //CHANGE PERMIT
-    const handleChangePermit = (TipoIndex, PermitIndex) => {
-        var TiposCopy = [...props.UserTypes]
-        TiposCopy[TipoIndex].Permits[PermitIndex] = !TiposCopy[TipoIndex].Permits[PermitIndex]
+    const handleChangePermit = (TypeIndex, PermitIndex) => {
+        var TypesCopy = [...props.UserTypes]
+        TypesCopy[TypeIndex].Permits[PermitIndex] = !TypesCopy[TypeIndex].Permits[PermitIndex]
 
-        const AllTrue = TiposCopy[TipoIndex].Permits.every(function (valor) { return valor === true; })
+        const AllTrue = TypesCopy[TypeIndex].Permits.every(function (valor) { return valor === true; })
 
-        TiposCopy[TipoIndex].IsAdmin = AllTrue
+        TypesCopy[TypeIndex].IsAdmin = AllTrue
 
-        EditUserTypeInFirebase(TiposCopy[TipoIndex]).then(() => {
-            SetUserTypesOnStore(TiposCopy)
-            setUserTypes(TiposCopy)
+        EditUserTypeInFirebase(TypesCopy[TypeIndex]).then(() => {
+            SetUserTypesOnStore(TypesCopy)
+            setUserTypes(TypesCopy)
             NotificationSucesso("Permissões", "Permissões editadas com sucesso!")
         }).catch(() => {
             NotificationErro("Erro", "Ocorreu um problema, tente novamente")
@@ -70,33 +70,33 @@ const UserTypesPermits = (props) => {
         <div className={props.Tema === 'Escuro' ? 'UserTypesPermitsContainerEscuro UserTypesPermitsContainer' : 'UserTypesPermitsContainerClaro UserTypesPermitsContainer'}>
 
             <TabsContainer Tema={props.Tema}>
-                {UserTypes.map((TipoUsuario) => {
-                    return <TabButton Text={TipoUsuario.Value} ButtonName={TipoUsuario.id} Key={TipoUserKey} onClick={(k) => setTipoUserKey(TipoUsuario.id)} />
+                {UserTypes.map((TypeUser) => {
+                    return <TabButton Text={TypeUser.Value} ButtonName={TypeUser.id} Key={TypeUserKey} onClick={(k) => setTypeUserKey(TypeUser.id)} />
                 })}
             </TabsContainer>
 
-            {UserTypes.map((TipoUsuario, IndexTipoUsuario) => {
-                return <Show Show={TipoUserKey === TipoUsuario.id}>
+            {UserTypes.map((TypeUser, IndexTypeUser) => {
+                return <Show Show={TypeUserKey === TypeUser.id}>
                     <div key={v4()} className='UserTypesPermits-TypeContainer'>
                         <div className='UserTypesPermits-TypeContainer-Title'>
-                            <span>{TipoUsuario.Value}</span>
+                            <span>{TypeUser.Value}</span>
 
-                            <Show Show={TipoUsuario.IsAdmin}>
+                            <Show Show={TypeUser.IsAdmin}>
                                 <Tooltip title="Possui permissões de Administrador" position="bottom" >
                                     <ImCheckboxChecked />
                                 </Tooltip>
                             </Show>
 
-                            <Show Show={!TipoUsuario.IsAdmin}>
+                            <Show Show={!TypeUser.IsAdmin}>
                                 <Tooltip title="Permissões de Administrador" position="bottom" >
-                                    <ImCheckboxUnchecked onClick={e => CheckAdmin(IndexTipoUsuario)} />
+                                    <ImCheckboxUnchecked onClick={e => CheckAdmin(IndexTypeUser)} />
                                 </Tooltip>
                             </Show>
                         </div>
                         <div className='UserTypesPermits-TypeContainer-List'>
-                            {TipoUsuario.Permits.map((Permit, PermitIndex) => {
+                            {TypeUser.Permits.map((Permit, PermitIndex) => {
                                 if (PermitDesc[PermitIndex])
-                                    return <div key={v4()} onClick={e => handleChangePermit(IndexTipoUsuario, PermitIndex)} className='UserTypesPermits-TypeContainer-ListItem'>
+                                    return <div key={v4()} onClick={e => handleChangePermit(IndexTypeUser, PermitIndex)} className='UserTypesPermits-TypeContainer-ListItem'>
                                         {Permit === true ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
                                         <span> {PermitDesc[PermitIndex]}</span>
                                     </div>
@@ -118,7 +118,7 @@ const UserTypesPermits = (props) => {
 const ConnectedUserTypesPermits = connect((state) => {
     return {
         Sectors: state.Sectors,
-        Usuarios: state.Usuarios,
+        Users: state.Users,
         UserTypes: state.UserTypes,
         Tema: state.Tema
     }

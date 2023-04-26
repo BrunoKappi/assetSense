@@ -1,93 +1,93 @@
-.AtivoModal-ModalClaro {
+.AssetModal-ModalClaro {
 
-    --AtivoModal-Backgound: white;
-    --AtivoModal-Border: white;
-    --AtivoModal-SectionTitleColor: var(--ComplementaryColor);
+    --AssetModal-Backgound: white;
+    --AssetModal-Border: white;
+    --AssetModal-SectionTitleColor: var(--ComplementaryColor);
 
 
-    --AtivoModal-IconeELabe-Input: var(--ComplementaryColor);
-    --AtivoModal-Borda-Input: var(--PrimaryBackGroundFaded50);
-    --AtivoModal-Color-Input: var(--SecondaryBackground);
-    --AtivoModal-Background-Input: transparent;
+    --AssetModal-IconeELabe-Input: var(--ComplementaryColor);
+    --AssetModal-Borda-Input: var(--PrimaryBackGroundFaded50);
+    --AssetModal-Color-Input: var(--SecondaryBackground);
+    --AssetModal-Background-Input: transparent;
 
-    --AtivoModal-ListTittle-Background: var(--ComplementaryColor);
-    --AtivoModal-ListTittle-Color: white;
-    --AtivoModal-ListTittle-Item-Background: transparent;
-    --AtivoModal-ListTittle-Item-Color: var(--ComplementaryColor);
-    --AtivoModal-ListTittle-Item-Border: var(--ComplementaryColor);
-    --AtivoModal-ListTittle-Item-Background-Hover: var(--ComplementaryColor);
-    --AtivoModal-ListTittle-Item-Color-Hover: white;
-    --AtivoModal-ListTittle-Item-Border-Hover: var(--ComplementaryColor);
+    --AssetModal-ListTittle-Background: var(--ComplementaryColor);
+    --AssetModal-ListTittle-Color: white;
+    --AssetModal-ListTittle-Item-Background: transparent;
+    --AssetModal-ListTittle-Item-Color: var(--ComplementaryColor);
+    --AssetModal-ListTittle-Item-Border: var(--ComplementaryColor);
+    --AssetModal-ListTittle-Item-Background-Hover: var(--ComplementaryColor);
+    --AssetModal-ListTittle-Item-Color-Hover: white;
+    --AssetModal-ListTittle-Item-Border-Hover: var(--ComplementaryColor);
 
-    --AtivoModal-Header-Name-Color: var(--ComplementaryColor);
-    --AtivoModal-Header-Sector-Background: var(--SecondaryBackground);
-    --AtivoModal-Header-Sector-Color: white;
-    --AtivoModal-Header-Tipo-Background: var(--PrimaryBackground);
-    --AtivoModal-Header-Tipo-Color: white;
+    --AssetModal-Header-Name-Color: var(--ComplementaryColor);
+    --AssetModal-Header-Sector-Background: var(--SecondaryBackground);
+    --AssetModal-Header-Sector-Color: white;
+    --AssetModal-Header-Type-Background: var(--PrimaryBackground);
+    --AssetModal-Header-Type-Color: white;
 
-    --AtivoModal-Sidebar-Item-Background: var(--PrimaryBackGroundFaded2);
-    --AtivoModal-Sidebar-Item-Border: var(--PrimaryBackGroundFaded2);
-    --AtivoModal-Sidebar-Item-Color: var(--PrimaryBackground);
-    --AtivoModal-Sidebar-Item-Background-Active: var(--PrimaryBackground);
-    --AtivoModal-Sidebar-Item-Border-Active: var(--PrimaryBackground);
-    --AtivoModal-Sidebar-Item-Color-Active: white;
-    --AtivoModal-Sidebar-Item-Background-Hover: var(--PrimaryBackground);
-    --AtivoModal-Sidebar-Item-Border-Hover: var(--PrimaryBackground);
-    --AtivoModal-Sidebar-Item-Color-Hover: white;
+    --AssetModal-Sidebar-Item-Background: var(--PrimaryBackGroundFaded2);
+    --AssetModal-Sidebar-Item-Border: var(--PrimaryBackGroundFaded2);
+    --AssetModal-Sidebar-Item-Color: var(--PrimaryBackground);
+    --AssetModal-Sidebar-Item-Background-Active: var(--PrimaryBackground);
+    --AssetModal-Sidebar-Item-Border-Active: var(--PrimaryBackground);
+    --AssetModal-Sidebar-Item-Color-Active: white;
+    --AssetModal-Sidebar-Item-Background-Hover: var(--PrimaryBackground);
+    --AssetModal-Sidebar-Item-Border-Hover: var(--PrimaryBackground);
+    --AssetModal-Sidebar-Item-Color-Hover: white;
 
-    --AtivoModal-Sidebar-Button-Secondary-Border: var(--ComplementaryColor);
-    --AtivoModal-Sidebar-Button-Secondary-Color: var(--ComplementaryColor);
+    --AssetModal-Sidebar-Button-Secondary-Border: var(--ComplementaryColor);
+    --AssetModal-Sidebar-Button-Secondary-Color: var(--ComplementaryColor);
 
-    --AtivoModal-Sidebar-Button-Delete-Background: #d9534f;
-    --AtivoModal-Sidebar-Button-Delete-Border: #d9534f;
-    --AtivoModal-Sidebar-Button-Delete-Color: white;
+    --AssetModal-Sidebar-Button-Delete-Background: #d9534f;
+    --AssetModal-Sidebar-Button-Delete-Border: #d9534f;
+    --AssetModal-Sidebar-Button-Delete-Color: white;
 }
 
 
 
-.AtivoModal-ModalEscuro {
+.AssetModal-ModalEscuro {
 
-    --AtivoModal-Backgound: var(--BackgroundDark);
-    --AtivoModal-Border: rgb(127, 126, 126);
-    --AtivoModal-SectionTitleColor: var(--ComplementaryColor);
+    --AssetModal-Backgound: var(--BackgroundDark);
+    --AssetModal-Border: rgb(127, 126, 126);
+    --AssetModal-SectionTitleColor: var(--ComplementaryColor);
 
-    --AtivoModal-IconeELabe-Input: var(--ComplementaryColor);
-    --AtivoModal-Borda-Input: var(--PrimaryBackGroundFaded50);
-    --AtivoModal-Color-Input: white;
-    --AtivoModal-Background-Input: transparent;
+    --AssetModal-IconeELabe-Input: var(--ComplementaryColor);
+    --AssetModal-Borda-Input: var(--PrimaryBackGroundFaded50);
+    --AssetModal-Color-Input: white;
+    --AssetModal-Background-Input: transparent;
 
-    --AtivoModal-ListTittle-Background: var(--ComplementaryColor);
-    --AtivoModal-ListTittle-Color: white;
-    --AtivoModal-ListTittle-Item-Background: transparent;
-    --AtivoModal-ListTittle-Item-Color: var(--ComplementaryColor);
-    --AtivoModal-ListTittle-Item-Border: var(--ComplementaryColor);
-    --AtivoModal-ListTittle-Item-Background-Hover: var(--ComplementaryColor);
-    --AtivoModal-ListTittle-Item-Color-Hover: white;
-    --AtivoModal-ListTittle-Item-Border-Hover: var(--ComplementaryColor);
+    --AssetModal-ListTittle-Background: var(--ComplementaryColor);
+    --AssetModal-ListTittle-Color: white;
+    --AssetModal-ListTittle-Item-Background: transparent;
+    --AssetModal-ListTittle-Item-Color: var(--ComplementaryColor);
+    --AssetModal-ListTittle-Item-Border: var(--ComplementaryColor);
+    --AssetModal-ListTittle-Item-Background-Hover: var(--ComplementaryColor);
+    --AssetModal-ListTittle-Item-Color-Hover: white;
+    --AssetModal-ListTittle-Item-Border-Hover: var(--ComplementaryColor);
 
-    --AtivoModal-Header-Name-Color: var(--ComplementaryColor);
-    --AtivoModal-Header-Sector-Background: var(--SecondaryBackground);
-    --AtivoModal-Header-Sector-Color: white;
-    --AtivoModal-Header-Tipo-Background: var(--PrimaryBackground);
-    --AtivoModal-Header-Tipo-Color: white;
+    --AssetModal-Header-Name-Color: var(--ComplementaryColor);
+    --AssetModal-Header-Sector-Background: var(--SecondaryBackground);
+    --AssetModal-Header-Sector-Color: white;
+    --AssetModal-Header-Type-Background: var(--PrimaryBackground);
+    --AssetModal-Header-Type-Color: white;
 
-    --AtivoModal-Sidebar-Item-Background: var(--PrimaryBackGroundFaded2);
-    --AtivoModal-Sidebar-Item-Border: var(--PrimaryBackGroundFaded2);
-    --AtivoModal-Sidebar-Item-Color: var(--PrimaryBackground);
-    --AtivoModal-Sidebar-Item-Background-Active: var(--PrimaryBackground);
-    --AtivoModal-Sidebar-Item-Border-Active: var(--PrimaryBackground);
-    --AtivoModal-Sidebar-Item-Color-Active: white;
-    --AtivoModal-Sidebar-Item-Background-Hover: var(--PrimaryBackground);
-    --AtivoModal-Sidebar-Item-Border-Hover: var(--PrimaryBackground);
-    --AtivoModal-Sidebar-Item-Color-Hover: white;
+    --AssetModal-Sidebar-Item-Background: var(--PrimaryBackGroundFaded2);
+    --AssetModal-Sidebar-Item-Border: var(--PrimaryBackGroundFaded2);
+    --AssetModal-Sidebar-Item-Color: var(--PrimaryBackground);
+    --AssetModal-Sidebar-Item-Background-Active: var(--PrimaryBackground);
+    --AssetModal-Sidebar-Item-Border-Active: var(--PrimaryBackground);
+    --AssetModal-Sidebar-Item-Color-Active: white;
+    --AssetModal-Sidebar-Item-Background-Hover: var(--PrimaryBackground);
+    --AssetModal-Sidebar-Item-Border-Hover: var(--PrimaryBackground);
+    --AssetModal-Sidebar-Item-Color-Hover: white;
 
 
-    --AtivoModal-Sidebar-Button-Secondary-Border: var(--ComplementaryColor);
-    --AtivoModal-Sidebar-Button-Secondary-Color: var(--ComplementaryColor);
+    --AssetModal-Sidebar-Button-Secondary-Border: var(--ComplementaryColor);
+    --AssetModal-Sidebar-Button-Secondary-Color: var(--ComplementaryColor);
 
-    --AtivoModal-Sidebar-Button-Delete-Background: #d9534f;
-    --AtivoModal-Sidebar-Button-Delete-Border: #d9534f;
-    --AtivoModal-Sidebar-Button-Delete-Color: white;
+    --AssetModal-Sidebar-Button-Delete-Background: #d9534f;
+    --AssetModal-Sidebar-Button-Delete-Border: #d9534f;
+    --AssetModal-Sidebar-Button-Delete-Color: white;
 
 
 }
@@ -106,20 +106,20 @@
     }
 }
 
-.AtivoModal {
+.AssetModal {
     z-index: 0 !important;
     padding: 0 !important;
 }
 
 
-.AtivoModal-Modal .modal-content {
-    background-color: var(--AtivoModal-Backgound) !important;
-    border: 1px solid var(--AtivoModal-Border) !important;
+.AssetModal-Modal .modal-content {
+    background-color: var(--AssetModal-Backgound) !important;
+    border: 1px solid var(--AssetModal-Border) !important;
 
 }
 
 
-.AtivoModal {
+.AssetModal {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -129,18 +129,18 @@
 }
 
 
-.AtivoModal::-webkit-scrollbar {
+.AssetModal::-webkit-scrollbar {
     display: none;
 }
 
 @media (max-width: 1000px) {
 
-    .AtivoModal {
+    .AssetModal {
         max-height: none;
         overflow-y: auto;
     }
 
-    .AtivoModal::-webkit-scrollbar {
+    .AssetModal::-webkit-scrollbar {
         display: none;
     }
 }
@@ -149,7 +149,7 @@
 
 /* ======== HEADER  ============== */
 
-.AtivoModalHeader {
+.AssetModalHeader {
     display: flex;
     flex-direction: row;
     align-items: stretch;
@@ -162,7 +162,7 @@
 }
 
 @media (max-width: 1000px) {
-    .AtivoModalHeader {
+    .AssetModalHeader {
         padding: .3rem;
         margin-bottom: 2rem;
     }
@@ -171,7 +171,7 @@
 
 
 
-.AtivoModalHeader-Left {
+.AssetModalHeader-Left {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -180,19 +180,19 @@
 }
 
 @media (max-width: 1000px) {
-    .AtivoModalHeader-Left {
+    .AssetModalHeader-Left {
         width: 30%;
     }
 }
 
-.AtivoModalHeader-Left-Photo {
+.AssetModalHeader-Left-Photo {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
 
-.AtivoModalHeader-Left-Photo>img {
+.AssetModalHeader-Left-Photo>img {
     width: 8rem;
     height: 8rem;
     margin-right: 1rem;
@@ -206,14 +206,14 @@
 
 
 @media (max-width: 1000px) {
-    .AtivoModalHeader-Left-Photo>img {
+    .AssetModalHeader-Left-Photo>img {
         width: 70%;
     }
 }
 
 
 
-.AtivoModalHeader-Right {
+.AssetModalHeader-Right {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -226,13 +226,13 @@
 }
 
 @media (max-width: 1000px) {
-    .AtivoModalHeader-Right {
+    .AssetModalHeader-Right {
         padding: 0;
     }
 }
 
 
-.AtivoModalHeader-Right-Name {
+.AssetModalHeader-Right-Name {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -240,75 +240,75 @@
     width: 100%;
     font-family: var(--Fonte);
     font-size: 1.3rem;
-    color: var(--AtivoModal-Header-Name-Color);
+    color: var(--AssetModal-Header-Name-Color);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     user-select: text !important;
 }
 
-.AtivoModalHeader-Right-Name span {
+.AssetModalHeader-Right-Name span {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 
 }
 
-.AtivoModalHeader-Right-Close {
+.AssetModalHeader-Right-Close {
     position: absolute;
     top: 1rem;
     right: 1rem;
     cursor: pointer;
 }
 
-.AtivoModalHeader-Right-Close:hover {
+.AssetModalHeader-Right-Close:hover {
     transform: scale(1.1);
 }
 
 
 
 
-.AtivoModalHeader-Right-Sector {
+.AssetModalHeader-Right-Sector {
     border-radius: 1rem;
     padding: .1rem 1rem;
     font-family: var(--Fonte);
     font-size: .8rem;
-    color: var(--AtivoModal-Header-Sector-Color);
-    background-color: var(--AtivoModal-Header-Sector-Background);
+    color: var(--AssetModal-Header-Sector-Color);
+    background-color: var(--AssetModal-Header-Sector-Background);
     display: flex;
     justify-content: center;
     align-items: center;
     gap: .5rem;
 }
 
-.AtivoModalHeader-Right-Sector>svg {
+.AssetModalHeader-Right-Sector>svg {
     width: 1.1rem;
 }
 
-.AtivoModalHeader-Right-Tipo {
+.AssetModalHeader-Right-Type {
     border-radius: 1rem;
     padding: .1rem 1rem;
     font-family: var(--Fonte);
     font-size: .8rem;
-    color: var(--AtivoModal-Header-Tipo-Color);
-    background-color: var(--AtivoModal-Header-Tipo-Background);
+    color: var(--AssetModal-Header-Type-Color);
+    background-color: var(--AssetModal-Header-Type-Background);
     display: flex;
     justify-content: center;
     align-items: center;
     gap: .5rem;
 }
 
-.AtivoModalHeader-Right-Tipo>svg {
+.AssetModalHeader-Right-Type>svg {
     width: 1.1rem;
 }
 
 
 @media (max-width: 1000px) {
-    .AtivoModalHeader-Right-Tipo {
+    .AssetModalHeader-Right-Type {
         font-size: .7rem;
     }
 
-    .AtivoModalHeader-Right-Sector {
+    .AssetModalHeader-Right-Sector {
         font-size: .7rem;
     }
 }
@@ -332,7 +332,7 @@
 
 /* ======== BODY  ============== */
 
-.AtivoModalBody {
+.AssetModalBody {
     display: flex;
     flex-direction: row;
     align-items: stretch;
@@ -343,7 +343,7 @@
 
 
 @media (max-width: 1000px) {
-    .AtivoModalBody {
+    .AssetModalBody {
         flex-direction: column;
         align-items: stretch;
         justify-content: flex-start;
@@ -352,7 +352,7 @@
 
 }
 
-.AtivoModalBody-Sidebar {
+.AssetModalBody-Sidebar {
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -362,7 +362,7 @@
 }
 
 @media (max-width: 1000px) {
-    .AtivoModalBody-Sidebar {
+    .AssetModalBody-Sidebar {
         margin-bottom: 2.5rem;
         width: 100%;
     }
@@ -370,14 +370,14 @@
 }
 
 
-.AtivoModalBody-Sidebar-Item {
+.AssetModalBody-Sidebar-Item {
     cursor: pointer;
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: .5rem;
     padding: .6rem 1.7rem;
-    color: var(--AtivoModal-Sidebar-Item-Color);
+    color: var(--AssetModal-Sidebar-Item-Color);
     font-weight: 500;
     text-decoration: none;
     font-family: var(--Fonte);
@@ -385,13 +385,13 @@
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
     border-radius: 1REM;
-    background-color: var(--AtivoModal-Sidebar-Item-Background);
-    border: 1px solid var(--AtivoModal-Sidebar-Item-Border);
+    background-color: var(--AssetModal-Sidebar-Item-Background);
+    border: 1px solid var(--AssetModal-Sidebar-Item-Border);
 }
 
 
 
-.AtivoModalBody-Sidebar-ActiveItem {
+.AssetModalBody-Sidebar-ActiveItem {
     cursor: pointer;
     display: flex;
     flex-direction: row;
@@ -405,23 +405,23 @@
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
     border-radius: 1REM;
-    border: 1px solid var(--AtivoModal-Sidebar-Item-Border-Active);
-    color: var(--AtivoModal-Sidebar-Item-Color-Active);
-    background-color: var(--AtivoModal-Sidebar-Item-Background-Active);
+    border: 1px solid var(--AssetModal-Sidebar-Item-Border-Active);
+    color: var(--AssetModal-Sidebar-Item-Color-Active);
+    background-color: var(--AssetModal-Sidebar-Item-Background-Active);
 }
 
 
 
 
-.AtivoModalBody-Sidebar-Item:hover {
-    border: 1px solid var(--AtivoModal-Sidebar-Item-Border-Hover);
-    color: var(--AtivoModal-Sidebar-Item-Color-Hover);
-    background-color: var(--AtivoModal-Sidebar-Item-Background-Hover);
+.AssetModalBody-Sidebar-Item:hover {
+    border: 1px solid var(--AssetModal-Sidebar-Item-Border-Hover);
+    color: var(--AssetModal-Sidebar-Item-Color-Hover);
+    background-color: var(--AssetModal-Sidebar-Item-Background-Hover);
 }
 
 
 
-.AtivoModalBody-AtivoInfo {}
+.AssetModalBody-AssetInfo {}
 
 
 
@@ -432,7 +432,7 @@
 
 /* ============== INFO FORM =================== */
 
-.AtivoModalBody-AtivoInfo {
+.AssetModalBody-AssetInfo {
     padding: 0rem 1rem 1rem 3rem;
     width: 100%;
 
@@ -440,14 +440,14 @@
 
 
 @media (max-width: 1000px) {
-    .AtivoModalBody-AtivoInfo {
+    .AssetModalBody-AssetInfo {
         padding: .3rem;
     }
 }
 
 
 
-.AtivoModalBody-AtivoInfoForm form {
+.AssetModalBody-AssetInfoForm form {
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -456,40 +456,40 @@
 }
 
 
-.AtivoModalBody-AtivoInfoForm-OneLine {
+.AssetModalBody-AssetInfoForm-OneLine {
     width: 100%;
 }
 
 
 
-.AtivoModalBody-AtivoInfoForm-SectionTitle {
+.AssetModalBody-AssetInfoForm-SectionTitle {
     font-family: var(--Fonte);
-    color: var(--AtivoModal-SectionTitleColor);
+    color: var(--AssetModal-SectionTitleColor);
     margin-top: .5rem;
 }
 
-.AtivoModalBody-AtivoInfoForm-ConfirMessage {
+.AssetModalBody-AssetInfoForm-ConfirMessage {
     font-family: var(--Fonte);
-    color: var(--AtivoModal-SectionTitleColor);
+    color: var(--AssetModal-SectionTitleColor);
     text-align: right;
 }
 
 
 
-.AtivoModalBody-AtivoInfoForm-Group-Input {
+.AssetModalBody-AssetInfoForm-Group-Input {
     border-radius: .5rem;
     outline: none;
-    border: 1px solid var(--AtivoModal-Borda-Input);
+    border: 1px solid var(--AssetModal-Borda-Input);
     padding: .5rem .8rem;
-    color: var(--AtivoModal-Color-Input);
+    color: var(--AssetModal-Color-Input);
     font-family: var(--Fonte);
     font-size: .9rem;
-    background-color: var(--AtivoModal-Background-Input);
+    background-color: var(--AssetModal-Background-Input);
     width: 100% !important;
 }
 
 @media (max-width: 1000px) {
-    .AtivoModalBody-AtivoInfoForm-Group-Input {
+    .AssetModalBody-AssetInfoForm-Group-Input {
         font-size: .8rem;
     }
 
@@ -511,56 +511,56 @@
 
 
 
-.AtivoModalBody-AtivoInfoForm-PhoneInput-Container {
+.AssetModalBody-AssetInfoForm-PhoneInput-Container {
     border-radius: .5rem !important;
     outline: none !important;
-    border: 1px solid var(--AtivoModal-Borda-Input) !important;
+    border: 1px solid var(--AssetModal-Borda-Input) !important;
 
     font-family: var(--Fonte) !important;
     font-size: .9rem !important;
     box-shadow: none !important;
 }
 
-.AtivoModalBody-AtivoInfoForm-PhoneInput {
+.AssetModalBody-AssetInfoForm-PhoneInput {
     border-radius: .5rem !important;
     outline: none !important;
     border: none !important;
-    color: var(--AtivoModal-Color-Input) !important;
+    color: var(--AssetModal-Color-Input) !important;
     font-family: var(--Fonte) !important;
     font-size: .9rem !important;
     width: 100% !important;
     box-shadow: none !important;
-    background-color: var(--AtivoModal-Background-Input) !important;
+    background-color: var(--AssetModal-Background-Input) !important;
 }
 
-.AtivoModalBody-AtivoInfoForm-PhoneInput-Button {
-    background-color: var(--AtivoModal-Background-Input) !important;
+.AssetModalBody-AssetInfoForm-PhoneInput-Button {
+    background-color: var(--AssetModal-Background-Input) !important;
     border: none !important;
 }
 
-.AtivoModalBody-AtivoInfoForm-PhoneInput-Button:hover {
-    background-color: var(--AtivoModal-Background-Input) !important;
+.AssetModalBody-AssetInfoForm-PhoneInput-Button:hover {
+    background-color: var(--AssetModal-Background-Input) !important;
     border: none !important;
 }
 
-.AtivoModalBody-AtivoInfoForm-PhoneInput-Button:active {
-    background-color: var(--AtivoModal-Background-Input) !important;
+.AssetModalBody-AssetInfoForm-PhoneInput-Button:active {
+    background-color: var(--AssetModal-Background-Input) !important;
     border: none !important;
 }
 
-.AtivoModalBody-AtivoInfoForm-LocationSelect {
+.AssetModalBody-AssetInfoForm-LocationSelect {
     flex-grow: 1 !important;
     font-family: var(--Fonte) !important;
     font-size: .9rem !important;
     width: 100% !important;
 }
 
-.AtivoModalBody-AtivoInfoForm-PhoneInput-Dropdown {
+.AssetModalBody-AssetInfoForm-PhoneInput-Dropdown {
 
     overflow-y: scroll !important;
 }
 
-.AtivoModalBody-AtivoInfoForm-PhoneInput-Dropdown::-webkit-scrollbar {
+.AssetModalBody-AssetInfoForm-PhoneInput-Dropdown::-webkit-scrollbar {
     display: none !important;
 
 }
@@ -571,7 +571,7 @@
 
 
 
-.AtivoModalBody-AtivoInfoForm-Button {
+.AssetModalBody-AssetInfoForm-Button {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -580,7 +580,7 @@
     gap: 1rem;
 }
 
-.AtivoModalBody-AtivoInfoForm-Button button {
+.AssetModalBody-AssetInfoForm-Button button {
     padding: .5rem 1rem;
     font-family: var(--Fonte);
     background-color: var(--ComplementaryColor);
@@ -594,24 +594,24 @@
 }
 
 @media (max-width: 760px) {
-    .AtivoModalBody-AtivoInfoForm-Button>button {
+    .AssetModalBody-AssetInfoForm-Button>button {
         font-size: .8rem;
     }
 }
 
 
-.AtivoModalBody-AtivoInfoForm-Button-Delete {
-    background-color: var(--AtivoModal-Sidebar-Button-Delete-Background) !important;
-    border: 1px solid var(--AtivoModal-Sidebar-Button-Delete-Border) !important;
-    color: var(--AtivoModal-Sidebar-Button-Delete-Color) !important;
+.AssetModalBody-AssetInfoForm-Button-Delete {
+    background-color: var(--AssetModal-Sidebar-Button-Delete-Background) !important;
+    border: 1px solid var(--AssetModal-Sidebar-Button-Delete-Border) !important;
+    color: var(--AssetModal-Sidebar-Button-Delete-Color) !important;
 }
 
-.AtivoModalBody-AtivoInfoForm-Button>.AtivoModalBody-AtivoInfoForm-Button-Secondary {
+.AssetModalBody-AssetInfoForm-Button>.AssetModalBody-AssetInfoForm-Button-Secondary {
     padding: .5rem 1rem;
     font-family: var(--Fonte);
     background-color: transparent !important;
-    border: 1px solid var(--AtivoModal-Sidebar-Button-Secondary-Border);
-    color: var(--AtivoModal-Sidebar-Button-Secondary-Color);
+    border: 1px solid var(--AssetModal-Sidebar-Button-Secondary-Border);
+    color: var(--AssetModal-Sidebar-Button-Secondary-Color);
     border-radius: .5rem;
     display: flex;
     flex-direction: row;
@@ -619,14 +619,14 @@
     align-items: center;
 }
 
-.AtivoModalBody-AtivoInfoForm-Button>button>svg {
+.AssetModalBody-AssetInfoForm-Button>button>svg {
     width: 1.2rem;
 }
 
-.AtivoModalBody-AtivoInfoForm-Button>button:hover {
+.AssetModalBody-AssetInfoForm-Button>button:hover {
     transform: scale(1.1);
 }
 
-.AtivoModalBody-AtivoInfoForm-Button>button:active {
+.AssetModalBody-AssetInfoForm-Button>button:active {
     transform: scale(.9);
 }

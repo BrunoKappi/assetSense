@@ -1,6 +1,6 @@
 
 
-const RecordsAtivos = (state = [], action) => {
+const RecordsAssets = (state = [], action) => {
 
     switch (action.type) {
         case 'CLEAR_ALL':
@@ -23,4 +23,4 @@ const RecordsAtivos = (state = [], action) => {
 }
 
 
-export default RecordsAtivos
+export default RecordsAssets

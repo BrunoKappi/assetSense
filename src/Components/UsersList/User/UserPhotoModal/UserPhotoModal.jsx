@@ -83,7 +83,7 @@ const UserPhotoModal = (props) => {
     }
 
 
-    const ApagarFotoDeUsuario = () => {
+    const ApagarFotoDeUser = () => {
         setUploading(false)
         setLoading(true)
         const path = `images/${props.User?.id}`       
@@ -173,7 +173,7 @@ const UserPhotoModal = (props) => {
                             </button>
 
                             <Show Show={!imageUpload && ImageToShowUser}>
-                                <button onClick={ApagarFotoDeUsuario} className='UserPhotoModal-DeletePhoto'>
+                                <button onClick={ApagarFotoDeUser} className='UserPhotoModal-DeletePhoto'>
                                     <UilTrashAlt />
                                     Remover Foto
                                 </button>

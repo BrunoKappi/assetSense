@@ -13,8 +13,8 @@
     --UsersLisFormFilter-Filtros-Title-Color: var(--SecondaryBackground);
     --UsersLisFormFilter-Filtros-Dropdown-Background: white;
 
-    --UsersLisFormFilter-Filtros-Tipo-Background: var(--SecondaryBackground);
-    --UsersLisFormFilter-Filtros-Tipo-Color: white;
+    --UsersLisFormFilter-Filtros-Type-Background: var(--SecondaryBackground);
+    --UsersLisFormFilter-Filtros-Type-Color: white;
 
     --UsersLisFormFilter-Filtros-Sector-Background: var(--PrimaryBackground);
     --UsersLisFormFilter-Filtros-Sector-Color: white;
@@ -43,8 +43,8 @@
     --UsersLisFormFilter-Filtros-Title-Color: var(--ComplementaryColor);
     --UsersLisFormFilter-Filtros-Dropdown-Background: white;
 
-    --UsersLisFormFilter-Filtros-Tipo-Background: var(--SecondaryBackground);
-    --UsersLisFormFilter-Filtros-Tipo-Color: white;
+    --UsersLisFormFilter-Filtros-Type-Background: var(--SecondaryBackground);
+    --UsersLisFormFilter-Filtros-Type-Color: white;
 
     --UsersLisFormFilter-Filtros-Sector-Background: var(--PrimaryBackground);
     --UsersLisFormFilter-Filtros-Sector-Color: white;
@@ -81,7 +81,7 @@
 
 
 
-/* ============  FORM FILTRO DOS USUARIOS  ===================*/
+/* ============  FORM FILTRO DOS USERS  ===================*/
 
 .UsersLisFormFilter {
     display: flex;
@@ -183,7 +183,7 @@
     transform: scale(1);
 }
 
-/* ============  FORM FILTRO DOS USUARIOS  ===================*/
+/* ============  FORM FILTRO DOS USERS  ===================*/
 
 
 
@@ -244,28 +244,28 @@
 
 
 
-/* ============  DROPDOWN FILTRO DE Tipo ===================*/
+/* ============  DROPDOWN FILTRO DE Type ===================*/
 
-#FiltroDeTipo::after {
+#FiltroDeType::after {
     display: none !important;
 }
 
-#FiltroDeTipo {
+#FiltroDeType {
     background-color: transparent !important;
     border: none !important;
     padding: 0 !important;
 }
 
-.FiltroDeTipoTitle {
+.FiltroDeTypeTitle {
     display: flex;
     flex-direction: row;
     gap: .5rem;
     align-items: center;
     font-family: var(--Fonte);
-    background-color: var(--UsersLisFormFilter-Filtros-Tipo-Background);
+    background-color: var(--UsersLisFormFilter-Filtros-Type-Background);
     padding: .3rem .6rem;
     border-radius: 1rem;
-    color: var(--UsersLisFormFilter-Filtros-Tipo-Color);
+    color: var(--UsersLisFormFilter-Filtros-Type-Color);
     font-size: .8rem;
 }
 

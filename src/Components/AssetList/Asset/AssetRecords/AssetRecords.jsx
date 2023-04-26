@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import './AssetRecords.css'
-import { GetFromStore, GetFromStoreWithId, GetRecordsOfAtivo } from '../../../../Functions/Middleware';
+import { GetFromStore, GetFromStoreWithId, GetRecordsOfAsset } from '../../../../Functions/Middleware';
 import { UilCommentInfoAlt } from '@iconscout/react-unicons'
 //Tooltip
-import UsuarioModal from '../../../UsersList/User/UserModal'
+import UserModal from '../../../UsersList/User/UserModal'
 import { NotificationAlerta } from '../../../../NotificationUtils';
 import { v4 } from 'uuid';
 import { connect } from 'react-redux'
 import Record from '../../../Record/Record'
 import Show from '../../../LayoutComponents/Show/Show';
 import RecordsFormFilter from '../../../RecordsFormFilter/RecordsFormFilter'
-const AtivoRecords = (props) => {
+const AssetRecords = (props) => {
 
     const CurrentUser = GetFromStore('CurrentUser')
 
@@ -21,8 +21,8 @@ const AtivoRecords = (props) => {
 
     //FILL LIST
     useEffect(() => {
-        SetRecords(GetRecordsOfAtivo(props.Ativo?.id))
-    }, [props.Ativo?.id, props.RecordsAtivos])
+        SetRecords(GetRecordsOfAsset(props.Asset?.id))
+    }, [props.Asset?.id, props.RecordsAssets])
 
     //RESET SELECTED USER 
     const ResetSelectedUser = () => {
@@ -32,7 +32,7 @@ const AtivoRecords = (props) => {
 
     //WHEN CLICK USER
     const handleUserSelection = (Id) => {
-        const User = GetFromStoreWithId('UsuariosWithDeleted', Id)
+        const User = GetFromStoreWithId('UsersWithDeleted', Id)
         if (User.Deleted === false && props.FromModal === false) {
             setSelectedUser(User)
             setModalShow(true)
@@ -45,16 +45,16 @@ const AtivoRecords = (props) => {
 
     return (
         <>
-            <UsuarioModal FromModal={true} CurrentUser={CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
+            <UserModal FromModal={true} CurrentUser={CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
 
-            <div className={props.Tema === 'Escuro' ? 'AtivoRecords-ContainerEscuro AtivoRecords-Container' : 'AtivoRecords-ContainerClaro AtivoRecords-Container'}>
+            <div className={props.Tema === 'Escuro' ? 'AssetRecords-ContainerEscuro AssetRecords-Container' : 'AssetRecords-ContainerClaro AssetRecords-Container'}>
 
 
                 {/***********   FORM FILTER   *************/}
                 <RecordsFormFilter
-                    GetRecords={GetRecordsOfAtivo}
+                    GetRecords={GetRecordsOfAsset}
                     SetRecords={SetRecords}
-                    Ativo={props?.Ativo || {}}
+                    Asset={props?.Asset || {}}
                 />
 
                 {/***********   RECORDS   *************/}
@@ -62,7 +62,7 @@ const AtivoRecords = (props) => {
                     <Record
                         key={v4()}
                         Record={Registro}
-                        handleAtivoSelection={() => { }}
+                        handleAssetSelection={() => { }}
                         handleUserSelection={handleUserSelection}
                         PerspectiveOf='User'
                     />
@@ -70,9 +70,9 @@ const AtivoRecords = (props) => {
 
                 {/***********   NO RECORD FOUND   *************/}
                 <Show Show={Records.length === 0}>
-                    <div className='AtivosRecords-TakeForm'>
-                        <div className='AtivosRecords-AvisoInfo'>
-                            <div className='AtivosRecords-AvisoInfo-Item'>
+                    <div className='AssetsRecords-TakeForm'>
+                        <div className='AssetsRecords-AvisoInfo'>
+                            <div className='AssetsRecords-AvisoInfo-Item'>
                                 <UilCommentInfoAlt />
                                 <span>Nenhum registro encontrado</span>
                             </div>
@@ -86,11 +86,11 @@ const AtivoRecords = (props) => {
 }
 
 
-const ConnectedAtivoRecords = connect((state) => {
+const ConnectedAssetRecords = connect((state) => {
     return {
         Tema: state.Tema,
-        RecordsAtivos: state.RecordsAtivos
+        RecordsAssets: state.RecordsAssets
     }
-})(AtivoRecords)
+})(AssetRecords)
 
-export default ConnectedAtivoRecords 
+export default ConnectedAssetRecords 

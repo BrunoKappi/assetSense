@@ -33,7 +33,7 @@ export default function BarChart(props) {
                 type: "pie", // define o tipo de gráfico como "pie"               
                 width: "100%", // adiciona a propriedade de altura com valor 100%
                 height: "700px", // adiciona a propriedade de altura com valor 100%
-                fontFamily: 'Kanit, Sans-serif',
+                fontFamily: 'var(--Fonte)',
                 toolbar: {
                     tools: {
                         download: false
@@ -58,7 +58,7 @@ export default function BarChart(props) {
                 style: {
                     fontSize: ".7rem",
                     colors: ['var(--Charts-Bars-Legend-Color)'],
-                    fontFamily: 'Kanit, Sans-serif',
+                    fontFamily: 'var(--Fonte)',
                     fontWeight: 400
                 },
             },

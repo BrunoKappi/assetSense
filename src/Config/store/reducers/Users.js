@@ -1,21 +1,21 @@
 
 
-const Usuarios = (state = [], action) => {
+const Users = (state = [], action) => {
 
     switch (action.type) {
-        case 'ADD_USUARIO':
-            return state.concat(action.NovoUsuario)
+        case 'ADD_USER':
+            return state.concat(action.NovoUser)
         case 'CLEAR_ALL':
             return []
-        case 'SET_USUARIOS':
-            return action.Usuarios
-        case 'EDIT_USUARIO':
-            return state.filter(usuario => {
-                return usuario.id !== action.EditedUser.id
+        case 'SET_USERS':
+            return action.Users
+        case 'EDIT_USER':
+            return state.filter(user => {
+                return user.id !== action.EditedUser.id
             }).concat({ ...action.EditedUser, CreatedAt: moment().valueOf(), LastEditedAt: moment().valueOf() })
-        case 'DELETE_USUARIO':
-            return state.filter(usuario => {
-                return usuario.id !== action.UsuarioToDelete.id
+        case 'DELETE_USER':
+            return state.filter(user => {
+                return user.id !== action.UserToDelete.id
             })
         default:
             return state
@@ -23,4 +23,4 @@ const Usuarios = (state = [], action) => {
 }
 
 
-export default Usuarios
+export default Users

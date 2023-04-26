@@ -5,8 +5,8 @@
     --UserContainer-Sector-Background: var(--PrimaryBackground);
     --UserContainer-Sector-Color: white;
 
-    --UserContainer-Tipo-Background: var(--SecondaryBackground);
-    --UserContainer-Tipo-Color: white;
+    --UserContainer-Type-Background: var(--SecondaryBackground);
+    --UserContainer-Type-Color: white;
 
     --UserContainer-Name-Color: var(--ComplementaryColor);
     --UserContainer-Email-Color: var(--SecondaryBackground);
@@ -20,8 +20,8 @@
     --UserContainer-Sector-Background: var(--PrimaryBackground);
     --UserContainer-Sector-Color: white;
 
-    --UserContainer-Tipo-Background: var(--SecondaryBackground);
-    --UserContainer-Tipo-Color: white;
+    --UserContainer-Type-Background: var(--SecondaryBackground);
+    --UserContainer-Type-Color: white;
 
     --UserContainer-Name-Color: var(--ComplementaryColor);
     --UserContainer-Email-Color: white;
@@ -80,8 +80,8 @@
 }
 
 .TypeColumn {
-    background-color: var(--UserContainer-Tipo-Background);
-    color: var(--UserContainer-Tipo-Color);
+    background-color: var(--UserContainer-Type-Background);
+    color: var(--UserContainer-Type-Color);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

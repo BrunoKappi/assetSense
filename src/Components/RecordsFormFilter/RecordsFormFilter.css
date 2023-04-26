@@ -1,28 +1,28 @@
-.AtivoRecords-FormFilterClaro {
-    --AtivosRecordsFormFilter-Button-Background: var(--ComplementaryColor);
-    --AtivosRecordsFormFilter-Button-Border: var(--ComplementaryColor);
-    --AtivosRecordsFormFilter-Button-Color: white;
+.AssetRecords-FormFilterClaro {
+    --AssetsRecordsFormFilter-Button-Background: var(--ComplementaryColor);
+    --AssetsRecordsFormFilter-Button-Border: var(--ComplementaryColor);
+    --AssetsRecordsFormFilter-Button-Color: white;
 
-    --AtivoRecords-FormFilter-Input-Background: white;
-    --AtivoRecords-FormFilter-Input-Border: transparent;
-    --AtivoRecords-FormFilter-Input-Color: var(--SecondaryBackground);
+    --AssetRecords-FormFilter-Input-Background: white;
+    --AssetRecords-FormFilter-Input-Border: transparent;
+    --AssetRecords-FormFilter-Input-Color: var(--SecondaryBackground);
 
-    --AtivoRecord-UpRow-OrderBy-Color: var(--SecondaryBackground);
+    --AssetRecord-UpRow-OrderBy-Color: var(--SecondaryBackground);
 }
 
 
 
 
-.AtivoRecords-FormFilterEscuro {
-    --AtivosRecordsFormFilter-Button-Background: var(--ComplementaryColor);
-    --AtivosRecordsFormFilter-Button-Border: var(--ComplementaryColor);
-    --AtivosRecordsFormFilter-Button-Color: white;
+.AssetRecords-FormFilterEscuro {
+    --AssetsRecordsFormFilter-Button-Background: var(--ComplementaryColor);
+    --AssetsRecordsFormFilter-Button-Border: var(--ComplementaryColor);
+    --AssetsRecordsFormFilter-Button-Color: white;
 
-    --AtivoRecords-FormFilter-Input-Background: transparent;
-    --AtivoRecords-FormFilter-Input-Border: var(--ComplementaryColor);
-    --AtivoRecords-FormFilter-Input-Color: var(--ComplementaryColor);
+    --AssetRecords-FormFilter-Input-Background: transparent;
+    --AssetRecords-FormFilter-Input-Border: var(--ComplementaryColor);
+    --AssetRecords-FormFilter-Input-Color: var(--ComplementaryColor);
 
-    --AtivoRecord-UpRow-OrderBy-Color: var(--ComplementaryColor);
+    --AssetRecord-UpRow-OrderBy-Color: var(--ComplementaryColor);
 }
 
 
@@ -32,7 +32,7 @@
 
 /* ============  DROPDOWN  ===================*/
 
-.AtivoRecords-FormFilter {
+.AssetRecords-FormFilter {
     display: flex;
     flex-direction: row;
     gap: 1rem;
@@ -44,64 +44,64 @@
 
 
 @media (max-width: 500px) {
-    .AtivoRecords-FormFilter {
+    .AssetRecords-FormFilter {
         flex-direction: column;
         align-items: center;
         row-gap: .3rem;
     }
 
-    .AtivoRecords-FormFilter>input {
+    .AssetRecords-FormFilter>input {
         width: 100%;
     }
 }
 
 
-.AtivoRecords-FormFilter>button {
+.AssetRecords-FormFilter>button {
     font-family: var(--Fonte);
     font-size: .8rem;
     outline: none;
-    border: 1px solid var(--AtivosRecordsFormFilter-Button-Border);
-    background-color: var(--AtivosRecordsFormFilter-Button-Background);
-    color: var(--AtivosRecordsFormFilter-Button-Color);
+    border: 1px solid var(--AssetsRecordsFormFilter-Button-Border);
+    background-color: var(--AssetsRecordsFormFilter-Button-Background);
+    color: var(--AssetsRecordsFormFilter-Button-Color);
     padding: .5rem 1rem;
     border-radius: .5rem;
 }
 
-.AtivoRecords-FormFilter>button {
+.AssetRecords-FormFilter>button {
     font-family: var(--Fonte);
     font-size: .8rem;
     outline: none;
-    border: 1px solid var(--AtivosRecordsFormFilter-Button-Border);
-    background-color: var(--AtivosRecordsFormFilter-Button-Background);
-    color: var(--AtivosRecordsFormFilter-Button-Color);
+    border: 1px solid var(--AssetsRecordsFormFilter-Button-Border);
+    background-color: var(--AssetsRecordsFormFilter-Button-Background);
+    color: var(--AssetsRecordsFormFilter-Button-Color);
     padding: .5rem 1rem;
     border-radius: .5rem;
 }
 
 
-.AtivoRecords-FormFilter>input {
+.AssetRecords-FormFilter>input {
     flex-grow: 1;
     outline: none;
     padding: .5rem 1rem;
-    border: 1px solid var(--AtivoRecords-FormFilter-Input-Border);
+    border: 1px solid var(--AssetRecords-FormFilter-Input-Border);
     border-radius: .5rem;
     font-family: var(--Fonte);
     font-size: .8rem;
-    background-color: var(--AtivoRecords-FormFilter-Input-Background);
-    color: var(--AtivoRecords-FormFilter-Input-Color);
+    background-color: var(--AssetRecords-FormFilter-Input-Background);
+    color: var(--AssetRecords-FormFilter-Input-Color);
     -webkit-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
 }
 
-.AtivoRecords-FormFilter>input::placeholder {
-    color: var(--AtivoRecords-FormFilter-Input-Color);
+.AssetRecords-FormFilter>input::placeholder {
+    color: var(--AssetRecords-FormFilter-Input-Color);
 }
 
-.AtivoRecords-FormFilter>button:hover {
+.AssetRecords-FormFilter>button:hover {
     transform: scale(1.1);
 }
 
-.AtivoRecords-FormFilter>button:active {
+.AssetRecords-FormFilter>button:active {
     transform: scale(1);
 }
