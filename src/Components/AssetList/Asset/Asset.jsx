@@ -1,13 +1,15 @@
 import React from 'react'
 import './Asset.css'
-import { UilWrench, UilBox, UilPlay, UilArchive, UilLabelAlt } from '@iconscout/react-unicons'
-import { GetNameFromStoreWithId } from '../../../Functions/Middleware'
+import { UilWrench, UilBox, UilPlay, UilArchive, UilLabelAlt, UilUsersAlt } from '@iconscout/react-unicons'
+import { GetNameFromStoreWithId, GetNamesOfUsersThatTookAtivo } from '../../../Functions/Middleware'
 //Tooltip
 import { Tooltip } from 'react-tippy';
 import { DefaultTooltipStyles } from '../../../GlobalVars';
 import { connect } from 'react-redux'
 
 const Ativo = (props) => {
+
+    console.log("QUE PEGARAM", GetNamesOfUsersThatTookAtivo(props.Ativo.id))
 
     return (
 
@@ -33,10 +35,15 @@ const Ativo = (props) => {
                         {props.Ativo?.QtdInUse}
                     </span>
                 </Tooltip>
-
-
-
             </span>
+
+
+            <span className='AtivoQuantidades'>
+                {GetNamesOfUsersThatTookAtivo(props.Ativo.id) && <UilUsersAlt />}
+                {GetNamesOfUsersThatTookAtivo(props.Ativo.id)}
+            </span>
+
+
             <div className='AtivoContainrColumn LocalArmazenamentoColumnContainer'>
                 <Tooltip title="Local de Armazenamento" position="bottom" >
                     <span className='LocalArmazenamentoColumn'>

@@ -16,7 +16,7 @@
 
 .AtivoContainrEscuro {
     --AtivoContainr-Background: var(--BackgroundDark);
-    --AtivoContainr-Background-Hover: var(--PrimaryBackGroundFaded30); 
+    --AtivoContainr-Background-Hover: var(--PrimaryBackGroundFaded30);
     --AtivoContainr-Border: var(--ComplementaryColor);
 
     --AtivoContainr-LocalArmazenamento-Background: var(--PrimaryBackground);
@@ -40,8 +40,8 @@
 
 .AtivoContainr {
     display: grid;
-    grid-template-columns: 40% 20% 20% 20%;
-    gap: .5rem;
+    grid-template-columns: 35% 10% 15% 20% 20%;
+    gap: 1%;
     align-items: center;
     margin-bottom: .3rem;
     padding: .7rem .5rem;
@@ -180,9 +180,10 @@
     text-overflow: ellipsis;
     font-size: .8rem;
     color: var(--AtivoContainr-Email-Color);
+    font-family: var(--Fonte);
 }
 
-.AtivoQuantidades>svg {
+.AtivoQuantidades svg {
     width: .9rem;
 }
 

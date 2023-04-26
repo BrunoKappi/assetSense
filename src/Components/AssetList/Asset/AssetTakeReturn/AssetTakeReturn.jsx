@@ -277,6 +277,7 @@ const AtivoTakeReturn = (props) => {
 
 
 
+    console.log("QTD", props.Ativo?.QtdPerUser)
 
     return (
         <div className={props.Tema === 'Escuro' ? 'AtivoTakeReturn-ContainerEscuro AtivoTakeReturn-Container' : 'AtivoTakeReturn-ContainerClaro AtivoTakeReturn-Container'}>

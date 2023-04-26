@@ -418,6 +418,28 @@ export const GetUsersThatTookAtivo = (ID) => {
     return UsersThatTook
 }
 
+
+//Usuarios que Pegaram um determinado Ativo, menos o currentuser
+export const GetAllUsersThatTookAtivo = (ID) => {
+    var Records3 = [...GetFromStore('RecordsAtivos')]
+    const AtivosPegos = Records3.filter(Record => Record.AtivoId === ID && !Record.ReturnDate)
+
+    const Users = GetFromStore('Usuarios')
+    const UsersThatTook = Users.filter(user => AtivosPegos.some(AtivoPego => AtivoPego.TakenFor.id === user.id));
+
+    return UsersThatTook
+}
+
+//GET ALL NAMES OF USERS THAT TOOK ATIVOS
+export const GetNamesOfUsersThatTookAtivo = (AtivoId) => {
+    const UsersThatTook = GetAllUsersThatTookAtivo(AtivoId)
+    const UserNames = UsersThatTook.map(User => {
+        return User.Name
+    })
+    console.log("USUARIOS QUE PEGARAM", UsersThatTook)
+    return UserNames ? UserNames.join() : ''
+}
+
 export const GetRecordByAtivoIdAndUserId = (AtivoId, UserId) => {
     var Records4 = [...GetFromStore('RecordsAtivos')]
     const Record = Records4.filter(Record => Record.AtivoId === AtivoId && Record.TakenFor.id === UserId && !Record.ReturnDate)[0]
