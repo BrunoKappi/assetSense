@@ -61,7 +61,7 @@ export const AtivosCamposTabTitle = () => {
     </div>
 }
 
-export const SetoresEUsuáriosTabTitle = () => {
+export const SectorsEUsuáriosTabTitle = () => {
     return <div className='TabsTitle'>
         <UilSitemap />
         <span>Setores e Usuários</span>
@@ -101,7 +101,7 @@ export const TodosTabTitle = () => {
 
 
 
-export const SetoresTabTitle = () => {
+export const SectorsTabTitle = () => {
     return <div className='TabsTitle'>
         <UilSitemap />
         <span>Setores</span>
@@ -185,13 +185,13 @@ export const UserType = (Text) => {
 const Tabs = {
     "Ativos": AtivosTabTitle(),
     "AtivosCampos": AtivosCamposTabTitle(),
-    "Setores e Usuários": SetoresEUsuáriosTabTitle(),
+    "Sectors e Usuários": SectorsEUsuáriosTabTitle(),
     "Permissoes": PermicoesTabTitle(),
     "TodosAtivos": TodosTabTitle(),
     "AtivosInArmazenamento": ArmazenamentoTabTitle(),
     "AtivosInTipos": TiposTabTitle(),
     "TodosUsuarios": UsersTodosTabTitle(),
-    "UsersInSetores": SetoresTabTitle(),
+    "UsersInSectors": SectorsTabTitle(),
     "UsersInTipos": UsersTiposTabTitle(),
     "DashAtivos": DashAtivosTabTitle(),
     "DahUsuarios": DashUsuariosTabTitle(),

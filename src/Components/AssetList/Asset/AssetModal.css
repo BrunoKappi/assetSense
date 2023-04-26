@@ -20,8 +20,8 @@
     --AtivoModal-ListTittle-Item-Border-Hover: var(--ComplementaryColor);
 
     --AtivoModal-Header-Name-Color: var(--ComplementaryColor);
-    --AtivoModal-Header-Setor-Background: var(--SecondaryBackground);
-    --AtivoModal-Header-Setor-Color: white;
+    --AtivoModal-Header-Sector-Background: var(--SecondaryBackground);
+    --AtivoModal-Header-Sector-Color: white;
     --AtivoModal-Header-Tipo-Background: var(--PrimaryBackground);
     --AtivoModal-Header-Tipo-Color: white;
 
@@ -66,8 +66,8 @@
     --AtivoModal-ListTittle-Item-Border-Hover: var(--ComplementaryColor);
 
     --AtivoModal-Header-Name-Color: var(--ComplementaryColor);
-    --AtivoModal-Header-Setor-Background: var(--SecondaryBackground);
-    --AtivoModal-Header-Setor-Color: white;
+    --AtivoModal-Header-Sector-Background: var(--SecondaryBackground);
+    --AtivoModal-Header-Sector-Color: white;
     --AtivoModal-Header-Tipo-Background: var(--PrimaryBackground);
     --AtivoModal-Header-Tipo-Color: white;
 
@@ -268,20 +268,20 @@
 
 
 
-.AtivoModalHeader-Right-Setor {
+.AtivoModalHeader-Right-Sector {
     border-radius: 1rem;
     padding: .1rem 1rem;
     font-family: var(--Fonte);
     font-size: .8rem;
-    color: var(--AtivoModal-Header-Setor-Color);
-    background-color: var(--AtivoModal-Header-Setor-Background);
+    color: var(--AtivoModal-Header-Sector-Color);
+    background-color: var(--AtivoModal-Header-Sector-Background);
     display: flex;
     justify-content: center;
     align-items: center;
     gap: .5rem;
 }
 
-.AtivoModalHeader-Right-Setor>svg {
+.AtivoModalHeader-Right-Sector>svg {
     width: 1.1rem;
 }
 
@@ -308,7 +308,7 @@
         font-size: .7rem;
     }
 
-    .AtivoModalHeader-Right-Setor {
+    .AtivoModalHeader-Right-Sector {
         font-size: .7rem;
     }
 }

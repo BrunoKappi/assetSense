@@ -8,7 +8,7 @@ import { NotificationErro } from '../../NotificationUtils';
 import { connect } from 'react-redux'
 import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
-import { TodosUsersTab, UsersInSetoresTab, UsersInTypesTab } from '../../Functions/Permits';
+import { TodosUsersTab, UsersInSectorsTab, UsersInTypesTab } from '../../Functions/Permits';
 import FilterSelect from '../LayoutComponents/FilterSelect/FilterSelect'
 
 
@@ -31,8 +31,8 @@ const Users = (props) => {
   const getInitialTab = () => {
     if (TodosUsersTab())
       return 'TodosUsuarios'
-    else if (UsersInSetoresTab())
-      return 'UsersInSetores'
+    else if (UsersInSectorsTab())
+      return 'UsersInSectors'
     else if (UsersInTypesTab())
       return 'UsersInTipos'
   }
@@ -44,7 +44,7 @@ const Users = (props) => {
   const SetKeyConfig = (Key) => {
     if (Key === 'TodosUsuarios' && TodosUsersTab())
       setKey(Key)
-    else if (Key === 'UsersInSetores' && UsersInSetoresTab())
+    else if (Key === 'UsersInSectors' && UsersInSectorsTab())
       setKey(Key)
     else if (Key === 'UsersInTipos' && UsersInTypesTab())
       setKey(Key)
@@ -59,7 +59,7 @@ const Users = (props) => {
 
       <TabsContainer Tema={props.Tema}>
         <TabButton ButtonName="TodosUsuarios" Key={key} onClick={(k) => SetKeyConfig('TodosUsuarios')} />
-        <TabButton ButtonName="UsersInSetores" Key={key} onClick={(k) => SetKeyConfig('UsersInSetores')} />
+        <TabButton ButtonName="UsersInSectors" Key={key} onClick={(k) => SetKeyConfig('UsersInSectors')} />
         <TabButton ButtonName="UsersInTipos" Key={key} onClick={(k) => SetKeyConfig('UsersInTipos')} />
       </TabsContainer>
 
@@ -69,7 +69,7 @@ const Users = (props) => {
         <Tab eventKey="TodosUsuarios" >
           <UsersList />
         </Tab>
-        <Tab eventKey="UsersInSetores" >
+        <Tab eventKey="UsersInSectors" >
           <DraggableLists Module='UsersInSectores' />
         </Tab>
         <Tab eventKey="UsersInTipos"  >

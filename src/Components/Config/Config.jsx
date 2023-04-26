@@ -13,7 +13,7 @@ import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
 import Show from '../LayoutComponents/Show/Show';
 //FUNCTIONS
-import { AtivosTabAccess, PermicoesTabAccess, SetoresUsuariosTabAccess } from '../../Functions/Permits';
+import { AtivosTabAccess, PermicoesTabAccess, SectorsUsuariosTabAccess } from '../../Functions/Permits';
 import { ConfigBreakpoints } from '../../GlobalVars';
  
 
@@ -24,8 +24,8 @@ const Config = (props) => {
   const getInitialTab = () => { 
     if (AtivosTabAccess())
       return 'Ativos'
-    else if (SetoresUsuariosTabAccess())
-      return 'Setores e Usuários'
+    else if (SectorsUsuariosTabAccess())
+      return 'Sectors e Usuários'
     else if (PermicoesTabAccess()) 
       return 'Permissoes'
   }
@@ -41,7 +41,7 @@ const Config = (props) => {
       setKey(Key)
     else if (Key === 'AtivosCampos')
       setKey(Key)
-    else if (Key === 'Setores e Usuários' && SetoresUsuariosTabAccess())
+    else if (Key === 'Sectors e Usuários' && SectorsUsuariosTabAccess())
       setKey(Key)
     else if (Key === 'Permissoes' && PermicoesTabAccess())
       setKey(Key)
@@ -57,7 +57,7 @@ const Config = (props) => {
       <TabsContainer Tema={props.Tema}>
         <TabButton ButtonName="Ativos" Key={key} onClick={(k) => SetKeyConfig('Ativos')} />
         <TabButton ButtonName="AtivosCampos" Key={key} onClick={(k) => SetKeyConfig('AtivosCampos')} />
-        <TabButton ButtonName="Setores e Usuários" Key={key} onClick={(k) => SetKeyConfig('Setores e Usuários')} />
+        <TabButton ButtonName="Sectors e Usuários" Key={key} onClick={(k) => SetKeyConfig('Sectors e Usuários')} />
         <TabButton ButtonName="Permissoes" Key={key} onClick={(k) => SetKeyConfig('Permissoes')} />
       </TabsContainer>
 
@@ -94,14 +94,14 @@ const Config = (props) => {
 
           </div>
         </Tab>
-        {/******************************     SETORES E USUARIOS TAB    ************************************/}
-        <Tab eventKey="Setores e Usuários"  >
+        {/******************************     SECTORS E USUARIOS TAB    ************************************/}
+        <Tab eventKey="Sectors e Usuários"  >
           <div className='ListItensContainer'>
             <Masonry breakpointCols={ConfigBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column"  >
-              <EditableCustomList Title="Setores da Empresa" Module="Setores" />
+              <EditableCustomList Title="Setores da Empresa" Module="Sectors" />
               <EditableCustomList Title="Tipos de Usuários" Module="TiposUsuarios" />
             </Masonry>
-          </div>
+          </div> 
         </Tab>
         {/******************************     PERMISSÕES TAB    ************************************/}
         <Tab eventKey="Permissoes"  >

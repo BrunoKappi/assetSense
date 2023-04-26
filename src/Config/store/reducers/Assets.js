@@ -2,8 +2,8 @@ import moment from "moment"
 
 const Ativos = (state = [], action) => {
     switch (action.type) {
-        case 'ADD_SETOR':
-            return state.concat(action.NovoSetor)
+        case 'ADD_SECTOR':
+            return state.concat(action.NovoSector)
         case 'ADD_ATIVO':
             return state.concat(action.NovoAtivo)
         case 'CLEAR_ALL':

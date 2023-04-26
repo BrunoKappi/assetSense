@@ -16,15 +16,15 @@ import { connect } from 'react-redux'
 import { Tooltip } from 'react-tippy';
 import BootstrapModal from 'react-bootstrap/Modal';
 //VARIABLES
-import { PermitIndexs } from '../../../GlobalVars' 
-import { DefaultSetor, DefaultUserType, DefaultUser } from '../../../Data/Items';
+import { PermitIndexs } from '../../../GlobalVars'
+import { DefaultSector, DefaultUserType, DefaultUser } from '../../../Data/Items';
 //FUNCTIONS
 import UserPhotoModal from './UserPhotoModal/UserPhotoModal';
 import { v4 } from 'uuid';
 import { FIREBASE_LogouyAuth, mudarSenha, unsubscribe } from '../../../Config/firebase/auth';
 import Loading from '../../LoadingForTabs/Loading';
 import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
-import { AddUserToStore, DeleteUser, GetFromStore, GetCurrentUserSetorNameWithIdFromStore, GetCurrentUserTypeNameWithIdFromStore, LoginUtil, RegisterUser, ReturnAllAtivosOfUserWithId, GetFromStoreWithId, AddToFirebase, EditUserOnStore, EditUserInFirebase, AddUserToFirebase } from '../../../Functions/Middleware'
+import { AddUserToStore, DeleteUser, GetFromStore, GetCurrentUserSectorNameWithIdFromStore, GetCurrentUserTypeNameWithIdFromStore, LoginUtil, RegisterUser, ReturnAllAtivosOfUserWithId, GetFromStoreWithId, AddToFirebase, EditUserOnStore, EditUserInFirebase, AddUserToFirebase } from '../../../Functions/Middleware'
 //LAYOUT COMPONENTS
 import TwoColumns from '../../LayoutComponents/TwoColumns/TwoColumns';
 import FormGroupLabel from '../../LayoutComponents/FormGroupLabel/FormGroupLabel';
@@ -47,9 +47,9 @@ const UsuarioModal = (props) => {
 
     // DEPENDENCIAS
     const [User, setUser] = useState({ ...DefaultUser })
-    const [Setores] = useState(GetFromStore('Setores'))
+    const [Sectors] = useState(GetFromStore('Sectors'))
     const [UserType, setUserType] = useState({ ...DefaultUserType })
-    const [UserSetor, setUserSetor] = useState({ ...DefaultSetor })
+    const [UserSector, setUserSector] = useState({ ...DefaultSector })
     const [TiposUsuarios] = useState(GetFromStore('TiposUsuarios'))
     const [ProfileImageUrl, setProfileImageUrl] = useState('')
     const [UserTypeCustomFields, setUserTypeCustomFields] = useState([])
@@ -140,7 +140,7 @@ const UsuarioModal = (props) => {
     //QUANDO O USERTYPE MUDA, PEGA O NOVO TYPE
     useEffect(() => {
         setUserType(GetFromStoreWithId('TiposUsuarios', User?.Type?.id))
-        setUserSetor({ ...GetFromStore('Setores').find(U => U.id === User?.Sector?.id) })
+        setUserSector({ ...GetFromStore('Sectors').find(U => U.id === User?.Sector?.id) })
     }, [User?.Type, props.CurrentUser])
 
 
@@ -235,7 +235,7 @@ const UsuarioModal = (props) => {
             else if (!User?.Type?.id)
                 NotificationAlerta('Preenchimento inválido', 'Seleciona um Tipo de Usuário')
             else if (!User?.Sector.id)
-                NotificationAlerta('Preenchimento inválido', 'Seleciona um Setor')
+                NotificationAlerta('Preenchimento inválido', 'Selecione um Setor')
             else {
                 SetConfirm(true)
                 if (Action === 'Add') {
@@ -385,9 +385,9 @@ const UsuarioModal = (props) => {
                                     {(props.Function !== 'Add') ? User?.Name + ' ' + User?.LastName : ''}
                                     <UilTimes className='UserModalHeader-Right-Close' onClick={props.onHide} />
                                 </div>
-                                <div className='UserModalHeader-Right-Setor'>
+                                <div className='UserModalHeader-Right-Sector'>
                                     <UilPuzzlePiece />
-                                    {props.Function === 'Add' ? GetCurrentUserSetorNameWithIdFromStore(User?.Sector?.id) : UserSetor?.Value}
+                                    {props.Function === 'Add' ? GetCurrentUserSectorNameWithIdFromStore(User?.Sector?.id) : UserSector?.Value}
                                 </div>
                                 <div className='UserModalHeader-Right-Tipo'>
                                     <UilLabel />
@@ -625,8 +625,8 @@ const UsuarioModal = (props) => {
                                                         <FormGroup>
                                                             <EditList
                                                                 Item={User}
-                                                                List={Setores}
-                                                                Title="Sector"
+                                                                List={Sectors}
+                                                                Title="Setor"
                                                                 Key='Sector'
                                                                 Handle={HandleChangeInfo}
                                                                 Icon={<UilPuzzlePiece />}

@@ -1,7 +1,7 @@
 import store from "../Config/store/store"
 import { FIREBASE_LoginAuth, FIREBASE_LogouyAuth, FIREBASE_RegisterUserAuth, FIREBASE_SendEMailResetPassword } from "../Config/firebase/auth"
 import { SetTiposAtivos } from "../Config/store/actions/AssetTypesActions"
-import { SetSetores } from "../Config/store/actions/SectorsActions"
+import { SetSectors } from "../Config/store/actions/SectorsActions"
 import { SetTiposUsuarios } from "../Config/store/actions/UserTypesActions"
 import { SetStorageLocations } from "../Config/store/actions/StorageLocationsActions"
 import { SetStatusAtivos } from "../Config/store/actions/AssetsStatusActions"
@@ -198,7 +198,7 @@ export const SetSidebarTagOnStore = (Item) => Dispatch(SetSidebarTag(Item))
 export const SetCheckLoginOnStore = (Item) => Dispatch(SetCheckLogin())
 export const SetUserTypesOnStore = (Itens) => Dispatch(SetTiposUsuarios(Itens))
 export const SetUsersOnStore = (Itens) => Dispatch(SetUsuarios(Itens))
-export const SetSectorsOnStore = (Itens) => Dispatch(SetSetores(Itens))
+export const SetSectorsOnStore = (Itens) => Dispatch(SetSectors(Itens))
 export const SetAssetTypesOnStore = (Itens) => Dispatch(SetTiposAtivos(Itens))
 export const SetAssetsOnStore = (Itens) => Dispatch(SetAtivos(Itens))
 export const SetStorageLocationsOnStore = (Itens) => Dispatch(SetStorageLocations(Itens))
@@ -303,10 +303,10 @@ export const GetNameFromStoreWithId = (Reducer, Id) => {
 }
 
 // GET NAME WITH ID
-export const GetCurrentUserSetorNameWithIdFromStore = (Id) => {
-    if (!Id) return 'Selecione um Setor'
-    const Setores = GetFromStore('Setores')
-    const Name = Setores.find(Setor => Setor.id === Id).Value
+export const GetCurrentUserSectorNameWithIdFromStore = (Id) => {
+    if (!Id) return 'Selecione um Sector'
+    const Sectors = GetFromStore('Sectors')
+    const Name = Sectors.find(Sector => Sector.id === Id).Value
     return Name ? Name : ''
 }
 
@@ -433,7 +433,7 @@ export const GetRecordByAtivoIdAndUserId = (AtivoId, UserId) => {
 
 export const SetInStoreFunctions = {
     "TiposAtivos": SetAssetTypesOnStore,
-    "Setores": SetSectorsOnStore,
+    "Sectors": SetSectorsOnStore,
     "TiposUsuarios": SetUserTypesOnStore,
     "Locais": SetStorageLocationsOnStore,
     "StatusAtivos": SetAssetStatusOnStore,
@@ -442,7 +442,7 @@ export const SetInStoreFunctions = {
 
 export const UpdateInFirebaseFunctions = {
     "TiposAtivos": (Item) => EditAssetTypeInFirebase(Item),
-    "Setores": (Item) => EditSectorInFirebase(Item),
+    "Sectors": (Item) => EditSectorInFirebase(Item),
     "TiposUsuarios": (Item) => EditUserTypeInFirebase(Item),
     "Locais": (Item) => EditStorageLocationInFirebase(Item),
     "StatusAtivos": (Item) => EditAssetStatuInFirebase(Item),
@@ -451,7 +451,7 @@ export const UpdateInFirebaseFunctions = {
 
 export const DeleteFromFirebaseFunctions = {
     "TiposAtivos": (Item) => DeleteAssetTypeFromFirebase(Item),
-    "Setores": (Item) => DeleteSectorFromFirebase(Item),
+    "Sectors": (Item) => DeleteSectorFromFirebase(Item),
     "TiposUsuarios": (Item) => DeleteUserTypeFromFirebase(Item),
     "Locais": (Item) => DeleteStorageLocationFromFirebase(Item),
     "StatusAtivos": (Item) => DeleteAssetStatuFromFirebase(Item),
@@ -460,7 +460,7 @@ export const DeleteFromFirebaseFunctions = {
 
 export const AddToFirebaseFunctions = {
     "TiposAtivos": (Item) => AddAssetTypeToFirebase(Item),
-    "Setores": (Item) => AddSectorToFirebase(Item),
+    "Sectors": (Item) => AddSectorToFirebase(Item),
     "TiposUsuarios": (Item) => AddUserTypeToFirebase(Item),
     "Locais": (Item) => AddStorageLocationToFirebase(Item),
     "StatusAtivos": (Item) => AddAssetStatuToFirebase(Item),
@@ -469,7 +469,7 @@ export const AddToFirebaseFunctions = {
 
 export const GetFromStoreFunctions = {
     "TiposAtivos": () => GetFromStore('TiposAtivos'),
-    "Setores": () => GetFromStore('Setores'),
+    "Sectors": () => GetFromStore('Sectors'),
     "TiposUsuarios": () => GetFromStore('TiposUsuarios'),
     "Locais": () => GetFromStore('StorageLocations'),
     "StatusAtivos": () => GetFromStore('StatusAtivos'),

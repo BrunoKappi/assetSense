@@ -24,10 +24,10 @@ export const clearAllNotas = () => {
     })
 }
 
-export const SetSetores = (Setores) => {
+export const SetSectors = (Sectors) => {
     return ({
-        type: 'SET_SETORES',
-        Setores
+        type: 'SET_SECTORS',
+        Sectors
     })
 }
 

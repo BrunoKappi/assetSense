@@ -31,8 +31,8 @@ const FilterSelect = (props) => {
     //USER OPTIONS
     const UserFilterOptions = [
         {
-            label: <CustomLabel List='Setores' text="Filtro de Setores" />,
-            options: props.Setores.map((setor) => ({ ...setor, list: 'Setores' })),
+            label: <CustomLabel List='Sectors' text="Filtro de Sectors" />,
+            options: props.Sectors.map((sector) => ({ ...sector, list: 'Sectors' })),
         },
         {
             label: <CustomLabel List='TiposUsuarios' text='Filtro de Tipo de Usuarios' />,
@@ -137,7 +137,7 @@ const FilterSelect = (props) => {
 const ConnectedFilterSelect = connect((state) => {
     return {
         Tema: state.Tema,
-        Setores: state.Setores,
+        Sectors: state.Sectors,
         TiposUsuarios: state.TiposUsuarios,
         TiposAtivos: state.TiposAtivos,
         StorageLocations: state.StorageLocations,
@@ -181,7 +181,7 @@ const UserOrderByOptions = [
         label: <CustomLabel text="Order por" />,
         options: [
             { list: 'OrdenarUser', id: 'Nome', Value: 'Nome' },
-            { list: 'OrdenarUser', id: 'Setor', Value: 'Setor' },
+            { list: 'OrdenarUser', id: 'Sector', Value: 'Sector' },
             { list: 'OrdenarUser', id: 'Tipo', Value: 'Tipo' },
         ],
     },

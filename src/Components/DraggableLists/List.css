@@ -1,24 +1,24 @@
 .AtivosTypesShowOnlyCustomGroupListClaro {
-    --Setores-Title-Backround: var(--PrimaryBackground);
-    --Setores-Title-Color: white;
+    --Sectors-Title-Backround: var(--PrimaryBackground);
+    --Sectors-Title-Color: white;
 
-    --Setores-Item-Backround: white;
-    --Setores-Item-Border: rgb(205, 205, 205);
-    --Setores-Item-Border-LR: rgb(205, 205, 205);
-    --Setores-Item-Icon-Color: var(--PrimaryBackground);
-    --Setores-Item-Span-Color: var(--SecondaryBackground);
+    --Sectors-Item-Backround: white;
+    --Sectors-Item-Border: rgb(205, 205, 205);
+    --Sectors-Item-Border-LR: rgb(205, 205, 205);
+    --Sectors-Item-Icon-Color: var(--PrimaryBackground);
+    --Sectors-Item-Span-Color: var(--SecondaryBackground);
 }
 
 
 .AtivosTypesShowOnlyCustomGroupListEscuro {
-    --Setores-Title-Backround: var(--PrimaryBackground);
-    --Setores-Title-Color: white;
+    --Sectors-Title-Backround: var(--PrimaryBackground);
+    --Sectors-Title-Color: white;
 
-    --Setores-Item-Backround: var(--BackgroundDark);
-    --Setores-Item-Border: rgb(88, 86, 86);
-    --Setores-Item-Border-LR: rgb(88, 86, 86);
-    --Setores-Item-Icon-Color: var(--ComplementaryColor);
-    --Setores-Item-Span-Color: white;
+    --Sectors-Item-Backround: var(--BackgroundDark);
+    --Sectors-Item-Border: rgb(88, 86, 86);
+    --Sectors-Item-Border-LR: rgb(88, 86, 86);
+    --Sectors-Item-Icon-Color: var(--ComplementaryColor);
+    --Sectors-Item-Span-Color: white;
 }
 
 
@@ -44,10 +44,10 @@
 }
 
 .AtivosTypesShowOnlyCustomGroupList .list-group-item {
-    background-color: var(--Setores-Item-Backround);
-    border-bottom: 1px solid var(--Setores-Item-Border);
-    border-left: 1px solid var(--Setores-Item-Border-LR);
-    border-right: 1px solid var(--Setores-Item-Border-LR);
+    background-color: var(--Sectors-Item-Backround);
+    border-bottom: 1px solid var(--Sectors-Item-Border);
+    border-left: 1px solid var(--Sectors-Item-Border-LR);
+    border-right: 1px solid var(--Sectors-Item-Border-LR);
 }
 
 
@@ -62,7 +62,7 @@
 .AtivosTypesShowOnlyCustomGroupListItem span {
     font-family: var(--Fonte);
     font-size: 12px;
-    color: var(--Setores-Item-Span-Color);
+    color: var(--Sectors-Item-Span-Color);
 }
 
 .AtivosTypesShowOnlyCustomGroupListItem>svg {
@@ -79,14 +79,14 @@
     width: 1rem !important;
 }
 
-.SetoresShowOnlyCustomGroupIcon {
+.SectorsShowOnlyCustomGroupIcon {
     font-family: var(--Fonte);
     font-size: .9rem;
     margin-right: .3rem;
-    color: var(--Setores-Item-Icon-Color);
+    color: var(--Sectors-Item-Icon-Color);
 }
 
-.SetoresShowOnlyCustomGroupIcon>svg {
+.SectorsShowOnlyCustomGroupIcon>svg {
     width: .4rem !important;
 }
 
@@ -167,8 +167,8 @@
     align-items: center !important;
     justify-content: space-between !important;
     font-family: var(--Fonte) !important;
-    background-color: var(--Setores-Title-Backround) !important;
-    color: var(--Setores-Title-Color) !important;
+    background-color: var(--Sectors-Title-Backround) !important;
+    color: var(--Sectors-Title-Color) !important;
     user-select: none;
     border-top-right-radius: .5rem !important;
     border-top-left-radius: .5rem !important;
@@ -186,12 +186,12 @@
     align-items: center;
     /* Alinha verticalmente o ícone e o texto */
     gap: .5rem;
-    color: var(--Setores-Title-Color);
+    color: var(--Sectors-Title-Color);
 }
 
 .AtivosTypesShowOnlyCustomGroupListTitleSpan>svg {
     width: 1.1rem;
-    color: var(--Setores-Title-Color);
+    color: var(--Sectors-Title-Color);
 }
 
 .MarginBottom {

@@ -41,7 +41,7 @@ const ListMap = {
     'AtivosInTypes': 'TiposAtivos',
     'AtivosInLocais': 'StorageLocations',
     'UsersInTypes': 'TiposUsuarios',
-    'UsersInSectores': 'Setores',
+    'UsersInSectores': 'Sectors',
 }
 
 const KeyMap = {
@@ -175,7 +175,7 @@ const ConnectedDraggableLists = connect((state) => {
         TiposUsuarios: state.TiposUsuarios,
         TiposAtivos: state.TiposAtivos,
         StorageLocations: state.StorageLocations,
-        Setores: state.Setores,
+        Sectors: state.Sectors,
         Tema: state.Tema
     }
 })(DraggableLists)

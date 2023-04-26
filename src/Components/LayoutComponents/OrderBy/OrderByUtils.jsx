@@ -99,7 +99,7 @@ export const CustomPlaceholder = (e) => (
 
 
 const CustomLabelIconsMap = {
-    'Setores': <UilPuzzlePiece />,
+    'Sectors': <UilPuzzlePiece />,
     'TiposUsuarios': <UilLabel />,
     'TiposAtivos': <UilLabel />,
     'StorageLocations': <UilBox />,

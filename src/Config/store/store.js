@@ -1,6 +1,6 @@
 import { combineReducers, createStore } from 'redux'
 import LoggedUser from './reducers/LoggedUser'
-import Setores from './reducers/Sectors'
+import Sectors from './reducers/Sectors'
 import TiposUsuarios from './reducers/UserTypes'
 import Usuarios from './reducers/Users'
 import TiposAtivos from './reducers/AssetTypes'
@@ -63,7 +63,7 @@ GetRecordsFromFirebase().then((Itens) => SetRecordsOnStore(Itens))
 const store = createStore(
     combineReducers({
         LoggedUser,
-        Setores,
+        Sectors,
         TiposUsuarios,
         Usuarios,
         TiposAtivos,

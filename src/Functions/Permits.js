@@ -5,7 +5,7 @@ export const EDITAR_TIPOS_ATIVOS = () => GetCurrentUserTypePermitFromStore('EDIT
 export const EDITAR_LOCAIS = () => GetCurrentUserTypePermitFromStore('EDITAR_LOCAIS')
 export const EDITAR_STATUS_ATIVOS = () => GetCurrentUserTypePermitFromStore('EDITAR_STATUS_ATIVOS')
 export const EDITAR_TIPOS_DE_USO = () => GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_DE_USO')
-export const EDITAR_SETORES = () => GetCurrentUserTypePermitFromStore('EDITAR_SETORES')
+export const EDITAR_SECTORS = () => GetCurrentUserTypePermitFromStore('EDITAR_SECTORS')
 export const EDITAR_TIPOS_DE_USUARIO = () => GetCurrentUserTypePermitFromStore('EDITAR_TIPOS_DE_USUARIO')
 export const EDITAR_PERMICOES = () => GetCurrentUserTypePermitFromStore('EDITAR_PERMICOES')
 export const VISUALIZAR_ATIVOS = () => GetCurrentUserTypePermitFromStore('VISUALIZAR_ATIVOS')
@@ -56,7 +56,7 @@ export const ConfigTela = () => {
         EDITAR_LOCAIS() ||
         EDITAR_STATUS_ATIVOS() ||
         EDITAR_TIPOS_DE_USO() ||
-        EDITAR_SETORES() ||
+        EDITAR_SECTORS() ||
         EDITAR_TIPOS_DE_USUARIO ||
         EDITAR_PERMICOES()
     )
@@ -98,9 +98,9 @@ export const AtivosTabAccess = () => {
     )
 }
 
-//ACCESS SETORES E USUARIOS TAB
-export const SetoresUsuariosTabAccess = () => {
-    return EDITAR_SETORES() || EDITAR_TIPOS_DE_USUARIO()
+//ACCESS SECTORS E USUARIOS TAB
+export const SectorsUsuariosTabAccess = () => {
+    return EDITAR_SECTORS() || EDITAR_TIPOS_DE_USUARIO()
 }
 
 //ACCESS PERMITS TAB
@@ -151,7 +151,7 @@ export const TodosUsersTab = () => {
         EDITAR_USUARIOS() || VISUALIZAR_USUARIOS()
     )
 }
-export const UsersInSetoresTab = () => {
+export const UsersInSectorsTab = () => {
     return (
         EDITAR_USUARIOS() || VISUALIZAR_USUARIOS()
     )

@@ -2,8 +2,8 @@
     --UserContainer-Background: white;
     --UserContainer-Border: transparent;
 
-    --UserContainer-Setor-Background: var(--PrimaryBackground);
-    --UserContainer-Setor-Color: white;
+    --UserContainer-Sector-Background: var(--PrimaryBackground);
+    --UserContainer-Sector-Color: white;
 
     --UserContainer-Tipo-Background: var(--SecondaryBackground);
     --UserContainer-Tipo-Color: white;
@@ -17,8 +17,8 @@
     --UserContainer-Background: var(--BackgroundDark);
     --UserContainer-Border: var(--ComplementaryColor);
 
-    --UserContainer-Setor-Background: var(--PrimaryBackground);
-    --UserContainer-Setor-Color: white;
+    --UserContainer-Sector-Background: var(--PrimaryBackground);
+    --UserContainer-Sector-Color: white;
 
     --UserContainer-Tipo-Background: var(--SecondaryBackground);
     --UserContainer-Tipo-Color: white;
@@ -68,9 +68,9 @@
     border-radius: 50%;
 }
 
-.SetorColumn {
-    background-color: var(--UserContainer-Setor-Background);
-    color: var(--UserContainer-Setor-Color);
+.SectorColumn {
+    background-color: var(--UserContainer-Sector-Background);
+    color: var(--UserContainer-Sector-Color);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -151,7 +151,7 @@
         grid-template-columns: 50% 25% 25%;
     }
 
-    .SetorColumn {
+    .SectorColumn {
         font-size: .6rem;
     }
 

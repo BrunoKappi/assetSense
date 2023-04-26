@@ -352,7 +352,7 @@ const AtivoModal = (props) => {
                                 </div>
 
 
-                                <div className='AtivoModalHeader-Right-Setor'>
+                                <div className='AtivoModalHeader-Right-Sector'>
                                     <UilBox />
                                     {props.Function === 'Add' ? GetNameFromStoreWithId('StorageLocations', Ativo?.StorageLocation?.id) : AtivoLocalArmazenamento?.Value}
                                 </div>

@@ -33,7 +33,7 @@ export const GetConfigPermits = (Tipo) => {
         || Tipo.Permits[PermitIndexs['EDITAR_LOCAIS']]
         || Tipo.Permits[PermitIndexs['EDITAR_STATUS_ATIVOS']]
         || Tipo.Permits[PermitIndexs['EDITAR_TIPOS_DE_USO']]
-        || Tipo.Permits[PermitIndexs['EDITAR_SETORES']]
+        || Tipo.Permits[PermitIndexs['EDITAR_SECTORS']]
         || Tipo.Permits[PermitIndexs['EDITAR_TIPOS_DE_USUARIO']]
         || Tipo.Permits[PermitIndexs['EDITAR_PERMICOES']]
 

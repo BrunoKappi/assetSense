@@ -26,7 +26,7 @@ import { EditAssetTypeInFirebase, EditSectorInFirebase, EditUserTypeInFirebase }
 const UpdateInFirebaseFunctions = {
     TiposAtivos: (Item) => EditAssetTypeInFirebase(Item),
     TiposUsuarios: (Item) => EditUserTypeInFirebase(Item),
-    Setores: (Item) => EditSectorInFirebase(Item)
+    Sectors: (Item) => EditSectorInFirebase(Item)
 }
 
 const Campos = (props) => {
@@ -47,9 +47,9 @@ const Campos = (props) => {
             setItems([...props.TiposAtivos])
         else if (props.Function === 'TiposUsuarios')
             setItems([...props.TiposUsuarios])
-        else if (props.Function === 'Setores')
-            setItems([...props.Setores])
-    }, [props.Items, props.TiposAtivos, props.TiposUsuarios, props.Setores])
+        else if (props.Function === 'Sectors')
+            setItems([...props.Sectors])
+    }, [props.Items, props.TiposAtivos, props.TiposUsuarios, props.Sectors])
 
 
     //HANDLE ERROR
@@ -242,7 +242,7 @@ const ConnectedCampos = connect((state) => {
         Items: state.TiposAtivos,
         TiposAtivos: state.TiposAtivos,
         TiposUsuarios: state.TiposUsuarios,
-        Setores: state.Setores,
+        Sectors: state.Sectors,
         Tema: state.Tema
     }
 })(Campos)

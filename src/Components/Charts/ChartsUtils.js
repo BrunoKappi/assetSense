@@ -5,7 +5,7 @@ const IdsGetFunctions = {
     'TiposUso': () => GetFromStore('TiposDeUso'),
     'Locais': () => GetFromStore('StorageLocations'),
     'TiposAtivos': () => GetFromStore('TiposAtivos'), 
-    'Setores': () => GetFromStore('Setores'),
+    'Sectors': () => GetFromStore('Sectors'),
     'TiposUsuarios': () => GetFromStore('TiposUsuarios'),
 }
 
@@ -14,7 +14,7 @@ const ItensGetFunctions = {
     'TiposUso': () => GetFromStore('Ativos'),
     'Locais': () => GetFromStore('Ativos'),
     'TiposAtivos': () => GetFromStore('Ativos'),
-    'Setores': () => GetFromStore('Usuarios'),
+    'Sectors': () => GetFromStore('Usuarios'),
     'TiposUsuarios': () => GetFromStore('Usuarios'),
 }
 
@@ -23,7 +23,7 @@ const KeysGetFunctions = {
     'TiposUso': 'Usage',
     'Locais': 'StorageLocation',
     'TiposAtivos': 'Type',
-    'Setores': 'Sector',
+    'Sectors': 'Sector',
     'TiposUsuarios': 'Type',
 }
 
@@ -144,7 +144,7 @@ export const GetTop5UsuariosRetirados_SeriesLabels = () => {
 
 export const GetFunctions = {
     "TiposAtivos": GetSeriesAndLabels,
-    "Setores": GetSeriesAndLabels,
+    "Sectors": GetSeriesAndLabels,
     "TiposUsuarios": GetSeriesAndLabels,
     "Locais": GetSeriesAndLabels,
     "StatusAtivos": GetSeriesAndLabels,

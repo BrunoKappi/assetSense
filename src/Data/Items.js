@@ -36,7 +36,7 @@ export const DefaultUserType = {
     Value: '',
     CustomFields: []
 }
-export const DefaultSetor = {
+export const DefaultSector = {
     LastEditedAt: moment().valueOf(),
     CreatedAt: moment().valueOf(),
     docID: '',
@@ -260,7 +260,7 @@ export const DefaultUserRole = {
 }
 
 //================== DEFAULTS PARA INICIAR USERS ====================//
-//SETORES
+//SECTORS
 const Integracao = { id: '0e13d17c-082e-400b-bf25-6ed0aaec5d57' }
 const Projeto = { id: '9268f2f9-249f-433c-880a-7dcd0492a466' }
 const RH = { id: 'ad01ba2f-aa9a-47a2-a771-1fee98ef54a5' }
@@ -321,7 +321,7 @@ export const AtivosStatusReset = [
 ]
 
 export const LocaisDeArmazenamentoReset = [{ docID: '', id: 'b21e3ca1-985a-4958-9d16-9ff68579c576', Value: 'Armário' }]
-export const SetoresReset = [{ docID: '', id: 'ad01ba2f-aa9a-47a2-a771-1fee98ef54a5', Value: 'Administrativo' }]
+export const SectorsReset = [{ docID: '', id: 'ad01ba2f-aa9a-47a2-a771-1fee98ef54a5', Value: 'Administrativo' }]
 
 
 /////////////////// RESETS //////////////////////
@@ -496,35 +496,35 @@ export const ItemTypes = [
 
 
 
-/// ==================== SETORES  =================== ///
-export const Setores = [
+/// ==================== SECTORS  =================== ///
+export const Sectors = [
     {
-        ...DefaultSetor,
+        ...DefaultSector,
         docID: '',
         id: '0e13d17c-082e-400b-bf25-6ed0aaec5d57',
         Value: 'Integração'
     },
     {
-        ...DefaultSetor,
+        ...DefaultSector,
         docID: '',
         id: '9268f2f9-249f-433c-880a-7dcd0492a466',
         Value: 'Projeto'
     },
     {
-        ...DefaultSetor,
+        ...DefaultSector,
         docID: '',
         id: 'ad01ba2f-aa9a-47a2-a771-1fee98ef54a5',
         Value: 'Administrativo'
     },
     {
-        ...DefaultSetor,
+        ...DefaultSector,
         docID: '',
         id: 'ea05229e-658a-415a-bc23-62cebd0bbe96',
         Value: 'RH'
     },
 ]
 
-/// ==================== SETORES  =================== ///
+/// ==================== SECTORS  =================== ///
 
 
 
@@ -814,11 +814,11 @@ if (ADD_FIREBASE) {
     })
 }
 
-//SETORES
+//SECTORS
 if (ADD_FIREBASE) {
-    Setores.forEach(Setor => {
-        AddSectorToFirebase(Setor).then((Document) => {
-            console.log("Setor Adicionado", Document)
+    Sectors.forEach(Sector => {
+        AddSectorToFirebase(Sector).then((Document) => {
+            console.log("Sector Adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
         })
@@ -907,11 +907,11 @@ if ((!localStorage.getItem('AssetSenseTiposDeUso') || Update) && !Reset && !Noth
     localStorage.setItem('AssetSenseTiposDeUso', JSON.stringify(TiposDeUsoReset)) //RESET
 }
 
-// SETORES
-if ((!localStorage.getItem('AssetSenseSetores') || Update) && !Reset && !Nothing) {
-    localStorage.setItem('AssetSenseSetores', JSON.stringify(Setores))
+// SECTORS
+if ((!localStorage.getItem('AssetSenseSectors') || Update) && !Reset && !Nothing) {
+    localStorage.setItem('AssetSenseSectors', JSON.stringify(Sectors))
 } else if (Reset) {
-    localStorage.setItem('AssetSenseSetores', JSON.stringify(SetoresReset)) //RESET
+    localStorage.setItem('AssetSenseSectors', JSON.stringify(SectorsReset)) //RESET
 }
 
 if ((!localStorage.getItem('AssetSenseUsers') || Update) && !Reset && !Nothing) {

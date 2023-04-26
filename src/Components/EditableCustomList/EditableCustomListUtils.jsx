@@ -9,7 +9,7 @@ export const GetNotificationErrorMessageDelete = (Module) => {
         case "TiposUso":
             NotificationErro('Erro | Exclusão', 'Não é possível excluir este Tipo de Uso pois existem ativos associados a este tipo')
             break;
-        case "Setores":
+        case "Sectors":
             NotificationErro('Erro | Exclusão', 'Não é possível excluir este Setor pois existem Usuários associados a ele')
             break;
         case "TiposUsuarios":
@@ -35,7 +35,7 @@ export const GetNotificationSuccessMessageAdd = (Module) => {
         case "TiposUso":
             NotificationSucesso('Tipo de Uso', "Tipo de Uso adicionado com sucesso!")
             break;
-        case "Setores":
+        case "Sectors":
             NotificationSucesso('Setor', "Setor adicionado com sucesso!")
             break;
         case "TiposUsuarios":
@@ -58,9 +58,9 @@ export const GetNotificationSuccessMessageChangeName = (Module) => {
             NotificationSucesso('Tipo de Ativo', "Tipo de Ativo Alterado com sucesso!")
             break;
         case "TiposUso":
-            NotificationSucesso('Tipo de Uso', "Tipo de Usp Alterado com sucesso!")
+            NotificationSucesso('Tipo de Uso', "Tipo de Usp Alterado com sucesso!") 
             break;
-        case "Setores":
+        case "Sectors":
             NotificationSucesso('Setor', "Setor Alterado com sucesso!")
             break;
         case "TiposUsuarios":
@@ -86,7 +86,7 @@ export const GetNotificationSuccessMessageDelete = (Module) => {
         case "TiposUso":
             NotificationSucesso('Tipo de Uso', "Tipo de Uso deletado com sucesso!")
             break;
-        case "Setores":
+        case "Sectors":
             NotificationSucesso('Setor', "Setor deletado com sucesso!")
             break;
         case "TiposUsuarios":
@@ -111,7 +111,7 @@ export const GetNotificationExistsMessageAdd = (Module) => {
         case "TiposUso":
             NotificationAlerta('Tipo de Uso', "Este Tipo de Uso já existe")
             break;
-        case "Setores":
+        case "Sectors":
             NotificationAlerta('Setor', "Este Setor já existe")
             break;
         case "TiposUsuarios":

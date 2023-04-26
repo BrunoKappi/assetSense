@@ -13,7 +13,7 @@ import { GetNotificationErrorMessageDelete, GetNotificationSuccessMessageAdd, Ge
 import Loading from '../LoadingForTabs/Loading'
 import { AddToFirebaseFunctions, CheckIfAnyAtivoOfStatusTaken2, DeleteFromFirebaseFunctions, UpdateInFirebaseFunctions, GetFromStoreFunctions, SetInStoreFunctions, SetAssetStatusOnStore, EditAssetStatuInFirebase } from '../../Functions/Middleware';
 import { DefaultUserRole } from '../../Data/Items';
-import { EDITAR_LOCAIS, EDITAR_SETORES, EDITAR_STATUS_ATIVOS, EDITAR_TIPOS_ATIVOS, EDITAR_TIPOS_DE_USO, EDITAR_TIPOS_DE_USUARIO } from '../../Functions/Permits';
+import { EDITAR_LOCAIS, EDITAR_SECTORS, EDITAR_STATUS_ATIVOS, EDITAR_TIPOS_ATIVOS, EDITAR_TIPOS_DE_USO, EDITAR_TIPOS_DE_USUARIO } from '../../Functions/Permits';
 import Show from '../LayoutComponents/Show/Show'
 
 
@@ -27,7 +27,7 @@ const EditableCustomList = (props) => {
   //LISTS OF ITENS RELATED WITH EACH MODULE
   const Lists = {
     TiposAtivos: props.Ativos,
-    Setores: props.Usuarios,
+    Sectors: props.Usuarios,
     TiposUsuarios: props.Usuarios,
     Locais: props.Ativos,
     StatusAtivos: props.Ativos,
@@ -37,7 +37,7 @@ const EditableCustomList = (props) => {
   //ICONS FOR EACH MODULE
   const CustomListIcon = {
     TiposAtivos: <UilLabel />,
-    Setores: <UilPuzzlePiece />,
+    Sectors: <UilPuzzlePiece />,
     TiposUsuarios: <UilLabel />,
     Locais: <UilBox />,
     StatusAtivos: <UilLabel />,
@@ -47,7 +47,7 @@ const EditableCustomList = (props) => {
   //DEFAULT ITEM OBJECTS FOR EACH MODULE
   const DefaultObjets = {
     TiposAtivos: DefaultAtivosType,
-    Setores: DefaultItemType,
+    Sectors: DefaultItemType,
     TiposUsuarios: DefaultUserRole,
     Locais: DefaultItemType,
     StatusAtivos: DefaultAtivoStatus,
@@ -57,7 +57,7 @@ const EditableCustomList = (props) => {
   //DEFAULT ITENS KEY FOR EACH MODULE
   const ObjectKeys = {
     TiposAtivos: 'Type',
-    Setores: 'Sector',
+    Sectors: 'Sector',
     TiposUsuarios: 'Type',
     Locais: 'StorageLocation',
     StatusAtivos: 'Status',
@@ -69,13 +69,13 @@ const EditableCustomList = (props) => {
   const LocaisPermit = EDITAR_LOCAIS()
   const StatusAtivosPermit = EDITAR_STATUS_ATIVOS()
   const TiposUsoPermit = EDITAR_TIPOS_DE_USO()
-  const SetoresPermit = EDITAR_SETORES()
+  const SectorsPermit = EDITAR_SECTORS()
   const TiposUsuariosPermit = EDITAR_TIPOS_DE_USUARIO()
 
   //PERMITS MAP
   const CustomListPermits = {
     TiposAtivos: TiposAtvisoPermit,
-    Setores: SetoresPermit,
+    Sectors: SectorsPermit,
     TiposUsuarios: TiposUsuariosPermit,
     Locais: LocaisPermit,
     StatusAtivos: StatusAtivosPermit,
@@ -98,7 +98,7 @@ const EditableCustomList = (props) => {
     setListaDeItens(fetchFunction())
     setLoaded(true)
 
-  }, [props.Module, props.TiposAtivos, props.Setores, props.TiposUsuarios, props.StorageLocations, props.StatusAtivos])
+  }, [props.Module, props.TiposAtivos, props.Sectors, props.TiposUsuarios, props.StorageLocations, props.StatusAtivos])
 
   //INIT EDITING AND CHECK PERMITS
   const InitEditing = () => {
@@ -376,7 +376,7 @@ const ConnectedEditableCustomList = connect((state) => {
     TiposAtivos: state.TiposAtivos,
     TiposUsuarios: state.TiposUsuarios,
     Ativos: state.Ativos,
-    Setores: state.Setores,
+    Sectors: state.Sectors,
     StorageLocations: state.StorageLocations,
     Usuarios: state.Usuarios,
     StatusAtivos: state.StatusAtivos,

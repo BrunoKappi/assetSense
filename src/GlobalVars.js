@@ -72,7 +72,7 @@ export const PermitIndexs = {
   EDITAR_LOCAIS: Index++,
   EDITAR_STATUS_ATIVOS: Index++,
   EDITAR_TIPOS_DE_USO: Index++,
-  EDITAR_SETORES: Index++,
+  EDITAR_SECTORS: Index++,
   EDITAR_TIPOS_DE_USUARIO: Index++,
   EDITAR_PERMICOES: Index++,
   ____: Index++,

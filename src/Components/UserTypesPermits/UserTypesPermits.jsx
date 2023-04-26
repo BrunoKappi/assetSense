@@ -117,7 +117,7 @@ const UserTypesPermits = (props) => {
 
 const ConnectedUserTypesPermits = connect((state) => {
     return {
-        Setores: state.Setores,
+        Sectors: state.Sectors,
         Usuarios: state.Usuarios,
         TiposUsuarios: state.TiposUsuarios,
         Tema: state.Tema

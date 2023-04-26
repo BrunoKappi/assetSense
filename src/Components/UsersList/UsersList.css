@@ -16,8 +16,8 @@
     --UsersLisFormFilter-Filtros-Tipo-Background: var(--SecondaryBackground);
     --UsersLisFormFilter-Filtros-Tipo-Color: white;
 
-    --UsersLisFormFilter-Filtros-Setor-Background: var(--PrimaryBackground);
-    --UsersLisFormFilter-Filtros-Setor-Color: white;
+    --UsersLisFormFilter-Filtros-Sector-Background: var(--PrimaryBackground);
+    --UsersLisFormFilter-Filtros-Sector-Color: white;
 
     --UsersLisFormFilter-Filtros-AddButton-Background: var(--ComplementaryColor);
     --UsersLisFormFilter-Filtros-AddButton-Color: white;
@@ -46,8 +46,8 @@
     --UsersLisFormFilter-Filtros-Tipo-Background: var(--SecondaryBackground);
     --UsersLisFormFilter-Filtros-Tipo-Color: white;
 
-    --UsersLisFormFilter-Filtros-Setor-Background: var(--PrimaryBackground);
-    --UsersLisFormFilter-Filtros-Setor-Color: white;
+    --UsersLisFormFilter-Filtros-Sector-Background: var(--PrimaryBackground);
+    --UsersLisFormFilter-Filtros-Sector-Color: white;
 
     --UsersLisFormFilter-Filtros-AddButton-Background: var(--ComplementaryColor);
     --UsersLisFormFilter-Filtros-AddButton-Color: white;
@@ -198,30 +198,30 @@
 
 
 
-/* ============  DROPDOWN FILTRO DE SETOR ===================*/
+/* ============  DROPDOWN FILTRO DE SECTOR ===================*/
 
-#FiltroDeSetor::after {
+#FiltroDeSector::after {
     display: none !important;
     background-color: aqua !important;
 }
 
-#FiltroDeSetor {
+#FiltroDeSector {
     background-color: transparent !important;
     border: none !important;
     color: var(--BackgroundDark) !important;
     padding: 0 !important;
 }
 
-.FiltroDeSetorTitle {
+.FiltroDeSectorTitle {
     display: flex;
     flex-direction: row;
     gap: .5rem;
     align-items: center;
     font-family: var(--Fonte);
-    background-color: var(--UsersLisFormFilter-Filtros-Setor-Background);
+    background-color: var(--UsersLisFormFilter-Filtros-Sector-Background);
     padding: .3rem .6rem;
     border-radius: 1rem;
-    color: var(--UsersLisFormFilter-Filtros-Setor-Color);
+    color: var(--UsersLisFormFilter-Filtros-Sector-Color);
     font-size: .8rem;
 }
 
@@ -234,7 +234,7 @@
     background-color: var(--PrimaryBackground) !important;
 }
 
-/* ============  DROPDOWN FILTRO DE SETOR ===================*/
+/* ============  DROPDOWN FILTRO DE SECTOR ===================*/
 
 
 
@@ -273,7 +273,7 @@
     background-color: var(--UsersLisFormFilter-Filtros-Dropdown-Background) !important;
 }
 
-/* ============  DROPDOWN FILTRO DE SETOR ===================*/
+/* ============  DROPDOWN FILTRO DE SECTOR ===================*/
 
 
 
@@ -335,7 +335,7 @@
 }
 
 
-/* ============  DROPDOWN FILTRO DE SETOR ===================*/
+/* ============  DROPDOWN FILTRO DE SECTOR ===================*/
 
 
 

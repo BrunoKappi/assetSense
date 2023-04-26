@@ -16,8 +16,8 @@
     --AtivosListFormFilter-Filtros-Tipo-Background: var(--SecondaryBackground);
     --AtivosListFormFilter-Filtros-Tipo-Color: white;
 
-    --AtivosListFormFilter-Filtros-Setor-Background: var(--PrimaryBackground);
-    --AtivosListFormFilter-Filtros-Setor-Color: white;
+    --AtivosListFormFilter-Filtros-Sector-Background: var(--PrimaryBackground);
+    --AtivosListFormFilter-Filtros-Sector-Color: white;
 
     --AtivosListFormFilter-Filtros-AddButton-Background: var(--ComplementaryColor);
     --AtivosListFormFilter-Filtros-AddButton-Color: white;
@@ -46,8 +46,8 @@
     --AtivosListFormFilter-Filtros-Tipo-Background: var(--SecondaryBackground);
     --AtivosListFormFilter-Filtros-Tipo-Color: white;
 
-    --AtivosListFormFilter-Filtros-Setor-Background: var(--PrimaryBackground);
-    --AtivosListFormFilter-Filtros-Setor-Color: white;
+    --AtivosListFormFilter-Filtros-Sector-Background: var(--PrimaryBackground);
+    --AtivosListFormFilter-Filtros-Sector-Color: white;
 
     --AtivosListFormFilter-Filtros-AddButton-Background: var(--ComplementaryColor);
     --AtivosListFormFilter-Filtros-AddButton-Color: white;
@@ -211,7 +211,7 @@
 
 
 
-/* ============  DROPDOWN FILTRO DE SETOR ===================*/
+/* ============  DROPDOWN FILTRO DE SECTOR ===================*/
 
 #FiltroDeTipoDeAtivo::after {
     display: none !important;
@@ -231,10 +231,10 @@
     gap: .5rem;
     align-items: center;
     font-family: var(--Fonte);
-    background-color: var(--AtivosListFormFilter-Filtros-Setor-Background);
+    background-color: var(--AtivosListFormFilter-Filtros-Sector-Background);
     padding: .3rem .6rem;
     border-radius: 1rem;
-    color: var(--AtivosListFormFilter-Filtros-Setor-Color);
+    color: var(--AtivosListFormFilter-Filtros-Sector-Color);
     font-size: .8rem;
 }
 
@@ -247,7 +247,7 @@
     background-color: var(--PrimaryBackground) !important;
 }
 
-/* ============  DROPDOWN FILTRO DE SETOR ===================*/
+/* ============  DROPDOWN FILTRO DE SECTOR ===================*/
 
 
 
@@ -286,7 +286,7 @@
     background-color: var(--AtivosListFormFilter-Filtros-Dropdown-Background) !important;
 }
 
-/* ============  DROPDOWN FILTRO DE SETOR ===================*/
+/* ============  DROPDOWN FILTRO DE SECTOR ===================*/
 
 
 
@@ -348,7 +348,7 @@
 }
 
 
-/* ============  DROPDOWN FILTRO DE SETOR ===================*/
+/* ============  DROPDOWN FILTRO DE SECTOR ===================*/
 
 
 

@@ -54,7 +54,7 @@ const UsersList = (props) => {
                 //FILTER LIST
                 return (
                     (FiltroDeTexto === '' || CheckIncludesText(Usuario.Name) || CheckIncludesText(Usuario.Email)) &&
-                    CheckIncludesInObject(Usuario.Sector, Filters?.Setores) &&
+                    CheckIncludesInObject(Usuario.Sector, Filters?.Sectors) &&
                     CheckIncludesInObject(Usuario.Type, Filters?.TiposUsuarios)
                 )
             }).sort(

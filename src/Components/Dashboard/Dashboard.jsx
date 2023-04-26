@@ -14,10 +14,10 @@ import Show from '../LayoutComponents/Show/Show';
 
 const Dashboard = (props) => {
 
-  //SETORES
-  const GetSetoresData = GetFunctions["Setores"]
-  const SetoresLabels = GetSetoresData('Setores').labels
-  const SetoresSeries = GetSetoresData('Setores').series
+  //SECTORS
+  const GetSectorsData = GetFunctions["Sectors"]
+  const SectorsLabels = GetSectorsData('Sectors').labels
+  const SectorsSeries = GetSectorsData('Sectors').series
 
   //TiposUsuaios
   const GetTiposUsuaiosData = GetFunctions["TiposUsuarios"]
@@ -85,7 +85,7 @@ const Dashboard = (props) => {
       <Show Show={
         !props.Tema ||
         props.Ativos.length === 0 ||
-        props.Setores.length === 0 ||
+        props.Sectors.length === 0 ||
         props.Usuarios.length === 0 ||
         props.StorageLocations.length === 0 ||
         props.TiposUsuarios.length === 0 ||
@@ -99,7 +99,7 @@ const Dashboard = (props) => {
       {
         props.Tema &&
         props.Ativos &&
-        props.Setores &&
+        props.Sectors &&
         props.Usuarios &&
         props.StorageLocations &&
         props.TiposUsuarios &&
@@ -174,7 +174,7 @@ const Dashboard = (props) => {
             <div className='DashBoard-Charts-Container'>
 
               <div className='ChartCointer'>
-                <BarChart Mono={Color} Title="Usuários por Setor" Series={SetoresSeries} Labels={SetoresLabels} />
+                <BarChart Mono={Color} Title="Usuários por Setor" Series={SectorsSeries} Labels={SectorsLabels} />
               </div>
 
               <div className='ChartCointer'>
@@ -182,7 +182,7 @@ const Dashboard = (props) => {
               </div>
 
               <div className='ChartCointer'>
-                <PieChart Mono={Color} Title="Usuários por Setor" Series={SetoresSeries} Labels={SetoresLabels} />
+                <PieChart Mono={Color} Title="Usuários por Setor" Series={SectorsSeries} Labels={SectorsLabels} />
               </div>
 
 
@@ -244,7 +244,7 @@ const ConnectedDashboard = connect((state) => {
   return {
     Tema: state.Tema,
     Ativos: state.Ativos,
-    Setores: state.Setores,
+    Sectors: state.Sectors,
     Usuarios: state.Usuarios,
     RecordsAtivos: state.RecordsAtivos,
     TiposUsuarios: state.TiposUsuarios,

@@ -9,7 +9,7 @@ const User = (props) => {
 
 
     const [UserType, setUserType] = useState({})
-    const [UserSetor, setUserSetor] = useState({})
+    const [UserSector, setUserSector] = useState({})
 
 
 
@@ -20,8 +20,8 @@ const User = (props) => {
 
 
     useEffect(() => {
-        const Setores = GetFromStore('Setores')
-        setUserSetor({ ...Setores.find(U => U.id === props.User.Sector.id) })
+        const Sectors = GetFromStore('Sectors')
+        setUserSector({ ...Sectors.find(U => U.id === props.User.Sector.id) })
     }, [props.User.Sector.id])
 
 
@@ -45,9 +45,9 @@ const User = (props) => {
                         {props.User.Email.charAt(0).toUpperCase() + props.User.Email.slice(1)}
                     </span>
                 </span>
-                <div className='UserContainerColumn SetorColumnContainer'>
-                    <span className='SetorColumn'>
-                        {UserSetor.Value}
+                <div className='UserContainerColumn SectorColumnContainer'>
+                    <span className='SectorColumn'>
+                        {UserSector.Value}
                     </span>
                 </div>
                 <span className='UserContainerColumn TypeColumnContainer'>
