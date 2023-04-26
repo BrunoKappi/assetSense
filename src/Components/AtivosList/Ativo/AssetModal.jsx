@@ -1,12 +1,12 @@
 import Modal from 'react-bootstrap/Modal';
 import React, { useState, useEffect } from 'react'
 //CSS
-import './AtivoModal.css'
+import './AssetModal.css'
 //COMPONENTS
 import UserPhoto from '../../../assets/Images/SerranoLogoFuncoBranco.jpg'
-import AtivoPhotoModal from './AtivoPhotoModal/AtivoPhotoModal'
-import AtivoTakeReturn from './AtivoTakeReturn/AtivoTakeReturn';
-import AtivoRecords from './AtivoRecords/AtivoRecords';
+import AtivoPhotoModal from './AssetPhotoModal/AssetPhotoModal'
+import AtivoTakeReturn from './AssetTakeReturn/AssetTakeReturn';
+import AtivoRecords from './AssetRecords/AssetRecords';
 import Loading from '../../LoadingForTabs/Loading';
 //ICONS
 import { UilUserCircle, UilClipboardNotes, UilLabel, UilLabelAlt, UilCog, UilBox, UilSave, UilPostcard, UilUsersAlt, UilCommentAltChartLines, UilTag, UilTimes, UilBuilding, UilCircleLayer, UilPlay, UilWrench, UilCheck, UilBackward, UilTrash, UilArrow } from '@iconscout/react-unicons'
@@ -16,7 +16,7 @@ import { AddAssetToFirebase, EditAssetInFirebase, EditAssetOnStore, GetFromStore
 import { AddAtivoStore, DeleteAtivo, GetFromStoreWithId, ReturnAllRecordOfAtivowithId } from '../../../Functions/Middleware'
 //VARIABLES
 import { DefaultAtivo, DefaultAtivosType, DefaultLocal, } from '../../../Data/Items';
-//LIBRARIES
+//LIBRARIES 
 import 'react-phone-input-2/lib/style.css'
 import { PermitIndexs } from '../../../GlobalVars'
 import { v4 } from 'uuid';

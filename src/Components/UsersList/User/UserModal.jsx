@@ -6,7 +6,7 @@ import './UserModal.css'
 //ICONS
 import { UilUserCircle, UilClipboardNotes, UilEnvelope, UilPhone, UilMap, UilMapMarker, UilPen, UilPuzzlePiece, UilLabel, UilListUl, UilSave, UilHistory, UilTimes, UilBuilding, UilKeySkeleton, UilCheck, UilBackward, UilTrash } from '@iconscout/react-unicons'
 //COMPONENTS
-import UserAtivoRecords from './UserAtivoRecords/UserAtivoRecords';
+import UserAtivoRecords from './UserAssetsRecords/UserAssetsRecords';
 import UserPhoto from '../../../assets/Images/SerranoLogoFuncoBranco.jpg'
 //LIBRARIES
 import PI from 'react-phone-input-2'
@@ -16,7 +16,7 @@ import { connect } from 'react-redux'
 import { Tooltip } from 'react-tippy';
 import BootstrapModal from 'react-bootstrap/Modal';
 //VARIABLES
-import { PermitIndexs } from '../../../GlobalVars'
+import { PermitIndexs } from '../../../GlobalVars' 
 import { DefaultSetor, DefaultUserType, DefaultUser } from '../../../Data/Items';
 //FUNCTIONS
 import UserPhotoModal from './UserPhotoModal/UserPhotoModal';

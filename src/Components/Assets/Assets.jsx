@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import './Ativos.css'
+import './Assets.css'
 //LIBRARIES
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { connect } from 'react-redux'
 //COMPONENTS
 import DraggableLists from '../DraggableLists/DraggableLists'
-import AtivosList from '../AtivosList/AtivosList'
+import AtivosList from '../AtivosList/AssetList'
 //LAYOUT COMPONENTS
 import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
@@ -17,7 +17,7 @@ import { NotificationErro } from '../../NotificationUtils';
 
 const Ativos = (props) => {
 
-  //GET INITIAL TAB BASED ON PERMITS
+  //GET INITIAL TAB BASED ON PERMITS 
   const getInitialTab = () => {
     if (TodosAtivosTab())
       return 'TodosAtivos'

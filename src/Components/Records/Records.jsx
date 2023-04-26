@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import './Records.css'
 import {  GetFromStore, GetFromStoreWithId } from '../../Functions/Middleware';
-import UsuarioModal from '../../Components/UsersList/User/UsuarioModal'
-import AtivoModal from '../../Components/AtivosList/Ativo/AtivoModal'
+import UsuarioModal from '../UsersList/User/UserModal'
+import AtivoModal from '../../Components/AtivosList/Ativo/AssetModal'
 import { v4 } from 'uuid';
 import { connect } from 'react-redux'
 import { NotificationAlerta } from '../../NotificationUtils';

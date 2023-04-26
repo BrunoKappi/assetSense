@@ -6,7 +6,7 @@ import Forget from './Components/Forget/Forget';
 import NotFound from './Components/NotFound/NotFound';
 import Layout from './Components/Layout/Layout'
 import Home from './Home';
-import Ativos from './Components/Ativos/Ativos'
+import Ativos from './Components/Assets/Assets'
 import Users from './Components/Users/Users'
 import Profile from './Components/Profile/Profile'
 import Config from './Components/Config/Config'

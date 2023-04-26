@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import './AtivoPhotoModal.css'
+import './AssetPhotoModal.css'
 import Modal from 'react-bootstrap/Modal';
 import { connect } from 'react-redux'
 import UserPhoto from '../../../../assets/Images/SerranoLogoFuncoBranco.jpg'

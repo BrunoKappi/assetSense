@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import './AtivosList.css'
+import './AssetList.css'
 import Loading from '../LoadingForTabs/Loading';
 import { connect } from 'react-redux'
 import { GetFromStore } from '../../Functions/Middleware';
 import { PermitIndexs } from '../../GlobalVars';
-import Ativo from './Ativo/Ativo';
+import Ativo from './Ativo/Asset';
 import { v4 } from 'uuid';
-import AtivoModal from './Ativo/AtivoModal'
+import AtivoModal from './Ativo/AssetModal'
 import Show from '../LayoutComponents/Show/Show';
 import Warning from '../LayoutComponents/Warning/Warning';
 import FilterSelect from '../LayoutComponents/FilterSelect/FilterSelect'

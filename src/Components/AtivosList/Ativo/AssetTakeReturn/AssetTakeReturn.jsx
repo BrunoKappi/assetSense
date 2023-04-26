@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import './AtivoTakeReturn.css'
-import { DevolverTabTitle, RetirarTabTitle } from './AtivoTakeReturnUtils';
+import './AssetTakeReturn.css'
+import { DevolverTabTitle, RetirarTabTitle } from './AssetTakeReturnUtils';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
 import { UilUser, UilEnvelope, UilBookmark, UilCalendarAlt, UilArchive, UilArrowUp, UilComment, UilArrowDown } from '@iconscout/react-unicons'
 import { AddRecordToFirebase, EditAssetInFirebase, EditAssetOnStore, EditRecordInFirebase, EditRecordStore, GetFromStore, GetQtdInUseOfAtivoWithId, GetRecordByAtivoIdAndUserId, GetTakesOfAtivoOfCurrentUser, GetUsersThatTookAsset, GetUsersThatTookAtivo, SetRecordsOnStore } from '../../../../Functions/Middleware';

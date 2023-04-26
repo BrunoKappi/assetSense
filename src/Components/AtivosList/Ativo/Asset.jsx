@@ -1,5 +1,5 @@
 import React from 'react'
-import './Ativo.css'
+import './Asset.css'
 import { UilWrench, UilBox, UilPlay, UilArchive, UilLabelAlt } from '@iconscout/react-unicons'
 import { GetNameFromStoreWithId } from '../../../Functions/Middleware'
 //Tooltip

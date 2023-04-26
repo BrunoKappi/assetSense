@@ -7,7 +7,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import UserTypesPermits from '../UserTypesPermits/UserTypesPermits';
 import { NotificationErro } from '../../NotificationUtils';
 import { connect } from 'react-redux'
-import Campos from '../AtivosCampos/Campos';
+import Campos from '../CustomFields/CustomFields';
 //LAYOUT COMPONENTS
 import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
@@ -15,18 +15,18 @@ import Show from '../LayoutComponents/Show/Show';
 //FUNCTIONS
 import { AtivosTabAccess, PermicoesTabAccess, SetoresUsuariosTabAccess } from '../../Functions/Permits';
 import { ConfigBreakpoints } from '../../GlobalVars';
-
+ 
 
 const Config = (props) => {
 
 
   // GET INITIAL TAB BASED ON PERMITS
-  const getInitialTab = () => {
+  const getInitialTab = () => { 
     if (AtivosTabAccess())
       return 'Ativos'
     else if (SetoresUsuariosTabAccess())
       return 'Setores e Usuários'
-    else if (PermicoesTabAccess())
+    else if (PermicoesTabAccess()) 
       return 'Permissoes'
   }
 

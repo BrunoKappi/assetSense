@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
-import './Campos.css'
+import './CustomFields.css'
 //LIBRARIES
 import { v4 } from 'uuid';
 import Masonry from "react-masonry-css";

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './Profile.css'
 import { connect } from 'react-redux'
-import UsuarioModal from '../UsersList/User/UsuarioModal'
+import UsuarioModal from '../UsersList/User/UserModal'
 import { useNavigate } from 'react-router-dom';
 import { GetFromStore } from '../../Functions/Middleware';
 

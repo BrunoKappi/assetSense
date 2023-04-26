@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import './AtivoRecords.css'
+import './AssetRecords.css'
 import { GetFromStore, GetFromStoreWithId, GetRecordsOfAtivo } from '../../../../Functions/Middleware';
 import { UilCommentInfoAlt } from '@iconscout/react-unicons'
 //Tooltip
-import UsuarioModal from '../../../UsersList/User/UsuarioModal'
+import UsuarioModal from '../../../UsersList/User/UserModal'
 import { NotificationAlerta } from '../../../../NotificationUtils';
 import { v4 } from 'uuid';
 import { connect } from 'react-redux'
