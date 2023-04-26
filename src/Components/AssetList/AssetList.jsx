@@ -4,9 +4,9 @@ import Loading from '../LoadingForTabs/Loading';
 import { connect } from 'react-redux'
 import { GetFromStore } from '../../Functions/Middleware';
 import { PermitIndexs } from '../../GlobalVars';
-import Ativo from './Ativo/Asset';
+import Ativo from './Asset/Asset';
 import { v4 } from 'uuid';
-import AtivoModal from './Ativo/AssetModal'
+import AtivoModal from './Asset/AssetModal'
 import Show from '../LayoutComponents/Show/Show';
 import Warning from '../LayoutComponents/Warning/Warning';
 import FilterSelect from '../LayoutComponents/FilterSelect/FilterSelect'

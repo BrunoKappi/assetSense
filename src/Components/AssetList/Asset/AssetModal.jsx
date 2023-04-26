@@ -29,7 +29,7 @@ import FormGroup from '../../LayoutComponents/FormGroup/FormGroup';
 import FormGroupLabel from '../../LayoutComponents/FormGroupLabel/FormGroupLabel';
 import Stack from '../../LayoutComponents/Stack/Stack';
 import SidebarItem from '../../LayoutComponents/SidebarItem/SidebarItem';
-import Show from '../../LayoutComponents/Show/Show';
+import Show from '../../LayoutComponents/Show/Show'; 
 import FormInput from '../../LayoutComponents/FormInput/FormInput';
 import EditList from '../../LayoutComponents/EditList/EditList';
 import CustomFields from '../../LayoutComponents/CustomFields/CustomFields';

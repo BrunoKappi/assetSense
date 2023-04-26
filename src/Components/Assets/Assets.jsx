@@ -6,7 +6,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import { connect } from 'react-redux'
 //COMPONENTS
 import DraggableLists from '../DraggableLists/DraggableLists'
-import AtivosList from '../AtivosList/AssetList'
+import AtivosList from '../AssetList/AssetList'
 //LAYOUT COMPONENTS
 import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
