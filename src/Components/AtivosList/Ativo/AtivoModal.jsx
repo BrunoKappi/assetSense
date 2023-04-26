@@ -35,7 +35,6 @@ import EditList from '../../LayoutComponents/EditList/EditList';
 import CustomFields from '../../LayoutComponents/CustomFields/CustomFields';
 import ConfirmTab from '../../LayoutComponents/ConfirmTab/ConfirmTab';
 import CustomSelect from '../../LayoutComponents/CustomSelect/CustomSelect'
-import { AssetsCollectionName } from '../../../Config/firebase/metodos';
 
 
 const AtivoModal = (props) => {

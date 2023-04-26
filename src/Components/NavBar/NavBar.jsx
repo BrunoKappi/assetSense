@@ -17,7 +17,7 @@ import { Tooltip } from 'react-tippy';
 import 'react-tippy/dist/tippy.css'
 import { GetNavbarSidebarItemClass, SetTab } from '../Sidebar/SidebarUtils';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
-import User from '../../assets/Images/User.png'
+import User from '../../assets/Images/SerranoLogo2.png'
 import { useNavigate } from 'react-router-dom';
 import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilSignout, UilBars, UilMoon, UilBright, UilHistory } from '@iconscout/react-unicons'
 import { GetFromStore, GetLoggedUserInfo, LogoutUtil, ToggleTema } from '../../Functions/Middleware';
@@ -207,7 +207,7 @@ const NavBar = (props) => {
 
                                         <div className='ChangeThemeContainer'>
                                             <button className='ChangeThemeButton' onClick={handleToggleTema}>
-                                                {props.Tema === 'Escuro' ? 'Mudar para Tema Claro' : 'Mudar para Tema Escuro'}
+                                                {props.Tema === 'Escuro' ? <UilMoon /> : <UilBright />}
                                             </button>
                                         </div>
 

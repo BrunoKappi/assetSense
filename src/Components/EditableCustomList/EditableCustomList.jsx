@@ -15,9 +15,6 @@ import { AddToFirebaseFunctions, CheckIfAnyAtivoOfStatusTaken2, DeleteFromFireba
 import { DefaultUserRole } from '../../Data/Items';
 import { EDITAR_LOCAIS, EDITAR_SETORES, EDITAR_STATUS_ATIVOS, EDITAR_TIPOS_ATIVOS, EDITAR_TIPOS_DE_USO, EDITAR_TIPOS_DE_USUARIO } from '../../Functions/Permits';
 import Show from '../LayoutComponents/Show/Show'
-import { AssetStatusCollectionName } from '../../Config/firebase/metodos';
-
-
 
 
 

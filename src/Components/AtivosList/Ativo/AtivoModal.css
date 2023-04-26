@@ -115,7 +115,7 @@
 .AtivoModal-Modal .modal-content {
     background-color: var(--AtivoModal-Backgound) !important;
     border: 1px solid var(--AtivoModal-Border) !important;
-   
+
 }
 
 
@@ -193,8 +193,11 @@
 }
 
 .AtivoModalHeader-Left-Photo>img {
-    width: 50%;
+    width: 8rem;
+    height: 8rem;
+    margin-right: 1rem;
     border-radius: 50%;
+    object-fit: cover;
     -webkit-box-shadow: 3px 2px 7px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 3px 2px 7px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 3px 2px 7px 0px rgba(0, 0, 0, 0.75);
@@ -620,20 +623,10 @@
     width: 1.2rem;
 }
 
-.AtivoModalBody-AtivoInfoForm-Button>button:hover { 
+.AtivoModalBody-AtivoInfoForm-Button>button:hover {
     transform: scale(1.1);
 }
 
 .AtivoModalBody-AtivoInfoForm-Button>button:active {
     transform: scale(.9);
 }
-
-
-
-
-
-
-
-
-
-

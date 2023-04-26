@@ -27,7 +27,7 @@
 
 .NavBar-HamburguerNav {
   border-radius: 50%;
-  color: white; 
+  color: white;
   margin-right: .5rem;
   cursor: pointer;
 }
@@ -50,8 +50,8 @@
 
 
 .NavSidebarUserPhoto {
-  width: 30%;
-  height: 30%;
+  width: 7rem;
+  height: 7rem;
   object-fit: cover;
   cursor: pointer;
   border-radius: 50%;
@@ -103,23 +103,32 @@
   font-weight: 500;
   padding: .2rem .7rem;
   flex-grow: 1;
+
 }
 
 @media (max-width: 750px) {
+
+
+
   .ChangeThemeButton {
     border-radius: .5rem;
     border: none;
-    background-color: var(--ComplementaryColor);
+    background-color: transparent;
     font-size: .9rem !important;
     color: white;
     font-weight: 500;
     padding: .4rem .7rem;
     flex-grow: 1;
+    position: absolute;
+    top: 22px;
+    right: 50px;
   }
 }
 
 
 .ChangeThemeContainer {
+
+  background-color: transparent !important;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -387,14 +396,17 @@
 
 
 .LastNavLogoIconContainer {
-
   height: 2rem;
   margin-right: 1.5rem;
 }
 
 .LastNavLogoIconContainer>img {
   border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
   cursor: pointer;
+
 }
 
 .LastNavLogoIconContainer>img:hover {

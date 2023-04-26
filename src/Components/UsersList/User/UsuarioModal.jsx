@@ -20,7 +20,6 @@ import { PermitIndexs } from '../../../GlobalVars'
 import { DefaultSetor, DefaultUserType, DefaultUser } from '../../../Data/Items';
 //FUNCTIONS
 import UserPhotoModal from './UserPhotoModal/UserPhotoModal';
-import { UsersCollectionName } from '../../../Config/firebase/metodos';
 import { v4 } from 'uuid';
 import { FIREBASE_LogouyAuth, mudarSenha, unsubscribe } from '../../../Config/firebase/auth';
 import Loading from '../../LoadingForTabs/Loading';

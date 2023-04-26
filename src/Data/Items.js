@@ -1,16 +1,15 @@
 import { v4 } from 'uuid';
-import {
-    AssetStatusCollectionName,
-    AssetTypesCollectionName,
-    AssetsCollectionName,
-    SectorsCollectionName,
-    StorageLocationsCollectionName,
-    UsageTypesCollectionName,
-    UserTypesCollectionName,
-
-} from '../Config/firebase/metodos';
 import moment from 'moment';
-import { AddAssetStatuToFirebase, AddAssetToFirebase, AddAssetTypeToFirebase, AddSectorToFirebase, AddStorageLocationToFirebase, AddToFirebase, AddUsageTypeToFirebase, AddUserToFirebase, AddUserTypeToFirebase } from '../Functions/Middleware';
+import {
+    AddAssetStatuToFirebase,
+    AddAssetToFirebase,
+    AddAssetTypeToFirebase,
+    AddSectorToFirebase,
+    AddStorageLocationToFirebase,
+    AddUsageTypeToFirebase,
+    AddUserToFirebase,
+    AddUserTypeToFirebase
+} from '../Functions/Middleware';
 
 //COMANDOS LOCALSTORAGE
 const Update = false

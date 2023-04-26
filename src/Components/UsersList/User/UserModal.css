@@ -181,10 +181,13 @@
         width: 30%;
     }
 }
-
+ 
 .UserModalHeader-Left-Photo>img {
-    width: 70%;
+    width: 8rem;
+    height: 8rem;
+    margin-right: 1rem;
     border-radius: 50%;
+    object-fit: cover;
     -webkit-box-shadow: 3px 2px 7px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 3px 2px 7px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 3px 2px 7px 0px rgba(0, 0, 0, 0.75);
@@ -322,7 +325,7 @@
 
 }
 
-.UserModalBody-Sidebar {   
+.UserModalBody-Sidebar {
     width: 30%;
 }
 
@@ -643,7 +646,7 @@
     color: var(--UserModal-Color-Input);
     font-family: var(--Fonte);
     font-size: .9rem;
-    background-color: var(--UserModal-Background-Input); 
+    background-color: var(--UserModal-Background-Input);
     width: 100% !important;
 }
 
@@ -653,14 +656,3 @@
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-

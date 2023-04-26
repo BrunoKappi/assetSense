@@ -126,8 +126,6 @@ export const DeleteUser = (Item) => UpdateInFirebase(UsersCollectionName, { ...I
 
 
 
-
-
 //FIREBASE --> GETS
 export async function GetUsersFromFirebase() { return GetFromFirebase(UsersCollectionName) }
 export async function GetAssetsFromFirebase() { return GetFromFirebase(AssetsCollectionName) }
@@ -160,6 +158,27 @@ export const AddStorageLocationToFirebase = (Item) => AddToFirebase(StorageLocat
 export const AddAssetStatuToFirebase = (Item) => AddToFirebase(AssetStatusCollectionName, Item)
 export const AddUsageTypeToFirebase = (Item) => AddToFirebase(UsageTypesCollectionName, Item)
 export const AddRecordToFirebase = (Item) => AddToFirebase(RecordsCollectionName, Item)
+
+
+//FIREBASE --> ADD
+export const DeleteUserFromFirebase = (Item) => DeleteFromFirebase(UsersCollectionName, Item)
+export const DeleteAssetFromFirebase = (Item) => DeleteFromFirebase(AssetsCollectionName, Item)
+export const DeleteAssetTypeFromFirebase = (Item) => DeleteFromFirebase(AssetTypesCollectionName, Item)
+export const DeleteSectorFromFirebase = (Item) => DeleteFromFirebase(SectorsCollectionName, Item)
+export const DeleteUserTypeFromFirebase = (Item) => DeleteFromFirebase(UserTypesCollectionName, Item)
+export const DeleteStorageLocationFromFirebase = (Item) => DeleteFromFirebase(StorageLocationsCollectionName, Item)
+export const DeleteAssetStatuFromFirebase = (Item) => DeleteFromFirebase(AssetStatusCollectionName, Item)
+export const DeleteUsageTypeFromFirebase = (Item) => DeleteFromFirebase(UsageTypesCollectionName, Item)
+export const DeleteRecordFromFirebase = (Item) => DeleteFromFirebase(RecordsCollectionName, Item)
+
+
+
+
+
+
+
+
+
 
 
 
@@ -207,11 +226,12 @@ export async function GetTema() {
 
 //TOGGLE THEME
 export async function ToggleTema() {
-    if (localStorage.getItem('AssetSenseTema') === 'Escuro') {
+    const Tema = localStorage.getItem('AssetSenseTema')
+    if (Tema === 'Escuro') {
         Dispatch(SetTemaAction("Claro"))
         localStorage.setItem('AssetSenseTema', 'Claro')
     }
-    if (localStorage.getItem('AssetSenseTema') === 'Claro') {
+    if (Tema === 'Claro') {
         Dispatch(SetTemaAction("Escuro"))
         localStorage.setItem('AssetSenseTema', 'Escuro')
     }
@@ -421,21 +441,21 @@ export const SetInStoreFunctions = {
 };
 
 export const UpdateInFirebaseFunctions = {
-    "TiposAtivos": (Item) => UpdateInFirebase(AssetTypesCollectionName, Item),
-    "Setores": (Item) => UpdateInFirebase(SectorsCollectionName, Item),
-    "TiposUsuarios": (Item) => UpdateInFirebase(UserTypesCollectionName, Item),
-    "Locais": (Item) => UpdateInFirebase(StorageLocationsCollectionName, Item),
-    "StatusAtivos": (Item) => UpdateInFirebase(AssetStatusCollectionName, Item),
-    "TiposUso": (Item) => UpdateInFirebase(UsageTypesCollectionName, Item)
+    "TiposAtivos": (Item) => EditAssetTypeInFirebase(Item),
+    "Setores": (Item) => EditSectorInFirebase(Item),
+    "TiposUsuarios": (Item) => EditUserTypeInFirebase(Item),
+    "Locais": (Item) => EditStorageLocationInFirebase(Item),
+    "StatusAtivos": (Item) => EditAssetStatuInFirebase(Item),
+    "TiposUso": (Item) => EditUsageTypeInFirebase(Item),
 };
 
 export const DeleteFromFirebaseFunctions = {
-    "TiposAtivos": (Item) => DeleteFromFirebase(AssetTypesCollectionName, Item),
-    "Setores": (Item) => DeleteFromFirebase(SectorsCollectionName, Item),
-    "TiposUsuarios": (Item) => DeleteFromFirebase(UserTypesCollectionName, Item),
-    "Locais": (Item) => DeleteFromFirebase(StorageLocationsCollectionName, Item),
-    "StatusAtivos": (Item) => DeleteFromFirebase(AssetStatusCollectionName, Item),
-    "TiposUso": (Item) => DeleteFromFirebase(UsageTypesCollectionName, Item)
+    "TiposAtivos": (Item) => DeleteAssetTypeFromFirebase(Item),
+    "Setores": (Item) => DeleteSectorFromFirebase(Item),
+    "TiposUsuarios": (Item) => DeleteUserTypeFromFirebase(Item),
+    "Locais": (Item) => DeleteStorageLocationFromFirebase(Item),
+    "StatusAtivos": (Item) => DeleteAssetStatuFromFirebase(Item),
+    "TiposUso": (Item) => DeleteUsageTypeFromFirebase(Item),
 };
 
 export const AddToFirebaseFunctions = {
@@ -448,10 +468,10 @@ export const AddToFirebaseFunctions = {
 };
 
 export const GetFromStoreFunctions = {
-    TiposAtivos: () => GetFromStore('TiposAtivos'),
-    Setores: () => GetFromStore('Setores'),
-    TiposUsuarios: () => GetFromStore('TiposUsuarios'),
-    Locais: () => GetFromStore('StorageLocations'),
-    StatusAtivos: () => GetFromStore('StatusAtivos'),
-    TiposUso: () => GetFromStore('TiposDeUso')
+    "TiposAtivos": () => GetFromStore('TiposAtivos'),
+    "Setores": () => GetFromStore('Setores'),
+    "TiposUsuarios": () => GetFromStore('TiposUsuarios'),
+    "Locais": () => GetFromStore('StorageLocations'),
+    "StatusAtivos": () => GetFromStore('StatusAtivos'),
+    "TiposUso": () => GetFromStore('TiposDeUso')
 };
