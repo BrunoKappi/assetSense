@@ -20,7 +20,6 @@ import { GetTema } from './Functions/StoreMiddleware';
 const App = (props) => {
 
 
-
   GetTema()
 
   const RequireAuth = ({ children }) => {
@@ -30,7 +29,7 @@ const App = (props) => {
       return <Navigate to="/" />;
     }
   };
- 
+
 
 
 

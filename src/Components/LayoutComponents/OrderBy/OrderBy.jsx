@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import './OrderBy.css'
 import { CustomLabel, CustomPlaceholder, OrderByStyles, InputOption, noOptionsMessage } from "./OrderByUtils";
 import { useState, useEffect } from "react";
+import React from 'react';
 
 const DefaultOptions = {
     "Records": { Value: 'Mais Recentes' },
@@ -32,9 +33,10 @@ const AssetsOrderByOptions = [
             { Value: 'Tipo' },
             { Value: 'Quantidade do Ativo' },
             { Value: 'Quantidade em Uso' },
+
         ],
     },
-] 
+]
 
 
 const UsersOrderByOptions = [
@@ -43,12 +45,12 @@ const UsersOrderByOptions = [
         options: [
             { Value: 'Nome' },
             { Value: 'Setor' },
-            { Value: 'Tipo' },        
+            { Value: 'Tipo' },
             { Value: 'Email' },
         ],
     },
 ]
-  
+
 
 
 //GET INITIAL VALUES FOR CHECK ALL
@@ -84,7 +86,7 @@ const OrderBy = (props) => {
     //HANDLE RESET FILTER PROP AND SEND ALL CHECKED
     useEffect(() => {
         if (props.Reset) {
-            setSelectedOption(GetDefautlOption(props.Module))
+            //setSelectedOption(GetDefautlOption(props.Module))
             props.OnChange(GetDefautlOption(props.Module))
         }
     }, [props.Reset])
@@ -92,7 +94,7 @@ const OrderBy = (props) => {
     //ON CHANGE HANDLER FOR SELECT
     function onChange(SelectedOption) {
         props.OnChange(SelectedOption)
-        setSelectedOption(SelectedOption)
+        //setSelectedOption(SelectedOption)
     }
 
     return (
@@ -100,7 +102,7 @@ const OrderBy = (props) => {
             <Select
                 className={`OrderBy  ${props.Tema === 'Escuro' ? 'OrderByEscuro' : 'OrderByClaro'} `}
                 defaultValue={GetDefautlOption(props.Module)}
-                closeMenuOnSelect={false}
+                closeMenuOnSelect={true}
                 hideSelectedOption={false}
                 controlShouldRenderValue={false}
                 getOptionLabel={(Options) => { return Options["Value"]; }}
@@ -110,14 +112,14 @@ const OrderBy = (props) => {
                 components={{
                     Option: InputOption,
                     Placeholder: e => CustomPlaceholder('Ordenar'),
-                    Menu: (props) => <components.Menu {...props} className="MENUUUU" />
+                    Menu: (props) => <components.Menu {...props} className="FilterSelect-Menu" />
                 }}
                 noOptionsMessage={noOptionsMessage}
                 styles={OrderByStyles}
                 hideClearAll={true}
                 isClearable={false}
                 isSearchable={false}
-                value={SelectedOption}
+            //value={SelectedOption}
             />
         </div>
     );

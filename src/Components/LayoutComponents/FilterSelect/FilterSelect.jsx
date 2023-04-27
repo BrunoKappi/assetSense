@@ -1,10 +1,8 @@
-import Select, { components } from "react-select";
+import Select from "react-select";
 import { connect } from 'react-redux'
 import './FilterSelect.css'
 import { CustomLabel, CustomPlaceholder, FilterSelectStyles, InputOption, MenuList, noOptionsMessage } from "./FilterSelectUtils";
-import { useState, useEffect } from "react";
-
-
+import { useState, useEffect, useRef } from "react";
 
 const FilterSelect = (props) => {
 
@@ -67,8 +65,8 @@ const FilterSelect = (props) => {
 
     //OPTIONS STATE
     const options = GetInitialValues()
-    const [SelectedOptions, setSelectedOptions] = useState(GetInitialValues().flatMap((option) => option.options))
     const allOptions = GetInitialValues().flatMap((option) => option.options)
+    const selectRef = useRef(null);
 
     useEffect(() => {
         props.OnChange(GetInitialValuesChecked())
@@ -77,15 +75,11 @@ const FilterSelect = (props) => {
 
     //RESET FILTERS ALL CHECKED
     const ResetFilters = () => {
-        setSelectedOptions(allOptions)
+        selectRef.current.setValue(allOptions);
+        //setSelectedOptions(allOptions)
         props.OnChange(GetInitialValuesChecked())
     }
 
-    //RESET FILTERS ALL CHECKED
-    const UncheckAll = () => {
-        setSelectedOptions([])
-        props.OnChange({})
-    }
 
     //ON CHANGE HANDLER FOR SELECT
     function onChange(selectedOptions) {
@@ -98,8 +92,13 @@ const FilterSelect = (props) => {
         });
 
         props.OnChange(selectedByList)
-        setSelectedOptions(selectedOptions)
+        console.log(selectedByList)
+        //setSelectedOptions(selectedOptions)
     }
+
+    const handleClearSelection = () => {
+        selectRef.current.clearValue();
+    };
 
     return (
         <div>
@@ -107,6 +106,7 @@ const FilterSelect = (props) => {
                 className={`FilterSelect  ${props.Tema === 'Escuro' ? 'FilterSelectEscuro' : 'FilterSelectClaro'} `}
                 defaultValue={allOptions}
                 isMulti
+                ref={selectRef}
                 closeMenuOnSelect={false}
                 hideSelectedOptions={false}
                 controlShouldRenderValue={false}
@@ -115,10 +115,12 @@ const FilterSelect = (props) => {
                 onChange={onChange}
                 options={options}
                 components={{
-                    Option: InputOption,
                     Placeholder: e => CustomPlaceholder('Filtros'),
                     MenuList: props => (
-                        <MenuList {...props} CheckAll={ResetFilters} UncheckAll={UncheckAll} />
+                        <MenuList {...props} CheckAll={ResetFilters} UncheckAll={handleClearSelection} className="FilterSelect-Menu" />
+                    ),
+                    Option: props => (
+                        <InputOption {...props} />
                     )
                 }}
                 noOptionsMessage={noOptionsMessage}
@@ -126,7 +128,7 @@ const FilterSelect = (props) => {
                 hideClearAll={true}
                 isClearable={false}
                 isSearchable={false}
-                value={SelectedOptions}
+            //value={SelectedOptions}
             />
         </div>
     );
@@ -154,35 +156,3 @@ export default ConnectedFilterSelect
 
 
 
-
-
-
-
-
-
-
-
-/////////////
-
-const AssetsOrderByOptions = [
-    {
-        label: <CustomLabel text="Order por" />,
-        options: [
-            { list: 'OrdenarUser', id: 'Nome', Value: 'Nome' },
-            { list: 'OrdenarUser', id: 'Quantidade Disponível', Value: 'Quantidade Disponível' },
-            { list: 'OrdenarUser', id: 'Quantidade em Uso', Value: 'Quantidade em Uso' },
-        ],
-    },
-
-
-]
-const UserOrderByOptions = [
-    {
-        label: <CustomLabel text="Order por" />,
-        options: [
-            { list: 'OrdenarUser', id: 'Nome', Value: 'Nome' },
-            { list: 'OrdenarUser', id: 'Sector', Value: 'Sector' },
-            { list: 'OrdenarUser', id: 'Type', Value: 'Type' },
-        ],
-    },
-]

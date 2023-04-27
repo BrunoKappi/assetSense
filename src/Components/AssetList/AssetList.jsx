@@ -79,7 +79,7 @@ const AssetsList = (props) => {
                         return UsersUsingPrimeiro.localeCompare(UsersUsingSegundo)
                     case 'Local de Armazenamento':
                         return StoragePrimeiro.localeCompare(StorageSegundo)
-                    case 'Tipo': 
+                    case 'Tipo':
                         return TypePrimeiro.localeCompare(TypeSegundo)
                     case 'Quantidade do Ativo':
                         return parseInt(Primeiro.Qtd) < parseInt(Segundo.Qtd) ? 1 : -1
@@ -104,7 +104,7 @@ const AssetsList = (props) => {
     const ResetSelectedAsset = () => {
         setModalShow(false)
         setSelectedAsset({})
-    } 
+    }
 
 
 
@@ -140,7 +140,7 @@ const AssetsList = (props) => {
             </Show>
 
             <Show Show={ListaDeAssets.length === 0 && Loaded} Width='100%'>
-                <Warning Text='Nenhum Asset encontrado' />
+                <Warning Text='Nenhum Ativo encontrado' />
             </Show>
 
             <Show Show={PermitToAddAssets} Width='100%'>

@@ -26,6 +26,24 @@
 }
 
 
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(4rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.FilterSelect-Menu {
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+
+
 /********* ********* *********  CUSTOM PLACEHOLDER  ********* ********* ********* ***/
 .FilterSelect-CustomPlaceholder {
     cursor: pointer;
@@ -36,6 +54,11 @@
 .FilterSelect-CustomPlaceholder:hover {
     transform: scale(1.1);
 }
+
+
+
+
+
 
 
 

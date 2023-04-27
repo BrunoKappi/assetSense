@@ -1,5 +1,5 @@
 import { MdFilterList } from 'react-icons/md';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Select, { components } from "react-select";
 import { UilLabel, UilBox, UilPuzzlePiece, UilPlay } from '@iconscout/react-unicons'
 import './FilterSelect.css'
@@ -128,6 +128,10 @@ export const InputOption = ({ getStyles, Icon, isDisabled, isFocused, isSelected
     const onMouseDown = () => setIsActive(true);
     const onMouseUp = () => setIsActive(false);
     const onMouseLeave = () => setIsActive(false);
+
+
+
+
 
     // STYLE 
     let bg = "transparent";
