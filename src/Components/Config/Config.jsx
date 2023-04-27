@@ -13,7 +13,7 @@ import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
 import Show from '../LayoutComponents/Show/Show';
 //FUNCTIONS
-import { AssetsTabAccess, PermicoesTabAccess, SectorsUsersTabAccess } from '../../Functions/Permits';
+import { AssetsTabAccess, PermicoesTabAccess, SectorsUsersTabAccess } from '../../Functions/PermitsMiddleware';
 import { ConfigBreakpoints } from '../../GlobalVars';
  
 
@@ -68,7 +68,7 @@ const Config = (props) => {
         <Tab eventKey="Assets" >
           <div className='ListItensContainer'>
             <Masonry breakpointCols={ConfigBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column"   >
-              <EditableCustomList Title="Tipos de  Ativos" Module="AssetTypess" />
+              <EditableCustomList Title="Tipos de  Ativos" Module="AssetTypes" />
               <EditableCustomList Title="Locais de Armazenamento" Module="StorageLocations" />
               <EditableCustomList Title="Status de Ativos" Module="AssetsStatus" />
               <EditableCustomList Title="Tipos de  Uso" Module="UsageTypes" />
@@ -84,7 +84,7 @@ const Config = (props) => {
             </TabsContainer>
 
             <Show Show={Camposkey === 'CustomAssets'} Width='100%'>
-              <Campos Function="AssetTypess" />
+              <Campos Function="AssetTypes" />
             </Show>
 
             <Show Show={Camposkey === 'CustomUserTypes'} Width='100%'>

@@ -1,17 +1,17 @@
 
 
-const AssetTypess = (state = [], action) => {
+const AssetTypes = (state = [], action) => {
     switch (action.type) {
         case 'ADD_TYPE_ASSET':
             return state.concat(action.NovoAsset)
         case 'CLEAR_ALL':
             return []
         case 'SET_TYPES_ASSETS':
-            return action.AssetTypess
+            return action.AssetTypes
         default:
             return state
     }
 }
 
 
-export default AssetTypess
+export default AssetTypes

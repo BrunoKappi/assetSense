@@ -1,15 +1,6 @@
 import { v4 } from 'uuid';
 import moment from 'moment';
-import {
-    AddAssetStatuToFirebase,
-    AddAssetToFirebase,
-    AddAssetTypeToFirebase,
-    AddSectorToFirebase,
-    AddStorageLocationToFirebase,
-    AddUsageTypeToFirebase,
-    AddUserToFirebase,
-    AddUserTypeToFirebase
-} from '../Functions/Middleware';
+import { AddToFirebaseFunctions } from '../Functions/DatabaseMiddleware';
 
 //COMANDOS LOCALSTORAGE
 const Update = false
@@ -773,7 +764,7 @@ export const Records = []
 //TYPE SDE USUÁRIOS
 if (ADD_FIREBASE) {
     UserRoles.forEach(Type => {
-        AddUserTypeToFirebase(Type).then((Document) => {
+        AddToFirebaseFunctions["UserTypes"](Type).then((Document) => {
             console.log("Type User Adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
@@ -784,7 +775,7 @@ if (ADD_FIREBASE) {
 //ASSETS
 if (ADD_FIREBASE) {
     Items.forEach(Type => {
-        AddAssetToFirebase(Type).then((Document) => {
+        AddToFirebaseFunctions["Asset"](Type).then((Document) => {
             console.log("Item Adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
@@ -795,7 +786,7 @@ if (ADD_FIREBASE) {
 // USERS
 if (ADD_FIREBASE) {
     Users.forEach(Type => {
-        AddUserToFirebase(Type).then((Document) => {
+        AddToFirebaseFunctions["User"](Type).then((Document) => {
             console.log("User adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
@@ -806,7 +797,7 @@ if (ADD_FIREBASE) {
 //TIPOS DE  ATIVOS
 if (ADD_FIREBASE) {
     ItemTypes.forEach(Type => {
-        AddAssetTypeToFirebase(Type).then((Document) => {
+        AddToFirebaseFunctions["AssetTypes"](Type).then((Document) => {
             console.log("Type Adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
@@ -817,7 +808,7 @@ if (ADD_FIREBASE) {
 //SECTORS
 if (ADD_FIREBASE) {
     Sectors.forEach(Sector => {
-        AddSectorToFirebase(Sector).then((Document) => {
+        AddToFirebaseFunctions["Sectors"](Sector).then((Document) => {
             console.log("Sector Adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
@@ -828,7 +819,7 @@ if (ADD_FIREBASE) {
 //STORAGELOCATIONS 
 if (ADD_FIREBASE) {
     StorageLocationsDeArmazenamento.forEach(Type => {
-        AddStorageLocationToFirebase(Type).then((Document) => {
+        AddToFirebaseFunctions["StorageLocations"](Type).then((Document) => {
             console.log("Local Adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
@@ -839,7 +830,7 @@ if (ADD_FIREBASE) {
 //STATUS
 if (ADD_FIREBASE) {
     AssetsStatus.forEach(Type => {
-        AddAssetStatuToFirebase(Type).then((Document) => {
+        AddToFirebaseFunctions["AssetsStatus"](Type).then((Document) => {
             console.log("Status Adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)
@@ -850,7 +841,7 @@ if (ADD_FIREBASE) {
 //TIPOS DE  USO
 if (ADD_FIREBASE) {
     UsageTypes.forEach(Type => {
-        AddUsageTypeToFirebase(Type).then((Document) => {
+        AddToFirebaseFunctions["UsageTypes"](Type).then((Document) => {
             console.log("Type Adicionado", Document)
         }).catch((erro) => {
             console.log("Erro", erro)

@@ -12,8 +12,23 @@ import Loading from '../../LoadingForTabs/Loading';
 import { UilUserCircle, UilClipboardNotes, UilLabel, UilLabelAlt, UilCog, UilBox, UilSave, UilPostcard, UilUsersAlt, UilCommentAltChartLines, UilTag, UilTimes, UilBuilding, UilCircleLayer, UilPlay, UilWrench, UilCheck, UilBackward, UilTrash, UilArrow } from '@iconscout/react-unicons'
 //FUNCTIONS
 import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
-import { AddAssetToFirebase, EditAssetInFirebase, EditAssetOnStore, GetFromStore, GetNameFromStoreWithId } from '../../../Functions/Middleware';
-import { AddAssetStore, DeleteAsset, GetFromStoreWithId, ReturnAllRecordOfAssetwithId } from '../../../Functions/Middleware'
+
+import {
+    EditAssetOnStore,
+    GetFromStore,
+    GetNameFromStoreWithId,
+    AddAssetStore,
+    GetFromStoreWithId,
+} from '../../../Functions/StoreMiddleware';
+import {
+    AddToFirebaseFunctions,
+    
+    DeleteFromFirebaseFunctions,
+    ReturnAllRecordOfAssetwithId,
+    UpdateInFirebaseFunctions
+} from '../../../Functions/DatabaseMiddleware'
+
+
 //VARIABLES
 import { DefaultAsset, DefaultAssetsType, DefaultLocal, } from '../../../Data/Items';
 //LIBRARIES 
@@ -29,7 +44,7 @@ import FormGroup from '../../LayoutComponents/FormGroup/FormGroup';
 import FormGroupLabel from '../../LayoutComponents/FormGroupLabel/FormGroupLabel';
 import Stack from '../../LayoutComponents/Stack/Stack';
 import SidebarItem from '../../LayoutComponents/SidebarItem/SidebarItem';
-import Show from '../../LayoutComponents/Show/Show'; 
+import Show from '../../LayoutComponents/Show/Show';
 import FormInput from '../../LayoutComponents/FormInput/FormInput';
 import EditList from '../../LayoutComponents/EditList/EditList';
 import CustomFields from '../../LayoutComponents/CustomFields/CustomFields';
@@ -47,7 +62,7 @@ const AssetModal = (props) => {
     const [AssetStorageLocation, setAssetStorageLocation] = useState({ ...DefaultLocal })
     const [Asset, setAsset] = useState({ ...DefaultAsset })
     const [StorageLocations] = useState(GetFromStore('StorageLocations'))
-    const [AssetTypess] = useState(GetFromStore('AssetTypess'))
+    const [AssetTypes] = useState(GetFromStore('AssetTypes'))
     const QuantidadeRetirada = props.Asset?.QtdInUse
 
 
@@ -101,7 +116,7 @@ const AssetModal = (props) => {
         switch (Info) {
             case 'Type':
                 newAsset.Type = { id: Value }
-                const GotAssetType = GetFromStoreWithId('AssetTypess', Value)
+                const GotAssetType = GetFromStoreWithId('AssetTypes', Value)
                 setAssetType(GotAssetType)
                 break
             case 'Status':
@@ -158,7 +173,7 @@ const AssetModal = (props) => {
 
     //QUANDO O ASSET TYPE MUDA, PEGA O NOVO TYPE
     useEffect(() => {
-        setAssetType(GetFromStoreWithId('AssetTypess', Asset?.Type?.id))
+        setAssetType(GetFromStoreWithId('AssetTypes', Asset?.Type?.id))
         setAssetStorageLocation(GetFromStoreWithId('StorageLocations', Asset?.StorageLocation?.id))
     }, [Asset, props.CurrentUser])
 
@@ -242,7 +257,7 @@ const AssetModal = (props) => {
         setLoadingAction(true)
         //EDIT ASSET
         if (ConfirmAction === 'Edit') {
-            EditAssetInFirebase(Asset).then(() => {
+            UpdateInFirebaseFunctions["Asset"](Asset).then(() => {
                 EditAssetOnStore(Asset)
                 setLoadingAction(false)
                 NotificationSucesso('Alteração', 'Alterações salvas com sucesso!')
@@ -253,7 +268,7 @@ const AssetModal = (props) => {
         else if (ConfirmAction === 'Add') {
             const NewAsset = { ...Asset }
             NewAsset.id = IdToUse ? IdToUse : v4()
-            AddAssetToFirebase(NewAsset).then((AddedRecordDoc) => {
+            AddToFirebaseFunctions["Asset"](NewAsset).then((AddedRecordDoc) => {
                 NewAsset.docID = AddedRecordDoc?.id
                 setAsset({ ...NewAsset })
                 setLoadingAction(false)
@@ -269,7 +284,7 @@ const AssetModal = (props) => {
             setLoadingAction(false)
             EndConfirming()
             props.onDelete()
-            DeleteAsset(Asset).then(() => {
+            DeleteFromFirebaseFunctions["Asset"](Asset).then(() => {
                 setLoadingAction(false)
                 ReturnAllRecordOfAssetwithId(Asset.id)
                 NotificationSucesso('Exclusão', 'Asset Deletado com Sucesso!')
@@ -358,7 +373,7 @@ const AssetModal = (props) => {
                                 </div>
                                 <div className='AssetModalHeader-Right-Type'>
                                     <UilLabel />
-                                    {props.Function === 'Add' ? GetNameFromStoreWithId('AssetTypess', Asset?.Type?.id) : AssetType?.Value}
+                                    {props.Function === 'Add' ? GetNameFromStoreWithId('AssetTypes', Asset?.Type?.id) : AssetType?.Value}
                                 </div>
 
                             </div>
@@ -580,7 +595,7 @@ const AssetModal = (props) => {
 
                                                         <EditList
                                                             Item={Asset}
-                                                            List={AssetTypess}
+                                                            List={AssetTypes}
                                                             Icon={<UilLabelAlt />}
                                                             Title="Tipo de Ativo"
                                                             Key='Type'

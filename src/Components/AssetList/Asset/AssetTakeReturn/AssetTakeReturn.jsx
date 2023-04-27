@@ -3,7 +3,29 @@ import './AssetTakeReturn.css'
 import { DevolverTabTitle, RetirarTabTitle } from './AssetTakeReturnUtils';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
 import { UilUser, UilEnvelope, UilBookmark, UilCalendarAlt, UilArchive, UilArrowUp, UilComment, UilArrowDown } from '@iconscout/react-unicons'
-import { AddRecordToFirebase, EditAssetInFirebase, EditAssetOnStore, EditRecordInFirebase, EditRecordStore, GetFromStore, GetQtdInUseOfAssetWithId, GetRecordByAssetIdAndUserId, GetTakesOfAssetOfCurrentUser, GetUsersThatNotTookAsset, GetUsersThatTookAsset, SetRecordsOnStore } from '../../../../Functions/Middleware';
+
+
+import {
+    EditAssetOnStore,
+    EditRecordStore,
+    GetFromStore,
+    GetQtdInUseOfAssetWithId,
+    GetRecordByAssetIdAndUserId,
+    GetTakesOfAssetOfCurrentUser,
+    GetUsersThatNotTookAsset,
+    GetUsersThatTookAsset,
+    SetRecordsOnStore
+} from '../../../../Functions/StoreMiddleware';
+
+import {
+
+    AddToFirebaseFunctions,
+    
+    UpdateInFirebaseFunctions,
+} from '../../../../Functions/DatabaseMiddleware';
+
+
+
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
 import { DefaultRecord } from '../../../../Data/Items';
 import { v4 } from 'uuid';
@@ -194,12 +216,12 @@ const AssetTakeReturn = (props) => {
                     NotificationErro("Ação negada", "Parece que alguém ja reitrou esse item, atualize sua página para infomações atualizadas")
                 } else {
 
-                    AddRecordToFirebase(NewRecordToAdd).then((Record) => {
+                    AddToFirebaseFunctions["Record"](NewRecordToAdd).then((Record) => {
 
                         //ADD PLUS 1 RETIRADA 
                         const NewAsset = { ...props.Asset, QtdInUse: props.Asset.QtdInUse + 1 }
                         EditAssetOnStore(NewAsset)
-                        EditAssetInFirebase(NewAsset)
+                        UpdateInFirebaseFunctions["Asset"](NewAsset)
                         SetQuantidadeRetirada(prev => prev + 1)
 
 
@@ -244,10 +266,10 @@ const AssetTakeReturn = (props) => {
             //ADD MINUS 1 RETIRADA 
             const NewAsset = { ...props.Asset, QtdInUse: props.Asset.QtdInUse - 1 }
             EditAssetOnStore(NewAsset)
-            EditAssetInFirebase(NewAsset)
+            UpdateInFirebaseFunctions["Asset"](NewAsset)
             SetQuantidadeRetirada(prev => prev - 1)
 
-            EditRecordInFirebase(RecordToEdit).then(() => {
+            UpdateInFirebaseFunctions["Record"](RecordToEdit).then(() => {
                 EditRecordStore(RecordToEdit)
                 setLoadingAction(false)
                 NotificationSucesso('Registro', 'Registro de Devolução registrado com Sucesso!')

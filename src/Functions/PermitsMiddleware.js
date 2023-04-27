@@ -1,4 +1,4 @@
-import { GetCurrentUserTypePermitFromStore } from "./Middleware"
+import { GetCurrentUserTypePermitFromStore } from "./StoreMiddleware"
 
 
 export const EDITAR_TYPES_ASSETS = () => GetCurrentUserTypePermitFromStore('EDITAR_TYPES_ASSETS')

@@ -3,7 +3,7 @@ import './Profile.css'
 import { connect } from 'react-redux'
 import UserModal from '../UsersList/User/UserModal'
 import { useNavigate } from 'react-router-dom';
-import { GetFromStore } from '../../Functions/Middleware';
+import { GetFromStore } from '../../Functions/StoreMiddleware';
 
 const Profile = (props) => {
 

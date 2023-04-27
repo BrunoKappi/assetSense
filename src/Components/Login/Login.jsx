@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import { Link } from "react-router-dom";
 import LogoutHeader from "../LogoutHeader/LogoutHeader";
 import { NotificationSucesso, NotificationErro } from "../../NotificationUtils";
-import { LoginUtil } from "../../Functions/Middleware";
+import { LoginUtil } from "../../Functions/AuthMiddleware";
 
 const Login = (props) => {
 

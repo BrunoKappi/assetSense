@@ -6,23 +6,27 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { v4 } from 'uuid';
 import { connect } from 'react-redux'
 import NumbersOfList from '../NumbersOfList/NumbersOfList';
-import { EditAssetInFirebase, EditUserInFirebase, SetAssetsOnStore, SetUsersOnStore } from '../../Functions/Middleware';
+
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
-import { EDITAR_ASSETS, EDITAR_USERS } from '../../Functions/Permits';
+import { EDITAR_ASSETS, EDITAR_USERS } from '../../Functions/PermitsMiddleware';
 import { AssetsInTypesBreakpoints } from '../../GlobalVars';
 import Warning from '../LayoutComponents/Warning/Warning'
 import Info from '../LayoutComponents/Info/Info'
 import Show from '../LayoutComponents/Show/Show';
 import LoadingAnimate from '../LoadingForTabs/Loading'
+import { UpdateInFirebaseFunctions } from '../../Functions/DatabaseMiddleware';
+import { SetAssetsOnStore, SetUsersOnStore } from '../../Functions/StoreMiddleware';
 
+const EditUser = UpdateInFirebaseFunctions["User"]
+const EditUAsset = UpdateInFirebaseFunctions["Asset"]
 
-const UpdateInFirebaseFunctions = {
-    'AssetsInTypes': (Item) => EditAssetInFirebase(Item),
-    'AssetsInStorageLocations': (Item) => EditAssetInFirebase(Item),
-    'UsersInTypes': (Item) => EditUserInFirebase(Item),
-    'UsersInSectores': (Item) => EditUserInFirebase(Item),
-    'AssetsInStatus': (Item) => EditAssetInFirebase(Item),
-    'AssetsInUsageTypes': (Item) => EditAssetInFirebase(Item),
+const UpdateInFirebaseFunctionsMap = {
+    'AssetsInTypes': (Item) => EditUAsset(Item),
+    'AssetsInStorageLocations': (Item) => EditUAsset(Item),
+    'UsersInTypes': (Item) => EditUser(Item),
+    'UsersInSectores': (Item) => EditUser(Item),
+    'AssetsInStatus': (Item) => EditUAsset(Item),
+    'AssetsInUsageTypes': (Item) => EditUAsset(Item),
 }
 
 const SetInStoreFunctions = {
@@ -44,7 +48,7 @@ const ListaDeitensMap = {
 }
 
 const ListMap = {
-    'AssetsInTypes': 'AssetTypess',
+    'AssetsInTypes': 'AssetTypes',
     'AssetsInStorageLocations': 'StorageLocations',
     'UsersInTypes': 'UserTypes',
     'UsersInSectores': 'Sectors',
@@ -119,7 +123,7 @@ const DraggableLists = (props) => {
         if (Item[Key].id === TypeDestinationID) return
         Item[Key].id = TypeDestinationID
 
-        const EditFunction = UpdateInFirebaseFunctions[props.Module]
+        const EditFunction = UpdateInFirebaseFunctionsMap[props.Module]
         const SaveFunction = SetInStoreFunctions[props.Module]
 
         setLoading(TypeDestinationID)
@@ -185,7 +189,7 @@ const ConnectedDraggableLists = connect((state) => {
         Assets: state.Assets,
         Users: state.Users,
         UserTypes: state.UserTypes,
-        AssetTypess: state.AssetTypess,
+        AssetTypes: state.AssetTypes,
         AssetsStatus: state.AssetsStatus,
         UsageTypes: state.UsageTypes,
         StorageLocations: state.StorageLocations,

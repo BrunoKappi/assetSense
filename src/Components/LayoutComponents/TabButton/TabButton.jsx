@@ -171,7 +171,7 @@ export const DashAssetsTabTitle = () => {
 
 
 
-export const CustomAssetTypess = () => {
+export const CustomAssetTypes = () => {
     return <div className='TabsTitle'>
         <UilSetting />
         <span>Tipos de Ativos</span>
@@ -216,7 +216,7 @@ const Tabs = {
     "DashAssets": DashAssetsTabTitle(),
     "DahUsers": DashUsersTabTitle(),
     "DashTypes": DashRecordsTabTitle(),
-    "CustomAssets": CustomAssetTypess(),
+    "CustomAssets": CustomAssetTypes(),
     "CustomUserTypes": CustomUserTypes(),
     "UserType": CustomUserTypes(),
 }

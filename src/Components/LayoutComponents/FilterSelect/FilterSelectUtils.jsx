@@ -21,9 +21,10 @@ export const FilterSelectStyles = {
         ...provided,
         width: 'auto',
         position: 'absolute',
-        left: '-8rem',
+        right: '0',
         backgroundColor: 'var(--FilterSelect-Menu-Background)',
-        border: '1px solid var(--FilterSelect-Menu-Border)'
+        border: '1px solid var(--FilterSelect-Menu-Border)',
+        minWidth: '15rem'
     }),
     option: (provided, state) => ({
         ...provided,
@@ -101,7 +102,7 @@ export const CustomPlaceholder = (e) => (
 const CustomLabelIconsMap = {
     'Sectors': <UilPuzzlePiece />,
     'UserTypes': <UilLabel />,
-    'AssetTypess': <UilLabel />,
+    'AssetTypes': <UilLabel />,
     'StorageLocations': <UilBox />,
     'AssetsStatus': <UilLabel />,
     'UsageTypes': <UilPlay />,

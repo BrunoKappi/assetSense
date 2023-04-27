@@ -1,10 +1,10 @@
-import { GetFromStore } from "../../Functions/Middleware"
+import { GetFromStore } from "../../Functions/StoreMiddleware"
 
 const IdsGetFunctions = {
     'AssetsStatus': () => GetFromStore('AssetsStatus'),
     'UsageTypes': () => GetFromStore('UsageTypes'),
     'StorageLocations': () => GetFromStore('StorageLocations'),
-    'AssetTypess': () => GetFromStore('AssetTypess'), 
+    'AssetTypes': () => GetFromStore('AssetTypes'),
     'Sectors': () => GetFromStore('Sectors'),
     'UserTypes': () => GetFromStore('UserTypes'),
 }
@@ -13,7 +13,7 @@ const ItensGetFunctions = {
     'AssetsStatus': () => GetFromStore('Assets'),
     'UsageTypes': () => GetFromStore('Assets'),
     'StorageLocations': () => GetFromStore('Assets'),
-    'AssetTypess': () => GetFromStore('Assets'),
+    'AssetTypes': () => GetFromStore('Assets'),
     'Sectors': () => GetFromStore('Users'),
     'UserTypes': () => GetFromStore('Users'),
 }
@@ -22,7 +22,7 @@ const KeysGetFunctions = {
     'AssetsStatus': 'Status',
     'UsageTypes': 'Usage',
     'StorageLocations': 'StorageLocation',
-    'AssetTypess': 'Type',
+    'AssetTypes': 'Type',
     'Sectors': 'Sector',
     'UserTypes': 'Type',
 }
@@ -90,7 +90,6 @@ export const GetTop5ItensRetirados_SeriesLabels = () => {
 
     const AssetsIds = Records.map(Record => { return Record.AtivoId })
 
-    console.log("IDS",AssetsIds)
 
     const AssetsRetirados = []
 
@@ -145,7 +144,7 @@ export const GetTop5UsersRetirados_SeriesLabels = () => {
 
 
 export const GetFunctions = {
-    "AssetTypess": GetSeriesAndLabels,
+    "AssetTypes": GetSeriesAndLabels,
     "Sectors": GetSeriesAndLabels,
     "UserTypes": GetSeriesAndLabels,
     "StorageLocations": GetSeriesAndLabels,

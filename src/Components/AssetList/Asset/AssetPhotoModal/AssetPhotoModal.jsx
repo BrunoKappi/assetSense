@@ -5,10 +5,11 @@ import { connect } from 'react-redux'
 import UserPhoto from '../../../../assets/Images/SerranoLogoFuncoBranco.jpg'
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
 import { UilTimes, UilTrashAlt, UilCheck, UilBackward, UilPen } from '@iconscout/react-unicons'
-import { DeleteFile, GetUserUrlImage, ImageUpload, SetAssetPhotoUrl } from '../../../../Functions/Middleware';
+import { DeleteFile, GetUserUrlImage, ImageUpload } from '../../../../Functions/StorageMiddleware';
 import LoadingSpiner from '../../../LoadingForTabs/Loading'
 import { v4 } from 'uuid';
 import Show from '../../../LayoutComponents/Show/Show'
+import { SetAssetPhotoUrl } from '../../../../Functions/DatabaseMiddleware';
 
 const AssetPhotoModal = (props) => {
 

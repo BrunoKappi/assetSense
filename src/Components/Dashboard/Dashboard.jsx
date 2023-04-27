@@ -24,10 +24,10 @@ const Dashboard = (props) => {
   const TypesUsuaiosLabels = GetTypesUsuaiosData('UserTypes').labels
   const TypesUsuaiosSeries = GetTypesUsuaiosData('UserTypes').series
 
-  //AssetTypess
-  const GetAssetTypessData = GetFunctions["AssetTypess"]
-  const AssetTypessLabels = GetAssetTypessData('AssetTypess').labels
-  const AssetTypessSeries = GetAssetTypessData('AssetTypess').series
+  //AssetTypes
+  const GetAssetTypesData = GetFunctions["AssetTypes"]
+  const AssetTypesLabels = GetAssetTypesData('AssetTypes').labels
+  const AssetTypesSeries = GetAssetTypesData('AssetTypes').series
 
   //Locais de Armazenamento
   const GetAssetsStorageLocationsData = GetFunctions["StorageLocations"]
@@ -90,7 +90,7 @@ const Dashboard = (props) => {
         props.StorageLocations.length === 0 ||
         props.UserTypes.length === 0 ||
         props.UsageTypes.length === 0 ||
-        props.AssetTypess.length === 0
+        props.AssetTypes.length === 0
       }>
         <Loading />
       </Show>
@@ -104,7 +104,7 @@ const Dashboard = (props) => {
         props.StorageLocations &&
         props.UserTypes &&
         props.UsageTypes &&
-        props.AssetTypess &&
+        props.AssetTypes &&
         <>
 
           <div className='ColorPickerButton'>
@@ -134,7 +134,7 @@ const Dashboard = (props) => {
             <div className='DashBoard-Charts-Container'>
 
               <div className='ChartCointer'>
-                <BarChart Mono={Color} Title="Ativos por Tipo" Series={AssetTypessSeries} Labels={AssetTypessLabels} />
+                <BarChart Mono={Color} Title="Ativos por Tipo" Series={AssetTypesSeries} Labels={AssetTypesLabels} />
               </div>
 
               <div className='ChartCointer'>
@@ -150,7 +150,7 @@ const Dashboard = (props) => {
               </div>
 
               <div className='ChartCointer'>
-                <PieChart Mono={Color} Title="Ativos por Tipo" Series={AssetTypessSeries} Labels={AssetTypessLabels} />
+                <PieChart Mono={Color} Title="Ativos por Tipo" Series={AssetTypesSeries} Labels={AssetTypesLabels} />
               </div>
 
               <div className='ChartCointer'>
@@ -250,7 +250,7 @@ const ConnectedDashboard = connect((state) => {
     UserTypes: state.UserTypes,
     StorageLocations: state.StorageLocations,
     UsageTypes: state.UsageTypes,
-    AssetTypess: state.AssetTypess,
+    AssetTypes: state.AssetTypes,
   }
 })(Dashboard)
 

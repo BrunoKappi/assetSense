@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './User.css'
 import { UilEnvelope, UilUser } from '@iconscout/react-unicons'
-import { GetFromStore } from '../../../Functions/Middleware'
+import { GetFromStore } from '../../../Functions/StoreMiddleware'
 
 import { connect } from 'react-redux'
 

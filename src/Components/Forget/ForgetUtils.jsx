@@ -1,5 +1,5 @@
 
-import { FoprgetPasswordUtil } from "../../Functions/Middleware"
+import { FoprgetPasswordUtil } from "../../Functions/AuthMiddleware"
 
 export const ResetarSenha = (Email) => {
     return FoprgetPasswordUtil(Email)

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './UserAssetsRecords.css'
-import { GetFromStoreWithId, GetFromStore, GetRecordsOfUser } from '../../../../Functions/Middleware';
+import { GetFromStoreWithId, GetFromStore, GetRecordsOfUser } from '../../../../Functions/StoreMiddleware';
 import { connect } from 'react-redux'
 import AssetModal from '../../../AssetList/Asset/AssetModal'
 import { NotificationAlerta } from '../../../../NotificationUtils';

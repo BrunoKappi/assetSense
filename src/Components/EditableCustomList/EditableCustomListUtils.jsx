@@ -3,7 +3,7 @@ import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../..
 
 export const GetNotificationErrorMessageDelete = (Module) => {
     switch (Module) {
-        case "AssetTypess":
+        case "AssetTypes":
             NotificationErro('Erro | Exclusão', 'Não é possível excluir este Tipo de Ativo pois existem assets associados a este tipo')
             break;
         case "UsageTypes":
@@ -29,7 +29,7 @@ export const GetNotificationErrorMessageDelete = (Module) => {
 
 export const GetNotificationSuccessMessageAdd = (Module) => {
     switch (Module) {
-        case "AssetTypess":
+        case "AssetTypes":
             NotificationSucesso('Tipo de Ativo', "Tipo de Ativo adicionado com sucesso!")
             break;
         case "UsageTypes":
@@ -54,7 +54,7 @@ export const GetNotificationSuccessMessageAdd = (Module) => {
 
 export const GetNotificationSuccessMessageChangeName = (Module) => {
     switch (Module) {
-        case "AssetTypess":
+        case "AssetTypes":
             NotificationSucesso('Tipo de Ativo', "Tipo de Ativo Alterado com sucesso!")
             break;
         case "UsageTypes":
@@ -80,7 +80,7 @@ export const GetNotificationSuccessMessageChangeName = (Module) => {
 
 export const GetNotificationSuccessMessageDelete = (Module) => {
     switch (Module) {
-        case "AssetTypess":
+        case "AssetTypes":
             NotificationSucesso('Tipo de Ativo', "Tipo de Ativo deletado com sucesso!")
             break;
         case "UsageTypes":
@@ -105,7 +105,7 @@ export const GetNotificationSuccessMessageDelete = (Module) => {
 
 export const GetNotificationExistsMessageAdd = (Module) => {
     switch (Module) {
-        case "AssetTypess":
+        case "AssetTypes":
             NotificationAlerta('Tipo de Ativo', "Este Tipo de Ativo já existe")
             break;
         case "UsageTypes":

@@ -1,5 +1,5 @@
 
-import { SetLoggedUserOnStore } from "../../Functions/Middleware";
+import { SetLoggedUserOnStore } from "../../Functions/StoreMiddleware";
 import { DefaultLoggedUser } from "../../GlobalVars";
 
 

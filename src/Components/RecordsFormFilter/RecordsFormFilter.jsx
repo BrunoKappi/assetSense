@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import './RecordsFormFilter.css'
-import { GetNameFromStoreWithId } from '../../Functions/Middleware'
+import { GetNameFromStoreWithId } from '../../Functions/StoreMiddleware'
 import moment from 'moment';
 import { connect } from 'react-redux'
-import OrderBy, { GetDefautlOption } from '../LayoutComponents/OrderBy/OrderBy'
+import OrderBy from '../LayoutComponents/OrderBy/OrderBy'
 
 
 function GetUserName(item, who) {
     if (who === 'For')
-        return GetNameFromStoreWithId('UsersWithDeleted',item.TakenFor.id)
+        return GetNameFromStoreWithId('UsersWithDeleted', item.TakenFor.id)
     else if ('By')
-        return GetNameFromStoreWithId('UsersWithDeleted',item.TakenBy.id)
+        return GetNameFromStoreWithId('UsersWithDeleted', item.TakenBy.id)
 }
 
 function GetAssetName(item) {
-    return GetNameFromStoreWithId('AssetsWithDeleted',item.AtivoId)
+    return GetNameFromStoreWithId('AssetsWithDeleted', item.AtivoId)
 }
 
 function GetUsage(item) {
@@ -105,16 +105,6 @@ const RecordsFormFilter = (props) => {
 
 
 
-    //RESET FILTERS
-    const handleResetFiltros = () => {
-        setFiltroDeTexto('')
-        setOrdenarPor('')
-        setResetFilters(true)
-        setTimeout(() => {
-            setResetFilters(false)
-        }, 1000);
-    }
-
 
     return (
         <div className={props.Tema === 'Escuro' ? 'AssetRecords-FormFilterEscuro AssetRecords-FormFilter' : 'AssetRecords-FormFilterClaro AssetRecords-FormFilter'}        >
@@ -124,7 +114,7 @@ const RecordsFormFilter = (props) => {
                 OnChange={(SelectedOption) => setOrdenarPor(SelectedOption.Value)}
                 Reset={ResetFilters}
             />
-           
+
         </div>
     )
 }

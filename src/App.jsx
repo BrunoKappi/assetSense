@@ -13,7 +13,7 @@ import Config from './Components/Config/Config'
 import Dashboard from './Components/Dashboard/Dashboard';
 import Records from './Components/Records/Records'
 import { ReactNotifications } from 'react-notifications-component'
-import { GetTema } from './Functions/Middleware';
+import { GetTema } from './Functions/StoreMiddleware';
 
 
 

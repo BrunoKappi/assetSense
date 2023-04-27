@@ -24,7 +24,30 @@ import { v4 } from 'uuid';
 import { FIREBASE_LogouyAuth, mudarSenha, unsubscribe } from '../../../Config/firebase/auth';
 import Loading from '../../LoadingForTabs/Loading';
 import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
-import { AddUserToStore, DeleteUser, GetFromStore, GetCurrentUserSectorNameWithIdFromStore, GetCurrentUserTypeNameWithIdFromStore, LoginUtil, RegisterUser, ReturnAllAssetsOfUserWithId, GetFromStoreWithId, AddToFirebase, EditUserOnStore, EditUserInFirebase, AddUserToFirebase } from '../../../Functions/Middleware'
+
+import {
+    AddUserToStore,
+    GetFromStore,
+    GetCurrentUserSectorNameWithIdFromStore,
+    GetCurrentUserTypeNameWithIdFromStore,
+    GetFromStoreWithId,
+    EditUserOnStore,
+} from '../../../Functions/StoreMiddleware'
+
+import {
+
+    ReturnAllAssetsOfUserWithId,
+    UpdateInFirebaseFunctions,
+    AddToFirebaseFunctions,
+    DeleteFromFirebaseFunctions,
+} from '../../../Functions/DatabaseMiddleware'
+
+import {
+    LoginUtil,
+    RegisterUser
+} from '../../../Functions/AuthMiddleware'
+
+
 //LAYOUT COMPONENTS
 import TwoColumns from '../../LayoutComponents/TwoColumns/TwoColumns';
 import FormGroupLabel from '../../LayoutComponents/FormGroupLabel/FormGroupLabel';
@@ -161,11 +184,7 @@ const UserModal = (props) => {
         // EDITAR USER
         if (ConfirmAction === 'Edit') {
 
-            const EditedUser = { ...User }
-            EditedUser.id = v4()
-
-
-            EditUserInFirebase(User).then(() => {
+            UpdateInFirebaseFunctions["User"](User).then(() => {
                 EditUserOnStore(User)
                 NotificationSucesso('Alteração', 'Alterações salvas com sucesso!')
                 setLoadingAction(false)
@@ -185,7 +204,7 @@ const UserModal = (props) => {
             setTimeout(() => { FIREBASE_LogouyAuth() }, 5000);
 
             RegisterUser(NewUser.Email).then(() => {
-                AddUserToFirebase(NewUser).then((AddedUserDoc) => {
+                AddToFirebaseFunctions["User"](NewUser).then((AddedUserDoc) => {
                     NewUser.docID = AddedUserDoc?.id // PEGA O docID gerado pelo firebase e coloca no objeto do novo User
                     setUser(NewUser)
                     setLoadingAction(false)
@@ -203,7 +222,7 @@ const UserModal = (props) => {
         else if (ConfirmAction === 'Delete') {
             EndConfirming()
             props.onDelete()
-            DeleteUser(User).then(() => {
+            DeleteFromFirebaseFunctions["User"](User).then(() => {
                 setLoadingAction(false)
                 ReturnAllAssetsOfUserWithId(User.id)
                 NotificationSucesso('Exclusão', 'Usuário Deletado com Sucesso!')

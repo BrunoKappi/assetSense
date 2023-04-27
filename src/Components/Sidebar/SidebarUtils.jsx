@@ -1,5 +1,5 @@
 
-import { SetSidebarTagOnStore } from '../../Functions/Middleware';
+import { SetSidebarTagOnStore } from '../../Functions/StoreMiddleware';
 import { PermitIndexs } from '../../GlobalVars';
 
 export const SetTab = (Tab) => {

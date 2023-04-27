@@ -5,12 +5,13 @@ import Loading from '../LoadingForTabs/Loading';
 import User from './User/User';
 import { connect } from 'react-redux'
 import { v4 } from 'uuid';
-import { GetFromStore } from '../../Functions/Middleware';
+import { GetFromStore } from '../../Functions/StoreMiddleware';
 import { PermitIndexs } from '../../GlobalVars';
 import Warning from '../LayoutComponents/Warning/Warning';
 import Show from '../LayoutComponents/Show/Show';
 import FilterSelect from '../LayoutComponents/FilterSelect/FilterSelect'
-
+import OrderBy from '../LayoutComponents/OrderBy/OrderBy'
+import { GetNameFromStoreWithId } from '../../Functions/StoreMiddleware';
 
 const UsersList = (props) => {
 
@@ -24,6 +25,8 @@ const UsersList = (props) => {
     const [CurrentUser,] = useState(GetFromStore('CurrentUser'))
     const [Filters, setFilters] = useState([]);
     const Users = GetFromStore('Users')
+    const [ResetFilters, setResetFilters] = useState(false);
+    const [OrdenarPor, setOrdenarPor] = useState('Nome');
 
     //PERMITS E USER TYPE   
     var PermitToAddUsers = GetFromStore('CurrentUserType')?.Permits[PermitIndexs['ADICIONAR_USERS']]
@@ -52,16 +55,38 @@ const UsersList = (props) => {
         setListaDeUsers(
             Users.filter(User => {
                 //FILTER LIST
+                const Sector = GetNameFromStoreWithId("Sectors", User.Sector.id)
+                const Type = GetNameFromStoreWithId('UserTypes', User.Type.id)
+
                 return (
-                    (FiltroDeTexto === '' || CheckIncludesText(User.Name) || CheckIncludesText(User.Email)) &&
+                    (FiltroDeTexto === '' || CheckIncludesText(User.Name) || CheckIncludesText(User.Email) || CheckIncludesText(Sector) || CheckIncludesText(Type)) &&
                     CheckIncludesInObject(User.Sector, Filters?.Sectors) &&
                     CheckIncludesInObject(User.Type, Filters?.UserTypes)
                 )
             }).sort(
                 //SORT LIST
-                (a, b) => a.Name.localeCompare(b.Name)
+                (Primeiro, Segundo) => {
+
+                    const SectorPrimeiro = GetNameFromStoreWithId("Sectors", Primeiro.Sector.id)
+                    const SectorSegundo = GetNameFromStoreWithId("Sectors", Segundo.Sector.id)
+                    const TypePrimeiro = GetNameFromStoreWithId('UserTypes', Primeiro.Type.id)
+                    const TypeSegundo = GetNameFromStoreWithId('UserTypes', Segundo.Type.id)
+
+                    switch (OrdenarPor) {
+                        case 'Nome':
+                            return Primeiro.Name.localeCompare(Segundo.Name)
+                        case 'Email':
+                            return Primeiro.Email.localeCompare(Segundo.Email)
+                        case 'Setor':
+                            return SectorPrimeiro.localeCompare(SectorSegundo)
+                        case 'Tipo':
+                            return TypePrimeiro.localeCompare(TypeSegundo)
+                        default:
+                            return Primeiro.Name.localeCompare(Segundo.Name)
+                    }
+                }
             ))
-    }, [FiltroDeTexto, Filters])
+    }, [FiltroDeTexto, Filters, OrdenarPor])
 
 
     //USER CLICK
@@ -86,6 +111,11 @@ const UsersList = (props) => {
             <div className='UsersLisFormFilter'>
                 <input value={FiltroDeTexto} placeholder='Procurar Usuário...' onChange={e => setFiltroDeTexto(e.target.value)}></input>
                 <FilterSelect Module="FilterUsers" OnChange={setFilters} />
+                <OrderBy
+                    Module="Users"
+                    OnChange={(SelectedOption) => setOrdenarPor(SelectedOption.Value)}
+                    Reset={ResetFilters}
+                />
 
             </div>
 

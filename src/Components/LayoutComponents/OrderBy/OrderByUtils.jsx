@@ -8,7 +8,9 @@ import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
 
 export const noOptionsMessage = ({ inputValue }) => {
     return inputValue ? 'Nenhuma opção encontrada para "' + inputValue + '"' : <span>Nenhuma opção disponível</span>;
+
 };
+
 
 export const OrderByStyles = {
     groupHeading: (provided) => ({
@@ -21,9 +23,11 @@ export const OrderByStyles = {
         ...provided,
         width: 'auto', // define a largura do menu como auto para se ajustar ao tamanho das opções
         position: 'absolute', // define a posição do menu como absoluta para ser posicionado abaixo do control
-        left: '-4rem',
+        right: '0',
+        
         backgroundColor: 'var(--OrderBy-Menu-Background)',
-        border: '1px solid var(--OrderBy-Menu-Border)'
+        border: '1px solid var(--OrderBy-Menu-Border)',
+        minWidth: '15rem'
     }),
     option: (provided, state) => ({
         ...provided,
@@ -101,7 +105,7 @@ export const CustomPlaceholder = (e) => (
 const CustomLabelIconsMap = {
     'Sectors': <UilPuzzlePiece />,
     'UserTypes': <UilLabel />,
-    'AssetTypess': <UilLabel />,
+    'AssetTypes': <UilLabel />,
     'StorageLocations': <UilBox />,
     'AssetsStatus': <UilLabel />,
     'UsageTypes': <UilPlay />,

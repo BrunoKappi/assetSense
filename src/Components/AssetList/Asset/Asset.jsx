@@ -1,7 +1,7 @@
 import React from 'react'
 import './Asset.css'
 import { UilWrench, UilBox, UilPlay, UilArchive, UilLabelAlt, UilUsersAlt } from '@iconscout/react-unicons'
-import { GetNameFromStoreWithId, GetNamesOfUsersThatTookAsset } from '../../../Functions/Middleware'
+import { GetNameFromStoreWithId, GetNamesOfUsersThatTookAsset } from '../../../Functions/StoreMiddleware'
 //Tooltip
 import { Tooltip } from 'react-tippy';
 import { DefaultTooltipStyles } from '../../../GlobalVars';
@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 
 const Asset = (props) => {
 
-    console.log("QUE PEGARAM", GetNamesOfUsersThatTookAsset(props.Asset.id))
+   
 
     return (
 
@@ -59,7 +59,7 @@ const Asset = (props) => {
                 <Tooltip title="Tipo do Ativo" position="bottom" >
                     <span className='AssetTypeColumn'>
                         <UilLabelAlt />
-                        <span>{GetNameFromStoreWithId('AssetTypess', props.Asset.Type.id)}</span>
+                        <span>{GetNameFromStoreWithId('AssetTypes', props.Asset.Type.id)}</span>
                     </span>
                 </Tooltip>
             </span>

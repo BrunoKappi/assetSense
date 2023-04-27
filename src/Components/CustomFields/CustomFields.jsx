@@ -19,14 +19,15 @@ import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 //VARIABLES
 import { DefaultCustomField } from '../../Data/Items';
 import { CamposMasoryBreakpoints } from '../../GlobalVars';
+import { UpdateInFirebaseFunctions } from '../../Functions/DatabaseMiddleware';
 
-import { EditAssetTypeInFirebase, EditSectorInFirebase, EditUserTypeInFirebase } from '../../Functions/Middleware';
 
 
-const UpdateInFirebaseFunctions = {
-    AssetTypess: (Item) => EditAssetTypeInFirebase(Item),
-    UserTypes: (Item) => EditUserTypeInFirebase(Item),
-    Sectors: (Item) => EditSectorInFirebase(Item)
+
+const UpdateInFirebaseFunctionsMap = {
+    AssetTypes: (Item) => UpdateInFirebaseFunctions["AssetTypes"](Item),
+    UserTypes: (Item) => UpdateInFirebaseFunctions["UserTypes"](Item),
+    Sectors: (Item) => UpdateInFirebaseFunctions["Sectors"](Item)
 }
 
 const Campos = (props) => {
@@ -43,13 +44,13 @@ const Campos = (props) => {
 
     //SET ITENS DEPENDING ON FUNCTION
     useEffect(() => {
-        if (props.Function === 'AssetTypess')
-            setItems([...props.AssetTypess])
+        if (props.Function === 'AssetTypes')
+            setItems([...props.AssetTypes])
         else if (props.Function === 'UserTypes')
             setItems([...props.UserTypes])
         else if (props.Function === 'Sectors')
             setItems([...props.Sectors])
-    }, [props.Items, props.AssetTypess, props.UserTypes, props.Sectors])
+    }, [props.Items, props.AssetTypes, props.UserTypes, props.Sectors])
 
 
     //HANDLE ERROR
@@ -61,7 +62,7 @@ const Campos = (props) => {
     }
 
     //EDIT FUNCTION 
-    const EditFunction = UpdateInFirebaseFunctions[props.Function]
+    const EditFunction = UpdateInFirebaseFunctionsMap[props.Function]
 
     //CHANGE VALUE
     const ChangeCustomFieldName = (e) => {
@@ -239,8 +240,8 @@ const Campos = (props) => {
 
 const ConnectedCampos = connect((state) => {
     return {
-        Items: state.AssetTypess,
-        AssetTypess: state.AssetTypess,
+        Items: state.AssetTypes,
+        AssetTypes: state.AssetTypes,
         UserTypes: state.UserTypes,
         Sectors: state.Sectors,
         Tema: state.Tema

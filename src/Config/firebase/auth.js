@@ -2,7 +2,8 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthState
 import { auth } from "./index";
 import { sendPasswordResetEmail, updatePassword } from "firebase/auth";
 import { DefaultLoggedUser } from "../../GlobalVars";
-import { GetLoggedUserInfo, GetUserUrlImage, GetUserWithEmailFromStore, SetCheckLoginOnStore, SetLoggedUserOnStore } from "../../Functions/Middleware";
+import { GetLoggedUserInfo,  GetUserWithEmailFromStore, SetCheckLoginOnStore, SetLoggedUserOnStore } from "../../Functions/StoreMiddleware";
+import { GetUserUrlImage } from "../../Functions/StorageMiddleware";
 
 
 

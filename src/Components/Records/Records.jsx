@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './Records.css'
-import {  GetFromStore, GetFromStoreWithId } from '../../Functions/Middleware';
+import {  GetFromStore, GetFromStoreWithId } from '../../Functions/StoreMiddleware';
 import UserModal from '../UsersList/User/UserModal'
 import AssetModal from '../../Components/AssetList/Asset/AssetModal'
 import { v4 } from 'uuid';

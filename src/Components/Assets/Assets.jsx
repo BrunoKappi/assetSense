@@ -11,7 +11,7 @@ import AssetsList from '../AssetList/AssetList'
 import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
 //FUNCTIONS
-import { AssetsInStorageLocationsTab, AssetsInTypesTab, TodosAssetsTab, AssetsInStatusTab, AssetsInUsageTypesTab } from '../../Functions/Permits';
+import { AssetsInStorageLocationsTab, AssetsInTypesTab, TodosAssetsTab, AssetsInStatusTab, AssetsInUsageTypesTab } from '../../Functions/PermitsMiddleware';
 import { NotificationErro } from '../../NotificationUtils';
 
 

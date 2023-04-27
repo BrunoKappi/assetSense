@@ -19,8 +19,8 @@ const FilterSelect = (props) => {
             options: props.AssetsStatus.map((type) => ({ ...type, list: 'AssetsStatus' })),
         },
         {
-            label: <CustomLabel List='AssetTypess' text='Tipos de  Ativos' />,
-            options: props.AssetTypess.map((type) => ({ ...type, list: 'AssetTypess' })),
+            label: <CustomLabel List='AssetTypes' text='Tipos de  Ativos' />,
+            options: props.AssetTypes.map((type) => ({ ...type, list: 'AssetTypes' })),
         },
         {
             label: <CustomLabel List='UsageTypes' text='Tipos de  Uso' />,
@@ -139,7 +139,7 @@ const ConnectedFilterSelect = connect((state) => {
         Tema: state.Tema,
         Sectors: state.Sectors,
         UserTypes: state.UserTypes,
-        AssetTypess: state.AssetTypess,
+        AssetTypes: state.AssetTypes,
         StorageLocations: state.StorageLocations,
         AssetsStatus: state.AssetsStatus,
         UsageTypes: state.UsageTypes,

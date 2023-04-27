@@ -8,7 +8,7 @@ import { NotificationErro } from '../../NotificationUtils';
 import { connect } from 'react-redux'
 import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
-import { TodosUsersTab, UsersInSectorsTab, UsersInTypesTab } from '../../Functions/Permits';
+import { TodosUsersTab, UsersInSectorsTab, UsersInTypesTab } from '../../Functions/PermitsMiddleware';
 import FilterSelect from '../LayoutComponents/FilterSelect/FilterSelect'
 
 

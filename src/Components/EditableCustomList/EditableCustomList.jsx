@@ -11,10 +11,11 @@ import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import { Tooltip } from 'react-tippy';
 import { GetNotificationErrorMessageDelete, GetNotificationSuccessMessageAdd, GetNotificationExistsMessageAdd, GetNotificationSuccessMessageDelete, GetNotificationSuccessMessageChangeName } from './EditableCustomListUtils';
 import Loading from '../LoadingForTabs/Loading'
-import { AddToFirebaseFunctions, CheckIfAnyAssetOfStatusTaken2, DeleteFromFirebaseFunctions, UpdateInFirebaseFunctions, GetFromStoreFunctions, SetInStoreFunctions, SetAssetStatusOnStore, EditAssetStatuInFirebase } from '../../Functions/Middleware';
+import { CheckIfAnyAssetOfStatusTaken2, GetFromStoreFunctions, SetInStoreFunctions, SetAssetStatusOnStore } from '../../Functions/StoreMiddleware';
 import { DefaultUserRole } from '../../Data/Items';
-import { EDITAR_STORAGELOCATIONS, EDITAR_SECTORS, EDITAR_STATUS_ASSETS, EDITAR_TYPES_ASSETS, EDITAR_TYPES_DE_USO, EDITAR_TYPES_DE_USER } from '../../Functions/Permits';
+import { EDITAR_STORAGELOCATIONS, EDITAR_SECTORS, EDITAR_STATUS_ASSETS, EDITAR_TYPES_ASSETS, EDITAR_TYPES_DE_USO, EDITAR_TYPES_DE_USER } from '../../Functions/PermitsMiddleware';
 import Show from '../LayoutComponents/Show/Show'
+import { AddToFirebaseFunctions, DeleteFromFirebaseFunctions, UpdateInFirebaseFunctions } from '../../Functions/DatabaseMiddleware';
 
 
 
@@ -26,7 +27,7 @@ const EditableCustomList = (props) => {
 
   //LISTS OF ITENS RELATED WITH EACH MODULE
   const Lists = {
-    AssetTypess: props.Assets,
+    AssetTypes: props.Assets,
     Sectors: props.Users,
     UserTypes: props.Users,
     StorageLocations: props.Assets,
@@ -36,7 +37,7 @@ const EditableCustomList = (props) => {
 
   //ICONS FOR EACH MODULE
   const CustomListIcon = {
-    AssetTypess: <UilLabel />,
+    AssetTypes: <UilLabel />,
     Sectors: <UilPuzzlePiece />,
     UserTypes: <UilLabel />,
     StorageLocations: <UilBox />,
@@ -46,7 +47,7 @@ const EditableCustomList = (props) => {
 
   //DEFAULT ITEM OBJECTS FOR EACH MODULE
   const DefaultObjets = {
-    AssetTypess: DefaultAssetsType,
+    AssetTypes: DefaultAssetsType,
     Sectors: DefaultItemType,
     UserTypes: DefaultUserRole,
     StorageLocations: DefaultItemType,
@@ -56,7 +57,7 @@ const EditableCustomList = (props) => {
 
   //DEFAULT ITENS KEY FOR EACH MODULE
   const ObjectKeys = {
-    AssetTypess: 'Type',
+    AssetTypes: 'Type',
     Sectors: 'Sector',
     UserTypes: 'Type',
     StorageLocations: 'StorageLocation',
@@ -74,7 +75,7 @@ const EditableCustomList = (props) => {
 
   //PERMITS MAP
   const CustomListPermits = {
-    AssetTypess: TypesAtvisoPermit,
+    AssetTypes: TypesAtvisoPermit,
     Sectors: SectorsPermit,
     UserTypes: UserTypesPermit,
     StorageLocations: StorageLocationsPermit,
@@ -98,7 +99,7 @@ const EditableCustomList = (props) => {
     setListaDeItens(fetchFunction())
     setLoaded(true)
 
-  }, [props.Module, props.AssetTypess, props.Sectors, props.UserTypes, props.StorageLocations, props.AssetsStatus])
+  }, [props.Module, props.AssetTypes, props.Sectors, props.UserTypes, props.StorageLocations, props.AssetsStatus])
 
   //INIT EDITING AND CHECK PERMITS
   const InitEditing = () => {
@@ -238,7 +239,7 @@ const EditableCustomList = (props) => {
     } else {
       ItensCopy[index].CanTake = !ItensCopy[index].CanTake
 
-      EditAssetStatuInFirebase(ItensCopy[index]).then(() => {
+      UpdateInFirebaseFunctions["AssetsStatus"](ItensCopy[index]).then(() => {
         SetAssetStatusOnStore(ItensCopy)
         setListaDeItens([...ItensCopy])
         EndEditing()
@@ -373,7 +374,7 @@ const EditableCustomList = (props) => {
 
 const ConnectedEditableCustomList = connect((state) => {
   return {
-    AssetTypess: state.AssetTypess,
+    AssetTypes: state.AssetTypes,
     UserTypes: state.UserTypes,
     Assets: state.Assets,
     Sectors: state.Sectors,

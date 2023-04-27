@@ -20,10 +20,11 @@ import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import User from '../../assets/Images/SerranoLogo2.png'
 import { useNavigate } from 'react-router-dom';
 import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilSignout, UilBars, UilMoon, UilBright, UilHistory } from '@iconscout/react-unicons'
-import { GetFromStore, GetLoggedUserInfo, LogoutUtil, ToggleTema } from '../../Functions/Middleware';
+import { GetFromStore, GetLoggedUserInfo,  ToggleTema } from '../../Functions/StoreMiddleware';
 import UserPhotoModal from '../UsersList/User/UserPhotoModal/UserPhotoModal'
 import UserPhoto from '../UserProfilePhoto/UserPhoto';
-import { AssetsTela, ConfigTela, UsersTela } from '../../Functions/Permits';
+import { AssetsTela, ConfigTela, UsersTela } from '../../Functions/PermitsMiddleware';
+import { LogoutUtil } from '../../Functions/AuthMiddleware';
 
 
 

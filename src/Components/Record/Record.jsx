@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './Record.css'
-import { GetNameFromStoreWithId } from '../../Functions/Middleware';
+import { GetNameFromStoreWithId } from '../../Functions/StoreMiddleware';
 import moment from 'moment';
 import { UilCalendarAlt, UilClock, UilWrench, UilUserCircle, UilBookmark, UilPlay, UilCommentAltMessage, UilArrowUp } from '@iconscout/react-unicons'
 //Tooltip

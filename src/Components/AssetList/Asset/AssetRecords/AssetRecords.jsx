@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './AssetRecords.css'
-import { GetFromStore, GetFromStoreWithId, GetRecordsOfAsset } from '../../../../Functions/Middleware';
+import { GetFromStore, GetFromStoreWithId, GetRecordsOfAsset } from '../../../../Functions/StoreMiddleware';
 import { UilCommentInfoAlt } from '@iconscout/react-unicons'
 //Tooltip
 import UserModal from '../../../UsersList/User/UserModal'

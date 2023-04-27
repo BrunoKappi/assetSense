@@ -3,12 +3,13 @@ import './UserPhotoModal.css'
 import Modal from 'react-bootstrap/Modal';
 import { connect } from 'react-redux'
 import UserPhoto from '../../../../assets/Images/SerranoLogoFuncoBranco.jpg'
-import { UilCameraPlus, UilTimes, UilTrashAlt, UilCheck, UilBackward, UilPen } from '@iconscout/react-unicons'
+import { UilTimes, UilTrashAlt, UilCheck, UilBackward, UilPen } from '@iconscout/react-unicons'
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
-import { DeleteFile, GetFromStore, GetUserUrlImage, ImageUpload, SetLoggedUserPhotoUrl, SetOtherUserPhotoUrl } from '../../../../Functions/Middleware';
+import { DeleteFile, GetUserUrlImage, ImageUpload } from '../../../../Functions/StorageMiddleware';
 import LoadingSpiner from '../../../LoadingForTabs/Loading'
 import { v4 } from 'uuid';
 import Show from '../../../LayoutComponents/Show/Show';
+import { SetOtherUserPhotoUrl, SetLoggedUserPhotoUrl } from '../../../../Functions/DatabaseMiddleware';
 
 
 const UserPhotoModal = (props) => {
@@ -70,8 +71,8 @@ const UserPhotoModal = (props) => {
                     setLastUserUrlImage(url)
                     setImageUpload('')
                     fileInputRef.current.value = ''
-                    setUploading(false) 
-                    props.OnChangePhoto(url, IdToUseToAdd)                   
+                    setUploading(false)
+                    props.OnChangePhoto(url, IdToUseToAdd)
                     if (props.IsCurrentUser) {
                         SetLoggedUserPhotoUrl(url)
                     } else {
@@ -86,7 +87,7 @@ const UserPhotoModal = (props) => {
     const ApagarFotoDeUser = () => {
         setUploading(false)
         setLoading(true)
-        const path = `images/${props.User?.id}`       
+        const path = `images/${props.User?.id}`
 
         DeleteFile(path).then(() => {
             setUploading(false)
@@ -118,13 +119,13 @@ const UserPhotoModal = (props) => {
             NotificationErro("Apenas formatos de Imagens")
         else
             NotificationErro("O arquivo deve ter no máximo 10MB")
- 
+
     }
 
 
 
 
-    const handleButtonClick = () => { 
+    const handleButtonClick = () => {
         if (!imageUpload)
             fileInputRef.current.click()
         else
@@ -159,7 +160,7 @@ const UserPhotoModal = (props) => {
 
                 <Show Show={!Loading}>
                     <div className='UserPhotoModal'>
- 
+
                         <div className='UserPhotoModal-ImageColumn'>
                             <img src={ImageToShowUser || UserPhoto} alt="User" />
                         </div>

@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import User from '../../assets/Images/SerranoLogoFuncoBranco.jpg'
 import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilClipboardNotes, UilHistory, UilBars } from '@iconscout/react-unicons'
 import { NotificationErro } from '../../NotificationUtils';
-import { GetFromStore, SetLoggedUserPhotoUrlJustStore } from '../../Functions/Middleware';
+import { GetFromStore, SetLoggedUserPhotoUrlJustStore } from '../../Functions/StoreMiddleware';
 import Loading from '../LoadingForTabs/Loading'
 import UserPhotoModal from '../UsersList/User/UserPhotoModal/UserPhotoModal'
 //Tooltip
@@ -14,7 +14,7 @@ import { Tooltip } from 'react-tippy';
 import SidebarItem from '../LayoutComponents/SidebarItem/SidebarItem';
 import Show from '../LayoutComponents/Show/Show';
 import Stack from '../LayoutComponents/Stack/Stack';
-import { AssetsTela, ConfigTela, UsersTela } from '../../Functions/Permits';
+import { AssetsTela, ConfigTela, UsersTela } from '../../Functions/PermitsMiddleware';
 
 
 const Sidebar = (props) => {

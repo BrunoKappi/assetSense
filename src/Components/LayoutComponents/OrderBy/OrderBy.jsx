@@ -1,14 +1,18 @@
-import Select from "react-select";
+import Select, { components } from "react-select";
 import { connect } from 'react-redux'
 import './OrderBy.css'
 import { CustomLabel, CustomPlaceholder, OrderByStyles, InputOption, noOptionsMessage } from "./OrderByUtils";
 import { useState, useEffect } from "react";
 
-
+const DefaultOptions = {
+    "Records": { Value: 'Mais Recentes' },
+    "Assets": { Value: 'Nome do Ativo' },
+    "Users": { Value: 'Nome' },
+}
 
 const RecordsOrderByOptions = [
     {
-        label: <CustomLabel text="Order por" />,
+        label: <CustomLabel text="Ordenar por" />,
         options: [
             { Value: 'Mais Recentes' },
             { Value: 'Mais Antigos' },
@@ -18,8 +22,33 @@ const RecordsOrderByOptions = [
     },
 ]
 
+const AssetsOrderByOptions = [
+    {
+        label: <CustomLabel text="Ordenar por" />,
+        options: [
+            { Value: 'Nome do Ativo' },
+            { Value: 'Nome do Usuário' },
+            { Value: 'Local de Armazenamento' },
+            { Value: 'Tipo' },
+            { Value: 'Quantidade do Ativo' },
+            { Value: 'Quantidade em Uso' },
+        ],
+    },
+] 
 
-const DefaultOption = { Value: 'Mais Recentes' }
+
+const UsersOrderByOptions = [
+    {
+        label: <CustomLabel text="Ordenar por" />,
+        options: [
+            { Value: 'Nome' },
+            { Value: 'Setor' },
+            { Value: 'Tipo' },        
+            { Value: 'Email' },
+        ],
+    },
+]
+  
 
 
 //GET INITIAL VALUES FOR CHECK ALL
@@ -27,6 +56,10 @@ const GetInitialValues = (Module) => {
     switch (Module) {
         case 'Records':
             return RecordsOrderByOptions
+        case 'Assets':
+            return AssetsOrderByOptions
+        case 'Users':
+            return UsersOrderByOptions
         default:
             break;
     }
@@ -35,12 +68,7 @@ const GetInitialValues = (Module) => {
 
 //GET INITIAL VALUES FOR CHECK ALL
 export const GetDefautlOption = (Module) => {
-    switch (Module) {
-        case 'Records':
-            return DefaultOption
-        default:
-            break;
-    }
+    return DefaultOptions[Module]
 
 }
 
@@ -62,7 +90,7 @@ const OrderBy = (props) => {
     }, [props.Reset])
 
     //ON CHANGE HANDLER FOR SELECT
-    function onChange(SelectedOption) {      
+    function onChange(SelectedOption) {
         props.OnChange(SelectedOption)
         setSelectedOption(SelectedOption)
     }
@@ -81,7 +109,8 @@ const OrderBy = (props) => {
                 options={Options}
                 components={{
                     Option: InputOption,
-                    Placeholder: e => CustomPlaceholder('Ordenar')
+                    Placeholder: e => CustomPlaceholder('Ordenar'),
+                    Menu: (props) => <components.Menu {...props} className="MENUUUU" />
                 }}
                 noOptionsMessage={noOptionsMessage}
                 styles={OrderByStyles}
