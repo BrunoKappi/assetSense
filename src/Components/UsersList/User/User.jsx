@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './User.css'
-import { UilEnvelope, UilUser } from '@iconscout/react-unicons'
+import { UilEnvelope, UilUser, UilPuzzlePiece, UilLabelAlt } from '@iconscout/react-unicons'
 import { GetFromStore } from '../../../Functions/StoreMiddleware'
 
 import { connect } from 'react-redux'
@@ -47,11 +47,13 @@ const User = (props) => {
                 </span>
                 <div className='UserContainerColumn SectorColumnContainer'>
                     <span className='SectorColumn'>
+                        <UilPuzzlePiece />
                         {UserSector.Value}
                     </span>
                 </div>
                 <span className='UserContainerColumn TypeColumnContainer'>
                     <span className='TypeColumn'>
+                        <UilLabelAlt />
                         {UserType.Value}
                     </span>
                 </span>

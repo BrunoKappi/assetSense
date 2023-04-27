@@ -1,6 +1,8 @@
 .UserContainerClaro {
     --UserContainer-Background: white;
+    --UserContainer-Background-Hover: whitesmoke;
     --UserContainer-Border: transparent;
+    --UserContainer-Shadow: black;
 
     --UserContainer-Sector-Background: var(--PrimaryBackground);
     --UserContainer-Sector-Color: white;
@@ -15,7 +17,9 @@
 
 .UserContainerEscuro {
     --UserContainer-Background: var(--BackgroundDark);
+    --UserContainer-Background-Hover: var(--PrimaryBackGroundFaded30);
     --UserContainer-Border: var(--ComplementaryColor);
+    --UserContainer-Shadow: var(--PrimaryBackground);
 
     --UserContainer-Sector-Background: var(--PrimaryBackground);
     --UserContainer-Sector-Color: white;
@@ -51,6 +55,15 @@
 
 }
 
+
+.UserContainer:hover {
+    transform: scale(1.01);
+    -webkit-box-shadow: 2px 2px 5px 0px var(--UserContainer-Shadow);
+    -moz-box-shadow: 2px 2px 5px 0px var(--UserContainer-Shadow);
+    box-shadow: 2px 2px 5px 0px var(--UserContainer-Shadow);
+    background-color: var(--UserContainer-Background-Hover);
+}
+
 .UserContainerColumn {
     white-space: nowrap;
     overflow: hidden;
@@ -68,6 +81,11 @@
     border-radius: 50%;
 }
 
+.UserContainerColumn svg {
+    height: .8rem;
+    width: 1rem;
+}
+
 .SectorColumn {
     background-color: var(--UserContainer-Sector-Background);
     color: var(--UserContainer-Sector-Color);
@@ -77,6 +95,11 @@
     padding: .2rem .4rem;
     border-radius: 1rem;
     font-size: .7rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
 }
 
 .TypeColumn {
@@ -88,6 +111,10 @@
     padding: .2rem .4rem;
     border-radius: 1rem;
     font-size: .7rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .NameColumn {

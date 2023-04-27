@@ -2,6 +2,7 @@
     --AssetContainer-Background: white;
     --AssetContainer-Background-Hover: whitesmoke;
     --AssetContainer-Border: transparent;
+    --AssetContainer-Shadow: black;
 
     --AssetContainer-StorageLocation-Background: var(--PrimaryBackground);
     --AssetContainer-StorageLocation-Color: white;
@@ -18,6 +19,8 @@
     --AssetContainer-Background: var(--BackgroundDark);
     --AssetContainer-Background-Hover: var(--PrimaryBackGroundFaded30);
     --AssetContainer-Border: var(--ComplementaryColor);
+    --AssetContainer-Shadow: var(--PrimaryBackground);
+
 
     --AssetContainer-StorageLocation-Background: var(--PrimaryBackground);
     --AssetContainer-StorageLocation-Color: white;
@@ -53,7 +56,13 @@
 
 }
 
+
+
 .AssetContainer:hover {
+    transform: scale(1.01);
+    -webkit-box-shadow: 2px 2px 5px 0px var(--AssetContainer-Shadow);
+    -moz-box-shadow: 2px 2px 5px 0px var(--AssetContainer-Shadow);
+    box-shadow: 2px 2px 5px 0px var(--AssetContainer-Shadow);
     background-color: var(--AssetContainer-Background-Hover);
 }
 
