@@ -5,7 +5,7 @@ import { getStorage } from "firebase/storage";
 
 var firebaseConfig
  
-const BANCO = 'Teste'
+const BANCO = 'Final'
  
 
 
