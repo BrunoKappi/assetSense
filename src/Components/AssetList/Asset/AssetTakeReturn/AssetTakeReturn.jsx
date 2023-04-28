@@ -299,7 +299,7 @@ const AssetTakeReturn = (props) => {
 
 
 
-    console.log("QTD", props.Asset?.QtdPerUser)
+    //console.log("QTD", props.Asset?.QtdPerUser)
 
     return (
         <div className={props.Tema === 'Escuro' ? 'AssetTakeReturn-ContainerEscuro AssetTakeReturn-Container' : 'AssetTakeReturn-ContainerClaro AssetTakeReturn-Container'}>

@@ -203,12 +203,14 @@ const UserModal = (props) => {
             unsubscribe()
             setTimeout(() => { FIREBASE_LogouyAuth() }, 5000);
 
+
             RegisterUser(NewUser.Email).then(() => {
                 AddToFirebaseFunctions["User"](NewUser).then((AddedUserDoc) => {
                     NewUser.docID = AddedUserDoc?.id // PEGA O docID gerado pelo firebase e coloca no objeto do novo User
+
                     setUser(NewUser)
                     setLoadingAction(false)
-                    AddUserToStore(User)
+                    AddUserToStore(NewUser)
                     CancelEditions()
                     props.onHide()
                     NotificationSucesso('Adição', 'Usuário Adicionado com Sucesso!')

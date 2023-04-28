@@ -92,7 +92,7 @@ const FilterSelect = (props) => {
         });
 
         props.OnChange(selectedByList)
-        console.log(selectedByList)
+        //console.log(selectedByList)
         //setSelectedOptions(selectedOptions)
     }
 

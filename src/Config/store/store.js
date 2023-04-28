@@ -72,7 +72,7 @@ const store = createStore(
 
 store.subscribe(() => {
     localStorage.setItem("AssetSense", JSON.stringify(store.getState()))
-    console.log("Store Changed", store.getState())
+    //console.log("Store Changed", store.getState())
 })
 
 

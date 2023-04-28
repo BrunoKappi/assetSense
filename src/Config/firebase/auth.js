@@ -8,7 +8,7 @@ import { GetUserUrlImage } from "../../Functions/StorageMiddleware";
 
 
 const onAuthStateChangedHandler = (currentUser) => {
-  console.log("AUTHCHANGED", currentUser ? currentUser : 'VAZIO');
+  //console.log("AUTHCHANGED", currentUser ? currentUser : 'VAZIO');
 
   const LoggedUserEmail = GetLoggedUserInfo('Email')
   const CurrentUserEmail = currentUser?.email

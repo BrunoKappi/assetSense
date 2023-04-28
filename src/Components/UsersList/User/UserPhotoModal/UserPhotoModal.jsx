@@ -8,7 +8,7 @@ import { NotificationErro, NotificationSucesso } from '../../../../NotificationU
 import { DeleteFile, GetUserUrlImage, ImageUpload } from '../../../../Functions/StorageMiddleware';
 import LoadingSpiner from '../../../LoadingForTabs/Loading'
 import { v4 } from 'uuid';
-import Show from '../../../LayoutComponents/Show/Show';
+import Show from '../../../LayoutComponents/Show/Show'; 
 import { SetOtherUserPhotoUrl, SetLoggedUserPhotoUrl } from '../../../../Functions/DatabaseMiddleware';
 
 

@@ -60,6 +60,50 @@ export const GetSeriesAndLabels = (Type) => {
     return optionsCopy
 }
 
+
+export const GetSeriesAndLabelsAsync = (Type) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+
+            const GetIds = IdsGetFunctions[Type]
+            const GetItens = ItensGetFunctions[Type]
+
+            const Ids = [...GetIds().map(element => { return element.id })]
+            const Labels = [...GetIds().map(element => { return element.Value })]
+            const Qtds = [...GetIds().map(element => { return { Qtd: 0, Label: '' } })]
+            var QtdsCopy = [...Qtds]
+            const Itens = GetItens()
+            Ids.map((ID, Index) => {
+                return Itens.map(Item => {
+                    if (Item[KeysGetFunctions[Type]].id === ID) {
+                        QtdsCopy[Index].Qtd = QtdsCopy[Index].Qtd + 1
+                        QtdsCopy[Index].Label = Labels[Index]
+                    }
+                    return ''
+                })
+            })
+
+            QtdsCopy = QtdsCopy.filter(I => I.Qtd > 0)
+
+            QtdsCopy.sort((a, b) => b.Qtd - a.Qtd).map((Item, Index) => {
+                Labels[Index] = QtdsCopy[Index].Label
+                QtdsCopy[Index] = QtdsCopy[Index].Qtd
+            })
+            const optionsCopy = {}
+            optionsCopy.labels = [...Labels]
+            optionsCopy.series = [...QtdsCopy]
+            resolve(optionsCopy)
+
+        }, 50);
+    });
+};
+
+
+
+
+
+
+
 export const GetRecordsPendentesUso_SeriesLabels = () => {
 
     const UsageTypesAssetsLabels = ['Em Uso', 'Devolvidos']

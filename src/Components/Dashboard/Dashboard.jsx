@@ -1,6 +1,6 @@
 
 import './Dashboard.css'
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import { connect } from 'react-redux'
 import PieChart from '../Charts/DefaultCharts/PieChart/PieChart';
 import BarChart from '../Charts/DefaultCharts/BarChart/BarChart';
@@ -14,6 +14,11 @@ import Show from '../LayoutComponents/Show/Show';
 
 const Dashboard = (props) => {
 
+  //ASSET TYPES
+  const GetAssetTypesData = GetFunctions["AssetTypes"]
+  const AssetTypesLabels = GetAssetTypesData('AssetTypes').labels
+  const AssetTypesSeries = GetAssetTypesData('AssetTypes').series
+
   //SECTORS
   const GetSectorsData = GetFunctions["Sectors"]
   const SectorsLabels = GetSectorsData('Sectors').labels
@@ -23,11 +28,6 @@ const Dashboard = (props) => {
   const GetTypesUsuaiosData = GetFunctions["UserTypes"]
   const TypesUsuaiosLabels = GetTypesUsuaiosData('UserTypes').labels
   const TypesUsuaiosSeries = GetTypesUsuaiosData('UserTypes').series
-
-  //AssetTypes
-  const GetAssetTypesData = GetFunctions["AssetTypes"]
-  const AssetTypesLabels = GetAssetTypesData('AssetTypes').labels
-  const AssetTypesSeries = GetAssetTypesData('AssetTypes').series
 
   //Locais de Armazenamento
   const GetAssetsStorageLocationsData = GetFunctions["StorageLocations"]
