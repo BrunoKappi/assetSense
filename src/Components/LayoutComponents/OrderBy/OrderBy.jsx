@@ -33,6 +33,8 @@ const AssetsOrderByOptions = [
             { Value: 'Tipo' },
             { Value: 'Quantidade do Ativo' },
             { Value: 'Quantidade em Uso' },
+            { Value: 'Data de Adição' },
+            { Value: 'Última edição' },
 
         ],
     },
@@ -47,6 +49,8 @@ const UsersOrderByOptions = [
             { Value: 'Setor' },
             { Value: 'Tipo' },
             { Value: 'Email' },
+            { Value: 'Data de Adição' },
+            { Value: 'Última edição' },
         ],
     },
 ]

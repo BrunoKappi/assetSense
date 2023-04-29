@@ -13,7 +13,7 @@ import { GetNotificationErrorMessageDelete, GetNotificationSuccessMessageAdd, Ge
 import Loading from '../LoadingForTabs/Loading'
 import { CheckIfAnyAssetOfStatusTaken2, GetFromStoreFunctions, SetInStoreFunctions, SetAssetStatusOnStore } from '../../Functions/StoreMiddleware';
 import { DefaultUserRole } from '../../Data/Items';
-import { EDITAR_STORAGELOCATIONS, EDITAR_SECTORS, EDITAR_STATUS_ASSETS, EDITAR_TYPES_ASSETS, EDITAR_TYPES_DE_USO, EDITAR_TYPES_DE_USER } from '../../Functions/PermitsMiddleware';
+import { EDIT_STORAGELOCATIONS, EDIT_SECTORS, EDIT_STATUS_ASSETS, EDIT_TYPES_ASSETS, EDIT_TYPES_DE_USO, EDIT_TYPES_DE_USER } from '../../Functions/PermitsMiddleware';
 import Show from '../LayoutComponents/Show/Show'
 import { AddToFirebaseFunctions, DeleteFromFirebaseFunctions, UpdateInFirebaseFunctions } from '../../Functions/DatabaseMiddleware';
 
@@ -66,12 +66,12 @@ const EditableCustomList = (props) => {
   }
 
   //PERMITS
-  const TypesAtvisoPermit = EDITAR_TYPES_ASSETS()
-  const StorageLocationsPermit = EDITAR_STORAGELOCATIONS()
-  const AssetsStatusPermit = EDITAR_STATUS_ASSETS()
-  const UsageTypesPermit = EDITAR_TYPES_DE_USO()
-  const SectorsPermit = EDITAR_SECTORS()
-  const UserTypesPermit = EDITAR_TYPES_DE_USER()
+  const TypesAtvisoPermit = EDIT_TYPES_ASSETS()
+  const StorageLocationsPermit = EDIT_STORAGELOCATIONS()
+  const AssetsStatusPermit = EDIT_STATUS_ASSETS()
+  const UsageTypesPermit = EDIT_TYPES_DE_USO()
+  const SectorsPermit = EDIT_SECTORS()
+  const UserTypesPermit = EDIT_TYPES_DE_USER()
 
   //PERMITS MAP
   const CustomListPermits = {
@@ -112,6 +112,7 @@ const EditableCustomList = (props) => {
   //END EDITING
   const EndEditing = () => {
     setEditingItem(false)
+    setItemListSelected('')
   }
 
   //CHANGE ITEM NAME
@@ -285,7 +286,22 @@ const EditableCustomList = (props) => {
                                     </Tooltip>
                                   </Show>
 
-                                  <span className='CustomGroupListItem' onClick={e => { if (CustomListPermits[props.Module]) { setItemListSelected(Item.Value); } }}>
+                                  <span className='CustomGroupListItem'
+
+
+                                    onClick={e => {
+                                      if (CustomListPermits[props.Module]) {
+                                        setItemListSelected(Item.Value);
+                                      }
+                                    }}
+                                    onDoubleClick={e => {
+                                      if (CustomListPermits[props.Module]) {
+                                        setItemListSelected(Item.Value);
+                                        InitEditing(Item.Value);
+                                      }
+                                    }}
+
+                                  >
 
 
 
@@ -294,7 +310,10 @@ const EditableCustomList = (props) => {
                                     </Show>
 
                                     <Show Show={!EditingItem} Width='100%'>
-                                      <span onDoubleClick={e => InitEditing(Item.Value)}> {Item.Value}</span>
+                                      <Tooltip title="Duplo Clique para Editar" position="bottom" >
+                                        <span onDoubleClick={e => InitEditing(Item.Value)}> {Item.Value}</span>
+                                      </Tooltip>
+
                                     </Show>
 
                                     <Show Show={ItemListSelected === Item.Value && EditingItem} Width='100%'>

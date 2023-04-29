@@ -20,7 +20,7 @@ import {
 import {
 
     AddToFirebaseFunctions,
-    
+
     UpdateInFirebaseFunctions,
 } from '../../../../Functions/DatabaseMiddleware';
 
@@ -33,8 +33,8 @@ import moment from 'moment'
 import { Tooltip } from 'react-tippy';
 import { connect } from 'react-redux'
 import { FIREBASE_GetRecordsNotReturnByAsset } from '../../../../Config/firebase/metodos';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+
+
 import Loading from '../../../LoadingForTabs/Loading'
 import TwoColumns from '../../../LayoutComponents/TwoColumns/TwoColumns';
 import FormGroupLabel from '../../../LayoutComponents/FormGroupLabel/FormGroupLabel';
@@ -43,6 +43,7 @@ import ConfirmTab from '../../../LayoutComponents/ConfirmTab/ConfirmTab';
 import SidebarItem from '../../../LayoutComponents/SidebarItem/SidebarItem';
 import Warning from '../../../LayoutComponents/Warning/Warning';
 import CustomSelect from '../../../LayoutComponents/CustomSelect/CustomSelect'
+import DatePicker from "../../../LayoutComponents/DatePicker/DatePicker";
 
 const AssetTakeReturn = (props) => {
 
@@ -402,15 +403,19 @@ const AssetTakeReturn = (props) => {
                                     </>
                                 </Show>
 
-                                <div>
-                                    <div className='AssetModalBody-AssetInfoForm-Group'>
-                                        <FormGroupLabel>
-                                            <UilCalendarAlt />
-                                            Data
-                                        </FormGroupLabel>
-                                        <DatePicker className='AssetModalBody-AssetInfoForm-Group-Input' showTimeSelect={true} dateFormat="dd/MM/yyyy" selected={EventDate} onChange={(date) => setEventDate(date)} />
-                                    </div>
+
+                                <div >
+                                    <FormGroupLabel>
+                                        <UilCalendarAlt />
+                                        Data
+                                    </FormGroupLabel>
+                                    <DatePicker
+                                        showTimeSelect={true}
+                                        selected={EventDate}
+                                        onChange={(date) => setEventDate(date)}
+                                    />
                                 </div>
+
 
                                 <div>
                                     <div className='AssetModalBody-AssetInfoForm-Group'>
@@ -524,7 +529,11 @@ const AssetTakeReturn = (props) => {
                                                 <UilCalendarAlt />
                                                 Data e Hora de Devolução
                                             </FormGroupLabel>
-                                            <DatePicker className='AssetModalBody-AssetInfoForm-Group-Input' showTimeSelect={true} dateFormat="dd/MM/yyyy" selected={EventDate} onChange={(date) => setEventDate(date)} />
+                                            <DatePicker
+                                                showTimeSelect={true}
+                                                selected={EventDate}
+                                                onChange={(date) => setEventDate(date)}
+                                            />
                                         </div>
                                     </div>
 

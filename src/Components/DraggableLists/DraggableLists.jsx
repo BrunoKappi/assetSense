@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import NumbersOfList from '../NumbersOfList/NumbersOfList';
 
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
-import { EDITAR_ASSETS, EDITAR_USERS } from '../../Functions/PermitsMiddleware';
+import { EDIT_ASSETS, EDIT_USERS } from '../../Functions/PermitsMiddleware';
 import { AssetsInTypesBreakpoints } from '../../GlobalVars';
 import Warning from '../LayoutComponents/Warning/Warning'
 import Info from '../LayoutComponents/Info/Info'
@@ -66,12 +66,12 @@ const KeyMap = {
 }
 
 const PermitsMap = {
-    'AssetsInTypes': EDITAR_ASSETS,
-    'AssetsInStorageLocations': EDITAR_ASSETS,
-    'UsersInTypes': EDITAR_USERS,
-    'UsersInSectores': EDITAR_USERS,
-    'AssetsInStatus': EDITAR_ASSETS,
-    'AssetsInUsageTypes': EDITAR_ASSETS,
+    'AssetsInTypes': EDIT_ASSETS,
+    'AssetsInStorageLocations': EDIT_ASSETS,
+    'UsersInTypes': EDIT_USERS,
+    'UsersInSectores': EDIT_USERS,
+    'AssetsInStatus': EDIT_ASSETS,
+    'AssetsInUsageTypes': EDIT_ASSETS,
 }
 
 const DraggableLists = (props) => {

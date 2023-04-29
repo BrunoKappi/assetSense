@@ -24,7 +24,7 @@ export const OrderByStyles = {
         width: 'auto', // define a largura do menu como auto para se ajustar ao tamanho das opções
         position: 'absolute', // define a posição do menu como absoluta para ser posicionado abaixo do control
         right: '0',
-        
+        zIndex:1000, 
         backgroundColor: 'var(--OrderBy-Menu-Background)',
         border: '1px solid var(--OrderBy-Menu-Border)',
         minWidth: '15rem'

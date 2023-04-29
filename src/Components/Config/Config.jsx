@@ -54,7 +54,7 @@ const Config = (props) => {
     <div className={props.Tema === 'Escuro' ? 'ConfigContainerEscuro ConfigContainer' : 'ConfigContainerClaro ConfigContainer'}>
 
       {/******************************     TABS    ************************************/}
-      <TabsContainer Tema={props.Tema}>
+      <TabsContainer Direction="row" Tema ={props.Tema}>
         <TabButton ButtonName="Assets" Key={key} onClick={(k) => SetKeyConfig('Assets')} />
         <TabButton ButtonName="AssetsCampos" Key={key} onClick={(k) => SetKeyConfig('AssetsCampos')} />
         <TabButton ButtonName="Sectors e Usuários" Key={key} onClick={(k) => SetKeyConfig('Sectors e Usuários')} />
@@ -68,17 +68,17 @@ const Config = (props) => {
         <Tab eventKey="Assets" >
           <div className='ListItensContainer'>
             <Masonry breakpointCols={ConfigBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column"   >
-              <EditableCustomList Title="Tipos de  Ativos" Module="AssetTypes" />
+              <EditableCustomList Title="Tipos de Ativos" Module="AssetTypes" />
               <EditableCustomList Title="Locais de Armazenamento" Module="StorageLocations" />
               <EditableCustomList Title="Status de Ativos" Module="AssetsStatus" />
-              <EditableCustomList Title="Tipos de  Uso" Module="UsageTypes" />
+              <EditableCustomList Title="Tipos de Uso" Module="UsageTypes" />
             </Masonry>
           </div>
         </Tab>
         {/******************************     CAMPOS TAB    ************************************/}
         <Tab eventKey="AssetsCampos" >
           <div className='CamposListItensContainer'>
-            <TabsContainer Tema={props.Tema}>
+            <TabsContainer Direction="row" Tema ={props.Tema}>
               <TabButton ButtonName="CustomAssets" Key={Camposkey} onClick={(k) => setCamposKey('CustomAssets')} />
               <TabButton ButtonName="CustomUserTypes" Key={Camposkey} onClick={(k) => setCamposKey('CustomUserTypes')} />
             </TabsContainer>
@@ -99,7 +99,7 @@ const Config = (props) => {
           <div className='ListItensContainer'>
             <Masonry breakpointCols={ConfigBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column"  >
               <EditableCustomList Title="Setores da Empresa" Module="Sectors" />
-              <EditableCustomList Title="Tipos de  Usuários" Module="UserTypes" />
+              <EditableCustomList Title="Tipos de Usuários" Module="UserTypes" />
             </Masonry>
           </div> 
         </Tab>

@@ -52,7 +52,7 @@ const Assets = (props) => {
     <div className={props.Tema === 'Escuro' ? 'AssetsContainerEscuro AssetsContainer' : 'AssetsContainerClaro AssetsContainer'}>
 
       {/******************************  TABS  *********************************/}
-      <TabsContainer Tema={props.Tema}>
+      <TabsContainer Direction="row" Tema={props.Tema}>
         <TabButton ButtonName="TodosAssets" Key={key} onClick={(k) => SetKeyAssets('TodosAssets')} />
         <TabButton ButtonName="AssetsInArmazenamento" Key={key} onClick={(k) => SetKeyAssets('AssetsInArmazenamento')} />
         <TabButton ButtonName="AssetsInTypes" Key={key} onClick={(k) => SetKeyAssets('AssetsInTypes')} />

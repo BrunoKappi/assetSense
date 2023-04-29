@@ -57,7 +57,7 @@ const Users = (props) => {
 
 
 
-      <TabsContainer Tema={props.Tema}>
+      <TabsContainer Direction="row" Tema ={props.Tema}>
         <TabButton ButtonName="TodosUsers" Key={key} onClick={(k) => SetKeyConfig('TodosUsers')} />
         <TabButton ButtonName="UsersInSectors" Key={key} onClick={(k) => SetKeyConfig('UsersInSectors')} />
         <TabButton ButtonName="UsersInTypes" Key={key} onClick={(k) => SetKeyConfig('UsersInTypes')} />

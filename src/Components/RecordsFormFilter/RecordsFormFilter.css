@@ -20,14 +20,19 @@
 
     --AssetRecords-FormFilter-Input-Background: transparent;
     --AssetRecords-FormFilter-Input-Border: var(--ComplementaryColor);
-    --AssetRecords-FormFilter-Input-Color: var(--ComplementaryColor);
+    --AssetRecords-FormFilter-Input-Color: white;
 
     --AssetRecord-UpRow-OrderBy-Color: var(--ComplementaryColor);
 }
 
 
 
-
+.RecordsRangeSelection {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    flex-grow: 1;
+}
 
 
 /* ============  DROPDOWN  ===================*/
@@ -37,22 +42,65 @@
     flex-direction: row;
     gap: 1rem;
     margin-bottom: 2rem;
-    justify-content: flex-start;
+    justify-content: flex-end;
     align-items: flex-end;
     flex-wrap: wrap;
+    row-gap: .5rem;
+}
+
+.AssetRecords-OrderAndFilter {
+    display: flex;
+    flex-direction: row;
+}
+
+.AssetRecords-DateRangeContainer {}
+
+.AssetRecords-SearchBarContainer {
+    flex-grow: 4;
+    display: flex;
+    flex-direction: column;
+    min-width: 30% !important;
 }
 
 
-@media (max-width: 500px) {
+
+.AssetRecords-DateRangeContainer {
+    flex-grow: 1;
+}
+
+
+@media (max-width: 1100px) {
+    .AssetRecords-DateRangeContainer {
+        flex-grow: 1;
+    }
+
+}
+
+@media (max-width: 750px) {
+
+
+
+    .AssetRecords-Container {
+        padding: 1rem;
+    }
+
     .AssetRecords-FormFilter {
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
+        padding: .5rem;
         row-gap: .3rem;
     }
 
     .AssetRecords-FormFilter>input {
         width: 100%;
     }
+
+    .AssetRecords-SearchBarContainer {
+        flex-grow: 2;
+        display: flex;
+        flex-direction: column;
+        min-width: 50% !important;
+    }
 }
 
 
@@ -79,7 +127,8 @@
 }
 
 
-.AssetRecords-FormFilter>input {
+
+.AssetRecords-FormFilter input {
     flex-grow: 1;
     outline: none;
     padding: .5rem 1rem;
@@ -92,6 +141,12 @@
     -webkit-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
+}
+
+.AssetRecords-FormFilter input::placeholder {
+
+    color: var(--AssetRecords-FormFilter-Input-Color);
+
 }
 
 .AssetRecords-FormFilter>input::placeholder {

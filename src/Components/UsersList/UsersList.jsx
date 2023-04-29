@@ -29,7 +29,7 @@ const UsersList = (props) => {
     const [OrdenarPor, setOrdenarPor] = useState('Nome');
 
     //PERMITS E USER TYPE   
-    var PermitToAddUsers = GetFromStore('CurrentUserType')?.Permits[PermitIndexs['ADICIONAR_USERS']]
+    var PermitToAddUsers = GetFromStore('CurrentUserType')?.Permits[PermitIndexs['ADD_USERS']]
 
     //CHECK
     const CheckIncludesText = (What) => {
@@ -81,6 +81,10 @@ const UsersList = (props) => {
                             return SectorPrimeiro.localeCompare(SectorSegundo)
                         case 'Tipo':
                             return TypePrimeiro.localeCompare(TypeSegundo)
+                        case 'Data de Adição':
+                            return Primeiro.CreatedAt < Segundo.CreatedAt ? 1 : -1
+                        case 'Última edição':
+                            return Primeiro.LastEditedAt < Segundo.LastEditedAt ? 1 : -1
                         default:
                             return Primeiro.Name.localeCompare(Segundo.Name)
                     }

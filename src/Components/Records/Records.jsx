@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Records.css'
-import {  GetFromStore, GetFromStoreWithId } from '../../Functions/StoreMiddleware';
+import { GetFromStore, GetFromStoreWithId } from '../../Functions/StoreMiddleware';
 import UserModal from '../UsersList/User/UserModal'
 import AssetModal from '../../Components/AssetList/Asset/AssetModal'
 import { v4 } from 'uuid';
@@ -10,6 +10,8 @@ import Record from '../Record/Record'
 import Show from '../LayoutComponents/Show/Show';
 import RecordsFormFilter from '../RecordsFormFilter/RecordsFormFilter';
 import Warning from '../LayoutComponents/Warning/Warning';
+
+import { GetFromFirebaseFunctions } from '../../Functions/DatabaseMiddleware';
 
 const Records = (props) => {
 
@@ -21,6 +23,15 @@ const Records = (props) => {
     const [SelectedAsset, setSelectedAsset] = useState({})
     const [modalShow, setModalShow] = useState(false);
     const [modalShowAsset, setModalShowAsset] = useState(false);
+
+    /* DO BANCO
+    useEffect(() => {
+        GetFromFirebaseFunctions["Records"]().then((RecordsFromDatabse) => {
+            console.log("DO Banco", RecordsFromDatabse)
+            SetRecords(RecordsFromDatabse)
+        })
+    }, [])
+    */
 
     //RESET SELECTED USER
     const ResetSelectedUser = () => {
@@ -47,7 +58,7 @@ const Records = (props) => {
 
     //HANDLE ASSET SELECTION INSIDE RECORD
     const handleAssetSelection = (Id) => {
-        const Asset = GetFromStoreWithId('AssetsWithDeleted',Id)
+        const Asset = GetFromStoreWithId('AssetsWithDeleted', Id)
         if (Asset.Deleted === false) {
             setSelectedAsset(Asset)
             setModalShowAsset(true)

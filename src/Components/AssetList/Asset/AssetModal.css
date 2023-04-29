@@ -41,6 +41,8 @@
     --AssetModal-Sidebar-Button-Delete-Background: #d9534f;
     --AssetModal-Sidebar-Button-Delete-Border: #d9534f;
     --AssetModal-Sidebar-Button-Delete-Color: white;
+
+    --AssetModal-LastEditedAt: var(--SecondaryBackground);
 }
 
 
@@ -89,6 +91,8 @@
     --AssetModal-Sidebar-Button-Delete-Border: #d9534f;
     --AssetModal-Sidebar-Button-Delete-Color: white;
 
+    --AssetModal-LastEditedAt: rgb(123, 123, 123);
+
 
 }
 
@@ -118,6 +122,24 @@
 
 }
 
+
+.AssetModal-LastEditedAt {
+    font-family: var(--Fonte);
+    position: absolute;
+    bottom: .5rem;
+    left: .5rem;
+    font-size: .8rem;
+    font-weight: 400;
+    color: var(--AssetModal-LastEditedAt);
+}
+
+
+@media (max-width: 1000px) {
+
+    .AssetModal-LastEditedAt {
+        display: none;
+    }
+}
 
 .AssetModal {
     display: flex;

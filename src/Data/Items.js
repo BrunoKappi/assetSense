@@ -131,7 +131,7 @@ export const DefaultAsset = {
     Model: '',
     Purchase: {
         WasPurchase: false,
-        PurchaseDate: 0,
+        PurchaseDate: 0, 
         Purchase: ''
     },
     docID: '',
@@ -456,7 +456,7 @@ export const Users = [
 
 
 
-/// ==================== TIPOS DE  ATIVOS =================== ///
+/// ==================== TIPOS de ATIVOS =================== ///
 export const ItemTypes = [
     {
         ...DefaultAssetsType,
@@ -471,7 +471,7 @@ export const ItemTypes = [
         Value: 'Equipamento'
     }
 ]
-/// ==================== TIPOS DE  ATIVOS =================== ///
+/// ==================== TIPOS de ATIVOS =================== ///
 
 
 
@@ -606,7 +606,7 @@ export const AssetsStatus = [
 
 
 
-/// ==================== TIPOS DE  USOS  =================== ///
+/// ==================== TIPOS de USOS  =================== ///
 export const UsageTypes = [
     {
         ...DefaultTypeDeUso,
@@ -681,7 +681,7 @@ export const UsageTypes = [
 
 
 
-/// ==================== TIPOS DE  USERS  =================== ///
+/// ==================== TIPOS de USERS  =================== ///
 
 
 
@@ -794,7 +794,7 @@ if (ADD_FIREBASE) {
     })
 }
 
-//TIPOS DE  ATIVOS
+//TIPOS de ATIVOS
 if (ADD_FIREBASE) {
     ItemTypes.forEach(Type => {
         AddToFirebaseFunctions["AssetTypes"](Type).then((Document) => {
@@ -838,7 +838,7 @@ if (ADD_FIREBASE) {
     })
 }
 
-//TIPOS DE  USO
+//TIPOS de USO
 if (ADD_FIREBASE) {
     UsageTypes.forEach(Type => {
         AddToFirebaseFunctions["UsageTypes"](Type).then((Document) => {
@@ -891,7 +891,7 @@ if ((!localStorage.getItem('AssetSenseAssetsStatus') || Update) && !Reset && !No
 }
 
 
-// TIPOS DE  USO
+// TIPOS de USO
 if ((!localStorage.getItem('AssetSenseUsageTypes') || Update) && !Reset && !Nothing) {
     localStorage.setItem('AssetSenseUsageTypes', JSON.stringify(UsageTypes))
 } else if (Reset) {
@@ -911,7 +911,7 @@ if ((!localStorage.getItem('AssetSenseUsers') || Update) && !Reset && !Nothing) 
     localStorage.setItem('AssetSenseUsers', JSON.stringify(UsersReset)) //RESET
 }
 
-//TIPOS DE  ATIVOS
+//TIPOS de ATIVOS
 if ((!localStorage.getItem('AssetSenseTypes') || Update) && !Reset && !Nothing) {
     localStorage.setItem('AssetSenseTypes', JSON.stringify(ItemTypes))
 } else if (Reset) {

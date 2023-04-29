@@ -39,7 +39,7 @@
 
 
 
- 
+
 
 
 
@@ -50,16 +50,27 @@
     height: 100%;
     background-color: var(--UserTypesPermitsContainer-Background);
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin-top: 2rem;
+    gap: 1.5rem;
+    flex-grow: 1;
+
 }
 
+
+
+@media (max-width: 650px) {
+    .UserTypesPermitsContainer {
+        flex-direction: column;
+    }
+}
 
 .UserTypesPermits-TypeContainer {
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
-    margin-top: 2rem;
+    flex-grow: 1;
+
 }
 
 .UserTypesPermits-TypeContainer-Title {
@@ -79,6 +90,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
 }
 
 .UserTypesPermits-TypeContainer-Title svg {
@@ -183,4 +195,158 @@
 
 .UserTypesPermits-TypeContainer-ListItemBlock:hover>svg {
     color: var(--UserTypesPermitsContainer-Item-Color-Icon-Hover);
+}
+
+
+
+
+
+.NewPermitsList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: .3rem;
+}
+
+
+
+
+.UserTypesPermits-TypeContainer-ListItem2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    gap: .5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: var(--Fonte);
+    font-weight: 400;
+    background-color: var(--UserTypesPermitsContainer-Item-Background);
+    color: var(--UserTypesPermitsContainer-Item-Color);
+    border: 1px solid var(--UserTypesPermitsContainer-Item-Border);
+    flex-grow: 1;
+    border-radius: .5rem;
+    padding: .5rem;
+    font-size: .8rem;
+    cursor: pointer;
+}
+
+.UserTypesPermits-TypeContainer-ListItem2:last-child {
+    border-bottom-right-radius: .5rem;
+    border-bottom-left-radius: .5rem;
+}
+
+.UserTypesPermits-TypeContainer-ListItem2:hover {
+    background-color: var(--UserTypesPermitsContainer-Item-Background-Hover);
+    color: var(--UserTypesPermitsContainer-Item-Color-Hover);
+    border: 1px solid var(--UserTypesPermitsContainer-Item-Border-Hover);
+    border-top: none;
+}
+
+.UserTypesPermits-TypeContainer-ListItem2>span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: var(--Fonte);
+}
+
+.UserTypesPermits-TypeContainer-ListItem2>svg {
+    color: var(--UserTypesPermitsContainer-Item-Color-Icon);
+}
+
+.UserTypesPermits-TypeContainer-ListItem2:hover>svg {
+    color: var(--UserTypesPermitsContainer-Item-Color-Icon-Hover);
+}
+
+
+.UserTypesPermits-TypeContainer-ListItem2Block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: .4rem;
+    padding-top: .2rem;
+    padding-bottom: .2rem;
+    gap: .5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: var(--Fonte);
+    font-weight: 500;
+    background-color: var(--UserTypesPermitsContainer-Item-Background);
+    color: var(--UserTypesPermitsContainer-Item-Color);
+    border: 1px solid var(--UserTypesPermitsContainer-Item-Border);
+    border-top: none;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.UserTypesPermits-TypeContainer-ListItem2Block:hover {
+    background-color: var(--UserTypesPermitsContainer-Item-Background-Hover);
+    color: var(--UserTypesPermitsContainer-Item-Color-Hover);
+    border: 1px solid var(--UserTypesPermitsContainer-Item-Border-Hover);
+    border-top: none;
+}
+
+
+.UserTypesPermits-TypeContainer-ListItem2Block>svg {
+    color: var(--UserTypesPermitsContainer-Item-Color-Icon);
+}
+
+.UserTypesPermits-TypeContainer-ListItem2Block:hover>svg {
+    color: var(--UserTypesPermitsContainer-Item-Color-Icon-Hover);
+}
+
+
+.UserTypesPermits-TypeContainer-Title2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: .5rem;
+    background-color: var(--UserTypesPermitsContainer-Title-Background);
+    color: var(--UserTypesPermitsContainer-Title-Color);
+    border: 1px solid var(--UserTypesPermitsContainer-Title-Border);
+    padding: .5rem .4rem;
+    padding-right: .6rem;
+    padding-left: .7rem;
+    font-family: var(--Fonte);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
+.UserTypesPermits-TypeContainer-Title2 svg {
+    cursor: pointer;
+}
+
+.UserTypesPermits-TypeContainer-Title2span {
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: var(--Fonte);
+}
+
+
+.UserTypesPermits {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+
+.spinner-icon {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }

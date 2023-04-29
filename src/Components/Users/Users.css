@@ -90,12 +90,7 @@
 }
 
 
-.TabsContainer {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    background-color: var(--TabsContainer-Background);
-}
+
 
 .TabsContainer>button {
     border-radius: .5rem;
@@ -119,12 +114,6 @@
 }
 
 
-@media (max-width: 650px) {
-    .TabsContainer {
-        flex-direction: column;
-        gap: .5rem;
-        margin-top: .5rem;
-    }
-}
+
 
 /* =========== TABS BUTTONS ==================== */

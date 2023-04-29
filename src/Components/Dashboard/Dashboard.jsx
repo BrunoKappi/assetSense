@@ -122,7 +122,7 @@ const Dashboard = (props) => {
 
 
 
-          <TabsContainer Tema={props.Tema}>
+          <TabsContainer Direction="row" Tema ={props.Tema}>
             <TabButton ButtonName="DashAssets" Key={key} onClick={(k) => SetKeyConfig('DashAssets')} />
             <TabButton ButtonName="DahUsers" Key={key} onClick={(k) => SetKeyConfig('DahUsers')} />
             <TabButton ButtonName="DashTypes" Key={key} onClick={(k) => SetKeyConfig('DashTypes')} />

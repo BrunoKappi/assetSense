@@ -5,7 +5,7 @@ import { SetTab } from './SidebarUtils';
 import { connect } from 'react-redux'
 import User from '../../assets/Images/SerranoLogoFuncoBranco.jpg'
 import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilClipboardNotes, UilHistory, UilBars } from '@iconscout/react-unicons'
-import { NotificationErro } from '../../NotificationUtils';
+import { NotificationAlerta, NotificationErro } from '../../NotificationUtils';
 import { GetFromStore, SetLoggedUserPhotoUrlJustStore } from '../../Functions/StoreMiddleware';
 import Loading from '../LoadingForTabs/Loading'
 import UserPhotoModal from '../UsersList/User/UserPhotoModal/UserPhotoModal'
@@ -56,6 +56,8 @@ const Sidebar = (props) => {
         } else if (Tab === 'Records') {
             SetTab(Tab)
             navigate(To)
+        } else if (Tab === 'Reports') {
+            NotificationAlerta("Ainda Não...", "Esta tela ainda está em desenvolvimento, em breve estará disponível!")
         } else
             NotificationErro("Não Autorizado", "Você não possui permissão para acessar essa aba, solicite acesso ao seu Administrador")
     }
@@ -136,8 +138,8 @@ const Sidebar = (props) => {
                             onClick={e => SetTabSidebar('Records', '/Assets/Records')}>
                             <UilHistory />
                             Registros
-                        </SidebarItem>
-                        <SidebarItem >
+                        </SidebarItem  >
+                        <SidebarItem onClick={e => SetTabSidebar('Reports', '/Assets/Reports')} >
                             <UilClipboardNotes />
                             Relatórios
                         </SidebarItem>

@@ -88,7 +88,7 @@
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
- 
+
 .CustomGroupList span {
     cursor: pointer;
 }
@@ -204,6 +204,7 @@
     background-color: var(--CustomGroupList-Title-Background) !important;
     color: var(--CustomGroupList-Title-Color) !important;
     user-select: none;
+    border-top: 1px solid var(--CustomGroupList-ListItem-Border) !important;
 }
 
 .EditableCustomListIcon {

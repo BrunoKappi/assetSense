@@ -17,12 +17,40 @@ const FilterSelect = (props) => {
             options: props.AssetsStatus.map((type) => ({ ...type, list: 'AssetsStatus' })),
         },
         {
-            label: <CustomLabel List='AssetTypes' text='Tipos de  Ativos' />,
+            label: <CustomLabel List='AssetTypes' text='Tipos de Ativos' />,
             options: props.AssetTypes.map((type) => ({ ...type, list: 'AssetTypes' })),
         },
         {
-            label: <CustomLabel List='UsageTypes' text='Tipos de  Uso' />,
+            label: <CustomLabel List='UsageTypes' text='Tipos de Uso' />,
             options: props.UsageTypes.map((type) => ({ ...type, list: 'UsageTypes' })),
+        },
+    ]
+
+    //ASSETS OPTIONS
+    const RecordsFilterOptions = [
+        {
+            label: <CustomLabel List='StorageLocations' text='Locais de Armazenamento' />,
+            options: props.StorageLocations.map((type) => ({ ...type, list: 'StorageLocations' })),
+        },
+        {
+            label: <CustomLabel List='AssetsStatus' text='Status de Ativos' />,
+            options: props.AssetsStatus.map((type) => ({ ...type, list: 'AssetsStatus' })),
+        },
+        {
+            label: <CustomLabel List='AssetTypes' text='Tipos de Ativos' />,
+            options: props.AssetTypes.map((type) => ({ ...type, list: 'AssetTypes' })),
+        },
+        {
+            label: <CustomLabel List='UsageTypes' text='Tipos de Uso' />,
+            options: props.UsageTypes.map((type) => ({ ...type, list: 'UsageTypes' })),
+        },
+        {
+            label: <CustomLabel List='Sectors' text="Filtro de Setores" />,
+            options: props.Sectors.map((sector) => ({ ...sector, list: 'Sectors' })),
+        },
+        {
+            label: <CustomLabel List='UserTypes' text='Filtro de Tipo de Usuários' />,
+            options: props.UserTypes.map((type) => ({ ...type, list: 'UserTypes' })),
         },
     ]
 
@@ -45,6 +73,8 @@ const FilterSelect = (props) => {
                 return UserFilterOptions
             case 'FilterAssets':
                 return AssetsFilterOptions
+            case 'FilterRecords':
+                return RecordsFilterOptions
             default:
                 break;
         }
@@ -73,7 +103,7 @@ const FilterSelect = (props) => {
     }, [])
 
 
-    //RESET FILTERS ALL CHECKED
+    //RESET FILTERS ALL CHECKED 
     const ResetFilters = () => {
         selectRef.current.setValue(allOptions);
         //setSelectedOptions(allOptions)

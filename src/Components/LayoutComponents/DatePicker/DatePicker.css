@@ -1,0 +1,208 @@
+.DatePickerClaro {
+    --DatePicker-Borda-Input: var(--PrimaryBackGroundFaded50);
+    --DatePicker-Color-Input: var(--SecondaryBackground);
+    --DatePicker-Background-Input: transparent;
+
+
+}
+
+.DatePickerEscuro {
+    --DatePicker-Borda-Input: var(--PrimaryBackGroundFaded50);
+    --DatePicker-Color-Input: white;
+    --DatePicker-Background-Input: transparent;
+
+
+}
+
+
+.DatePicker {
+    border-radius: .5rem;
+    outline: none;
+    border: 1px solid var(--DatePicker-Borda-Input);
+    padding: .5rem .8rem;
+    color: var(--DatePicker-Color-Input);
+    font-family: var(--Fonte) !important;
+    font-size: .8rem !important;
+    background-color: var(--DatePicker-Background-Input);
+    width: 100% !important;
+
+
+}
+
+@media (max-width: 1000px) {
+    .DatePicker {
+        font-size: .8rem;
+    }
+
+}
+
+
+
+
+.CustomCalendarContainerEscuro {
+    --DatePicker-Container-Background: black;
+    --DatePicker-Container-Border: var(--PrimaryBackGroundFaded50);
+    --DatePicker-Color: white;
+
+    --DatePicker-SelectedDay-Background: var(--ComplementaryColor);
+    --DatePicker-SelectedDay-Color: white;
+
+}
+
+
+
+.CustomCalendarContainerClaro {
+    --DatePicker-Container-Background: white;
+    --DatePicker-Container-Border: var(--PrimaryBackGroundFaded50);
+    --DatePicker-Color: black;
+
+    --DatePicker-SelectedDay-Background: var(--ComplementaryColor);
+    --DatePicker-SelectedDay-Color: white;
+
+}
+
+.DatePickerContainer {
+    z-index: 99;
+    padding: .5rem;
+    border-radius: .5rem;
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+
+.DatePickerContainerEscuro {
+
+    background-color: black;
+}
+
+
+.DatePickerContainerClaro {
+    background-color: white;
+}
+
+
+
+
+/* Container do Calendario */
+.react-datepicker__month-container {
+    border: 1px solid var(--DatePicker-Container-Border) !important;
+    border-bottom: none !important;
+    border-right: 1px solid var(--DatePicker-Container-Border) !important;
+    border-left: none !important;
+    border-top-left-radius: .5rem !important;
+}
+
+/* Container do Time */
+.react-datepicker__time-container {
+    border: 1px solid var(--DatePicker-Container-Border) !important;
+    border-bottom: none !important;
+    border-bottom-right-radius: .5rem !important;
+    border-top-right-radius: .5rem !important;
+    border-right: none !important;
+    border-left: none !important;
+}
+
+/* Dia que aparece no calendario */
+.react-datepicker__day {
+    font-family: var(--Fonte) !important;
+    color: var(--DatePicker-Color) !important;
+}
+
+.react-datepicker__day:hover {
+    background-color: var(--DatePicker-SelectedDay-Background) !important;
+    color: var(--DatePicker-SelectedDay-Color) !important;
+}
+
+
+/* Dia Selecionado aparece no calendario */
+.react-datepicker__day--selected {
+    background-color: var(--DatePicker-SelectedDay-Background) !important;
+    color: var(--DatePicker-SelectedDay-Color) !important;
+}
+
+/* Dia dentro do range */
+.react-datepicker__day--in-selecting-range {
+    background-color: var(--PrimaryBackGroundFaded) !important;
+    color: white !important;
+}
+
+.react-datepicker__day--in-range {
+    background-color: var(--DatePicker-SelectedDay-Background) !important;
+    color: var(--DatePicker-SelectedDay-Color) !important;
+}
+
+/* Dia De Hoje aparece no calendario */
+.react-datepicker__day--today {}
+
+/* Container interno de tudo */
+.CustomCalendarContainer {
+    background-color: transparent !important;
+    font-family: var(--Fonte) !important;
+    border: none !important;
+    border-radius: .5rem !important;
+    border-bottom: 1px solid var(--DatePicker-Container-Border) !important;
+    border-left: 1px solid var(--DatePicker-Container-Border) !important;
+    border-right: 1px solid var(--DatePicker-Container-Border) !important;
+}
+
+/* HEADER DO TIME  */
+.react-datepicker-time__header {
+    font-weight: 400 !important;
+    color: var(--DatePicker-Color) !important;
+}
+
+/* NOMES DO DIAS DA SEMANA */
+.react-datepicker__day-name {
+    color: var(--DatePicker-Color) !important;
+}
+
+
+/* Container do header  */
+.react-datepicker__header {
+    background-color: transparent !important;
+    border-bottom: 1px solid var(--DatePicker-Container-Border) !important;
+
+}
+
+.react-datepicker__navigation span {
+    background-color: var(--DatePicker-Container-Border) !important;
+}
+
+/* Container Da lista das Horas */
+.react-datepicker__time {
+    background-color: transparent !important;
+
+
+}
+
+/* Container da Hora */
+.react-datepicker__time-list-item.custom-time-container {}
+
+
+/* HORA  */
+.react-datepicker__time-list-item {
+    color: var(--DatePicker-Color);
+}
+
+/* HORA HOVER */
+.react-datepicker__time-list-item:hover {
+    background-color: var(--DatePicker-SelectedDay-Background) !important;
+    color: var(--DatePicker-SelectedDay-Color) !important;
+}
+
+
+.DatePicker-CustomCalendarHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.DatePicker-CustomCalendarHeader-Button {
+    background-color: transparent !important;
+    border: none;
+    outline: none;
+    color: var(--DatePicker-Color);
+}
+
+.DatePicker-CustomCalendarHeader-Date {
+    color: var(--DatePicker-Color);
+}

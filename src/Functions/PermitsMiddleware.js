@@ -1,22 +1,22 @@
 import { GetCurrentUserTypePermitFromStore } from "./StoreMiddleware"
 
 
-export const EDITAR_TYPES_ASSETS = () => GetCurrentUserTypePermitFromStore('EDITAR_TYPES_ASSETS')
-export const EDITAR_STORAGELOCATIONS = () => GetCurrentUserTypePermitFromStore('EDITAR_STORAGELOCATIONS')
-export const EDITAR_STATUS_ASSETS = () => GetCurrentUserTypePermitFromStore('EDITAR_STATUS_ASSETS')
-export const EDITAR_TYPES_DE_USO = () => GetCurrentUserTypePermitFromStore('EDITAR_TYPES_DE_USO')
-export const EDITAR_SECTORS = () => GetCurrentUserTypePermitFromStore('EDITAR_SECTORS')
-export const EDITAR_TYPES_DE_USER = () => GetCurrentUserTypePermitFromStore('EDITAR_TYPES_DE_USER')
-export const EDITAR_PERMICOES = () => GetCurrentUserTypePermitFromStore('EDITAR_PERMICOES')
-export const VISUALIZAR_ASSETS = () => GetCurrentUserTypePermitFromStore('VISUALIZAR_ASSETS')
+export const EDIT_TYPES_ASSETS = () => GetCurrentUserTypePermitFromStore('EDIT_TYPES_ASSETS')
+export const EDIT_STORAGELOCATIONS = () => GetCurrentUserTypePermitFromStore('EDIT_STORAGELOCATIONS')
+export const EDIT_STATUS_ASSETS = () => GetCurrentUserTypePermitFromStore('EDIT_STATUS_ASSETS')
+export const EDIT_TYPES_DE_USO = () => GetCurrentUserTypePermitFromStore('EDIT_TYPES_DE_USO')
+export const EDIT_SECTORS = () => GetCurrentUserTypePermitFromStore('EDIT_SECTORS')
+export const EDIT_TYPES_DE_USER = () => GetCurrentUserTypePermitFromStore('EDIT_TYPES_DE_USER')
+export const EDIT_PERMICOES = () => GetCurrentUserTypePermitFromStore('EDIT_PERMICOES')
+export const VIEW_ASSETS = () => GetCurrentUserTypePermitFromStore('VIEW_ASSETS')
 export const RETIRAR_ASSETS = () => GetCurrentUserTypePermitFromStore('RETIRAR_ASSETS')
-export const ADICIONAR_ASSETS = () => GetCurrentUserTypePermitFromStore('ADICIONAR_ASSETS')
-export const EDITAR_ASSETS = () => GetCurrentUserTypePermitFromStore('EDITAR_ASSETS')
-export const EXCLUIR_ASSETS = () => GetCurrentUserTypePermitFromStore('EXCLUIR_ASSETS')
-export const VISUALIZAR_USERS = () => GetCurrentUserTypePermitFromStore('VISUALIZAR_USERS')
-export const ADICIONAR_USERS = () => GetCurrentUserTypePermitFromStore('ADICIONAR_USERS')
-export const EDITAR_USERS = () => GetCurrentUserTypePermitFromStore('EDITAR_USERS')
-export const EXCLUIR_USERS = () => GetCurrentUserTypePermitFromStore('EXCLUIR_USERS')
+export const ADD_ASSETS = () => GetCurrentUserTypePermitFromStore('ADD_ASSETS')
+export const EDIT_ASSETS = () => GetCurrentUserTypePermitFromStore('EDIT_ASSETS')
+export const DELETE_ASSETS = () => GetCurrentUserTypePermitFromStore('DELETE_ASSETS')
+export const VIEW_USERS = () => GetCurrentUserTypePermitFromStore('VIEW_USERS')
+export const ADD_USERS = () => GetCurrentUserTypePermitFromStore('ADD_USERS')
+export const EDIT_USERS = () => GetCurrentUserTypePermitFromStore('EDIT_USERS')
+export const DELETE_USERS = () => GetCurrentUserTypePermitFromStore('DELETE_USERS')
 
 
 
@@ -31,34 +31,34 @@ export const EXCLUIR_USERS = () => GetCurrentUserTypePermitFromStore('EXCLUIR_US
 // TELA DE ATIVOS
 export const AssetsTela = () => {
     return (
-        VISUALIZAR_ASSETS() ||
+        VIEW_ASSETS() ||
         RETIRAR_ASSETS() ||
-        ADICIONAR_ASSETS() ||
-        EDITAR_ASSETS() ||
-        EXCLUIR_ASSETS()
+        ADD_ASSETS() ||
+        EDIT_ASSETS() ||
+        DELETE_ASSETS()
     )
 }
 
 // TELA DE USUÁRIOS
 export const UsersTela = () => {
     return (
-        VISUALIZAR_USERS() ||
-        ADICIONAR_USERS() ||
-        EDITAR_USERS() ||
-        EXCLUIR_USERS()
+        VIEW_USERS() ||
+        ADD_USERS() ||
+        EDIT_USERS() ||
+        DELETE_USERS()
     )
 }
 
 // TELA DE CONFIGURAÇÔES
 export const ConfigTela = () => {
     return (
-        EDITAR_TYPES_ASSETS() ||
-        EDITAR_STORAGELOCATIONS() ||
-        EDITAR_STATUS_ASSETS() ||
-        EDITAR_TYPES_DE_USO() ||
-        EDITAR_SECTORS() ||
-        EDITAR_TYPES_DE_USER ||
-        EDITAR_PERMICOES()
+        EDIT_TYPES_ASSETS() ||
+        EDIT_STORAGELOCATIONS() ||
+        EDIT_STATUS_ASSETS() ||
+        EDIT_TYPES_DE_USO() ||
+        EDIT_SECTORS() ||
+        EDIT_TYPES_DE_USER ||
+        EDIT_PERMICOES()
     )
 }
 
@@ -91,21 +91,21 @@ export const ConfigTela = () => {
 //ACCESS ASSETS TAB
 export const AssetsTabAccess = () => {
     return (
-        EDITAR_TYPES_ASSETS() ||
-        EDITAR_STORAGELOCATIONS() ||
-        EDITAR_STATUS_ASSETS() ||
-        EDITAR_TYPES_DE_USO()
+        EDIT_TYPES_ASSETS() ||
+        EDIT_STORAGELOCATIONS() ||
+        EDIT_STATUS_ASSETS() ||
+        EDIT_TYPES_DE_USO()
     )
 }
 
 //ACCESS SECTORS E USERS TAB
 export const SectorsUsersTabAccess = () => {
-    return EDITAR_SECTORS() || EDITAR_TYPES_DE_USER()
+    return EDIT_SECTORS() || EDIT_TYPES_DE_USER()
 }
 
 //ACCESS PERMITS TAB
 export const PermicoesTabAccess = () => {
-    return EDITAR_PERMICOES()
+    return EDIT_PERMICOES()
 }
 
 
@@ -125,29 +125,29 @@ export const PermicoesTabAccess = () => {
 
 export const TodosAssetsTab = () => {
     return (
-        EDITAR_ASSETS() || VISUALIZAR_ASSETS()
+        EDIT_ASSETS() || VIEW_ASSETS()
     )
 }
 export const AssetsInStorageLocationsTab = () => {
     return (
-        EDITAR_ASSETS() || VISUALIZAR_ASSETS()
+        EDIT_ASSETS() || VIEW_ASSETS()
     )
 }
 export const AssetsInTypesTab = () => {
     return (
-        EDITAR_ASSETS() || VISUALIZAR_ASSETS()
+        EDIT_ASSETS() || VIEW_ASSETS()
     )
 }
 
 export const AssetsInStatusTab = () => {
     return (
-        EDITAR_ASSETS() || VISUALIZAR_ASSETS()
+        EDIT_ASSETS() || VIEW_ASSETS()
     )
 }
 
 export const AssetsInUsageTypesTab = () => {
     return (
-        EDITAR_ASSETS() || VISUALIZAR_ASSETS()
+        EDIT_ASSETS() || VIEW_ASSETS()
     )
 }
 
@@ -160,16 +160,16 @@ export const AssetsInUsageTypesTab = () => {
 
 export const TodosUsersTab = () => {
     return (
-        EDITAR_USERS() || VISUALIZAR_USERS()
+        EDIT_USERS() || VIEW_USERS()
     )
 }
 export const UsersInSectorsTab = () => {
     return (
-        EDITAR_USERS() || VISUALIZAR_USERS()
+        EDIT_USERS() || VIEW_USERS()
     )
 }
 export const UsersInTypesTab = () => {
     return (
-        EDITAR_USERS() || VISUALIZAR_USERS()
+        EDIT_USERS() || VIEW_USERS()
     )
 }

@@ -1,11 +1,13 @@
 import React from 'react';
 import './TabsContainer.css'
 
-const TabsContainer = ({ children, onClick, className = '', Tema }) => {
+const TabsContainer = ({ children, onClick, className = '', Tema, Direction }) => {
     return (
-        <div className={`TabsContainer ${className}  ${Tema === 'Escuro' ? 'TabsContainerEscuro' : 'TabsContainerClaro'} `} onClick={onClick}>
+        <div
+            style={{ flexDirection: Direction }}
+            className={`TabsContainer ${className}  ${Tema === 'Escuro' ? 'TabsContainerEscuro' : 'TabsContainerClaro'} `} onClick={onClick} >
             {children}
-        </div>
+        </div >
     );
 };
 

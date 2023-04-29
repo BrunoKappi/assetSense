@@ -39,7 +39,7 @@ const AssetsList = (props) => {
     }
 
     //PERMITS E USER TYPE   
-    var PermitToAddAssets = GetFromStore('CurrentUserType')?.Permits[PermitIndexs['ADICIONAR_ASSETS']]
+    var PermitToAddAssets = GetFromStore('CurrentUserType')?.Permits[PermitIndexs['ADD_ASSETS']]
 
     // FILL LIST
     useEffect(() => {
@@ -85,6 +85,10 @@ const AssetsList = (props) => {
                         return parseInt(Primeiro.Qtd) < parseInt(Segundo.Qtd) ? 1 : -1
                     case 'Quantidade em Uso':
                         return parseInt(Primeiro.QtdInUse) < parseInt(Segundo.QtdInUse) ? 1 : -1
+                    case 'Data de Adição':
+                        return Primeiro.CreatedAt < Segundo.CreatedAt ? 1 : -1
+                    case 'Última edição':
+                        return Primeiro.LastEditedAt < Segundo.LastEditedAt ? 1 : -1
                     default:
                         return Primeiro.Item.localeCompare(Segundo.Item)
                 }

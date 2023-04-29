@@ -30,7 +30,7 @@
     flex-direction: row;
     gap: 1rem;
     background-color: var(--TabsContainer-Background);
-
+    row-gap: .5rem;
 }
 
 .nav-tabs {
@@ -61,7 +61,7 @@
 
 @media (max-width: 650px) {
     .TabsContainer {
-        flex-direction: column;
+        flex-direction: column !important;
         gap: .5rem;
         margin-top: .5rem;
     }

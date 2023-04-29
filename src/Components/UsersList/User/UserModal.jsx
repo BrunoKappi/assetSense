@@ -61,6 +61,7 @@ import CustomFields from '../../LayoutComponents/CustomFields/CustomFields';
 import SectionTitle from '../../LayoutComponents/SectionTitle/SectionTitle';
 import ConfirmTab from '../../LayoutComponents/ConfirmTab/ConfirmTab';
 import CustomSelect from '../../LayoutComponents/CustomSelect/CustomSelect'
+import moment from 'moment';
 
 const UserModal = (props) => {
 
@@ -101,8 +102,8 @@ const UserModal = (props) => {
 
     //PERMISSOES
     var IsAdmin = CurrentUserType?.IsAdmin
-    var PermitToEditUsers = CurrentUserType?.Permits[PermitIndexs['EDITAR_USERS']]
-    var PermitToDeleteUsers = CurrentUserType?.Permits[PermitIndexs['EXCLUIR_USERS']]
+    var PermitToEditUsers = CurrentUserType?.Permits[PermitIndexs['EDIT_USERS']]
+    var PermitToDeleteUsers = CurrentUserType?.Permits[PermitIndexs['DELETE_USERS']]
     var IsCurrentUser = props.User?.id === GetFromStore('CurrentUser')?.id
     var CanEdit = IsCurrentUser || IsAdmin || PermitToEditUsers
 
@@ -383,6 +384,9 @@ const UserModal = (props) => {
 
                 <BootstrapModal.Body closeButton className="UserModal-Body">
 
+                    <span className='UserModal-LastEditedAt'>Última Edição em {moment(User.LastEditedAt).format("DD/MM/YY")}</span>
+
+
 
                     <div className='UserModal'>
                         <div className='UserModalHeader'>
@@ -657,7 +661,7 @@ const UserModal = (props) => {
                                                             <EditList
                                                                 Item={User}
                                                                 List={UserTypes}
-                                                                Title="Tipos de  Users"
+                                                                Title="Tipo de Usuário"
                                                                 Key='Type'
                                                                 Handle={HandleChangeInfo}
                                                                 Icon={<UilListUl />}

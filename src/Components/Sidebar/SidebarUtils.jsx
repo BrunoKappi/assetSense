@@ -29,13 +29,13 @@ export const GetNavbarSidebarItemClass = (Item, Tab) => {
 
 
 export const GetConfigPermits = (Type) => {
-    if (Type.Permits[PermitIndexs['EDITAR_TYPES_ASSETS']]
-        || Type.Permits[PermitIndexs['EDITAR_STORAGELOCATIONS']]
-        || Type.Permits[PermitIndexs['EDITAR_STATUS_ASSETS']]
-        || Type.Permits[PermitIndexs['EDITAR_TYPES_DE_USO']]
-        || Type.Permits[PermitIndexs['EDITAR_SECTORS']]
-        || Type.Permits[PermitIndexs['EDITAR_TYPES_DE_USER']]
-        || Type.Permits[PermitIndexs['EDITAR_PERMICOES']]
+    if (Type.Permits[PermitIndexs['EDIT_TYPES_ASSETS']]
+        || Type.Permits[PermitIndexs['EDIT_STORAGELOCATIONS']]
+        || Type.Permits[PermitIndexs['EDIT_STATUS_ASSETS']]
+        || Type.Permits[PermitIndexs['EDIT_TYPES_DE_USO']]
+        || Type.Permits[PermitIndexs['EDIT_SECTORS']]
+        || Type.Permits[PermitIndexs['EDIT_TYPES_DE_USER']]
+        || Type.Permits[PermitIndexs['EDIT_PERMICOES']]
 
     )
         return true
@@ -44,10 +44,10 @@ export const GetConfigPermits = (Type) => {
 }
 
 export const GetUsersPermits = (Type) => {
-    if (Type.Permits[PermitIndexs['ADICIONAR_USERS']]
-        || Type.Permits[PermitIndexs['EDITAR_USERS']]
-        || Type.Permits[PermitIndexs['EXCLUIR_USERS']]      
-        || Type.Permits[PermitIndexs['VISUALIZAR_USERS']]
+    if (Type.Permits[PermitIndexs['ADD_USERS']]
+        || Type.Permits[PermitIndexs['EDIT_USERS']]
+        || Type.Permits[PermitIndexs['DELETE_USERS']]      
+        || Type.Permits[PermitIndexs['VIEW_USERS']]
     )
         return true
     else
@@ -55,11 +55,11 @@ export const GetUsersPermits = (Type) => {
 }
 
 export const GetAssetsPermits = (Type) => {
-    if (Type.Permits[PermitIndexs['ADICIONAR_ASSETS']]
-        || Type.Permits[PermitIndexs['EDITAR_ASSETS']]
-        || Type.Permits[PermitIndexs['EXCLUIR_ASSETS']]
+    if (Type.Permits[PermitIndexs['ADD_ASSETS']]
+        || Type.Permits[PermitIndexs['EDIT_ASSETS']]
+        || Type.Permits[PermitIndexs['DELETE_ASSETS']]
         || Type.Permits[PermitIndexs['RETIRAR_ASSETS']]
-        || Type.Permits[PermitIndexs['VISUALIZAR_ASSETS']]
+        || Type.Permits[PermitIndexs['VIEW_ASSETS']]
     )
         return true
     else

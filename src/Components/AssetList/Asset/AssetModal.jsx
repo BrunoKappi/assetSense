@@ -22,7 +22,7 @@ import {
 } from '../../../Functions/StoreMiddleware';
 import {
     AddToFirebaseFunctions,
-    
+
     DeleteFromFirebaseFunctions,
     ReturnAllRecordOfAssetwithId,
     UpdateInFirebaseFunctions
@@ -50,6 +50,7 @@ import EditList from '../../LayoutComponents/EditList/EditList';
 import CustomFields from '../../LayoutComponents/CustomFields/CustomFields';
 import ConfirmTab from '../../LayoutComponents/ConfirmTab/ConfirmTab';
 import CustomSelect from '../../LayoutComponents/CustomSelect/CustomSelect'
+import moment from 'moment';
 
 
 const AssetModal = (props) => {
@@ -94,8 +95,8 @@ const AssetModal = (props) => {
     //PERMISSOES
     var IsCurrentUser = false
     var IsAdmin = CurrentUserType?.IsAdmin
-    var PermitToEditAssets = CurrentUserType?.Permits[PermitIndexs['EDITAR_ASSETS']]
-    var PermitToDeleteAssets = CurrentUserType?.Permits[PermitIndexs['EXCLUIR_ASSETS']]
+    var PermitToEditAssets = CurrentUserType?.Permits[PermitIndexs['EDIT_ASSETS']]
+    var PermitToDeleteAssets = CurrentUserType?.Permits[PermitIndexs['DELETE_ASSETS']]
     var PermitToTakeAssets = CurrentUserType?.Permits[PermitIndexs['RETIRAR_ASSETS']]
     var CanEdit = IsAdmin || PermitToEditAssets
 
@@ -343,7 +344,7 @@ const AssetModal = (props) => {
 
                 <Modal.Body closeButton className="AssetModal-Body">
 
-
+                    <span className='AssetModal-LastEditedAt'>Última Edição em {moment(Asset.LastEditedAt).format("DD/MM/YY")}</span>
 
 
                     <div className='AssetModal'>
