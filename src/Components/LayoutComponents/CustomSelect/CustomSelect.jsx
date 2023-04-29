@@ -7,7 +7,7 @@ import Select from "react-select";
 export const noOptionsMessage = ({ inputValue }) => {
     return inputValue ? 'Nenhuma opção encontrada para "' + inputValue + '"' : 'Nenhuma opção disponível';
 };
- 
+
 export const CustomSelectStyles = {
 
     option: (provided, state) => ({
@@ -40,18 +40,19 @@ export const CustomSelectStyles = {
         ...provided,
         color: 'var(--CustomSelect-Color-Input)'
     }),
-}; 
+};
 
 const CustomSelect = (props) => {
     return (
         <Select
             {...props}
+            inputProps={{ autoComplete: 'off' }}
             className={`CustomSelect  ${props.Tema === 'Escuro' ? 'CustomSelectEscuro' : 'CustomSelectClaro'} `}
             noOptionsMessage={noOptionsMessage}
             styles={CustomSelectStyles}
         />
     );
-}; 
+};
 
 
 

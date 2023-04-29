@@ -16,6 +16,7 @@ import Show from '../LayoutComponents/Show/Show';
 import LoadingAnimate from '../LoadingForTabs/Loading'
 import { UpdateInFirebaseFunctions } from '../../Functions/DatabaseMiddleware';
 import { SetAssetsOnStore, SetUsersOnStore } from '../../Functions/StoreMiddleware';
+import SectionTitle from '../LayoutComponents/SectionTitle/SectionTitle'
 
 const EditUser = UpdateInFirebaseFunctions["User"]
 const EditUAsset = UpdateInFirebaseFunctions["Asset"]
@@ -72,6 +73,16 @@ const PermitsMap = {
     'UsersInSectores': EDIT_USERS,
     'AssetsInStatus': EDIT_ASSETS,
     'AssetsInUsageTypes': EDIT_ASSETS,
+}
+
+
+const SectionTitleMap = {
+    'AssetsInTypes': 'Ativos por Tipo',
+    'AssetsInStorageLocations': 'Ativos por Local de Armazenamento',
+    'UsersInTypes': 'Usuários por Tipo',
+    'UsersInSectores': 'Usuários por Setor',
+    'AssetsInStatus': 'Ativos por Status',
+    'AssetsInUsageTypes': 'Ativos por Tipo de Uso',
 }
 
 const DraggableLists = (props) => {
@@ -149,6 +160,8 @@ const DraggableLists = (props) => {
     return (
         <DragDropContext onDragEnd={(result) => { HandleDrag(result) }}>
             <div className='AssetsInTypesContainer'>
+
+                <SectionTitle>{SectionTitleMap[props.Module]}</SectionTitle>
 
                 <NumbersOfList Values={ListaDeItens} />
 

@@ -43,6 +43,16 @@
     --UserModal-Sidebar-Button-Delete-Color: white;
 
     --UserModal-LastEditedAt: var(--SecondaryBackground);
+
+    --MyPermits-Item-Background: white;
+    --MyPermits-Item-Border: rgb(170, 170, 170);
+    --MyPermits-Item-Color: var(--SecondaryBackground);
+    --MyPermits-Item-Color-Icon: var(--ComplementaryColor);
+
+    --MyPermits-Item-Background-Hover: var(--PrimaryBackground);
+    --MyPermits-Item-Border-Hover: var(--PrimaryBackground);
+    --MyPermits-Item-Color-Hover: var(--PrimaryColor);
+    --MyPermits-Item-Color-Icon-Hover: var(--PrimaryColor);
 }
 
 
@@ -92,6 +102,17 @@
     --UserModal-Sidebar-Button-Delete-Color: white;
 
     --UserModal-LastEditedAt: rgb(91, 90, 90);
+
+
+    --MyPermits-Item-Background: var(--BackgroundDark);
+    --MyPermits-Item-Border: rgb(84, 84, 84);
+    --MyPermits-Item-Color: white;
+    --MyPermits-Item-Color-Icon: var(--ComplementaryColor);
+
+    --MyPermits-Item-Background-Hover: var(--PrimaryBackground);
+    --MyPermits-Item-Border-Hover: var(--PrimaryBackground);
+    --MyPermits-Item-Color-Hover: var(--PrimaryColor);
+    --MyPermits-Item-Color-Icon-Hover: var(--PrimaryColor);
 
 
 }
@@ -186,6 +207,99 @@
         display: none;
     }
 }
+
+.MyPermitsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    justify-content: stretch;
+    margin-top: 1rem;
+}
+
+.MyPermitItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: var(--Fonte);
+    font-weight: 400;
+    flex-grow: 1;
+    border-radius: .5rem;
+    padding: .5rem;
+    font-size: .8rem;
+    cursor: pointer;
+}
+
+
+
+.MyPermitItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    gap: .5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: var(--Fonte);
+    font-weight: 400;
+    background-color: var(--MyPermits-Item-Background);
+    color: var(--MyPermits-Item-Color);
+    border: 1px solid var(--MyPermits-Item-Border);
+    flex-grow: 1;
+    border-radius: .5rem;
+    padding: .5rem;
+    font-size: .8rem;
+    cursor: pointer;
+}
+
+.MyPermitItem:last-child {
+    border-bottom-right-radius: .5rem;
+    border-bottom-left-radius: .5rem;
+}
+
+.MyPermitItem:hover {
+    background-color: var(--MyPermits-Item-Background-Hover);
+    color: var(--MyPermits-Item-Color-Hover);
+    border: 1px solid var(--MyPermits-Item-Border-Hover);
+    border-top: none;
+}
+
+
+.MyPermitItem>svg {
+    color: var(--MyPermits-Item-Color-Icon);
+
+}
+
+.MyPermitItem:hover>svg {
+    color: var(--MyPermits-Item-Color-Icon-Hover);
+}
+
+
+
+.MyPermitItem>span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: var(--Fonte);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

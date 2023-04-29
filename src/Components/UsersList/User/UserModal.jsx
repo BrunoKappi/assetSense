@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 //CSS
 import './UserModal.css'
 //ICONS
-import { UilUserCircle, UilClipboardNotes, UilEnvelope, UilPhone, UilMap, UilMapMarker, UilPen, UilPuzzlePiece, UilLabel, UilListUl, UilSave, UilHistory, UilTimes, UilBuilding, UilKeySkeleton, UilCheck, UilBackward, UilTrash } from '@iconscout/react-unicons'
+import { UilUserCircle, UilClipboardNotes, UilEnvelope, UilPhone, UilShieldCheck, UilMap, UilMapMarker, UilPen, UilPuzzlePiece, UilLabel, UilListUl, UilSave, UilHistory, UilTimes, UilBuilding, UilKeySkeleton, UilCheck, UilBackward, UilTrash } from '@iconscout/react-unicons'
 //COMPONENTS
 import UserAssetRecords from './UserAssetsRecords/UserAssetsRecords';
 import UserPhoto from '../../../assets/Images/SerranoLogoFuncoBranco.jpg'
@@ -16,7 +16,7 @@ import { connect } from 'react-redux'
 import { Tooltip } from 'react-tippy';
 import BootstrapModal from 'react-bootstrap/Modal';
 //VARIABLES
-import { PermitIndexs } from '../../../GlobalVars'
+import { PermitDesc, PermitIndexs } from '../../../GlobalVars'
 import { DefaultSector, DefaultUserType, DefaultUser } from '../../../Data/Items';
 //FUNCTIONS
 import UserPhotoModal from './UserPhotoModal/UserPhotoModal';
@@ -443,6 +443,22 @@ const UserModal = (props) => {
                                         </SidebarItem>
                                     </Show>
 
+                                    <Show Show={props.Function !== 'Add' && IsCurrentUser}>
+                                        <SidebarItem Active={IsActive('ChangePassword')}
+                                            onClick={e => setTab('ChangePassword')}>
+                                            <UilKeySkeleton />
+                                            Mudar Senha
+                                        </SidebarItem>
+                                    </Show>
+
+                                    <Show Show={props.Function !== 'Add' && IsCurrentUser}>
+                                        <SidebarItem Active={IsActive('MyPermits')}
+                                            onClick={e => setTab('MyPermits')}>
+                                            <UilShieldCheck />
+                                            Minhas Permissões
+                                        </SidebarItem>
+                                    </Show>
+
                                     <Show Show={props.Function !== 'Add'}>
                                         <SidebarItem Active={IsActive('Atividade')}
                                             onClick={e => setTab('Atividade')}>
@@ -601,44 +617,6 @@ const UserModal = (props) => {
 
 
 
-                                                    <Show Show={IsCurrentUser}>
-
-                                                        <SectionTitle>Trocar de Senha</SectionTitle>
-
-                                                        <TwoColumns>
-                                                            <FormGroup>
-                                                                <FormGroupLabel>
-                                                                    <UilKeySkeleton />
-                                                                    Senha Atual
-                                                                </FormGroupLabel>
-                                                                <FormInput
-                                                                    placeholder='Digite sua Senha'
-                                                                    type="password"
-                                                                    value={SenhaAtual}
-                                                                    onChange={e => setSenhaAtual(e.target.value)}
-                                                                />
-                                                            </FormGroup>
-                                                            <FormGroup>
-                                                                <FormGroupLabel>
-                                                                    <UilKeySkeleton />
-                                                                    Nova Senha
-                                                                </FormGroupLabel>
-                                                                <FormInput
-                                                                    placeholder='Digite a nova Senha'
-                                                                    type="password"
-                                                                    value={NovaSenha}
-                                                                    onChange={e => setNovaSenha(e.target.value)}
-                                                                />
-                                                            </FormGroup>
-                                                        </TwoColumns>
-
-                                                        <div className='UserModalBody-UserInfoForm-Button'>
-                                                            <button onClick={UpdatePassword}>
-                                                                <UilPen />
-                                                                Atualizar
-                                                            </button>
-                                                        </div>
-                                                    </Show>
 
 
 
@@ -723,6 +701,67 @@ const UserModal = (props) => {
 
                                         <Show Show={Tab === 'Assets'}>
                                             <UserAssetRecords FromModal={props.FromModal} User={User} />
+                                        </Show>
+
+                                        <Show Show={Tab === 'ChangePassword'}>
+
+                                            <Show Show={IsCurrentUser}>
+
+                                                <SectionTitle>Trocar de Senha</SectionTitle>
+
+                                                <TwoColumns>
+                                                    <FormGroup>
+                                                        <FormGroupLabel>
+                                                            <UilKeySkeleton />
+                                                            Senha Atual
+                                                        </FormGroupLabel>
+                                                        <FormInput
+                                                            placeholder='Digite sua Senha'
+                                                            type="password"
+                                                            value={SenhaAtual}
+                                                            onChange={e => setSenhaAtual(e.target.value)}
+                                                        />
+                                                    </FormGroup>
+                                                    <FormGroup>
+                                                        <FormGroupLabel>
+                                                            <UilKeySkeleton />
+                                                            Nova Senha
+                                                        </FormGroupLabel>
+                                                        <FormInput
+                                                            placeholder='Digite a nova Senha'
+                                                            type="password"
+                                                            value={NovaSenha}
+                                                            onChange={e => setNovaSenha(e.target.value)}
+                                                        />
+                                                    </FormGroup>
+                                                </TwoColumns>
+
+                                                <div className='UserModalBody-UserInfoForm-Button'>
+                                                    <button onClick={UpdatePassword}>
+                                                        <UilPen />
+                                                        Atualizar
+                                                    </button>
+                                                </div>
+                                            </Show>
+                                        </Show>
+
+                                        <Show Show={Tab === 'MyPermits'}>
+
+                                            <SectionTitle>Minhas Permissões</SectionTitle>
+
+                                            <div className='MyPermitsContainer'>
+
+                                                {CurrentUserType.Permits.map((Permit, PermitIndex) => {
+                                                    if (Permit && PermitDesc[PermitIndex])
+                                                        return <span className='MyPermitItem'>
+                                                            <UilCheck />
+                                                            {PermitDesc[PermitIndex]}
+                                                        </span>
+                                                    else
+                                                        return
+                                                })}
+                                            </div>
+
                                         </Show>
 
                                     </div>
