@@ -15,7 +15,7 @@
     --CamposContainer-Item-Placeholder-Color: white;
 
 }
- 
+
 
 
 
@@ -25,7 +25,7 @@
     height: 100%;
     background-color: var(--CamposContainer-Background);
     font-family: var(--Fonte) !important;
-    margin-top: 1.5rem;
+
 }
 
 
@@ -40,6 +40,7 @@
     flex-direction: row;
     gap: .5rem;
     align-items: center;
+    margin-bottom: 1rem;
 }
 
 
@@ -94,7 +95,7 @@
     flex-direction: row;
     gap: .5rem;
     align-items: center;
-    margin-top: 1rem;
+
 }
 
 .CamposTitle>svg {

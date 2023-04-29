@@ -103,8 +103,7 @@ const Sidebar = (props) => {
                 <Show Show={CurrentUser.Name}>
                     <Tooltip title="Acessar seu Perfil" position="bottom" >
                         <div className='SidebarUserName' onClick={e => SetTabSidebar('Profile', '/Assets/Profile')}>
-                            <p> {CurrentUser.Name ? CurrentUser.Name : 'Caregando...'}</p>
-                            <p> {CurrentUser.LastName}</p>
+                            <p> {(CurrentUser.Name ? CurrentUser.Name : 'Caregando...') + ' ' + CurrentUser.LastName}</p>
                         </div>
                     </Tooltip>
 

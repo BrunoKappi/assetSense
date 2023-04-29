@@ -13,6 +13,7 @@ import { EditRecordAction, SetRecords } from "../Config/store/actions/RecordsAct
 import { DefaultUserRole } from "../Data/Items"
 import { SetTemaAction } from "../Config/store/actions/ThemeActions"
 import { SetCheckLogin, SetLoggedUserPhotoUrlAction, SetSidebarTag, ToggleSideBar, setLoggedUser } from "../Config/store/actions/LoggedUserActions"
+import { UpdateInFirebaseFunctions } from "./DatabaseMiddleware"
 
 //UTILS
 
@@ -66,15 +67,29 @@ export async function GetTema() {
 //TOGGLE THEME
 export async function ToggleTema() {
     const Tema = localStorage.getItem('AssetSenseTema')
+    const User = GetFromStore('CurrentUser')
     if (Tema === 'Escuro') {
         Dispatch(SetTemaAction("Claro"))
         localStorage.setItem('AssetSenseTema', 'Claro')
+        User.Preference.Theme = 'Claro'
+        UpdateInFirebaseFunctions["User"](User)
+
     }
     if (Tema === 'Claro') {
         Dispatch(SetTemaAction("Escuro"))
         localStorage.setItem('AssetSenseTema', 'Escuro')
+        User.Preference.Theme = 'Escuro'
+        UpdateInFirebaseFunctions["User"](User)
     }
 }
+
+//TOGGLE THEME
+export async function SetTema(Theme) {
+    Dispatch(SetTemaAction(Theme))
+    localStorage.setItem('AssetSenseTema', Theme)
+}
+
+
 
 //GET LOGGED USER INFO BY KEY
 export const GetLoggedUserInfo = (Key) => {
@@ -235,7 +250,7 @@ export const GetNamesOfUsersThatTookAsset = (AssetId) => {
     const UserNames = UsersThatTook.map(User => {
         return User.Name
     })
-    
+
     return UserNames ? UserNames.join() : ''
 }
 

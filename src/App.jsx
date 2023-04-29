@@ -20,7 +20,7 @@ import { GetTema } from './Functions/StoreMiddleware';
 const App = (props) => {
 
 
-  GetTema()
+
 
   const RequireAuth = ({ children }) => {
     if (props.LoggedUser.Email) {
@@ -37,7 +37,7 @@ const App = (props) => {
     <div className="App">
       <ReactNotifications />
       <Routes>
-        <Route path="/" element={<Home CheckedLogin={props.LoggedUser.CheckedLogin} Email={props.LoggedUser.Email} />} />
+        <Route path="/" element={<Home CheckedLogin={props.LoggedUser.CheckedLogin} Email={props.LoggedUser.Email} To={props.To} />} />
         <Route path="/Forget" element={<Forget />} />
         <Route path="/Assets" element={<RequireAuth> <Layout /> </RequireAuth>}>
           <Route path="/Assets/Dash" element={<RequireAuth> <Dashboard /> </RequireAuth>} />

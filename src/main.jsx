@@ -8,11 +8,18 @@ import { BrowserRouter as Router } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-notifications-component/dist/theme.css';
 
+
+var pathname = window.location.pathname;
+
+
+//console.log("Pathname: " + pathname);
+
+
 const root = createRoot(document.getElementById('root'));
 root.render(
   <Router>
     <Provider store={store}>
-      <App />
+      <App To={pathname}/>
     </Provider>
   </Router>
 );

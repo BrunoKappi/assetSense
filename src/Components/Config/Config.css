@@ -35,19 +35,32 @@
 
 .ListItensContainer {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 0rem;
     justify-content: stretch;
+    margin-top: 1rem;
 }
 
 .CamposListItensContainer {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap; 
-    gap: 0rem;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1rem;
     justify-content: stretch;
-    margin-top: 3rem;
+    margin-top: 1.5rem;
+}
+
+
+.CamposListItensInnerContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.CamposSidebar {
+    flex-grow: 1;
+    min-width: 25% !important;
 }
 
 .my-masonry-grid {
@@ -69,6 +82,10 @@
 
 @media (max-width: 750px) {
 
+    .CamposListItensInnerContainer {
+        flex-direction: column;
+    }
+
     .ConfigContainer {
         padding: 1rem;
     }
@@ -77,7 +94,7 @@
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-        gap: 2rem;
+        gap: 1rem;
         align-items: stretch;
         padding: 0;
     }

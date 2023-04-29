@@ -13,20 +13,22 @@ import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
 import Show from '../LayoutComponents/Show/Show';
 //FUNCTIONS
-import { AssetsTabAccess, PermicoesTabAccess, SectorsUsersTabAccess } from '../../Functions/PermitsMiddleware';
+import { AssetsTabAccess, CustomFieldsTabAccess, PermicoesTabAccess, SectorsUsersTabAccess } from '../../Functions/PermitsMiddleware';
 import { ConfigBreakpoints } from '../../GlobalVars';
- 
+import SectionTitle from '../LayoutComponents/SectionTitle/SectionTitle';
+import Stack from '../LayoutComponents/Stack/Stack';
+import SidebarItem from '../LayoutComponents/SidebarItem/SidebarItem';
+import { UilSetting } from '@iconscout/react-unicons'
 
 const Config = (props) => {
 
-
   // GET INITIAL TAB BASED ON PERMITS
-  const getInitialTab = () => { 
+  const getInitialTab = () => {
     if (AssetsTabAccess())
       return 'Assets'
     else if (SectorsUsersTabAccess())
       return 'Sectors e Usuários'
-    else if (PermicoesTabAccess()) 
+    else if (PermicoesTabAccess())
       return 'Permissoes'
   }
 
@@ -39,7 +41,7 @@ const Config = (props) => {
   const SetKeyConfig = (Key) => {
     if (Key === 'Assets' && AssetsTabAccess())
       setKey(Key)
-    else if (Key === 'AssetsCampos')
+    else if (Key === 'AssetsCampos' && CustomFieldsTabAccess())
       setKey(Key)
     else if (Key === 'Sectors e Usuários' && SectorsUsersTabAccess())
       setKey(Key)
@@ -54,7 +56,7 @@ const Config = (props) => {
     <div className={props.Tema === 'Escuro' ? 'ConfigContainerEscuro ConfigContainer' : 'ConfigContainerClaro ConfigContainer'}>
 
       {/******************************     TABS    ************************************/}
-      <TabsContainer Direction="row" Tema ={props.Tema}>
+      <TabsContainer Direction="row" Tema={props.Tema}>
         <TabButton ButtonName="Assets" Key={key} onClick={(k) => SetKeyConfig('Assets')} />
         <TabButton ButtonName="AssetsCampos" Key={key} onClick={(k) => SetKeyConfig('AssetsCampos')} />
         <TabButton ButtonName="Sectors e Usuários" Key={key} onClick={(k) => SetKeyConfig('Sectors e Usuários')} />
@@ -67,6 +69,7 @@ const Config = (props) => {
         {/******************************     ASSETS TAB    ************************************/}
         <Tab eventKey="Assets" >
           <div className='ListItensContainer'>
+            <SectionTitle>Configurações de Ativos</SectionTitle>
             <Masonry breakpointCols={ConfigBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column"   >
               <EditableCustomList Title="Tipos de Ativos" Module="AssetTypes" />
               <EditableCustomList Title="Locais de Armazenamento" Module="StorageLocations" />
@@ -78,18 +81,33 @@ const Config = (props) => {
         {/******************************     CAMPOS TAB    ************************************/}
         <Tab eventKey="AssetsCampos" >
           <div className='CamposListItensContainer'>
-            <TabsContainer Direction="row" Tema ={props.Tema}>
-              <TabButton ButtonName="CustomAssets" Key={Camposkey} onClick={(k) => setCamposKey('CustomAssets')} />
-              <TabButton ButtonName="CustomUserTypes" Key={Camposkey} onClick={(k) => setCamposKey('CustomUserTypes')} />
-            </TabsContainer>
+            <SectionTitle>Configuração de Campos personalizados</SectionTitle>
 
-            <Show Show={Camposkey === 'CustomAssets'} Width='100%'>
-              <Campos Function="AssetTypes" />
-            </Show>
+            <div className='CamposListItensInnerContainer'>
+              <Stack className='CamposSidebar' Gap={'.5rem'}>
+                <SidebarItem Active={Camposkey === 'CustomAssets'}
+                  onClick={(k) => setCamposKey('CustomAssets')}>
+                  <UilSetting />
+                  Tipos de Ativos
+                </SidebarItem>
 
-            <Show Show={Camposkey === 'CustomUserTypes'} Width='100%'>
-              <Campos Function="UserTypes" />
-            </Show>
+                <SidebarItem Active={Camposkey === 'CustomUserTypes'}
+                  onClick={(k) => setCamposKey('CustomUserTypes')}>
+                  <UilSetting />
+                  Tipos de Usuários
+                </SidebarItem>
+              </Stack>
+
+              <Show Show={Camposkey === 'CustomAssets'} Width='100%'>
+                <Campos Function="AssetTypes" />
+              </Show>
+
+              <Show Show={Camposkey === 'CustomUserTypes'} Width='100%'>
+                <Campos Function="UserTypes" />
+              </Show>
+            </div>
+
+
 
 
           </div>
@@ -97,11 +115,12 @@ const Config = (props) => {
         {/******************************     SECTORS E USERS TAB    ************************************/}
         <Tab eventKey="Sectors e Usuários"  >
           <div className='ListItensContainer'>
+            <SectionTitle>Configuração de Setores e Usuários</SectionTitle>
             <Masonry breakpointCols={ConfigBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column"  >
               <EditableCustomList Title="Setores da Empresa" Module="Sectors" />
               <EditableCustomList Title="Tipos de Usuários" Module="UserTypes" />
             </Masonry>
-          </div> 
+          </div>
         </Tab>
         {/******************************     PERMISSÕES TAB    ************************************/}
         <Tab eventKey="Permissoes"  >

@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthState
 import { auth } from "./index";
 import { sendPasswordResetEmail, updatePassword } from "firebase/auth";
 import { DefaultLoggedUser } from "../../GlobalVars";
-import { GetLoggedUserInfo,  GetUserWithEmailFromStore, SetCheckLoginOnStore, SetLoggedUserOnStore } from "../../Functions/StoreMiddleware";
+import { GetFromStore, GetLoggedUserInfo, GetUserWithEmailFromStore, SetCheckLoginOnStore, SetLoggedUserOnStore, SetTema } from "../../Functions/StoreMiddleware";
 import { GetUserUrlImage } from "../../Functions/StorageMiddleware";
 
 
@@ -15,7 +15,7 @@ const onAuthStateChangedHandler = (currentUser) => {
 
 
 
- 
+
   if (((LoggedUserEmail === CurrentUserEmail) || (!LoggedUserEmail)) && currentUser) {
     const user = {
       ...DefaultLoggedUser,
@@ -25,7 +25,12 @@ const onAuthStateChangedHandler = (currentUser) => {
     }
     SetLoggedUserOnStore(user)
 
-
+    setTimeout(() => {
+      const User = GetFromStore("CurrentUser")
+      const Theme = User.Preference.Theme || 'Claro'
+      //console.log("USEEER", Theme)
+      SetTema(Theme)
+    }, 2000);
 
 
   } else {

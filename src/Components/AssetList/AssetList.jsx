@@ -11,6 +11,7 @@ import Show from '../LayoutComponents/Show/Show';
 import Warning from '../LayoutComponents/Warning/Warning';
 import FilterSelect from '../LayoutComponents/FilterSelect/FilterSelect'
 import OrderBy from '../LayoutComponents/OrderBy/OrderBy'
+import SectionTitle from '../LayoutComponents/SectionTitle/SectionTitle';
 
 const AssetsList = (props) => {
 
@@ -118,6 +119,7 @@ const AssetsList = (props) => {
             <AssetModal FromModal={false} CurrentUser={CurrentUser} Asset={{ ...SelectedAsset }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedAsset} />
             <AssetModal FromModal={false} CurrentUser={CurrentUser} Asset={{}} show={AddmodalShow} onHide={() => setAddModalShow(false)} Function="Add" />
 
+            <SectionTitle>Lista de Ativos</SectionTitle>
 
             <div className='AssetsListFormFilter'>
                 <input value={FiltroDeTexto} placeholder='Procurar Item...' onChange={e => setFiltroDeTexto(e.target.value)}></input>

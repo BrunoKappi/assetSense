@@ -2,6 +2,7 @@ import { GetCurrentUserTypePermitFromStore } from "./StoreMiddleware"
 
 
 export const EDIT_TYPES_ASSETS = () => GetCurrentUserTypePermitFromStore('EDIT_TYPES_ASSETS')
+export const EDIT_CAMPOS_PERSONALIZADOS = () => GetCurrentUserTypePermitFromStore('EDIT_CAMPOS_PERSONALIZADOS')
 export const EDIT_STORAGELOCATIONS = () => GetCurrentUserTypePermitFromStore('EDIT_STORAGELOCATIONS')
 export const EDIT_STATUS_ASSETS = () => GetCurrentUserTypePermitFromStore('EDIT_STATUS_ASSETS')
 export const EDIT_TYPES_DE_USO = () => GetCurrentUserTypePermitFromStore('EDIT_TYPES_DE_USO')
@@ -102,6 +103,13 @@ export const AssetsTabAccess = () => {
 export const SectorsUsersTabAccess = () => {
     return EDIT_SECTORS() || EDIT_TYPES_DE_USER()
 }
+
+
+//ACCESS PERMITS TAB
+export const CustomFieldsTabAccess = () => {
+    return EDIT_CAMPOS_PERSONALIZADOS()
+}
+
 
 //ACCESS PERMITS TAB
 export const PermicoesTabAccess = () => {

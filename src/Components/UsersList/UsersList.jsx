@@ -12,6 +12,7 @@ import Show from '../LayoutComponents/Show/Show';
 import FilterSelect from '../LayoutComponents/FilterSelect/FilterSelect'
 import OrderBy from '../LayoutComponents/OrderBy/OrderBy'
 import { GetNameFromStoreWithId } from '../../Functions/StoreMiddleware';
+import SectionTitle from '../LayoutComponents/SectionTitle/SectionTitle';
 
 const UsersList = (props) => {
 
@@ -111,6 +112,8 @@ const UsersList = (props) => {
             <UserModal FromModal={false} Users={ListaDeUsers} CurrentUser={CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
 
             <UserModal FromModal={false} Users={ListaDeUsers} CurrentUser={CurrentUser} User={{}} show={AddmodalShow} onHide={() => setAddModalShow(false)} Function="Add" />
+
+            <SectionTitle>Lista de Usuários</SectionTitle>
 
             <div className='UsersLisFormFilter'>
                 <input value={FiltroDeTexto} placeholder='Procurar Usuário...' onChange={e => setFiltroDeTexto(e.target.value)}></input>

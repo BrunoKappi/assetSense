@@ -75,7 +75,7 @@ export const PermitIndexs = {
   EDIT_SECTORS: Index++,
   EDIT_TYPES_DE_USER: Index++,
   EDIT_PERMICOES: Index++,
-  ____: Index++,
+  EDIT_CAMPOS_PERSONALIZADOS: Index++,
   ____: Index++,
   ____: Index++,
 
@@ -113,7 +113,7 @@ export const PermitDesc = [
   'Editar Setores',
   'Editar Tipos de Usuários',
   'Editar Permissões',
-  '',
+  'Editar Campos Personalizados',
   '',
   '',
 ]

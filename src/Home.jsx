@@ -3,7 +3,10 @@ import { Oval } from "react-loader-spinner";
 import { Navigate } from "react-router-dom";
 import Login from './Components/Login/Login'
 
-export default function Home({ CheckedLogin, Email }) {
+export default function Home({ CheckedLogin, Email, To }) {
+
+
+
   if (CheckedLogin) {
     if (Email) {
       return <Navigate to="/Assets/Dash" />;

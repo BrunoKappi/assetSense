@@ -125,11 +125,13 @@ const UserModal = (props) => {
                 newUser.City.name = ''
                 break
             case 'Type':
+                if (!(IsAdmin || PermitToEditUsers)) return
                 newUser.Type = { id: Value }
                 const GotUserType = GetFromStoreWithId('UserTypes', Value)
                 setUserType(GotUserType)
                 break
             case 'Sector':
+                if (!(IsAdmin || PermitToEditUsers)) return
                 newUser.Sector = { id: Value }
                 break
             case 'Email':

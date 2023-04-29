@@ -140,7 +140,7 @@ export const ReturnAllRecordOfAssetwithId = (AssetId) => {
 
 
 
-
+ 
 
 export const GetFromFirebaseFunctions = {
     "AssetTypes": () => GetFromDatabase("AssetType"),
