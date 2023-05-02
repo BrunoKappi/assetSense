@@ -66,9 +66,10 @@ export const DefaultRequestStatus = {
     CreatedAt: moment().valueOf(),
     docID: '',
     id: '',
-    Value: '',
+    Value: '', 
     CustomFields: [],
-    DefaultStatus: false
+    DefaultStatus: false,
+    Color: '#2b5aa6'
 }
 
 
@@ -807,7 +808,7 @@ export const RequestStatus = [
 
 
 
- 
+
 
 
 

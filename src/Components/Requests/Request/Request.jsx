@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './Request.css'
 import { UilTicket, UilUser, UilPlay, UilLabelAlt } from '@iconscout/react-unicons'
-import { GetNameFromStoreWithId } from '../../../Functions/StoreMiddleware'
+import { GetFromStoreWithId, GetNameFromStoreWithId } from '../../../Functions/StoreMiddleware'
 //Tooltip
 import { Tooltip } from 'react-tippy';
 import { connect } from 'react-redux'
@@ -12,6 +12,9 @@ const Request = (props) => {
 
     const [RequestType] = useState(GetNameFromStoreWithId("RequestsTypes", props.Request.Type.id))
     const [RequestStatus] = useState(GetNameFromStoreWithId("RequestsStatus", props.Request.Status.id))
+    const [RequestStatusColor] = useState(GetFromStoreWithId("RequestsStatus", props.Request.Status.id))
+
+    console.log(RequestStatusColor)
 
     const RequesterName = GetNameFromStoreWithId("Users", props.Request.CreatedBy)
 
@@ -35,8 +38,8 @@ const Request = (props) => {
                 </span>
                 <div className='RequestContainerColumn StatusColumnContainer'>
                     <Tooltip style={DefaultTooltipStyles} title="Status da Solicitação" position="bottom" >
-                        <span className='StatusColumn'>
-                            <UilPlay />
+                        <span className='StatusColumn' style={{ backgroundColor: RequestStatusColor.Color }}>
+
                             <span>{RequestStatus}</span>
                         </span>
                     </Tooltip>

@@ -122,7 +122,7 @@ const AddRequestModal = (props) => {
         //MESSAGE 2
         const messageToAdd1 = { ...DefaultRequestMessage }
 
-        messageToAdd1.CreatedByEmail = CurrentUser.id
+        messageToAdd1.CreatedBy = CurrentUser.id
         messageToAdd1.CreatedAt = moment().valueOf()
         messageToAdd1.Message = "Abertura da Solicitação: " + Title
 

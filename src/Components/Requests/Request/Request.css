@@ -89,7 +89,7 @@
 }
 
 .StatusColumn {
-    background-color: var(--RequestContainer-Sector-Background);
+   
     color: var(--RequestContainer-Sector-Color);
     white-space: nowrap;
     overflow: hidden;

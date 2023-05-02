@@ -63,11 +63,11 @@ const RequestsOrderByOptions = [
         label: <CustomLabel text="Ordenar por" />,
         options: [
             { Value: 'Data de Solicitação' },
+            { Value: 'Título' },
             { Value: 'Nome Solicitante' },
             { Value: 'Status da Solicitação' },
             { Value: 'Setor' },
             { Value: 'Tipo de Solicitação' },
-            { Value: 'Email Solicitante' },
             { Value: 'Última edição' },
         ],
     },

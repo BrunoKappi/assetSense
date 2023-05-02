@@ -86,12 +86,6 @@ const AssetModal = (props) => {
     const [ShowPhotoModal, setShowPhotoModal] = useState(false)
 
 
-
-
-
-
-
-
     //PERMISSOES
     var IsCurrentUser = false
     var IsAdmin = CurrentUserType?.IsAdmin
@@ -336,7 +330,6 @@ const AssetModal = (props) => {
         }
                
         console.log(NewAssetCustomFieldsValues)
-
         
         HandleChangeInfo('CustomFieldsValues', NewAssetCustomFieldsValues)
         setIsEdited(true)

@@ -16,11 +16,46 @@ import { DefaultUserRole } from '../../Data/Items';
 import { EDIT_STORAGELOCATIONS, EDIT_SECTORS, EDIT_STATUS_ASSETS, EDIT_TYPES_ASSETS, EDIT_TYPES_DE_USO, EDIT_TYPES_DE_USER, EDIT_REQUESTS_STATUS, EDIT_REQUESTS_TYPES } from '../../Functions/PermitsMiddleware';
 import Show from '../LayoutComponents/Show/Show'
 import { AddToFirebaseFunctions, DeleteFromFirebaseFunctions, UpdateInFirebaseFunctions } from '../../Functions/DatabaseMiddleware';
+import { CirclePicker } from "react-color";
+import Dropdown from 'react-bootstrap/Dropdown';
 
+import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
 
+const ColorOptions = [
+  '#0275d8',
+  '#5cb85c',
+  '#5bc0de',
+  '#f0ad4e',
+  '#d9534f',
+  '#292b2c',
 
+  '#2b5aa6',
+  '#0085C7',
+  '#FE9200',
+  '#FCDC00',
+  '#DBDF00',
+  '#A4DD00',
 
-
+  
+  '#73D8FF',
+  '#AEA1FF',
+  '#FDA1FF',
+  '#333333',
+  '#808080',
+  '#cccccc', 
+  '#D33115',   
+  '#E27300',
+  '#FCC400',
+  '#B0BC00',
+  '#68BC00',
+  '#16A5A5',
+  '#009CE0',
+  '#7B64FF',
+  '#FA28FF',
+  '#666666',
+  '#B3B3B3', 
+  '#C45100',
+]
 
 
 const EditableCustomList = (props) => {
@@ -277,8 +312,6 @@ const EditableCustomList = (props) => {
   const HandleSubmiChangeDefaultStauts = (index) => {
     var ItensCopy = [...ListaDeItens]
 
-
-
     ItensCopy.forEach((Status, In) => {
       if (In === index)
         Status.DefaultStatus = true
@@ -296,6 +329,27 @@ const EditableCustomList = (props) => {
       setListaDeItens([...ItensCopy])
     }).catch(HandleError)
 
+
+
+  }
+
+
+
+
+  //CHANGE COLOR OF GRAPHS
+  const handleChangeColor = (color, index) => {
+
+    var ItensCopy = [...ListaDeItens]
+
+    ItensCopy[index].Color = color.hex
+
+
+    UpdateInFirebaseFunctions["RequestsStatus"](ItensCopy[index]).then(() => {
+      NotificationSucesso('Alteração', 'Cor do Status alterada com sucesso!')
+      EndEditing()
+      SetRequestsStatusOnStore(ItensCopy)
+      setListaDeItens([...ItensCopy])
+    }).catch(HandleError)
 
 
   }
@@ -318,7 +372,7 @@ const EditableCustomList = (props) => {
                 return (
                   <div {...provided.droppableProps} ref={provided.innerRef}>
                     {ListaDeItens.map((Item, index) => {
-                      return <Draggable key={v4()} draggableId={Item.id} index={index} >
+                      return <Draggable key={v4()} draggableId={Item.id} index={index} isDragDisabled>
                         {(DragProvided, Drag) => {
                           return (
                             <div className={Drag.isDragging ? ' CustomGroupListItemDragging' : ''} ref={DragProvided.innerRef} {...DragProvided.draggableProps} {...DragProvided.dragHandleProps}>
@@ -327,7 +381,7 @@ const EditableCustomList = (props) => {
 
 
 
-                                  <Show Show={props.Module === "AssetsStatus"}>
+                                  <Show Show={props.Module === "AssetsStatus" && false}>
                                     <Tooltip title="Pode ser Utilizado/Retirado" position="bottom" >
                                       <label class="containerCheck">
                                         <input checked={Item.CanTake} type="checkbox" onChange={e => HandleSubmiChangeCanTake(index)} ></input>
@@ -336,13 +390,40 @@ const EditableCustomList = (props) => {
                                     </Tooltip>
                                   </Show>
 
+                                  <Show Show={props.Module === "AssetsStatus"}>
+                                    <Tooltip title="Pode ser Utilizado/Retirado" position="bottom" >
+                                      <div className='ContainerListCheckbox'>
+                                        {Item.CanTake ? <ImCheckboxChecked onClick={e => HandleSubmiChangeCanTake(index)} /> : <ImCheckboxUnchecked onClick={e => HandleSubmiChangeCanTake(index)} />}
+                                      </div>
+                                    </Tooltip>
+                                  </Show>
+
+
+
 
                                   <Show Show={props.Module === "RequestsStatus"}>
                                     <Tooltip title="Status Padrão ao abrir uma solicitação" position="bottom" >
-                                      <label class="containerCheck">
-                                        <input checked={Item.DefaultStatus} type="checkbox" onChange={e => HandleSubmiChangeDefaultStauts(index)} ></input>
-                                        <div class="checkmark"></div>
-                                      </label>
+                                      <div className='ContainerListCheckbox'>
+                                        {Item.DefaultStatus ? <ImCheckboxChecked onClick={e => HandleSubmiChangeDefaultStauts(index)} /> : <ImCheckboxUnchecked onClick={e => HandleSubmiChangeDefaultStauts(index)} />}
+                                      </div>
+                                    </Tooltip>
+                                  </Show>
+
+
+                                  <Show Show={props.Module === "RequestsStatus"}>
+                                    <Tooltip title="Cor do Status" position="bottom" >
+                                      <div className='StatusColorPickerButton'>
+                                        <Dropdown >
+                                          <Dropdown.Toggle variant="success" id="StatusColorPickerMenuToggle" style={{ backgroundColor: Item.Color }} >
+
+                                          </Dropdown.Toggle>
+                                          <Dropdown.Menu id='StatusColorPickerMenu'>
+                                            <Dropdown.Item id='StatusColorPickerItem'>
+                                              <CirclePicker colors={ColorOptions} onChange={(Color) => { handleChangeColor(Color, index) }} />
+                                            </Dropdown.Item>
+                                          </Dropdown.Menu>
+                                        </Dropdown>
+                                      </div>
                                     </Tooltip>
                                   </Show>
 

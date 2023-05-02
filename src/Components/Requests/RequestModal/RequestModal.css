@@ -2,13 +2,31 @@
     --RequestModal-Backgound: white;
     --RequestModal-Border: white;
     --RequestModal-SectionTitleColor: var(--ComplementaryColor);
+
+    --RequestModal-Sector-Background: var(--SecondaryBackground);
+    --RequestModal-Sector-Color: white;
+    --RequestModal-Type-Background: var(--PrimaryBackground);
+    --RequestModal-Type-Color: white;
+
+    --RequestModal-MessageForm-Input-Background: white;
+    --RequestModal-MessageForm-Input-Border: transparent;
+    --RequestModal-MessageForm-Input-Color: var(--SecondaryBackground);
 }
 
- 
+
 .RequestModal-ModalEscuro {
     --RequestModal-Backgound: var(--BackgroundDark);
     --RequestModal-Border: rgb(127, 126, 126);
     --RequestModal-SectionTitleColor: var(--ComplementaryColor);
+
+    --RequestModal-Sector-Background: var(--SecondaryBackground);
+    --RequestModal-Sector-Color: white;
+    --RequestModal-Type-Background: var(--PrimaryBackground);
+    --RequestModal-Type-Color: white;
+
+    --RequestModal-MessageForm-Input-Background: var(--BackgroundDark);
+    --RequestModal-MessageForm-Input-Border: var(--PrimaryBackGroundFaded);
+    --RequestModal-MessageForm-Input-Color: var(--ComplementaryColor);
 }
 
 
@@ -30,6 +48,10 @@
 .RequestModal-Modal .modal-content {
     background-color: var(--RequestModal-Backgound) !important;
     border: 1px solid var(--RequestModal-Border) !important;
+    max-height: 85vh;
+    min-height: 85vh;
+    overflow-y: scroll;
+    padding: .5rem;
 }
 
 
@@ -51,10 +73,400 @@
 
     .RequestModal {
         max-height: none;
-        overflow-y: auto; 
+        overflow-y: auto;
     }
 
     .RequestModal::-webkit-scrollbar {
         display: none;
     }
+}
+
+
+
+
+.RequestModal-Header {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: .5rem;
+}
+
+.RequestModal-Sector {
+    border-radius: 1rem;
+    padding: .1rem 1rem;
+    font-family: var(--Fonte);
+    font-size: .8rem;
+    color: var(--RequestModal-Sector-Color);
+    background-color: var(--RequestModal-Sector-Background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+}
+
+.RequestModal-Sector>svg {
+    width: 1.1rem;
+}
+
+.RequestModal-Type {
+    border-radius: 1rem;
+    padding: .1rem 1rem;
+    font-family: var(--Fonte);
+    font-size: .8rem;
+    color: var(--RequestModal-Type-Color);
+    background-color: var(--RequestModal-Type-Background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+}
+
+.RequestModal-Type>svg {
+    width: 1.1rem;
+}
+
+
+
+
+
+
+
+
+@media (max-width: 1000px) {
+    .RequestModal-Type {
+        font-size: .7rem;
+    }
+
+    .RequestModal-Sector {
+        font-size: .7rem;
+    }
+}
+
+
+
+
+
+
+
+
+.RequestModal-Right-Close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+    color: var(--ComplementaryColor);
+}
+
+.RequestModal-Right-Close:hover {
+    transform: scale(1.1);
+}
+
+
+.RequestModal-Body {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.RequestModal-Info {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    height: 100%;
+    flex-grow: 1;
+    gap: 2rem;
+}
+
+
+@media (max-width: 1000px) {
+    .RequestModal-Info {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .RequestModal-Categories {
+        width: 100% !important;
+
+    }
+
+    .RequestModal-MessagesContainer {
+        width: 100% !important;
+        margin-top: 2rem !important;
+        flex-grow: 1;
+
+    }
+
+
+}
+
+.RequestModal-Categories {
+    width: 30%;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+
+.RequestModal-MessagesContainer {
+    width: 70%;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+}
+
+
+.RequestModal-Messages {
+    height: 85%;
+
+    overflow-y: scroll;
+    max-height: 25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.RequestModal-MessageForm {
+    height: 15%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 1rem;
+}
+
+
+.RequestModal-MessageForm>input {
+    flex-grow: 1;
+    outline: none;
+    padding: .5rem 1rem;
+    border: 1px solid var(--RequestModal-MessageForm-Input-Border);
+    border-radius: .5rem;
+    font-family: var(--Fonte);
+    font-size: .8rem;
+    background-color: var(--RequestModal-MessageForm-Input-Background);
+    color: var(--RequestModal-MessageForm-Input-Color);
+    -webkit-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
+}
+
+.RequestModal-MessageForm>input::placeholder {
+    color: var(--RequestModal-MessageForm-Input-Color);
+}
+
+
+.RequestModal-MessageForm button {
+    padding: .5rem 1rem;
+    font-family: var(--Fonte);
+    background-color: var(--ComplementaryColor);
+    border: 1px solid var(--ComplementaryColor);
+    color: var(--PrimaryColor);
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    font-size: .8rem;
+    align-items: center;
+}
+
+
+.RequestModal-MessageForm button>svg {
+    width: 1.2rem;
+}
+
+.RequestModal-MessageForm button:hover {
+    transform: scale(1.1);
+}
+
+.RequestModal-MessageForm button:active {
+    transform: scale(.9);
+}
+
+
+
+
+.RequestModal-Button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    min-height: 2.5rem;
+    margin-top: 1.5rem;
+    gap: 1rem;
+}
+
+.RequestModal-Button button {
+    padding: .5rem 1rem;
+    font-family: var(--Fonte);
+    background-color: var(--ComplementaryColor);
+    border: 1px solid var(--ComplementaryColor);
+    color: var(--PrimaryColor);
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    align-items: center;
+}
+
+@media (max-width: 760px) {
+    .RequestModal-Button button {
+        font-size: .8rem;
+    }
+}
+
+
+.RequestModal-Button button>svg {
+    width: 1.2rem;
+}
+
+.RequestModal-Button button:hover {
+    transform: scale(1.1);
+}
+
+.RequestModal-Button button:active {
+    transform: scale(.9);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/********************* MESSAGE ******************************* */
+
+.MyRequestMessageContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-right: .5rem;
+}
+
+.OtherRequestMessageContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+}
+
+
+.RequestMessageText {
+    color: white;
+    font-family: var(--Fonte);
+    font-size: .9rem;
+}
+
+.RequestMessageText>span:hover {
+    text-decoration: underline;
+}
+
+
+.RequestMessage {
+    border: none;
+    border-radius: .5rem;
+    position: relative;
+    background: var(--PrimaryBackground);
+    margin-left: .5rem;
+    padding: 0rem .6rem;
+    -webkit-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.75);
+}
+
+.RequestMessage:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: .5rem solid transparent;
+    border-right: .5rem solid var(--PrimaryBackground);
+    border-top: .5rem solid var(--PrimaryBackground);
+    border-bottom: .5rem solid transparent;
+    left: -.5rem;
+    top: 0px;
+}
+
+.RequestMessage::after {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-right: .5rem solid transparent;
+    border-left: .5rem solid var(--PrimaryBackground);
+    border-top: .5rem solid var(--PrimaryBackground);
+    border-bottom: .5rem solid transparent;
+    right: -.5rem;
+    top: 0px;
+}
+
+
+.RequestMessageDate {
+    margin-top: .3rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .5rem;
+}
+
+
+
+.RequestMessageDate-Time {
+    font-family: var(--Fonte);
+    color: white;
+    font-size: .8rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .2rem;
+    cursor: pointer;
+}
+
+.RequestMessageDate-Time>svg {
+    width: .8rem;
+}
+
+
+
+.RequestMessageDate-Item {
+    font-family: var(--Fonte);
+    color: white;
+    font-size: .8rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .2rem;
+    cursor: pointer;
+}
+
+
+.RequestMessageDate-Item>svg {
+    width: .8rem;
+}
+
+
+
+.RequestMyMessage::before {
+    display: none;
+}
+
+
+.RequestOtherMessage::after {
+    display: none;
 }

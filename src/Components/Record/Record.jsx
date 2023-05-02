@@ -111,7 +111,7 @@ const Record = (props) => {
                         </span>
 
                     </div>
-
+ 
                     {/******** RETIRADA MESSAGE **********/}
                     <div className='RecordMessage'>
                         <div className='RecordMessageText'>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './Requests.css'
-import { GetFromStore } from '../../Functions/StoreMiddleware';
+import { GetFromStore, GetNameFromStoreWithId } from '../../Functions/StoreMiddleware';
 import AddRequestModal from './AddRequestModal/AddRequestModal'
 import { connect } from 'react-redux'
 import Show from '../LayoutComponents/Show/Show'
@@ -16,6 +16,7 @@ import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
 import { OPEN_REQUESTS, VIEW_REQUESTS } from '../../Functions/PermitsMiddleware';
 import { NotificationErro } from '../../NotificationUtils';
+import RequestModal from './RequestModal/RequestModal'
 
 const Requests = (props) => {
 
@@ -24,12 +25,14 @@ const Requests = (props) => {
     const [AddRequestModalOpen, setAddRequestModalOpen] = useState(false);
     const [Requests, setRequests] = useState([]);
     const [Loaded, setLoaded] = useState(false);
+    const [modalShow, setModalShow] = useState(false);
 
     //FILTERS
     const [FiltroDeTexto, setFiltroDeTexto] = useState('');
     const [Filters, setFilters] = useState([]);
     const [ResetFilters, setResetFilters] = useState(false);
     const [OrdenarPor, setOrdenarPor] = useState('Data de Solicitação');
+    const [SelectedRequest, setSelectedRequest] = useState({});
 
     useEffect(() => {
         setRequests(GetFromStore('Requests'))
@@ -38,16 +41,13 @@ const Requests = (props) => {
         }, 500);
     }, [])
 
-
     //PERMITS E USER TYPE   
     var PermitToOpenRequests = OPEN_REQUESTS()
-
-
 
     //USER CLICK
     const handleRequestClick = (RequestClicked) => {
         setModalShow(true);
-        setSelectedUser({ ...RequestClicked });
+        setSelectedRequest({ ...RequestClicked });
     }
 
     // GET INITIAL TAB BASED ON PERMITS
@@ -71,13 +71,87 @@ const Requests = (props) => {
             NotificationErro("Não Autorizado", "Você não possui permissão para Acessar essa aba, solicite autorização para seu Administrador")
     }
 
+    //CHECK
+    const CheckIncludesText = (What) => {
+        return What.toLowerCase().includes(FiltroDeTexto.trim().toLowerCase())
+    }
+
+    //CHECK IN OBJECT
+    const CheckIncludesInObject = (Item, What, Key) => {
+        return What?.find(option => option.id === Item.id)
+    }
+
+    // SORT AND FILTER
+    useEffect(() => {
+        const Requests = GetFromStore('Requests')
+        setRequests(Requests.filter(Request => {
+            //FILTER
+            return (
+                (FiltroDeTexto === '' ||
+                    CheckIncludesText(Request.Title) ||
+                    CheckIncludesText(Request.Desc) ||
+                    CheckIncludesText(GetNameFromStoreWithId("Sectors", Request.Sector.id)) ||
+                    CheckIncludesText(GetNameFromStoreWithId("RequestsTypes", Request.Type.id)) ||
+                    CheckIncludesText(GetNameFromStoreWithId("Users", Request.CreatedBy)) ||
+                    CheckIncludesText(GetNameFromStoreWithId("Assets", Request.AssetId)) ||
+                    CheckIncludesText(GetNameFromStoreWithId("Users", Request.UserId)) ||
+                    CheckIncludesText(GetNameFromStoreWithId("RequestsStatus", Request.Status.id)) ||
+                    CheckIncludesText(GetNameFromStoreWithId("RequestsTypes", Request.Type.id))
+                ) &&
+                CheckIncludesInObject(Request.Type, Filters?.RequestsTypes) &&
+                CheckIncludesInObject(Request.Sector, Filters?.Sectors) &&
+                CheckIncludesInObject(Request.Status, Filters?.RequestsStatus
+                ) &&
+
+                (key === 'AllRequests' || (Request.CreatedBy === CurrentUser?.id))
+            )
+        }).sort(
+            (Primeiro, Segundo) => {
+
+                const StatusPrimeiro = GetNameFromStoreWithId('RequestsStatus', Primeiro.Status.id)
+                const StatusSegundo = GetNameFromStoreWithId('RequestsStatus', Segundo.Status.id)
+                const TypePrimeiro = GetNameFromStoreWithId('RequestsTypes', Primeiro.Type.id)
+                const TypeSegundo = GetNameFromStoreWithId('RequestsTypes', Segundo.Type.id)
+                const SectorPrimeiro = GetNameFromStoreWithId('Sectors', Primeiro.Sector.id)
+                const SectorSegundo = GetNameFromStoreWithId('Sectors', Segundo.Sector.id)
+                const RequesterNamePrimeiro = GetNameFromStoreWithId('Users', Primeiro.CreatedBy)
+                const RequesterNameSegundo = GetNameFromStoreWithId('Users', Segundo.CreatedBy)
+
+
+                switch (OrdenarPor) {
+                    case 'Titulo':
+                        return Primeiro.Title.localeCompare(Segundo.Title)
+                    case 'Nome Solicitante':
+                        return RequesterNamePrimeiro.localeCompare(RequesterNameSegundo)
+                    case 'Status da Solicitação':
+                        return StatusPrimeiro.localeCompare(StatusSegundo)
+                    case 'Tipo de Solicitação':
+                        return TypePrimeiro.localeCompare(TypeSegundo)
+                    case 'Setor':
+                        return SectorPrimeiro.localeCompare(SectorSegundo)
+                    case 'Data de Solicitação':
+                        return Primeiro.CreatedAt < Segundo.CreatedAt ? 1 : -1
+                    case 'Última edição':
+                        return Primeiro.LastEditedAt < Segundo.LastEditedAt ? 1 : -1
+                    default:
+                        return Primeiro.CreatedAt < Segundo.CreatedAt ? 1 : -1
+                }
+            }
+        ))
+
+
+    }, [FiltroDeTexto, Filters, OrdenarPor, key])
+
     return (
 
         <>
             {/********  OPEN REQUEST MODAL   *******/}
             <AddRequestModal show={AddRequestModalOpen} onHide={() => setAddRequestModalOpen(false)} />
+            <RequestModal Request={{ ...SelectedRequest }} show={modalShow} onHide={() => setModalShow(false)} />
 
             <div className={props.Tema === 'Escuro' ? 'AssetRequests-ContainerEscuro AssetRequests-Container' : 'AssetRequests-ContainerClaro AssetRequests-Container'} >
+
+          
 
                 <TabsContainer Direction="row" Tema={props.Tema}>
                     <TabButton ButtonName="AllRequests" Key={key} onClick={(k) => SetKeyConfig('AllRequests')} />
