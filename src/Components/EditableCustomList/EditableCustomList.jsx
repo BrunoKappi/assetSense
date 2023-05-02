@@ -6,14 +6,14 @@ import { UilLabel, UilPuzzlePiece, UilBox, UilPlay, UilPlus, UilTrashAlt, UilBac
 import ListGroup from 'react-bootstrap/ListGroup';
 import { v4 } from 'uuid';
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { DefaultAssetStatus, DefaultAssetsType, DefaultItemType } from '../../Data/Items';
+import { DefaultAssetStatus, DefaultAssetsType, DefaultItemType, DefaultRequestStatus, DefaultRequestType } from '../../Data/Items';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import { Tooltip } from 'react-tippy';
 import { GetNotificationErrorMessageDelete, GetNotificationSuccessMessageAdd, GetNotificationExistsMessageAdd, GetNotificationSuccessMessageDelete, GetNotificationSuccessMessageChangeName } from './EditableCustomListUtils';
 import Loading from '../LoadingForTabs/Loading'
-import { CheckIfAnyAssetOfStatusTaken2, GetFromStoreFunctions, SetInStoreFunctions, SetAssetStatusOnStore } from '../../Functions/StoreMiddleware';
+import { CheckIfAnyAssetOfStatusTaken2, GetFromStoreFunctions, SetInStoreFunctions, SetAssetStatusOnStore, SetRequestsStatusOnStore } from '../../Functions/StoreMiddleware';
 import { DefaultUserRole } from '../../Data/Items';
-import { EDIT_STORAGELOCATIONS, EDIT_SECTORS, EDIT_STATUS_ASSETS, EDIT_TYPES_ASSETS, EDIT_TYPES_DE_USO, EDIT_TYPES_DE_USER } from '../../Functions/PermitsMiddleware';
+import { EDIT_STORAGELOCATIONS, EDIT_SECTORS, EDIT_STATUS_ASSETS, EDIT_TYPES_ASSETS, EDIT_TYPES_DE_USO, EDIT_TYPES_DE_USER, EDIT_REQUESTS_STATUS, EDIT_REQUESTS_TYPES } from '../../Functions/PermitsMiddleware';
 import Show from '../LayoutComponents/Show/Show'
 import { AddToFirebaseFunctions, DeleteFromFirebaseFunctions, UpdateInFirebaseFunctions } from '../../Functions/DatabaseMiddleware';
 
@@ -32,7 +32,9 @@ const EditableCustomList = (props) => {
     UserTypes: props.Users,
     StorageLocations: props.Assets,
     AssetsStatus: props.Assets,
-    UsageTypes: props.Assets
+    UsageTypes: props.Assets,
+    RequestsStatus: props.Requests,
+    RequestsTypes: props.Requests,
   }
 
   //ICONS FOR EACH MODULE
@@ -42,7 +44,9 @@ const EditableCustomList = (props) => {
     UserTypes: <UilLabel />,
     StorageLocations: <UilBox />,
     AssetsStatus: <UilLabel />,
-    UsageTypes: <UilPlay />
+    UsageTypes: <UilPlay />,
+    RequestsStatus: <UilLabel />,
+    RequestsTypes: <UilLabel />,
   };
 
   //DEFAULT ITEM OBJECTS FOR EACH MODULE
@@ -52,7 +56,9 @@ const EditableCustomList = (props) => {
     UserTypes: DefaultUserRole,
     StorageLocations: DefaultItemType,
     AssetsStatus: DefaultAssetStatus,
-    UsageTypes: DefaultItemType
+    UsageTypes: DefaultItemType,
+    RequestsStatus: DefaultRequestStatus,
+    RequestsTypes: DefaultRequestType,
   }
 
   //DEFAULT ITENS KEY FOR EACH MODULE
@@ -62,7 +68,9 @@ const EditableCustomList = (props) => {
     UserTypes: 'Type',
     StorageLocations: 'StorageLocation',
     AssetsStatus: 'Status',
-    UsageTypes: 'Usage'
+    UsageTypes: 'Usage',
+    RequestsStatus: 'Status',
+    RequestsTypes: 'Type',
   }
 
   //PERMITS
@@ -72,6 +80,8 @@ const EditableCustomList = (props) => {
   const UsageTypesPermit = EDIT_TYPES_DE_USO()
   const SectorsPermit = EDIT_SECTORS()
   const UserTypesPermit = EDIT_TYPES_DE_USER()
+  const RequestsStatusPermit = EDIT_REQUESTS_STATUS()
+  const RequestsTypesPermit = EDIT_REQUESTS_TYPES()
 
   //PERMITS MAP
   const CustomListPermits = {
@@ -80,7 +90,9 @@ const EditableCustomList = (props) => {
     UserTypes: UserTypesPermit,
     StorageLocations: StorageLocationsPermit,
     AssetsStatus: AssetsStatusPermit,
-    UsageTypes: UsageTypesPermit
+    UsageTypes: UsageTypesPermit,
+    RequestsStatus: RequestsStatusPermit,
+    RequestsTypes: RequestsTypesPermit,
   };
 
   //STATES
@@ -182,9 +194,19 @@ const EditableCustomList = (props) => {
   //DELETE ITEM 
   const HandleDeleteItem = (Index, Id) => {
 
+
+
     if (CustomListPermits[props.Module]) {
       var ItensCopy = [...ListaDeItens]
       const ItemToDelete = ItensCopy[Index]
+
+      if (props.Module === "RequestsStatus") {
+        if (ItemToDelete?.DefaultStatus === true) {
+          NotificationErro("Ação não permitida", "Não é possível deletar esse item pois ele é o Status padrão de Solicitações futuras")
+          return
+        }
+      }
+
 
       ItensCopy.splice(Index, 1)
 
@@ -250,6 +272,34 @@ const EditableCustomList = (props) => {
   }
 
 
+
+  //CHANGE CAN TAKE OF STATUS
+  const HandleSubmiChangeDefaultStauts = (index) => {
+    var ItensCopy = [...ListaDeItens]
+
+
+
+    ItensCopy.forEach((Status, In) => {
+      if (In === index)
+        Status.DefaultStatus = true
+      else
+        Status.DefaultStatus = false
+    })
+
+    Promise.all(
+      ItensCopy.map(Status =>
+        UpdateInFirebaseFunctions["RequestsStatus"](Status))
+    ).then(() => {
+      NotificationSucesso('Alteração', 'Status alterado com sucesso!')
+      EndEditing()
+      SetRequestsStatusOnStore(ItensCopy)
+      setListaDeItens([...ItensCopy])
+    }).catch(HandleError)
+
+
+
+  }
+
   return (
     <div className={props.Tema === 'Escuro' ? 'CustomGroupListEscuro CustomGroupList' : 'CustomGroupListClaro CustomGroupList'}>
 
@@ -281,6 +331,16 @@ const EditableCustomList = (props) => {
                                     <Tooltip title="Pode ser Utilizado/Retirado" position="bottom" >
                                       <label class="containerCheck">
                                         <input checked={Item.CanTake} type="checkbox" onChange={e => HandleSubmiChangeCanTake(index)} ></input>
+                                        <div class="checkmark"></div>
+                                      </label>
+                                    </Tooltip>
+                                  </Show>
+
+
+                                  <Show Show={props.Module === "RequestsStatus"}>
+                                    <Tooltip title="Status Padrão ao abrir uma solicitação" position="bottom" >
+                                      <label class="containerCheck">
+                                        <input checked={Item.DefaultStatus} type="checkbox" onChange={e => HandleSubmiChangeDefaultStauts(index)} ></input>
                                         <div class="checkmark"></div>
                                       </label>
                                     </Tooltip>
@@ -400,7 +460,10 @@ const ConnectedEditableCustomList = connect((state) => {
     StorageLocations: state.StorageLocations,
     Users: state.Users,
     AssetsStatus: state.AssetsStatus,
-    Tema: state.Tema
+    Tema: state.Tema,
+    Requests: state.Requests,
+    RequestsStatus: state.RequestsStatus,
+    RequestsTypes: state.RequestsTypes
   }
 })(EditableCustomList)
 

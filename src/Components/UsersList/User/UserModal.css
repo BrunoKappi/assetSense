@@ -735,6 +735,18 @@
 }
 
 
+.UserModalBody-UserInfoForm-Button button>svg {
+    width: 1.2rem;
+}
+
+.UserModalBody-UserInfoForm-Button button:hover {
+    transform: scale(1.1);
+}
+
+.UserModalBody-UserInfoForm-Button button:active {
+    transform: scale(.9);
+}
+
 .UserModalBody-UserInfoForm-Button-Delete {
     background-color: var(--UserModal-Sidebar-Button-Delete-Background) !important;
     border: 1px solid var(--UserModal-Sidebar-Button-Delete-Border) !important;
@@ -754,17 +766,7 @@
     align-items: center;
 }
 
-.UserModalBody-UserInfoForm-Button button>svg {
-    width: 1.2rem;
-}
 
-.UserModalBody-UserInfoForm-Button button:hover {
-    transform: scale(1.1);
-}
-
-.UserModalBody-UserInfoForm-Button button:active {
-    transform: scale(.9);
-}
 
 
 

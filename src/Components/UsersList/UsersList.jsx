@@ -123,7 +123,6 @@ const UsersList = (props) => {
                     OnChange={(SelectedOption) => setOrdenarPor(SelectedOption.Value)}
                     Reset={ResetFilters}
                 />
-
             </div>
 
             <Show Show={ListaDeUsers.length !== 0 || Loaded}>

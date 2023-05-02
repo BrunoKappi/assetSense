@@ -1,0 +1,235 @@
+.RequestContainerClaro {
+    --RequestContainer-Background: white;
+    --RequestContainer-Background-Hover: whitesmoke;
+    --RequestContainer-Border: transparent;
+    --RequestContainer-Shadow: black;
+
+    --RequestContainer-Sector-Background: var(--PrimaryBackground);
+    --RequestContainer-Sector-Color: white;
+
+    --RequestContainer-Type-Background: var(--SecondaryBackground);
+    --RequestContainer-Type-Color: white;
+
+    --RequestContainer-Name-Color: var(--ComplementaryColor);
+    --RequestContainer-Email-Color: var(--SecondaryBackground);
+
+}
+
+.RequestContainerEscuro {
+    --RequestContainer-Background: var(--BackgroundDark);
+    --RequestContainer-Background-Hover: var(--PrimaryBackGroundFaded30);
+    --RequestContainer-Border: var(--ComplementaryColor);
+    --RequestContainer-Shadow: var(--PrimaryBackground);
+
+    --RequestContainer-Sector-Background: var(--PrimaryBackground);
+    --RequestContainer-Sector-Color: white;
+
+    --RequestContainer-Type-Background: var(--SecondaryBackground);
+    --RequestContainer-Type-Color: white;
+
+    --RequestContainer-Name-Color: var(--ComplementaryColor);
+    --RequestContainer-Email-Color: white;
+}
+
+
+
+
+
+
+ 
+
+
+
+.RequestContainer {
+    display: grid;
+    grid-template-columns: 35% 15% 20% 30%;
+    gap: .5rem;
+    align-items: center;
+    margin-bottom: .3rem;
+    padding: .7rem .5rem;
+    cursor: pointer;
+    background-color: var(--RequestContainer-Background);
+    border: 1px solid var(--RequestContainer-Border);
+    user-select: none;
+    border-radius: .5rem;
+
+    overflow: hidden;
+
+}
+
+
+.RequestContainer:hover {
+    transform: scale(1.01);
+    -webkit-box-shadow: 2px 2px 5px 0px var(--RequestContainer-Shadow);
+    -moz-box-shadow: 2px 2px 5px 0px var(--RequestContainer-Shadow);
+    box-shadow: 2px 2px 5px 0px var(--RequestContainer-Shadow);
+    background-color: var(--RequestContainer-Background-Hover);
+}
+
+.RequestContainerColumn {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: var(--Fonte);
+    font-size: .9rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.RequestContainerColumn>img {
+    width: 50%;
+    border-radius: 50%;
+}
+
+.RequestContainerColumn svg {
+    height: .8rem;
+    width: 1rem;
+}
+
+.StatusColumn {
+    background-color: var(--RequestContainer-Sector-Background);
+    color: var(--RequestContainer-Sector-Color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: .2rem .4rem;
+    border-radius: 1rem;
+    font-size: .7rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+}
+
+
+.StatusColumn>span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.StatusColumn>svg {
+    min-width: 1rem;
+}
+
+.TypeColumn {
+    background-color: var(--RequestContainer-Type-Background);
+    color: var(--RequestContainer-Type-Color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: .2rem .4rem;
+    border-radius: 1rem;
+    font-size: .7rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    max-width: 100%;
+}
+
+.TypeColumn>span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.TypeColumn>svg {
+    min-width: 1rem;
+}
+
+
+
+.TitleColumn {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: .3rem;
+    color: var(--RequestContainer-Name-Color);
+    font-size: .9rem;
+}
+
+.TitleColumn>svg {
+    min-width: 1rem !important;
+}
+
+.TitleColumn>span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.TypeColumnContainer {
+    max-width: 95%;
+    overflow: hidden;
+}
+
+.TitleColumnIcon {
+    padding: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--ComplementaryColor);
+    color: white;
+    font-size: .9rem;
+}
+
+.TitleColumn>svg {
+    width: 1rem;
+}
+
+.RequesterColumn {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: .1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: .8rem;
+    color: var(--RequestContainer-Email-Color);
+}
+
+.RequesterColumn>svg {
+    width: .9rem;
+}
+
+
+
+@media (max-width: 750px) {
+
+    .RequestContainer {
+        display: grid;
+        grid-template-columns: 50% 25% 25%;
+    }
+
+    .StatusColumn {
+        font-size: .6rem;
+    }
+
+    .TypeColumn {
+        font-size: .6rem;
+    }
+
+    .TitleColumn>svg {
+        display: none;
+    }
+
+    .RequesterColumnContainer {
+        display: none;
+    }
+
+    .RequesterColumn {
+        display: none;
+    }
+}

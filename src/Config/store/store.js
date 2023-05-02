@@ -9,6 +9,9 @@ import Tema from './reducers/Theme'
 import AssetsStatus from './reducers/AssetsStatus'
 import UsageTypes from './reducers/UsageTypes'
 import RecordsAssets from './reducers/Records'
+import Requests from './reducers/Requests'
+import RequestsStatus from './reducers/RequestsStatus'
+import RequestsTypes from './reducers/RequestsTypes'
 import StorageLocations from './reducers/StorageLocations'
 
 import {
@@ -16,6 +19,9 @@ import {
     SetAssetTypesOnStore,
     SetAssetsOnStore,
     SetRecordsOnStore,
+    SetRequestsOnStore,
+    SetRequestsStatusOnStore,
+    SetRequestsTypesOnStore,
     SetSectorsOnStore,
     SetStorageLocationsOnStore,
     SetUsageTypesOnStore,
@@ -49,6 +55,12 @@ GetFromFirebaseFunctions["UsageTypes"]().then((Itens) => SetUsageTypesOnStore(It
 
 GetFromFirebaseFunctions["Records"]().then((Itens) => SetRecordsOnStore(Itens))
 
+GetFromFirebaseFunctions["Requests"]().then((Itens) => SetRequestsOnStore(Itens))
+
+GetFromFirebaseFunctions["RequestsTypes"]().then((Itens) => SetRequestsTypesOnStore(Itens))
+
+GetFromFirebaseFunctions["RequestsStatus"]().then((Itens) => SetRequestsStatusOnStore(Itens))
+
 
 
 
@@ -65,14 +77,18 @@ const store = createStore(
         AssetsStatus,
         UsageTypes,
         RecordsAssets,
-        Tema
+        Tema,
+        Requests,
+        RequestsStatus,
+        RequestsTypes
+
     }),
     //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
 store.subscribe(() => {
     localStorage.setItem("AssetSense", JSON.stringify(store.getState()))
-    //console.log("Store Changed", store.getState())
+    console.log("Store Changed", store.getState())
 })
 
 

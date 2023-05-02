@@ -51,6 +51,28 @@ export const DefaultItemType = {
     Value: '',
     CustomFields: []
 }
+
+export const DefaultRequestType = {
+    LastEditedAt: moment().valueOf(),
+    CreatedAt: moment().valueOf(),
+    docID: '',
+    id: '',
+    Value: '',
+    CustomFields: []
+}
+
+export const DefaultRequestStatus = {
+    LastEditedAt: moment().valueOf(),
+    CreatedAt: moment().valueOf(),
+    docID: '',
+    id: '',
+    Value: '',
+    CustomFields: [],
+    DefaultStatus: false
+}
+
+
+
 export const DefaultAssetsType = {
     LastEditedAt: moment().valueOf(),
     CreatedAt: moment().valueOf(),
@@ -131,7 +153,7 @@ export const DefaultAsset = {
     Model: '',
     Purchase: {
         WasPurchase: false,
-        PurchaseDate: 0, 
+        PurchaseDate: 0,
         Purchase: ''
     },
     docID: '',
@@ -180,6 +202,34 @@ export const DefaultRecord = {
     TakenByDeleted: false,
     AssetDeleted: false,
     CustomFieldsValues: []
+}
+
+
+export const DefaultRequestMessage = {
+    CreatedAt: moment().valueOf(),
+    CreatedBy: '',
+    Message: ''
+}
+
+
+export const DefaultRequest = {
+    LastEditedAt: moment().valueOf(),
+    LasEditedBy: '',
+    CreatedAt: moment().valueOf(),
+    CreatedBy: '',
+    CreatedByEmail: '',
+    AssetId: '',
+    UserId: '',
+    docID: '',
+    id: '',
+    Title: '',
+    Desc: '',
+    Sector: { id: '' },
+    Type: { id: '' },
+    Status: {
+        id: ''
+    },
+    Messages: []
 }
 
 
@@ -727,12 +777,6 @@ export const UserRoles = [
 
 
 
-
-
-
-
-
-
 /// ==================== REGISTROS DE RETIRADA E DEVOLUÇÃO =================== ///
 export const Records = []
 
@@ -742,8 +786,28 @@ export const Records = []
 
 
 
+////////// REQUESTS TYPES
+export const RequestTypes = [
+    { ...DefaultRequestType, id: '0d2f4d4c-f4c4-4d1a-aa8a-6da0c2e3c6bf', Value: 'Solicitação de compra de ativo' },
+    { ...DefaultRequestType, id: '7b57d1f9-3b68-4bde-a7fb-e34b1d84a1cc', Value: 'Solicitação de permissão' },
+    { ...DefaultRequestType, id: 'f7b5f656-5e7c-4852-8e87-0e00efab4067', Value: 'Solicitação de manutenção de Ativo' },
+    { ...DefaultRequestType, id: '1d53a127-35fa-41b3-81d3-5b5c7d55a1f5', Value: 'Solicitação de descarte de ativo' }
+]
 
 
+////////// REQUESTS STATUS
+export const RequestStatus = [
+    { ...DefaultRequestStatus, id: '891bcf56-d4c5-4f5c-b0ec-9d5b15f289f5', Value: 'Aberta' },
+    { ...DefaultRequestStatus, id: '6a478a6d-784e-4f43-8e68-9449b9200a6f', Value: 'Em Andamento' },
+    { ...DefaultRequestStatus, id: '8d2a69ab-4477-456d-ae89-8d328b95f9a7', Value: 'Aguardando Resposta do Solicitante' },
+    { ...DefaultRequestStatus, id: 'd39d8da3-3f10-44a3-bd51-042c71d68f9d', Value: 'Fechada' },
+    { ...DefaultRequestStatus, id: 'bfa247f8-87da-4d3e-918f-d80e51c8d8ea', Value: 'Cancelada' },
+    { ...DefaultRequestStatus, id: 'cb69ee28-0b8f-4171-a141-7e60123b346d', Value: 'Concluída' },
+]
+
+
+
+ 
 
 
 
@@ -848,6 +912,33 @@ if (ADD_FIREBASE) {
         })
     })
 }
+
+
+
+//REQUESTS TYPES
+if (ADD_FIREBASE) {
+    RequestTypes.forEach(Type => {
+        AddToFirebaseFunctions["RequestsTypes"](Type).then((Document) => {
+            console.log("Request Type Adicionado", Document)
+        }).catch((erro) => {
+            console.log("Erro", erro)
+        })
+    })
+}
+
+
+
+//REQUESTS STATUS
+if (ADD_FIREBASE) {
+    RequestStatus.forEach(Type => {
+        AddToFirebaseFunctions["RequestsStatus"](Type).then((Document) => {
+            console.log("Request Status Adicionado", Document)
+        }).catch((erro) => {
+            console.log("Erro", erro)
+        })
+    })
+}
+
 
 
 

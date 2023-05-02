@@ -49,6 +49,8 @@
     padding-left: .5rem;
     transition: width .5s ease-in-out;
     overflow: hidden;
+    overflow-y: scroll;
+    padding-bottom: 3rem;
 }
 
 .ToggleSidebarButton {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import './FilterSelect.css'
 import { CustomLabel, CustomPlaceholder, FilterSelectStyles, InputOption, MenuList, noOptionsMessage } from "./FilterSelectUtils";
 import { useState, useEffect, useRef } from "react";
+import { RequestTypes } from "../../../GlobalVars";
 
 const FilterSelect = (props) => {
 
@@ -66,6 +67,26 @@ const FilterSelect = (props) => {
         },
     ]
 
+
+    //USER OPTIONS
+    const RequestsFilterOptions = [
+
+        {
+            label: <CustomLabel List='RequestsTypes' text='Filtro de Tipo de Solicitação' />,
+            options: props.RequestsTypes.map((type) => ({ ...type, list: 'RequestsTypes' })),
+        },
+        {
+            label: <CustomLabel List='RequestsStatus' text='Filtro de Status de Solicitação' />,
+            options: props.RequestsStatus.map((type) => ({ ...type, list: 'RequestsStatus' })),
+        },
+        {
+            label: <CustomLabel List='Sectors' text="Filtro de Setores" />,
+            options: props.Sectors.map((sector) => ({ ...sector, list: 'Sectors' })),
+        },
+
+    ]
+
+
     //GET INITIAL VALUES FOR CHECK ALL
     const GetInitialValues = () => {
         switch (props.Module) {
@@ -75,6 +96,8 @@ const FilterSelect = (props) => {
                 return AssetsFilterOptions
             case 'FilterRecords':
                 return RecordsFilterOptions
+            case 'FilterRequests':
+                return RequestsFilterOptions
             default:
                 break;
         }
@@ -175,6 +198,8 @@ const ConnectedFilterSelect = connect((state) => {
         StorageLocations: state.StorageLocations,
         AssetsStatus: state.AssetsStatus,
         UsageTypes: state.UsageTypes,
+        RequestsStatus: state.RequestsStatus,
+        RequestsTypes: state.RequestsTypes,
     }
 })(FilterSelect)
 

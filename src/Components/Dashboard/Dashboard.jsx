@@ -83,7 +83,7 @@ const Dashboard = (props) => {
 
 
       <Show Show={
-        !props.Tema ||
+        
         props.Assets.length === 0 ||
         props.Sectors.length === 0 ||
         props.Users.length === 0 ||
@@ -97,7 +97,7 @@ const Dashboard = (props) => {
 
 
       {
-        props.Tema &&
+       
         props.Assets &&
         props.Sectors &&
         props.Users &&

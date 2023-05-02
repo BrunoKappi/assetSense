@@ -102,7 +102,7 @@
 
 }
 
-.TypeColumn {
+.UserTypeColumn {
     background-color: var(--UserContainer-Type-Background);
     color: var(--UserContainer-Type-Color);
     white-space: nowrap;
@@ -153,7 +153,7 @@
     width: 1rem;
 }
 
-.EmailColumn {
+.UserEmailColumn {
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -165,7 +165,7 @@
     color: var(--UserContainer-Email-Color);
 }
 
-.EmailColumn>svg {
+.UserEmailColumn>svg {
     width: .9rem;
 }
 
@@ -182,7 +182,7 @@
         font-size: .6rem;
     }
 
-    .TypeColumn {
+    .UserTypeColumn {
         font-size: .6rem;
     }
 
@@ -190,11 +190,11 @@
         display: none;
     }
 
-    .EmailColumnContainer {
+    .UserEmailColumnContainer {
         display: none;
     }
 
-    .EmailColumn {
+    .UserEmailColumn {
         display: none;
     }
 }

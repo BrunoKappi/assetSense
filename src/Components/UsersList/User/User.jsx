@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import './User.css'
 import { UilEnvelope, UilUser, UilPuzzlePiece, UilLabelAlt } from '@iconscout/react-unicons'
 import { GetFromStore } from '../../../Functions/StoreMiddleware'
-
+//Tooltip
+import { Tooltip } from 'react-tippy';
 import { connect } from 'react-redux'
+import { DefaultTooltipStyles } from '../../../GlobalVars';
 
 const User = (props) => {
 
@@ -34,28 +36,38 @@ const User = (props) => {
             <div className={props.Tema === 'Escuro' ? 'UserContainerEscuro UserContainer' : 'UserContainerClaro UserContainer'} >
 
                 <span className='UserContainerColumn NameColumnContainer'>
-                    <span className='NameColumn'>
-                        <UilUser />
-                        <span> {props.User.Name + ' ' + props.User.LastName}</span>
-                    </span>
+                    <Tooltip style={DefaultTooltipStyles} title="Nome" position="bottom" >
+                        <span className='NameColumn'>
+                            <UilUser />
+                            <span> {props.User.Name + ' ' + props.User.LastName}</span>
+                        </span>
+                    </Tooltip>
                 </span>
-                <span className='UserContainerColumn EmailColumnContainer'>
-                    <span className='EmailColumn'>
-                        <UilEnvelope />
-                        {props.User.Email.charAt(0).toUpperCase() + props.User.Email.slice(1)}
-                    </span>
+                <span className='UserContainerColumn UserEmailColumnContainer'>
+                    <Tooltip style={DefaultTooltipStyles} title="Email do Usuário" position="bottom" >
+                        <span className='UserEmailColumn'>
+                            <UilEnvelope />
+                            {props.User.Email.charAt(0).toUpperCase() + props.User.Email.slice(1)}
+                        </span>
+                    </Tooltip> 
                 </span>
                 <div className='UserContainerColumn SectorColumnContainer'>
-                    <span className='SectorColumn'>
-                        <UilPuzzlePiece />
-                        {UserSector.Value}
-                    </span>
+                    <Tooltip style={DefaultTooltipStyles} title="Setor" position="bottom" >
+                        <span className='SectorColumn'>
+                            <UilPuzzlePiece />
+                            {UserSector.Value}
+                        </span>
+                    </Tooltip>
+
                 </div>
-                <span className='UserContainerColumn TypeColumnContainer'>
-                    <span className='TypeColumn'>
-                        <UilLabelAlt />
-                        {UserType.Value}
-                    </span>
+                <span className='UserContainerColumn UserTypeColumnContainer'>
+                    <Tooltip style={DefaultTooltipStyles} title="Tipo de Usuário" position="bottom" >
+                        <span className='UserTypeColumn'>
+                            <UilLabelAlt />
+                            {UserType.Value}
+                        </span>
+                    </Tooltip>
+
                 </span>
             </div>
         </>

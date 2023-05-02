@@ -8,10 +8,11 @@ import Layout from './Components/Layout/Layout'
 import Home from './Home';
 import Assets from './Components/Assets/Assets'
 import Users from './Components/Users/Users'
-import Profile from './Components/Profile/Profile'
+import Profile from './Components/Profile/Profile' 
 import Config from './Components/Config/Config'
 import Dashboard from './Components/Dashboard/Dashboard';
 import Records from './Components/Records/Records'
+import Requests from './Components/Requests/Requests'
 import { ReactNotifications } from 'react-notifications-component'
 import { GetTema } from './Functions/StoreMiddleware';
 
@@ -46,6 +47,7 @@ const App = (props) => {
           <Route path="/Assets/Config" element={<RequireAuth> <Config /> </RequireAuth>} />
           <Route path="/Assets/Users" element={<RequireAuth> <Users /> </RequireAuth>} />
           <Route path="/Assets/Records" element={<RequireAuth> <Records /> </RequireAuth>} />
+          <Route path="/Assets/Requests" element={<RequireAuth> <Requests /> </RequireAuth>} />
           <Route path="*" element={<RequireAuth> <NotFound /> </RequireAuth>} />
         </Route>
         <Route path="*" element={<NotFound />} />

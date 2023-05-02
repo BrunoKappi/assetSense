@@ -9,6 +9,7 @@ const DefaultOptions = {
     "Records": { Value: 'Mais Recentes' },
     "Assets": { Value: 'Nome do Ativo' },
     "Users": { Value: 'Nome' },
+    "Requests": { Value: 'Data de Solicitação' },
 }
 
 const RecordsOrderByOptions = [
@@ -57,6 +58,22 @@ const UsersOrderByOptions = [
 
 
 
+const RequestsOrderByOptions = [
+    {
+        label: <CustomLabel text="Ordenar por" />,
+        options: [
+            { Value: 'Data de Solicitação' },
+            { Value: 'Nome Solicitante' },
+            { Value: 'Status da Solicitação' },
+            { Value: 'Setor' },
+            { Value: 'Tipo de Solicitação' },
+            { Value: 'Email Solicitante' },
+            { Value: 'Última edição' },
+        ],
+    },
+]
+
+
 //GET INITIAL VALUES FOR CHECK ALL
 const GetInitialValues = (Module) => {
     switch (Module) {
@@ -66,6 +83,8 @@ const GetInitialValues = (Module) => {
             return AssetsOrderByOptions
         case 'Users':
             return UsersOrderByOptions
+        case 'Requests':
+            return RequestsOrderByOptions
         default:
             break;
     }

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { SetTab } from './SidebarUtils';
 import { connect } from 'react-redux'
 import User from '../../assets/Images/SerranoLogoFuncoBranco.jpg'
-import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilClipboardNotes, UilHistory, UilBars } from '@iconscout/react-unicons'
+import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilClipboardNotes, UilHistory, UilBars, UilTicket } from '@iconscout/react-unicons'
 import { NotificationAlerta, NotificationErro } from '../../NotificationUtils';
 import { GetFromStore, SetLoggedUserPhotoUrlJustStore } from '../../Functions/StoreMiddleware';
 import Loading from '../LoadingForTabs/Loading'
@@ -58,6 +58,9 @@ const Sidebar = (props) => {
             navigate(To)
         } else if (Tab === 'Reports') {
             NotificationAlerta("Ainda Não...", "Esta tela ainda está em desenvolvimento, em breve estará disponível!")
+        } else if (Tab === 'Requests') {
+            SetTab(Tab)
+            navigate(To)
         } else
             NotificationErro("Não Autorizado", "Você não possui permissão para acessar essa aba, solicite acesso ao seu Administrador")
     }
@@ -138,6 +141,12 @@ const Sidebar = (props) => {
                             <UilHistory />
                             Registros
                         </SidebarItem  >
+                        <SidebarItem Active={IsActive('Requests')}
+                            onClick={e => SetTabSidebar('Requests', '/Assets/Requests')}>
+                            <UilTicket />
+                            Solicitações
+                        </SidebarItem  >
+
                         <SidebarItem onClick={e => SetTabSidebar('Reports', '/Assets/Reports')} >
                             <UilClipboardNotes />
                             Relatórios

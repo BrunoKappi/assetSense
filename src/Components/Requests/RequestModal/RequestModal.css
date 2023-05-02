@@ -1,0 +1,60 @@
+.RequestModal-ModalClaro {
+    --RequestModal-Backgound: white;
+    --RequestModal-Border: white;
+    --RequestModal-SectionTitleColor: var(--ComplementaryColor);
+}
+
+ 
+.RequestModal-ModalEscuro {
+    --RequestModal-Backgound: var(--BackgroundDark);
+    --RequestModal-Border: rgb(127, 126, 126);
+    --RequestModal-SectionTitleColor: var(--ComplementaryColor);
+}
+
+
+@media (max-width: 760px) {
+    .modal-open> :not(.modal) {
+        -webkit-filter: none;
+        -moz-filter: none;
+        -o-filter: none;
+        -ms-filter: none;
+        filter: none;
+    }
+}
+
+.RequestModal {
+    z-index: 0 !important;
+}
+
+
+.RequestModal-Modal .modal-content {
+    background-color: var(--RequestModal-Backgound) !important;
+    border: 1px solid var(--RequestModal-Border) !important;
+}
+
+
+.RequestModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    max-height: 85vh;
+    min-height: 85vh;
+    overflow-y: scroll;
+}
+
+
+.RequestModal::-webkit-scrollbar {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+
+    .RequestModal {
+        max-height: none;
+        overflow-y: auto; 
+    }
+
+    .RequestModal::-webkit-scrollbar {
+        display: none;
+    }
+}

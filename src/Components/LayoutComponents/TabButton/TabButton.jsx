@@ -169,6 +169,14 @@ export const DashAssetsTabTitle = () => {
 }
 
 
+export const Requests = (Text) => {
+    return <div className='TabsTitle'>
+        <UilLabel />
+        <span>Solicitações</span>
+    </div>
+}
+
+
 
 
 export const CustomAssetTypes = () => {
@@ -200,11 +208,13 @@ export const UserType = (Text) => {
 
 
 
+
 const Tabs = {
     "Assets": AssetsTabTitle(),
     "AssetsCampos": AssetsCamposTabTitle(),
     "Sectors e Usuários": SectorsEUsuáriosTabTitle(),
     "Permissoes": PermicoesTabTitle(),
+    "Requests": Requests(),
     "TodosAssets": TodosTabTitle(),
     "AssetsInArmazenamento": ArmazenamentoTabTitle(),
     "AssetsInTypes": TypesTabTitle(),

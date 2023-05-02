@@ -13,7 +13,7 @@ import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
 import Show from '../LayoutComponents/Show/Show';
 //FUNCTIONS
-import { AssetsTabAccess, CustomFieldsTabAccess, PermicoesTabAccess, SectorsUsersTabAccess } from '../../Functions/PermitsMiddleware';
+import { AssetsTabAccess, CustomFieldsTabAccess, PermicoesTabAccess, RequestsTabAccess, SectorsUsersTabAccess } from '../../Functions/PermitsMiddleware';
 import { ConfigBreakpoints } from '../../GlobalVars';
 import SectionTitle from '../LayoutComponents/SectionTitle/SectionTitle';
 import Stack from '../LayoutComponents/Stack/Stack';
@@ -30,6 +30,8 @@ const Config = (props) => {
       return 'Sectors e Usuários'
     else if (PermicoesTabAccess())
       return 'Permissoes'
+    else if (RequestsTabAccess())
+      return 'Requests'
   }
 
   //STATES
@@ -47,6 +49,8 @@ const Config = (props) => {
       setKey(Key)
     else if (Key === 'Permissoes' && PermicoesTabAccess())
       setKey(Key)
+    else if (Key === 'Requests' && RequestsTabAccess())
+      setKey(Key)
     else
       NotificationErro("Não Autorizado", "Você não possui permissão para Acessar essa aba, solicite autorização para seu Administrador")
   }
@@ -60,7 +64,9 @@ const Config = (props) => {
         <TabButton ButtonName="Assets" Key={key} onClick={(k) => SetKeyConfig('Assets')} />
         <TabButton ButtonName="AssetsCampos" Key={key} onClick={(k) => SetKeyConfig('AssetsCampos')} />
         <TabButton ButtonName="Sectors e Usuários" Key={key} onClick={(k) => SetKeyConfig('Sectors e Usuários')} />
+        <TabButton ButtonName="Requests" Key={key} onClick={(k) => SetKeyConfig('Requests')} />
         <TabButton ButtonName="Permissoes" Key={key} onClick={(k) => SetKeyConfig('Permissoes')} />
+
       </TabsContainer>
 
 
@@ -75,9 +81,22 @@ const Config = (props) => {
               <EditableCustomList Title="Locais de Armazenamento" Module="StorageLocations" />
               <EditableCustomList Title="Status de Ativos" Module="AssetsStatus" />
               <EditableCustomList Title="Tipos de Uso" Module="UsageTypes" />
+
             </Masonry>
           </div>
         </Tab>
+
+        {/******************************     ASSETS TAB    ************************************/}
+        <Tab eventKey="Requests" >
+          <div className='ListItensContainer'>
+            <SectionTitle>Configurações de Solicitações</SectionTitle>
+            <Masonry breakpointCols={ConfigBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column"   >
+              <EditableCustomList Title="Status de Solicitações" Module="RequestsStatus" />
+              <EditableCustomList Title="Tipos de Solicitações" Module="RequestsTypes" />
+            </Masonry>
+          </div>
+        </Tab>
+
         {/******************************     CAMPOS TAB    ************************************/}
         <Tab eventKey="AssetsCampos" >
           <div className='CamposListItensContainer'>

@@ -76,6 +76,22 @@ export const PermitIndexs = {
   EDIT_TYPES_DE_USER: Index++,
   EDIT_PERMICOES: Index++,
   EDIT_CAMPOS_PERSONALIZADOS: Index++,
+  EDIT_REQUESTS_STATUS: Index++,
+  EDIT_REQUESTS_TYPES: Index++,
+  ____: Index++,
+  ____: Index++,
+  ____: Index++,
+  ____: Index++,
+  ____: Index++,
+  ____: Index++,
+  VIEW_REQUESTS: Index++,
+  OPEN_REQUESTS: Index++,
+  MANAGE_REQUESTS: Index++,
+  ____: Index++,
+  ____: Index++,
+  ____: Index++,
+  ____: Index++,
+  ____: Index++,
   ____: Index++,
   ____: Index++,
 
@@ -114,14 +130,40 @@ export const PermitDesc = [
   'Editar Tipos de Usuários',
   'Editar Permissões',
   'Editar Campos Personalizados',
+  'Editar Status de Solicitações',
+  'Editar Tipos de Solicitações',
   '',
   '',
+  '',
+  '',
+  '',
+  '',
+  'Vizualizar Solicitações',
+  'Abrir Solicitações',
+  'Gerenciar Solicitações Abertas'
 ]
 
 
 ///////////// PERMIÇÔES ///////////
 
 
+
+
+
+
+
+
+
+////////// REQUESTS TYPES
+
+
+
+export const RequestTypes = [
+  { id: '1', Value: 'Solicitação de compra de ativo' },
+  { id: '2', Value: 'Solicitação de permissão' },
+  { id: '3', Value: 'Solicitação de manutenção de Ativo' },
+  { id: '4', Value: 'Solicitação de descarte de ativo' }
+]
 
 
 

@@ -13,8 +13,10 @@ export const UsageTypesCollectionName = 'TiposUso'
 export const UsersCollectionName = 'Usuarios'
 export const AssetsCollectionName = 'Ativos'
 export const RecordsCollectionName = 'Records'
- 
- 
+export const RequestsCollectionName = 'Requests'
+export const RequestsStatusCollectionName = 'RequestsStatus'
+export const RequestsTypesCollectionName = 'RequestsTypes'
+
 
 //GET   
 export const FIREBASE_Get = async (Collection) => {
@@ -42,7 +44,7 @@ export const FIREBASE_Update = async (Collection, Item) => {
     const Doc = doc(db, Collection, Item.docID);
     return updateDoc(Doc, Item);
   }
-} 
+}
 
 //DELETE   
 export const FIREBASE_Delete = async (Collection, Item) => {

@@ -1,0 +1,221 @@
+.AssetRequests-ContainerClaro {
+    --AssetRequests-Container-Background: transparent;
+
+    --RequestsList-AddButton-Background: var(--ComplementaryColor);
+    --RequestsList-AddButton-Color: white;
+    --RequestsList-AddButton-Background-Hover: var(--PrimaryBackground);
+    --RequestsList-AddButton-Color-Hover: white;
+
+
+
+    --RequestsFormFilter-Input-Background: white;
+    --RequestsFormFilter-Input-Border: transparent;
+    --RequestsFormFilter-Input-Color: var(--SecondaryBackground);
+
+    --RequestsFormFilter-Button-Background: var(--ComplementaryColor);
+    --RequestsFormFilter-Button-Border: var(--ComplementaryColor);
+    --RequestsFormFilter-Button-Color: white;
+
+    --RequestsFormFilter-Filtros-Title-Color: var(--SecondaryBackground);
+    --RequestsFormFilter-Filtros-Dropdown-Background: white;
+
+    --RequestsFormFilter-Filtros-Type-Background: var(--SecondaryBackground);
+    --RequestsFormFilter-Filtros-Type-Color: white;
+
+    --RequestsFormFilter-Filtros-Sector-Background: var(--PrimaryBackground);
+    --RequestsFormFilter-Filtros-Sector-Color: white;
+
+    --RequestsFormFilter-Filtros-AddButton-Background: var(--ComplementaryColor);
+    --RequestsFormFilter-Filtros-AddButton-Color: white;
+    --RequestsFormFilter-Filtros-AddButton-Background-Hover: var(--PrimaryBackground);
+    --RequestsFormFilter-Filtros-AddButton-Color-Hover: white;
+}
+
+
+
+
+.AssetRequests-ContainerEscuro {
+    --AssetRequests-Container-Background: var(--BackgroundDark);
+
+    --RequestsList-AddButton-Background: var(--ComplementaryColor);
+    --RequestsList-AddButton-Color: white;
+    --RequestsList-AddButton-Background-Hover: var(--PrimaryBackground);
+    --RequestsList-AddButton-Color-Hover: white;
+
+
+    --RequestsFormFilter-Input-Background: var(--BackgroundDark);
+    --RequestsFormFilter-Input-Border: var(--PrimaryBackGroundFaded);
+    --RequestsFormFilter-Input-Color: var(--ComplementaryColor);
+
+    --RequestsFormFilter-Button-Background: var(--ComplementaryColor);
+    --RequestsFormFilter-Button-Border: var(--ComplementaryColor);
+    --RequestsFormFilter-Button-Color: white;
+
+    --RequestsFormFilter-Filtros-Title-Color: var(--ComplementaryColor);
+    --RequestsFormFilter-Filtros-Dropdown-Background: white;
+
+    --RequestsFormFilter-Filtros-Type-Background: var(--SecondaryBackground);
+    --RequestsFormFilter-Filtros-Type-Color: white;
+
+    --RequestsFormFilter-Filtros-Sector-Background: var(--PrimaryBackground);
+    --RequestsFormFilter-Filtros-Sector-Color: white;
+
+    --RequestsFormFilter-Filtros-AddButton-Background: var(--ComplementaryColor);
+    --RequestsFormFilter-Filtros-AddButton-Color: white;
+    --RequestsFormFilter-Filtros-AddButton-Background-Hover: var(--PrimaryBackground);
+    --RequestsFormFilter-Filtros-AddButton-Color-Hover: white;
+
+
+}
+
+
+.AssetRequests-Container {
+    width: 100%;
+    padding: 2rem;
+    background-color: var(--AssetRequests-Container-Background);
+    overflow-y: scroll;
+}
+
+@media (max-width: 900px) {
+    .AssetRequests-Container {
+        padding: .5rem;
+    }
+}
+
+
+
+
+
+/****** ADD BUTTON ******/
+
+.RequestsListAddUserButton {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    background-color: var(--RequestsList-AddButton-Background);
+    color: var(--RequestsList-AddButton-Color);
+    padding: .5rem .7rem;
+    border: none;
+    border-radius: 1rem;
+    font-family: var(--Fonte);
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
+    font-size: .8rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem;
+}
+
+.RequestsListAddUserButton:hover {
+    background-color: var(--RequestsList-AddButton-Background);
+    color: var(--RequestsList-AddButton-Color-Hover);
+    transform: scale(1.1);
+}
+
+.RequestsListAddUserButton:active {
+    transform: scale(1);
+}
+
+/****** ADD BUTTON ******/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ============  FORM FILTRO DOS USERS  ===================*/
+
+.RequestsFormFilter {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    flex-wrap: wrap;
+    row-gap: 1rem;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 500px) {
+    .RequestsFormFilter {
+        flex-direction: row;
+        gap: 1rem;
+        flex-wrap: wrap;
+        row-gap: 1rem;
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+
+    .RequestsFormFilter>input {
+        width: 100%;
+    }
+}
+
+
+.RequestsFormFilter>input {
+    flex-grow: 1;
+    outline: none;
+    padding: .5rem 1rem;
+    border: 1px solid var(--RequestsFormFilter-Input-Border);
+    border-radius: .5rem;
+    font-family: var(--Fonte);
+    font-size: .8rem;
+    background-color: var(--RequestsFormFilter-Input-Background);
+    color: var(--RequestsFormFilter-Input-Color);
+    -webkit-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.75);
+}
+
+.RequestsFormFilter>input::placeholder {
+    color: var(--RequestsFormFilter-Input-Color);
+}
+
+
+.RequestsFormFilter>span {
+    font-family: var(--Fonte);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .3rem;
+    color: var(--ComplementaryColor);
+    font-size: 1.1rem;
+    font-weight: 500;
+    user-select: none;
+
+}
+
+.RequestsFormFilter>button {
+    font-family: var(--Fonte);
+    font-size: .8rem;
+    outline: none;
+    border: 1px solid var(--RequestsFormFilter-Button-Border);
+    background-color: var(--RequestsFormFilter-Button-Background);
+    color: var(--RequestsFormFilter-Button-Color);
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+}
+
+@media (max-width: 750px) {
+    .RequestsFormFilter>button {
+        flex-grow: 1;
+    }
+}
+
+
+.RequestsFormFilter>button:hover {
+    transform: scale(1.1);
+}
+
+.RequestsFormFilter>button:active {
+    transform: scale(1);
+}

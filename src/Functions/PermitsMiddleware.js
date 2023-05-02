@@ -8,6 +8,9 @@ export const EDIT_STATUS_ASSETS = () => GetCurrentUserTypePermitFromStore('EDIT_
 export const EDIT_TYPES_DE_USO = () => GetCurrentUserTypePermitFromStore('EDIT_TYPES_DE_USO')
 export const EDIT_SECTORS = () => GetCurrentUserTypePermitFromStore('EDIT_SECTORS')
 export const EDIT_TYPES_DE_USER = () => GetCurrentUserTypePermitFromStore('EDIT_TYPES_DE_USER')
+export const EDIT_REQUESTS_TYPES = () => GetCurrentUserTypePermitFromStore('EDIT_REQUESTS_TYPES')
+export const EDIT_REQUESTS_STATUS = () => GetCurrentUserTypePermitFromStore('EDIT_REQUESTS_STATUS')
+
 export const EDIT_PERMICOES = () => GetCurrentUserTypePermitFromStore('EDIT_PERMICOES')
 export const VIEW_ASSETS = () => GetCurrentUserTypePermitFromStore('VIEW_ASSETS')
 export const RETIRAR_ASSETS = () => GetCurrentUserTypePermitFromStore('RETIRAR_ASSETS')
@@ -18,7 +21,9 @@ export const VIEW_USERS = () => GetCurrentUserTypePermitFromStore('VIEW_USERS')
 export const ADD_USERS = () => GetCurrentUserTypePermitFromStore('ADD_USERS')
 export const EDIT_USERS = () => GetCurrentUserTypePermitFromStore('EDIT_USERS')
 export const DELETE_USERS = () => GetCurrentUserTypePermitFromStore('DELETE_USERS')
-
+export const VIEW_REQUESTS = () => GetCurrentUserTypePermitFromStore('VIEW_REQUESTS')
+export const OPEN_REQUESTS = () => GetCurrentUserTypePermitFromStore('OPEN_REQUESTS')
+export const MANAGE_REQUESTS = () => GetCurrentUserTypePermitFromStore('MANAGE_REQUESTS')
 
 
 
@@ -64,6 +69,14 @@ export const ConfigTela = () => {
 }
 
 
+// TELA DE SOLICITAÇÕES
+export const RequestsTela = () => {
+    return (
+        VIEW_REQUESTS() ||
+        OPEN_REQUESTS() ||
+        MANAGE_REQUESTS()
+    )
+}
 
 
 
@@ -117,6 +130,10 @@ export const PermicoesTabAccess = () => {
 }
 
 
+//ACCESS PERMITS TAB
+export const RequestsTabAccess = () => {
+    return EDIT_REQUESTS_STATUS() || EDIT_REQUESTS_TYPES()
+}
 
 
 

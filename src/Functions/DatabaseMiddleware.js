@@ -12,7 +12,10 @@ import {
     AssetsCollectionName,
     UsersCollectionName,
     FIREBASE_Add,
-    FIREBASE_Delete
+    FIREBASE_Delete,
+    RequestsCollectionName,
+    RequestsTypesCollectionName,
+    RequestsStatusCollectionName
 } from "../Config/firebase/metodos"
 import { SetLoggedUserPhotoUrlAction } from "../Config/store/actions/LoggedUserActions"
 import { Dispatch, GetFromStore, GetFromStoreWithId, SetRecordsOnStore } from "./StoreMiddleware"
@@ -29,6 +32,10 @@ const Collections = {
     "User": UsersCollectionName,
     "Asset": AssetsCollectionName,
     "Record": RecordsCollectionName,
+    "Request": RequestsCollectionName,
+    "Reques": RequestsCollectionName,
+    "RequestsTypes": RequestsTypesCollectionName,
+    "RequestsStatus": RequestsStatusCollectionName,
 }
 
 
@@ -140,7 +147,7 @@ export const ReturnAllRecordOfAssetwithId = (AssetId) => {
 
 
 
- 
+
 
 export const GetFromFirebaseFunctions = {
     "AssetTypes": () => GetFromDatabase("AssetType"),
@@ -152,6 +159,9 @@ export const GetFromFirebaseFunctions = {
     "Users": () => GetFromDatabase("User"),
     "Assets": () => GetFromDatabase("Asset"),
     "Records": () => GetFromDatabase("Record"),
+    "Requests": () => GetFromDatabase("Request"),
+    "RequestsTypes": (Item) => GetFromDatabase("RequestsTypes"),
+    "RequestsStatus": (Item) => GetFromDatabase("RequestsStatus"),
 };
 
 
@@ -165,6 +175,9 @@ export const UpdateInFirebaseFunctions = {
     "User": (Item) => EditInDatabase("User", Item),
     "Asset": (Item) => EditInDatabase("Asset", Item),
     "Record": (Item) => EditInDatabase("Record", Item),
+    "Request": (Item) => EditInDatabase("Request", Item),
+    "RequestsTypes": (Item) => EditInDatabase("RequestsTypes", Item),
+    "RequestsStatus": (Item) => EditInDatabase("RequestsStatus", Item),
 };
 
 export const DeleteFromFirebaseFunctions = {
@@ -176,6 +189,10 @@ export const DeleteFromFirebaseFunctions = {
     "UsageTypes": (Item) => DeleteFromDatabase("UsageType", Item),
     "User": (Item) => DeleteFromDatabase("User", Item),
     "Asset": (Item) => DeleteFromDatabase("Asset", Item),
+    "Request": (Item) => DeleteFromDatabase("Request", Item),
+    "RequestsTypes": (Item) => DeleteFromDatabase("RequestsTypes", Item),
+    "RequestsStatus": (Item) => DeleteFromDatabase("RequestsStatus", Item),
+
 };
 
 
@@ -189,5 +206,8 @@ export const AddToFirebaseFunctions = {
     "User": (Item) => AddToDatabase("User", Item),
     "Asset": (Item) => AddToDatabase("Asset", Item),
     "Record": (Item) => AddToDatabase("Record", Item),
+    "Request": (Item) => AddToDatabase("Request", Item),
+    "RequestsTypes": (Item) => AddToDatabase("RequestsTypes", Item),
+    "RequestsStatus": (Item) => AddToDatabase("RequestsStatus", Item),
 };
 

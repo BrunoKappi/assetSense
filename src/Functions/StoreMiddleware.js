@@ -14,6 +14,9 @@ import { DefaultUserRole } from "../Data/Items"
 import { SetTemaAction } from "../Config/store/actions/ThemeActions"
 import { SetCheckLogin, SetLoggedUserPhotoUrlAction, SetSidebarTag, ToggleSideBar, setLoggedUser } from "../Config/store/actions/LoggedUserActions"
 import { UpdateInFirebaseFunctions } from "./DatabaseMiddleware"
+import { AddRequestAction, SetRequests } from "../Config/store/actions/RequestsActions"
+import { SetRequestsTypes } from "../Config/store/actions/RequestsTypesActions"
+import { SetRequestStatus } from "../Config/store/actions/RequestsStatusActions"
 
 //UTILS
 
@@ -39,16 +42,26 @@ export const SetCheckLoginOnStore = (Item) => Dispatch(SetCheckLogin())
 export const SetUserTypesOnStore = (Itens) => Dispatch(SetUserTypes(Itens))
 export const SetUsersOnStore = (Itens) => Dispatch(SetUsers(Itens))
 export const SetSectorsOnStore = (Itens) => Dispatch(SetSectors(Itens))
+export const SetRequestsOnStore = (Itens) => Dispatch(SetRequests(Itens))
+export const SetRequestsTypesOnStore = (Itens) => Dispatch(SetRequestsTypes(Itens))
+export const SetRequestsStatusOnStore = (Itens) => Dispatch(SetRequestStatus(Itens))
+
+
 export const SetAssetTypesOnStore = (Itens) => Dispatch(SetAssetTypes(Itens))
 export const SetAssetsOnStore = (Itens) => Dispatch(SetAssets(Itens))
 export const SetStorageLocationsOnStore = (Itens) => Dispatch(SetStorageLocations(Itens))
 export const SetAssetStatusOnStore = (Itens) => Dispatch(SetAssetsStatus(Itens))
 export const SetUsageTypesOnStore = (Itens) => Dispatch(SetUsageTypes(Itens))
 export const SetRecordsOnStore = (Itens) => Dispatch(SetRecords(Itens))
+
+
+
+
 export const ToggleSideBarVisibility = (Item) => Dispatch(ToggleSideBar())
 //STORE ADD
 export const AddAssetStore = (Item) => Dispatch(AddAssetAction(Item))
 export const AddUserToStore = (Item) => Dispatch(AddUserAction(Item))
+export const AddRequestToStore = (Item) => Dispatch(AddRequestAction(Item))
 
 
 
@@ -144,6 +157,8 @@ export const GetUserWithEmailFromStore = (Email) => {
 export const GetNameFromStoreWithId = (Reducer, Id) => {
     const StoreList = store.getState()
     const List = StoreList[Reducer.replace(/WithDeleted/g, "")]
+
+    console.log("HMM",List)
 
     if (Reducer === 'AssetsWithDeleted' || Reducer === 'Assets')
         return List.find(U => U.id === Id)?.Item || ''
@@ -266,18 +281,24 @@ export const GetRecordByAssetIdAndUserId = (AssetId, UserId) => {
 export const SetInStoreFunctions = {
     "AssetTypes": SetAssetTypesOnStore,
     "Sectors": SetSectorsOnStore,
+    "Requests": SetRequestsOnStore,
     "UserTypes": SetUserTypesOnStore,
     "StorageLocations": SetStorageLocationsOnStore,
     "AssetsStatus": SetAssetStatusOnStore,
-    "UsageTypes": SetUsageTypesOnStore
+    "UsageTypes": SetUsageTypesOnStore,
+    "RequestsStatus": SetRequestsStatusOnStore,
+    "RequestsTypes": SetRequestsTypesOnStore
 };
 
 
 export const GetFromStoreFunctions = {
     "AssetTypes": () => GetFromStore('AssetTypes'),
     "Sectors": () => GetFromStore('Sectors'),
+    "Requests": () => GetFromStore('Requests'),
     "UserTypes": () => GetFromStore('UserTypes'),
     "StorageLocations": () => GetFromStore('StorageLocations'),
     "AssetsStatus": () => GetFromStore('AssetsStatus'),
-    "UsageTypes": () => GetFromStore('UsageTypes')
+    "UsageTypes": () => GetFromStore('UsageTypes'),
+    "RequestsStatus": () => GetFromStore('RequestsStatus'),
+    "RequestsTypes": () => GetFromStore('RequestsTypes')
 };
