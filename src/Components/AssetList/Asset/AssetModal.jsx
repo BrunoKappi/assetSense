@@ -322,11 +322,22 @@ const AssetModal = (props) => {
 
     // CHANGE CUSTOM FIELDS VALUES
     const handleChangeCustomField = (TypedValue, Index, CustomFieldId) => {
+
+
+        
         const NewAssetCustomFieldsValues = [...Asset?.CustomFieldsValues]
+
+      
+
+        
         NewAssetCustomFieldsValues[Index] = {
             id: CustomFieldId,
             Value: TypedValue
         }
+               
+        console.log(NewAssetCustomFieldsValues)
+
+        
         HandleChangeInfo('CustomFieldsValues', NewAssetCustomFieldsValues)
         setIsEdited(true)
     }

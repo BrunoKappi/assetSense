@@ -10,7 +10,11 @@ import { UilAsterisk } from '@iconscout/react-unicons'
 
 
 const CustomFields = (props) => {
-    return (
+
+    console.log("CUSTOM", props.Item.CustomFieldsValues)
+    console.log("CUSTOM", props.Container)
+
+    return ( 
         <>
             <Show Show={props.Container?.length > 0}>
                 <h4 className='CustomFields-Title'>Campos Personalizados</h4>
@@ -24,7 +28,7 @@ const CustomFields = (props) => {
                             {CustomField.Value}
                         </FormGroupLabel>
                         <FormInput
-                            value={props?.Item?.CustomFieldsValues?.find(CF => CF.id === CustomField.id)?.Value || ''}
+                            value={props?.Item?.CustomFieldsValues?.find(CF => CF?.id === CustomField?.id)?.Value || ''}
                             disabled={!props.CanEdit}
                             onChange={e => { props.Handle(e.target.value, CustomFieldIndex, CustomField.id) }}
                         />

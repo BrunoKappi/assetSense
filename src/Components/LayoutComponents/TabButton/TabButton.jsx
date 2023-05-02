@@ -177,6 +177,20 @@ export const Requests = (Text) => {
 }
 
 
+export const AllRequests = (Text) => {
+    return <div className='TabsTitle'>
+        <UilLabel />
+        <span>Todas</span>
+    </div>
+}
+
+
+export const MyRequests = (Text) => {
+    return <div className='TabsTitle'>
+        <UilLabel />
+        <span>Minhas Solicitações</span>
+    </div>
+}
 
 
 export const CustomAssetTypes = () => {
@@ -215,6 +229,8 @@ const Tabs = {
     "Sectors e Usuários": SectorsEUsuáriosTabTitle(),
     "Permissoes": PermicoesTabTitle(),
     "Requests": Requests(),
+    "MyRequests": MyRequests(),
+    "AllRequests": AllRequests(),
     "TodosAssets": TodosTabTitle(),
     "AssetsInArmazenamento": ArmazenamentoTabTitle(),
     "AssetsInTypes": TypesTabTitle(),

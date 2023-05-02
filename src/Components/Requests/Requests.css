@@ -74,6 +74,11 @@
     padding: 2rem;
     background-color: var(--AssetRequests-Container-Background);
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+
 }
 
 @media (max-width: 900px) {
@@ -142,7 +147,7 @@
     flex-wrap: wrap;
     row-gap: 1rem;
     align-items: flex-end;
-    margin-bottom: 2rem;
+    margin-bottom: .5rem;
 }
 
 @media (max-width: 500px) {

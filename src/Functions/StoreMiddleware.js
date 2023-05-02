@@ -158,7 +158,7 @@ export const GetNameFromStoreWithId = (Reducer, Id) => {
     const StoreList = store.getState()
     const List = StoreList[Reducer.replace(/WithDeleted/g, "")]
 
-    console.log("HMM",List)
+
 
     if (Reducer === 'AssetsWithDeleted' || Reducer === 'Assets')
         return List.find(U => U.id === Id)?.Item || ''

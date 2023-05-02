@@ -12,6 +12,10 @@ import FilterSelect from '../LayoutComponents/FilterSelect/FilterSelect'
 import OrderBy from '../LayoutComponents/OrderBy/OrderBy'
 import Request from './Request/Request'
 import { v4 } from 'uuid';
+import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
+import TabButton from '../LayoutComponents/TabButton/TabButton';
+import { OPEN_REQUESTS, VIEW_REQUESTS } from '../../Functions/PermitsMiddleware';
+import { NotificationErro } from '../../NotificationUtils';
 
 const Requests = (props) => {
 
@@ -36,7 +40,7 @@ const Requests = (props) => {
 
 
     //PERMITS E USER TYPE   
-    var PermitToOpenRequests = CurrentType?.Permits[PermitIndexs['OPEN_REQUESTS']]
+    var PermitToOpenRequests = OPEN_REQUESTS()
 
 
 
@@ -46,6 +50,27 @@ const Requests = (props) => {
         setSelectedUser({ ...RequestClicked });
     }
 
+    // GET INITIAL TAB BASED ON PERMITS
+    const getInitialTab = () => {
+        if (VIEW_REQUESTS())
+            return 'AllRequests'
+        else
+            return 'MyRequests'
+    }
+
+    //STATES
+    const [key, setKey] = useState(getInitialTab());
+
+    // KEY TO CONFIG TAB
+    const SetKeyConfig = (Key) => {
+        if (Key === 'AllRequests' && VIEW_REQUESTS())
+            setKey(Key)
+        else if (Key === 'MyRequests')
+            setKey(Key)
+        else
+            NotificationErro("Não Autorizado", "Você não possui permissão para Acessar essa aba, solicite autorização para seu Administrador")
+    }
+
     return (
 
         <>
@@ -53,6 +78,12 @@ const Requests = (props) => {
             <AddRequestModal show={AddRequestModalOpen} onHide={() => setAddRequestModalOpen(false)} />
 
             <div className={props.Tema === 'Escuro' ? 'AssetRequests-ContainerEscuro AssetRequests-Container' : 'AssetRequests-ContainerClaro AssetRequests-Container'} >
+
+                <TabsContainer Direction="row" Tema={props.Tema}>
+                    <TabButton ButtonName="AllRequests" Key={key} onClick={(k) => SetKeyConfig('AllRequests')} />
+                    <TabButton ButtonName="MyRequests" Key={key} onClick={(k) => SetKeyConfig('MyRequests')} />
+                </TabsContainer>
+
 
                 <SectionTitle>Lista de Solicitações</SectionTitle>
 

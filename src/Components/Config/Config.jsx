@@ -66,7 +66,6 @@ const Config = (props) => {
         <TabButton ButtonName="Sectors e Usuários" Key={key} onClick={(k) => SetKeyConfig('Sectors e Usuários')} />
         <TabButton ButtonName="Requests" Key={key} onClick={(k) => SetKeyConfig('Requests')} />
         <TabButton ButtonName="Permissoes" Key={key} onClick={(k) => SetKeyConfig('Permissoes')} />
-
       </TabsContainer>
 
 

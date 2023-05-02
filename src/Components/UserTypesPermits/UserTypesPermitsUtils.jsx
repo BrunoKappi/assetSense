@@ -39,6 +39,11 @@ export const CheckPermits = (Types, TypeIndex, PermitIndex) => {
     }
 
 
+    if (ListCopy[Index['ADD_ASSETS']] && PermitIndex !== Index['EDIT_ASSETS'])
+        ListCopy[Index['EDIT_ASSETS']] = true
+
+    if (ListCopy[Index['ADD_USERS']] && PermitIndex !== Index['EDIT_USERS'])
+        ListCopy[Index['EDIT_USERS']] = true
 
     Types[TypeIndex].Permits = [...ListCopy]
 
