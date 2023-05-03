@@ -5,7 +5,7 @@ import EditableCustomList from '../EditableCustomList/EditableCustomList'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import UserTypesPermits from '../UserTypesPermits/UserTypesPermits';
-import { NotificationErro } from '../../NotificationUtils';
+import { NotificationAlerta, NotificationErro } from '../../NotificationUtils';
 import { connect } from 'react-redux'
 import Campos from '../CustomFields/CustomFields';
 //LAYOUT COMPONENTS
@@ -14,11 +14,12 @@ import TabButton from '../LayoutComponents/TabButton/TabButton';
 import Show from '../LayoutComponents/Show/Show';
 //FUNCTIONS
 import { AssetsTabAccess, CustomFieldsTabAccess, PermicoesTabAccess, RequestsTabAccess, SectorsUsersTabAccess } from '../../Functions/PermitsMiddleware';
-import { ConfigBreakpoints } from '../../GlobalVars';
+import { ConfigBreakpoints, RequestBreakpoints } from '../../GlobalVars';
 import SectionTitle from '../LayoutComponents/SectionTitle/SectionTitle';
 import Stack from '../LayoutComponents/Stack/Stack';
 import SidebarItem from '../LayoutComponents/SidebarItem/SidebarItem';
 import { UilSetting } from '@iconscout/react-unicons'
+import RequestsAssigment from '../Requests/RequestsAssigment/RequestsAssigment'
 
 const Config = (props) => {
 
@@ -37,6 +38,7 @@ const Config = (props) => {
   //STATES
   const [key, setKey] = useState(getInitialTab());
   const [Camposkey, setCamposKey] = useState('CustomAssets');
+  const [RequestsKey, setRequestsKey] = useState('RequestsConfig');
 
 
   // KEY TO CONFIG TAB
@@ -87,12 +89,31 @@ const Config = (props) => {
 
         {/******************************     ASSETS TAB    ************************************/}
         <Tab eventKey="Requests" >
-          <div className='ListItensContainer'>
+          <div className='RequestsItensContainer'>
+
             <SectionTitle>Configurações de Solicitações</SectionTitle>
-            <Masonry breakpointCols={ConfigBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column"   >
-              <EditableCustomList Title="Status de Solicitações" Module="RequestsStatus" />
-              <EditableCustomList Title="Tipos de Solicitações" Module="RequestsTypes" />
-            </Masonry>
+
+            <TabsContainer Direction="row" Tema={props.Tema}>
+              <TabButton ButtonName="RequestsConfig" Key={RequestsKey} onClick={(k) => setRequestsKey('RequestsConfig')} />
+              <TabButton ButtonName="RequestsUsers" Key={RequestsKey} onClick={(k) => NotificationAlerta("Ainda não", "Esta Tela ainda está em desenvolvimento, logo estará disponível")} />
+            </TabsContainer>
+
+
+
+            <Show Show={RequestsKey === 'RequestsConfig'} Width='100%'>
+              <Masonry breakpointCols={RequestBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column"   >
+                <EditableCustomList Title="Status de Solicitações" Module="RequestsStatus" />
+                <EditableCustomList Title="Tipos de Solicitações" Module="RequestsTypes" />
+              </Masonry>
+            </Show>
+
+
+            <Show Show={RequestsKey === 'RequestsUsers'} Width='100%'>
+              <RequestsAssigment />
+            </Show>
+
+
+
           </div>
         </Tab>
 

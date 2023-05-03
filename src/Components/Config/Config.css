@@ -42,6 +42,16 @@
     margin-top: 1rem;
 }
 
+
+.RequestsItensContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: stretch;
+    margin-top: 1rem;
+}
+
 .CamposListItensContainer {
     display: flex;
     flex-direction: column;
@@ -49,6 +59,23 @@
     gap: 1rem;
     justify-content: stretch;
     margin-top: 1.5rem;
+}
+
+
+.RequestsListItensContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: stretch;
+    margin-top: 1.5rem;
+}
+
+
+.RequestLists {
+    flex-grow: 1;
+    margin-top: -1rem;
+
 }
 
 

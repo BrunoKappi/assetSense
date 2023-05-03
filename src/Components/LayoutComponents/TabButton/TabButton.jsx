@@ -219,7 +219,19 @@ export const UserType = (Text) => {
 
 
 
+export const RequestsUsersTabTitle = () => {
+    return <div className='TabsTitle'>
+        <UilUsersAlt />
+        <span>Responsáveis</span>
+    </div>
+}
 
+export const RequestConfigTabTitle = () => {
+    return <div className='TabsTitle'>
+        <UilListUl />
+        <span>Status e Tipos</span>
+    </div>
+}
 
 
 
@@ -229,6 +241,8 @@ const Tabs = {
     "Sectors e Usuários": SectorsEUsuáriosTabTitle(),
     "Permissoes": PermicoesTabTitle(),
     "Requests": Requests(),
+    "RequestsConfig": RequestConfigTabTitle(),
+    "RequestsUsers": RequestsUsersTabTitle(),
     "MyRequests": MyRequests(),
     "AllRequests": AllRequests(),
     "TodosAssets": TodosTabTitle(),

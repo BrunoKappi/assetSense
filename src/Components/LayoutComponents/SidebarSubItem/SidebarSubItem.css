@@ -1,0 +1,63 @@
+.SidebarSubItem {
+    --Sidebar-Subitem-Border: var(--PrimaryBackGroundFaded2);
+    --Sidebar-Subitem-Background: var(--PrimaryBackGroundFaded2);
+    --Sidebar-Subitem-Color: var(--PrimaryBackground);
+    --Sidebar-Subitem-Border-Hover: var(--PrimaryBackground);
+    --Sidebar-Subitem-Background-Hover: var(--PrimaryBackground);
+    --Sidebar-Subitem-Color-Hover: white;
+    --Sidebar-Subitem-Border-Active: var(--PrimaryBackground);
+    --Sidebar-Subitem-Background-Active: var(--PrimaryBackground);
+    --Sidebar-Subitem-Color-Active: white;
+}
+
+
+
+
+
+.SidebarSubItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem;
+    padding: .2rem 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    font-family: var(--Fonte);
+    font-size: .8rem;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border-radius: 1REM;
+    background-color: var(--Sidebar-Subitem-Background);
+    border: 1px solid var(--Sidebar-Subitem-Border);
+    color: var(--Sidebar-Subitem-Color);
+    cursor: pointer;
+}
+
+.SidebarSubItem:hover {
+    border: 1px solid var(--Sidebar-Subitem-Border-Hover);
+    background-color: var(--Sidebar-Subitem-Background-Hover);
+    color: var(--Sidebar-Subitem-Color-Hover);
+}
+
+.SidebarSubItem.ActiveSidebarSubItem {
+    border: 1px solid var(--Sidebar-Subitem-Border-Active);
+    background-color: var(--Sidebar-Subitem-Background-Active);
+    color: var(--Sidebar-Subitem-Color-Active);
+}
+
+.SidebarSubItem svg {
+    width: 1.1rem;
+}
+
+
+@media (max-width: 1000px) {
+
+    .SidebarSubItem {
+        font-size: .9rem;
+    }
+
+    .SidebarUserName>p {
+        font-size: 1.3rem;
+        font-weight: 500;
+    }
+}

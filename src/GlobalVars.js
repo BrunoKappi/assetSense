@@ -203,6 +203,12 @@ export const ConfigBreakpoints = {
   950: 1
 }
 
+export const RequestBreakpoints = {
+  default: 3,
+  1250: 2,
+  950: 1
+}
+
 
 export const UsersInSectorsBreakpoints = {
   default: 4,
