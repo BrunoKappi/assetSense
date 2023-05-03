@@ -3,7 +3,7 @@ import { getFirestore } from "@firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
-var firebaseConfig
+var firebaseConfig 
  
 const BANCO = 'Final'
  

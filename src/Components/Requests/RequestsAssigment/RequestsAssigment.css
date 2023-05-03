@@ -25,13 +25,93 @@
     justify-content: flex-start;
 }
 
+.RequestsAssigentContainer h6 {
+    font-family: var(--Fonte) !important;
+    color: var(--ComplementaryColor);
+
+}
 
 .RequestsAssigentBody {
     display: flex;
     flex-direction: row;
-    gap: 1rem;
+    gap: 2rem;
     justify-content: flex-start;
 }
+
+.AssigmentForm {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: flex-start;
+    margin-bottom: 2rem;
+}
+
+
+.RequestsAssigentUsers {
+    flex-grow: 1;
+    background-color: sa;
+}
+
+
+
+
+.RequestsAssigentBodySidebar {
+    min-width: 30%;
+}
+
+
+.UserModalBody-UserInfoForm-Button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    min-height: 2.5rem;
+    margin-top: 1.5rem;
+    gap: 1rem;
+}
+
+.AssigmentForm button {
+    font-family: var(--Fonte);
+    background-color: var(--ComplementaryColor);
+    border: 1px solid var(--ComplementaryColor);
+    color: var(--PrimaryColor);
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    align-items: center;
+    white-space: nowrap;
+    font-size: .8rem;
+}
+
+@media (max-width: 760px) {
+    .AssigmentForm button {
+        font-size: .8rem;
+    }
+}
+
+
+.AssigmentForm button>svg {
+    width: 1.2rem;
+}
+
+.AssigmentForm button:hover {
+    transform: scale(1.1);
+}
+
+.AssigmentForm button:active {
+    transform: scale(.9);
+}
+
+.AssigmentList {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    flex-wrap: wrap;
+    row-gap: .5rem;
+}
+
+
 
 
 @media (max-width: 1000px) {
@@ -41,4 +121,36 @@
     }
 
 
+}
+
+
+
+
+
+
+
+
+
+
+
+.UserAssignedContainer {
+    background-color: var(--SecondaryBackground);
+    border-radius: .5rem;
+    padding: .2rem .4rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.UserAssignedContainer svg {
+    width: 1rem;
+    color: white;
+    cursor: pointer;
+}
+
+
+.UserAssigned {
+    font-family: var(--Fonte);
+    font-size: .8rem;
+    color: white;
 }

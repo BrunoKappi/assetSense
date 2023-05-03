@@ -7,11 +7,10 @@ import './RequestModal.css'
 import { connect } from 'react-redux'
 import BootstrapModal from 'react-bootstrap/Modal';
 import { GetFromStore, GetNameFromStoreWithId } from '../../../Functions/StoreMiddleware'
-import SectionTitle from '../../LayoutComponents/SectionTitle/SectionTitle';
-import { MANAGE_REQUESTS } from '../../../Functions/PermitsMiddleware';
+
 import SubSectionTitle from '../../LayoutComponents/SubSectionTitle/SubSectionTitle';
 //ICONS
-import { UilUserCircle, UilClipboardNotes, UilClock, UilEnvelope, UilUsersAlt, UilCalendarAlt, UilPhone, UilPlay, UilShieldCheck, UilMap, UilMapMarker, UilPen, UilPuzzlePiece, UilLabel, UilListUl, UilSave, UilHistory, UilTimes, UilBuilding, UilKeySkeleton, UilCheck, UilBackward, UilTrash } from '@iconscout/react-unicons'
+import { UilClock, UilUsersAlt, UilCalendarAlt, UilPlay, UilPuzzlePiece, UilLabel, UilSave, UilTimes } from '@iconscout/react-unicons'
 //Tooltip
 import { Tooltip } from 'react-tippy';
 import { DefaultTooltipStyles } from '../../../GlobalVars';
@@ -29,7 +28,6 @@ import Loading from '../../LoadingForTabs/Loading';
 const RequestModal = (props) => {
 
     //CURRENT USER AND PERMITS
-    const [CurrentUserType] = useState(GetFromStore('CurrentUserType'))
     const [CurrentUser] = useState(GetFromStore('CurrentUser'))
 
     //STATE
@@ -43,8 +41,7 @@ const RequestModal = (props) => {
 
     //PERMISSOES
     const IsRequester = CurrentUser?.id === props.Request.CreatedBy
-    var IsAdmin = CurrentUserType?.IsAdmin
-    const PermitToManageRequests = MANAGE_REQUESTS()
+    const [PermitToManageRequests, setPermitToManageRequests] = useState(false)
 
 
 
@@ -54,19 +51,25 @@ const RequestModal = (props) => {
         setRequestStatus(props.RequestsStatus.find(S => S?.id === props.Request.Status?.id))
         setRequestType(props.RequestsTypes.find(S => S?.id === props.Request.Type?.id))
         setRequestSector(props.Sectors.find(S => S?.id === props.Request.Sector?.id))
+
+        const Type = props.RequestsTypes.find(S => S?.id === props.Request.Type?.id)
+        setPermitToManageRequests(
+            Type?.Assigments?.includes(CurrentUser?.Email)
+        )
+
     }, [props.Request])
 
 
 
     //CHANGE INFO
     const HandleChangeInfo = (Info, Value) => {
-        if (Info === 'RequestStatus') {
+        if (Info === 'RequestStatus' && PermitToManageRequests) {
             setRequestStatus(Value)
             setIsEdited(true)
-        } else if (Info === 'RequestType') {
+        } else if (Info === 'RequestType' && PermitToManageRequests) {
             setRequestType(Value)
             setIsEdited(true)
-        } else if (Info === 'RequestSector') {
+        } else if (Info === 'RequestSector' && PermitToManageRequests) {
             setRequestSector(Value)
             setIsEdited(true)
         }
@@ -98,6 +101,11 @@ const RequestModal = (props) => {
         EditedRequest.LastEditedAt = moment().valueOf()
         EditedRequest.LasEditedBy = CurrentUser.id
 
+        const Type = props.RequestsTypes.find(S => S?.id === RequestType.id)
+        setPermitToManageRequests(
+            Type?.Assigments?.includes(CurrentUser?.Email)
+        )
+
         UpdateInFirebaseFunctions["Request"](EditedRequest).then(() => {
             setRequest({ ...EditedRequest })
             setLoadingAction(false)
@@ -113,32 +121,33 @@ const RequestModal = (props) => {
 
         e?.preventDefault()
 
-        const NewMessage = { ...DefaultRequestMessage }
+        if (PermitToManageRequests || IsRequester) {
 
-        if (!MessageRef.current.value.trim()) {
-            return
-        } else {
-            setLoadingAction(true)
+            const NewMessage = { ...DefaultRequestMessage }
 
-            NewMessage.CreatedBy = CurrentUser.id
-            NewMessage.CreatedAt = moment().valueOf()
-            NewMessage.Message = MessageRef.current.value.trim()
+            if (!MessageRef.current.value.trim()) {
+                return
+            } else {
+                setLoadingAction(true)
 
-            const EditedRequest = { ...Request }
+                NewMessage.CreatedBy = CurrentUser.id
+                NewMessage.CreatedAt = moment().valueOf()
+                NewMessage.Message = MessageRef.current.value.trim()
 
-            EditedRequest.Messages.push(NewMessage)
+                const EditedRequest = { ...Request }
 
+                EditedRequest.Messages.push(NewMessage)
 
-            UpdateInFirebaseFunctions["Request"](EditedRequest).then(() => {
-                setRequest({ ...EditedRequest })
-                setLoadingAction(false)
-                setTimeout(() => {
-                    MessageRef.current.value = ''
-                }, 500);
-                NotificationSucesso("Envio de Mensagem", "Mensagem Enviada com Sucesso!")
-            }).catch(HandleError)
+                UpdateInFirebaseFunctions["Request"](EditedRequest).then(() => {
+                    setRequest({ ...EditedRequest })
+                    setLoadingAction(false)
+                    setTimeout(() => {
+                        MessageRef.current.value = ''
+                    }, 500);
+                    NotificationSucesso("Envio de Mensagem", "Mensagem Enviada com Sucesso!")
+                }).catch(HandleError)
+            }
         }
-
 
     }
 
@@ -185,7 +194,9 @@ const RequestModal = (props) => {
                                 <button onClick={HandleAddMessage}>Enviar</button>
                             </form>
                             <div className='RequestModal-Messages'>
-                                {Request?.Messages?.map(Message => {
+                                {Request?.Messages?.sort((a, b) => {
+                                    return a.CreatedAt < b.CreatedAt ? 1 : -1
+                                }).map(Message => {
 
                                     const Momento = moment.unix(Message.CreatedAt / 1000); //dividir por 1000 porque o valor está em milissegundos, mas moment.unix() espera segundos
                                     const HoraMinuto = Momento.format('HH:mm'); //exemplo de formato "HH:mm"

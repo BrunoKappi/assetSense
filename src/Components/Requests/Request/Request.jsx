@@ -14,7 +14,7 @@ const Request = (props) => {
     const [RequestStatus] = useState(GetNameFromStoreWithId("RequestsStatus", props.Request.Status.id))
     const [RequestStatusColor] = useState(GetFromStoreWithId("RequestsStatus", props.Request.Status.id))
 
-    console.log(RequestStatusColor)
+
 
     const RequesterName = GetNameFromStoreWithId("Users", props.Request.CreatedBy)
 

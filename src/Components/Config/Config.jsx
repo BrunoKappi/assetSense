@@ -95,7 +95,7 @@ const Config = (props) => {
 
             <TabsContainer Direction="row" Tema={props.Tema}>
               <TabButton ButtonName="RequestsConfig" Key={RequestsKey} onClick={(k) => setRequestsKey('RequestsConfig')} />
-              <TabButton ButtonName="RequestsUsers" Key={RequestsKey} onClick={(k) => NotificationAlerta("Ainda não", "Esta Tela ainda está em desenvolvimento, logo estará disponível")} />
+              <TabButton ButtonName="RequestsUsers" Key={RequestsKey} onClick={(k) => setRequestsKey('RequestsUsers')} />
             </TabsContainer>
 
 

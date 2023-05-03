@@ -138,9 +138,9 @@ export const PermitDesc = [
   '',
   '',
   '',
-  'Vizualizar Solicitações',
+  '',
   'Abrir Solicitações',
-  'Gerenciar Solicitações Abertas'
+  ''
 ]
 
 

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import './Requests.css'
-import { GetFromStore, GetNameFromStoreWithId } from '../../Functions/StoreMiddleware';
+import { GetFromStore, GetFromStoreWithId, GetNameFromStoreWithId } from '../../Functions/StoreMiddleware';
 import AddRequestModal from './AddRequestModal/AddRequestModal'
 import { connect } from 'react-redux'
 import Show from '../LayoutComponents/Show/Show'
-import { PermitIndexs } from '../../GlobalVars';
 import Loading from '../LoadingForTabs/Loading';
 import Warning from '../LayoutComponents/Warning/Warning';
 import SectionTitle from '../LayoutComponents/SectionTitle/SectionTitle';
@@ -14,9 +13,10 @@ import Request from './Request/Request'
 import { v4 } from 'uuid';
 import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
 import TabButton from '../LayoutComponents/TabButton/TabButton';
-import { OPEN_REQUESTS, VIEW_REQUESTS } from '../../Functions/PermitsMiddleware';
+import { OPEN_REQUESTS } from '../../Functions/PermitsMiddleware';
 import { NotificationErro } from '../../NotificationUtils';
 import RequestModal from './RequestModal/RequestModal'
+import Info from '../LayoutComponents/Info/Info'
 
 const Requests = (props) => {
 
@@ -52,10 +52,7 @@ const Requests = (props) => {
 
     // GET INITIAL TAB BASED ON PERMITS
     const getInitialTab = () => {
-        if (VIEW_REQUESTS())
-            return 'AllRequests'
-        else
-            return 'MyRequests'
+        return 'AllRequests'
     }
 
     //STATES
@@ -63,7 +60,7 @@ const Requests = (props) => {
 
     // KEY TO CONFIG TAB
     const SetKeyConfig = (Key) => {
-        if (Key === 'AllRequests' && VIEW_REQUESTS())
+        if (Key === 'AllRequests')
             setKey(Key)
         else if (Key === 'MyRequests')
             setKey(Key)
@@ -86,6 +83,10 @@ const Requests = (props) => {
         const Requests = GetFromStore('Requests')
         setRequests(Requests.filter(Request => {
             //FILTER
+            const RequestType = GetFromStoreWithId("RequestsTypes", Request.Type.id)
+
+            const CurrentUserAssigned = RequestType.Assigments.includes(CurrentUser?.Email)
+
             return (
                 (FiltroDeTexto === '' ||
                     CheckIncludesText(Request.Title) ||
@@ -103,7 +104,8 @@ const Requests = (props) => {
                 CheckIncludesInObject(Request.Status, Filters?.RequestsStatus
                 ) &&
 
-                (key === 'AllRequests' || (Request.CreatedBy === CurrentUser?.id))
+                ((key === 'AllRequests' && CurrentUserAssigned) || (key === 'MyRequests' && Request.CreatedBy === CurrentUser?.id) || (Request.CreatedBy === CurrentUser?.id) )
+
             )
         }).sort(
             (Primeiro, Segundo) => {
@@ -151,7 +153,7 @@ const Requests = (props) => {
 
             <div className={props.Tema === 'Escuro' ? 'AssetRequests-ContainerEscuro AssetRequests-Container' : 'AssetRequests-ContainerClaro AssetRequests-Container'} >
 
-          
+
 
                 <TabsContainer Direction="row" Tema={props.Tema}>
                     <TabButton ButtonName="AllRequests" Key={key} onClick={(k) => SetKeyConfig('AllRequests')} />
@@ -161,7 +163,10 @@ const Requests = (props) => {
 
                 <SectionTitle>Lista de Solicitações</SectionTitle>
 
+
+
                 <div className='RequestsFormFilter'>
+
                     <input value={FiltroDeTexto} placeholder='Procurar Solicitação...' onChange={e => setFiltroDeTexto(e.target.value)}></input>
                     <FilterSelect Module="FilterRequests" OnChange={setFilters} />
                     <OrderBy
@@ -170,6 +175,8 @@ const Requests = (props) => {
                         Reset={ResetFilters}
                     />
                 </div>
+
+                <Info Text="Exibindo Somente as Solicitações que você é responsável ou que você abriu" />
 
                 <Show Show={Requests.length !== 0 || Loaded}>
                     {Requests.map((Item) =>

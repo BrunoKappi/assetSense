@@ -4,7 +4,7 @@
 }
 
 .CustomSelectEscuro {
-    --CustomSelect-Color-Input: white; 
+    --CustomSelect-Color-Input: white;
     --CustomSelect-Background-Input: transparent;
 }
 
@@ -13,5 +13,5 @@
     flex-grow: 1 !important;
     font-family: var(--Fonte) !important;
     font-size: .9rem !important;
-    width: 100% !important;
+    width: 100%;
 }
