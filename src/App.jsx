@@ -15,6 +15,7 @@ import Records from './Components/Records/Records'
 import Requests from './Components/Requests/Requests'
 import { ReactNotifications } from 'react-notifications-component'
 import { GetTema } from './Functions/StoreMiddleware';
+import { FIREBASE_Get } from './Config/firebase/metodos2';
 
 
 
@@ -58,24 +59,6 @@ const App = (props) => {
 
 
 
-
-
-
-
-
-
-
-  
-  fetch('https://us-central1-assetsense.cloudfunctions.net/getDados?colecao=TiposAtivo')
-    .then((res) => res.json())
-    .then((data) => { 
-      console.log("REQUISICAO", data);  
-    })
-    .catch((error) => {
-      console.error("REQUISICAO", error); 
-    });
-
-    
 
 
   /*
