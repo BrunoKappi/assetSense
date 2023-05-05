@@ -65,17 +65,19 @@ const App = (props) => {
 
 
 
-  /*
-  fetch('https://cyan-talented-crayfish.cyclic.app/objeto') 
-    .then((res) => res.json()) 
-    .then((data) => {
-      //console.log("REQUISICAO", data);  
+
+  fetch('https://us-central1-assetsense.cloudfunctions.net/getDados')
+    .then((res) => res.json())
+    .then((data) => { 
+      console.log("REQUISICAO", data);  
     })
-    .catch((error) => { 
-      console.error("REQUISICAO", error);
+    .catch((error) => {
+      console.error("REQUISICAO", error); 
     });
 
-  const data = { name: 'John', age: 30 };
+
+  /*
+    const data = { name: 'John', age: 30 };
  
   fetch('http://localhost:8080/api/Type', {
     method: 'POST',

@@ -639,7 +639,7 @@ const AssetModal = (props) => {
                                                     <Show Show={!IsEdited && !IsCurrentUser && PermitToDeleteAssets && (props.Function !== 'Add')}>
                                                         <button className='AssetModalBody-AssetInfoForm-Button-Delete' onClick={e => InitConfirm('Delete')}>
                                                             <UilTrash />
-                                                            Excluir Asset
+                                                            Excluir Ativo
                                                         </button>
                                                     </Show>
 
