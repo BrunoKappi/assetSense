@@ -65,8 +65,8 @@ const App = (props) => {
 
 
 
-
-  fetch('https://us-central1-assetsense.cloudfunctions.net/getDados')
+  
+  fetch('https://us-central1-assetsense.cloudfunctions.net/getDados?colecao=TiposAtivo')
     .then((res) => res.json())
     .then((data) => { 
       console.log("REQUISICAO", data);  
@@ -74,6 +74,8 @@ const App = (props) => {
     .catch((error) => {
       console.error("REQUISICAO", error); 
     });
+
+    
 
 
   /*
