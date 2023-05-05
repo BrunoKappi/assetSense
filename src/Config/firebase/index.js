@@ -22,15 +22,17 @@ var firebaseConfig
 // BANCO ASSET SENSE FINAL 
 if (BANCO === 'Final') {
   firebaseConfig = {
-    apiKey: "AIzaSyAokGdM7586Mv3MceiP5to3ur4WLDi9QNQ",
-    authDomain: "assetsense.firebaseapp.com",
-    projectId: "assetsense",
-    storageBucket: "assetsense.appspot.com",
-    messagingSenderId: "713222303683",
-    appId: "1:713222303683:web:c89b06adaefafdb4261776",
-    measurementId: "G-2ZY0BXZYH6"
+    apiKey: import.meta.env.VITE_REACT_APIKEY ,
+    authDomain: import.meta.env.VITE_REACT_AUTHDOMAIN ,
+    projectId: import.meta.env.VITE_REACT_PROJECTID ,
+    storageBucket: import.meta.env.VITE_REACT_STORAGEBUCKET ,
+    messagingSenderId: import.meta.env.VITE_REACT_MESSAGINGSENDERID ,
+    appId: import.meta.env.VITE_REACT_APPID ,
+    measurementId: import.meta.env.VITE_REACT_MEASUREMENTID ,
   };
 }
+
+
 
 // BANCO TESTE
 if (BANCO === 'Teste') {

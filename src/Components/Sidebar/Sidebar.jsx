@@ -82,7 +82,7 @@ const Sidebar = (props) => {
 
     }, [SidebarActive])
 
-    console.log("VITE VAR", import.meta.env.VITE_REACT_APP_API_KEY)
+
 
     return (
         <>
