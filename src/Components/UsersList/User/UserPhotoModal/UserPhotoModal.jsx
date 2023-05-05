@@ -10,7 +10,8 @@ import LoadingSpiner from '../../../LoadingForTabs/Loading'
 import { v4 } from 'uuid';
 import Show from '../../../LayoutComponents/Show/Show';
 import { SetOtherUserPhotoUrl, SetLoggedUserPhotoUrl } from '../../../../Functions/DatabaseMiddleware';
-import { TenantName, UsersPhotosDirectory } from '../../../../Config/firebase/metodos2';
+import { TenantName, UsersPhotosDirectory } from '../../../../Config/firebase';
+
 
 
 const UserPhotoModal = (props) => {

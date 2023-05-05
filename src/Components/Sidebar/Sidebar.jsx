@@ -82,6 +82,8 @@ const Sidebar = (props) => {
 
     }, [SidebarActive])
 
+    console.log("VITE VAR", import.meta.env.VITE_REACT_APP_API_KEY)
+
     return (
         <>
             <UserPhotoModal Add={false} OnChangePhoto={() => { }} User={CurrentUser} IsCurrentUser={true} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
@@ -102,6 +104,8 @@ const Sidebar = (props) => {
                 <Show Show={!CurrentUser.Name}>
                     <Loading />
                 </Show>
+
+
 
                 <Show Show={CurrentUser.Name}>
                     <Tooltip title="Acessar seu Perfil" position="bottom" >

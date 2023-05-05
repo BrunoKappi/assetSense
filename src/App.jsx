@@ -65,8 +65,6 @@ const App = (props) => {
 
 
 
-
-
   /*
   fetch('https://cyan-talented-crayfish.cyclic.app/objeto') 
     .then((res) => res.json()) 

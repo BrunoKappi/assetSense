@@ -3,10 +3,20 @@ import { getFirestore } from "@firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
-var firebaseConfig 
- 
+
+//TENANT E DATABASE
+export const TenantName = "Serrano"
+export const TenantId = '74caab78-2823-4f5a-9e6f-a9c25cf60285'
+export const DatabaseName = "Dados"
+
+//STORAGE
+export const UsersPhotosDirectory = "UserProfilePhotos"
+export const AssetsPhotosDirectory = "AssetProfilePhotos"
+
 const BANCO = 'Final'
- 
+
+var firebaseConfig
+
 
 
 // BANCO ASSET SENSE FINAL 
@@ -18,7 +28,7 @@ if (BANCO === 'Final') {
     storageBucket: "assetsense.appspot.com",
     messagingSenderId: "713222303683",
     appId: "1:713222303683:web:c89b06adaefafdb4261776",
-    measurementId: "G-2ZY0BXZYH6" 
+    measurementId: "G-2ZY0BXZYH6"
   };
 }
 
@@ -35,7 +45,7 @@ if (BANCO === 'Teste') {
   };
 }
 
- 
+
 const app = initializeApp(firebaseConfig);
 
 console.log(app)

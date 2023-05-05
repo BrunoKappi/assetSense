@@ -10,7 +10,8 @@ import LoadingSpiner from '../../../LoadingForTabs/Loading'
 import { v4 } from 'uuid';
 import Show from '../../../LayoutComponents/Show/Show'
 import { SetAssetPhotoUrl } from '../../../../Functions/DatabaseMiddleware';
-import { AssetsPhotosDirectory, TenantName } from '../../../../Config/firebase/metodos2';
+import { AssetsPhotosDirectory, TenantName } from '../../../../Config/firebase';
+
 
 const AssetPhotoModal = (props) => {
 

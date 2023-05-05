@@ -2,6 +2,7 @@ import { v4 } from 'uuid';
 import moment from 'moment';
 import { AddToFirebaseFunctions } from '../Functions/DatabaseMiddleware';
 import { FIREBASE_Add } from '../Config/firebase/metodos2';
+import { TenantId, TenantName } from '../Config/firebase';
 
 //COMANDOS LOCALSTORAGE
 const Update = false
@@ -286,7 +287,13 @@ export const DefaultUser =
     City: { ...DefaultCity },
     Phone: '555199999999',
     QtdAssets: 0,
-
+    Status: {
+        id: ''
+    },
+    Tenant: {
+        id: TenantId,
+        Name: TenantName
+    }
 }
 
 

@@ -1,10 +1,10 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, } from "firebase/auth";
-import { auth } from "./index";
+import { TenantName, UsersPhotosDirectory, auth } from "./index";
 import { sendPasswordResetEmail, updatePassword } from "firebase/auth";
 import { DefaultLoggedUser } from "../../GlobalVars";
 import { GetFromStore, GetLoggedUserInfo, GetUserWithEmailFromStore, SetCheckLoginOnStore, SetLoggedUserOnStore, SetTema } from "../../Functions/StoreMiddleware";
 import { GetUserUrlImage } from "../../Functions/StorageMiddleware";
-import { TenantName, UsersPhotosDirectory } from "./metodos2";
+
 
 
 
@@ -28,7 +28,7 @@ const onAuthStateChangedHandler = (currentUser) => {
 
     setTimeout(() => {
       const User = GetFromStore("CurrentUser")
-      const Theme = User.Preference.Theme || 'Claro'
+      const Theme = User?.Preference?.Theme || 'Claro'
       //console.log("USEEER", Theme)
       SetTema(Theme)
     }, 2000);
