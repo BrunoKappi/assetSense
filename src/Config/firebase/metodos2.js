@@ -10,7 +10,7 @@ import { getDocs, addDoc, updateDoc, deleteDoc, doc, where } from "firebase/fire
 export const CreateTenant = async (NameTenant, NameDatabase) => {
   const docRef = doc(db, NameTenant, NameDatabase);
   await setDoc(docRef, {});
-  console.log('Tenant Adicionado com sucesso!');
+  //console.log('Tenant Adicionado com sucesso!');
 }
 
 

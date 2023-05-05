@@ -75,7 +75,7 @@ const AssetTakeReturn = (props) => {
 
     // HANDLE ERROR
     const HandleError = (Erro) => {
-        console.log(Erro)
+        //console.log(Erro)
         setLoadingAction(false)
         NotificationErro("Erro", "Ocorreu um problema, tente novamente")
     }
@@ -300,7 +300,7 @@ const AssetTakeReturn = (props) => {
 
 
 
-    //console.log("QTD", props.Asset?.QtdPerUser)
+    ////console.log("QTD", props.Asset?.QtdPerUser)
 
     return (
         <div className={props.Tema === 'Escuro' ? 'AssetTakeReturn-ContainerEscuro AssetTakeReturn-Container' : 'AssetTakeReturn-ContainerClaro AssetTakeReturn-Container'}>

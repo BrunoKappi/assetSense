@@ -838,9 +838,9 @@ export const RequestStatus = [
 if (ADD_FIREBASE) {
     UserRoles.forEach(Type => {
         AddToFirebaseFunctions["UserTypes"](Type).then((Document) => {
-            console.log("Type User Adicionado", Document)
+            //console.log("Type User Adicionado", Document)
         }).catch((erro) => {
-            console.log("Erro", erro)
+            //console.log("Erro", erro)
         })
     })
 }
@@ -851,9 +851,9 @@ if (ADD_FIREBASE) {
 if (ADD_FIREBASE) {
     Items.forEach(Type => {
         AddToFirebaseFunctions["Asset"](Type).then((Document) => {
-            console.log("Item Adicionado", Document)
+            //console.log("Item Adicionado", Document)
         }).catch((erro) => {
-            console.log("Erro", erro)
+            //console.log("Erro", erro)
         })
     })
 }
@@ -862,9 +862,9 @@ if (ADD_FIREBASE) {
 if (ADD_FIREBASE) {
     Users.forEach(Type => {
         AddToFirebaseFunctions["User"](Type).then((Document) => {
-            console.log("User adicionado", Document)
+            //console.log("User adicionado", Document)
         }).catch((erro) => {
-            console.log("Erro", erro)
+            //console.log("Erro", erro)
         })
     })
 }
@@ -873,9 +873,9 @@ if (ADD_FIREBASE) {
 if (ADD_FIREBASE) {
     ItemTypes.forEach(Type => {
         AddToFirebaseFunctions["AssetTypes"](Type).then((Document) => {
-            console.log("Type Adicionado", Document)
+            //console.log("Type Adicionado", Document)
         }).catch((erro) => {
-            console.log("Erro", erro)
+            //console.log("Erro", erro)
         })
     })
 }
@@ -885,9 +885,9 @@ if (ADD_FIREBASE) {
 if (ADD_FIREBASE) {
     Sectors.forEach(Sector => {
         AddToFirebaseFunctions["Sectors"](Sector).then((Document) => {
-            console.log("Sector Adicionado", Document)
+            //console.log("Sector Adicionado", Document)
         }).catch((erro) => {
-            console.log("Erro", erro)
+            //console.log("Erro", erro)
         })
     })
 }
@@ -896,9 +896,9 @@ if (ADD_FIREBASE) {
 if (ADD_FIREBASE) {
     StorageLocationsDeArmazenamento.forEach(Type => {
         AddToFirebaseFunctions["StorageLocations"](Type).then((Document) => {
-            console.log("Local Adicionado", Document)
+            //console.log("Local Adicionado", Document)
         }).catch((erro) => {
-            console.log("Erro", erro)
+            //console.log("Erro", erro)
         })
     })
 }
@@ -907,9 +907,9 @@ if (ADD_FIREBASE) {
 if (ADD_FIREBASE) {
     AssetsStatus.forEach(Type => {
         AddToFirebaseFunctions["AssetsStatus"](Type).then((Document) => {
-            console.log("Status Adicionado", Document)
+            //console.log("Status Adicionado", Document)
         }).catch((erro) => {
-            console.log("Erro", erro)
+            //console.log("Erro", erro)
         })
     })
 }
@@ -918,9 +918,9 @@ if (ADD_FIREBASE) {
 if (ADD_FIREBASE) {
     UsageTypes.forEach(Type => {
         AddToFirebaseFunctions["UsageTypes"](Type).then((Document) => {
-            console.log("Type Adicionado", Document)
+            //console.log("Type Adicionado", Document)
         }).catch((erro) => {
-            console.log("Erro", erro)
+            //console.log("Erro", erro)
         })
     })
 }
@@ -931,9 +931,9 @@ if (ADD_FIREBASE) {
 if (ADD_FIREBASE) {
     RequestTypes.forEach(Type => {
         AddToFirebaseFunctions["RequestsTypes"](Type).then((Document) => {
-            console.log("Request Type Adicionado", Document)
+            //console.log("Request Type Adicionado", Document)
         }).catch((erro) => {
-            console.log("Erro", erro)
+            //console.log("Erro", erro)
         })
     })
 }
@@ -944,9 +944,9 @@ if (ADD_FIREBASE) {
 if (ADD_FIREBASE) {
     RequestStatus.forEach(Type => {
         AddToFirebaseFunctions["RequestsStatus"](Type).then((Document) => {
-            console.log("Request Status Adicionado", Document)
+            //console.log("Request Status Adicionado", Document)
         }).catch((erro) => {
-            console.log("Erro", erro)
+            //console.log("Erro", erro)
         })
     })
 }

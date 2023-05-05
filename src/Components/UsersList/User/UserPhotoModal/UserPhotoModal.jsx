@@ -26,7 +26,7 @@ const UserPhotoModal = (props) => {
 
     // HANDLE ERROR
     const HandleError = (Erro) => {
-        console.log(Erro)
+        //console.log(Erro)
         setLoading(false)
         setUploading(false)
         NotificationErro("Erro", "Aconteceu um problema, tente novamente mais tarde")

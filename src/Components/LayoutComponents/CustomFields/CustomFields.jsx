@@ -11,8 +11,8 @@ import { UilAsterisk } from '@iconscout/react-unicons'
 
 const CustomFields = (props) => {
 
-    console.log("CUSTOM", props.Item.CustomFieldsValues)
-    console.log("CUSTOM", props.Container)
+    //console.log("CUSTOM", props.Item.CustomFieldsValues)
+    //console.log("CUSTOM", props.Container)
 
     return ( 
         <>

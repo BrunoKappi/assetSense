@@ -37,7 +37,7 @@ const RequestsAssigment = (props) => {
 
     // HANDLE ERROR
     const HandleError = (Erro) => {
-        console.log(Erro)
+        //console.log(Erro)
         NotificationErro("Erro", "Ocorreu um problema, tente novamente")
         setLoadingAction(false)
     }
@@ -46,7 +46,7 @@ const RequestsAssigment = (props) => {
     const HadleSelectType = (Type) => {
         setRequestsTypeKey(Type.id)
         setRequestsTypeSelected(Type)
-        console.log(Type)
+        //console.log(Type)
     }
 
 

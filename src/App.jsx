@@ -39,11 +39,11 @@ const App = (props) => {
 
   DatabaseTransfer.forEach((Collection) => {
     FIREBASE_Get(Collection.From).then((Lista) => {
-      console.log(Collection.From, Lista.length)
+      //console.log(Collection.From, Lista.length)
       return 
       Lista.forEach((Item) => {
         FIREBASE_Add(Collection.To, Item).then(() => {
-          console.log("ADDED")
+          //console.log("ADDED")
         })
       })
     })
@@ -69,7 +69,7 @@ const App = (props) => {
   fetch('https://cyan-talented-crayfish.cyclic.app/objeto') 
     .then((res) => res.json()) 
     .then((data) => {
-      console.log("REQUISICAO", data);  
+      //console.log("REQUISICAO", data);  
     })
     .catch((error) => { 
       console.error("REQUISICAO", error);
@@ -85,7 +85,7 @@ const App = (props) => {
     body: JSON.stringify(data)
   }).then((res) => res.json())
     .then((data) => {
-      console.log("REQUISICAO", data);
+      //console.log("REQUISICAO", data);
     })
     .catch((error) => {
       console.error("REQUISICAO", error);

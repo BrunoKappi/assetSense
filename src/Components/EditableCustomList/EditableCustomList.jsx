@@ -184,7 +184,7 @@ const EditableCustomList = (props) => {
 
   // HANDLE ERROR
   const HandleError = (Erro) => {
-    console.log(Erro)
+    //console.log(Erro)
     NotificationErro("Erro", "Ocorreu um problema, tente novamente")
     setLoaded(true)
   }

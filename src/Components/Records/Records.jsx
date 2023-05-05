@@ -27,7 +27,7 @@ const Records = (props) => {
     /* DO BANCO
     useEffect(() => {
         GetFromFirebaseFunctions["Records"]().then((RecordsFromDatabse) => {
-            console.log("DO Banco", RecordsFromDatabse)
+            //console.log("DO Banco", RecordsFromDatabse)
             SetRecords(RecordsFromDatabse)
         })
     }, [])

@@ -9,7 +9,7 @@ import { GetUserUrlImage } from "../../Functions/StorageMiddleware";
 
 
 const onAuthStateChangedHandler = (currentUser) => {
-  //console.log("AUTHCHANGED", currentUser ? currentUser : 'VAZIO');
+  ////console.log("AUTHCHANGED", currentUser ? currentUser : 'VAZIO');
 
   const LoggedUserEmail = GetLoggedUserInfo('Email')
   const CurrentUserEmail = currentUser?.email
@@ -29,7 +29,7 @@ const onAuthStateChangedHandler = (currentUser) => {
     setTimeout(() => {
       const User = GetFromStore("CurrentUser")
       const Theme = User?.Preference?.Theme || 'Claro'
-      //console.log("USEEER", Theme)
+      ////console.log("USEEER", Theme)
       SetTema(Theme)
     }, 2000);
 

@@ -12,7 +12,7 @@ import 'react-notifications-component/dist/theme.css';
 var pathname = window.location.pathname;
 
 
-//console.log("Pathname: " + pathname);
+////console.log("Pathname: " + pathname);
 
 
 const root = createRoot(document.getElementById('root'));

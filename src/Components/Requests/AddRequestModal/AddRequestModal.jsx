@@ -91,7 +91,7 @@ const AddRequestModal = (props) => {
 
     // HANDLE ERROR
     const HandleError = (Erro) => {
-        console.log(Erro)
+        //console.log(Erro)
         NotificationErro("Erro", "Ocorreu um problema, tente novamente")
         setLoadingAction(false)
     }
@@ -148,7 +148,7 @@ const AddRequestModal = (props) => {
             EndConfirming()
             AddRequestToStore(RequestToOpen)
             setLoadingAction(false)
-            console.log(RequestToOpen)
+            //console.log(RequestToOpen)
             NotificationSucesso("Abertura de Solicitação", "Solicitação Aberta com Sucesso!")
             ClearValues()
             props.onHide()

@@ -49,7 +49,7 @@ const RangePicker = (props) => {
     setDefaultLocale('pt-BR'); // define o locale padrão como português
 
     const renderRangeLabel = ({ startDate, endDate, focusedInput }) => {
-        console.log("RECEBIDO", startDate)
+        //console.log("RECEBIDO", startDate)
         if (!startDate || !endDate) {
             return 'Selecione um período';
         }
@@ -64,15 +64,15 @@ const RangePicker = (props) => {
             renderCustomHeader={(props) => <CustomHeader {...props} />}
             dateFormat="dd/MM/yyyy"
             timeCaption="Hora"
-            
+
             showTimeSelect={true}
-            renderRangeLabel={(HM) => { console.log(HM) }}
+            renderRangeLabel={() => { }}
             calendarContainer={(Prop) => MyContainer(Prop, props.Tema)}
             {...props}
             formatWeekDay={(weekdayName) =>
                 weekdayName.charAt(0).toUpperCase() + weekdayName.slice(1).substr(0, 2)
             } // deixa a primeira letra do nome do dia em maiúscula
-            
+
         />
     );
 };
