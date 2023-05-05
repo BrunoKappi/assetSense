@@ -8,8 +8,9 @@ import { NotificationErro, NotificationSucesso } from '../../../../NotificationU
 import { DeleteFile, GetUserUrlImage, ImageUpload } from '../../../../Functions/StorageMiddleware';
 import LoadingSpiner from '../../../LoadingForTabs/Loading'
 import { v4 } from 'uuid';
-import Show from '../../../LayoutComponents/Show/Show'; 
+import Show from '../../../LayoutComponents/Show/Show';
 import { SetOtherUserPhotoUrl, SetLoggedUserPhotoUrl } from '../../../../Functions/DatabaseMiddleware';
+import { TenantName, UsersPhotosDirectory } from '../../../../Config/firebase/metodos2';
 
 
 const UserPhotoModal = (props) => {
@@ -58,10 +59,11 @@ const UserPhotoModal = (props) => {
         const IdToUseToAdd = v4()
 
         if (props.Add) {
-            path = `images/${IdToUseToAdd}`
+            path = `${TenantName}/${UsersPhotosDirectory}/${IdToUseToAdd}`
         } else {
-            path = `images/${props.User?.id}`
+            path = `${TenantName}/${UsersPhotosDirectory}/${props.User.id}`
         }
+
 
         ImageUpload(path, imageUpload, props.LoggedUser.Email).then(() => {
             GetUserUrlImage(path).then((url) => {
@@ -87,7 +89,7 @@ const UserPhotoModal = (props) => {
     const ApagarFotoDeUser = () => {
         setUploading(false)
         setLoading(true)
-        const path = `images/${props.User?.id}`
+        const path = `${TenantName}/${UsersPhotosDirectory}/${props.User?.id}`
 
         DeleteFile(path).then(() => {
             setUploading(false)

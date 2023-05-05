@@ -61,7 +61,7 @@ export const SetAssetPhotoUrl = (URL, AssetId) => {
     const Asset = GetFromStoreWithId('AssetsWithDeleted', AssetId)
     Asset.PhotoUrl = URL
     Asset.LastEditedAt = moment().valueOf()
-    Edit("Asset", Asset)
+    UpdateInFirebaseFunctions["UsAsseter"](Asset)
 }
 
 

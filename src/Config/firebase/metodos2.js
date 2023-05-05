@@ -7,6 +7,10 @@ import { getDocs, addDoc, updateDoc, deleteDoc, doc, where } from "firebase/fire
 export const TenantName = "Serrano"
 export const DatabaseName = "Dados"
 
+//STORAGE
+export const UsersPhotosDirectory = "UserProfilePhotos"
+export const AssetsPhotosDirectory = "AssetProfilePhotos"
+
 //COLLECTIONS NAMES   
 export const SectorsCollectionName = 'Departments'
 export const UserTypesCollectionName = 'UserTypes'

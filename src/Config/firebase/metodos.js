@@ -4,6 +4,14 @@ import { collection, collectionGroup, getDoc, query, setDoc } from "firebase/fir
 import { getDocs, addDoc, updateDoc, deleteDoc, doc, where } from "firebase/firestore";
 
 
+//TENANT E DATABASE
+export const TenantName = "Serrano"
+export const DatabaseName = "Dados"
+
+//STORAGE
+export const UsersPhotosDirectory = "UserProfilePhotos"
+export const AssetsPhotosDirectory = "AssetProfilePhotos"
+
 //COLLECTIONS NAMES   
 export const SectorsCollectionName = 'Setores'
 export const UserTypesCollectionName = 'TiposUsuarios'

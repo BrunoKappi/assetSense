@@ -158,6 +158,16 @@ const AssetModal = (props) => {
         }, 3000);
         setShowPhotoModal(false)
 
+        const EditedAsset = { ...Asset }
+        EditedAsset.PhotoUrl = url
+
+        // SE NÃO ESTIVER ADICIONANDO E COLOCAR UMA FOTO 
+        if (props.Function !== 'Add') {
+            UpdateInFirebaseFunctions["Asset"](EditedAsset).then(() => {
+                EditAssetOnStore(Asset)
+            }).catch(HandleError)
+        }
+
         // SE ESTIVER ADICIONANDO E COLOCAR UMA FOTO, SET EM UM ID
         if (props.Function === 'Add') {
             setIdToUse(Id)
@@ -318,19 +328,19 @@ const AssetModal = (props) => {
     const handleChangeCustomField = (TypedValue, Index, CustomFieldId) => {
 
 
-        
+
         const NewAssetCustomFieldsValues = [...Asset?.CustomFieldsValues]
 
-      
 
-        
+
+
         NewAssetCustomFieldsValues[Index] = {
             id: CustomFieldId,
             Value: TypedValue
         }
-               
+
         console.log(NewAssetCustomFieldsValues)
-        
+
         HandleChangeInfo('CustomFieldsValues', NewAssetCustomFieldsValues)
         setIsEdited(true)
     }

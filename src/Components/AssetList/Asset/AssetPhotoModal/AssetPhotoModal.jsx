@@ -10,6 +10,7 @@ import LoadingSpiner from '../../../LoadingForTabs/Loading'
 import { v4 } from 'uuid';
 import Show from '../../../LayoutComponents/Show/Show'
 import { SetAssetPhotoUrl } from '../../../../Functions/DatabaseMiddleware';
+import { AssetsPhotosDirectory, TenantName } from '../../../../Config/firebase/metodos2';
 
 const AssetPhotoModal = (props) => {
 
@@ -43,11 +44,16 @@ const AssetPhotoModal = (props) => {
         var path
         const IdToUseToAdd = v4()
 
+
+
+
         if (props.Add) {
-            path = `images/${IdToUseToAdd}`
+            path = `${TenantName}/${AssetsPhotosDirectory}/${IdToUseToAdd}`
         } else {
-            path = `images/${props.Asset.id}`
+            path = `${TenantName}/${AssetsPhotosDirectory}/${props.Asset.id}`
         }
+
+
 
         ImageUpload(path, imageUpload, props.LoggedUser.Email).then(() => {
             NotificationSucesso("Foto do Ativo Atualizada!")
@@ -62,12 +68,12 @@ const AssetPhotoModal = (props) => {
                 SetAssetPhotoUrl(url, props.Asset.id)
             })
         }).catch(HandleError)
-    }
+    } 
 
     // DELETE PHOTO
     const ApagarFotoDoAsset = () => {
         setLoading(true)
-        DeleteFile(`images/${props.Asset.id}`).then(() => {
+        DeleteFile(`${TenantName}/${AssetsPhotosDirectory}/${props.Asset.id}`).then(() => {
             SetAssetPhotoUrl('', props.Asset.id)
             NotificationSucesso("Exlusão", "Foto apagada com sucesso!")
             setLoading(false)
