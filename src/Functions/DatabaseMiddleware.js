@@ -16,7 +16,9 @@ import {
     RequestsCollectionName,
     RequestsTypesCollectionName,
     RequestsStatusCollectionName
-} from "../Config/firebase/metodos"
+} from "../Config/firebase/metodos2"
+
+
 import { SetLoggedUserPhotoUrlAction } from "../Config/store/actions/LoggedUserActions"
 import { Dispatch, GetFromStore, GetFromStoreWithId, SetRecordsOnStore } from "./StoreMiddleware"
 
@@ -86,6 +88,7 @@ export const AddToDatabase = (What, Item) => {
         LastEditedAt: moment().valueOf()
     })
 }
+
 
 //DELETE
 export const DeleteFromDatabase = (What, Item) => {

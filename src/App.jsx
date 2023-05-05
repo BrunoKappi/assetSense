@@ -8,7 +8,7 @@ import Layout from './Components/Layout/Layout'
 import Home from './Home';
 import Assets from './Components/Assets/Assets'
 import Users from './Components/Users/Users'
-import Profile from './Components/Profile/Profile' 
+import Profile from './Components/Profile/Profile'
 import Config from './Components/Config/Config'
 import Dashboard from './Components/Dashboard/Dashboard';
 import Records from './Components/Records/Records'
@@ -18,8 +18,82 @@ import { GetTema } from './Functions/StoreMiddleware';
 
 
 
+
 const App = (props) => {
 
+  /*
+  const DatabaseTransfer = [
+    { From: 'Setores', To: 'Departments' },
+    { From: 'TiposUsuarios', To: 'UserTypes' },
+    { From: 'TiposAtivo', To: 'AssetTypes' },
+    { From: 'LocaisArmazenamento', To: 'StorageLocations' },
+    { From: 'StatusAtivos', To: 'AssetStatus' },
+    { From: 'TiposUso', To: 'UsageTypes' },
+    { From: 'Usuarios', To: 'Users' },
+    { From: 'Ativos', To: 'Assets' },
+    { From: 'Records', To: 'AssetTransactions' },
+    { From: 'Requests', To: 'Requests' },
+    { From: 'RequestsStatus', To: 'RequestStatus' },
+    { From: 'RequestsTypes', To: 'RequestTypes' },
+  ]
+
+  DatabaseTransfer.forEach((Collection) => {
+    FIREBASE_Get(Collection.From).then((Lista) => {
+      console.log(Collection.From, Lista.length)
+      return 
+      Lista.forEach((Item) => {
+        FIREBASE_Add(Collection.To, Item).then(() => {
+          console.log("ADDED")
+        })
+      })
+    })
+  })
+  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*
+  fetch('https://cyan-talented-crayfish.cyclic.app/objeto') 
+    .then((res) => res.json()) 
+    .then((data) => {
+      console.log("REQUISICAO", data);  
+    })
+    .catch((error) => { 
+      console.error("REQUISICAO", error);
+    });
+
+  const data = { name: 'John', age: 30 };
+ 
+  fetch('http://localhost:8080/api/Type', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }).then((res) => res.json())
+    .then((data) => {
+      console.log("REQUISICAO", data);
+    })
+    .catch((error) => {
+      console.error("REQUISICAO", error);
+    });
+
+  */
 
 
 

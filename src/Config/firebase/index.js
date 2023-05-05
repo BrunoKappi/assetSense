@@ -34,8 +34,12 @@ if (BANCO === 'Teste') {
     measurementId: "G-DBKTF9HLZQ"
   };
 }
+
  
 const app = initializeApp(firebaseConfig);
+
+console.log(app)
+
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 export const storage = getStorage(app);

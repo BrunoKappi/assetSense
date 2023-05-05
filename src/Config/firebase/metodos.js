@@ -1,7 +1,8 @@
 
 import { db } from '../firebase/index'
-import { collection, query } from "firebase/firestore";
+import { collection, collectionGroup, getDoc, query, setDoc } from "firebase/firestore";
 import { getDocs, addDoc, updateDoc, deleteDoc, doc, where } from "firebase/firestore";
+
 
 //COLLECTIONS NAMES   
 export const SectorsCollectionName = 'Setores'
@@ -16,6 +17,12 @@ export const RecordsCollectionName = 'Records'
 export const RequestsCollectionName = 'Requests'
 export const RequestsStatusCollectionName = 'RequestsStatus'
 export const RequestsTypesCollectionName = 'RequestsTypes'
+
+
+
+
+
+
 
 
 //GET   
@@ -60,6 +67,16 @@ export const FIREBASE_Delete = async (Collection, Item) => {
   }
 }
 
+export const FIREBASE_AddSubCollection = async (collectionName, subcollectionName) => {
+  const collectionRef = doc(db, collectionName);
+  await setDoc(collectionRef, {});
+  const subcollectionRef = collection(collectionRef, subcollectionName);
+  return setDoc(subcollectionRef, {});
+  return `${subcollectionName} adicionada à coleção ${collectionName} com sucesso.`;
+};
+
+
+
 
 export const FIREBASE_GetDocIDById = async (Collection, ID) => {
   var CollectionRef = collection(db, Collection)
@@ -86,13 +103,6 @@ export const FIREBASE_GetRecordsNotReturnByAsset = async (assetId) => {
 
   return dados.length;
 };
-
-
-
-
-
-
-
 
 
 

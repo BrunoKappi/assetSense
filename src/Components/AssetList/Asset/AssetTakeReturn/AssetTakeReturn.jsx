@@ -32,7 +32,7 @@ import { v4 } from 'uuid';
 import moment from 'moment'
 import { Tooltip } from 'react-tippy';
 import { connect } from 'react-redux'
-import { FIREBASE_GetRecordsNotReturnByAsset } from '../../../../Config/firebase/metodos';
+import { FIREBASE_GetRecordsNotReturnByAsset } from '../../../../Config/firebase/metodos2';
 
 
 import Loading from '../../../LoadingForTabs/Loading'

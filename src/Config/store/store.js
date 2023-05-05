@@ -32,34 +32,58 @@ import {
 
 
 //TO INITIATE COLLECTIONS NAMES
-import { AssetsCollectionName } from '../firebase/metodos'
+import { AssetsCollectionName } from '../firebase/metodos2'
 import { GetFromFirebaseFunctions } from '../../Functions/DatabaseMiddleware'
 
 
 
-GetFromFirebaseFunctions["UserTypes"]().then((Itens) => SetUserTypesOnStore(Itens))
+GetFromFirebaseFunctions["UserTypes"]().then((Itens) => {
+    SetUserTypesOnStore(Itens)
+})
 
-GetFromFirebaseFunctions["Users"]().then((Itens) => SetUsersOnStore(Itens))
+GetFromFirebaseFunctions["Users"]().then((Itens) => {
+    SetUsersOnStore(Itens)
+})
 
-GetFromFirebaseFunctions["Sectors"]().then((Itens) => SetSectorsOnStore(Itens))
+GetFromFirebaseFunctions["Sectors"]().then((Itens) => {
+    SetSectorsOnStore(Itens)
+})
 
-GetFromFirebaseFunctions["AssetTypes"]().then((Itens) => SetAssetTypesOnStore(Itens))
+GetFromFirebaseFunctions["AssetTypes"]().then((Itens) => {
+    SetAssetTypesOnStore(Itens)
+})
 
-GetFromFirebaseFunctions["Assets"]().then((Itens) => SetAssetsOnStore(Itens))
+GetFromFirebaseFunctions["Assets"]().then((Itens) => {
+    SetAssetsOnStore(Itens)
+})
 
-GetFromFirebaseFunctions["StorageLocations"]().then((Itens) => SetStorageLocationsOnStore(Itens))
+GetFromFirebaseFunctions["StorageLocations"]().then((Itens) => {
+    SetStorageLocationsOnStore(Itens)
+})
 
-GetFromFirebaseFunctions["AssetsStatus"]().then((Itens) => SetAssetStatusOnStore(Itens))
+GetFromFirebaseFunctions["AssetsStatus"]().then((Itens) => {
+    SetAssetStatusOnStore(Itens)
+})
 
-GetFromFirebaseFunctions["UsageTypes"]().then((Itens) => SetUsageTypesOnStore(Itens))
+GetFromFirebaseFunctions["UsageTypes"]().then((Itens) => {
+    SetUsageTypesOnStore(Itens)
+})
 
-GetFromFirebaseFunctions["Records"]().then((Itens) => SetRecordsOnStore(Itens))
+GetFromFirebaseFunctions["Records"]().then((Itens) => {
+    SetRecordsOnStore(Itens)
+})
 
-GetFromFirebaseFunctions["Requests"]().then((Itens) => SetRequestsOnStore(Itens))
+GetFromFirebaseFunctions["Requests"]().then((Itens) => {
+    SetRequestsOnStore(Itens)
+})
 
-GetFromFirebaseFunctions["RequestsTypes"]().then((Itens) => SetRequestsTypesOnStore(Itens))
+GetFromFirebaseFunctions["RequestsTypes"]().then((Itens) => {
+    SetRequestsTypesOnStore(Itens)
+})
 
-GetFromFirebaseFunctions["RequestsStatus"]().then((Itens) => SetRequestsStatusOnStore(Itens))
+GetFromFirebaseFunctions["RequestsStatus"]().then((Itens) => {
+    SetRequestsStatusOnStore(Itens)
+})
 
 
 
@@ -88,7 +112,7 @@ const store = createStore(
 
 store.subscribe(() => {
     localStorage.setItem("AssetSense", JSON.stringify(store.getState()))
-    console.log("Store Changed", store.getState())
+    //console.log("Store Changed", store.getState())
 })
 
 

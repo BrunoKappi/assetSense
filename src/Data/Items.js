@@ -1,6 +1,7 @@
 import { v4 } from 'uuid';
 import moment from 'moment';
 import { AddToFirebaseFunctions } from '../Functions/DatabaseMiddleware';
+import { FIREBASE_Add } from '../Config/firebase/metodos2';
 
 //COMANDOS LOCALSTORAGE
 const Update = false
@@ -66,7 +67,7 @@ export const DefaultRequestStatus = {
     CreatedAt: moment().valueOf(),
     docID: '',
     id: '',
-    Value: '', 
+    Value: '',
     CustomFields: [],
     DefaultStatus: false,
     Color: '#2b5aa6'
@@ -837,6 +838,8 @@ if (ADD_FIREBASE) {
     })
 }
 
+
+
 //ASSETS
 if (ADD_FIREBASE) {
     Items.forEach(Type => {
@@ -869,6 +872,7 @@ if (ADD_FIREBASE) {
         })
     })
 }
+
 
 //SECTORS
 if (ADD_FIREBASE) {
