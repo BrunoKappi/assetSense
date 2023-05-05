@@ -10,7 +10,7 @@ import LoadingSpiner from '../../../LoadingForTabs/Loading'
 import { v4 } from 'uuid';
 import Show from '../../../LayoutComponents/Show/Show';
 import { SetOtherUserPhotoUrl, SetLoggedUserPhotoUrl } from '../../../../Functions/DatabaseMiddleware';
-import { TenantName, UsersPhotosDirectory } from '../../../../Config/firebase';
+
 
 
 
@@ -60,9 +60,9 @@ const UserPhotoModal = (props) => {
         const IdToUseToAdd = v4()
 
         if (props.Add) {
-            path = `${TenantName}/${UsersPhotosDirectory}/${IdToUseToAdd}`
+            path = `${import.meta.env.VITE_REACT_TENANT_NAME}/${import.meta.env.VITE_REACT_USERS_PHOTOS_DIRECTORY}/${IdToUseToAdd}`
         } else {
-            path = `${TenantName}/${UsersPhotosDirectory}/${props.User.id}`
+            path = `${import.meta.env.VITE_REACT_TENANT_NAME}/${import.meta.env.VITE_REACT_USERS_PHOTOS_DIRECTORY}/${props.User.id}`
         }
 
 
@@ -90,7 +90,7 @@ const UserPhotoModal = (props) => {
     const ApagarFotoDeUser = () => {
         setUploading(false)
         setLoading(true)
-        const path = `${TenantName}/${UsersPhotosDirectory}/${props.User?.id}`
+        const path = `${import.meta.env.VITE_REACT_TENANT_NAME}/${import.meta.env.VITE_REACT_USERS_PHOTOS_DIRECTORY}/${props.User?.id}`
 
         DeleteFile(path).then(() => {
             setUploading(false)

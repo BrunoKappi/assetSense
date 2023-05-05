@@ -2,7 +2,7 @@ import { v4 } from 'uuid';
 import moment from 'moment';
 import { AddToFirebaseFunctions } from '../Functions/DatabaseMiddleware';
 import { FIREBASE_Add } from '../Config/firebase/metodos2';
-import { TenantId, TenantName } from '../Config/firebase';
+
 
 //COMANDOS LOCALSTORAGE
 const Update = false
@@ -291,8 +291,8 @@ export const DefaultUser =
         id: ''
     },
     Tenant: {
-        id: TenantId,
-        Name: TenantName
+        id: import.meta.env.VITE_REACT_TENANT_ID,
+        Name: import.meta.env.VITE_REACT_TENANT_NAME
     }
 }
 

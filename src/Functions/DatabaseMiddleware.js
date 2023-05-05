@@ -2,20 +2,8 @@
 import moment from "moment"
 import {
     FIREBASE_Get, FIREBASE_Update,
-    AssetTypesCollectionName,
-    SectorsCollectionName,
-    UserTypesCollectionName,
-    StorageLocationsCollectionName,
-    RecordsCollectionName,
-    UsageTypesCollectionName,
-    AssetStatusCollectionName,
-    AssetsCollectionName,
-    UsersCollectionName,
     FIREBASE_Add,
     FIREBASE_Delete,
-    RequestsCollectionName,
-    RequestsTypesCollectionName,
-    RequestsStatusCollectionName
 } from "../Config/firebase/metodos2"
 
 
@@ -25,20 +13,22 @@ import { Dispatch, GetFromStore, GetFromStoreWithId, SetRecordsOnStore } from ".
 
 //DATABASE COLLECTIONS
 const Collections = {
-    "AssetType": AssetTypesCollectionName,
-    "Sector": SectorsCollectionName,
-    "UserType": UserTypesCollectionName,
-    "StorageLocation": StorageLocationsCollectionName,
-    "AssetsStatus": AssetStatusCollectionName,
-    "UsageType": UsageTypesCollectionName,
-    "User": UsersCollectionName,
-    "Asset": AssetsCollectionName,
-    "Record": RecordsCollectionName,
-    "Request": RequestsCollectionName,
-    "Reques": RequestsCollectionName,
-    "RequestsTypes": RequestsTypesCollectionName,
-    "RequestsStatus": RequestsStatusCollectionName,
+    "AssetType": import.meta.env.VITE_REACT_ASSETTYPES_COLLECTIONNAME,
+    "Sector": import.meta.env.VITE_REACT_SECTORS_COLLECTIONNAME,
+    "UserType": import.meta.env.VITE_REACT_USERTYPES_COLLECTIONNAME,
+    "StorageLocation": import.meta.env.VITE_REACT_STORAGELOCATIONS_COLLECTIONNAME,
+    "AssetsStatus": import.meta.env.VITE_REACT_ASSETSTATUS_COLLECTIONNAME,
+    "UsageType": import.meta.env.VITE_REACT_USAGETYPES_COLLECTIONNAME,
+    "User": import.meta.env.VITE_REACT_USERS_COLLECTIONNAME,
+    "Asset": import.meta.env.VITE_REACT_ASSETS_COLLECTIONNAME,
+    "Record": import.meta.env.VITE_REACT_RECORDS_COLLECTIONNAME,
+    "Request": import.meta.env.VITE_REACT_REQUESTS_COLLECTIONNAME,
+    "Reques": import.meta.env.VITE_REACT_REQUESTS_COLLECTIONNAME,
+    "RequestsTypes": import.meta.env.VITE_REACT_REQUESTSTYPES_COLLECTIONNAME,
+    "RequestsStatus": import.meta.env.VITE_REACT_REQUESTSSTATUS_COLLECTIONNAME,
 }
+
+
 
 
 //SET LOGGED USER PHOTO URL

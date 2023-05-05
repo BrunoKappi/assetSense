@@ -10,7 +10,7 @@ import LoadingSpiner from '../../../LoadingForTabs/Loading'
 import { v4 } from 'uuid';
 import Show from '../../../LayoutComponents/Show/Show'
 import { SetAssetPhotoUrl } from '../../../../Functions/DatabaseMiddleware';
-import { AssetsPhotosDirectory, TenantName } from '../../../../Config/firebase';
+
 
 
 const AssetPhotoModal = (props) => {
@@ -49,9 +49,9 @@ const AssetPhotoModal = (props) => {
 
 
         if (props.Add) {
-            path = `${TenantName}/${AssetsPhotosDirectory}/${IdToUseToAdd}`
+            path = `${import.meta.env.VITE_REACT_TENANT_NAME}/${import.meta.env.VITE_REACT_ASSETS_PHOTOS_DIRECTORY}/${IdToUseToAdd}`
         } else {
-            path = `${TenantName}/${AssetsPhotosDirectory}/${props.Asset.id}`
+            path = `${import.meta.env.VITE_REACT_TENANT_NAME}/${import.meta.env.VITE_REACT_ASSETS_PHOTOS_DIRECTORY}/${props.Asset.id}`
         }
 
 
@@ -69,12 +69,12 @@ const AssetPhotoModal = (props) => {
                 SetAssetPhotoUrl(url, props.Asset.id)
             })
         }).catch(HandleError)
-    } 
+    }
 
     // DELETE PHOTO
     const ApagarFotoDoAsset = () => {
         setLoading(true)
-        DeleteFile(`${TenantName}/${AssetsPhotosDirectory}/${props.Asset.id}`).then(() => {
+        DeleteFile(`${import.meta.env.VITE_REACT_TENANT_NAME}/${import.meta.env.VITE_REACT_ASSETS_PHOTOS_DIRECTORY}/${props.Asset.id}`).then(() => {
             SetAssetPhotoUrl('', props.Asset.id)
             NotificationSucesso("Exlusão", "Foto apagada com sucesso!")
             setLoading(false)

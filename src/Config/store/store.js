@@ -31,8 +31,7 @@ import {
 
 
 
-//TO INITIATE COLLECTIONS NAMES
-import { AssetsCollectionName } from '../firebase/metodos2'
+
 import { GetFromFirebaseFunctions } from '../../Functions/DatabaseMiddleware'
 
 

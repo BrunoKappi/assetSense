@@ -5,19 +5,6 @@ import { getDocs, addDoc, updateDoc, deleteDoc, doc, where } from "firebase/fire
 
 
 
-//COLLECTIONS NAMES   
-export const SectorsCollectionName = 'Setores'
-export const UserTypesCollectionName = 'TiposUsuarios'
-export const AssetTypesCollectionName = 'TiposAtivo'
-export const StorageLocationsCollectionName = 'LocaisArmazenamento'
-export const AssetStatusCollectionName = 'StatusAtivos'
-export const UsageTypesCollectionName = 'TiposUso'
-export const UsersCollectionName = 'Usuarios'
-export const AssetsCollectionName = 'Ativos'
-export const RecordsCollectionName = 'Records'
-export const RequestsCollectionName = 'Requests'
-export const RequestsStatusCollectionName = 'RequestsStatus'
-export const RequestsTypesCollectionName = 'RequestsTypes'
 
 
 

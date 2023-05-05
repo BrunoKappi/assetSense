@@ -62,7 +62,7 @@ import SectionTitle from '../../LayoutComponents/SectionTitle/SectionTitle';
 import ConfirmTab from '../../LayoutComponents/ConfirmTab/ConfirmTab';
 import CustomSelect from '../../LayoutComponents/CustomSelect/CustomSelect'
 import moment from 'moment';
-import { TenantId, TenantName } from '../../../Config/firebase';
+
 
 const UserModal = (props) => {
 
@@ -203,8 +203,8 @@ const UserModal = (props) => {
 
             const NewUser = { ...User }
             NewUser.id = IdToUse ? IdToUse : v4()
-            NewUser.Tenant.id = TenantId
-            NewUser.Tenant.Name = TenantName
+            NewUser.Tenant.id = import.meta.env.VITE_REACT_TENANT_ID
+            NewUser.Tenant.Name = import.meta.env.VITE_REACT_TENANT_NAME
 
             unsubscribe()
             setTimeout(() => { FIREBASE_LogouyAuth() }, 5000);

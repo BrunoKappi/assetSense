@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, } from "firebase/auth";
-import { TenantName, UsersPhotosDirectory, auth } from "./index";
+import {  auth } from "./index";
 import { sendPasswordResetEmail, updatePassword } from "firebase/auth";
 import { DefaultLoggedUser } from "../../GlobalVars";
 import { GetFromStore, GetLoggedUserInfo, GetUserWithEmailFromStore, SetCheckLoginOnStore, SetLoggedUserOnStore, SetTema } from "../../Functions/StoreMiddleware";
@@ -48,7 +48,7 @@ const onAuthStateChangedHandler = (currentUser) => {
 
   setTimeout(() => {
     const CurrentUserFromStore = GetUserWithEmailFromStore(CurrentUserEmail)
-    GetUserUrlImage(`${TenantName}/${UsersPhotosDirectory}/${CurrentUserFromStore.id}`).then((url) => {
+    GetUserUrlImage(`${import.meta.env.VITE_REACT_TENANT_NAME}/${import.meta.env.VITE_REACT_USERS_PHOTOS_DIRECTORY}/${CurrentUserFromStore.id}`).then((url) => {
       const user2 = {
         ...DefaultLoggedUser,
         Email: currentUser.email,

@@ -1,28 +1,14 @@
 
-import { DatabaseName, TenantName, db } from '../firebase/index'
+import { db } from '../firebase/index'
 import { collection, collectionGroup, getDoc, query, setDoc } from "firebase/firestore";
 import { getDocs, addDoc, updateDoc, deleteDoc, doc, where } from "firebase/firestore";
 
 
 
 
-//COLLECTIONS NAMES   
-export const SectorsCollectionName = 'Departments'
-export const UserTypesCollectionName = 'UserTypes'
-export const AssetTypesCollectionName = 'AssetTypes'
-export const StorageLocationsCollectionName = 'StorageLocations'
-export const AssetStatusCollectionName = 'AssetStatus'
-export const UsageTypesCollectionName = 'UsageTypes'
-export const UsersCollectionName = 'Users'
-export const AssetsCollectionName = 'Assets'
-export const RecordsCollectionName = 'AssetTransactions'
-export const RequestsCollectionName = 'Requests'
-export const RequestsStatusCollectionName = 'RequestStatus'
-export const RequestsTypesCollectionName = 'RequestTypes'
 
-
-export const CreateTenant = async (TenantName, DatabaseName) => {
-  const docRef = doc(db, TenantName, DatabaseName);
+export const CreateTenant = async (NameTenant, NameDatabase) => {
+  const docRef = doc(db, NameTenant, NameDatabase);
   await setDoc(docRef, {});
   console.log('Tenant Adicionado com sucesso!');
 }
@@ -30,15 +16,17 @@ export const CreateTenant = async (TenantName, DatabaseName) => {
 
 //ADD   
 export const FIREBASE_Add = async (Collection, Item) => {
-  const ParentDocRef = doc(collection(db, TenantName), DatabaseName);
+  const ParentDocRef = doc(collection(db, import.meta.env.VITE_REACT_TENANT_NAME), import.meta.env.VITE_REACT_DATABASE_NAME
+);
   const NestedCollectionName = collection(ParentDocRef, Collection);
   return addDoc(NestedCollectionName, Item)
 }
 
 //GET   
 export const FIREBASE_Get = async (Collection) => {
-  const Tenant = collection(db, TenantName)
-  const DatabaseDoc = doc(Tenant, DatabaseName)
+  const Tenant = collection(db, import.meta.env.VITE_REACT_TENANT_NAME)
+  const DatabaseDoc = doc(Tenant, import.meta.env.VITE_REACT_DATABASE_NAME
+)
   const CollectionRef = collection(DatabaseDoc, Collection)
   const data = await getDocs(CollectionRef)
   const DocsList = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
@@ -49,8 +37,9 @@ export const FIREBASE_Get = async (Collection) => {
 //UPDATE   
 export const FIREBASE_Update = async (Collection, Item) => {
 
-  const Tenant = collection(db, TenantName)
-  const DatabaseDoc = doc(Tenant, DatabaseName)
+  const Tenant = collection(db, import.meta.env.VITE_REACT_TENANT_NAME)
+  const DatabaseDoc = doc(Tenant, import.meta.env.VITE_REACT_DATABASE_NAME
+)
   const collectionRef = collection(DatabaseDoc, Collection)
 
   if (!Item.docID) {
@@ -70,8 +59,9 @@ export const FIREBASE_Update = async (Collection, Item) => {
 //DELETE   
 export const FIREBASE_Delete = async (Collection, Item) => {
 
-  const Tenant = collection(db, TenantName)
-  const DatabaseDoc = doc(Tenant, DatabaseName)
+  const Tenant = collection(db, import.meta.env.VITE_REACT_TENANT_NAME)
+  const DatabaseDoc = doc(Tenant, import.meta.env.VITE_REACT_DATABASE_NAME
+)
   const collectionRef = collection(DatabaseDoc, Collection)
 
   if (!Item.docID) {
@@ -89,8 +79,9 @@ export const FIREBASE_Delete = async (Collection, Item) => {
 
 
 export const FIREBASE_GetDocIDById = async (Collection, id) => {
-  const Tenant = collection(db, TenantName)
-  const DatabaseDoc = doc(Tenant, DatabaseName)
+  const Tenant = collection(db, import.meta.env.VITE_REACT_TENANT_NAME)
+  const DatabaseDoc = doc(Tenant, import.meta.env.VITE_REACT_DATABASE_NAME
+)
   const CollectionRef = collection(DatabaseDoc, Collection)
 
   // Adiciona a query para buscar documentos com o campo "id" igual a "id"
@@ -106,8 +97,9 @@ export const FIREBASE_GetDocIDById = async (Collection, id) => {
 
 export const FIREBASE_GetRecordsNotReturnByAsset = async (assetId) => {
 
-  const Tenant = collection(db, TenantName)
-  const DatabaseDoc = doc(Tenant, DatabaseName)
+  const Tenant = collection(db, import.meta.env.VITE_REACT_TENANT_NAME)
+  const DatabaseDoc = doc(Tenant, import.meta.env.VITE_REACT_DATABASE_NAME
+)
   const CollectionRef = collection(DatabaseDoc, RecordsCollectionName)
 
   const Query = query(
