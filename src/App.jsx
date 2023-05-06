@@ -18,6 +18,19 @@ import { ReactNotifications } from 'react-notifications-component'
 const App = (props) => {
 
 
+  fetch('https://us-central1-assetsense.cloudfunctions.net/GetData?collection=Setores')
+    .then(response => {
+      console.log(response);
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
+
 
   const RequireAuth = ({ children }) => {
     if (props.LoggedUser.Email) {
