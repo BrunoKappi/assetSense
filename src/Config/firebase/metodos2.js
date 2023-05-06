@@ -4,7 +4,7 @@ import { collection, collectionGroup, getDoc, query, setDoc } from "firebase/fir
 import { getDocs, addDoc, updateDoc, deleteDoc, doc, where } from "firebase/firestore";
 import { GetFromStore } from '../../Functions/StoreMiddleware';
 
-const Version = 'NEW'
+const Version = 'OLD'
 
 function getTenantNameFromUrl() {
   const path = window.location.pathname;
