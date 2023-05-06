@@ -49,13 +49,28 @@ exports.getDados = functions.https.onRequest((req, res) => {
 });
 
 
-exports.getOrigin = functions.https.onRequest((req, res) => {
-    cors(req, res, async () => {
-        res.set('Access-Control-Allow-Origin', '*'); // define a política de CORS para permitir acesso de qualquer origem
-        res.set('Content-Type', 'application/json'); // define o tipo de conteúdo da resposta como JSON
-        const origin = req.headers.origin; // obtém o domínio de origem da requisição
-        res.status(200).send(JSON.stringify(origin)); // envia a resposta como uma string JSON
+exports.getDados2 = functions.https.onRequest(async (req, res) => {
+
+
+    const collectionName = req.query.collection;
+    const collectionRef = admin.firestore().collection(collectionName);
+    const snapshot = await collectionRef.get();
+    const data = [];
+
+    snapshot.forEach((doc) => {
+        data.push(doc.data());
     });
+
+
+    res.send(JSON.stringify(data)); // envia a resposta como uma string JSON
+
+
+})
+
+
+exports.getOrigin = functions.https.onRequest(async (req, res) => {
+    const origin = req.headers.origin; // obtém o domínio de origem da requisição
+    res.send(JSON.stringify(origin)); // envia a resposta como uma string JSON
 });
 
 

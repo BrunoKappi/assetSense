@@ -38,16 +38,19 @@ const Login = (props) => {
         if (Email && PasswordRef.current.value) {
             setIsLoggin(true)
             LoginUtil(Email.toLocaleLowerCase(), PasswordRef.current.value).then((message) => {
+
+               
+
                 LoginSuccess(message)
                 setIsLoggin(false)
                 NotificationSucesso('Login', 'Login realizado com sucesso!')
-                navigate('/Assets/Dash')
+                navigate('/Serrano/Assets/Dash')
             }).catch((error) => {
                 setIsLoggin(false)
                 NotificationErro('Login', HandleFirebaseEmailPasswordLogin(error.toString()))
             })
         }
-    }; 
+    };
 
     return (
         <div className={props.Tema === 'Escuro' ? 'LoginContainerEscuro LoginContainer' : 'LoginContainerClaro LoginContainer'}>

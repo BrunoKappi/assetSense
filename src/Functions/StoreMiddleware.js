@@ -17,6 +17,7 @@ import { UpdateInFirebaseFunctions } from "./DatabaseMiddleware"
 import { AddRequestAction, SetRequests } from "../Config/store/actions/RequestsActions"
 import { SetRequestsTypes } from "../Config/store/actions/RequestsTypesActions"
 import { SetRequestStatus } from "../Config/store/actions/RequestsStatusActions"
+import { SetTenantAction } from "../Config/store/actions/TenantActions"
 
 //UTILS
 
@@ -97,11 +98,23 @@ export async function ToggleTema() {
 }
 
 //TOGGLE THEME
-export async function SetTema(Theme) {
-    Dispatch(SetTemaAction(Theme))
-    localStorage.setItem('AssetSenseTema', Theme)
+export async function SetTema(Item) {
+    Dispatch(SetTemaAction(Item))
+    localStorage.setItem('AssetSenseTema', Item)
 }
 
+
+//TOGGLE THEME
+export async function SetTenant(Item) {
+    return new Promise((resolve, reject) => {
+        try {
+            Dispatch(SetTenantAction(Item))
+            resolve()
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 
 
 //GET LOGGED USER INFO BY KEY

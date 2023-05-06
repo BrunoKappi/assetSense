@@ -1,9 +1,11 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, } from "firebase/auth";
-import {  auth } from "./index";
+import { auth } from "./index";
 import { sendPasswordResetEmail, updatePassword } from "firebase/auth";
 import { DefaultLoggedUser } from "../../GlobalVars";
-import { GetFromStore, GetLoggedUserInfo, GetUserWithEmailFromStore, SetCheckLoginOnStore, SetLoggedUserOnStore, SetTema } from "../../Functions/StoreMiddleware";
-import { GetUserUrlImage } from "../../Functions/StorageMiddleware";
+import { GetLoggedUserInfo, SetCheckLoginOnStore, SetLoggedUserOnStore, SetTema, SetTenant } from "../../Functions/StoreMiddleware";
+
+import { FillStore } from "../store/store";
+import { FIREBASE_GetUserByEmail } from "./metodos2";
 
 
 
@@ -18,25 +20,42 @@ const onAuthStateChangedHandler = (currentUser) => {
 
 
   if (((LoggedUserEmail === CurrentUserEmail) || (!LoggedUserEmail)) && currentUser) {
-    const user = {
-      ...DefaultLoggedUser,
-      Email: currentUser.email,
-      uid: currentUser.uid,
-      CurrentSidebarTab: 'Dash'
-    }
-    SetLoggedUserOnStore(user)
 
-    setTimeout(() => {
-      const User = GetFromStore("CurrentUser")
-      const Theme = User?.Preference?.Theme || 'Claro'
-      ////console.log("USEEER", Theme)
+    SetLoggedUserOnStore(
+      {
+        ...DefaultLoggedUser,
+        Email: currentUser.email,
+        uid: currentUser.uid,
+        CurrentSidebarTab: 'Dash'
+      }
+    )
+
+
+
+    const Tenant = window.location.pathname.split("/")[1]
+
+    FIREBASE_GetUserByEmail("Users", currentUser.email, Tenant).then((message) => {
+      const currentUser = { ...message[0] }
+      const Theme = currentUser?.Preference?.Theme || 'Claro'
+      const Tenant = currentUser?.Tenant?.Name || ''
+      //console.log("AUTH", window.location.pathname, Tenant)
       SetTema(Theme)
-    }, 2000);
+      SetTenant(Tenant).then(() => {
+        FillStore()
+      })
+    })
+
+
 
 
   } else {
-    if (!CurrentUserEmail)
+    if (!CurrentUserEmail) {
       SetLoggedUserOnStore(DefaultLoggedUser)
+      SetTenant('').then(() => {
+        console.log("Tenant ")
+      })
+    }
+
   }
 
   if (GetLoggedUserInfo('CheckedLogin') === false)
@@ -46,19 +65,7 @@ const onAuthStateChangedHandler = (currentUser) => {
 
 
 
-  setTimeout(() => {
-    const CurrentUserFromStore = GetUserWithEmailFromStore(CurrentUserEmail)
-    GetUserUrlImage(`${import.meta.env.VITE_REACT_TENANT_NAME}/${import.meta.env.VITE_REACT_USERS_PHOTOS_DIRECTORY}/${CurrentUserFromStore.id}`).then((url) => {
-      const user2 = {
-        ...DefaultLoggedUser,
-        Email: currentUser.email,
-        uid: currentUser.uid,
-        CurrentSidebarTab: 'Dash',
-        PhotoUrl: url
-      }
-      SetLoggedUserOnStore(user2)
-    })
-  }, 100000);
+
 
 
 

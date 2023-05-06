@@ -6,6 +6,7 @@ import Users from './reducers/Users'
 import AssetTypes from './reducers/AssetTypes'
 import Assets from './reducers/Assets'
 import Tema from './reducers/Theme'
+import Tenant from './reducers/Tenant'
 import AssetsStatus from './reducers/AssetsStatus'
 import UsageTypes from './reducers/UsageTypes'
 import RecordsAssets from './reducers/Records'
@@ -26,7 +27,8 @@ import {
     SetStorageLocationsOnStore,
     SetUsageTypesOnStore,
     SetUserTypesOnStore,
-    SetUsersOnStore
+    SetUsersOnStore,
+
 } from '../../Functions/StoreMiddleware'
 
 
@@ -35,54 +37,56 @@ import {
 import { GetFromFirebaseFunctions } from '../../Functions/DatabaseMiddleware'
 
 
+export const FillStore = () => {
+    GetFromFirebaseFunctions["UserTypes"]().then((Itens) => {
+        SetUserTypesOnStore(Itens)
+    })
 
-GetFromFirebaseFunctions["UserTypes"]().then((Itens) => {
-    SetUserTypesOnStore(Itens)
-})
+    GetFromFirebaseFunctions["Users"]().then((Itens) => {
+        SetUsersOnStore(Itens)
+    })
 
-GetFromFirebaseFunctions["Users"]().then((Itens) => {
-    SetUsersOnStore(Itens)
-})
+    GetFromFirebaseFunctions["Sectors"]().then((Itens) => {
+        SetSectorsOnStore(Itens)
+    })
 
-GetFromFirebaseFunctions["Sectors"]().then((Itens) => {
-    SetSectorsOnStore(Itens)
-})
+    GetFromFirebaseFunctions["AssetTypes"]().then((Itens) => {
+        SetAssetTypesOnStore(Itens)
+    })
 
-GetFromFirebaseFunctions["AssetTypes"]().then((Itens) => {
-    SetAssetTypesOnStore(Itens)
-})
+    GetFromFirebaseFunctions["Assets"]().then((Itens) => {
+        SetAssetsOnStore(Itens)
+    })
 
-GetFromFirebaseFunctions["Assets"]().then((Itens) => {
-    SetAssetsOnStore(Itens)
-})
+    GetFromFirebaseFunctions["StorageLocations"]().then((Itens) => {
+        SetStorageLocationsOnStore(Itens)
+    })
 
-GetFromFirebaseFunctions["StorageLocations"]().then((Itens) => {
-    SetStorageLocationsOnStore(Itens)
-})
+    GetFromFirebaseFunctions["AssetsStatus"]().then((Itens) => {
+        SetAssetStatusOnStore(Itens)
+    })
 
-GetFromFirebaseFunctions["AssetsStatus"]().then((Itens) => {
-    SetAssetStatusOnStore(Itens)
-})
+    GetFromFirebaseFunctions["UsageTypes"]().then((Itens) => {
+        SetUsageTypesOnStore(Itens)
+    })
 
-GetFromFirebaseFunctions["UsageTypes"]().then((Itens) => {
-    SetUsageTypesOnStore(Itens)
-})
+    GetFromFirebaseFunctions["Records"]().then((Itens) => {
+        SetRecordsOnStore(Itens)
+    })
 
-GetFromFirebaseFunctions["Records"]().then((Itens) => {
-    SetRecordsOnStore(Itens)
-})
+    GetFromFirebaseFunctions["Requests"]().then((Itens) => {
+        SetRequestsOnStore(Itens)
+    })
 
-GetFromFirebaseFunctions["Requests"]().then((Itens) => {
-    SetRequestsOnStore(Itens)
-})
+    GetFromFirebaseFunctions["RequestsTypes"]().then((Itens) => {
+        SetRequestsTypesOnStore(Itens)
+    })
 
-GetFromFirebaseFunctions["RequestsTypes"]().then((Itens) => {
-    SetRequestsTypesOnStore(Itens)
-})
+    GetFromFirebaseFunctions["RequestsStatus"]().then((Itens) => {
+        SetRequestsStatusOnStore(Itens)
+    })
+}
 
-GetFromFirebaseFunctions["RequestsStatus"]().then((Itens) => {
-    SetRequestsStatusOnStore(Itens)
-})
 
 
 
@@ -103,7 +107,8 @@ const store = createStore(
         Tema,
         Requests,
         RequestsStatus,
-        RequestsTypes
+        RequestsTypes,
+        Tenant
 
     }),
     //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
@@ -111,7 +116,8 @@ const store = createStore(
 
 store.subscribe(() => {
     localStorage.setItem("AssetSense", JSON.stringify(store.getState()))
-    ////console.log("Store Changed", store.getState())
+    //console.log("Store Changed", store.getState())
+    //console.log("Tenant Store ==>", store.getState().Tenant || 'VAZIO')
 })
 
 
