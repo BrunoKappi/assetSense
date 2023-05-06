@@ -25,7 +25,7 @@ export default function Home({ CheckedLogin, Email, To, Tenant }) {
   if (CheckedLogin) {
     if (Email) {
       if (Tenant) {
-        return <Navigate to="/Serrano/Assets/Dash" />;
+        return <Navigate to="/Assets/Dash" />;
       } else {
         return <LoadingContainer />
       }

@@ -6,13 +6,6 @@ import { getDocs, addDoc, updateDoc, deleteDoc, doc, where } from "firebase/fire
 
 
 
-
-
-
-
-
-
-
 //GET   
 export const FIREBASE_Get = async (Collection) => {
   var CollectionRef = collection(db, Collection)
@@ -31,7 +24,7 @@ export const FIREBASE_Add = async (Collection, Item) => {
 export const FIREBASE_Update = async (Collection, Item) => {
   if (!Item.docID) {
     FIREBASE_GetDocIDById(Collection, Item.id).then((docID) => {
-      const Doc = doc(db, Collection, docID);
+      const Doc = doc(db, Collection, docID); 
       Item.docID = docID
       return updateDoc(Doc, Item);
     })

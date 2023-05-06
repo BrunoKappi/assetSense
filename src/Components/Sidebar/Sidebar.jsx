@@ -109,49 +109,49 @@ const Sidebar = (props) => {
 
                 <Show Show={CurrentUser.Name}>
                     <Tooltip title="Acessar seu Perfil" position="bottom" >
-                        <div className='SidebarUserName' onClick={e => SetTabSidebar('Profile', '/Serrano/Assets/Profile')}>
+                        <div className='SidebarUserName' onClick={e => SetTabSidebar('Profile', '/Assets/Profile')}>
                             <p> {(CurrentUser.Name ? CurrentUser.Name : 'Caregando...') + ' ' + CurrentUser.LastName}</p>
                         </div>
                     </Tooltip>
 
                     <Stack Gap={'.4rem'}>
                         <SidebarItem Active={IsActive('Dash')}
-                            onClick={e => SetTabSidebar('Dash', '/Serrano/Assets/Dash')}>
+                            onClick={e => SetTabSidebar('Dash', '/Assets/Dash')}>
                             <UilChartPieAlt />
                             Dashboard
                         </SidebarItem>
                         <SidebarItem Active={IsActive('Assets')}
-                            onClick={e => SetTabSidebar('Assets', '/Serrano/Assets/Assets')}>
+                            onClick={e => SetTabSidebar('Assets', '/Assets/Assets')}>
                             <UilListUl />
                             Ativos
                         </SidebarItem>
                         <SidebarItem Active={IsActive('Users')}
-                            onClick={e => SetTabSidebar('Users', '/Serrano/Assets/Users')}>
+                            onClick={e => SetTabSidebar('Users', '/Assets/Users')}>
                             <UilUsersAlt />
                             Usuários
                         </SidebarItem>
                         <SidebarItem Active={IsActive('Profile')}
-                            onClick={e => SetTabSidebar('Profile', '/Serrano/Assets/Profile')} >
+                            onClick={e => SetTabSidebar('Profile', '/Assets/Profile')} >
                             <UilUserCircle />
                             Meu Perfil
                         </SidebarItem>
                         <SidebarItem Active={IsActive('Config')}
-                            onClick={e => SetTabSidebar('Config', '/Serrano/Assets/Config')}>
+                            onClick={e => SetTabSidebar('Config', '/Assets/Config')}>
                             <UilSetting />
                             Configurações
                         </SidebarItem>
                         <SidebarItem Active={IsActive('Records')}
-                            onClick={e => SetTabSidebar('Records', '/Serrano/Assets/Records')}>
+                            onClick={e => SetTabSidebar('Records', '/Assets/Records')}>
                             <UilHistory />
                             Registros
                         </SidebarItem  >
                         <SidebarItem Active={IsActive('Requests')}
-                            onClick={e => SetTabSidebar('Requests', '/Serrano/Assets/Requests')}>
+                            onClick={e => SetTabSidebar('Requests', '/Assets/Requests')}>
                             <UilTicket />
                             Solicitações
                         </SidebarItem  >
 
-                        <SidebarItem onClick={e => SetTabSidebar('Reports', '/Serrano/Assets/Reports')} >
+                        <SidebarItem onClick={e => SetTabSidebar('Reports', '/Assets/Reports')} >
                             <UilClipboardNotes />
                             Relatórios
                         </SidebarItem>

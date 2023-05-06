@@ -44,7 +44,7 @@ const Login = (props) => {
                 LoginSuccess(message)
                 setIsLoggin(false)
                 NotificationSucesso('Login', 'Login realizado com sucesso!')
-                navigate('/Serrano/Assets/Dash')
+                navigate('/Assets/Dash')
             }).catch((error) => {
                 setIsLoggin(false)
                 NotificationErro('Login', HandleFirebaseEmailPasswordLogin(error.toString()))

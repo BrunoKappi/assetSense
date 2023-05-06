@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './App.css';
 import { Navigate, Route, Routes } from "react-router-dom";
 import { connect } from "react-redux";
@@ -17,20 +17,6 @@ import { ReactNotifications } from 'react-notifications-component'
 
 const App = (props) => {
 
-  /*
-  fetch('https://us-central1-assetsense.cloudfunctions.net/GetData?collection=Serrano/Dados/Requests')
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {
-      console.log(data);
-    })
-    .catch(error => {
-      console.error(error);
-    });
-*/
-
-
   const RequireAuth = ({ children }) => {
     if (props.LoggedUser.Email) {
       return children;
@@ -39,7 +25,6 @@ const App = (props) => {
     }
   };
 
-
   return (
     <div className="App">
       <ReactNotifications />
@@ -47,14 +32,14 @@ const App = (props) => {
         <Route path="/" element={<Home CheckedLogin={props.LoggedUser.CheckedLogin} Email={props.LoggedUser.Email} To={props.To} Tenant={props.Tenant} />} />
         <Route path="/Serrano" element={<Home CheckedLogin={props.LoggedUser.CheckedLogin} Email={props.LoggedUser.Email} To={props.To} Tenant={props.Tenant} />} />
         <Route path="/Forget" element={<Forget />} />
-        <Route path="/Serrano/Assets" element={<RequireAuth> <Layout /> </RequireAuth>}>
-          <Route path="/Serrano/Assets/Dash" element={<RequireAuth> <Dashboard /> </RequireAuth>} />
-          <Route path="/Serrano/Assets/Assets" element={<RequireAuth> <Assets /> </RequireAuth>} />
-          <Route path="/Serrano/Assets/Profile" element={<RequireAuth> <Profile /> </RequireAuth>} />
-          <Route path="/Serrano/Assets/Config" element={<RequireAuth> <Config /> </RequireAuth>} />
-          <Route path="/Serrano/Assets/Users" element={<RequireAuth> <Users /> </RequireAuth>} />
-          <Route path="/Serrano/Assets/Records" element={<RequireAuth> <Records /> </RequireAuth>} />
-          <Route path="/Serrano/Assets/Requests" element={<RequireAuth> <Requests /> </RequireAuth>} />
+        <Route path="/Assets" element={<RequireAuth> <Layout /> </RequireAuth>}>
+          <Route path="/Assets/Dash" element={<RequireAuth> <Dashboard /> </RequireAuth>} />
+          <Route path="/Assets/Assets" element={<RequireAuth> <Assets /> </RequireAuth>} />
+          <Route path="/Assets/Profile" element={<RequireAuth> <Profile /> </RequireAuth>} />
+          <Route path="/Assets/Config" element={<RequireAuth> <Config /> </RequireAuth>} />
+          <Route path="/Assets/Users" element={<RequireAuth> <Users /> </RequireAuth>} />
+          <Route path="/Assets/Records" element={<RequireAuth> <Records /> </RequireAuth>} />
+          <Route path="/Assets/Requests" element={<RequireAuth> <Requests /> </RequireAuth>} />
           <Route path="*" element={<RequireAuth> <NotFound /> </RequireAuth>} />
         </Route>
         <Route path="*" element={<NotFound />} />

@@ -11,16 +11,6 @@ import 'react-notifications-component/dist/theme.css';
 
 var pathname = window.location.pathname;
 
-// Definindo a variável global
-window.Tenant = 'Serrano';
-
-
-window.addEventListener('popstate', () => {
-  console.log("URL", window.location.pathname)
-});
-
-//console.log("Pathname: " + pathname);
-
 
 const root = createRoot(document.getElementById('root'));
 root.render(
