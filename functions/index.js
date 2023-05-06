@@ -11,7 +11,7 @@ const cors = require('cors')({
 });
 
 exports.GetData = functions.https.onRequest((req, res) => {
-    const allowedOrigins = ['https://assetsense.web.app', 'https://assetsense.firebaseapp.com', 'https://serranoassetsense.netlify.app']; // lista de domínios permitidos
+    const allowedOrigins = ['https://assetsense.web.app', 'https://assetsense.firebaseapp.com', 'https://serranoassetsense.netlify.app', 'http://127.0.0.1:5173']; // lista de domínios permitidos
 
     const origin = req.headers.origin; // obtém o domínio de origem da requisição
 
@@ -39,3 +39,29 @@ exports.GetData = functions.https.onRequest((req, res) => {
 
 
 
+
+exports.addCustomClaims = functions.https.onRequest((req, res) => {
+    const allowedOrigins = ['https://assetsense.web.app', 'https://assetsense.firebaseapp.com', 'https://serranoassetsense.netlify.app', 'http://127.0.0.1:5173']; // lista de domínios permitidos
+
+    const origin = req.headers.origin; // obtém o domínio de origem da requisição
+
+    if (allowedOrigins.includes(origin)) { // verifica se o domínio está na lista de domínios permitidos
+        cors(req, res, async () => {
+            const UID = req.query.uid;
+            const customClaims = {
+                TenantName: 'Serrano',
+            };
+
+            admin.auth().setCustomUserClaims(UID, customClaims)
+                .then(() => {
+                    res.status(200).send('Custom claims added to user successfully');
+                })
+                .catch((error) => {
+                    console.log('Error adding custom claims to user:', error);
+                    res.status(500).send('Error adding custom claims to user');
+                });
+        });
+    } else {
+        res.status(403).send('Forbidden'); // retorna um erro 403 (Forbidden) se o domínio de origem não estiver na lista de domínios permitidos
+    }
+});

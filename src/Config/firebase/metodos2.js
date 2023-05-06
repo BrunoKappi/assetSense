@@ -4,6 +4,8 @@ import { collection, collectionGroup, getDoc, query, setDoc } from "firebase/fir
 import { getDocs, addDoc, updateDoc, deleteDoc, doc, where } from "firebase/firestore";
 import { GetFromStore } from '../../Functions/StoreMiddleware';
 
+const Version = 'NEW'
+
 function getTenantNameFromUrl() {
   const path = window.location.pathname;
   const parts = path.split("/");
@@ -30,15 +32,20 @@ export const FIREBASE_Add = async (Collection, Item) => {
 
 //GET   
 export const FIREBASE_Get = async (Collection) => {
-  //console.log("GET", import.meta.env.VITE_REACT_TENANT_NAME)
-  const TenantName = getTenantNameFromUrl()
-  const Tenant = collection(db, import.meta.env.VITE_REACT_TENANT_NAME)
-  const DatabaseDoc = doc(Tenant, import.meta.env.VITE_REACT_DATABASE_NAME
-  )
-  const CollectionRef = collection(DatabaseDoc, Collection)
-  const data = await getDocs(CollectionRef)
-  const DocsList = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
-  return DocsList
+  if (Version === 'NEW') {
+    //NEW USING FUNCTIONS
+    const data2 = await fetch(`https://us-central1-assetsense.cloudfunctions.net/GetData?collection=${import.meta.env.VITE_REACT_TENANT_NAME}/${import.meta.env.VITE_REACT_DATABASE_NAME}/${Collection}`)
+    return await data2.json()
+  } else {
+    //OLD IN FRONT
+    const TenantName = getTenantNameFromUrl()
+    const Tenant = collection(db, import.meta.env.VITE_REACT_TENANT_NAME)
+    const DatabaseDoc = doc(Tenant, import.meta.env.VITE_REACT_DATABASE_NAME)
+    const CollectionRef = collection(DatabaseDoc, Collection)
+    const data = await getDocs(CollectionRef)
+    const DocsList = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
+    return DocsList
+  }
 }
 
 //GET   

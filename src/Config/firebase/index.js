@@ -4,8 +4,6 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
 
-
-
 const BANCO = 'Final'
 
 var firebaseConfig
