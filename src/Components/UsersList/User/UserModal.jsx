@@ -7,7 +7,7 @@ import './UserModal.css'
 import { UilUserCircle, UilClipboardNotes, UilEnvelope, UilPhone, UilShieldCheck, UilMap, UilMapMarker, UilPen, UilPuzzlePiece, UilLabel, UilListUl, UilSave, UilHistory, UilTimes, UilBuilding, UilKeySkeleton, UilCheck, UilBackward, UilTrash } from '@iconscout/react-unicons'
 //COMPONENTS
 import UserAssetRecords from './UserAssetsRecords/UserAssetsRecords';
-import UserPhoto from '../../../assets/Images/SerranoLogoFuncoBranco.jpg'
+
 //LIBRARIES
 import PI from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
@@ -63,7 +63,6 @@ import ConfirmTab from '../../LayoutComponents/ConfirmTab/ConfirmTab';
 import CustomSelect from '../../LayoutComponents/CustomSelect/CustomSelect'
 import moment from 'moment';
 
-
 const UserModal = (props) => {
 
     // PROBLEMA DA BIBLIOTECA PHONE INPUT
@@ -81,6 +80,7 @@ const UserModal = (props) => {
     const [SenhaAtual, setSenhaAtual] = useState('')
     const [NovaSenha, setNovaSenha] = useState('')
     const [IdToUse, setIdToUse] = useState('')
+
 
 
     //FUNCIONALIDADE
@@ -398,7 +398,7 @@ const UserModal = (props) => {
                             <div className='UserModalHeader-Left'>
                                 <Tooltip title="Alterar Foto" position="bottom" >
                                     <div className='UserModalHeader-Left-Photo'>
-                                        <img onClick={handleShowPhotoModal} src={ProfileImageUrl || UserPhoto} alt="User" />
+                                        <img onClick={handleShowPhotoModal} src={ProfileImageUrl || props.TenantPhotos.MainLogo} alt="User" />
                                     </div>
                                 </Tooltip>
                             </div>
@@ -804,7 +804,8 @@ const UserModal = (props) => {
 const ConnectedUserModal = connect((state) => {
     return {
         Tema: state.Tema,
-        LoggedUser: state.LoggedUser
+        LoggedUser: state.LoggedUser,
+        TenantPhotos: state.TenantPhotos
     }
 })(UserModal)
 

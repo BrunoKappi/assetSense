@@ -3,7 +3,6 @@ import './Sidebar.css'
 import { useNavigate } from 'react-router-dom';
 import { SetTab } from './SidebarUtils';
 import { connect } from 'react-redux'
-import User from '../../assets/Images/SerranoLogoFuncoBranco.jpg'
 import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilClipboardNotes, UilHistory, UilBars, UilTicket } from '@iconscout/react-unicons'
 import { NotificationAlerta, NotificationErro } from '../../NotificationUtils';
 import { GetFromStore, SetLoggedUserPhotoUrlJustStore } from '../../Functions/StoreMiddleware';
@@ -16,6 +15,7 @@ import Show from '../LayoutComponents/Show/Show';
 import Stack from '../LayoutComponents/Stack/Stack';
 import { AssetsTela, ConfigTela, UsersTela } from '../../Functions/PermitsMiddleware';
 
+import Photo from '../Photo/Photo'
 
 const Sidebar = (props) => {
 
@@ -25,6 +25,8 @@ const Sidebar = (props) => {
     const [CurrentUser, SetCurrentUser] = useState({ ...props.Users.find(user => user.Email === props.LoggedUser.Email) })
     const [SidebarActive, setSidebarActive] = useState(true)
     const [ShowPhotoModal, setShowPhotoModal] = useState(false)
+
+
 
     //SET CURRENT USER AND PHOTO URL
     useEffect(() => {
@@ -39,28 +41,30 @@ const Sidebar = (props) => {
 
     //SET TAB BASED ON PERMITS
     const SetTabSidebar = (Tab, To) => {
-        if (Tab === 'Dash') {
+        if (Tab === 'Dash' && Tab !== props.LoggedUser.CurrentSidebarTab) {
             SetTab(Tab)
             navigate(To)
-        } else if (Tab === 'Profile') {
+        } else if (Tab === 'Profile' && Tab !== props.LoggedUser.CurrentSidebarTab) {
             navigate(To)
-        } else if (Tab === 'Assets' && AssetsTela()) {
+        } else if (Tab === 'Assets' && AssetsTela() && Tab !== props.LoggedUser.CurrentSidebarTab) {
             SetTab(Tab)
             navigate(To)
-        } else if (Tab === 'Users' && UsersTela()) {
+        } else if (Tab === 'Users' && UsersTela() && Tab !== props.LoggedUser.CurrentSidebarTab) {
             SetTab(Tab)
             navigate(To)
-        } else if (Tab === 'Config' && ConfigTela()) {
+        } else if (Tab === 'Config' && ConfigTela() && Tab !== props.LoggedUser.CurrentSidebarTab) {
             SetTab(Tab)
             navigate(To)
-        } else if (Tab === 'Records') {
+        } else if (Tab === 'Records' && Tab !== props.LoggedUser.CurrentSidebarTab) {
             SetTab(Tab)
             navigate(To)
-        } else if (Tab === 'Reports') {
+        } else if (Tab === 'Reports' && Tab !== props.LoggedUser.CurrentSidebarTab) {
             NotificationAlerta("Ainda Não...", "Esta tela ainda está em desenvolvimento, em breve estará disponível!")
-        } else if (Tab === 'Requests') {
+        } else if (Tab === 'Requests' && Tab !== props.LoggedUser.CurrentSidebarTab) {
             SetTab(Tab)
             navigate(To)
+        } else if (Tab === props.LoggedUser.CurrentSidebarTab) {
+
         } else
             NotificationErro("Não Autorizado", "Você não possui permissão para acessar essa aba, solicite acesso ao seu Administrador")
     }
@@ -97,7 +101,7 @@ const Sidebar = (props) => {
 
                 <div className='SidebarUserPhotoContainer'>
                     <Tooltip title="Ver/Alterar Foto de Perfil" position="bottom" >
-                        <img onClick={e => setShowPhotoModal(true)} alt='User' className='SidebarUserPhoto' src={props.LoggedUser.PhotoUrl || User}></img>
+                        <Photo onClick={e => setShowPhotoModal(true)} alt='User' className='SidebarUserPhoto' URL={props.LoggedUser.PhotoUrl || props.TenantPhotos.MainLogo}></Photo>
                     </Tooltip>
                 </div>
 
@@ -168,7 +172,8 @@ const ConnectedSidebar = connect((state) => {
     return {
         LoggedUser: state.LoggedUser,
         Users: state.Users,
-        Tema: state.Tema
+        Tema: state.Tema,
+        TenantPhotos: state.TenantPhotos
     }
 })(Sidebar)
 

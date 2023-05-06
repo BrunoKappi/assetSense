@@ -12,6 +12,15 @@ export const DefaultLoggedUser = {
   PhotoUrl: ''
 };
 
+
+export const DefaultTenantPhotos = {
+  NavLogo: '',
+  LoginLogo: '',
+  MainLogo: '',  
+  NavNameLogo: '',
+  NavSidebarLogo: '',
+};
+
 export const UserModalSelectcustomStyles = {
   option: (provided, state) => ({
     ...provided,

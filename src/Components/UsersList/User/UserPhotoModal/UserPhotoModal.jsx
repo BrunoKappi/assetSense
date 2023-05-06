@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import './UserPhotoModal.css'
 import Modal from 'react-bootstrap/Modal';
 import { connect } from 'react-redux'
-import UserPhoto from '../../../../assets/Images/SerranoLogoFuncoBranco.jpg'
+
 import { UilTimes, UilTrashAlt, UilCheck, UilBackward, UilPen } from '@iconscout/react-unicons'
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
 import { DeleteFile, GetUserUrlImage, ImageUpload } from '../../../../Functions/StorageMiddleware';
@@ -22,7 +22,6 @@ const UserPhotoModal = (props) => {
     const [LastUserUrlImage, setLastUserUrlImage] = useState(null);
     const [Loading, setLoading] = useState(false);
     const [ImageToShowUser, setImageToShowUser] = useState(null);
-
 
     // HANDLE ERROR
     const HandleError = (Erro) => {
@@ -165,7 +164,7 @@ const UserPhotoModal = (props) => {
                     <div className='UserPhotoModal'>
 
                         <div className='UserPhotoModal-ImageColumn'>
-                            <img src={ImageToShowUser || UserPhoto} alt="User" />
+                            <img src={ImageToShowUser || props.TenantPhotos.MainLogo} alt="User" />
                         </div>
 
 
@@ -212,7 +211,8 @@ const UserPhotoModal = (props) => {
 const ConnectedUserPhotoModal = connect((state) => {
     return {
         Tema: state.Tema,
-        LoggedUser: state.LoggedUser
+        LoggedUser: state.LoggedUser,
+        TenantPhotos: state.TenantPhotos
     }
 })(UserPhotoModal)
 

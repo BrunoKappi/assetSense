@@ -14,8 +14,37 @@ import Dashboard from './Components/Dashboard/Dashboard';
 import Records from './Components/Records/Records'
 import Requests from './Components/Requests/Requests'
 import { ReactNotifications } from 'react-notifications-component'
+import { DefaultTenantPhotos } from './GlobalVars';
+import { GetUserUrlImage } from './Functions/StorageMiddleware';
+import store from './Config/store/store';
+import { setTenantPhotosAction } from './Config/store/actions/TenantPhotosActions';
 
 const App = (props) => {
+
+
+
+
+  const PhotoNames = [...Object.keys(DefaultTenantPhotos)]
+  const TenantPhotos = { ...DefaultTenantPhotos }
+  const promises = []
+
+  PhotoNames.forEach((PhotoName) => {
+    const promise = GetUserUrlImage(`${import.meta.env.VITE_REACT_TENANT_NAME}/Assets/${PhotoName}`)
+    promises.push(promise)
+  })
+
+  Promise.all(promises).then((urls) => {
+    urls.forEach((url, index) => {
+      TenantPhotos[PhotoNames[index]] = url
+    });
+    store.dispatch(setTenantPhotosAction(TenantPhotos))
+  }).catch((error) => {
+    console.error('Uma ou mais promessas falharam:', error)
+  })
+
+
+
+
 
   const RequireAuth = ({ children }) => {
     if (props.LoggedUser.Email) {

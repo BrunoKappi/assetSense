@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 //CSS
 import './AssetModal.css'
 //COMPONENTS
-import UserPhoto from '../../../assets/Images/SerranoLogoFuncoBranco.jpg'
 import AssetPhotoModal from './AssetPhotoModal/AssetPhotoModal'
 import AssetTakeReturn from './AssetTakeReturn/AssetTakeReturn';
 import AssetRecords from './AssetRecords/AssetRecords';
@@ -53,6 +52,7 @@ import CustomSelect from '../../LayoutComponents/CustomSelect/CustomSelect'
 import moment from 'moment';
 
 
+
 const AssetModal = (props) => {
 
     //DEPENDENCIAS 
@@ -65,6 +65,8 @@ const AssetModal = (props) => {
     const [StorageLocations] = useState(GetFromStore('StorageLocations'))
     const [AssetTypes] = useState(GetFromStore('AssetTypes'))
     const QuantidadeRetirada = props.Asset?.QtdInUse
+
+
 
 
     //FUNCIONALIDADE 
@@ -366,7 +368,7 @@ const AssetModal = (props) => {
                             <div className='AssetModalHeader-Left'>
                                 <Tooltip title="Ver/Alterar Foto" position="bottom" >
                                     <div className='AssetModalHeader-Left-Photo'>
-                                        <img onClick={handleShowPhotoModal} src={ProfileImageUrl || UserPhoto} alt="Item" />
+                                        <img onClick={handleShowPhotoModal} src={ProfileImageUrl || props.TenantPhotos.MainLogo} alt="Item" />
                                     </div>
                                 </Tooltip>
                             </div>
@@ -728,7 +730,8 @@ const AssetModal = (props) => {
 const ConnectedAssetModal = connect((state) => {
     return {
         Tema: state.Tema,
-        RecordsAssets: state.RecordsAssets
+        RecordsAssets: state.RecordsAssets,
+        TenantPhotos: state.TenantPhotos
     }
 })(AssetModal)
 

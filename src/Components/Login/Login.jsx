@@ -1,20 +1,21 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Login.css";
 import { useNavigate } from 'react-router-dom';
 import { HandleFirebaseEmailPasswordLogin, LoginSuccess } from "./LoginUtils";
 import { Oval } from "react-loader-spinner";
-import SerranoLogo from '../../assets/Images/SerranoLogo.png'
 import { connect } from 'react-redux'
 import { Link } from "react-router-dom";
 import LogoutHeader from "../LogoutHeader/LogoutHeader";
 import { NotificationSucesso, NotificationErro } from "../../NotificationUtils";
 import { LoginUtil } from "../../Functions/AuthMiddleware";
 
+
 const Login = (props) => {
 
 
     const [IsLogging, setIsLoggin] = useState(false);
     const [Email, setEmail] = useState('');
+
 
     const navigate = useNavigate();
 
@@ -39,8 +40,6 @@ const Login = (props) => {
             setIsLoggin(true)
             LoginUtil(Email.toLocaleLowerCase(), PasswordRef.current.value).then((message) => {
 
-               
-
                 LoginSuccess(message)
                 setIsLoggin(false)
                 NotificationSucesso('Login', 'Login realizado com sucesso!')
@@ -52,6 +51,9 @@ const Login = (props) => {
         }
     };
 
+
+
+
     return (
         <div className={props.Tema === 'Escuro' ? 'LoginContainerEscuro LoginContainer' : 'LoginContainerClaro LoginContainer'}>
 
@@ -62,7 +64,7 @@ const Login = (props) => {
 
 
                 <div className="LoginImageContainer">
-                    <img alt="Logo" src={SerranoLogo}></img>
+                    <img alt="Logo" src={props.TenantPhotos.LoginLogo}></img>
                 </div>
                 <div className="LoginFormGroup">
 
@@ -98,7 +100,8 @@ const Login = (props) => {
 
 const ConnectedLogin = connect((state) => {
     return {
-        Tema: state.Tema
+        Tema: state.Tema,
+        TenantPhotos: state.TenantPhotos
     }
 })(Login)
 

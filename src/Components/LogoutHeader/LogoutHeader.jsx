@@ -5,6 +5,10 @@ import { Link } from 'react-router-dom'
 
 
 export default function LogoutHeader() {
+
+
+
+
     return (
         <div className="LoginHeader">
             <Link to={'/'}>
@@ -14,4 +18,3 @@ export default function LogoutHeader() {
         </div>
     )
 }
- 

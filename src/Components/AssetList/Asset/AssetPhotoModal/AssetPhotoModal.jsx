@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import './AssetPhotoModal.css'
 import Modal from 'react-bootstrap/Modal';
 import { connect } from 'react-redux'
-import UserPhoto from '../../../../assets/Images/SerranoLogoFuncoBranco.jpg'
+
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
 import { UilTimes, UilTrashAlt, UilCheck, UilBackward, UilPen } from '@iconscout/react-unicons'
 import { DeleteFile, GetUserUrlImage, ImageUpload } from '../../../../Functions/StorageMiddleware';
@@ -22,6 +22,8 @@ const AssetPhotoModal = (props) => {
     const [Loading, setLoading] = useState(false);
     const [imageUpload, setImageUpload] = useState(null);
     const [ImageToShowUser, setImageToShowUser] = useState(props?.Asset?.PhotoUrl);
+
+
 
 
     // WHEN THERE IS ASSET, GET ITS PHOTO URL
@@ -55,7 +57,6 @@ const AssetPhotoModal = (props) => {
         }
 
 
-
         ImageUpload(path, imageUpload, props.LoggedUser.Email).then(() => {
             NotificationSucesso("Foto do Ativo Atualizada!")
             setImageUpload('')
@@ -69,6 +70,15 @@ const AssetPhotoModal = (props) => {
                 SetAssetPhotoUrl(url, props.Asset.id)
             })
         }).catch(HandleError)
+    }
+
+    const PhotoRefs = {
+        "SerranoLogo2.png": "NavLogo",
+        "AssetSenseIconWhite.png": "AssetSenseNavLogoName",
+        "SerranoLogo.png": "LoginLogo",
+        "SerranoLogoFuncoBranco.jpg": "MainLogo",
+        "SerranoLogoBranco.png": "NavSidebarLogo",
+        "SerranoNomeBranco.png": "NavNameLogo",
     }
 
     // DELETE PHOTO
@@ -130,7 +140,7 @@ const AssetPhotoModal = (props) => {
 
                     {!Loading &&
                         <div className={'AssetPhotoModal-ImageColumn '}>
-                            <img src={ImageToShowUser || UserPhoto} alt="Asset" />
+                            <img src={ImageToShowUser || props.TenantPhotos.MainLogo} alt="Asset" />
                         </div>
                     }
 
@@ -180,7 +190,8 @@ const AssetPhotoModal = (props) => {
 const ConnectedAssetPhotoModal = connect((state) => {
     return {
         Tema: state.Tema,
-        LoggedUser: state.LoggedUser
+        LoggedUser: state.LoggedUser,
+        TenantPhotos: state.TenantPhotos
     }
 })(AssetPhotoModal)
 

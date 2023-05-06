@@ -9,22 +9,23 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+
 //Images
-import Logo from '../../assets/Images/SerranoNomeBranco.png'
-import LogoBrancoSerrano from '../../assets/Images/SerranoLogoBranco.png'
+
 //Tooltip
 import { Tooltip } from 'react-tippy';
 import 'react-tippy/dist/tippy.css'
 import { GetNavbarSidebarItemClass, SetTab } from '../Sidebar/SidebarUtils';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
-import User from '../../assets/Images/SerranoLogo2.png'
+
 import { useNavigate } from 'react-router-dom';
 import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilSignout, UilBars, UilMoon, UilBright, UilHistory } from '@iconscout/react-unicons'
-import { GetFromStore, GetLoggedUserInfo,  ToggleTema } from '../../Functions/StoreMiddleware';
+import { GetFromStore, GetLoggedUserInfo, ToggleTema } from '../../Functions/StoreMiddleware';
 import UserPhotoModal from '../UsersList/User/UserPhotoModal/UserPhotoModal'
 import UserPhoto from '../UserProfilePhoto/UserPhoto';
 import { AssetsTela, ConfigTela, UsersTela } from '../../Functions/PermitsMiddleware';
 import { LogoutUtil } from '../../Functions/AuthMiddleware';
+
 
 
 
@@ -34,6 +35,7 @@ const NavBar = (props) => {
     const navigate = useNavigate();
     const [CurrentUser, SetCurrentUser] = useState('Carregando')
     const [ShowPhotoModal, setShowPhotoModal] = useState(false)
+
 
     //LOGOUT
     const Sair = () => {
@@ -77,6 +79,8 @@ const NavBar = (props) => {
     //ONCHANGE PHOTO
     const onChangePhoto = () => { }
 
+
+
     return (
         <>
             <UserPhotoModal Add={false} OnChangePhoto={onChangePhoto} User={CurrentUser} IsCurrentUser={true} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
@@ -99,7 +103,7 @@ const NavBar = (props) => {
 
                                 <Tooltip title="Inicio" position="bottom" >
                                     <Link to="/Assets/Dash" onClick={e => SetTab('Dash')}>
-                                        <img alt="Logo" className="LogoNavBar" src={Logo} />
+                                        <img alt="Logo" className="LogoNavBar" src={props.TenantPhotos.NavNameLogo} />
                                     </Link>
                                 </Tooltip>
                             </div>
@@ -109,7 +113,7 @@ const NavBar = (props) => {
                                 <Offcanvas.Title>
                                     <h1>
                                         <Link className='offCanvasBrand' to="/Assets">
-                                            <img alt="Logo" className="LogoNavBar" src={Logo} />
+                                            <img alt="Logo" className="LogoNavBar" src={props.TenantPhotos.NavNameLogo} />
                                         </Link>
                                     </h1>
                                 </Offcanvas.Title>
@@ -166,12 +170,12 @@ const NavBar = (props) => {
                                     </div>
 
                                     <div className='LastNavLogoIconContainer' onClick={e => SetTabNavBar('Profile', '/Assets/Profile')}>
-                                        <UserPhoto src={GetLoggedUserInfo('PhotoUrl') || LogoBrancoSerrano} />
+                                        <UserPhoto src={GetLoggedUserInfo('PhotoUrl') || props.TenantPhotos.NavSidebarLogo} />
                                     </div>
 
 
                                     <div className='NavSidebarUserPhotoContainer'>
-                                        <img onClick={e => setShowPhotoModal(true)} alt='User' className='NavSidebarUserPhoto' src={GetLoggedUserInfo('PhotoUrl') || User}></img>
+                                        <img onClick={e => setShowPhotoModal(true)} alt='User' className='NavSidebarUserPhoto' src={GetLoggedUserInfo('PhotoUrl') || props.TenantPhotos.NavSidebarLogo}></img>
                                     </div>
 
                                     <div className='NavbarSidebarUserName' onClick={e => SetTabNavBar('Profile', '/Assets/Profile')}>
@@ -243,7 +247,8 @@ const NavBar = (props) => {
 const ConnectedNavBar = connect((state) => {
     return {
         Tema: state.Tema,
-        Users: state.Users
+        Users: state.Users,
+        TenantPhotos: state.TenantPhotos
     }
 })(NavBar)
 
