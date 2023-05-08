@@ -20,7 +20,7 @@ import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 
 import { useNavigate } from 'react-router-dom';
 import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilSignout, UilBars, UilMoon, UilBright, UilHistory } from '@iconscout/react-unicons'
-import { GetFromStore, GetLoggedUserInfo, ToggleTema } from '../../Functions/StoreMiddleware';
+import { GetLoggedUserInfo, ToggleTema } from '../../Functions/StoreMiddleware';
 import UserPhotoModal from '../UsersList/User/UserPhotoModal/UserPhotoModal'
 import UserPhoto from '../UserProfilePhoto/UserPhoto';
 import { AssetsTela, ConfigTela, UsersTela } from '../../Functions/PermitsMiddleware';
@@ -33,7 +33,6 @@ const NavBar = (props) => {
 
     //STATES 
     const navigate = useNavigate();
-    const [CurrentUser, SetCurrentUser] = useState('Carregando')
     const [ShowPhotoModal, setShowPhotoModal] = useState(false)
 
 
@@ -45,12 +44,9 @@ const NavBar = (props) => {
     }
 
     // CHANGE APP THEME
-    const handleToggleTema = () => { ToggleTema() }
+    const handleToggleTema = () => { ToggleTema(props.CurrentUser) }
 
-    // SET CURRENT USER ALWAYS WHEN USERS CHANGE
-    useEffect(() => {
-        SetCurrentUser({ ...GetFromStore('CurrentUser') })
-    }, [props.Users])
+
 
 
     //SET NAVBAR TAB WITH PERMITS
@@ -83,7 +79,7 @@ const NavBar = (props) => {
 
     return (
         <>
-            <UserPhotoModal Add={false} OnChangePhoto={onChangePhoto} User={CurrentUser} IsCurrentUser={true} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
+            <UserPhotoModal Add={false} OnChangePhoto={onChangePhoto} User={props.CurrentUser} IsCurrentUser={true} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
 
             <div className='NavBarContainer'>
 
@@ -131,7 +127,7 @@ const NavBar = (props) => {
 
                                             title={
                                                 <span className='ProfileNavLinkTitle' >
-                                                    {(CurrentUser.Name ? CurrentUser.Name : 'Carregando...')} {' '} {(CurrentUser.LastName) ? CurrentUser.LastName : ''}
+                                                    {(props.CurrentUser.Name ? props.CurrentUser.Name : 'Carregando...')} {' '} {(props.CurrentUser.LastName) ? props.CurrentUser.LastName : ''}
                                                 </span>}
                                         >
 
@@ -179,8 +175,8 @@ const NavBar = (props) => {
                                     </div>
 
                                     <div className='NavbarSidebarUserName' onClick={e => SetTabNavBar('Profile', '/Assets/Profile')}>
-                                        <p> {CurrentUser?.Name ? CurrentUser?.Name : 'Carregando'}</p>
-                                        <p> {CurrentUser?.LastName ? CurrentUser.LastName : ''}</p>
+                                        <p> {props.CurrentUser?.Name ? props.CurrentUser?.Name : 'Carregando'}</p>
+                                        <p> {props.CurrentUser?.LastName ? props.CurrentUser.LastName : ''}</p>
                                     </div>
 
                                     <ul className='NavBarListSidebar'>
@@ -248,7 +244,8 @@ const ConnectedNavBar = connect((state) => {
     return {
         Tema: state.Tema,
         Users: state.Users,
-        TenantPhotos: state.TenantPhotos
+        TenantPhotos: state.TenantPhotos,
+        CurrentUser: state.CurrentUser
     }
 })(NavBar)
 

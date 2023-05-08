@@ -32,10 +32,8 @@ const Collections = {
 
 
 //SET LOGGED USER PHOTO URL
-export const SetLoggedUserPhotoUrl = (URL) => {
-    const User = GetFromStore('CurrentUser')
-    User.PhotoUrl = URL
-    UpdateInFirebaseFunctions["User"](User)
+export const SetLoggedUserPhotoUrl = (URL, CurrentUser) => {
+    UpdateInFirebaseFunctions["User"](CurrentUser)
     Dispatch(SetLoggedUserPhotoUrlAction(URL))
 }
 
@@ -51,7 +49,7 @@ export const SetAssetPhotoUrl = (URL, AssetId) => {
     const Asset = GetFromStoreWithId('AssetsWithDeleted', AssetId)
     Asset.PhotoUrl = URL
     Asset.LastEditedAt = moment().valueOf()
-    UpdateInFirebaseFunctions["UsAsseter"](Asset)
+    UpdateInFirebaseFunctions["Asset"](Asset)
 }
 
 

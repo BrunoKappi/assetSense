@@ -1,15 +1,15 @@
 
 //REACT
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 //CSS
 import './AddRequestModal.css'
 //LIBRARIES
 import { connect } from 'react-redux'
 import BootstrapModal from 'react-bootstrap/Modal';
-import { AddRequestToStore, GetFromStore, GetFromStoreFunctions } from '../../../Functions/StoreMiddleware'
+import { AddRequestToStore,  GetFromStoreFunctions } from '../../../Functions/StoreMiddleware'
 import SectionTitle from '../../LayoutComponents/SectionTitle/SectionTitle';
 //ICONS
-import { UilWrench, UilComment, UilEnvelope, UilPhone, UilShieldCheck, UilMap, UilMapMarker, UilPen, UilPuzzlePiece, UilLabel, UilListUl, UilSave, UilHistory, UilTimes, UilBuilding, UilKeySkeleton, UilCheck, UilBackward, UilTrash, UilUser } from '@iconscout/react-unicons'
+import { UilWrench, UilComment, UilPen, UilPuzzlePiece, UilLabel, UilSave, UilTimes, UilUser } from '@iconscout/react-unicons'
 import TwoColumns from '../../LayoutComponents/TwoColumns/TwoColumns';
 import FormGroup from '../../LayoutComponents/FormGroup/FormGroup';
 import FormGroupLabel from '../../LayoutComponents/FormGroupLabel/FormGroupLabel';
@@ -20,7 +20,6 @@ import Loading from '../../LoadingForTabs/Loading';
 import ConnectedConfirmTab from '../../LayoutComponents/ConfirmTab/ConfirmTab';
 import Show from '../../LayoutComponents/Show/Show';
 import { DefaultRequest, DefaultRequestMessage } from '../../../Data/Items';
-import { RequestTypes } from '../../../GlobalVars';
 import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
 import moment from 'moment';
 import { v4 } from 'uuid';
@@ -29,11 +28,6 @@ import SubSectionTitle from '../../LayoutComponents/SubSectionTitle/SubSectionTi
 import Info from '../../LayoutComponents/Info/Info'
 
 const AddRequestModal = (props) => {
-
-    //CURRENT USER AND PERMITS
-    const [CurrentUserType] = useState(GetFromStore('CurrentUserType'))
-    const [CurrentUser] = useState(GetFromStore('CurrentUser'))
-
 
     //STATES
     const [Title, setTitle] = useState('')
@@ -110,26 +104,26 @@ const AddRequestModal = (props) => {
         RequestToOpen.Desc = Desc
         RequestToOpen.Sector.id = RequestSector.id
         RequestToOpen.Type.id = RequestType.id
-        RequestToOpen.CreatedBy = CurrentUser.id
+        RequestToOpen.CreatedBy = props.CurrentUser.id
         RequestToOpen.AssetId = RequestAsset?.id || ''
         RequestToOpen.UserId = RequestUser?.id || ''
-        RequestToOpen.CreatedByEmail = CurrentUser.Email
+        RequestToOpen.CreatedByEmail = props.CurrentUser.Email
         RequestToOpen.CreatedAt = moment().valueOf()
         RequestToOpen.LastEditedAt = moment().valueOf()
-        RequestToOpen.LasEditedBy = CurrentUser.id
+        RequestToOpen.LasEditedBy = props.CurrentUser.id
         RequestToOpen.Status.id = DefaultStatusId
 
         //MESSAGE 2
         const messageToAdd1 = { ...DefaultRequestMessage }
 
-        messageToAdd1.CreatedBy = CurrentUser.id
+        messageToAdd1.CreatedBy = props.CurrentUser.id
         messageToAdd1.CreatedAt = moment().valueOf()
         messageToAdd1.Message = "Abertura da Solicitação: " + Title
 
         //MESSAGE 2
         const messageToAdd2 = { ...DefaultRequestMessage }
 
-        messageToAdd2.CreatedBy = CurrentUser.id
+        messageToAdd2.CreatedBy = props.CurrentUser.id
         messageToAdd2.CreatedAt = moment().valueOf()
         messageToAdd2.Message = Desc
 
@@ -210,7 +204,7 @@ const AddRequestModal = (props) => {
                             </FormGroupLabel>
                             <CustomSelect
                                 placeholder="Selecione o Tipo da Solicitação"
-                                options={GetFromStore('Sectors')}
+                                options={props.Sectors}
                                 getOptionLabel={(options) => { return options["Value"]; }}
                                 getOptionValue={(options) => { return options["id"]; }}
                                 value={RequestSector}
@@ -326,7 +320,9 @@ const ConnectedAddRequestModal = connect((state) => {
         Users: state.Users,
         Assets: state.Assets,
         RequestsTypes: state.RequestsTypes,
-        RequestsStatus: state.RequestsStatus
+        RequestsStatus: state.RequestsStatus,
+        CurrentUser: state.CurrentUser,
+        Sectors: state.Sectors
     }
 })(AddRequestModal)
 

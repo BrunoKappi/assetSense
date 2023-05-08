@@ -9,14 +9,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-notifications-component/dist/theme.css';
 
 
-var pathname = window.location.pathname;
-
 
 const root = createRoot(document.getElementById('root'));
 root.render(
   <Router>
     <Provider store={store}>
-      <App To={pathname} />
+      <App />
     </Provider>
   </Router>
 );

@@ -12,7 +12,7 @@ import Show from '../../../LayoutComponents/Show/Show';
 import RecordsFormFilter from '../../../RecordsFormFilter/RecordsFormFilter'
 const AssetRecords = (props) => {
 
-    const CurrentUser = GetFromStore('CurrentUser')
+
 
     //QUANTIDADES 
     const [Records, SetRecords] = useState([])
@@ -45,7 +45,7 @@ const AssetRecords = (props) => {
 
     return (
         <>
-            <UserModal FromModal={true} CurrentUser={CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
+            <UserModal FromModal={true} CurrentUser={props.CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
 
             <div className={props.Tema === 'Escuro' ? 'AssetRecords-ContainerEscuro AssetRecords-Container' : 'AssetRecords-ContainerClaro AssetRecords-Container'}>
 
@@ -89,7 +89,8 @@ const AssetRecords = (props) => {
 const ConnectedAssetRecords = connect((state) => {
     return {
         Tema: state.Tema,
-        RecordsAssets: state.RecordsAssets
+        RecordsAssets: state.RecordsAssets,
+        CurrentUser: state.CurrentUser
     }
 })(AssetRecords)
 

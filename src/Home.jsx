@@ -2,7 +2,7 @@ import React from 'react'
 import { Oval } from "react-loader-spinner";
 import { Navigate } from "react-router-dom";
 import Login from './Components/Login/Login'
-
+import { connect } from "react-redux";
 
 
 const LoadingContainer = () => {
@@ -18,14 +18,14 @@ const LoadingContainer = () => {
   </div>
 }
 
-export default function Home({ CheckedLogin, Email, To, Tenant }) {
+export function Home(props) {
 
   //console.log("Tenant HOME", Tenant)
 
-  if (CheckedLogin) {
-    if (Email) {
-      if (Tenant) {
-        return <Navigate to="/Assets/Dash" />;
+  if (props.LoggedUser.CheckedLogin) {
+    if (props.LoggedUser.Email) {
+      if (props.Tenant) {
+        return <Navigate to="Assets/Dash" />;
       } else {
         return <LoadingContainer />
       }
@@ -36,3 +36,13 @@ export default function Home({ CheckedLogin, Email, To, Tenant }) {
     return <LoadingContainer />
   }
 }
+
+
+const ConnectedHome = connect((state) => {
+  return {
+    LoggedUser: state.LoggedUser,
+    Tenant: state.Tenant
+  };
+})(Home);
+
+export default ConnectedHome;

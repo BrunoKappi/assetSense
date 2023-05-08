@@ -5,7 +5,7 @@ import { SetTab } from './SidebarUtils';
 import { connect } from 'react-redux'
 import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilClipboardNotes, UilHistory, UilBars, UilTicket } from '@iconscout/react-unicons'
 import { NotificationAlerta, NotificationErro } from '../../NotificationUtils';
-import { GetFromStore, SetLoggedUserPhotoUrlJustStore } from '../../Functions/StoreMiddleware';
+import { SetLoggedUserPhotoUrlJustStore } from '../../Functions/StoreMiddleware';
 import Loading from '../LoadingForTabs/Loading'
 import UserPhotoModal from '../UsersList/User/UserPhotoModal/UserPhotoModal'
 //Tooltip
@@ -22,7 +22,7 @@ const Sidebar = (props) => {
     //STATES AND REF
     const SidebarRef = useRef()
     const navigate = useNavigate();
-    const [CurrentUser, SetCurrentUser] = useState({ ...props.Users.find(user => user.Email === props.LoggedUser.Email) })
+
     const [SidebarActive, setSidebarActive] = useState(true)
     const [ShowPhotoModal, setShowPhotoModal] = useState(false)
 
@@ -30,9 +30,9 @@ const Sidebar = (props) => {
 
     //SET CURRENT USER AND PHOTO URL
     useEffect(() => {
-        SetCurrentUser({ ...props.Users.find(user => user.Email === props.LoggedUser.Email) })
-        const User = GetFromStore('CurrentUser')
-        if (User?.PhotoUrl) {
+
+
+        if (props.CurrentUser?.PhotoUrl) {
             if (props.LoggedUser.PhotoUrl !== User?.PhotoUrl) {
                 SetLoggedUserPhotoUrlJustStore(User?.PhotoUrl)
             }
@@ -90,7 +90,7 @@ const Sidebar = (props) => {
 
     return (
         <>
-            <UserPhotoModal Add={false} OnChangePhoto={() => { }} User={CurrentUser} IsCurrentUser={true} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
+            <UserPhotoModal Add={false} OnChangePhoto={() => { }} User={props.CurrentUser} IsCurrentUser={true} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
 
             <div ref={SidebarRef} className={(props.Tema === 'Escuro' ? 'SidebarContainerEscuro SidebarContainer' : 'SidebarContainerClaro SidebarContainer')} >
                 <Tooltip title="Recolher/Expandir barra lateral" position="bottom" >
@@ -105,16 +105,16 @@ const Sidebar = (props) => {
                     </Tooltip>
                 </div>
 
-                <Show Show={!CurrentUser.Name}>
+                <Show Show={!props.CurrentUser.Name}>
                     <Loading />
                 </Show>
 
 
 
-                <Show Show={CurrentUser.Name}>
+                <Show Show={props.CurrentUser.Name}>
                     <Tooltip title="Acessar seu Perfil" position="bottom" >
                         <div className='SidebarUserName' onClick={e => SetTabSidebar('Profile', '/Assets/Profile')}>
-                            <p> {(CurrentUser.Name ? CurrentUser.Name : 'Caregando...') + ' ' + CurrentUser.LastName}</p>
+                            <p> {(props.CurrentUser.Name ? props.CurrentUser.Name : 'Caregando...') + ' ' + props.CurrentUser.LastName}</p>
                         </div>
                     </Tooltip>
 
@@ -173,7 +173,8 @@ const ConnectedSidebar = connect((state) => {
         LoggedUser: state.LoggedUser,
         Users: state.Users,
         Tema: state.Tema,
-        TenantPhotos: state.TenantPhotos
+        TenantPhotos: state.TenantPhotos,
+        CurrentUser: state.CurrentUser
     }
 })(Sidebar)
 

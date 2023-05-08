@@ -34,7 +34,7 @@ const AssetPhotoModal = (props) => {
 
     // HANDLE ERROR
     const HandleError = (Erro) => {
-        //console.log(Erro)
+        console.log(Erro)
         setLoading(false)
         NotificationErro("Erro", "Aconteceu um problema, tente novamente mais tarde")
     }
@@ -56,6 +56,8 @@ const AssetPhotoModal = (props) => {
             path = `${import.meta.env.VITE_REACT_TENANT_NAME}/${import.meta.env.VITE_REACT_ASSETS_PHOTOS_DIRECTORY}/${props.Asset.id}`
         }
 
+        console.log(path)
+        
 
         ImageUpload(path, imageUpload, props.LoggedUser.Email).then(() => {
             NotificationSucesso("Foto do Ativo Atualizada!")
@@ -84,6 +86,9 @@ const AssetPhotoModal = (props) => {
     // DELETE PHOTO
     const ApagarFotoDoAsset = () => {
         setLoading(true)
+    
+      
+
         DeleteFile(`${import.meta.env.VITE_REACT_TENANT_NAME}/${import.meta.env.VITE_REACT_ASSETS_PHOTOS_DIRECTORY}/${props.Asset.id}`).then(() => {
             SetAssetPhotoUrl('', props.Asset.id)
             NotificationSucesso("Exlusão", "Foto apagada com sucesso!")

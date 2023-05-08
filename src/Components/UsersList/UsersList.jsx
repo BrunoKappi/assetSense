@@ -23,7 +23,6 @@ const UsersList = (props) => {
     const [FiltroDeTexto, setFiltroDeTexto] = useState('');
     const [modalShow, setModalShow] = useState(false);
     const [AddmodalShow, setAddModalShow] = useState(false);
-    const [CurrentUser,] = useState(GetFromStore('CurrentUser'))
     const [Filters, setFilters] = useState([]);
     const Users = GetFromStore('Users')
     const [ResetFilters, setResetFilters] = useState(false);
@@ -109,9 +108,9 @@ const UsersList = (props) => {
     return (
         <div className={props.Tema === 'Escuro' ? 'UsersListContainerEscuro UsersListContainer' : 'UsersListContainerClaro UsersListContainer'}>
 
-            <UserModal FromModal={false} Users={ListaDeUsers} CurrentUser={CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
+            <UserModal FromModal={false} Users={ListaDeUsers} CurrentUser={props.CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
 
-            <UserModal FromModal={false} Users={ListaDeUsers} CurrentUser={CurrentUser} User={{}} show={AddmodalShow} onHide={() => setAddModalShow(false)} Function="Add" />
+            <UserModal FromModal={false} Users={ListaDeUsers} CurrentUser={props.CurrentUser} User={{}} show={AddmodalShow} onHide={() => setAddModalShow(false)} Function="Add" />
 
             <SectionTitle>Lista de Usuários</SectionTitle>
 
@@ -157,7 +156,8 @@ const ConnectedUsersList = connect((state) => {
     return {
         LoggedUser: state.LoggedUser,
         Users: state.Users,
-        Tema: state.Tema
+        Tema: state.Tema,
+        CurrentUser: state.CurrentUser
     }
 })(UsersList)
 

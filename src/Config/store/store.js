@@ -12,6 +12,7 @@ import UsageTypes from './reducers/UsageTypes'
 import TenantPhotos from './reducers/TenantPhotos'
 import RecordsAssets from './reducers/Records'
 import Requests from './reducers/Requests'
+import CurrentUser from './reducers/CurrentUser'
 import RequestsStatus from './reducers/RequestsStatus'
 import RequestsTypes from './reducers/RequestsTypes'
 import StorageLocations from './reducers/StorageLocations'
@@ -110,7 +111,8 @@ const store = createStore(
         RequestsStatus,
         RequestsTypes,
         Tenant,
-        TenantPhotos
+        TenantPhotos,
+        CurrentUser
 
     }),
     //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
@@ -119,7 +121,7 @@ const store = createStore(
 store.subscribe(() => {
     localStorage.setItem("AssetSense", JSON.stringify(store.getState()))
     //console.log("Store Changed", store.getState())
-    console.log("Tenant ==>", store.getState() || 'VAZIO')
+    //console.log("Tenant ==>", store.getState() || 'VAZIO')
 })
 
 

@@ -1,5 +1,6 @@
 
 
+
 export const DefaultLoggedUser = {
   Email: '',
   uid: '',
@@ -9,14 +10,70 @@ export const DefaultLoggedUser = {
   Name: '',
   Role: '',
   CheckedLogin: false,
-  PhotoUrl: ''
+  PhotoUrl: '',
+  //NEW
+  PhotoUrl: '',
+  LastEditedAt: '',
+  CreatedBy: '',
+  CreatedAt: '',
+  LastLoginAt: 0,
+  docID: '',
+  id: '',
+  Barcode: '',
+  SecondaryPhone: '',
+  Address: '',
+  UserDocumentNumber: '',
+  Preference: {
+    Theme: '',
+    Language: '',
+    FontFamily: ''
+  },
+  DateOfBirth: 0,
+  AccessToken: '',
+  Name: '',
+  LastName: '',
+  Email: '',
+  DateJoinedCompany: 0,
+  Type: {
+    docID: '', id: ''
+  },
+  Sector: {
+    docID: '', id: ''
+  },
+  Deleted: false,
+  Wage: 0,
+  SocialMedia: {
+    Facebook: '',
+    Instagram: '',
+    Twitter: '',
+    LinkedIn: '',
+    TikTok: '',
+    GitHub: ''
+  },
+  CustomFieldsValues: [],
+  PhotoUrl: '',
+  uid: '',
+  Deleted: false,
+  docID: '',
+  Country: {},
+  Estate: {},
+  City: {},
+  Phone: '',
+  QtdAssets: 0,
+  Status: {
+    id: ''
+  },
+  Tenant: {
+    id: import.meta.env.VITE_REACT_TENANT_ID,
+    Name: import.meta.env.VITE_REACT_TENANT_NAME
+  }
 };
 
 
 export const DefaultTenantPhotos = {
   NavLogo: '',
   LoginLogo: '',
-  MainLogo: '',  
+  MainLogo: '',
   NavNameLogo: '',
   NavSidebarLogo: '',
 };

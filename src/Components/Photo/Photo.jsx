@@ -6,7 +6,7 @@ export default function Photo(props) {
     const [SRC, setSRC] = useState(props.URL)
 
     useEffect(() => {
-        console.log("URL", props.URL)
+        //console.log("URL", props.URL)
         setSRC(props.URL)
     }, [props.URL])
 

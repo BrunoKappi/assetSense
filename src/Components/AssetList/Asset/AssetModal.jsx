@@ -63,7 +63,6 @@ const AssetModal = (props) => {
     const [AssetStorageLocation, setAssetStorageLocation] = useState({ ...DefaultLocal })
     const [Asset, setAsset] = useState({ ...DefaultAsset })
     const [StorageLocations] = useState(GetFromStore('StorageLocations'))
-    const [AssetTypes] = useState(GetFromStore('AssetTypes'))
     const QuantidadeRetirada = props.Asset?.QtdInUse
 
 
@@ -612,7 +611,7 @@ const AssetModal = (props) => {
 
                                                         <EditList
                                                             Item={Asset}
-                                                            List={AssetTypes}
+                                                            List={props.AssetTypes}
                                                             Icon={<UilLabelAlt />}
                                                             Title="Tipo de Ativo"
                                                             Key='Type'
@@ -731,7 +730,8 @@ const ConnectedAssetModal = connect((state) => {
     return {
         Tema: state.Tema,
         RecordsAssets: state.RecordsAssets,
-        TenantPhotos: state.TenantPhotos
+        TenantPhotos: state.TenantPhotos,
+        AssetTypes: state.AssetTypes
     }
 })(AssetModal)
 

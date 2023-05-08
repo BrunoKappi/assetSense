@@ -6,7 +6,7 @@ import './RequestModal.css'
 //LIBRARIES
 import { connect } from 'react-redux'
 import BootstrapModal from 'react-bootstrap/Modal';
-import { GetFromStore, GetNameFromStoreWithId } from '../../../Functions/StoreMiddleware'
+import { GetNameFromStoreWithId } from '../../../Functions/StoreMiddleware'
 
 import SubSectionTitle from '../../LayoutComponents/SubSectionTitle/SubSectionTitle';
 //ICONS
@@ -27,8 +27,6 @@ import Loading from '../../LoadingForTabs/Loading';
 
 const RequestModal = (props) => {
 
-    //CURRENT USER AND PERMITS
-    const [CurrentUser] = useState(GetFromStore('CurrentUser'))
 
     //STATE
     const [Request, setRequest] = useState({ ...props.Request })
@@ -40,7 +38,7 @@ const RequestModal = (props) => {
     const [LoadingAction, setLoadingAction] = useState(false)
 
     //PERMISSOES
-    const IsRequester = CurrentUser?.id === props.Request.CreatedBy
+    const IsRequester = props.CurrentUser?.id === props.Request.CreatedBy
     const [PermitToManageRequests, setPermitToManageRequests] = useState(false)
 
 
@@ -54,7 +52,7 @@ const RequestModal = (props) => {
 
         const Type = props.RequestsTypes.find(S => S?.id === props.Request.Type?.id)
         setPermitToManageRequests(
-            Type?.Assigments?.includes(CurrentUser?.Email)
+            Type?.Assigments?.includes(props.CurrentUser?.Email)
         )
 
     }, [props.Request])
@@ -99,11 +97,11 @@ const RequestModal = (props) => {
         EditedRequest.Status.id = RequestStatus.id
 
         EditedRequest.LastEditedAt = moment().valueOf()
-        EditedRequest.LasEditedBy = CurrentUser.id
+        EditedRequest.LasEditedBy = props.CurrentUser.id
 
         const Type = props.RequestsTypes.find(S => S?.id === RequestType.id)
         setPermitToManageRequests(
-            Type?.Assigments?.includes(CurrentUser?.Email)
+            Type?.Assigments?.includes(props.CurrentUser?.Email)
         )
 
         UpdateInFirebaseFunctions["Request"](EditedRequest).then(() => {
@@ -130,7 +128,7 @@ const RequestModal = (props) => {
             } else {
                 setLoadingAction(true)
 
-                NewMessage.CreatedBy = CurrentUser.id
+                NewMessage.CreatedBy = props.CurrentUser.id
                 NewMessage.CreatedAt = moment().valueOf()
                 NewMessage.Message = MessageRef.current.value.trim()
 
@@ -201,9 +199,9 @@ const RequestModal = (props) => {
                                     const Momento = moment.unix(Message.CreatedAt / 1000); //dividir por 1000 porque o valor está em milissegundos, mas moment.unix() espera segundos
                                     const HoraMinuto = Momento.format('HH:mm'); //exemplo de formato "HH:mm"
 
-                                    return <div className={`  ${Message.CreatedBy === CurrentUser?.id ? 'MyRequestMessageContainer' : 'OtherRequestMessageContainer'} `}>
+                                    return <div className={`  ${Message.CreatedBy === props.CurrentUser?.id ? 'MyRequestMessageContainer' : 'OtherRequestMessageContainer'} `}>
 
-                                        <div className={`RequestMessage  ${Message.CreatedBy === CurrentUser?.id ? 'RequestMyMessage' : 'RequestOtherMessage'} `} >
+                                        <div className={`RequestMessage  ${Message.CreatedBy === props.CurrentUser?.id ? 'RequestMyMessage' : 'RequestOtherMessage'} `} >
                                             <div className='RequestMessageText'>
                                                 {Message.Message}
                                             </div>
@@ -329,6 +327,7 @@ const ConnectedRequestModal = connect((state) => {
         RequestsStatus: state.RequestsStatus,
         RequestsTypes: state.RequestsTypes,
         Sectors: state.Sectors,
+        CurrentUser: state.CurrentUser
     }
 })(RequestModal)
 

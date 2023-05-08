@@ -9,7 +9,7 @@ export const LoginSuccess = (message) => {
         ...DefaultLoggedUser,
         Email: message.user.email,
         uid: message.user.uid,
-        CurrentSidebarTab: 'Dash'
+        CurrentSidebarTab: 'Dash',
     }
     SetLoggedUserOnStore(user)
 }

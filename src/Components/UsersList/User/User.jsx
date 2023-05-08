@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './User.css'
 import { UilEnvelope, UilUser, UilPuzzlePiece, UilLabelAlt } from '@iconscout/react-unicons'
-import { GetFromStore } from '../../../Functions/StoreMiddleware'
 //Tooltip
 import { Tooltip } from 'react-tippy';
 import { connect } from 'react-redux'
@@ -16,14 +15,12 @@ const User = (props) => {
 
 
     useEffect(() => {
-        const Types = GetFromStore('UserTypes')
-        setUserType(Types.find(U => U.id === props.User.Type.id))
+        setUserType(props.UserTypes.find(U => U.id === props.User.Type.id))
     }, [props.User.Type.id])
 
 
     useEffect(() => {
-        const Sectors = GetFromStore('Sectors')
-        setUserSector({ ...Sectors.find(U => U.id === props.User.Sector.id) })
+        setUserSector({ ...props.Sectors.find(U => U.id === props.User.Sector.id) })
     }, [props.User.Sector.id])
 
 
@@ -49,7 +46,7 @@ const User = (props) => {
                             <UilEnvelope />
                             {props.User.Email.charAt(0).toUpperCase() + props.User.Email.slice(1)}
                         </span>
-                    </Tooltip> 
+                    </Tooltip>
                 </span>
                 <div className='UserContainerColumn SectorColumnContainer'>
                     <Tooltip style={DefaultTooltipStyles} title="Setor" position="bottom" >
@@ -78,7 +75,9 @@ const User = (props) => {
 
 const ConnectedUser = connect((state) => {
     return {
-        Tema: state.Tema
+        Tema: state.Tema,
+        Sectors: state.Sectors,
+        UserTypes: state.UserTypes
     }
 })(User)
 

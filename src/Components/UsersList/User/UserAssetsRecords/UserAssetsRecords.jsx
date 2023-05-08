@@ -12,7 +12,6 @@ import Warning from '../../../LayoutComponents/Warning/Warning';
 
 const UserAssetRecords = (props) => {
 
-    const CurrentUser = GetFromStore('CurrentUser')
 
     //STATES
     const [Records, SetRecords] = useState([])
@@ -44,7 +43,7 @@ const UserAssetRecords = (props) => {
 
     return (
         <>
-            <AssetModal FromModal={true} CurrentUser={CurrentUser} Asset={{ ...SelectedAsset }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedAsset} />
+            <AssetModal FromModal={true} CurrentUser={props.CurrentUser} Asset={{ ...SelectedAsset }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedAsset} />
             <div className={props.Tema === 'Escuro' ? 'UserAssetRecords-ContainerEscuro UserAssetRecords-Container' : 'UserAssetRecords-ContainerClaro UserAssetRecords-Container'}>
 
                 {/***********   FORM FILTER   *************/}
@@ -79,7 +78,8 @@ const UserAssetRecords = (props) => {
 
 const ConnectedUserAssetRecords = connect((state) => {
     return {
-        Tema: state.Tema
+        Tema: state.Tema,
+        CurrentUser : state.CurrentUser
     }
 })(UserAssetRecords)
 

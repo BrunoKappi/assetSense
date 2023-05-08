@@ -74,7 +74,6 @@ const UserModal = (props) => {
     const [Sectors] = useState(GetFromStore('Sectors'))
     const [UserType, setUserType] = useState({ ...DefaultUserType })
     const [UserSector, setUserSector] = useState({ ...DefaultSector })
-    const [UserTypes] = useState(GetFromStore('UserTypes'))
     const [ProfileImageUrl, setProfileImageUrl] = useState('')
     const [UserTypeCustomFields, setUserTypeCustomFields] = useState([])
     const [SenhaAtual, setSenhaAtual] = useState('')
@@ -105,7 +104,7 @@ const UserModal = (props) => {
     var IsAdmin = CurrentUserType?.IsAdmin
     var PermitToEditUsers = CurrentUserType?.Permits[PermitIndexs['EDIT_USERS']]
     var PermitToDeleteUsers = CurrentUserType?.Permits[PermitIndexs['DELETE_USERS']]
-    var IsCurrentUser = props.User?.id === GetFromStore('CurrentUser')?.id
+    var IsCurrentUser = props.User?.id === props.CurrentUser?.id
     var CanEdit = IsCurrentUser || IsAdmin || PermitToEditUsers
 
 
@@ -643,7 +642,7 @@ const UserModal = (props) => {
                                                         <FormGroup>
                                                             <EditList
                                                                 Item={User}
-                                                                List={UserTypes}
+                                                                List={props.UserTypes}
                                                                 Title="Tipo de Usuário"
                                                                 Key='Type'
                                                                 Handle={HandleChangeInfo}
@@ -805,7 +804,9 @@ const ConnectedUserModal = connect((state) => {
     return {
         Tema: state.Tema,
         LoggedUser: state.LoggedUser,
-        TenantPhotos: state.TenantPhotos
+        TenantPhotos: state.TenantPhotos,
+        CurrentUser: state.CurrentUser, 
+        UserTypes: state.UserTypes
     }
 })(UserModal)
 

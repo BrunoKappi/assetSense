@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthState
 import { auth } from "./index";
 import { sendPasswordResetEmail, updatePassword } from "firebase/auth";
 import { DefaultLoggedUser } from "../../GlobalVars";
-import { GetLoggedUserInfo, SetCheckLoginOnStore, SetLoggedUserOnStore, SetTema, SetTenant } from "../../Functions/StoreMiddleware";
+import { GetLoggedUserInfo, SetCheckLoginOnStore, SetCurrentUserOnStore, SetLoggedUserOnStore, SetTema, SetTenant } from "../../Functions/StoreMiddleware";
 
 import { FillStore } from "../store/store";
 import { FIREBASE_GetUserByEmail } from "./metodos2";
@@ -10,33 +10,31 @@ import { FIREBASE_GetUserByEmail } from "./metodos2";
 
 
 
-const onAuthStateChangedHandler = (currentUser) => {
-  console.log("AUTHCHANGED", currentUser ? currentUser : 'VAZIO');
+const onAuthStateChangedHandler = (AuthCurrentUser) => {
+  console.log("AUTHCHANGED", AuthCurrentUser ? AuthCurrentUser : 'VAZIO');
 
   const LoggedUserEmail = GetLoggedUserInfo('Email')
-  const CurrentUserEmail = currentUser?.email
+  const CurrentUserEmail = AuthCurrentUser?.email
 
 
-  if (((LoggedUserEmail === CurrentUserEmail) || (!LoggedUserEmail)) && currentUser) {
+  if (((LoggedUserEmail === CurrentUserEmail) || (!LoggedUserEmail)) && AuthCurrentUser) {
 
     SetLoggedUserOnStore(
       {
         ...DefaultLoggedUser,
-        Email: currentUser.email,
-        uid: currentUser.uid,
-        CurrentSidebarTab: 'Dash'
+        Email: AuthCurrentUser.email,
+        uid: AuthCurrentUser.uid,
+        CurrentSidebarTab: 'Dash', 
       }
     )
 
 
 
-    const Tenant = window.location.pathname.split("/")[1]
-
-    FIREBASE_GetUserByEmail("Users", currentUser.email, Tenant).then((message) => {
-      const currentUser = { ...message[0] }
-      const Theme = currentUser?.Preference?.Theme || 'Claro'
-      const Tenant = currentUser?.Tenant?.Name || ''
-      //console.log("AUTH", window.location.pathname, Tenant)
+    FIREBASE_GetUserByEmail("Users", AuthCurrentUser.email).then((Response) => {
+      const User = { ...Response[0] }
+      const Theme = User?.Preference?.Theme || 'Claro'
+      const Tenant = User?.Tenant?.Name || ''
+      SetCurrentUserOnStore({ ...User, uid: AuthCurrentUser.uid })
       SetTema(Theme)
       SetTenant(Tenant).then(() => {
         FillStore()
@@ -50,7 +48,7 @@ const onAuthStateChangedHandler = (currentUser) => {
     if (!CurrentUserEmail) {
       SetLoggedUserOnStore(DefaultLoggedUser)
       SetTenant('').then(() => {
-        console.log("Tenant ")
+        //console.log("Tenant ")
       })
     }
 
@@ -74,7 +72,7 @@ const onAuthStateChangedHandler = (currentUser) => {
 export const unsubscribe = onAuthStateChanged(auth, onAuthStateChangedHandler)
 
 export const mudarSenha = async (novaSenha) => {
-  return updatePassword(auth.currentUser, novaSenha)
+  return updatePassword(auth.AuthCurrentUser, novaSenha)
 }
 
 

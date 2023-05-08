@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import './Records.css'
 import { GetFromStore, GetFromStoreWithId } from '../../Functions/StoreMiddleware';
 import UserModal from '../UsersList/User/UserModal'
@@ -11,11 +11,10 @@ import Show from '../LayoutComponents/Show/Show';
 import RecordsFormFilter from '../RecordsFormFilter/RecordsFormFilter';
 import Warning from '../LayoutComponents/Warning/Warning';
 
-import { GetFromFirebaseFunctions } from '../../Functions/DatabaseMiddleware';
+
 
 const Records = (props) => {
 
-    const CurrentUser = GetFromStore('CurrentUser')
 
     //Quantidades 
     const [Records, SetRecords] = useState([])
@@ -70,8 +69,8 @@ const Records = (props) => {
 
     return (
         <>
-            <AssetModal FromModal={true} CurrentUser={CurrentUser} Asset={{ ...SelectedAsset }} show={modalShowAsset} onHide={() => setModalShowAsset(false)} Function="View" onDelete={ResetSelectedAsset} />
-            <UserModal FromModal={true} CurrentUser={CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
+            <AssetModal FromModal={true} CurrentUser={props.CurrentUser} Asset={{ ...SelectedAsset }} show={modalShowAsset} onHide={() => setModalShowAsset(false)} Function="View" onDelete={ResetSelectedAsset} />
+            <UserModal FromModal={true} CurrentUser={props.CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
 
             <div className={props.Tema === 'Escuro' ? 'AssetRecords-ContainerEscuro AssetRecords-Container' : 'AssetRecords-ContainerClaro AssetRecords-Container'} >
 
@@ -108,7 +107,8 @@ const Records = (props) => {
 
 const ConnectedRecords = connect((state) => {
     return {
-        Tema: state.Tema
+        Tema: state.Tema,
+        CurrentUser: state.CurrentUser
     }
 })(Records)
 

@@ -20,8 +20,6 @@ import Info from '../LayoutComponents/Info/Info'
 
 const Requests = (props) => {
 
-    const CurrentUser = GetFromStore('CurrentUser')
-    const CurrentType = GetFromStore('CurrentUserType')
     const [AddRequestModalOpen, setAddRequestModalOpen] = useState(false);
     const [Requests, setRequests] = useState([]);
     const [Loaded, setLoaded] = useState(false);
@@ -35,7 +33,7 @@ const Requests = (props) => {
     const [SelectedRequest, setSelectedRequest] = useState({});
 
     useEffect(() => {
-        setRequests(GetFromStore('Requests'))
+        setRequests(props.Requests)
         setTimeout(() => {
             setLoaded(true)
         }, 500);
@@ -80,12 +78,12 @@ const Requests = (props) => {
 
     // SORT AND FILTER
     useEffect(() => {
-        const Requests = GetFromStore('Requests')
-        setRequests(Requests.filter(Request => {
+
+        setRequests(props.Requests.filter(Request => {
             //FILTER
             const RequestType = GetFromStoreWithId("RequestsTypes", Request.Type.id)
 
-            const CurrentUserAssigned = RequestType.Assigments.includes(CurrentUser?.Email)
+            const CurrentUserAssigned = RequestType.Assigments.includes(props.CurrentUser?.Email)
 
             return (
                 (FiltroDeTexto === '' ||
@@ -104,7 +102,7 @@ const Requests = (props) => {
                 CheckIncludesInObject(Request.Status, Filters?.RequestsStatus
                 ) &&
 
-                ((key === 'AllRequests' && CurrentUserAssigned) || (key === 'MyRequests' && Request.CreatedBy === CurrentUser?.id) || (Request.CreatedBy === CurrentUser?.id) )
+                ((key === 'AllRequests' && CurrentUserAssigned) || (key === 'MyRequests' && Request.CreatedBy === props.CurrentUser?.id) || (Request.CreatedBy === props.CurrentUser?.id))
 
             )
         }).sort(
@@ -217,7 +215,9 @@ const Requests = (props) => {
 
 const ConnectedRequests = connect((state) => {
     return {
-        Tema: state.Tema
+        Tema: state.Tema,
+        CurrentUser: state.CurrentUser,
+        Requests: state.Requests
     }
 })(Requests)
 

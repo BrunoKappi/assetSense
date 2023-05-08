@@ -18,6 +18,7 @@ import { AddRequestAction, SetRequests } from "../Config/store/actions/RequestsA
 import { SetRequestsTypes } from "../Config/store/actions/RequestsTypesActions"
 import { SetRequestStatus } from "../Config/store/actions/RequestsStatusActions"
 import { SetTenantAction } from "../Config/store/actions/TenantActions"
+import { SetCurrentUserAction } from "../Config/store/actions/CurrentUserActions"
 
 //UTILS
 
@@ -38,6 +39,7 @@ export const EditAssetOnStore = (Item) => Dispatch(EditAssetAction(Item))
 export const EditUserOnStore = (Item) => Dispatch(EditUserAction(Item))
 //STORE SET
 export const SetLoggedUserOnStore = (Item) => Dispatch(setLoggedUser(Item))
+export const SetCurrentUserOnStore = (Item) => Dispatch(SetCurrentUserAction(Item))
 export const SetSidebarTagOnStore = (Item) => Dispatch(SetSidebarTag(Item))
 export const SetCheckLoginOnStore = (Item) => Dispatch(SetCheckLogin())
 export const SetUserTypesOnStore = (Itens) => Dispatch(SetUserTypes(Itens))
@@ -79,9 +81,9 @@ export async function GetTema() {
 }
 
 //TOGGLE THEME
-export async function ToggleTema() {
+export async function ToggleTema(User) {
     const Tema = localStorage.getItem('AssetSenseTema')
-    const User = GetFromStore('CurrentUser')
+
     if (Tema === 'Escuro') {
         Dispatch(SetTemaAction("Claro"))
         localStorage.setItem('AssetSenseTema', 'Claro')
@@ -144,10 +146,9 @@ export const GetFromStore = (Key) => {
 
 
 // USERS THAT TOOK AN ASSET / NO CURRENT USER 
-export const GetUsersThatNotTookAsset = (AssetId) => {
-    const Current = GetFromStore('CurrentUser')
-    const UsersThatTook = GetUsersThatTookAsset(AssetId)
-    const Users = [...GetFromStore('Users')].filter(User => User.id !== Current.id)
+export const GetUsersThatNotTookAsset = (AssetId, CurrentUser) => {
+    const UsersThatTook = GetUsersThatTookAsset(AssetId, CurrentUser)
+    const Users = [...GetFromStore('Users')].filter(User => User.id !== CurrentUser.id)
     const UsersNotTook = Users.filter(user => !UsersThatTook.some(took => took.id === user.id));
     return UsersNotTook
 }
@@ -235,8 +236,7 @@ export const GetRecordsOfUser = (ID) => {
 }
 
 //Quantidade Retirada sem devolução de um determinado Ativo pelo CurrentUser
-export const GetTakesOfAssetOfCurrentUser = (ID) => {
-    const CurrentUser = GetFromStore('CurrentUser')
+export const GetTakesOfAssetOfCurrentUser = (ID, CurrentUser) => {
     var Records2 = [...GetFromStore('RecordsAssets')]
     const Qtd = Records2.filter(Record => Record.AtivoId === ID && !Record.ReturnDate && Record.TakenFor.id === CurrentUser.id)
     return Qtd ? Qtd.length : 0
@@ -249,8 +249,7 @@ export const GetQtdInUseOfAssetWithId = (ID) => {
 }
 
 //Users que Pegaram um determinado Ativo, menos o currentuser
-export const GetUsersThatTookAsset = (ID) => {
-    const CurrentUser = GetFromStore('CurrentUser')
+export const GetUsersThatTookAsset = (ID, CurrentUser) => {
     var Records3 = [...GetFromStore('RecordsAssets')]
     const AssetsPegos = Records3.filter(Record => Record.AtivoId === ID && !Record.ReturnDate)
 

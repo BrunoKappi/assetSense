@@ -23,8 +23,7 @@ const AssetsList = (props) => {
     const [FiltroDeTexto, setFiltroDeTexto] = useState('');
 
     const [modalShow, setModalShow] = useState(false);
-    const [AddmodalShow, setAddModalShow] = useState(false);
-    const [CurrentUser,] = useState(GetFromStore('CurrentUser'))
+    const [AddmodalShow, setAddModalShow] = useState(false);    
     const [Filters, setFilters] = useState([]);
     const [ResetFilters, setResetFilters] = useState(false);
     const [OrdenarPor, setOrdenarPor] = useState('Nome do Ativo');
@@ -116,8 +115,8 @@ const AssetsList = (props) => {
     return (
         <div className={props.Tema === 'Escuro' ? 'AssetsListContainerEscuro AssetsListContainer' : 'AssetsListContainerClaro AssetsListContainer'}>
 
-            <AssetModal FromModal={false} CurrentUser={CurrentUser} Asset={{ ...SelectedAsset }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedAsset} />
-            <AssetModal FromModal={false} CurrentUser={CurrentUser} Asset={{}} show={AddmodalShow} onHide={() => setAddModalShow(false)} Function="Add" />
+            <AssetModal FromModal={false} CurrentUser={props.CurrentUser} Asset={{ ...SelectedAsset }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedAsset} />
+            <AssetModal FromModal={false} CurrentUser={props.CurrentUser} Asset={{}} show={AddmodalShow} onHide={() => setAddModalShow(false)} Function="Add" />
 
             <SectionTitle>Lista de Ativos</SectionTitle>
 
@@ -164,7 +163,8 @@ const AssetsList = (props) => {
 const ConnectedAssetsList = connect((state) => {
     return {
         Assets: state.Assets,
-        Tema: state.Tema
+        Tema: state.Tema,
+        CurrentUser: state.CurrentUser
     }
 })(AssetsList)
 

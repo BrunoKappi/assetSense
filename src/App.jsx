@@ -42,10 +42,6 @@ const App = (props) => {
     console.error('Uma ou mais promessas falharam:', error)
   })
 
-
-
-
-
   const RequireAuth = ({ children }) => {
     if (props.LoggedUser.Email) {
       return children;

@@ -76,7 +76,7 @@ const UserPhotoModal = (props) => {
                     setUploading(false)
                     props.OnChangePhoto(url, IdToUseToAdd)
                     if (props.IsCurrentUser) {
-                        SetLoggedUserPhotoUrl(url)
+                        SetLoggedUserPhotoUrl(url, props.CurrentUser)
                     } else {
                         SetOtherUserPhotoUrl(url, props.User?.id)
                     }
@@ -94,7 +94,7 @@ const UserPhotoModal = (props) => {
         DeleteFile(path).then(() => {
             setUploading(false)
             if (props.IsCurrentUser)
-                SetLoggedUserPhotoUrl('')
+                SetLoggedUserPhotoUrl('', props.CurrentUser)
             else
                 SetOtherUserPhotoUrl('', props.User?.id)
             NotificationSucesso("Exlusão", "Foto apagada com sucesso!")
@@ -212,7 +212,8 @@ const ConnectedUserPhotoModal = connect((state) => {
     return {
         Tema: state.Tema,
         LoggedUser: state.LoggedUser,
-        TenantPhotos: state.TenantPhotos
+        TenantPhotos: state.TenantPhotos,
+        CurrentUser: state.CurrentUser
     }
 })(UserPhotoModal)
 

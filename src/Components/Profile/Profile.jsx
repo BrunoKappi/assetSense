@@ -3,20 +3,19 @@ import './Profile.css'
 import { connect } from 'react-redux'
 import UserModal from '../UsersList/User/UserModal'
 import { useNavigate } from 'react-router-dom';
-import { GetFromStore } from '../../Functions/StoreMiddleware';
+
 
 const Profile = (props) => {
 
-    const navigate = useNavigate();
-    const [CurrentUser] = useState(GetFromStore('CurrentUser'))
+    const navigate = useNavigate();  
     const [ModalShow, setModalShow] = useState(true)
 
     return (
         <div className={props.Tema === 'Escuro' ? 'ProfileContainerEscuro ProfileContainer' : 'ProfileContainerClaro ProfileContainer'}>
             <UserModal
                 FromModal={false}
-                CurrentUser={CurrentUser}
-                User={CurrentUser}
+                CurrentUser={props.CurrentUser}
+                User={props.CurrentUser}
                 show={ModalShow}
                 Function="View" 
                 onHide={() => {
@@ -32,7 +31,8 @@ const Profile = (props) => {
 const ConnectedProfile = connect((state) => {
     return {
         LoggedUser: state.LoggedUser,
-        Tema: state.Tema
+        Tema: state.Tema,
+        CurrentUser: state.CurrentUser
     }
 })(Profile)
 

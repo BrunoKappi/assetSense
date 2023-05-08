@@ -48,7 +48,6 @@ import DatePicker from "../../../LayoutComponents/DatePicker/DatePicker";
 const AssetTakeReturn = (props) => {
 
     // FUNCIONALIDADE
-    const [CurrentUser,] = useState(GetFromStore('CurrentUser'))
     const [key, setKey] = useState('');
     const [ActionFor, setActionFor] = useState('Me');
     const [TakenFor, setTakenFor] = useState();
@@ -60,7 +59,7 @@ const AssetTakeReturn = (props) => {
     //QUANTIDADES
     const QuantidadeDoAsset = props.Asset?.Qtd
     const [QuantidadeRetirada, SetQuantidadeRetirada] = useState()
-    const [QuantidadeRetiradaPeloCurrentUser, SetQuantidadeRetiradaPeloCurrentUser] = useState(GetTakesOfAssetOfCurrentUser(props.Asset?.id))
+    const [QuantidadeRetiradaPeloCurrentUser, SetQuantidadeRetiradaPeloCurrentUser] = useState(GetTakesOfAssetOfCurrentUser(props.Asset?.id, props.CurrentUser))
 
     //CONFIRM 
     const [Confirm, SetConfirm] = useState(false)
@@ -83,7 +82,7 @@ const AssetTakeReturn = (props) => {
     //UPDATE QUANTIDADES
     useEffect(() => {
         SetQuantidadeRetirada(GetQtdInUseOfAssetWithId(props.Asset?.id))
-        SetQuantidadeRetiradaPeloCurrentUser(GetTakesOfAssetOfCurrentUser(props.Asset?.id))
+        SetQuantidadeRetiradaPeloCurrentUser(GetTakesOfAssetOfCurrentUser(props.Asset?.id, props.CurrentUser))
     }, [props.Asset?.id, props.RecordsAssets])
 
 
@@ -109,7 +108,7 @@ const AssetTakeReturn = (props) => {
         setObs('')
         setReturnFor()
         setTimeout(() => { SetQuantidadeRetirada(GetQtdInUseOfAssetWithId(props.Asset?.id)) }, 500);
-        setTimeout(() => { SetQuantidadeRetiradaPeloCurrentUser(GetTakesOfAssetOfCurrentUser(props.Asset?.id)) }, 500);
+        setTimeout(() => { SetQuantidadeRetiradaPeloCurrentUser(GetTakesOfAssetOfCurrentUser(props.Asset?.id, props.CurrentUser)) }, 500);
     }
 
 
@@ -150,7 +149,7 @@ const AssetTakeReturn = (props) => {
         }
         // DEVOLVER
         else {
-            var UserId = ActionFor === 'Me' ? CurrentUser.id : ReturnFor.id
+            var UserId = ActionFor === 'Me' ? props.CurrentUser.id : ReturnFor.id
             const RecordToEdit = GetRecordByAssetIdAndUserId(props.Asset?.id, UserId)
 
             if (!EventDate) {
@@ -197,14 +196,14 @@ const AssetTakeReturn = (props) => {
 
             var ForId
             if (ActionFor === 'Me')
-                ForId = CurrentUser.id
+                ForId = props.CurrentUser.id
             else
                 ForId = TakenFor.id
 
             NewRecordToAdd.id = v4()
             NewRecordToAdd.AtivoId = props.Asset?.id
             NewRecordToAdd.TakeDate = SelectedDateTime
-            NewRecordToAdd.TakenBy.id = CurrentUser.id
+            NewRecordToAdd.TakenBy.id = props.CurrentUser.id
             NewRecordToAdd.TakenFor.id = ForId
             NewRecordToAdd.Returned = false
             NewRecordToAdd.ReturnDate = ''
@@ -254,7 +253,7 @@ const AssetTakeReturn = (props) => {
         }
         // DEVOLVER
         else {
-            var UserId = ActionFor === 'Me' ? CurrentUser.id : ReturnFor.id
+            var UserId = ActionFor === 'Me' ? props.CurrentUser.id : ReturnFor.id
             const RecordToEdit = GetRecordByAssetIdAndUserId(props.Asset?.id, UserId)
 
             RecordToEdit.ReturnDate = SelectedDateTime
@@ -344,7 +343,7 @@ const AssetTakeReturn = (props) => {
                         <div className='AssetTakeReturn-TakeForm'>
 
                             <Show Show={ActionFor === 'Me'}>
-                                <h4 className='AssetModalBody-AssetInfoForm-SectionTitle-TakeReturn'>Registro de Retirada de Ativo para {CurrentUser?.Name + ' ' + CurrentUser?.LastName} </h4>
+                                <h4 className='AssetModalBody-AssetInfoForm-SectionTitle-TakeReturn'>Registro de Retirada de Ativo para {props.CurrentUser?.Name + ' ' + props.CurrentUser?.LastName} </h4>
                             </Show>
 
                             <Show Show={ActionFor !== 'Me'}>
@@ -378,7 +377,7 @@ const AssetTakeReturn = (props) => {
                                                 </FormGroupLabel>
                                                 <CustomSelect
                                                     placeholder="Digite o Email"
-                                                    options={GetUsersThatNotTookAsset(props?.Asset?.id)}
+                                                    options={GetUsersThatNotTookAsset(props?.Asset?.id, props.CurrentUser)}
                                                     getOptionLabel={(options) => { return options["Email"]; }}
                                                     getOptionValue={(options) => { return options["Id"]; }}
                                                     value={TakenFor}
@@ -392,7 +391,7 @@ const AssetTakeReturn = (props) => {
                                                 </FormGroupLabel>
                                                 <CustomSelect
                                                     placeholder="Digite o Nome"
-                                                    options={GetUsersThatNotTookAsset(props?.Asset?.id)}
+                                                    options={GetUsersThatNotTookAsset(props?.Asset?.id, props.CurrentUser)}
                                                     getOptionLabel={(options) => { return options["Name"] + ' ' + options["LastName"]; }}
                                                     getOptionValue={(options) => { return options["Id"]; }}
                                                     value={TakenFor}
@@ -450,7 +449,7 @@ const AssetTakeReturn = (props) => {
                     <Show Show={key === 'Devolver' && (QuantidadeRetirada > 0)}>
                         <div className='AssetTakeReturn-TakeForm'>
                             <Show Show={ActionFor === 'Me'}>
-                                <h4 className='AssetModalBody-AssetInfoForm-SectionTitle-TakeReturn'>Registro de Devolução de Ativo para {CurrentUser?.Name + ' ' + CurrentUser?.LastName} </h4>
+                                <h4 className='AssetModalBody-AssetInfoForm-SectionTitle-TakeReturn'>Registro de Devolução de Ativo para {props.CurrentUser?.Name + ' ' + props.CurrentUser?.LastName} </h4>
                             </Show>
 
                             <Show Show={ActionFor !== 'Me'}>
@@ -493,7 +492,7 @@ const AssetTakeReturn = (props) => {
                                                 </FormGroupLabel>
                                                 <CustomSelect
                                                     placeholder="Digite o Email"
-                                                    options={GetUsersThatTookAsset(props.Asset?.id)}
+                                                    options={GetUsersThatTookAsset(props.Asset?.id, props.CurrentUser)}
                                                     getOptionLabel={(options) => { return options["Email"]; }}
                                                     getOptionValue={(options) => { return options["Id"]; }}
                                                     value={ReturnFor}
@@ -507,7 +506,7 @@ const AssetTakeReturn = (props) => {
                                                 </FormGroupLabel>
                                                 <CustomSelect
                                                     placeholder="Digite o Nome"
-                                                    options={GetUsersThatTookAsset(props.Asset?.id)}
+                                                    options={GetUsersThatTookAsset(props.Asset?.id, props.CurrentUser)}
                                                     getOptionLabel={(options) => { return options["Name"] + ' ' + options["LastName"]; }}
                                                     getOptionValue={(options) => { return options["Id"]; }}
                                                     value={ReturnFor}
@@ -593,7 +592,8 @@ const ConnectedAssetTakeReturn = connect((state) => {
     return {
         Tema: state.Tema,
         RecordsAssets: state.RecordsAssets,
-        Assets: state.Assets
+        Assets: state.Assets,
+        CurrentUser: state.CurrentUser
 
     }
 })(AssetTakeReturn)
