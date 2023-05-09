@@ -46,7 +46,13 @@ const onAuthStateChangedHandler = (AuthCurrentUser) => {
 
   } else {
     if (!CurrentUserEmail) {
-      SetLoggedUserOnStore(DefaultLoggedUser)
+      SetLoggedUserOnStore(
+        {
+          ...DefaultLoggedUser,
+          CheckedLogin: true
+
+        }
+      )
       SetTenant('')
     }
 
