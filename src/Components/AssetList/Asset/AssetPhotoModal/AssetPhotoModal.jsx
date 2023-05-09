@@ -34,7 +34,7 @@ const AssetPhotoModal = (props) => {
 
     // HANDLE ERROR
     const HandleError = (Erro) => {
-        console.log(Erro)
+        //console.log(Erro)
         setLoading(false)
         NotificationErro("Erro", "Aconteceu um problema, tente novamente mais tarde")
     }
@@ -56,7 +56,7 @@ const AssetPhotoModal = (props) => {
             path = `${import.meta.env.VITE_REACT_TENANT_NAME}/${import.meta.env.VITE_REACT_ASSETS_PHOTOS_DIRECTORY}/${props.Asset.id}`
         }
 
-        console.log(path)
+        //console.log(path)
         
 
         ImageUpload(path, imageUpload, props.LoggedUser.Email).then(() => {

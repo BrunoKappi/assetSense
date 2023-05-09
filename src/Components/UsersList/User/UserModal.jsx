@@ -206,6 +206,7 @@ const UserModal = (props) => {
             NewUser.Tenant.id = import.meta.env.VITE_REACT_TENANT_ID
             NewUser.Tenant.Name = import.meta.env.VITE_REACT_TENANT_NAME
 
+
             unsubscribe()
             setTimeout(() => { FIREBASE_LogouyAuth() }, 5000);
 
@@ -389,9 +390,9 @@ const UserModal = (props) => {
 
                 <BootstrapModal.Body closeButton className="UserModal-Body">
 
-                    <span className='UserModal-LastEditedAt'>Última Edição em {moment(User.LastEditedAt).format("DD/MM/YY")}</span>
-
-
+                    <Show Show={props.Function !== 'Add'}>
+                        <span className='UserModal-LastEditedAt'>Última Edição em {moment(User.LastEditedAt).format("DD/MM/YY")}</span>
+                    </Show>
 
                     <div className='UserModal'>
                         <div className='UserModalHeader'>

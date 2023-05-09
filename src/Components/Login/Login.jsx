@@ -21,13 +21,13 @@ const Login = (props) => {
 
 
     const PasswordRef = useRef()
-
+ 
 
     //Event Email
-    const handleChangeEmail = (e) => {
+    const handleChangeEmail = (e) => { 
         const value = e.target.value
         if (value.includes("@") && !value.includes("@serranoautomacao") && e.nativeEvent.inputType !== "deleteContentBackward") {
-            const completEmail = value + "serranoautomacao.com.br"
+            const completEmail = value //+ "serranoautomacao.com.br"
             setEmail(completEmail)
         } else {
             setEmail(value)

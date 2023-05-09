@@ -101,7 +101,7 @@ const Sidebar = (props) => {
 
                 <div className='SidebarUserPhotoContainer'>
                     <Tooltip title="Ver/Alterar Foto de Perfil" position="bottom" >
-                        <Photo onClick={e => setShowPhotoModal(true)} alt='User' className='SidebarUserPhoto' URL={props.LoggedUser.PhotoUrl || props.TenantPhotos.MainLogo}></Photo>
+                        <Photo onClick={e => setShowPhotoModal(true)} alt='User' className='SidebarUserPhoto' src={props.LoggedUser.PhotoUrl || props.TenantPhotos.MainLogo}></Photo>
                     </Tooltip>
                 </div>
 
@@ -122,42 +122,42 @@ const Sidebar = (props) => {
                         <SidebarItem Active={IsActive('Dash')}
                             onClick={e => SetTabSidebar('Dash', '/Assets/Dash')}>
                             <UilChartPieAlt />
-                            Dashboard
+                            <span>Dashboard</span>
                         </SidebarItem>
                         <SidebarItem Active={IsActive('Assets')}
                             onClick={e => SetTabSidebar('Assets', '/Assets/Assets')}>
                             <UilListUl />
-                            Ativos
+                            <span>Ativos</span>
                         </SidebarItem>
                         <SidebarItem Active={IsActive('Users')}
                             onClick={e => SetTabSidebar('Users', '/Assets/Users')}>
                             <UilUsersAlt />
-                            Usuários
+                            <span>Usuários</span>
                         </SidebarItem>
                         <SidebarItem Active={IsActive('Profile')}
                             onClick={e => SetTabSidebar('Profile', '/Assets/Profile')} >
                             <UilUserCircle />
-                            Meu Perfil
+                            <span>Meu Perfil</span>
                         </SidebarItem>
                         <SidebarItem Active={IsActive('Config')}
                             onClick={e => SetTabSidebar('Config', '/Assets/Config')}>
                             <UilSetting />
-                            Configurações
+                            <span>Configurações</span>
                         </SidebarItem>
                         <SidebarItem Active={IsActive('Records')}
                             onClick={e => SetTabSidebar('Records', '/Assets/Records')}>
                             <UilHistory />
-                            Registros
-                        </SidebarItem  >
+                            <span>Registros</span>
+                        </SidebarItem>
                         <SidebarItem Active={IsActive('Requests')}
                             onClick={e => SetTabSidebar('Requests', '/Assets/Requests')}>
                             <UilTicket />
-                            Solicitações
-                        </SidebarItem  >
+                            <span>Solicitações</span>
+                        </SidebarItem>
 
                         <SidebarItem onClick={e => SetTabSidebar('Reports', '/Assets/Reports')} >
                             <UilClipboardNotes />
-                            Relatórios
+                            <span>Relatórios</span>
                         </SidebarItem>
                     </Stack>
                 </Show>

@@ -16,9 +16,11 @@ import Requests from './Components/Requests/Requests'
 import { ReactNotifications } from 'react-notifications-component'
 import { DefaultTenantPhotos } from './GlobalVars';
 import { GetUserUrlImage } from './Functions/StorageMiddleware';
-import store from './Config/store/store';
+import store, { FillStore } from './Config/store/store';
 import { setTenantPhotosAction } from './Config/store/actions/TenantPhotosActions';
-import { GetInfoFromStore } from './Functions/StoreMiddleware';
+import { GetInfoFromStore, SetCurrentUserOnStore, SetTema, SetTenant } from './Functions/StoreMiddleware';
+import { FIREBASE_GetUserByEmail } from './Config/firebase/metodos2';
+import { useEffect } from 'react';
 
 
 const App = (props) => {
@@ -39,7 +41,7 @@ const App = (props) => {
     });
     store.dispatch(setTenantPhotosAction(TenantPhotos))
   }).catch((error) => {
-    console.error('Uma ou mais promessas falharam:', error)
+    //console.error('Uma ou mais promessas falharam:', error)
   })
 
   const RequireAuth = ({ children }) => {
@@ -52,6 +54,20 @@ const App = (props) => {
 
 
 
+  useEffect(() => {
+    if (props.LoggedUser.Email) {
+      //console.log("")
+      FIREBASE_GetUserByEmail("Users", props.LoggedUser.Email).then((Response) => {
+        const User = { ...Response[0] }
+        const Theme = User?.Preference?.Theme || 'Claro'
+        const Tenant = User?.Tenant?.Name || ''
+        SetCurrentUserOnStore({ ...User, uid: props.LoggedUser.uid, CheckedLogin: true })
+        SetTema(Theme)
+        FillStore()
+        SetTenant(Tenant)
+      })
+    }
+  }, [props.LoggedUser])
 
 
 

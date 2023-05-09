@@ -31,6 +31,9 @@
     border: 1px solid var(--Sidebar-Item-Border);
     color: var(--Sidebar-Item-Color);
     cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .SidebarItem:hover {
@@ -43,6 +46,16 @@
     border: 1px solid var(--Sidebar-Item-Border-Active);
     background-color: var(--Sidebar-Item-Background-Active);
     color: var(--Sidebar-Item-Color-Active);
+}
+
+.SidebarItem svg {
+    min-width: 1rem !important;
+}
+
+.SidebarItem span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 

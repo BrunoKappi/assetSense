@@ -10,4 +10,10 @@
     width: 1.1rem;
 }
 
+.TabsTitle span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* =========== ESTILO TABS TELA  ==================== */
