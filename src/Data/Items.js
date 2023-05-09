@@ -240,9 +240,9 @@ export const DefaultRequest = {
 export const DefaultUser =
 {
     PhotoUrl: '',
-    LastEditedAt: moment().valueOf(),
+    LastEditedAt: '',
     CreatedBy: '',
-    CreatedAt: moment().valueOf(),
+    CreatedAt: '',
     LastLoginAt: 0,
     docID: '',
     id: v4(),
@@ -285,7 +285,7 @@ export const DefaultUser =
     Country: { ...DefaultCountry },
     Estate: { ...DefaultEstate },
     City: { ...DefaultCity },
-    Phone: '555199999999',
+    Phone: '',
     QtdAssets: 0,
     Status: {
         id: ''
@@ -300,8 +300,8 @@ export const DefaultUser =
 
 
 export const DefaultUserRole = {
-    LastEditedAt: moment().valueOf(),
-    CreatedAt: moment().valueOf(),
+    LastEditedAt: '',
+    CreatedAt: '',
     docID: '',
     id: '',
     Role: '',
@@ -780,8 +780,7 @@ export const UserRoles = [
 ]
 
 
-
-
+ 
 
 
 

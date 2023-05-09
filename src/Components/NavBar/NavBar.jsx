@@ -20,7 +20,7 @@ import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 
 import { useNavigate } from 'react-router-dom';
 import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilSignout, UilBars, UilMoon, UilBright, UilHistory } from '@iconscout/react-unicons'
-import { GetLoggedUserInfo, ToggleTema } from '../../Functions/StoreMiddleware';
+import { ToggleTema } from '../../Functions/StoreMiddleware';
 import UserPhotoModal from '../UsersList/User/UserPhotoModal/UserPhotoModal'
 import UserPhoto from '../UserProfilePhoto/UserPhoto';
 import { AssetsTela, ConfigTela, UsersTela } from '../../Functions/PermitsMiddleware';
@@ -131,29 +131,29 @@ const NavBar = (props) => {
                                                 </span>}
                                         >
 
-                                            <span className={GetNavbarSidebarItemClass('Dash', GetLoggedUserInfo('CurrentSidebarTab')) + ' dropDownLink'} onClick={e => SetTabNavBar('Dash', '/Assets/Dash')}>
+                                            <span className={GetNavbarSidebarItemClass('Dash', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Dash', '/Assets/Dash')}>
                                                 <UilChartPieAlt />
                                                 <span>Dashboard</span>
                                             </span>
 
-                                            <span className={GetNavbarSidebarItemClass('Assets', GetLoggedUserInfo('CurrentSidebarTab')) + ' dropDownLink'} onClick={e => SetTabNavBar('Assets', '/Assets/Assets')}>
+                                            <span className={GetNavbarSidebarItemClass('Assets', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Assets', '/Assets/Assets')}>
                                                 <UilListUl />
                                                 <span>Ativos</span>
                                             </span>
-                                            <span className={GetNavbarSidebarItemClass('Users', GetLoggedUserInfo('CurrentSidebarTab')) + ' dropDownLink'} onClick={e => SetTabNavBar('Users', '/Assets/Users')}>
+                                            <span className={GetNavbarSidebarItemClass('Users', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Users', '/Assets/Users')}>
                                                 <UilUsersAlt />
                                                 <span>Usuários</span>
                                             </span>
-                                            <span className={GetNavbarSidebarItemClass('Profile', GetLoggedUserInfo('CurrentSidebarTab')) + ' dropDownLink'} onClick={e => SetTabNavBar('Profile', '/Assets/Profile')} >
+                                            <span className={GetNavbarSidebarItemClass('Profile', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Profile', '/Assets/Profile')} >
                                                 <UilUserCircle />
                                                 <span>Meu Perfil</span>
                                             </span>
-                                            <span className={GetNavbarSidebarItemClass('Config', GetLoggedUserInfo('CurrentSidebarTab')) + ' dropDownLink'} onClick={e => SetTabNavBar('Config', '/Assets/Config')}>
+                                            <span className={GetNavbarSidebarItemClass('Config', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Config', '/Assets/Config')}>
                                                 <UilSetting />
                                                 <span>Configurações</span>
                                             </span>
 
-                                            <span className={GetNavbarSidebarItemClass('Records', GetLoggedUserInfo('CurrentSidebarTab')) + ' dropDownLink'} onClick={e => SetTabNavBar('Records', '/Assets/Records')}>
+                                            <span className={GetNavbarSidebarItemClass('Records', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Records', '/Assets/Records')}>
                                                 <UilHistory />
                                                 <span>Registros</span>
                                             </span>
@@ -166,12 +166,12 @@ const NavBar = (props) => {
                                     </div>
 
                                     <div className='LastNavLogoIconContainer' onClick={e => SetTabNavBar('Profile', '/Assets/Profile')}>
-                                        <UserPhoto src={GetLoggedUserInfo('PhotoUrl') || props.TenantPhotos.NavSidebarLogo} />
+                                        <UserPhoto src={props.LoggedUser.PhotoUrl || props.TenantPhotos.NavSidebarLogo} />
                                     </div>
 
 
                                     <div className='NavSidebarUserPhotoContainer'>
-                                        <img onClick={e => setShowPhotoModal(true)} alt='User' className='NavSidebarUserPhoto' src={GetLoggedUserInfo('PhotoUrl') || props.TenantPhotos.NavSidebarLogo}></img>
+                                        <img onClick={e => setShowPhotoModal(true)} alt='User' className='NavSidebarUserPhoto' src={props.LoggedUser.PhotoUrl || props.TenantPhotos.NavSidebarLogo}></img>
                                     </div>
 
                                     <div className='NavbarSidebarUserName' onClick={e => SetTabNavBar('Profile', '/Assets/Profile')}>
@@ -180,28 +180,28 @@ const NavBar = (props) => {
                                     </div>
 
                                     <ul className='NavBarListSidebar'>
-                                        <span className={GetNavbarSidebarItemClass('Dash', GetLoggedUserInfo('CurrentSidebarTab'))} onClick={e => SetTabNavBar('Dash', '/Assets/Dash')}>
+                                        <span className={GetNavbarSidebarItemClass('Dash', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Dash', '/Assets/Dash')}>
                                             <UilChartPieAlt />
                                             <span>Dashboard</span>
                                         </span>
-                                        <span className={GetNavbarSidebarItemClass('Assets', GetLoggedUserInfo('CurrentSidebarTab'))} onClick={e => SetTabNavBar('Assets', '/Assets/Assets')}>
+                                        <span className={GetNavbarSidebarItemClass('Assets', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Assets', '/Assets/Assets')}>
                                             <UilListUl />
                                             <span>Ativos</span>
                                         </span>
-                                        <span className={GetNavbarSidebarItemClass('Users', GetLoggedUserInfo('CurrentSidebarTab'))} onClick={e => SetTabNavBar('Users', '/Assets/Users')}>
+                                        <span className={GetNavbarSidebarItemClass('Users', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Users', '/Assets/Users')}>
                                             <UilUsersAlt />
                                             <span>Usuários</span>
                                         </span>
-                                        <span className={GetNavbarSidebarItemClass('Profile', GetLoggedUserInfo('CurrentSidebarTab'))} onClick={e => SetTabNavBar('Profile', '/Assets/Profile')}>
+                                        <span className={GetNavbarSidebarItemClass('Profile', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Profile', '/Assets/Profile')}>
                                             <UilUserCircle />
                                             <span>Meu Perfil</span>
                                         </span>
-                                        <span className={GetNavbarSidebarItemClass('Config', GetLoggedUserInfo('CurrentSidebarTab'))} onClick={e => SetTabNavBar('Config', '/Assets/Config')}>
+                                        <span className={GetNavbarSidebarItemClass('Config', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Config', '/Assets/Config')}>
                                             <UilSetting />
                                             <span>Configurações</span>
                                         </span>
 
-                                        <span className={GetNavbarSidebarItemClass('Records', GetLoggedUserInfo('CurrentSidebarTab'))} onClick={e => SetTabNavBar('Records', '/Assets/Records')}>
+                                        <span className={GetNavbarSidebarItemClass('Records', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Records', '/Assets/Records')}>
                                             <UilSetting />
                                             <span>Registros</span>
                                         </span>
@@ -212,7 +212,7 @@ const NavBar = (props) => {
                                             </button>
                                         </div>
 
-                                        <span to="/" className={GetNavbarSidebarItemClass('Sair', GetLoggedUserInfo('CurrentSidebarTab'))} onClick={Sair}>
+                                        <span to="/" className={GetNavbarSidebarItemClass('Sair', props.LoggedUser.CurrentSidebarTab)} onClick={Sair}>
                                             <UilSignout />
                                             <span>Sair</span>
                                         </span>
@@ -245,7 +245,8 @@ const ConnectedNavBar = connect((state) => {
         Tema: state.Tema,
         Users: state.Users,
         TenantPhotos: state.TenantPhotos,
-        CurrentUser: state.CurrentUser
+        CurrentUser: state.CurrentUser,
+        LoggedUser: state.LoggedUser
     }
 })(NavBar)
 

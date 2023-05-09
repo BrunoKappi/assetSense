@@ -1,6 +1,6 @@
 
 import { db } from '../firebase/index'
-import { collection, query, setDoc } from "firebase/firestore";
+import { collection, getDoc, query, setDoc } from "firebase/firestore";
 import { getDocs, addDoc, updateDoc, deleteDoc, doc, where } from "firebase/firestore";
 
 
@@ -32,21 +32,21 @@ export const FIREBASE_Add = async (Collection, Item) => {
 
 //GET   
 export const FIREBASE_Get = async (Collection) => {
-  if (Version === 'NEW') {
-    //NEW USING FUNCTIONS
-    const data2 = await fetch(`https://us-central1-assetsense.cloudfunctions.net/GetData?collection=${import.meta.env.VITE_REACT_TENANT_NAME}/${import.meta.env.VITE_REACT_DATABASE_NAME}/${Collection}`)
-    return await data2.json()
-  } else {
-    //OLD IN FRONT
-    const TenantName = getTenantNameFromUrl()
-    const Tenant = collection(db, import.meta.env.VITE_REACT_TENANT_NAME)
-    const DatabaseDoc = doc(Tenant, import.meta.env.VITE_REACT_DATABASE_NAME)
-    const CollectionRef = collection(DatabaseDoc, Collection)
-    const data = await getDocs(CollectionRef)
-    const DocsList = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
-    return DocsList
-  }
+
+  //OLD IN FRONT
+  const TenantName = getTenantNameFromUrl()
+  const Tenant = collection(db, import.meta.env.VITE_REACT_TENANT_NAME)
+
+
+  const DatabaseDoc = doc(Tenant, import.meta.env.VITE_REACT_DATABASE_NAME)
+  const CollectionRef = collection(DatabaseDoc, Collection)
+  const data = await getDocs(CollectionRef)
+  const DocsList = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
+  return DocsList
+
 }
+
+
 
 //GET   
 export const FIREBASE_GetUserByEmail = async (Collection, Email, TenantName) => {
@@ -125,7 +125,7 @@ export const FIREBASE_GetRecordsNotReturnByAsset = async (assetId) => {
   const Tenant = collection(db, import.meta.env.VITE_REACT_TENANT_NAME)
   const DatabaseDoc = doc(Tenant, import.meta.env.VITE_REACT_DATABASE_NAME
   )
-  const CollectionRef = collection(DatabaseDoc, RecordsCollectionName)
+  const CollectionRef = collection(DatabaseDoc, import.meta.env.VITE_REACT_RECORDS_COLLECTIONNAME)
 
   const Query = query(
     CollectionRef,

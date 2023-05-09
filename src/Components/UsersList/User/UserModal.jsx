@@ -71,7 +71,7 @@ const UserModal = (props) => {
 
     // DEPENDENCIAS
     const [User, setUser] = useState({ ...DefaultUser })
-    const [Sectors] = useState(GetFromStore('Sectors'))
+    const [Sectors] = useState(props.Sectors)
     const [UserType, setUserType] = useState({ ...DefaultUserType })
     const [UserSector, setUserSector] = useState({ ...DefaultSector })
     const [ProfileImageUrl, setProfileImageUrl] = useState('')
@@ -96,7 +96,8 @@ const UserModal = (props) => {
     const [ConfirmBtBack, SetConfirmBtBack] = useState('')
 
     //CURRENT USER AND PERMITS
-    const [CurrentUserType] = useState(GetFromStore('CurrentUserType'))
+    const [CurrentUserType] = useState(props.UserTypes.find(Type => Type.id === props.CurrentUser.Type.id))
+
 
 
 
@@ -166,7 +167,7 @@ const UserModal = (props) => {
     //QUANDO O USERTYPE MUDA, PEGA O NOVO TYPE
     useEffect(() => {
         setUserType(GetFromStoreWithId('UserTypes', User?.Type?.id))
-        setUserSector({ ...GetFromStore('Sectors').find(U => U.id === User?.Sector?.id) })
+        setUserSector({ ...props.Sectors.find(U => U.id === User?.Sector?.id) })
     }, [User?.Type, props.CurrentUser])
 
 
@@ -805,8 +806,9 @@ const ConnectedUserModal = connect((state) => {
         Tema: state.Tema,
         LoggedUser: state.LoggedUser,
         TenantPhotos: state.TenantPhotos,
-        CurrentUser: state.CurrentUser, 
-        UserTypes: state.UserTypes
+        CurrentUser: state.CurrentUser,
+        UserTypes: state.UserTypes,
+        Sectors: state.Sectors
     }
 })(UserModal)
 

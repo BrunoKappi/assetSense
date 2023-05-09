@@ -29,7 +29,8 @@ const UsersList = (props) => {
     const [OrdenarPor, setOrdenarPor] = useState('Nome');
 
     //PERMITS E USER TYPE   
-    var PermitToAddUsers = GetFromStore('CurrentUserType')?.Permits[PermitIndexs['ADD_USERS']]
+    const [CurrentUserType] = useState(props.UserTypes.find(Type => Type.id === props.CurrentUser.Type.id))
+    var PermitToAddUsers = CurrentUserType?.Permits[PermitIndexs['ADD_USERS']]
 
     //CHECK
     const CheckIncludesText = (What) => {
@@ -157,7 +158,8 @@ const ConnectedUsersList = connect((state) => {
         LoggedUser: state.LoggedUser,
         Users: state.Users,
         Tema: state.Tema,
-        CurrentUser: state.CurrentUser
+        CurrentUser: state.CurrentUser,
+        UserTypes: state.UserTypes
     }
 })(UsersList)
 

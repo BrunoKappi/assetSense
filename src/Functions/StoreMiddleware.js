@@ -119,10 +119,48 @@ export async function SetTenant(Item) {
 }
 
 
-//GET LOGGED USER INFO BY KEY
-export const GetLoggedUserInfo = (Key) => {
-    return store.getState().LoggedUser[Key]
+
+
+
+export const GetInfoFromStore = (Reducer, OqueQuero, Key, By, Valor, Option) => {
+
+    const StoreList = store.getState()
+
+    var ToReturn
+
+    //FILL LIST
+    if (Reducer === 'Assets' || Reducer === 'Users')
+        ToReturn = StoreList[Reducer].filter(Item => Item.Deleted === false)
+    else if (Reducer.includes('Deleted'))
+        ToReturn = StoreList[Reducer.replace(/WithDeleted/g, "")]
+    else
+        ToReturn = StoreList[Reducer]
+
+    //OBJECTS E LISTS
+    if (OqueQuero === 'Object') {
+        return ToReturn
+    }
+
+    //VALUES
+    else if (OqueQuero === 'Values') {
+
+        ToReturn = ToReturn.find(Item => Item[By] === Valor)
+
+        if (!Option)
+            return ToReturn[Key]
+        else
+            return `${ToReturn[Key]}  ${ToReturn?.LastName}`
+
+    }
+
+
+
 }
+
+
+
+
+
 
 //GET FROM STORE WITH KEY
 export const GetFromStore = (Key) => {
@@ -133,25 +171,12 @@ export const GetFromStore = (Key) => {
         return StoreList[Key].filter(Item => Item.Deleted === false)
     else if (Key === 'AssetsWithDeleted' || Key === 'UsersWithDeleted')
         return StoreList[Key.replace(/WithDeleted/g, "")]
-    else if (Key === 'CurrentUser')
-        return StoreList.Users.find(U => U.Email === GetLoggedUserInfo('Email'))
-    else if (Key === 'CurrentUserType') {
-        const CurrentUser = StoreList.Users.find(U => U.Email === GetLoggedUserInfo('Email'))
-        const CurrentUserType = GetFromStore('UserTypes').find(U => U.id === CurrentUser?.Type?.id)
-        return CurrentUserType ? CurrentUserType : DefaultUserRole
-    }
     else
         return StoreList[Key]
 }
 
 
-// USERS THAT TOOK AN ASSET / NO CURRENT USER 
-export const GetUsersThatNotTookAsset = (AssetId, CurrentUser) => {
-    const UsersThatTook = GetUsersThatTookAsset(AssetId, CurrentUser)
-    const Users = [...GetFromStore('Users')].filter(User => User.id !== CurrentUser.id)
-    const UsersNotTook = Users.filter(user => !UsersThatTook.some(took => took.id === user.id));
-    return UsersNotTook
-}
+
 
 //GET FROM STORE WITH ID
 export const GetFromStoreWithId = (Reducer, Id) => {
@@ -213,7 +238,9 @@ export const CheckIfAnyAssetOfStatusTaken2 = (StatusId) => {
 
 // OTHER GETTERS 
 export const GetCurrentUserTypePermitFromStore = (Permit) => {
-    const CurrentUserType = GetFromStore('CurrentUserType')
+    const UserTypes = store.getState().UserTypes
+    const CurrentUser = store.getState().CurrentUser
+    const CurrentUserType = UserTypes.find(Type => Type.id === CurrentUser.Type.id)
     return CurrentUserType?.Permits[PermitIndexs[Permit]]
 }
 
@@ -235,17 +262,19 @@ export const GetRecordsOfUser = (ID) => {
     return Records1.filter(Record => Record.TakenFor.id === ID)
 }
 
+// USERS THAT TOOK AN ASSET / NO CURRENT USER 
+export const GetUsersThatNotTookAsset = (AssetId, CurrentUser) => {
+    const UsersThatTook = GetUsersThatTookAsset(AssetId, CurrentUser)
+    const Users = [...GetFromStore('Users')].filter(User => User.id !== CurrentUser.id)
+    const UsersNotTook = Users.filter(user => !UsersThatTook.some(took => took.id === user.id));
+    return UsersNotTook
+}
+
 //Quantidade Retirada sem devolução de um determinado Ativo pelo CurrentUser
 export const GetTakesOfAssetOfCurrentUser = (ID, CurrentUser) => {
     var Records2 = [...GetFromStore('RecordsAssets')]
     const Qtd = Records2.filter(Record => Record.AtivoId === ID && !Record.ReturnDate && Record.TakenFor.id === CurrentUser.id)
     return Qtd ? Qtd.length : 0
-}
-
-//Quantidade Retirada DE UM ASSET PELO ID
-export const GetQtdInUseOfAssetWithId = (ID) => {
-    const Asset = GetFromStoreWithId('AssetsWithDeleted', ID)
-    return Asset?.QtdInUse ? Asset?.QtdInUse : 0
 }
 
 //Users que Pegaram um determinado Ativo, menos o currentuser
@@ -258,6 +287,16 @@ export const GetUsersThatTookAsset = (ID, CurrentUser) => {
 
     return UsersThatTook
 }
+
+
+
+//Quantidade Retirada DE UM ASSET PELO ID
+export const GetQtdInUseOfAssetWithId = (ID) => {
+    const Asset = GetFromStoreWithId('AssetsWithDeleted', ID)
+    return Asset?.QtdInUse ? Asset?.QtdInUse : 0
+}
+
+
 
 
 //Users que Pegaram um determinado Ativo, menos o currentuser

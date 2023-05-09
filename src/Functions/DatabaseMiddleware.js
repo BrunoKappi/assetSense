@@ -62,7 +62,7 @@ export const GetFromDatabase = (What) => {
 }
 
 //EDIT
-export const EditInDatabase = (What, Item) => {
+export const EditInDatabase = (What, Item) => { 
     const Collection = Collections[What]
     return FIREBASE_Update(Collection, { ...Item, LastEditedAt: moment().valueOf() })
 }
@@ -84,7 +84,7 @@ export const DeleteFromDatabase = (What, Item) => {
     if (What !== "User" && What !== "Asset")
         return FIREBASE_Delete(Collection, Item)
     else
-        FIREBASE_Update(Collection, { ...Item, Deleted: true, LastEditedAt: moment().valueOf() })
+        return FIREBASE_Update(Collection, { ...Item, Deleted: true, LastEditedAt: moment().valueOf() })
 }
 
 
@@ -101,12 +101,12 @@ export const ReturnAllAssetsOfUserWithId = (UserId) => {
             Record.TakenForDeleted = true
             if (Record.TakenBy.id === UserId)
                 Record.TakenByDeleted = true
-            Edit("Record", Record)
+            UpdateInFirebaseFunctions["Record"](Record)
 
         }
         else if (Record.TakenBy.id === UserId) {
             Record.TakenByDeleted = true
-            Edit("Record", Record)
+            UpdateInFirebaseFunctions["Record"](Record)
         }
 
 
@@ -127,7 +127,7 @@ export const ReturnAllRecordOfAssetwithId = (AssetId) => {
             Record.ReturnDate = moment().valueOf()
             Record.Duration = moment().valueOf() - Record.TakeDate
             Record.AssetDeleted = true
-            Edit("Record", Record)
+            UpdateInFirebaseFunctions["Record"](Record)
         }
     })
 

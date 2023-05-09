@@ -6,17 +6,13 @@ import { GetFromStoreWithId, GetNameFromStoreWithId } from '../../../Functions/S
 import { Tooltip } from 'react-tippy';
 import { connect } from 'react-redux'
 import { DefaultTooltipStyles } from '../../../GlobalVars';
+import ItemName from '../../ItemName/ItemName';
 
 const Request = (props) => {
 
 
-    const [RequestType] = useState(GetNameFromStoreWithId("RequestsTypes", props.Request.Type.id))
-    const [RequestStatus] = useState(GetNameFromStoreWithId("RequestsStatus", props.Request.Status.id))
     const [RequestStatusColor] = useState(GetFromStoreWithId("RequestsStatus", props.Request.Status.id))
 
-
-
-    const RequesterName = GetNameFromStoreWithId("Users", props.Request.CreatedBy)
 
     return (
         <>
@@ -32,7 +28,7 @@ const Request = (props) => {
                     <Tooltip style={DefaultTooltipStyles} title="Solicitante" position="bottom" >
                         <span className='RequesterColumn'>
                             <UilUser />
-                            {RequesterName}
+                            <ItemName Collection="Users" ID={props.Request.CreatedBy} />
                         </span>
                     </Tooltip>
                 </span>
@@ -40,7 +36,10 @@ const Request = (props) => {
                     <Tooltip style={DefaultTooltipStyles} title="Status da Solicitação" position="bottom" >
                         <span className='StatusColumn' style={{ backgroundColor: RequestStatusColor.Color }}>
 
-                            <span>{RequestStatus}</span>
+                            <span>
+                                <ItemName Collection="RequestsStatus" ID={props.Request.Status.id} />
+                            </span>
+
                         </span>
                     </Tooltip>
 
@@ -49,7 +48,9 @@ const Request = (props) => {
                     <Tooltip style={DefaultTooltipStyles} title="Tipo da Soliticação" position="bottom" >
                         <span className='TypeColumn'>
                             <UilLabelAlt />
-                            <span>{RequestType}</span>
+                            <span>
+                                <ItemName Collection="RequestsTypes" ID={props.Request.Type.id} />
+                            </span>
                         </span>
                     </Tooltip>
 

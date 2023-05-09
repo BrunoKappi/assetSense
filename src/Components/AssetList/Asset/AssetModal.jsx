@@ -50,6 +50,7 @@ import CustomFields from '../../LayoutComponents/CustomFields/CustomFields';
 import ConfirmTab from '../../LayoutComponents/ConfirmTab/ConfirmTab';
 import CustomSelect from '../../LayoutComponents/CustomSelect/CustomSelect'
 import moment from 'moment';
+import ItemName from '../../ItemName/ItemName';
 
 
 
@@ -62,7 +63,6 @@ const AssetModal = (props) => {
     const [AssetTypeCustomFields, setAssetTypeCustomFields] = useState([])
     const [AssetStorageLocation, setAssetStorageLocation] = useState({ ...DefaultLocal })
     const [Asset, setAsset] = useState({ ...DefaultAsset })
-    const [StorageLocations] = useState(GetFromStore('StorageLocations'))
     const QuantidadeRetirada = props.Asset?.QtdInUse
 
 
@@ -75,7 +75,9 @@ const AssetModal = (props) => {
     const [LoadingAction, setLoadingAction] = useState(false)
 
     //CURRENT ASSET AND PERMITS
-    const [CurrentUserType] = useState(GetFromStore('CurrentUserType'))
+    const [CurrentUserType] = useState(props.UserTypes.find(Type => Type.id === props.CurrentUser.Type.id))
+
+
 
 
     //CONFIRM 
@@ -197,7 +199,7 @@ const AssetModal = (props) => {
 
     // HANDLE ERROR
     const HandleError = (Erro) => {
-        //console.log(Erro)
+        console.log(Erro)
         NotificationErro("Erro", "Ocorreu um problema, tente novamente")
         setLoadingAction(false)
     }
@@ -263,7 +265,12 @@ const AssetModal = (props) => {
         setLoadingAction(true)
         //EDIT ASSET
         if (ConfirmAction === 'Edit') {
-            UpdateInFirebaseFunctions["Asset"](Asset).then(() => {
+
+            const EditedAsset = { ...Asset }
+
+            EditedAsset.CustomFieldsValues = EditedAsset.CustomFieldsValues.filter(Boolean)
+
+            UpdateInFirebaseFunctions["Asset"](EditedAsset).then(() => {
                 EditAssetOnStore(Asset)
                 setLoadingAction(false)
                 NotificationSucesso('Alteração', 'Alterações salvas com sucesso!')
@@ -274,6 +281,11 @@ const AssetModal = (props) => {
         else if (ConfirmAction === 'Add') {
             const NewAsset = { ...Asset }
             NewAsset.id = IdToUse ? IdToUse : v4()
+
+
+            NewAsset.CustomFieldsValues = NewAsset.CustomFieldsValues.filter(Boolean)
+
+
             AddToFirebaseFunctions["Asset"](NewAsset).then((AddedRecordDoc) => {
                 NewAsset.docID = AddedRecordDoc?.id
                 setAsset({ ...NewAsset })
@@ -281,7 +293,7 @@ const AssetModal = (props) => {
                 AddAssetStore(NewAsset)
                 CancelEditions()
                 props.onHide()
-                NotificationSucesso('Adição', 'Asset Adicionado com Sucesso!')
+                NotificationSucesso('Adição', 'Ativo Adicionado com Sucesso!')
             }).catch(HandleError)
             EndConfirming()
         }
@@ -292,8 +304,8 @@ const AssetModal = (props) => {
             props.onDelete()
             DeleteFromFirebaseFunctions["Asset"](Asset).then(() => {
                 setLoadingAction(false)
+                NotificationSucesso('Exclusão', 'Ativo Deletado com Sucesso!')
                 ReturnAllRecordOfAssetwithId(Asset.id)
-                NotificationSucesso('Exclusão', 'Asset Deletado com Sucesso!')
             }).catch(HandleError)
         }
     }
@@ -385,11 +397,16 @@ const AssetModal = (props) => {
 
                                 <div className='AssetModalHeader-Right-Sector'>
                                     <UilBox />
-                                    {props.Function === 'Add' ? GetNameFromStoreWithId('StorageLocations', Asset?.StorageLocation?.id) : AssetStorageLocation?.Value}
+                                    {props.Function === 'Add' ?
+                                        <ItemName Collection="StorageLocations" ID={Asset?.StorageLocation?.id} /> : AssetStorageLocation?.Value
+                                    }
                                 </div>
                                 <div className='AssetModalHeader-Right-Type'>
                                     <UilLabel />
-                                    {props.Function === 'Add' ? GetNameFromStoreWithId('AssetTypes', Asset?.Type?.id) : AssetType?.Value}
+                                    {props.Function === 'Add' ?
+                                        <ItemName Collection="AssetTypes" ID={Asset?.Type?.id} /> : AssetType?.Value}
+
+
                                 </div>
 
                             </div>
@@ -533,7 +550,7 @@ const AssetModal = (props) => {
                                                             </FormGroupLabel>
                                                             <CustomSelect
                                                                 placeholder="Selecione o Status"
-                                                                options={GetFromStore('AssetsStatus')}
+                                                                options={props.AssetsStatus}
                                                                 getOptionLabel={(options) => { return options["Value"]; }}
                                                                 getOptionValue={(options) => { return options["id"]; }}
                                                                 value={{
@@ -551,7 +568,7 @@ const AssetModal = (props) => {
                                                             </FormGroupLabel>
                                                             <CustomSelect
                                                                 placeholder="Selecione o Tipo de Uso"
-                                                                options={GetFromStore('UsageTypes')}
+                                                                options={props.UsageTypes}
                                                                 getOptionLabel={(options) => { return options["Value"]; }}
                                                                 getOptionValue={(options) => { return options["id"]; }}
                                                                 value={{
@@ -603,7 +620,7 @@ const AssetModal = (props) => {
                                                     <TwoColumns>
                                                         <EditList
                                                             Item={Asset}
-                                                            List={StorageLocations}
+                                                            List={props.StorageLocations}
                                                             Icon={<UilBox />}
                                                             Title="Local de Armazenamento"
                                                             Key='StorageLocation'
@@ -731,7 +748,12 @@ const ConnectedAssetModal = connect((state) => {
         Tema: state.Tema,
         RecordsAssets: state.RecordsAssets,
         TenantPhotos: state.TenantPhotos,
-        AssetTypes: state.AssetTypes
+        AssetTypes: state.AssetTypes,
+        StorageLocations: state.StorageLocations,
+        AssetsStatus: state.AssetsStatus,
+        UsageTypes: state.UsageTypes,
+        UserTypes: state.UserTypes,
+        CurrentUser: state.CurrentUser
     }
 })(AssetModal)
 

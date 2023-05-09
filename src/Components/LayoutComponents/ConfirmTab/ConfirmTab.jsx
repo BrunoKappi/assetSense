@@ -12,7 +12,7 @@ const ConfirmTab = (props) => {
                     <UilBackward />
                     {props.ConfirmBtBack}
                 </button>
-                <button onClick={props.Submit}>
+                <button onClick={props.Submit}> 
                     <UilCheck />
                     {props.ConfirmBtAction}
                 </button>
@@ -21,7 +21,7 @@ const ConfirmTab = (props) => {
     )
 }
 
- 
+
 
 const ConnectedConfirmTab = connect((state) => {
     return {

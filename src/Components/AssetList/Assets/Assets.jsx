@@ -5,14 +5,14 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { connect } from 'react-redux'
 //COMPONENTS
-import DraggableLists from '../DraggableLists/DraggableLists'
-import AssetsList from '../AssetList/AssetList'
+import DraggableLists from '../../DraggableLists/DraggableLists'
+import AssetsList from '../../AssetList/AssetList'
 //LAYOUT COMPONENTS
-import TabsContainer from '../LayoutComponents/TabsContainer/TabsContainer';
-import TabButton from '../LayoutComponents/TabButton/TabButton';
+import TabsContainer from '../../LayoutComponents/TabsContainer/TabsContainer';
+import TabButton from '../../LayoutComponents/TabButton/TabButton';
 //FUNCTIONS
-import { AssetsInStorageLocationsTab, AssetsInTypesTab, TodosAssetsTab, AssetsInStatusTab, AssetsInUsageTypesTab } from '../../Functions/PermitsMiddleware';
-import { NotificationErro } from '../../NotificationUtils';
+import { AssetsInStorageLocationsTab, AssetsInTypesTab, TodosAssetsTab, AssetsInStatusTab, AssetsInUsageTypesTab } from '../../../Functions/PermitsMiddleware';
+import { NotificationErro } from '../../../NotificationUtils';
 
 
 const Assets = (props) => {

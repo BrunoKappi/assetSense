@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthState
 import { auth } from "./index";
 import { sendPasswordResetEmail, updatePassword } from "firebase/auth";
 import { DefaultLoggedUser } from "../../GlobalVars";
-import { GetLoggedUserInfo, SetCheckLoginOnStore, SetCurrentUserOnStore, SetLoggedUserOnStore, SetTema, SetTenant } from "../../Functions/StoreMiddleware";
+import { SetCurrentUserOnStore, SetLoggedUserOnStore, SetTema, SetTenant } from "../../Functions/StoreMiddleware";
 
 import { FillStore } from "../store/store";
 import { FIREBASE_GetUserByEmail } from "./metodos2";
@@ -13,18 +13,19 @@ import { FIREBASE_GetUserByEmail } from "./metodos2";
 const onAuthStateChangedHandler = (AuthCurrentUser) => {
   console.log("AUTHCHANGED", AuthCurrentUser ? AuthCurrentUser : 'VAZIO');
 
-  const LoggedUserEmail = GetLoggedUserInfo('Email')
   const CurrentUserEmail = AuthCurrentUser?.email
 
 
-  if (((LoggedUserEmail === CurrentUserEmail) || (!LoggedUserEmail)) && AuthCurrentUser) {
+  if ((CurrentUserEmail) && AuthCurrentUser) {
 
     SetLoggedUserOnStore(
       {
         ...DefaultLoggedUser,
         Email: AuthCurrentUser.email,
         uid: AuthCurrentUser.uid,
-        CurrentSidebarTab: 'Dash', 
+        CurrentSidebarTab: 'Dash',
+        CheckedLogin: true
+
       }
     )
 
@@ -34,11 +35,10 @@ const onAuthStateChangedHandler = (AuthCurrentUser) => {
       const User = { ...Response[0] }
       const Theme = User?.Preference?.Theme || 'Claro'
       const Tenant = User?.Tenant?.Name || ''
-      SetCurrentUserOnStore({ ...User, uid: AuthCurrentUser.uid })
+      SetCurrentUserOnStore({ ...User, uid: AuthCurrentUser.uid, CheckedLogin: true })
       SetTema(Theme)
-      SetTenant(Tenant).then(() => {
-        FillStore()
-      })
+      FillStore()
+      SetTenant(Tenant)
     })
 
 
@@ -47,17 +47,11 @@ const onAuthStateChangedHandler = (AuthCurrentUser) => {
   } else {
     if (!CurrentUserEmail) {
       SetLoggedUserOnStore(DefaultLoggedUser)
-      SetTenant('').then(() => {
-        //console.log("Tenant ")
-      })
+      SetTenant('')
     }
 
   }
 
-  if (GetLoggedUserInfo('CheckedLogin') === false)
-    setTimeout(() => {
-      SetCheckLoginOnStore()
-    }, 5);
 
 
 

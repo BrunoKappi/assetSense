@@ -74,7 +74,7 @@ const AssetTakeReturn = (props) => {
 
     // HANDLE ERROR
     const HandleError = (Erro) => {
-        //console.log(Erro)
+        console.log(Erro)
         setLoadingAction(false)
         NotificationErro("Erro", "Ocorreu um problema, tente novamente")
     }
@@ -186,12 +186,21 @@ const AssetTakeReturn = (props) => {
         }
     }
 
+
+
     // SUBMIT FINAL ACTION
     const Submit = () => {
+
         setLoadingAction(true)
+
         const SelectedDateTime = moment(EventDate).valueOf()
+
         // RETIRAR
         if (key === 'Retirar') {
+
+
+
+
             var NewRecordToAdd = { ...DefaultRecord }
 
             var ForId
@@ -208,6 +217,7 @@ const AssetTakeReturn = (props) => {
             NewRecordToAdd.Returned = false
             NewRecordToAdd.ReturnDate = ''
             NewRecordToAdd.Obs = Obs
+
 
 
             FIREBASE_GetRecordsNotReturnByAsset(props.Asset?.id).then(QuantidadeFirebaseRetirada => {
@@ -575,6 +585,7 @@ const AssetTakeReturn = (props) => {
                     ConfirmBtAction={ConfirmBtAction}
                     EndConfirming={BackConfirming}
                     Submit={Submit}
+                    setIsEdited={() => { }}
                 />
             </Show>
 

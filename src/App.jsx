@@ -6,7 +6,7 @@ import Forget from './Components/Forget/Forget';
 import NotFound from './Components/NotFound/NotFound';
 import Layout from './Components/Layout/Layout'
 import Home from './Home';
-import Assets from './Components/Assets/Assets'
+import Assets from './Components/AssetList/Assets/Assets'
 import Users from './Components/Users/Users'
 import Profile from './Components/Profile/Profile'
 import Config from './Components/Config/Config'
@@ -18,10 +18,10 @@ import { DefaultTenantPhotos } from './GlobalVars';
 import { GetUserUrlImage } from './Functions/StorageMiddleware';
 import store from './Config/store/store';
 import { setTenantPhotosAction } from './Config/store/actions/TenantPhotosActions';
+import { GetInfoFromStore } from './Functions/StoreMiddleware';
+
 
 const App = (props) => {
-
-
 
 
   const PhotoNames = [...Object.keys(DefaultTenantPhotos)]
@@ -49,6 +49,11 @@ const App = (props) => {
       return <Navigate to="/" />;
     }
   };
+
+
+
+
+
 
   return (
     <div className="App">
