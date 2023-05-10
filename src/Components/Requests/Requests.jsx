@@ -149,7 +149,7 @@ const Requests = (props) => {
             <AddRequestModal show={AddRequestModalOpen} onHide={() => setAddRequestModalOpen(false)} />
             <RequestModal Request={{ ...SelectedRequest }} show={modalShow} onHide={() => setModalShow(false)} />
 
-            <div className={props.Tema === 'Escuro' ? 'AssetRequests-ContainerEscuro AssetRequests-Container' : 'AssetRequests-ContainerClaro AssetRequests-Container'} >
+            <div className={props.Tema === 'Dark' ? 'AssetRequests-ContainerDark AssetRequests-Container' : 'AssetRequests-ContainerLightTheme AssetRequests-Container'} >
 
 
 

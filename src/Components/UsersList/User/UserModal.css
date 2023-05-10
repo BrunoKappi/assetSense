@@ -1,4 +1,4 @@
-.UserModal-ModalClaro {
+.UserModal-ModalLightTheme {
 
     --UserModal-Backgound: white;
     --UserModal-Border: white;
@@ -57,10 +57,10 @@
 
 
 
-.UserModal-ModalEscuro {
+.UserModal-ModalDark {
 
     --UserModal-Backgound: var(--BackgroundDark);
-    --UserModal-Border: rgb(127, 126, 126);
+    --UserModal-Border: rgb(43, 43, 43);
     --UserModal-SectionTitleColor: var(--ComplementaryColor);
 
     --UserModal-IconeELabe-Input: var(--ComplementaryColor);
@@ -187,6 +187,8 @@
     .UserModalHeader {
         padding: .3rem;
         margin-bottom: 2rem;
+        flex-direction: column;
+        gap: 1rem;
     }
 
 }
@@ -313,7 +315,8 @@
 
 @media (max-width: 1000px) {
     .UserModalHeader-Left {
-        width: 30%;
+        width: 100%;
+        justify-content: flex-start;
     }
 }
 
@@ -327,6 +330,13 @@
     -moz-box-shadow: 3px 2px 7px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 3px 2px 7px 0px rgba(0, 0, 0, 0.75);
     cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+    .UserModalHeader-Left-Photo>img {
+        width: 6rem;
+        height: 6rem;
+    }
 }
 
 

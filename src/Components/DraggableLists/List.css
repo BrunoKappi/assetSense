@@ -1,4 +1,4 @@
-.AssetsTypesShowOnlyCustomGroupListClaro {
+.AssetsTypesShowOnlyCustomGroupListLightTheme {
     --Sectors-Title-Backround: var(--PrimaryBackground);
     --Sectors-Title-Color: white;
 
@@ -10,7 +10,7 @@
 }
 
 
-.AssetsTypesShowOnlyCustomGroupListEscuro {
+.AssetsTypesShowOnlyCustomGroupListDark {
     --Sectors-Title-Backround: var(--PrimaryBackground);
     --Sectors-Title-Color: white;
 

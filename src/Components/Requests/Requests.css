@@ -1,4 +1,4 @@
-.AssetRequests-ContainerClaro {
+.AssetRequests-ContainerLightTheme {
     --AssetRequests-Container-Background: transparent;
 
     --RequestsList-AddButton-Background: var(--ComplementaryColor);
@@ -34,7 +34,7 @@
 
 
 
-.AssetRequests-ContainerEscuro {
+.AssetRequests-ContainerDark {
     --AssetRequests-Container-Background: var(--BackgroundDark);
 
     --RequestsList-AddButton-Background: var(--ComplementaryColor);

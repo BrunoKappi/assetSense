@@ -20,11 +20,9 @@ const LoadingContainer = () => {
 
 export function Home(props) {
 
-  //console.log("Tenant HOME", Tenant)
-
   if (props.LoggedUser.CheckedLogin) {
     if (props.LoggedUser.Email) {
-      if (props.Tenant) {
+      if (props.Tenant || true) {
         return <Navigate to="Assets/Dash" />;
       } else {
         return <LoadingContainer />

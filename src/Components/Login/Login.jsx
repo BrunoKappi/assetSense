@@ -55,7 +55,7 @@ const Login = (props) => {
 
 
     return (
-        <div className={props.Tema === 'Escuro' ? 'LoginContainerEscuro LoginContainer' : 'LoginContainerClaro LoginContainer'}>
+        <div className={props.Tema === 'Dark' ? 'LoginContainerDark LoginContainer' : 'LoginContainerLightTheme LoginContainer'}>
 
             <LogoutHeader />
 

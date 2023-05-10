@@ -1,4 +1,4 @@
-.UserPhotoModal-ModalClaro {
+.UserPhotoModal-ModalLightTheme {
 
     --UserPhotoModal-Backgound: white;
     --UserPhotoModal-Border: white;
@@ -7,10 +7,10 @@
 
 
 
-.UserPhotoModal-ModalEscuro {
+.UserPhotoModal-ModalDark {
 
     --UserPhotoModal-Backgound: var(--BackgroundDark);
-    --UserPhotoModal-Border: rgb(127, 126, 126);
+    --UserPhotoModal-Border: rgb(43, 43, 43);
     --UserPhotoModal-SectionTitleColor: var(--ComplementaryColor);
 }
 

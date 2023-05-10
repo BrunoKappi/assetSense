@@ -8,8 +8,6 @@ const BANCO = 'Final'
 
 var firebaseConfig
 
-import.meta.env.VITE_REACT_ASSETS_PHOTOS_DIRECTORY
-
 // BANCO ASSET SENSE FINAL 
 if (BANCO === 'Final') {
   firebaseConfig = {

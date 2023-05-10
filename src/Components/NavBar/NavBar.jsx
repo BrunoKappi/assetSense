@@ -19,7 +19,7 @@ import { GetNavbarSidebarItemClass, SetTab } from '../Sidebar/SidebarUtils';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 
 import { useNavigate } from 'react-router-dom';
-import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilSignout, UilBars, UilMoon, UilBright, UilHistory } from '@iconscout/react-unicons'
+import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilSignout, UilBars, UilMoon, UilBright, UilHistory, UilTicket } from '@iconscout/react-unicons'
 import { ToggleTema } from '../../Functions/StoreMiddleware';
 import UserPhotoModal from '../UsersList/User/UserPhotoModal/UserPhotoModal'
 import UserPhoto from '../UserProfilePhoto/UserPhoto';
@@ -66,6 +66,9 @@ const NavBar = (props) => {
             SetTab(Tab)
             navigate(To)
         } else if (Tab === 'Config' && ConfigTela()) {
+            SetTab(Tab)
+            navigate(To)
+        } else if (Tab === 'Requests') {
             SetTab(Tab)
             navigate(To)
         } else
@@ -120,7 +123,7 @@ const NavBar = (props) => {
                                     <div className='navDiv'>
                                         <Tooltip title="Alterar o Tema" position="bottom" >
                                             <button className='ChangeThemeButton' onClick={handleToggleTema}>
-                                                {props.Tema === 'Escuro' ? <UilMoon /> : <UilBright />}
+                                                {props.Tema === 'Dark' ? <UilMoon /> : <UilBright />}
                                             </button>
                                         </Tooltip>
                                         <NavDropdown
@@ -156,6 +159,11 @@ const NavBar = (props) => {
                                             <span className={GetNavbarSidebarItemClass('Records', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Records', '/Assets/Records')}>
                                                 <UilHistory />
                                                 <span>Registros</span>
+                                            </span>
+
+                                            <span className={GetNavbarSidebarItemClass('Requests', props.LoggedUser.CurrentSidebarTab) + ' dropDownLink'} onClick={e => SetTabNavBar('Requests', '/Assets/Requests')}>
+                                                <UilTicket />
+                                                <span>Solicitações</span>
                                             </span>
 
                                             <NavDropdown.Divider />
@@ -206,9 +214,14 @@ const NavBar = (props) => {
                                             <span>Registros</span>
                                         </span>
 
+                                        <span className={GetNavbarSidebarItemClass('Requests', props.LoggedUser.CurrentSidebarTab)} onClick={e => SetTabNavBar('Requests', '/Assets/Requests')}>
+                                            <UilTicket />
+                                            <span>Solicitações</span>
+                                        </span>
+
                                         <div className='ChangeThemeContainer'>
                                             <button className='ChangeThemeButton' onClick={handleToggleTema}>
-                                                {props.Tema === 'Escuro' ? <UilMoon /> : <UilBright />}
+                                                {props.Tema === 'Dark' ? <UilMoon /> : <UilBright />}
                                             </button>
                                         </div>
 

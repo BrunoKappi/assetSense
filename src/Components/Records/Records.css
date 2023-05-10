@@ -1,4 +1,4 @@
-.AssetRecords-ContainerClaro {
+.AssetRecords-ContainerLightTheme {
     --AssetRecords-Container-Background: transparent;
 
     --AssetsRecordsFormFilter-Button-Background: var(--ComplementaryColor);
@@ -17,7 +17,7 @@
 
 
 
-.AssetRecords-ContainerEscuro {
+.AssetRecords-ContainerDark {
     --AssetRecords-Container-Background: var(--BackgroundDark);
 
     --AssetsRecordsFormFilter-Button-Background: var(--ComplementaryColor);

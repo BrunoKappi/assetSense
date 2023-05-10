@@ -98,7 +98,7 @@ const RequestsAssigment = (props) => {
     return (
 
 
-        <div className={props.Tema === 'Escuro' ? 'RequestsAssigentContainerEscuro RequestsAssigentContainer' : 'RequestsAssigentContainerClaro RequestsAssigentContainer'}>
+        <div className={props.Tema === 'Dark' ? 'RequestsAssigentContainerDark RequestsAssigentContainer' : 'RequestsAssigentContainerLightTheme RequestsAssigentContainer'}>
 
 
 

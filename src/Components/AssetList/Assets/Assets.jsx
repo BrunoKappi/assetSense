@@ -49,7 +49,7 @@ const Assets = (props) => {
 
   return (
 
-    <div className={props.Tema === 'Escuro' ? 'AssetsContainerEscuro AssetsContainer' : 'AssetsContainerClaro AssetsContainer'}>
+    <div className={props.Tema === 'Dark' ? 'AssetsContainerDark AssetsContainer' : 'AssetsContainerLightTheme AssetsContainer'}>
 
       {/******************************  TABS  *********************************/}
       <TabsContainer Direction="row" Tema={props.Tema}>

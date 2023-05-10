@@ -1,4 +1,4 @@
-.OrderByClaro {
+.OrderByLightTheme {
     --OrderBy-Color-Input: var(--SecondaryBackground);
     --OrderBy-Background-Input: transparent;
 
@@ -8,7 +8,7 @@
     --OrderBy-Menu-Border: white;
 }
 
-.OrderByEscuro {
+.OrderByDark {
     --OrderBy-Color-Input: white;
     --OrderBy-Background-Input: transparent;
 

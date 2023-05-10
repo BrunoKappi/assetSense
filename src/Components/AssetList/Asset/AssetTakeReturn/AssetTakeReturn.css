@@ -1,4 +1,4 @@
-.AssetTakeReturn-ContainerClaro {
+.AssetTakeReturn-ContainerLightTheme {
     --AssetTakeReturn-TakeFor-Color: var(--ComplementaryColor);
     --AssetModal-SectionTitle-TakeReturn-Color: var(--ComplementaryColor);
     --AssetModal-TakeReturnQuantity-Color: white;
@@ -8,7 +8,7 @@
 }
 
 
-.AssetTakeReturn-ContainerEscuro {
+.AssetTakeReturn-ContainerDark {
     --AssetTakeReturn-TakeFor-Color: var(--ComplementaryColor);
     --AssetModal-SectionTitle-TakeReturn-Color: var(--ComplementaryColor);
     --AssetModal-TakeReturnQuantity-Color: white;
@@ -131,7 +131,7 @@
 /* =========== TABS BUTTONS ==================== */
 
 
-.AssetTRTabsContainerClaro {
+.AssetTRTabsContainerLightTheme {
     --AssetTRTabsContainer-Background: #eceff1;
     --AssetTRTabsContainer-Button-Background: var(--PrimaryBackGroundFaded2);
     --AssetTRTabsContainer-Button-Border: var(--PrimaryBackGroundFaded2);
@@ -144,7 +144,7 @@
     --AssetTRTabsContainer-Button-Color-Hover: white;
 }
 
-.AssetTRTabsContainerEscuro {
+.AssetTRTabsContainerDark {
     --AssetTRTabsContainer-Background: var(--BackgroundDark);
     --AssetTRTabsContainer-Button-Background: var(--PrimaryBackGroundFaded2);
     --AssetTRTabsContainer-Button-Border: var(--PrimaryBackGroundFaded50);

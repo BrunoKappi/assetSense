@@ -1,4 +1,4 @@
-.AssetContainerClaro {
+.AssetContainerLightTheme {
     --AssetContainer-Background: white;
     --AssetContainer-Background-Hover: whitesmoke;
     --AssetContainer-Border: transparent;
@@ -15,7 +15,7 @@
 
 }
 
-.AssetContainerEscuro {
+.AssetContainerDark {
     --AssetContainer-Background: var(--BackgroundDark);
     --AssetContainer-Background-Hover: var(--PrimaryBackGroundFaded30);
     --AssetContainer-Border: var(--ComplementaryColor);

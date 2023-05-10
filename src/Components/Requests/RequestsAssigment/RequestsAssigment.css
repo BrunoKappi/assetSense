@@ -1,10 +1,10 @@
-.RequestsAssigentContainerClaro {
+.RequestsAssigentContainerLightTheme {
     --RequestsAssigentContainer-Background: var(--Background);
 
 
 }
 
-.RequestsAssigentContainerEscuro {
+.RequestsAssigentContainerDark {
     --RequestsAssigentContainer-Background: var(--BackgroundDark);
 
 

@@ -10,7 +10,6 @@ import { AddAssetAction, EditAssetAction, SetAssets } from "../Config/store/acti
 import { AddUserAction, EditUserAction, SetUsers } from "../Config/store/actions/UsersActions"
 import { PermitIndexs } from "../GlobalVars"
 import { EditRecordAction, SetRecords } from "../Config/store/actions/RecordsActions"
-import { DefaultUserRole } from "../Data/Items"
 import { SetTemaAction } from "../Config/store/actions/ThemeActions"
 import { SetCheckLogin, SetLoggedUserPhotoUrlAction, SetSidebarTag, ToggleSideBar, setLoggedUser } from "../Config/store/actions/LoggedUserActions"
 import { UpdateInFirebaseFunctions } from "./DatabaseMiddleware"
@@ -67,34 +66,22 @@ export const AddUserToStore = (Item) => Dispatch(AddUserAction(Item))
 export const AddRequestToStore = (Item) => Dispatch(AddRequestAction(Item))
 
 
-
-
-
-//GET THEME
-export async function GetTema() {
-    if (!localStorage.getItem('AssetSenseTema')) {
-        localStorage.setItem('AssetSenseTema', 'Claro')
-        Dispatch(SetTemaAction("Claro"))
-    } else {
-        Dispatch(SetTemaAction(localStorage.getItem('AssetSenseTema')))
-    }
-}
-
 //TOGGLE THEME
 export async function ToggleTema(User) {
     const Tema = localStorage.getItem('AssetSenseTema')
 
-    if (Tema === 'Escuro') {
-        Dispatch(SetTemaAction("Claro"))
-        localStorage.setItem('AssetSenseTema', 'Claro')
-        User.Preference.Theme = 'Claro'
+
+    if (Tema === 'Dark' || Tema === 'Escuro') {
+        Dispatch(SetTemaAction("LightTheme"))
+        localStorage.setItem('AssetSenseTema', 'LightTheme')
+        User.Preference.Theme = 'LightTheme'
         UpdateInFirebaseFunctions["User"](User)
 
     }
-    if (Tema === 'Claro') {
-        Dispatch(SetTemaAction("Escuro"))
-        localStorage.setItem('AssetSenseTema', 'Escuro')
-        User.Preference.Theme = 'Escuro'
+    if (Tema === 'LightTheme' || Tema === 'Claro') {
+        Dispatch(SetTemaAction("Dark"))
+        localStorage.setItem('AssetSenseTema', 'Dark')
+        User.Preference.Theme = 'Dark'
         UpdateInFirebaseFunctions["User"](User)
     }
 }

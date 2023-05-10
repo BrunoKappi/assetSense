@@ -1,13 +1,13 @@
-.AddRequestModal-ModalClaro {
+.AddRequestModal-ModalLightTheme {
     --AddRequestModal-Backgound: white;
     --AddRequestModal-Border: white;
     --AddRequestModal-SectionTitleColor: var(--ComplementaryColor);
 }
 
 
-.AddRequestModal-ModalEscuro {
+.AddRequestModal-ModalDark {
     --AddRequestModal-Backgound: var(--BackgroundDark);
-    --AddRequestModal-Border: rgb(127, 126, 126);
+    --AddRequestModal-Border: rgb(43, 43, 43);
     --AddRequestModal-SectionTitleColor: var(--ComplementaryColor);
 }
 

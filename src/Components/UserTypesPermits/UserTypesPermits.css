@@ -1,4 +1,4 @@
-.UserTypesPermitsContainerClaro {
+.UserTypesPermitsContainerLightTheme {
     --UserTypesPermitsContainer-Background: var(--Background);
 
     --UserTypesPermitsContainer-Title-Background: var(--PrimaryBackground);
@@ -16,7 +16,7 @@
     --UserTypesPermitsContainer-Item-Color-Icon-Hover: var(--PrimaryColor);
 }
 
-.UserTypesPermitsContainerEscuro {
+.UserTypesPermitsContainerDark {
     --UserTypesPermitsContainer-Background: var(--BackgroundDark);
 
     --UserTypesPermitsContainer-Title-Background: var(--PrimaryBackground);

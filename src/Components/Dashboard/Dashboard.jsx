@@ -79,7 +79,7 @@ const Dashboard = (props) => {
 
   return (
 
-    <div className={props.Tema === 'Escuro' ? 'DashboardContainerEscuro DashboardContainer' : 'DashboardContainerClaro DashboardContainer'}>
+    <div className={props.Tema === 'Dark' ? 'DashboardContainerDark DashboardContainer' : 'DashboardContainerLightTheme DashboardContainer'}>
 
 
       <Show Show={

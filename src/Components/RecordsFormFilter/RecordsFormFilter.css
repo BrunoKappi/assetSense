@@ -1,4 +1,4 @@
-.AssetRecords-FormFilterClaro {
+.AssetRecords-FormFilterLightTheme {
     --AssetsRecordsFormFilter-Button-Background: var(--ComplementaryColor);
     --AssetsRecordsFormFilter-Button-Border: var(--ComplementaryColor);
     --AssetsRecordsFormFilter-Button-Color: white;
@@ -13,7 +13,7 @@
 
 
 
-.AssetRecords-FormFilterEscuro {
+.AssetRecords-FormFilterDark {
     --AssetsRecordsFormFilter-Button-Background: var(--ComplementaryColor);
     --AssetsRecordsFormFilter-Button-Border: var(--ComplementaryColor);
     --AssetsRecordsFormFilter-Button-Color: white;

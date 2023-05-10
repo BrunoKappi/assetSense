@@ -1,4 +1,4 @@
-.ConfirmTabClaro { 
+.ConfirmTabLightTheme { 
 
 
     --ConfirmButton-Secondary-Border: var(--ComplementaryColor);
@@ -11,7 +11,7 @@
 
 
 
-.ConfirmTabEscuro {
+.ConfirmTabDark {
 
 
     --ConfirmButton-Secondary-Border: var(--ComplementaryColor);

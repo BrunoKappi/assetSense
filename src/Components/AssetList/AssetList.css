@@ -1,4 +1,4 @@
-.AssetsListContainerClaro {
+.AssetsListContainerLightTheme {
 
     --AssetsListContainer-Background: #eceff1;
 
@@ -28,7 +28,7 @@
 }
 
 
-.AssetsListContainerEscuro {
+.AssetsListContainerDark {
 
     --AssetsListContainer-Background: var(--BackgroundDark);
 

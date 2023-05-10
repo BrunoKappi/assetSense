@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 const FormInput = ({ children, className = '', type = "text", Tema, onChange, value, placeholder, disabled, onClick, min, ref }) => {
     return (
         <input
-            className={`FormInput ${Tema === 'Escuro' ? "FormInputEscuro" : 'FormInputClaro'}  ${className} `}
+            className={`FormInput ${Tema === 'Dark' ? "FormInputDark" : 'FormInputLightTheme'}  ${className} `}
             onClick={onClick}
             type={type}
             value={value}

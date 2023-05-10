@@ -74,7 +74,7 @@ const AssetTakeReturn = (props) => {
 
     // HANDLE ERROR
     const HandleError = (Erro) => {
-        //console.log(Erro)
+        console.log(Erro)
         setLoadingAction(false)
         NotificationErro("Erro", "Ocorreu um problema, tente novamente")
     }
@@ -271,8 +271,6 @@ const AssetTakeReturn = (props) => {
             RecordToEdit.Duration = RecordToEdit.ReturnDate - RecordToEdit.TakeDate
 
 
-
-
             //ADD MINUS 1 RETIRADA 
             const NewAsset = { ...props.Asset, QtdInUse: props.Asset.QtdInUse - 1 }
             EditAssetOnStore(NewAsset)
@@ -312,7 +310,7 @@ const AssetTakeReturn = (props) => {
     ////console.log("QTD", props.Asset?.QtdPerUser)
 
     return (
-        <div className={props.Tema === 'Escuro' ? 'AssetTakeReturn-ContainerEscuro AssetTakeReturn-Container' : 'AssetTakeReturn-ContainerClaro AssetTakeReturn-Container'}>
+        <div className={props.Tema === 'Dark' ? 'AssetTakeReturn-ContainerDark AssetTakeReturn-Container' : 'AssetTakeReturn-ContainerLightTheme AssetTakeReturn-Container'}>
 
             {/***********************   QUANTIDADES  **********************/}
             <Show Show={!Confirm && !LoadingAction}>
@@ -337,7 +335,7 @@ const AssetTakeReturn = (props) => {
             <Show Show={!Confirm && !LoadingAction}>
                 <div>
 
-                    <div className={props.Tema === 'Escuro' ? 'AssetTRTabsContainerEscuro AssetTRTabsContainer' : 'AssetTRTabsContainerClaro AssetTRTabsContainer'}>
+                    <div className={props.Tema === 'Dark' ? 'AssetTRTabsContainerDark AssetTRTabsContainer' : 'AssetTRTabsContainerLightTheme AssetTRTabsContainer'}>
                         <SidebarItem Active={key === 'Retirar'}
                             onClick={e => SetKey('Retirar')}>
                             {RetirarTabTitle()}

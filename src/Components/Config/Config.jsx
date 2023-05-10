@@ -59,7 +59,7 @@ const Config = (props) => {
 
 
   return (
-    <div className={props.Tema === 'Escuro' ? 'ConfigContainerEscuro ConfigContainer' : 'ConfigContainerClaro ConfigContainer'}>
+    <div className={props.Tema === 'Dark' ? 'ConfigContainerDark ConfigContainer' : 'ConfigContainerLightTheme ConfigContainer'}>
 
       {/******************************     TABS    ************************************/}
       <TabsContainer Direction="row" Tema={props.Tema}>

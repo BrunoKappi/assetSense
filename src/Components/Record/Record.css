@@ -1,4 +1,4 @@
-.AssetRecord-ContainerClaro {
+.AssetRecord-ContainerLightTheme {
 
 
     --AssetRecord-Container-Border: rgb(228, 226, 226);
@@ -24,7 +24,7 @@
 
 
 
-.AssetRecord-ContainerEscuro {
+.AssetRecord-ContainerDark {
 
 
     --AssetRecord-Container-Border: var(--ComplementaryColor);

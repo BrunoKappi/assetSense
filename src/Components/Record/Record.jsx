@@ -68,7 +68,7 @@ const Record = (props) => {
 
     return (
 
-        <div className={props.Tema === 'Escuro' ? 'AssetRecord-ContainerEscuro AssetRecord-Container' : 'AssetRecord-ContainerClaro AssetRecord-Container'} onClick={() => handleCollapse(props.Record.id)}>
+        <div className={props.Tema === 'Dark' ? 'AssetRecord-ContainerDark AssetRecord-Container' : 'AssetRecord-ContainerLightTheme AssetRecord-Container'} onClick={() => handleCollapse(props.Record.id)}>
 
 
             {/******** PARA QUEM/ ASSET RETIRADO **********/}

@@ -1,10 +1,10 @@
-.RangePickerClaro {
+.RangePickerLightTheme {
     --RangePicker-Borda-Input: transparent;
     --RangePicker-Color-Input: var(--SecondaryBackground);
     --RangePicker-Background-Input: white;
 }
 
-.RangePickerEscuro {
+.RangePickerDark {
     --RangePicker-Borda-Input: var(--ComplementaryColor);
     --RangePicker-Color-Input: white;
     --RangePicker-Background-Input: black;
@@ -36,7 +36,7 @@
 
 
 
-.CustomCalendarContainerEscuro {
+.CustomCalendarContainerDark {
     --RangePicker-Container-Background: black;
     --RangePicker-Container-Border: var(--PrimaryBackGroundFaded50);
     --RangePicker-Color: white;
@@ -48,7 +48,7 @@
 
 
 
-.CustomCalendarContainerClaro {
+.CustomCalendarContainerLightTheme {
     --RangePicker-Container-Background: white;
     --RangePicker-Container-Border: var(--PrimaryBackGroundFaded50);
     --RangePicker-Color: black;
@@ -66,13 +66,13 @@
 }
 
 
-.RangePickerContainerEscuro {
+.RangePickerContainerDark {
 
     background-color: black;
 }
 
 
-.RangePickerContainerClaro {
+.RangePickerContainerLightTheme {
     background-color: white;
 }
 

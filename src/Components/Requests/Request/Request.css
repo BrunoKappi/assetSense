@@ -1,4 +1,4 @@
-.RequestContainerClaro {
+.RequestContainerLightTheme {
     --RequestContainer-Background: white;
     --RequestContainer-Background-Hover: whitesmoke;
     --RequestContainer-Border: transparent;
@@ -15,7 +15,7 @@
 
 }
 
-.RequestContainerEscuro {
+.RequestContainerDark {
     --RequestContainer-Background: var(--BackgroundDark);
     --RequestContainer-Background-Hover: var(--PrimaryBackGroundFaded30);
     --RequestContainer-Border: var(--ComplementaryColor);

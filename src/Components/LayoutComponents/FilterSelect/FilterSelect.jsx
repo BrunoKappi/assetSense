@@ -156,7 +156,7 @@ const FilterSelect = (props) => {
     return (
         <div>
             <Select
-                className={`FilterSelect  ${props.Tema === 'Escuro' ? 'FilterSelectEscuro' : 'FilterSelectClaro'} `}
+                className={`FilterSelect  ${props.Tema === 'Dark' ? 'FilterSelectDark' : 'FilterSelectLightTheme'} `}
                 defaultValue={allOptions}
                 isMulti
                 ref={selectRef}

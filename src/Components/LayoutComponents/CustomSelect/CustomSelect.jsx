@@ -47,7 +47,7 @@ const CustomSelect = (props) => {
         <Select
             {...props}
             inputProps={{ autoComplete: 'off' }}
-            className={`CustomSelect  ${props.Tema === 'Escuro' ? 'CustomSelectEscuro' : 'CustomSelectClaro'} `}
+            className={`CustomSelect  ${props.Tema === 'Dark' ? 'CustomSelectDark' : 'CustomSelectLightTheme'} `}
             noOptionsMessage={noOptionsMessage}
             styles={CustomSelectStyles}
         />

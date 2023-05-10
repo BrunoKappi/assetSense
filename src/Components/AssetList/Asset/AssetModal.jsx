@@ -8,20 +8,43 @@ import AssetTakeReturn from './AssetTakeReturn/AssetTakeReturn';
 import AssetRecords from './AssetRecords/AssetRecords';
 import Loading from '../../LoadingForTabs/Loading';
 //ICONS
-import { UilUserCircle, UilClipboardNotes, UilLabel, UilLabelAlt, UilCog, UilBox, UilSave, UilPostcard, UilUsersAlt, UilCommentAltChartLines, UilTag, UilTimes, UilBuilding, UilCircleLayer, UilPlay, UilWrench, UilCheck, UilBackward, UilTrash, UilArrow } from '@iconscout/react-unicons'
+import {
+    UilUserCircle,
+    UilImages,
+    UilInvoice,
+    UilClipboardNotes,
+    UilLabel,
+    UilLabelAlt,
+    UilCog,
+    UilBox,
+    UilSave,
+    UilPostcard,
+    UilUsersAlt,
+    UilCommentAltChartLines,
+    UilTag,
+    UilTimes,
+    UilBuilding,
+    UilCircleLayer,
+    UilPlay,
+    UilWrench,
+    UilTrash,
+    UilArrow
+} from '@iconscout/react-unicons'
 //FUNCTIONS
-import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
+import {
+    NotificationAlerta,
+    NotificationErro,
+    NotificationSucesso
+} from '../../../NotificationUtils';
 
 import {
     EditAssetOnStore,
-    GetFromStore,
     GetNameFromStoreWithId,
     AddAssetStore,
     GetFromStoreWithId,
 } from '../../../Functions/StoreMiddleware';
 import {
     AddToFirebaseFunctions,
-
     DeleteFromFirebaseFunctions,
     ReturnAllRecordOfAssetwithId,
     UpdateInFirebaseFunctions
@@ -50,7 +73,7 @@ import CustomFields from '../../LayoutComponents/CustomFields/CustomFields';
 import ConfirmTab from '../../LayoutComponents/ConfirmTab/ConfirmTab';
 import CustomSelect from '../../LayoutComponents/CustomSelect/CustomSelect'
 import moment from 'moment';
-import ItemName from '../../ItemName/ItemName';
+
 
 
 
@@ -326,6 +349,10 @@ const AssetModal = (props) => {
             NotificationErro("Permissão", "Você não tem permissão para acessar essa área, solicite autorização para seu Administrador")
         else if (TabToChange === 'RetirarDevolver' && StatusAsset?.CanTake === false)
             NotificationAlerta("Não permitido", "Este Ativo está com o Status '" + StatusAsset?.Value + "' , sendo este status confiigurado para não aceitar retiradas")
+        else if (TabToChange === 'Invoice')
+            NotificationAlerta("Ainda não", "Esta Tela ainda está em dsenvolvimento, logo estará disponível")
+        else if (TabToChange === 'Photos')
+            NotificationAlerta("Ainda não", "Esta Tela ainda está em dsenvolvimento, logo estará disponível")
         else
             setTab(TabToChange)
     }
@@ -367,7 +394,7 @@ const AssetModal = (props) => {
         <>
             <AssetPhotoModal Add={props.Function === 'Add'} CanEdit={PermitToEditAssets} OnChange={SetAssetUrl} Asset={props.Asset} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
 
-            <Modal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Escuro' ? 'AssetModal-ModalEscuro AssetModal-Modal' : 'AssetModal-ModalClaro AssetModal-Modal'}>
+            <Modal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Dark' ? 'AssetModal-ModalDark AssetModal-Modal' : 'AssetModal-ModalLightTheme AssetModal-Modal'}>
 
                 <Modal.Body closeButton className="AssetModal-Body">
 
@@ -397,20 +424,14 @@ const AssetModal = (props) => {
 
                                 <div className='AssetModalHeader-Right-Sector'>
                                     <UilBox />
-                                    {props.Function === 'Add' ?
-                                        <ItemName Collection="StorageLocations" ID={Asset?.StorageLocation?.id} /> : AssetStorageLocation?.Value
-                                    }
+                                    <span>{props.Function === 'Add' ? GetNameFromStoreWithId('StorageLocations', Asset?.StorageLocation?.id) : AssetStorageLocation?.Value}</span>
                                 </div>
                                 <div className='AssetModalHeader-Right-Type'>
                                     <UilLabel />
-                                    {props.Function === 'Add' ?
-                                        <ItemName Collection="AssetTypes" ID={Asset?.Type?.id} /> : AssetType?.Value}
 
-
+                                    <span>{props.Function === 'Add' ? GetNameFromStoreWithId('AssetTypes', Asset?.Type?.id) : AssetType?.Value}</span>
                                 </div>
-
                             </div>
-
                         </div>
 
 
@@ -438,6 +459,24 @@ const AssetModal = (props) => {
                                             Registros
                                         </SidebarItem>
                                     </Show>
+
+
+                                    <Show Show={props.Function !== 'Add'}>
+                                        <SidebarItem Active={Tab === 'Invoice'}
+                                            onClick={e => HandleSetTab('Invoice')}>
+                                            <UilInvoice />
+                                            Nota Fiscal
+                                        </SidebarItem>
+                                    </Show>
+
+                                    <Show Show={props.Function !== 'Add'}>
+                                        <SidebarItem Active={Tab === 'Photos'}
+                                            onClick={e => HandleSetTab('Photos')}>
+                                            <UilImages />
+                                            Imagens
+                                        </SidebarItem>
+                                    </Show>
+
 
 
                                 </Stack>

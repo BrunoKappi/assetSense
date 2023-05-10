@@ -152,7 +152,7 @@ const RequestModal = (props) => {
     return (
 
 
-        <BootstrapModal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Escuro' ? 'RequestModal-ModalEscuro RequestModal-Modal' : 'RequestModal-ModalClaro RequestModal-Modal'}>
+        <BootstrapModal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Dark' ? 'RequestModal-ModalDark RequestModal-Modal' : 'RequestModal-ModalLightTheme RequestModal-Modal'}>
 
             <BootstrapModal.Body closeButton className="RequestModal-Body">
 

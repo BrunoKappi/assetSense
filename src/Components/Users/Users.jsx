@@ -53,7 +53,7 @@ const Users = (props) => {
   }
 
   return (
-    <div className={props.Tema === 'Escuro' ? 'UsersContainerEscuro UsersContainer' : 'UsersContainerClaro UsersContainer'}>
+    <div className={props.Tema === 'Dark' ? 'UsersContainerDark UsersContainer' : 'UsersContainerLightTheme UsersContainer'}>
 
 
 

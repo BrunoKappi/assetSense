@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 
 const EditList = (props) => {
     return (
-        <div className={`EditList ${props.Tema === 'Escuro' ? "EditListEscuro" : 'EditListClaro'}  `}>
+        <div className={`EditList ${props.Tema === 'Dark' ? "EditListDark" : 'EditListLightTheme'}  `}>
             <div className='EditList-Title'>
                 {props.Icon}
                 {props.Title}

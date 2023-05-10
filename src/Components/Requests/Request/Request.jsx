@@ -1,63 +1,60 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import './Request.css'
-import { UilTicket, UilUser, UilPlay, UilLabelAlt } from '@iconscout/react-unicons'
+import { UilTicket, UilUser, UilLabelAlt } from '@iconscout/react-unicons'
 import { GetFromStoreWithId, GetNameFromStoreWithId } from '../../../Functions/StoreMiddleware'
 //Tooltip
 import { Tooltip } from 'react-tippy';
 import { connect } from 'react-redux'
 import { DefaultTooltipStyles } from '../../../GlobalVars';
-import ItemName from '../../ItemName/ItemName';
-
-const Request = (props) => {
 
 
-    const [RequestStatusColor] = useState(GetFromStoreWithId("RequestsStatus", props.Request.Status.id))
+const Request = ({ Request, Tema }) => {
+
+
+    const [RequestStatusColor] = useState(GetFromStoreWithId("RequestsStatus", Request.Status.id))
+
+    const Status = GetNameFromStoreWithId('RequestsStatus', Request.Status.id)
+    const User = GetNameFromStoreWithId('Users', Request.CreatedBy)
+    const Type = GetNameFromStoreWithId('RequestsTypes', Request.Type.id)
 
 
     return (
-        <>
-            <div className={props.Tema === 'Escuro' ? 'RequestContainerEscuro RequestContainer' : 'RequestContainerClaro RequestContainer'} >
+        <div className={Tema === 'Dark' ? 'RequestContainerDark RequestContainer' : 'RequestContainerLightTheme RequestContainer'} >
 
-                <span className='RequestContainerColumn NameColumnContainer'>
-                    <span className='TitleColumn'>
-                        <UilTicket />
-                        <span> {props.Request.Title}</span>
+            <span className='RequestContainerColumn NameColumnContainer'>
+                <span className='TitleColumn'>
+                    <UilTicket />
+                    <span> {Request.Title}</span>
+                </span>
+            </span>
+            <span className='RequestContainerColumn RequesterColumnContainer'>
+                <Tooltip style={DefaultTooltipStyles} title="Solicitante" position="bottom" >
+                    <span className='RequesterColumn'>
+                        <UilUser />
+                        {User}
                     </span>
-                </span>
-                <span className='RequestContainerColumn RequesterColumnContainer'>
-                    <Tooltip style={DefaultTooltipStyles} title="Solicitante" position="bottom" >
-                        <span className='RequesterColumn'>
-                            <UilUser />
-                            <ItemName Collection="Users" ID={props.Request.CreatedBy} />
+                </Tooltip>
+            </span>
+            <div className='RequestContainerColumn StatusColumnContainer'>
+                <Tooltip style={DefaultTooltipStyles} title="Status da Solicitação" position="bottom" >
+                    <span className='StatusColumn' style={{ backgroundColor: RequestStatusColor.Color }}>
+                        <span>
+                            {Status}
                         </span>
-                    </Tooltip>
-                </span>
-                <div className='RequestContainerColumn StatusColumnContainer'>
-                    <Tooltip style={DefaultTooltipStyles} title="Status da Solicitação" position="bottom" >
-                        <span className='StatusColumn' style={{ backgroundColor: RequestStatusColor.Color }}>
-
-                            <span>
-                                <ItemName Collection="RequestsStatus" ID={props.Request.Status.id} />
-                            </span>
-
-                        </span>
-                    </Tooltip>
-
-                </div>
-                <span className='RequestContainerColumn TypeColumnContainer'>
-                    <Tooltip style={DefaultTooltipStyles} title="Tipo da Soliticação" position="bottom" >
-                        <span className='TypeColumn'>
-                            <UilLabelAlt />
-                            <span>
-                                <ItemName Collection="RequestsTypes" ID={props.Request.Type.id} />
-                            </span>
-                        </span>
-                    </Tooltip>
-
-                </span>
+                    </span>
+                </Tooltip>
             </div>
-        </>
-
+            <span className='RequestContainerColumn TypeColumnContainer'>
+                <Tooltip style={DefaultTooltipStyles} title="Tipo da Soliticação" position="bottom" >
+                    <span className='TypeColumn'>
+                        <UilLabelAlt />
+                        <span>
+                            {Type}
+                        </span>
+                    </span>
+                </Tooltip>
+            </span>
+        </div>
     )
 }
 

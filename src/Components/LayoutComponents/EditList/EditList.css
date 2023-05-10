@@ -1,4 +1,4 @@
-.EditListClaro {
+.EditListLightTheme {
     --EditList-Background: var(--ComplementaryColor);
     --EditList-Color: white;
     --EditList-Item-Background: transparent;
@@ -11,7 +11,7 @@
 
 
 
-.EditListEscuro {
+.EditListDark {
     --EditList-Background: var(--ComplementaryColor);
     --EditList-Color: white;
     --EditList-Item-Background: transparent;

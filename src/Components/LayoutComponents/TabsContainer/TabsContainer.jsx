@@ -5,7 +5,7 @@ const TabsContainer = ({ children, onClick, className = '', Tema, Direction }) =
     return (
         <div
             style={{ flexDirection: Direction }}
-            className={`TabsContainer ${className}  ${Tema === 'Escuro' ? 'TabsContainerEscuro' : 'TabsContainerClaro'} `} onClick={onClick} >
+            className={`TabsContainer ${className}  ${Tema === 'Dark' ? 'TabsContainerDark' : 'TabsContainerLightTheme'} `} onClick={onClick} >
             {children}
         </div >
     );

@@ -1,8 +1,8 @@
-.ConfigContainerClaro {
+.ConfigContainerLightTheme {
     --Config-Container-Background: #eceff1;
 }
 
-.ConfigContainerEscuro {
+.ConfigContainerDark {
     --Config-Container-Background: var(--BackgroundDark);
 }
 

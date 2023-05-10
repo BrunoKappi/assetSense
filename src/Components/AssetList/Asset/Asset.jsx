@@ -6,7 +6,6 @@ import { GetNameFromStoreWithId, GetNamesOfUsersThatTookAsset } from '../../../F
 import { Tooltip } from 'react-tippy';
 import { DefaultTooltipStyles } from '../../../GlobalVars';
 import { connect } from 'react-redux'
-import ItemName from '../../ItemName/ItemName';
 
 const Asset = (props) => {
 
@@ -14,7 +13,7 @@ const Asset = (props) => {
 
     return (
 
-        <div className={props.Tema === 'Escuro' ? 'AssetContainerEscuro AssetContainer' : 'AssetContainerClaro AssetContainer'} >
+        <div className={props.Tema === 'Dark' ? 'AssetContainerDark AssetContainer' : 'AssetContainerLightTheme AssetContainer'} >
 
             <span className='AssetContainerColumn NameColumnContainer'>
                 <span className='AssetNameColumn'>
@@ -53,7 +52,7 @@ const Asset = (props) => {
                     <span className='StorageLocationColumn'>
                         <UilBox />
                         <span>
-                            <ItemName Collection="StorageLocations" ID={props.Asset.StorageLocation.id} />
+                            {GetNameFromStoreWithId('StorageLocations', props.Asset.StorageLocation.id)}
                         </span>
                     </span>
                 </Tooltip>
@@ -63,7 +62,7 @@ const Asset = (props) => {
                     <span className='AssetTypeColumn'>
                         <UilLabelAlt />
                         <span>
-                            <ItemName Collection="AssetTypes" ID={props.Asset.Type.id} />
+                            {GetNameFromStoreWithId('AssetTypes', props.Asset.Type.id)}
                         </span>
                     </span>
                 </Tooltip>

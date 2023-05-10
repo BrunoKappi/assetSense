@@ -1,4 +1,4 @@
-.SidebarContainerClaro {
+.SidebarContainerLightTheme {
     --SidebarContainer-Background: #eceff1;
 
     --Sidebar-Item-Border: var(--PrimaryBackGroundFaded2);
@@ -17,7 +17,7 @@
 
 
 
-.SidebarContainerEscuro {
+.SidebarContainerDark {
     --SidebarContainer-Background: var(--BackgroundDark);
 
     --Sidebar-Item-Border: var(--PrimaryBackGroundFaded2);

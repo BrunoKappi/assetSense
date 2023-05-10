@@ -1,4 +1,4 @@
-.FilterSelectClaro {
+.FilterSelectLightTheme {
     --FilterSelect-Color-Input: var(--SecondaryBackground);
     --FilterSelect-Background-Input: transparent;
 
@@ -7,7 +7,7 @@
     --FilterSelect-Menu-Border: white;
 }
 
-.FilterSelectEscuro {
+.FilterSelectDark {
     --FilterSelect-Color-Input: white;
     --FilterSelect-Background-Input: transparent;
 

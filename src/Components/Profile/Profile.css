@@ -1,8 +1,8 @@
-.ProfileContainerClaro {
+.ProfileContainerLightTheme {
     --ProfileContainer-Backgrond: var(--Background);
 }
 
-.ProfileContainerEscuro {
+.ProfileContainerDark {
     --ProfileContainer-Backgrond: var(--BackgroundDark);
 }
 

@@ -1,4 +1,4 @@
-.CamposContainerClaro {
+.CamposContainerLightTheme {
     --CamposContainer-Background: var(--Background);
 
     --CamposContainer-Item-Background: white;
@@ -7,7 +7,7 @@
 
 }
 
-.CamposContainerEscuro {
+.CamposContainerDark {
     --CamposContainer-Background: var(--BackgroundDark);
 
     --CamposContainer-Item-Background: var(--BackgroundDark);

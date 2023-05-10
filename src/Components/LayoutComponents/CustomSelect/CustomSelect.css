@@ -1,9 +1,9 @@
-.CustomSelectClaro {
+.CustomSelectLightTheme {
     --CustomSelect-Color-Input: var(--SecondaryBackground);
     --CustomSelect-Background-Input: transparent;
 }
 
-.CustomSelectEscuro {
+.CustomSelectDark {
     --CustomSelect-Color-Input: white;
     --CustomSelect-Background-Input: transparent;
 }

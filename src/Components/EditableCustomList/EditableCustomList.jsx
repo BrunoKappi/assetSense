@@ -355,7 +355,7 @@ const EditableCustomList = (props) => {
   }
 
   return (
-    <div className={props.Tema === 'Escuro' ? 'CustomGroupListEscuro CustomGroupList' : 'CustomGroupListClaro CustomGroupList'}>
+    <div className={props.Tema === 'Dark' ? 'CustomGroupListDark CustomGroupList' : 'CustomGroupListLightTheme CustomGroupList'}>
 
       {ListaDeItens.length === 0 && !Loaded && <Loading />}
 

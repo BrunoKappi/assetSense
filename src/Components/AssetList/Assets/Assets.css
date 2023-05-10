@@ -1,9 +1,9 @@
-.AssetsContainerClaro {
+.AssetsContainerLightTheme {
     --AssetsContainer-Background: #eceff1;
     --AssetsContainer-NoAssets-Color: var(--ComplementaryColor);
 }
 
-.AssetsContainerEscuro {
+.AssetsContainerDark {
     --AssetsContainer-Background:  var(--BackgroundDark);
     --AssetsContainer-NoAssets-Color: var(--ComplementaryColor);
 } 

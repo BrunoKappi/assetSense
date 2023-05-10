@@ -113,7 +113,7 @@ const AssetsList = (props) => {
 
 
     return (
-        <div className={props.Tema === 'Escuro' ? 'AssetsListContainerEscuro AssetsListContainer' : 'AssetsListContainerClaro AssetsListContainer'}>
+        <div className={props.Tema === 'Dark' ? 'AssetsListContainerDark AssetsListContainer' : 'AssetsListContainerLightTheme AssetsListContainer'}>
 
             <AssetModal FromModal={false} Asset={{ ...SelectedAsset }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedAsset} />
             <AssetModal FromModal={false} Asset={{}} show={AddmodalShow} onHide={() => setAddModalShow(false)} Function="Add" />

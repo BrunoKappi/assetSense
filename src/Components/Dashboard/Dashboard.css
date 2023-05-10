@@ -1,4 +1,4 @@
-.DashboardContainerClaro {
+.DashboardContainerLightTheme {
     --DashboardContainer-Backgound: var(--Background);
 
 
@@ -19,7 +19,7 @@
     --DashBoard-ColorPickerBackground: white;
 }
 
-.DashboardContainerEscuro {
+.DashboardContainerDark {
     --DashboardContainer-Backgound: var(--BackgroundDark);
 
     --Charts-Container-Background: var(--PrimaryBackGroundFaded2);

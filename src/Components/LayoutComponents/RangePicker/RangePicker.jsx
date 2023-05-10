@@ -12,7 +12,7 @@ import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
 const MyContainer = ({ className, children }, Tema) => {
     return (
-        <div className={`RangePickerContainer  ${Tema === 'Escuro' ? 'RangePickerContainerEscuro' : 'RangePickerContainerClaro'} `}
+        <div className={`RangePickerContainer  ${Tema === 'Dark' ? 'RangePickerContainerDark' : 'RangePickerContainerLightTheme'} `}
         >
             <CalendarContainer className={className}>
 
@@ -59,8 +59,8 @@ const RangePicker = (props) => {
 
     return (
         <RangePickerComponent
-            calendarClassName={`CustomCalendarContainer  ${props.Tema === 'Escuro' ? 'CustomCalendarContainerEscuro' : 'CustomCalendarContainerClaro'} `}
-            className={`RangePicker  ${props.Tema === 'Escuro' ? 'RangePickerEscuro' : 'RangePickerClaro'} `}
+            calendarClassName={`CustomCalendarContainer  ${props.Tema === 'Dark' ? 'CustomCalendarContainerDark' : 'CustomCalendarContainerLightTheme'} `}
+            className={`RangePicker  ${props.Tema === 'Dark' ? 'RangePickerDark' : 'RangePickerLightTheme'} `}
             renderCustomHeader={(props) => <CustomHeader {...props} />}
             dateFormat="dd/MM/yyyy"
             timeCaption="Hora"

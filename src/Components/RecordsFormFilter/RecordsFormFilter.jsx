@@ -147,7 +147,7 @@ const RecordsFormFilter = (props) => {
 
 
     return (
-        <div className={props.Tema === 'Escuro' ? 'AssetRecords-FormFilterEscuro AssetRecords-FormFilter' : 'AssetRecords-FormFilterClaro AssetRecords-FormFilter'}        >
+        <div className={props.Tema === 'Dark' ? 'AssetRecords-FormFilterDark AssetRecords-FormFilter' : 'AssetRecords-FormFilterLightTheme AssetRecords-FormFilter'}        >
 
 
 

@@ -1,4 +1,4 @@
-.UserAssetRecords-ContainerClaro {
+.UserAssetRecords-ContainerLightTheme {
     --UserAssetRecord-Container-Border: var(--ComplementaryColor);
     --UserAssetRecord-UpRow-Name-Color: var(--ComplementaryColor);
     --UserAssetRecord-UpRow-Name-Color-Hover: var(--PrimaryBackGroundFaded);
@@ -29,7 +29,7 @@
 
 
 
-.UserAssetRecords-ContainerEscuro {
+.UserAssetRecords-ContainerDark {
     --UserAssetRecord-Container-Border: var(--ComplementaryColor);
     --UserAssetRecord-UpRow-Name-Color: var(--ComplementaryColor);
     --UserAssetRecord-UpRow-Name-Color-Hover: var(--ComplementaryColor);

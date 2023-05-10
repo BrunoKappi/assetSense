@@ -26,8 +26,7 @@ import Loading from '../../LoadingForTabs/Loading';
 import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
 
 import {
-    AddUserToStore,
-    GetFromStore,
+    AddUserToStore,   
     GetCurrentUserSectorNameWithIdFromStore,
     GetCurrentUserTypeNameWithIdFromStore,
     GetFromStoreWithId,
@@ -386,7 +385,7 @@ const UserModal = (props) => {
         <>
             <UserPhotoModal Add={props.Function === 'Add'} OnChangePhoto={onChangePhoto} User={props.User} IsCurrentUser={IsCurrentUser} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
 
-            <BootstrapModal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Escuro' ? 'UserModal-ModalEscuro UserModal-Modal' : 'UserModal-ModalClaro UserModal-Modal'}>
+            <BootstrapModal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Dark' ? 'UserModal-ModalDark UserModal-Modal' : 'UserModal-ModalLightTheme UserModal-Modal'}>
 
                 <BootstrapModal.Body closeButton className="UserModal-Body">
 

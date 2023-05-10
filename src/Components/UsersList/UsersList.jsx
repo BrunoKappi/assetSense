@@ -107,7 +107,7 @@ const UsersList = (props) => {
     }
 
     return (
-        <div className={props.Tema === 'Escuro' ? 'UsersListContainerEscuro UsersListContainer' : 'UsersListContainerClaro UsersListContainer'}>
+        <div className={props.Tema === 'Dark' ? 'UsersListContainerDark UsersListContainer' : 'UsersListContainerLightTheme UsersListContainer'}>
 
             <UserModal FromModal={false} Users={ListaDeUsers} CurrentUser={props.CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
 

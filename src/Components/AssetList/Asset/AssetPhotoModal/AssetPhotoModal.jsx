@@ -130,7 +130,7 @@ const AssetPhotoModal = (props) => {
 
 
     return (
-        <Modal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Escuro' ? 'AssetPhotoModal-ModalEscuro AssetPhotoModal-Modal' : 'AssetPhotoModal-ModalClaro AssetPhotoModal-Modal'}>
+        <Modal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Dark' ? 'AssetPhotoModal-ModalDark AssetPhotoModal-Modal' : 'AssetPhotoModal-ModalLightTheme AssetPhotoModal-Modal'}>
 
             <Modal.Body closeButton className="AssetPhotoModal-Body">
 

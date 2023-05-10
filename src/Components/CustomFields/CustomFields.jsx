@@ -164,7 +164,7 @@ const Campos = (props) => {
 
 
     return (
-        <div className={props.Tema === 'Escuro' ? 'CamposContainerEscuro CamposContainer' : 'CamposContainerClaro CamposContainer'}>
+        <div className={props.Tema === 'Dark' ? 'CamposContainerDark CamposContainer' : 'CamposContainerLightTheme CamposContainer'}>
 
             <Masonry breakpointCols={CamposMasoryBreakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column"   >
 

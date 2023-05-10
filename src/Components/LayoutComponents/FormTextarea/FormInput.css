@@ -1,4 +1,4 @@
-.FormInputClaro {
+.FormInputLightTheme {
     --AssetModal-IconeELabe-Input: var(--ComplementaryColor);
     --AssetModal-Borda-Input: var(--PrimaryBackGroundFaded50);
     --AssetModal-Color-Input: var(--SecondaryBackground);
@@ -6,7 +6,7 @@
 }
 
 
-.FormInputEscuro {
+.FormInputDark {
     --AssetModal-IconeELabe-Input: var(--ComplementaryColor);
     --AssetModal-Borda-Input: var(--PrimaryBackGroundFaded50);
     --AssetModal-Color-Input: white;

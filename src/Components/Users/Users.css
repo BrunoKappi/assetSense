@@ -9,10 +9,10 @@
    
 }
 
-.UsersContainerClaro {   
+.UsersContainerLightTheme {   
     background-color: var(--Background);
 }
-.UsersContainerEscuro {   
+.UsersContainerDark {   
     background-color: var(--BackgroundDark);
 }
  
@@ -54,7 +54,7 @@
 /* =========== TABS BUTTONS ==================== */
 
  
-.TabsContainerClaro {
+.TabsContainerLightTheme {
     --TabsContainer-Background: #eceff1;
     --TabsContainer-Button-Background:  var(--PrimaryBackGroundFaded2);
     --TabsContainer-Button-Border:  var(--PrimaryBackGroundFaded2);
@@ -67,7 +67,7 @@
     --TabsContainer-Button-Color-Hover: white;
 }
 
-.TabsContainerEscuro {
+.TabsContainerDark {
     --TabsContainer-Background: var(--BackgroundDark);
     --TabsContainer-Button-Background:  var(--PrimaryBackGroundFaded2);
     --TabsContainer-Button-Border:  var(--PrimaryBackGroundFaded50);

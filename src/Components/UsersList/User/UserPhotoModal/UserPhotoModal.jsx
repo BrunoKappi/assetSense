@@ -150,7 +150,7 @@ const UserPhotoModal = (props) => {
 
 
     return (
-        <Modal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Escuro' ? 'UserPhotoModal-ModalEscuro UserPhotoModal-Modal' : 'UserPhotoModal-ModalClaro UserPhotoModal-Modal'}>
+        <Modal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Dark' ? 'UserPhotoModal-ModalDark UserPhotoModal-Modal' : 'UserPhotoModal-ModalLightTheme UserPhotoModal-Modal'}>
 
             <Modal.Body closeButton className="UserPhotoModal-Body">
 

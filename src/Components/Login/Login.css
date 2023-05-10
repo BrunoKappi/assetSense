@@ -1,4 +1,4 @@
-.LoginContainerClaro {
+.LoginContainerLightTheme {
   --LoginContainer-Background: var(--Background);
 
   --LoginContainer-Form-Background: white;
@@ -22,7 +22,7 @@
 } 
 
 
-.LoginContainerEscuro {
+.LoginContainerDark {
   --LoginContainer-Background: var(--BackgroundDark);
 
   --LoginContainer-Form-Background: white;
@@ -169,7 +169,7 @@
     border: none;
   }
 
-  .LoginContainerEscuro {
+  .LoginContainerDark {
     --LoginContainer-Background: var(--BackgroundDark);
 
     --LoginContainer-Form-Background: white;

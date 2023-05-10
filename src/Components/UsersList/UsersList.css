@@ -1,4 +1,4 @@
-.UsersListContainerClaro {
+.UsersListContainerLightTheme {
 
     --UsersListContainer-Background: #eceff1;
 
@@ -27,7 +27,7 @@
 }
 
 
-.UsersListContainerEscuro {
+.UsersListContainerDark {
 
     --UsersListContainer-Background: var(--BackgroundDark);
 

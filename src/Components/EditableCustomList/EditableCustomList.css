@@ -1,4 +1,4 @@
-.CustomGroupListClaro {
+.CustomGroupListLightTheme {
     --CustomGroupList-Title-Background: var(--PrimaryBackground);
     --CustomGroupList-Title-Color: white;
 
@@ -35,7 +35,7 @@
 
 
 
-.CustomGroupListEscuro {
+.CustomGroupListDark {
     --CustomGroupList-Title-Background: var(--PrimaryBackground);
     --CustomGroupList-Title-Color: white;
 

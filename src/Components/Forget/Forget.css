@@ -1,8 +1,8 @@
-.ForgetContainerClaro {
+.ForgetContainerLightTheme {
     --LoginContainer-Background: var(--Background);
 }
 
-.ForgetContainerEscuro {
+.ForgetContainerDark {
     --LoginContainer-Background: var(--BackgroundDark);
 }
 

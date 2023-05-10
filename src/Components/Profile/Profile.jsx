@@ -11,7 +11,7 @@ const Profile = (props) => {
     const [ModalShow, setModalShow] = useState(true)
 
     return (
-        <div className={props.Tema === 'Escuro' ? 'ProfileContainerEscuro ProfileContainer' : 'ProfileContainerClaro ProfileContainer'}>
+        <div className={props.Tema === 'Dark' ? 'ProfileContainerDark ProfileContainer' : 'ProfileContainerLightTheme ProfileContainer'}>
             <UserModal
                 FromModal={false}
                 CurrentUser={props.CurrentUser}

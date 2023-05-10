@@ -1,4 +1,4 @@
-.AssetPhotoModal-ModalClaro {
+.AssetPhotoModal-ModalLightTheme {
 
     --AssetPhotoModal-Backgound: white;
     --AssetPhotoModal-Border: white;
@@ -7,10 +7,10 @@
 
 
 
-.AssetPhotoModal-ModalEscuro {
+.AssetPhotoModal-ModalDark {
 
     --AssetPhotoModal-Backgound: var(--BackgroundDark);
-    --AssetPhotoModal-Border: rgb(127, 126, 126);
+    --AssetPhotoModal-Border: rgb(43, 43, 43);
     --AssetPhotoModal-SectionTitleColor: var(--ComplementaryColor);
 }
 

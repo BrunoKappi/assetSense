@@ -1,4 +1,4 @@
-.UserContainerClaro {
+.UserContainerLightTheme {
     --UserContainer-Background: white;
     --UserContainer-Background-Hover: whitesmoke;
     --UserContainer-Border: transparent;
@@ -15,7 +15,7 @@
 
 }
 
-.UserContainerEscuro {
+.UserContainerDark {
     --UserContainer-Background: var(--BackgroundDark);
     --UserContainer-Background-Hover: var(--PrimaryBackGroundFaded30);
     --UserContainer-Border: var(--ComplementaryColor);

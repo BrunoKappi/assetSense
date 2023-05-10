@@ -123,7 +123,7 @@ const OrderBy = (props) => {
     return (
         <div>
             <Select
-                className={`OrderBy  ${props.Tema === 'Escuro' ? 'OrderByEscuro' : 'OrderByClaro'} `}
+                className={`OrderBy  ${props.Tema === 'Dark' ? 'OrderByDark' : 'OrderByLightTheme'} `}
                 defaultValue={GetDefautlOption(props.Module)}
                 closeMenuOnSelect={true}
                 hideSelectedOption={false}

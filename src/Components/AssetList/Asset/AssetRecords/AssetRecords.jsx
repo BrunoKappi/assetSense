@@ -47,7 +47,7 @@ const AssetRecords = (props) => {
         <>
             <UserModal FromModal={true} CurrentUser={props.CurrentUser} User={{ ...SelectedUser }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedUser} />
 
-            <div className={props.Tema === 'Escuro' ? 'AssetRecords-ContainerEscuro AssetRecords-Container' : 'AssetRecords-ContainerClaro AssetRecords-Container'}>
+            <div className={props.Tema === 'Dark' ? 'AssetRecords-ContainerDark AssetRecords-Container' : 'AssetRecords-ContainerLightTheme AssetRecords-Container'}>
 
 
                 {/***********   FORM FILTER   *************/}

@@ -63,7 +63,7 @@ const List = (props) => {
 
 
   return (
-    <div className={localStorage.getItem('AssetSenseTema') === 'Escuro' ? 'AssetsTypesShowOnlyCustomGroupListEscuro AssetsTypesShowOnlyCustomGroupList' : 'AssetsTypesShowOnlyCustomGroupListClaro AssetsTypesShowOnlyCustomGroupList'}>
+    <div className={localStorage.getItem('AssetSenseTema') === 'Dark' ? 'AssetsTypesShowOnlyCustomGroupListDark AssetsTypesShowOnlyCustomGroupList' : 'AssetsTypesShowOnlyCustomGroupListLightTheme AssetsTypesShowOnlyCustomGroupList'}>
 
 
 

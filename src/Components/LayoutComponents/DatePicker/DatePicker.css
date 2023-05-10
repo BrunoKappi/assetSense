@@ -1,4 +1,4 @@
-.DatePickerClaro {
+.DatePickerLightTheme {
     --DatePicker-Borda-Input: var(--PrimaryBackGroundFaded50);
     --DatePicker-Color-Input: var(--SecondaryBackground);
     --DatePicker-Background-Input: transparent;
@@ -6,7 +6,7 @@
 
 }
 
-.DatePickerEscuro {
+.DatePickerDark {
     --DatePicker-Borda-Input: var(--PrimaryBackGroundFaded50);
     --DatePicker-Color-Input: white;
     --DatePicker-Background-Input: transparent;
@@ -39,7 +39,7 @@
 
 
 
-.CustomCalendarContainerEscuro {
+.CustomCalendarContainerDark {
     --DatePicker-Container-Background: black;
     --DatePicker-Container-Border: var(--PrimaryBackGroundFaded50);
     --DatePicker-Color: white;
@@ -51,7 +51,7 @@
 
 
 
-.CustomCalendarContainerClaro {
+.CustomCalendarContainerLightTheme {
     --DatePicker-Container-Background: white;
     --DatePicker-Container-Border: var(--PrimaryBackGroundFaded50);
     --DatePicker-Color: black;
@@ -69,13 +69,13 @@
 }
 
 
-.DatePickerContainerEscuro {
+.DatePickerContainerDark {
 
     background-color: black;
 }
 
 
-.DatePickerContainerClaro {
+.DatePickerContainerLightTheme {
     background-color: white;
 }
 

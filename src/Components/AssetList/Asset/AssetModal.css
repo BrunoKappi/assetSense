@@ -1,4 +1,4 @@
-.AssetModal-ModalClaro {
+.AssetModal-ModalLightTheme {
 
     --AssetModal-Backgound: white;
     --AssetModal-Border: white;
@@ -47,10 +47,10 @@
 
 
 
-.AssetModal-ModalEscuro {
+.AssetModal-ModalDark {
 
     --AssetModal-Backgound: var(--BackgroundDark);
-    --AssetModal-Border: rgb(127, 126, 126);
+    --AssetModal-Border: rgb(43, 43, 43);
     --AssetModal-SectionTitleColor: var(--ComplementaryColor);
 
     --AssetModal-IconeELabe-Input: var(--ComplementaryColor);
@@ -187,6 +187,8 @@
     .AssetModalHeader {
         padding: .3rem;
         margin-bottom: 2rem;
+        flex-direction: column;
+        gap: 1rem;
     }
 
 }
@@ -203,7 +205,8 @@
 
 @media (max-width: 1000px) {
     .AssetModalHeader-Left {
-        width: 30%;
+        width: 100%;
+        justify-content: flex-start;
     }
 }
 
@@ -229,7 +232,8 @@
 
 @media (max-width: 1000px) {
     .AssetModalHeader-Left-Photo>img {
-        width: 70%;
+        width: 6rem;
+        height: 6rem;
     }
 }
 
@@ -305,6 +309,12 @@
 
 .AssetModalHeader-Right-Sector>svg {
     width: 1.1rem;
+}
+
+.AssetModalHeader-Right-Sector>span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .AssetModalHeader-Right-Type {

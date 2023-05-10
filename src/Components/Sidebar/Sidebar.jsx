@@ -92,7 +92,9 @@ const Sidebar = (props) => {
         <>
             <UserPhotoModal Add={false} OnChangePhoto={() => { }} User={props.CurrentUser} IsCurrentUser={true} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
 
-            <div ref={SidebarRef} className={(props.Tema === 'Escuro' ? 'SidebarContainerEscuro SidebarContainer' : 'SidebarContainerClaro SidebarContainer')} >
+            <div ref={SidebarRef} className={(props.Tema === 'Dark' ? 'SidebarContainerDark SidebarContainer' : 'SidebarContainerLightTheme SidebarContainer')} >
+
+
                 <Tooltip title="Recolher/Expandir barra lateral" position="bottom" >
                     <div className='NavBar-Hamburguer ToggleSidebarButton' onClick={e => setSidebarActive(!SidebarActive)}>
                         <UilBars />

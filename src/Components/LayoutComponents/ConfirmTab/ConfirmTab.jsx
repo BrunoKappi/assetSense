@@ -5,7 +5,7 @@ import { UilBackward, UilCheck } from '@iconscout/react-unicons'
 
 const ConfirmTab = (props) => {
     return (
-        <div className={`ConfirmTab ${props.Tema === 'Escuro' ? "ConfirmTabEscuro" : 'ConfirmTabClaro'}  `}>
+        <div className={`ConfirmTab ${props.Tema === 'Dark' ? "ConfirmTabDark" : 'ConfirmTabLightTheme'}  `}>
             <h4 className='ConfirmMessage'>{props.ConfirmMessage}</h4>
             <div className='ConfirmButtons'>
                 <button className='ConfirmButtons-Secondary' onClick={e => { props.EndConfirming(); props.setIsEdited(true); }}>

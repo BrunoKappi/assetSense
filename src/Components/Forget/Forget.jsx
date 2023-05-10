@@ -21,7 +21,7 @@ const Forget = (props) => {
     }
 
     return (
-        <div className={props.Tema === 'Escuro' ? 'ForgetContainerEscuro ForgetContainer' : 'ForgetContainerClaro ForgetContainer'} >
+        <div className={props.Tema === 'Dark' ? 'ForgetContainerDark ForgetContainer' : 'ForgetContainerLightTheme ForgetContainer'} >
 
             <LogoutHeader />
 

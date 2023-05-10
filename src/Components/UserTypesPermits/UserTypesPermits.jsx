@@ -98,7 +98,7 @@ const UserTypesPermits = (props) => {
         <div className='UserTypesPermitsOuterContainer'>
             <SectionTitle>Permissões por Tipo de Usuário</SectionTitle>
 
-            <div className={props.Tema === 'Escuro' ? 'UserTypesPermitsContainerEscuro UserTypesPermitsContainer' : 'UserTypesPermitsContainerClaro UserTypesPermitsContainer'}>
+            <div className={props.Tema === 'Dark' ? 'UserTypesPermitsContainerDark UserTypesPermitsContainer' : 'UserTypesPermitsContainerLightTheme UserTypesPermitsContainer'}>
 
                 <Stack Gap={'.5rem'}>
                     {UserTypes.map((TypeUser) => {
