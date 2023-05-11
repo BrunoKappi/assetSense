@@ -83,13 +83,11 @@ const AssetModal = (props) => {
     const StatusAsset = GetFromStoreWithId('AssetsStatus', props?.Asset?.Status?.id)
     const [ProfileImageUrl, setProfileImageUrl] = useState('')
     const [AssetType, setAssetType] = useState({ ...DefaultAssetsType })
-    const [AssetTypeCustomFields, setAssetTypeCustomFields] = useState([])
+    //const [AssetTypeCustomFields, setAssetTypeCustomFields] = useState([])
+    const AssetTypeCustomFields = AssetType?.CustomFields?.length > 0 ? [...AssetType?.CustomFields] : []
     const [AssetStorageLocation, setAssetStorageLocation] = useState({ ...DefaultLocal })
     const [Asset, setAsset] = useState({ ...DefaultAsset })
     const QuantidadeRetirada = props.Asset?.QtdInUse
-
-
-
 
     //FUNCIONALIDADE 
     const [Tab, setTab] = useState('AssetInfo')
@@ -99,9 +97,6 @@ const AssetModal = (props) => {
 
     //CURRENT ASSET AND PERMITS
     const [CurrentUserType] = useState(props.UserTypes.find(Type => Type.id === props.CurrentUser.Type.id))
-
-
-
 
     //CONFIRM 
     const [ConfirmAction, SetConfirmAction] = useState('')
@@ -119,7 +114,6 @@ const AssetModal = (props) => {
     var PermitToDeleteAssets = CurrentUserType?.Permits[PermitIndexs['DELETE_ASSETS']]
     var PermitToTakeAssets = CurrentUserType?.Permits[PermitIndexs['RETIRAR_ASSETS']]
     var CanEdit = IsAdmin || PermitToEditAssets
-
 
 
     // CANCEL EDITIONS
@@ -174,8 +168,6 @@ const AssetModal = (props) => {
         } else {
             setProfileImageUrl('')
         }
-
-
     }, [props.Asset, props.CurrentUser, CurrentUserType])
 
 
@@ -213,15 +205,7 @@ const AssetModal = (props) => {
     }, [Asset, props.CurrentUser])
 
 
-    //QUANDO O ASSETTYPE MUDA, PEGA OS CUSTOMS FIELDS
-    useEffect(() => {
-        if (AssetType?.CustomFields?.length > 0) {
-            setAssetTypeCustomFields([...AssetType?.CustomFields])
-        } else {
-            setAssetTypeCustomFields([])
-        }
 
-    }, [AssetType])
 
 
     // HANDLE ERROR

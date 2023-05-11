@@ -19,7 +19,7 @@ const AssetsList = (props) => {
     const [SelectedAsset, setSelectedAsset] = useState()
     //const [ListaDeAssets, setListaDeAssets] = useState([])
     var ListaDeAssets = []
-    const [Loaded, setLoaded] = useState(false)
+    const [Loaded, setLoaded] = useState(true)
     const [FiltroDeTexto, setFiltroDeTexto] = useState('')
 
     const [modalShow, setModalShow] = useState(false)

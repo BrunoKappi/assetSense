@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import './Sidebar.css'
 import { useNavigate } from 'react-router-dom';
 import { SetTab } from './SidebarUtils';
 import { connect } from 'react-redux'
 import { UilChartPieAlt, UilListUl, UilUsersAlt, UilSetting, UilUserCircle, UilClipboardNotes, UilHistory, UilBars, UilTicket } from '@iconscout/react-unicons'
 import { NotificationAlerta, NotificationErro } from '../../NotificationUtils';
-import { SetLoggedUserPhotoUrlJustStore } from '../../Functions/StoreMiddleware';
 import Loading from '../LoadingForTabs/Loading'
 import UserPhotoModal from '../UsersList/User/UserPhotoModal/UserPhotoModal'
 //Tooltip
@@ -61,9 +60,11 @@ const Sidebar = (props) => {
     //VERIFY WHAT TAB IS ACTIVE
     const IsActive = (Tab) => props.LoggedUser.CurrentSidebarTab === Tab
 
-    //SIDEBAR TOGGLE
-    useEffect(() => {
-        if (!SidebarActive) {
+
+
+    const ToggleSidebar = () => {
+        setSidebarActive(!SidebarActive)
+        if (SidebarActive) {
             SidebarRef.current.style.width = '0'
             SidebarRef.current.style.padding = '0'
         }
@@ -72,21 +73,26 @@ const Sidebar = (props) => {
             SidebarRef.current.style.paddingLeft = '.5rem'
             SidebarRef.current.style.paddingTop = '1.5rem'
         }
-    }, [SidebarActive])
 
-
-    console.log(props.CurrentUser.PhotoUrl)
+    }
 
 
     return (
         <>
-            <UserPhotoModal Add={false} OnChangePhoto={() => { }} User={props.CurrentUser} IsCurrentUser={true} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
+            <UserPhotoModal
+                Add={false}
+                OnChangePhoto={() => { }}
+                User={props.CurrentUser}
+                IsCurrentUser={true}
+                show={ShowPhotoModal}
+                onHide={() => setShowPhotoModal(false)}
+            />
 
             <div ref={SidebarRef} className={(props.Tema === 'Dark' ? 'SidebarContainerDark SidebarContainer' : 'SidebarContainerLightTheme SidebarContainer')} >
 
 
                 <Tooltip title="Recolher/Expandir barra lateral" position="bottom" >
-                    <div className='NavBar-Hamburguer ToggleSidebarButton' onClick={e => setSidebarActive(!SidebarActive)}>
+                    <div className='NavBar-Hamburguer ToggleSidebarButton' onClick={ToggleSidebar}>
                         <UilBars />
                     </div>
                 </Tooltip>

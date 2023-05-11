@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react'
-//MANTER O useEffect
 import './UserPhotoModal.css'
 import Modal from 'react-bootstrap/Modal';
 import { connect } from 'react-redux'

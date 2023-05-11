@@ -20,7 +20,7 @@ const UsersList = (props) => {
     const [SelectedUser, setSelectedUser] = useState({})
     //const [ListaDeUsers, setListaDeUsers] = useState([])
     var ListaDeUsers = []
-    const [Loaded, setLoaded] = useState(false);
+    const [Loaded, setLoaded] = useState(true);
     const [FiltroDeTexto, setFiltroDeTexto] = useState('');
     const [modalShow, setModalShow] = useState(false);
     const [AddmodalShow, setAddModalShow] = useState(false);

@@ -250,7 +250,7 @@ const Tabs = {
     "UsersInSectors": SectorsTabTitle(),
     "UsersInTypes": UsersTypesTabTitle(),
     "DashAssets": DashAssetsTabTitle(),
-    "DahUsers": DashUsersTabTitle(),
+    "DashUsers": DashUsersTabTitle(),
     "DashTypes": DashRecordsTabTitle(),
     "CustomAssets": CustomAssetTypes(),
     "CustomUserTypes": CustomUserTypes(),

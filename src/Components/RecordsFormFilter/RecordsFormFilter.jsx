@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-//MANTER USEEFFECT
 import './RecordsFormFilter.css'
 import { GetFromStoreWithId, GetNameFromStoreWithId } from '../../Functions/StoreMiddleware'
 import moment from 'moment';
