@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import './UsersList.css'
 import UserModal from './User/UserModal'
 import Loading from '../LoadingForTabs/Loading';
@@ -18,7 +18,8 @@ const UsersList = (props) => {
 
     //STATES
     const [SelectedUser, setSelectedUser] = useState({})
-    const [ListaDeUsers, setListaDeUsers] = useState([])
+    //const [ListaDeUsers, setListaDeUsers] = useState([])
+    var ListaDeUsers = []
     const [Loaded, setLoaded] = useState(false);
     const [FiltroDeTexto, setFiltroDeTexto] = useState('');
     const [modalShow, setModalShow] = useState(false);
@@ -33,65 +34,57 @@ const UsersList = (props) => {
     var PermitToAddUsers = CurrentUserType?.Permits[PermitIndexs['ADD_USERS']]
 
     //CHECK
-    const CheckIncludesText = (What) => {
-        return What.toLowerCase().includes(FiltroDeTexto.trim().toLowerCase())
-    }
+    const CheckIncludesText = (What) =>
+        What.toLowerCase().includes(FiltroDeTexto.trim().toLowerCase())
+
 
     //CHECK IN OBJECT
-    const CheckIncludesInObject = (Item, What, Key) => {
-        return What?.find(option => option.id === Item.id)
-    }
+    const CheckIncludesInObject = (Item, What, Key) =>
+        What?.find(option => option.id === Item.id)
 
-    //FILL USERS LIST
-    useEffect(() => {
-        setListaDeUsers(Users.sort((a, b) => a.Name.localeCompare(b.Name)))
-        setTimeout(() => {
-            setLoaded(true)
-        }, 500);
-    }, [props.Users])
+    setTimeout(() => {
+        setLoaded(true)
+    }, 1000);
 
 
-    //FILTER AND SORT USERSLIST
-    useEffect(() => {
-        setListaDeUsers(
-            Users.filter(User => {
-                //FILTER LIST
-                const Sector = GetNameFromStoreWithId("Sectors", User.Sector.id)
-                const Type = GetNameFromStoreWithId('UserTypes', User.Type.id)
+    ListaDeUsers = Users.filter(User => {
+        //FILTER LIST
+        const Sector = GetNameFromStoreWithId("Sectors", User.Sector.id)
+        const Type = GetNameFromStoreWithId('UserTypes', User.Type.id)
 
-                return (
-                    (FiltroDeTexto === '' || CheckIncludesText(User.Name) || CheckIncludesText(User.Email) || CheckIncludesText(Sector) || CheckIncludesText(Type)) &&
-                    CheckIncludesInObject(User.Sector, Filters?.Sectors) &&
-                    CheckIncludesInObject(User.Type, Filters?.UserTypes)
-                )
-            }).sort(
-                //SORT LIST
-                (Primeiro, Segundo) => {
+        return (
+            (FiltroDeTexto === '' || CheckIncludesText(User.Name) || CheckIncludesText(User.Email) || CheckIncludesText(Sector) || CheckIncludesText(Type)) &&
+            CheckIncludesInObject(User.Sector, Filters?.Sectors) &&
+            CheckIncludesInObject(User.Type, Filters?.UserTypes)
+        )
+    }).sort(
+        //SORT LIST
+        (Primeiro, Segundo) => {
 
-                    const SectorPrimeiro = GetNameFromStoreWithId("Sectors", Primeiro.Sector.id)
-                    const SectorSegundo = GetNameFromStoreWithId("Sectors", Segundo.Sector.id)
-                    const TypePrimeiro = GetNameFromStoreWithId('UserTypes', Primeiro.Type.id)
-                    const TypeSegundo = GetNameFromStoreWithId('UserTypes', Segundo.Type.id)
+            const SectorPrimeiro = GetNameFromStoreWithId("Sectors", Primeiro.Sector.id)
+            const SectorSegundo = GetNameFromStoreWithId("Sectors", Segundo.Sector.id)
+            const TypePrimeiro = GetNameFromStoreWithId('UserTypes', Primeiro.Type.id)
+            const TypeSegundo = GetNameFromStoreWithId('UserTypes', Segundo.Type.id)
 
-                    switch (OrdenarPor) {
-                        case 'Nome':
-                            return Primeiro.Name.localeCompare(Segundo.Name)
-                        case 'Email':
-                            return Primeiro.Email.localeCompare(Segundo.Email)
-                        case 'Setor':
-                            return SectorPrimeiro.localeCompare(SectorSegundo)
-                        case 'Tipo':
-                            return TypePrimeiro.localeCompare(TypeSegundo)
-                        case 'Data de Adição':
-                            return Primeiro.CreatedAt < Segundo.CreatedAt ? 1 : -1
-                        case 'Última edição':
-                            return Primeiro.LastEditedAt < Segundo.LastEditedAt ? 1 : -1
-                        default:
-                            return Primeiro.Name.localeCompare(Segundo.Name)
-                    }
-                }
-            ))
-    }, [FiltroDeTexto, Filters, OrdenarPor])
+            switch (OrdenarPor) {
+                case 'Nome':
+                    return Primeiro.Name.localeCompare(Segundo.Name)
+                case 'Email':
+                    return Primeiro.Email.localeCompare(Segundo.Email)
+                case 'Setor':
+                    return SectorPrimeiro.localeCompare(SectorSegundo)
+                case 'Tipo':
+                    return TypePrimeiro.localeCompare(TypeSegundo)
+                case 'Data de Adição':
+                    return Primeiro.CreatedAt < Segundo.CreatedAt ? 1 : -1
+                case 'Última edição':
+                    return Primeiro.LastEditedAt < Segundo.LastEditedAt ? 1 : -1
+                default:
+                    return Primeiro.Name.localeCompare(Segundo.Name)
+            }
+        }
+    )
+
 
 
     //USER CLICK

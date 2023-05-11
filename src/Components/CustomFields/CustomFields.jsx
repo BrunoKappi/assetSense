@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './CustomFields.css'
 //LIBRARIES
 import { v4 } from 'uuid';
@@ -33,7 +33,8 @@ const UpdateInFirebaseFunctionsMap = {
 const Campos = (props) => {
 
     //STATES
-    const [Items, setItems] = useState([])
+    //const [Items, setItems] = useState([])
+    var Items = []
     const [IsLoading, setIsLoading] = useState()
     const [IsEditing, setIsEditing] = useState()
     const [SelectedItem, setSelectedItem] = useState()
@@ -42,15 +43,14 @@ const Campos = (props) => {
     const [SelectedListItemValue, setSelectedListItemValue] = useState()
 
 
-    //SET ITENS DEPENDING ON FUNCTION
-    useEffect(() => {
-        if (props.Function === 'AssetTypes')
-            setItems([...props.AssetTypes])
-        else if (props.Function === 'UserTypes')
-            setItems([...props.UserTypes])
-        else if (props.Function === 'Sectors')
-            setItems([...props.Sectors])
-    }, [props.Items, props.AssetTypes, props.UserTypes, props.Sectors])
+
+    if (props.Function === 'AssetTypes')
+        Items = [...props.AssetTypes]
+    else if (props.Function === 'UserTypes')
+        Items = [...props.UserTypes]
+    else if (props.Function === 'Sectors')
+        Items = [...props.Sectors]
+
 
 
     //HANDLE ERROR

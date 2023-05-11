@@ -1,8 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import './AssetPhotoModal.css'
 import Modal from 'react-bootstrap/Modal';
 import { connect } from 'react-redux'
-
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
 import { UilTimes, UilTrashAlt, UilCheck, UilBackward, UilPen } from '@iconscout/react-unicons'
 import { DeleteFile, GetUserUrlImage, ImageUpload } from '../../../../Functions/StorageMiddleware';
@@ -10,8 +9,6 @@ import LoadingSpiner from '../../../LoadingForTabs/Loading'
 import { v4 } from 'uuid';
 import Show from '../../../LayoutComponents/Show/Show'
 import { SetAssetPhotoUrl } from '../../../../Functions/DatabaseMiddleware';
-
-
 
 const AssetPhotoModal = (props) => {
 
@@ -21,15 +18,10 @@ const AssetPhotoModal = (props) => {
     //STATES
     const [Loading, setLoading] = useState(false);
     const [imageUpload, setImageUpload] = useState(null);
-    const [ImageToShowUser, setImageToShowUser] = useState(props?.Asset?.PhotoUrl);
+    //const [ImageToShowUser, setImageToShowUser] = useState(props?.Asset?.PhotoUrl);
 
+    const [ImageToShowUser] = useState(props?.Asset?.PhotoUrl);
 
-
-
-    // WHEN THERE IS ASSET, GET ITS PHOTO URL
-    useEffect(() => {
-        setImageToShowUser(props?.Asset?.PhotoUrl)
-    }, [props.Asset])
 
 
     // HANDLE ERROR
@@ -57,7 +49,7 @@ const AssetPhotoModal = (props) => {
         }
 
         //console.log(path)
-        
+
 
         ImageUpload(path, imageUpload, props.LoggedUser.Email).then(() => {
             NotificationSucesso("Foto do Ativo Atualizada!")
@@ -86,8 +78,8 @@ const AssetPhotoModal = (props) => {
     // DELETE PHOTO
     const ApagarFotoDoAsset = () => {
         setLoading(true)
-    
-      
+
+
 
         DeleteFile(`${import.meta.env.VITE_REACT_TENANT_NAME}/${import.meta.env.VITE_REACT_ASSETS_PHOTOS_DIRECTORY}/${props.Asset.id}`).then(() => {
             SetAssetPhotoUrl('', props.Asset.id)

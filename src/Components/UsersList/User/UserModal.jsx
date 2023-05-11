@@ -26,7 +26,7 @@ import Loading from '../../LoadingForTabs/Loading';
 import { NotificationAlerta, NotificationErro, NotificationSucesso } from '../../../NotificationUtils';
 
 import {
-    AddUserToStore,   
+    AddUserToStore,
     GetCurrentUserSectorNameWithIdFromStore,
     GetCurrentUserTypeNameWithIdFromStore,
     GetFromStoreWithId,
@@ -74,7 +74,8 @@ const UserModal = (props) => {
     const [UserType, setUserType] = useState({ ...DefaultUserType })
     const [UserSector, setUserSector] = useState({ ...DefaultSector })
     const [ProfileImageUrl, setProfileImageUrl] = useState('')
-    const [UserTypeCustomFields, setUserTypeCustomFields] = useState([])
+    //const [UserTypeCustomFields, setUserTypeCustomFields] = useState([])
+    var UserTypeCustomFields = []
     const [SenhaAtual, setSenhaAtual] = useState('')
     const [NovaSenha, setNovaSenha] = useState('')
     const [IdToUse, setIdToUse] = useState('')
@@ -158,9 +159,11 @@ const UserModal = (props) => {
             setUser(GetFromStoreWithId('UsersWithDeleted', id))
             setIsEdited(false)
             setTab('UserInfo')
-            setProfileImageUrl(IsCurrentUser ? props.LoggedUser.PhotoUrl : PhotoUrl || '')
+            setProfileImageUrl(IsCurrentUser ? props.CurrentUser.PhotoUrl : PhotoUrl || '')
         }
     }, [props.User, props.CurrentUser, CurrentUserType])
+
+
 
 
     //QUANDO O USERTYPE MUDA, PEGA O NOVO TYPE
@@ -171,13 +174,11 @@ const UserModal = (props) => {
 
 
 
-    //QUANDO O USERTYPE MUDA, PEGA OS CUSTOMS FIELDS DO NOVO USER TYPE
-    useEffect(() => {
-        if (UserType?.CustomFields?.length > 0)
-            setUserTypeCustomFields([...UserType?.CustomFields])
-        else
-            setUserTypeCustomFields([])
-    }, [UserType])
+    if (UserType?.CustomFields?.length > 0)
+        UserTypeCustomFields = [...UserType?.CustomFields]
+    else
+        UserTypeCustomFields = []
+
 
 
 
@@ -383,7 +384,16 @@ const UserModal = (props) => {
     return (
 
         <>
-            <UserPhotoModal Add={props.Function === 'Add'} OnChangePhoto={onChangePhoto} User={props.User} IsCurrentUser={IsCurrentUser} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
+            {props.User &&
+                <UserPhotoModal
+                    Add={props.Function === 'Add'}
+                    OnChangePhoto={onChangePhoto}
+                    User={props.User}
+                    IsCurrentUser={IsCurrentUser}
+                    show={ShowPhotoModal}
+                    onHide={() => setShowPhotoModal(false)}
+                />
+            }
 
             <BootstrapModal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Dark' ? 'UserModal-ModalDark UserModal-Modal' : 'UserModal-ModalLightTheme UserModal-Modal'}>
 

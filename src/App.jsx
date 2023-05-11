@@ -13,7 +13,7 @@ import store, { FillStore } from './Config/store/store';
 import { setTenantPhotosAction } from './Config/store/actions/TenantPhotosActions';
 import { SetCurrentUserOnStore, SetTema, SetTenant } from './Functions/StoreMiddleware';
 import { FIREBASE_GetUserByEmail } from './Config/firebase/metodos2';
-import { useEffect } from 'react';
+
 
 
 const App = ({ LoggedUser }) => {
@@ -35,19 +35,18 @@ const App = ({ LoggedUser }) => {
   const RequireAuth = ({ children }) => LoggedUser.Email ? children : <Navigate to="/" />
 
 
-  useEffect(() => {
-    if (LoggedUser.Email) {
-      FIREBASE_GetUserByEmail("Users", LoggedUser.Email).then((Response) => {
-        const User = { ...Response[0] }
-        const Theme = User?.Preference?.Theme || 'LightTheme'
-        const Tenant = User?.Tenant?.Name || ''
-        SetCurrentUserOnStore({ ...User, uid: LoggedUser.uid, CheckedLogin: true })
-        SetTema(Theme)
-        FillStore()
-        SetTenant(Tenant)
-      })
-    }
-  }, [LoggedUser])
+
+  if (LoggedUser.Email) {
+    FIREBASE_GetUserByEmail("Users", LoggedUser.Email).then((Response) => {
+      const User = { ...Response[0] }
+      const Theme = User?.Preference?.Theme || 'LightTheme'
+      const Tenant = User?.Tenant?.Name || ''
+      SetCurrentUserOnStore({ ...User, uid: LoggedUser.uid, CheckedLogin: true })
+      SetTema(Theme)
+      FillStore()
+      SetTenant(Tenant)
+    })
+  }
 
 
 

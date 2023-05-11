@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import "./Login.css";
 import { useNavigate } from 'react-router-dom';
 import { HandleFirebaseEmailPasswordLogin, LoginSuccess } from "./LoginUtils";
@@ -21,10 +21,10 @@ const Login = (props) => {
 
 
     const PasswordRef = useRef()
- 
+
 
     //Event Email
-    const handleChangeEmail = (e) => { 
+    const handleChangeEmail = (e) => {
         const value = e.target.value
         if (value.includes("@") && !value.includes("@serranoautomacao") && e.nativeEvent.inputType !== "deleteContentBackward") {
             const completEmail = value //+ "serranoautomacao.com.br"
@@ -39,7 +39,7 @@ const Login = (props) => {
         if (Email && PasswordRef.current.value) {
             setIsLoggin(true)
             LoginUtil(Email.toLocaleLowerCase(), PasswordRef.current.value).then((message) => {
-                
+
                 LoginSuccess(message)
                 setIsLoggin(false)
                 NotificationSucesso('Login', 'Login realizado com sucesso!')

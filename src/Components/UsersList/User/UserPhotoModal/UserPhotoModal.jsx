@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
+//MANTER O useEffect
 import './UserPhotoModal.css'
 import Modal from 'react-bootstrap/Modal';
 import { connect } from 'react-redux'
@@ -16,12 +17,14 @@ import { SetOtherUserPhotoUrl, SetLoggedUserPhotoUrl } from '../../../../Functio
 
 const UserPhotoModal = (props) => {
 
+
+
     const fileInputRef = useRef(null);
     const [imageUpload, setImageUpload] = useState(null);
     const [Uploading, setUploading] = useState(false);
-    const [LastUserUrlImage, setLastUserUrlImage] = useState(null);
+    const [LastUserUrlImage, setLastUserUrlImage] = useState('');
     const [Loading, setLoading] = useState(false);
-    const [ImageToShowUser, setImageToShowUser] = useState(null);
+    const [ImageToShowUser, setImageToShowUser] = useState('');
 
     // HANDLE ERROR
     const HandleError = (Erro) => {
@@ -34,18 +37,12 @@ const UserPhotoModal = (props) => {
 
     useEffect(() => {
         if (props.IsCurrentUser === true) {
-            setImageToShowUser(props.LoggedUser.PhotoUrl)
-            setLastUserUrlImage(props.LoggedUser.PhotoUrl)
-        } else {
-            if (props.Add) {
-                setImageToShowUser('')
-                setLastUserUrlImage('')
-            } else {
-                setImageToShowUser(props.User?.PhotoUrl)
-                setLastUserUrlImage(props.User?.PhotoUrl)
-            }
+            setImageToShowUser(props.CurrentUser.PhotoUrl)
+            setLastUserUrlImage(props.CurrentUser.PhotoUrl)
+        } else if (!props.Add) {
+            setImageToShowUser(props.User?.PhotoUrl)
+            setLastUserUrlImage(props.User?.PhotoUrl)
         }
-
     }, [props.IsCurrentUser, props.User])
 
 
@@ -76,6 +73,7 @@ const UserPhotoModal = (props) => {
                     setUploading(false)
                     props.OnChangePhoto(url, IdToUseToAdd)
                     if (props.IsCurrentUser) {
+
                         SetLoggedUserPhotoUrl(url, props.CurrentUser)
                     } else {
                         SetOtherUserPhotoUrl(url, props.User?.id)

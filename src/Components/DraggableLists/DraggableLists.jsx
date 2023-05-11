@@ -1,5 +1,5 @@
 import './DraggableLists.css'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Lists from './List'
 import Masonry from "react-masonry-css";
 import { DragDropContext } from "react-beautiful-dnd";
@@ -95,20 +95,18 @@ const DraggableLists = (props) => {
     const EditPermit = (PermitFunction())
 
     //STATE
-    const [ListaDeItens, setListaDeItens] = useState([])
+    //const [ListaDeItens, setListaDeItens] = useState([])
+
     const [isMobile, setisMobile] = useState(window.innerWidth <= 768)
     const [Loading, setLoading] = useState(false)
 
 
+    const ListaDeItens = [
+        ...props[List].map(element => {
+            var ItensQtd = props[ListaDeitensMap[props.Module]].filter(el => el[Key].id === element.id && el.Deleted === false).length
+            return { id: element.id, Value: element.Value, Qtd: ItensQtd }
+        })]
 
-    //SET STATE WHEN ITENS CHANGE
-    useEffect(() => {
-        setListaDeItens([
-            ...props[List].map(element => {
-                var ItensQtd = props[ListaDeitensMap[props.Module]].filter(el => el[Key].id === element.id && el.Deleted === false).length
-                return { id: element.id, Value: element.Value, Qtd: ItensQtd }
-            })])
-    }, [props[ListaDeitensMap[props.Module]], props[List]])
 
     //HANDLE DRAG
     const HandleDrag = (Resultado) => {

@@ -33,6 +33,7 @@ const Collections = {
 
 //SET LOGGED USER PHOTO URL
 export const SetLoggedUserPhotoUrl = (URL, CurrentUser) => {
+    CurrentUser.PhotoUrl = URL
     UpdateInFirebaseFunctions["User"](CurrentUser)
     Dispatch(SetLoggedUserPhotoUrlAction(URL))
 }
@@ -62,7 +63,7 @@ export const GetFromDatabase = (What) => {
 }
 
 //EDIT
-export const EditInDatabase = (What, Item) => { 
+export const EditInDatabase = (What, Item) => {
     const Collection = Collections[What]
     return FIREBASE_Update(Collection, { ...Item, LastEditedAt: moment().valueOf() })
 }

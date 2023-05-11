@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import './EditableCustomList.css'
 //ICONES
@@ -36,14 +36,14 @@ const ColorOptions = [
   '#DBDF00',
   '#A4DD00',
 
-  
+
   '#73D8FF',
   '#AEA1FF',
   '#FDA1FF',
   '#333333',
   '#808080',
-  '#cccccc', 
-  '#D33115',   
+  '#cccccc',
+  '#D33115',
   '#E27300',
   '#FCC400',
   '#B0BC00',
@@ -53,7 +53,7 @@ const ColorOptions = [
   '#7B64FF',
   '#FA28FF',
   '#666666',
-  '#B3B3B3', 
+  '#B3B3B3',
   '#C45100',
 ]
 
@@ -130,23 +130,14 @@ const EditableCustomList = (props) => {
     RequestsTypes: RequestsTypesPermit,
   };
 
+  const fetchFunction = GetFromStoreFunctions[props.Module] || [];
+
   //STATES
   const [ItemListSelected, setItemListSelected] = useState('')
   const [NewItemList, setNewItemList] = useState('')
   const [Loaded, setLoaded] = useState(false)
   const [EditingItem, setEditingItem] = useState(false)
-  const [ListaDeItens, setListaDeItens] = useState([])
-
-  //GET FUNCTION
-  useEffect(() => {
-    //Procura a função get correspondente com base no nome do módulo/prop
-    const fetchFunction = GetFromStoreFunctions[props.Module] || [];
-
-    //Executa a função get e atualiza o estado com o resultado 
-    setListaDeItens(fetchFunction())
-    setLoaded(true)
-
-  }, [props.Module, props.AssetTypes, props.Sectors, props.UserTypes, props.StorageLocations, props.AssetsStatus])
+  const [ListaDeItens, setListaDeItens] = useState(fetchFunction())
 
   //INIT EDITING AND CHECK PERMITS
   const InitEditing = () => {

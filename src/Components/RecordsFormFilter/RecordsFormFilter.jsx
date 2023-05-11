@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+//MANTER USEEFFECT
 import './RecordsFormFilter.css'
 import { GetFromStoreWithId, GetNameFromStoreWithId } from '../../Functions/StoreMiddleware'
 import moment from 'moment';
@@ -6,7 +7,6 @@ import { connect } from 'react-redux'
 import OrderBy from '../LayoutComponents/OrderBy/OrderBy'
 import FilterSelect from '../LayoutComponents/FilterSelect/FilterSelect'
 import RangePicker from '../LayoutComponents/RangePicker/RangePicker'
-import TwoColumns from '../LayoutComponents/TwoColumns/TwoColumns';
 import FormGroupLabel from '../LayoutComponents/FormGroupLabel/FormGroupLabel';
 import { UilSearch, UilCalendarAlt, } from '@iconscout/react-unicons'
 
@@ -198,13 +198,6 @@ const RecordsFormFilter = (props) => {
                     Reset={ResetFilters}
                 />
             </div>
-
-
-
-
-
-
-
 
 
 

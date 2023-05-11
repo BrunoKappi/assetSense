@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import './AssetRecords.css'
-import { GetFromStore, GetFromStoreWithId, GetRecordsOfAsset } from '../../../../Functions/StoreMiddleware';
+import { GetFromStoreWithId, GetRecordsOfAsset } from '../../../../Functions/StoreMiddleware';
 import { UilCommentInfoAlt } from '@iconscout/react-unicons'
 //Tooltip
 import UserModal from '../../../UsersList/User/UserModal'
@@ -15,14 +15,10 @@ const AssetRecords = (props) => {
 
 
     //QUANTIDADES 
-    const [Records, SetRecords] = useState([])
+    const [Records, SetRecords] = useState(GetRecordsOfAsset(props.Asset?.id))
     const [SelectedUser, setSelectedUser] = useState({})
     const [modalShow, setModalShow] = useState(false);
 
-    //FILL LIST
-    useEffect(() => {
-        SetRecords(GetRecordsOfAsset(props.Asset?.id))
-    }, [props.Asset?.id, props.RecordsAssets])
 
     //RESET SELECTED USER 
     const ResetSelectedUser = () => {

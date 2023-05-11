@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import './AssetTakeReturn.css'
 import { DevolverTabTitle, RetirarTabTitle } from './AssetTakeReturnUtils';
 import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
@@ -18,9 +18,7 @@ import {
 } from '../../../../Functions/StoreMiddleware';
 
 import {
-
     AddToFirebaseFunctions,
-
     UpdateInFirebaseFunctions,
 } from '../../../../Functions/DatabaseMiddleware';
 
@@ -58,7 +56,7 @@ const AssetTakeReturn = (props) => {
 
     //QUANTIDADES
     const QuantidadeDoAsset = props.Asset?.Qtd
-    const [QuantidadeRetirada, SetQuantidadeRetirada] = useState()
+    const [QuantidadeRetirada, SetQuantidadeRetirada] = useState(GetQtdInUseOfAssetWithId(props.Asset?.id))
     const [QuantidadeRetiradaPeloCurrentUser, SetQuantidadeRetiradaPeloCurrentUser] = useState(GetTakesOfAssetOfCurrentUser(props.Asset?.id, props.CurrentUser))
 
     //CONFIRM 
@@ -67,10 +65,7 @@ const AssetTakeReturn = (props) => {
     const [ConfirmBtAction, SetConfirmBtAction] = useState('')
     const [ConfirmBtBack, SetConfirmBtBack] = useState('')
 
-    //UPDATE QUANTIDADES
-    useEffect(() => {
-        SetQuantidadeRetirada(GetQtdInUseOfAssetWithId(props.Asset?.id))
-    }, [props.Assets])
+
 
     // HANDLE ERROR
     const HandleError = (Erro) => {
@@ -78,12 +73,6 @@ const AssetTakeReturn = (props) => {
         setLoadingAction(false)
         NotificationErro("Erro", "Ocorreu um problema, tente novamente")
     }
-
-    //UPDATE QUANTIDADES
-    useEffect(() => {
-        SetQuantidadeRetirada(GetQtdInUseOfAssetWithId(props.Asset?.id))
-        SetQuantidadeRetiradaPeloCurrentUser(GetTakesOfAssetOfCurrentUser(props.Asset?.id, props.CurrentUser))
-    }, [props.Asset?.id, props.RecordsAssets])
 
 
     //TOGGLE TARGET OF ACTION
@@ -188,6 +177,7 @@ const AssetTakeReturn = (props) => {
 
 
 
+
     // SUBMIT FINAL ACTION
     const Submit = () => {
 
@@ -228,10 +218,12 @@ const AssetTakeReturn = (props) => {
 
                     AddToFirebaseFunctions["Record"](NewRecordToAdd).then((Record) => {
 
+
                         //ADD PLUS 1 RETIRADA 
-                        const NewAsset = { ...props.Asset, QtdInUse: props.Asset.QtdInUse + 1 }
-                        EditAssetOnStore(NewAsset)
+                        const NewAsset = { ...props.Asset, QtdInUse: QuantidadeRetirada + 1 }
+
                         UpdateInFirebaseFunctions["Asset"](NewAsset)
+                        EditAssetOnStore(NewAsset)
                         SetQuantidadeRetirada(prev => prev + 1)
 
 
@@ -272,7 +264,7 @@ const AssetTakeReturn = (props) => {
 
 
             //ADD MINUS 1 RETIRADA 
-            const NewAsset = { ...props.Asset, QtdInUse: props.Asset.QtdInUse - 1 }
+            const NewAsset = { ...props.Asset, QtdInUse: QuantidadeRetirada - 1 }
             EditAssetOnStore(NewAsset)
             UpdateInFirebaseFunctions["Asset"](NewAsset)
             SetQuantidadeRetirada(prev => prev - 1)
@@ -307,7 +299,7 @@ const AssetTakeReturn = (props) => {
 
 
 
-    ////console.log("QTD", props.Asset?.QtdPerUser)
+
 
     return (
         <div className={props.Tema === 'Dark' ? 'AssetTakeReturn-ContainerDark AssetTakeReturn-Container' : 'AssetTakeReturn-ContainerLightTheme AssetTakeReturn-Container'}>

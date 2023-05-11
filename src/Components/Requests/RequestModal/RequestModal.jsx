@@ -1,6 +1,6 @@
 
 //REACT
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 //CSS
 import './RequestModal.css'
 //LIBRARIES
@@ -30,32 +30,19 @@ const RequestModal = (props) => {
 
     //STATE
     const [Request, setRequest] = useState({ ...props.Request })
-    const [RequestStatus, setRequestStatus] = useState({ id: '', Value: "" })
-    const [RequestType, setRequestType] = useState({ id: '', Value: "" })
-    const [RequestSector, setRequestSector] = useState({ id: '', Value: "" })
+    const [RequestStatus, setRequestStatus] = useState(props.RequestsStatus.find(S => S?.id === props.Request.Status?.id))
+    const [RequestType, setRequestType] = useState(props.RequestsTypes.find(S => S?.id === props.Request.Type?.id))
+    const [RequestSector, setRequestSector] = useState(props.Sectors.find(S => S?.id === props.Request.Sector?.id))
     const [IsEdited, setIsEdited] = useState(false)
     const MessageRef = useRef()
     const [LoadingAction, setLoadingAction] = useState(false)
 
     //PERMISSOES
+    const Type = props.RequestsTypes.find(S => S?.id === props.Request.Type?.id)
     const IsRequester = props.CurrentUser?.id === props.Request.CreatedBy
-    const [PermitToManageRequests, setPermitToManageRequests] = useState(false)
+    const [PermitToManageRequests, setPermitToManageRequests] = useState(Type?.Assigments?.includes(props.CurrentUser?.Email))
 
 
-
-    //FILL REQUEST
-    useEffect(() => {
-        setRequest({ ...props.Request })
-        setRequestStatus(props.RequestsStatus.find(S => S?.id === props.Request.Status?.id))
-        setRequestType(props.RequestsTypes.find(S => S?.id === props.Request.Type?.id))
-        setRequestSector(props.Sectors.find(S => S?.id === props.Request.Sector?.id))
-
-        const Type = props.RequestsTypes.find(S => S?.id === props.Request.Type?.id)
-        setPermitToManageRequests(
-            Type?.Assigments?.includes(props.CurrentUser?.Email)
-        )
-
-    }, [props.Request])
 
 
 

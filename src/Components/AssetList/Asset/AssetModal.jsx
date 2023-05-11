@@ -161,6 +161,10 @@ const AssetModal = (props) => {
 
     // QUANDO TEM UM ASSET VALIDO PASSADO PELA PROP
     useEffect(() => {
+
+        if (props.Function === 'Add')
+            setAsset({ ...DefaultAsset })
+
         if (!props.Asset?.Item) return
         setAsset(GetFromStoreWithId('AssetsWithDeleted', props.Asset?.id))
         setIsEdited(false)
@@ -730,9 +734,9 @@ const AssetModal = (props) => {
 
                                         </Show>
 
-                                        <Show Show={Tab === 'RetirarDevolver'}>
+                                        {Tab === 'RetirarDevolver' &&
                                             <AssetTakeReturn Asset={Asset} OnTake={setTab} />
-                                        </Show>
+                                        }
 
                                         <Show Show={Tab === 'Registros'}>
                                             <AssetRecords Asset={Asset} FromModal={props.FromModal} />

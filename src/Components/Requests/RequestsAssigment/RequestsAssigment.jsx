@@ -1,17 +1,13 @@
 
 //REACT
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 //CSS
 import './RequestsAssigment.css'
 //LIBRARIES
 import { connect } from 'react-redux'
 import Stack from '../../LayoutComponents/Stack/Stack';
 import SidebarSubItem from '../../LayoutComponents/SidebarSubItem/SidebarSubItem';
-import { UilLabel, UilEnvelope, UilTimes } from '@iconscout/react-unicons'
-import Info from '../../LayoutComponents/Info/Info'
-import SubSectionTitle from '../../LayoutComponents/SubSectionTitle/SubSectionTitle'
-import TwoColumns from '../../LayoutComponents/TwoColumns/TwoColumns';
-import FormGroupLabel from '../../LayoutComponents/FormGroupLabel/FormGroupLabel';
+import { UilLabel, UilTimes } from '@iconscout/react-unicons'
 import CustomSelect from '../../LayoutComponents/CustomSelect/CustomSelect';
 import { UpdateInFirebaseFunctions } from '../../../Functions/DatabaseMiddleware';
 import { NotificationErro, NotificationInfo, NotificationSucesso } from '../../../NotificationUtils';
@@ -23,17 +19,12 @@ import Warning from '../../LayoutComponents/Warning/Warning'
 const RequestsAssigment = (props) => {
 
     //STATES
-    const [RequestsTypeKey, setRequestsTypeKey] = useState('')
-    const [RequestsTypeSelected, setRequestsTypeSelected] = useState({})
-    const [RequestsTypes, setRequestsTypes] = useState([])
+    const [RequestsTypeKey, setRequestsTypeKey] = useState(props.RequestsTypes[0].id)
+    const [RequestsTypeSelected, setRequestsTypeSelected] = useState({ ...props.RequestsTypes[0] })
+    const [RequestsTypes, setRequestsTypes] = useState([...props.RequestsTypes])
     const [SeletedUser, setSeletedUser] = useState()
     const [LoadingAction, setLoadingAction] = useState(false)
 
-    useEffect(() => {
-        setRequestsTypeKey(props.RequestsTypes[0].id)
-        setRequestsTypeSelected({ ...props.RequestsTypes[0] })
-        setRequestsTypes([...props.RequestsTypes])
-    }, [])
 
     // HANDLE ERROR
     const HandleError = (Erro) => {
@@ -151,7 +142,7 @@ const RequestsAssigment = (props) => {
 
                     <Show Show={!LoadingAction && RequestsTypeSelected?.Assigments?.length === 0}>
                         <div className='AssigmentList'>
-                            <Warning Text={'Nenhum Usuário Associado a teste tipo de Solicitação Ainda'}/>
+                            <Warning Text={'Nenhum Usuário Associado a teste tipo de Solicitação Ainda'} />
                         </div>
                     </Show>
 

@@ -2,7 +2,6 @@ import Select, { components } from "react-select";
 import { connect } from 'react-redux'
 import './OrderBy.css'
 import { CustomLabel, CustomPlaceholder, OrderByStyles, InputOption, noOptionsMessage } from "./OrderByUtils";
-import { useState, useEffect } from "react";
 import React from 'react';
 
 const DefaultOptions = {
@@ -99,25 +98,13 @@ export const GetDefautlOption = (Module) => {
 
 const OrderBy = (props) => {
 
-
-
-
     //OPTIONS STATE
     const Options = GetInitialValues(props.Module)
-    const [SelectedOption, setSelectedOption] = useState(GetDefautlOption(props.Module))
 
-    //HANDLE RESET FILTER PROP AND SEND ALL CHECKED
-    useEffect(() => {
-        if (props.Reset) {
-            //setSelectedOption(GetDefautlOption(props.Module))
-            props.OnChange(GetDefautlOption(props.Module))
-        }
-    }, [props.Reset])
 
     //ON CHANGE HANDLER FOR SELECT
     function onChange(SelectedOption) {
         props.OnChange(SelectedOption)
-        //setSelectedOption(SelectedOption)
     }
 
     return (

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { connect } from 'react-redux'
 import { PermitDesc } from '../../GlobalVars';
 import './UserTypesPermits.css'
@@ -25,14 +25,11 @@ const UserTypesPermits = (props) => {
 
     //STATES
     const [UserTypes, setUserTypes] = useState([...props.UserTypes])
+
     const [TypeUserKey, setTypeUserKey] = useState(props.UserTypes[0].id)
     const [LoadingAction, setLoadingAction] = useState(false)
 
 
-    //FILL USER TYPES
-    useEffect(() => {
-        setUserTypes([...props.UserTypes])
-    }, [props.UserTypes])
 
     // CHECK USER TYPE AS ADMIN
     const CheckAdmin = (TypeIndex) => {
@@ -101,7 +98,7 @@ const UserTypesPermits = (props) => {
             <div className={props.Tema === 'Dark' ? 'UserTypesPermitsContainerDark UserTypesPermitsContainer' : 'UserTypesPermitsContainerLightTheme UserTypesPermitsContainer'}>
 
                 <Stack Gap={'.5rem'}>
-                    {UserTypes.map((TypeUser) => {
+                    {props.UserTypes.map((TypeUser) => {
                         return <SidebarItem Active={TypeUserKey === TypeUser.id}
                             onClick={(k) => setTypeUserKey(TypeUser.id)}                    >
                             <UilLabel />
@@ -150,7 +147,7 @@ const UserTypesPermits = (props) => {
 
 
                 <Show Show={true} Width='100%'>
-                    {UserTypes.map((TypeUser, IndexTypeUser) => {
+                    {props.UserTypes.map((TypeUser, IndexTypeUser) => {
                         return <Show Show={TypeUserKey === TypeUser.id} Width='100%'>
                             <div key={v4()} className='UserTypesPermits'>
                                 <div className='UserTypesPermits-TypeContainer-Title2'>

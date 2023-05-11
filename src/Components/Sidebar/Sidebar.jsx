@@ -28,17 +28,6 @@ const Sidebar = (props) => {
 
 
 
-    //SET CURRENT USER AND PHOTO URL
-    useEffect(() => {
-
-
-        if (props.CurrentUser?.PhotoUrl) {
-            if (props.LoggedUser.PhotoUrl !== User?.PhotoUrl) {
-                SetLoggedUserPhotoUrlJustStore(User?.PhotoUrl)
-            }
-        }
-    }, [props.Users])
-
     //SET TAB BASED ON PERMITS
     const SetTabSidebar = (Tab, To) => {
         if (Tab === 'Dash' && Tab !== props.LoggedUser.CurrentSidebarTab) {
@@ -83,9 +72,10 @@ const Sidebar = (props) => {
             SidebarRef.current.style.paddingLeft = '.5rem'
             SidebarRef.current.style.paddingTop = '1.5rem'
         }
-
     }, [SidebarActive])
 
+
+    console.log(props.CurrentUser.PhotoUrl)
 
 
     return (
@@ -103,7 +93,7 @@ const Sidebar = (props) => {
 
                 <div className='SidebarUserPhotoContainer'>
                     <Tooltip title="Ver/Alterar Foto de Perfil" position="bottom" >
-                        <Photo onClick={e => setShowPhotoModal(true)} alt='User' className='SidebarUserPhoto' src={props.LoggedUser.PhotoUrl || props.TenantPhotos.MainLogo}></Photo>
+                        <Photo onClick={e => setShowPhotoModal(true)} alt='User' className='SidebarUserPhoto' src={props.CurrentUser.PhotoUrl || props.TenantPhotos.MainLogo}></Photo>
                     </Tooltip>
                 </div>
 

@@ -23,15 +23,6 @@ const Records = (props) => {
     const [modalShow, setModalShow] = useState(false);
     const [modalShowAsset, setModalShowAsset] = useState(false);
 
-    /* DO BANCO
-    useEffect(() => {
-        GetFromFirebaseFunctions["Records"]().then((RecordsFromDatabse) => {
-            //console.log("DO Banco", RecordsFromDatabse)
-            SetRecords(RecordsFromDatabse)
-        })
-    }, [])
-    */
-
     //RESET SELECTED USER
     const ResetSelectedUser = () => {
         setModalShow(false);

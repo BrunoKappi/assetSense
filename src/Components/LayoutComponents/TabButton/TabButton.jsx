@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './TabButton.css'
 import { UilListUl, UilSitemap, UilShieldCheck, UilAsterisk, UilLabel, UilBox, UilUsersAlt, UilSetting, UilPlay } from '@iconscout/react-unicons'
 
 const TabButton = ({ children, onClick, className = '', ButtonName, Key, Text }) => {
 
-    const [IsActive, setIsActive] = useState(false)
-
-    useEffect(() => {
-        setIsActive(Key === ButtonName)
-    }, [Key, ButtonName])
+    const IsActive = Key === ButtonName
 
 
     return (

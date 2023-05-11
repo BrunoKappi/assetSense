@@ -1,5 +1,5 @@
 //Dependencias
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './NavBar.css'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -174,12 +174,12 @@ const NavBar = (props) => {
                                     </div>
 
                                     <div className='LastNavLogoIconContainer' onClick={e => SetTabNavBar('Profile', '/Assets/Profile')}>
-                                        <UserPhoto src={props.LoggedUser.PhotoUrl || props.TenantPhotos.NavSidebarLogo} />
+                                        <UserPhoto src={props.CurrentUser.PhotoUrl || props.TenantPhotos.NavSidebarLogo} />
                                     </div>
 
 
                                     <div className='NavSidebarUserPhotoContainer'>
-                                        <img onClick={e => setShowPhotoModal(true)} alt='User' className='NavSidebarUserPhoto' src={props.LoggedUser.PhotoUrl || props.TenantPhotos.NavSidebarLogo}></img>
+                                        <img onClick={e => setShowPhotoModal(true)} alt='User' className='NavSidebarUserPhoto' src={props.CurrentUser.PhotoUrl || props.TenantPhotos.NavSidebarLogo}></img>
                                     </div>
 
                                     <div className='NavbarSidebarUserName' onClick={e => SetTabNavBar('Profile', '/Assets/Profile')}>

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import './Requests.css'
-import { GetFromStore, GetFromStoreWithId, GetNameFromStoreWithId } from '../../Functions/StoreMiddleware';
+import { GetFromStoreWithId, GetNameFromStoreWithId } from '../../Functions/StoreMiddleware';
 import AddRequestModal from './AddRequestModal/AddRequestModal'
 import { connect } from 'react-redux'
 import Show from '../LayoutComponents/Show/Show'
@@ -21,8 +21,8 @@ import Info from '../LayoutComponents/Info/Info'
 const Requests = (props) => {
 
     const [AddRequestModalOpen, setAddRequestModalOpen] = useState(false);
-    const [Requests, setRequests] = useState([]);
-    const [Loaded, setLoaded] = useState(false);
+
+    const [Loaded, setLoaded] = useState(true);
     const [modalShow, setModalShow] = useState(false);
 
     //FILTERS
@@ -32,12 +32,7 @@ const Requests = (props) => {
     const [OrdenarPor, setOrdenarPor] = useState('Data de Solicitação');
     const [SelectedRequest, setSelectedRequest] = useState({});
 
-    useEffect(() => {
-        setRequests(props.Requests)
-        setTimeout(() => {
-            setLoaded(true)
-        }, 500);
-    }, [])
+
 
     //PERMITS E USER TYPE   
     var PermitToOpenRequests = OPEN_REQUESTS()
@@ -76,71 +71,69 @@ const Requests = (props) => {
         return What?.find(option => option.id === Item.id)
     }
 
-    // SORT AND FILTER
-    useEffect(() => {
-
-        setRequests(props.Requests.filter(Request => {
-            //FILTER
-            const RequestType = GetFromStoreWithId("RequestsTypes", Request.Type.id)
-
-            const CurrentUserAssigned = RequestType.Assigments.includes(props.CurrentUser?.Email)
-
-            return (
-                (FiltroDeTexto === '' ||
-                    CheckIncludesText(Request.Title) ||
-                    CheckIncludesText(Request.Desc) ||
-                    CheckIncludesText(GetNameFromStoreWithId("Sectors", Request.Sector.id)) ||
-                    CheckIncludesText(GetNameFromStoreWithId("RequestsTypes", Request.Type.id)) ||
-                    CheckIncludesText(GetNameFromStoreWithId("Users", Request.CreatedBy)) ||
-                    CheckIncludesText(GetNameFromStoreWithId("Assets", Request.AssetId)) ||
-                    CheckIncludesText(GetNameFromStoreWithId("Users", Request.UserId)) ||
-                    CheckIncludesText(GetNameFromStoreWithId("RequestsStatus", Request.Status.id)) ||
-                    CheckIncludesText(GetNameFromStoreWithId("RequestsTypes", Request.Type.id))
-                ) &&
-                CheckIncludesInObject(Request.Type, Filters?.RequestsTypes) &&
-                CheckIncludesInObject(Request.Sector, Filters?.Sectors) &&
-                CheckIncludesInObject(Request.Status, Filters?.RequestsStatus
-                ) &&
-
-                ((key === 'AllRequests' && CurrentUserAssigned) || (key === 'MyRequests' && Request.CreatedBy === props.CurrentUser?.id) || (Request.CreatedBy === props.CurrentUser?.id))
-
-            )
-        }).sort(
-            (Primeiro, Segundo) => {
-
-                const StatusPrimeiro = GetNameFromStoreWithId('RequestsStatus', Primeiro.Status.id)
-                const StatusSegundo = GetNameFromStoreWithId('RequestsStatus', Segundo.Status.id)
-                const TypePrimeiro = GetNameFromStoreWithId('RequestsTypes', Primeiro.Type.id)
-                const TypeSegundo = GetNameFromStoreWithId('RequestsTypes', Segundo.Type.id)
-                const SectorPrimeiro = GetNameFromStoreWithId('Sectors', Primeiro.Sector.id)
-                const SectorSegundo = GetNameFromStoreWithId('Sectors', Segundo.Sector.id)
-                const RequesterNamePrimeiro = GetNameFromStoreWithId('Users', Primeiro.CreatedBy)
-                const RequesterNameSegundo = GetNameFromStoreWithId('Users', Segundo.CreatedBy)
 
 
-                switch (OrdenarPor) {
-                    case 'Titulo':
-                        return Primeiro.Title.localeCompare(Segundo.Title)
-                    case 'Nome Solicitante':
-                        return RequesterNamePrimeiro.localeCompare(RequesterNameSegundo)
-                    case 'Status da Solicitação':
-                        return StatusPrimeiro.localeCompare(StatusSegundo)
-                    case 'Tipo de Solicitação':
-                        return TypePrimeiro.localeCompare(TypeSegundo)
-                    case 'Setor':
-                        return SectorPrimeiro.localeCompare(SectorSegundo)
-                    case 'Data de Solicitação':
-                        return Primeiro.CreatedAt < Segundo.CreatedAt ? 1 : -1
-                    case 'Última edição':
-                        return Primeiro.LastEditedAt < Segundo.LastEditedAt ? 1 : -1
-                    default:
-                        return Primeiro.CreatedAt < Segundo.CreatedAt ? 1 : -1
-                }
+    const Requests = props.Requests.filter(Request => {
+        //FILTER
+        const RequestType = GetFromStoreWithId("RequestsTypes", Request.Type.id)
+
+        const CurrentUserAssigned = RequestType.Assigments.includes(props.CurrentUser?.Email)
+
+        return (
+            (FiltroDeTexto === '' ||
+                CheckIncludesText(Request.Title) ||
+                CheckIncludesText(Request.Desc) ||
+                CheckIncludesText(GetNameFromStoreWithId("Sectors", Request.Sector.id)) ||
+                CheckIncludesText(GetNameFromStoreWithId("RequestsTypes", Request.Type.id)) ||
+                CheckIncludesText(GetNameFromStoreWithId("Users", Request.CreatedBy)) ||
+                CheckIncludesText(GetNameFromStoreWithId("Assets", Request.AssetId)) ||
+                CheckIncludesText(GetNameFromStoreWithId("Users", Request.UserId)) ||
+                CheckIncludesText(GetNameFromStoreWithId("RequestsStatus", Request.Status.id)) ||
+                CheckIncludesText(GetNameFromStoreWithId("RequestsTypes", Request.Type.id))
+            ) &&
+            CheckIncludesInObject(Request.Type, Filters?.RequestsTypes) &&
+            CheckIncludesInObject(Request.Sector, Filters?.Sectors) &&
+            CheckIncludesInObject(Request.Status, Filters?.RequestsStatus
+            ) &&
+
+            ((key === 'AllRequests' && CurrentUserAssigned) || (key === 'MyRequests' && Request.CreatedBy === props.CurrentUser?.id) || (Request.CreatedBy === props.CurrentUser?.id))
+
+        )
+    }).sort(
+        (Primeiro, Segundo) => {
+
+            const StatusPrimeiro = GetNameFromStoreWithId('RequestsStatus', Primeiro.Status.id)
+            const StatusSegundo = GetNameFromStoreWithId('RequestsStatus', Segundo.Status.id)
+            const TypePrimeiro = GetNameFromStoreWithId('RequestsTypes', Primeiro.Type.id)
+            const TypeSegundo = GetNameFromStoreWithId('RequestsTypes', Segundo.Type.id)
+            const SectorPrimeiro = GetNameFromStoreWithId('Sectors', Primeiro.Sector.id)
+            const SectorSegundo = GetNameFromStoreWithId('Sectors', Segundo.Sector.id)
+            const RequesterNamePrimeiro = GetNameFromStoreWithId('Users', Primeiro.CreatedBy)
+            const RequesterNameSegundo = GetNameFromStoreWithId('Users', Segundo.CreatedBy)
+
+
+            switch (OrdenarPor) {
+                case 'Titulo':
+                    return Primeiro.Title.localeCompare(Segundo.Title)
+                case 'Nome Solicitante':
+                    return RequesterNamePrimeiro.localeCompare(RequesterNameSegundo)
+                case 'Status da Solicitação':
+                    return StatusPrimeiro.localeCompare(StatusSegundo)
+                case 'Tipo de Solicitação':
+                    return TypePrimeiro.localeCompare(TypeSegundo)
+                case 'Setor':
+                    return SectorPrimeiro.localeCompare(SectorSegundo)
+                case 'Data de Solicitação':
+                    return Primeiro.CreatedAt < Segundo.CreatedAt ? 1 : -1
+                case 'Última edição':
+                    return Primeiro.LastEditedAt < Segundo.LastEditedAt ? 1 : -1
+                default:
+                    return Primeiro.CreatedAt < Segundo.CreatedAt ? 1 : -1
             }
-        ))
+        }
+    )
 
 
-    }, [FiltroDeTexto, Filters, OrdenarPor, key])
 
     return (
 
