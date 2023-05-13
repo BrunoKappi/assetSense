@@ -5,7 +5,6 @@ import Loading from '../LoadingForTabs/Loading';
 import User from './User/User';
 import { connect } from 'react-redux'
 import { v4 } from 'uuid';
-import { GetFromStore } from '../../Functions/StoreMiddleware';
 import { PermitIndexs } from '../../GlobalVars';
 import Warning from '../LayoutComponents/Warning/Warning';
 import Show from '../LayoutComponents/Show/Show';
@@ -25,7 +24,6 @@ const UsersList = (props) => {
     const [modalShow, setModalShow] = useState(false);
     const [AddmodalShow, setAddModalShow] = useState(false);
     const [Filters, setFilters] = useState([]);
-    const Users = GetFromStore('Users')
     const [ResetFilters, setResetFilters] = useState(false);
     const [OrdenarPor, setOrdenarPor] = useState('Nome');
 
@@ -47,7 +45,7 @@ const UsersList = (props) => {
     }, 1000);
 
 
-    ListaDeUsers = Users.filter(User => {
+    ListaDeUsers = props.Users.filter(User => {
         //FILTER LIST
         const Sector = GetNameFromStoreWithId("Sectors", User.Sector.id)
         const Type = GetNameFromStoreWithId('UserTypes', User.Type.id)
@@ -152,7 +150,8 @@ const ConnectedUsersList = connect((state) => {
         Users: state.Users,
         Tema: state.Tema,
         CurrentUser: state.CurrentUser,
-        UserTypes: state.UserTypes
+        UserTypes: state.UserTypes,
+        Users: state.Users
     }
 })(UsersList)
 

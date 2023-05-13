@@ -44,8 +44,7 @@ const AssetsList = (props) => {
 
 
     // SORT AND FILTER
-    const Assets = GetFromStore('Assets')
-    ListaDeAssets = Assets.filter(Asset => {
+    ListaDeAssets = props.Assets.filter(Asset => {
         //FILTER
         return (
             (FiltroDeTexto === '' || CheckIncludesText(Asset.Item) || CheckIncludesText(Asset.Brand) || CheckIncludesText(Asset.Description) || CheckIncludesText(GetNamesOfUsersThatTookAsset(Asset.id))) &&
@@ -171,7 +170,8 @@ const ConnectedAssetsList = connect((state) => {
         Assets: state.Assets,
         Tema: state.Tema,
         CurrentUser: state.CurrentUser,
-        UserTypes: state.UserTypes
+        UserTypes: state.UserTypes,
+
     }
 })(AssetsList)
 

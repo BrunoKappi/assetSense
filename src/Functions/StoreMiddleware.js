@@ -21,7 +21,7 @@ import { SetCurrentUserAction } from "../Config/store/actions/CurrentUserActions
 
 //UTILS
 
-//DISPATCH TO STORE
+//DISPATCH TO STORE 
 export const Dispatch = store.dispatch
 
 
@@ -151,7 +151,6 @@ export const GetInfoFromStore = (Reducer, OqueQuero, Key, By, Valor, Option) => 
 
 //GET FROM STORE WITH KEY
 export const GetFromStore = (Key) => {
-
     const StoreList = store.getState()
 
     if (Key === 'Assets' || Key === 'Users')
@@ -161,8 +160,6 @@ export const GetFromStore = (Key) => {
     else
         return StoreList[Key]
 }
-
-
 
 
 //GET FROM STORE WITH ID

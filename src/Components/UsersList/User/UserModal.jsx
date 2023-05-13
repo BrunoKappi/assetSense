@@ -34,7 +34,6 @@ import {
 } from '../../../Functions/StoreMiddleware'
 
 import {
-
     ReturnAllAssetsOfUserWithId,
     UpdateInFirebaseFunctions,
     AddToFirebaseFunctions,
@@ -128,7 +127,7 @@ const UserModal = (props) => {
             case 'Type':
                 if (!(IsAdmin || PermitToEditUsers)) return
                 newUser.Type = { id: Value }
-                const GotUserType = GetFromStoreWithId('UserTypes', Value)
+                const GotUserType = props.UserTypes.find(U => U.id === Value)
                 setUserType(GotUserType)
                 break
             case 'Sector':
@@ -156,7 +155,7 @@ const UserModal = (props) => {
         } else {
             const { id, Name, PhotoUrl } = props.User || {};
             if (!Name) return
-            setUser(GetFromStoreWithId('UsersWithDeleted', id))
+            setUser({ ...props.User })
             setIsEdited(false)
             setTab('UserInfo')
             setProfileImageUrl(IsCurrentUser ? props.CurrentUser.PhotoUrl : PhotoUrl || '')
@@ -168,8 +167,8 @@ const UserModal = (props) => {
 
     //QUANDO O USERTYPE MUDA, PEGA O NOVO TYPE
     useEffect(() => {
-        setUserType(GetFromStoreWithId('UserTypes', User?.Type?.id))
         setUserSector({ ...props.Sectors.find(U => U.id === User?.Sector?.id) })
+        setUserType({ ...props.UserTypes.find(U => U.id === User?.Type?.id) })
     }, [User?.Type, props.CurrentUser])
 
 

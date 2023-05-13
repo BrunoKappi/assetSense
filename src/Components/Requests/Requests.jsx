@@ -77,7 +77,9 @@ const Requests = (props) => {
         //FILTER
         const RequestType = GetFromStoreWithId("RequestsTypes", Request.Type.id)
 
-        const CurrentUserAssigned = RequestType.Assigments.includes(props.CurrentUser?.Email)
+        const CurrentUserAssigned = RequestType.Assigments.some(objeto => objeto.Email === (props.CurrentUser?.Email))
+
+
 
         return (
             (FiltroDeTexto === '' ||
@@ -134,14 +136,19 @@ const Requests = (props) => {
     )
 
 
-
     return (
 
         <>
             {/********  OPEN REQUEST MODAL   *******/}
             <AddRequestModal show={AddRequestModalOpen} onHide={() => setAddRequestModalOpen(false)} />
-            <RequestModal Request={{ ...SelectedRequest }} show={modalShow} onHide={() => setModalShow(false)} />
 
+            {SelectedRequest.Title &&
+                <RequestModal
+                    Request={{ ...SelectedRequest }}
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                />
+            }
             <div className={props.Tema === 'Dark' ? 'AssetRequests-ContainerDark AssetRequests-Container' : 'AssetRequests-ContainerLightTheme AssetRequests-Container'} >
 
 

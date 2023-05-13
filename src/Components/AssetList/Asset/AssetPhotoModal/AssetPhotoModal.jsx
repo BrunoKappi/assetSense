@@ -18,9 +18,9 @@ const AssetPhotoModal = (props) => {
     //STATES
     const [Loading, setLoading] = useState(false);
     const [imageUpload, setImageUpload] = useState(null);
-    //const [ImageToShowUser, setImageToShowUser] = useState(props?.Asset?.PhotoUrl);
+    const [ImageToShowUser, setImageToShowUser] = useState(props?.Asset?.PhotoUrl);
 
-    const [ImageToShowUser] = useState(props?.Asset?.PhotoUrl);
+    //const [ImageToShowUser] = useState(props?.Asset?.PhotoUrl);
 
 
 

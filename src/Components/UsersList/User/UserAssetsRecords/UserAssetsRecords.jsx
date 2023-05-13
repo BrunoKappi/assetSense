@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './UserAssetsRecords.css'
-import { GetFromStoreWithId, GetFromStore, GetRecordsOfUser } from '../../../../Functions/StoreMiddleware';
+import { GetFromStoreWithId, GetRecordsOfUser } from '../../../../Functions/StoreMiddleware';
 import { connect } from 'react-redux'
 import AssetModal from '../../../AssetList/Asset/AssetModal'
 import { NotificationAlerta } from '../../../../NotificationUtils';
@@ -26,7 +26,7 @@ const UserAssetRecords = (props) => {
 
     //HANDLE ASSET SELECTION
     const handleAssetSelection = (Id) => {
-        const Asset = GetFromStoreWithId('AssetsWithDeleted',Id)
+        const Asset = GetFromStoreWithId('AssetsWithDeleted', Id)
         if (Asset.Deleted === false) {
             if (props.FromModal === false) {
                 setSelectedAsset(Asset)
@@ -43,17 +43,25 @@ const UserAssetRecords = (props) => {
 
     return (
         <>
-            <AssetModal FromModal={true} CurrentUser={props.CurrentUser} Asset={{ ...SelectedAsset }} show={modalShow} onHide={() => setModalShow(false)} Function="View" onDelete={ResetSelectedAsset} />
+            <AssetModal
+                FromModal={true}
+                CurrentUser={props.CurrentUser}
+                Asset={{ ...SelectedAsset }}
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                Function="View" onDelete={ResetSelectedAsset}
+            />
+
             <div className={props.Tema === 'Dark' ? 'UserAssetRecords-ContainerDark UserAssetRecords-Container' : 'UserAssetRecords-ContainerLightTheme UserAssetRecords-Container'}>
 
-                {/***********   FORM FILTER   *************/}
+
                 <RecordsFormFilter
                     GetRecords={GetRecordsOfUser}
                     SetRecords={SetRecords}
                     Asset={props?.User || {}}
                 />
 
-                {/***********   RECORDS  *************/}
+
                 {Records.map(Registro =>
                     <Record
                         key={v4()}
@@ -79,7 +87,7 @@ const UserAssetRecords = (props) => {
 const ConnectedUserAssetRecords = connect((state) => {
     return {
         Tema: state.Tema,
-        CurrentUser : state.CurrentUser
+        CurrentUser: state.CurrentUser
     }
 })(UserAssetRecords)
 

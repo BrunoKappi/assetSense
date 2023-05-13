@@ -7,14 +7,15 @@ import './RequestsAssigment.css'
 import { connect } from 'react-redux'
 import Stack from '../../LayoutComponents/Stack/Stack';
 import SidebarSubItem from '../../LayoutComponents/SidebarSubItem/SidebarSubItem';
-import { UilLabel, UilTimes } from '@iconscout/react-unicons'
+import { UilLabel, UilTimes, UilEnvelope } from '@iconscout/react-unicons'
 import CustomSelect from '../../LayoutComponents/CustomSelect/CustomSelect';
 import { UpdateInFirebaseFunctions } from '../../../Functions/DatabaseMiddleware';
 import { NotificationErro, NotificationInfo, NotificationSucesso } from '../../../NotificationUtils';
 import Loading from '../../LoadingForTabs/Loading';
 import Show from '../../LayoutComponents/Show/Show';
 import Warning from '../../LayoutComponents/Warning/Warning'
-
+//Tooltip
+import { Tooltip } from 'react-tippy';
 
 const RequestsAssigment = (props) => {
 
@@ -47,14 +48,21 @@ const RequestsAssigment = (props) => {
         const TypesCopy = [...RequestsTypes]
         const Index = TypesCopy.findIndex(El => El.id === RequestsTypeKey)
 
-        if (TypesCopy[Index].Assigments.includes(SeletedUser.Email)) {
+        if (!SeletedUser.Email) return
+
+        if (TypesCopy[Index].Assigments.some(objeto => objeto.Email === SeletedUser.Email)) {
 
             NotificationInfo("Associação", "Usuário já Associado a este tipo")
             setSeletedUser('')
             return
         }
 
-        TypesCopy[Index].Assigments.push(SeletedUser.Email)
+        const NewAssingedUser = {
+            EmailEnabled: true,
+            Email: SeletedUser.Email
+        }
+
+        TypesCopy[Index].Assigments.push(NewAssingedUser)
 
         setLoadingAction(true)
         UpdateInFirebaseFunctions["RequestsTypes"](TypesCopy[Index]).then(() => {
@@ -76,7 +84,7 @@ const RequestsAssigment = (props) => {
         TypesCopy[IndexOfType].Assigments.splice(Index, 1)
 
         setLoadingAction(true)
-        UpdateInFirebaseFunctions["RequestsTypes"](IndexOfType[Index]).then(() => {
+        UpdateInFirebaseFunctions["RequestsTypes"](TypesCopy[IndexOfType]).then(() => {
             NotificationSucesso('Associação', 'Usuário desassociado com Sucesso!')
             setRequestsTypes(TypesCopy)
             HadleSelectType(TypesCopy[IndexOfType])
@@ -85,6 +93,27 @@ const RequestsAssigment = (props) => {
 
     }
 
+    //console.log(RequestsTypes)
+
+    const ToggleEmailEnabled = (User, Index) => {
+        const TypesCopy = [...RequestsTypes]
+        const IndexOfType = TypesCopy.findIndex(El => El.id === RequestsTypeKey)
+
+
+
+        TypesCopy[IndexOfType].Assigments[Index].EmailEnabled = !TypesCopy[IndexOfType].Assigments[Index].EmailEnabled
+
+        console.log(TypesCopy[IndexOfType].Assigments[Index].EmailEnabled)
+
+        setLoadingAction(true)
+        UpdateInFirebaseFunctions["RequestsTypes"](TypesCopy[IndexOfType]).then(() => {
+            NotificationSucesso('Associação', 'Alerta de Email Alterado com Sucesso!')
+            setRequestsTypes(TypesCopy)
+            HadleSelectType(TypesCopy[IndexOfType])
+            setLoadingAction(false)
+        }).catch(HandleError)
+
+    }
 
     return (
 
@@ -131,10 +160,21 @@ const RequestsAssigment = (props) => {
                         <div className='AssigmentList'>
                             {RequestsTypeSelected?.Assigments?.map((User, UserIndex) => {
                                 return <span className='UserAssignedContainer'>
-                                    <span className='UserAssigned'>{User}</span>
-                                    <UilTimes
-                                        onClick={e => HandleUnassignUser(User, UserIndex)}
-                                    />
+
+                                    <Tooltip title="Habilitar/Desabilitar Alertas por Email" position="bottom" className='custom-tooltip' >
+                                        <UilEnvelope
+                                            className={User.EmailEnabled ? 'UserAssignedContainer-EmailEnabled' : 'UserAssignedContainer-EmailNotEnabled'}
+                                            onClick={e => ToggleEmailEnabled(User?.Email, UserIndex)}
+                                        />
+                                    </Tooltip>
+
+                                    <span className='UserAssigned'>{User?.Email}</span>
+
+                                    <Tooltip title="Remover Usuário" position="bottom" className='custom-tooltip' >
+                                        <UilTimes onClick={e => HandleUnassignUser(User?.Email, UserIndex)} />
+                                    </Tooltip>
+
+
                                 </span>
                             })}
                         </div>

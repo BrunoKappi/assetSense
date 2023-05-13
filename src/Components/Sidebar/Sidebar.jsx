@@ -97,11 +97,13 @@ const Sidebar = (props) => {
                     </div>
                 </Tooltip>
 
-                <div className='SidebarUserPhotoContainer'>
-                    <Tooltip title="Ver/Alterar Foto de Perfil" position="bottom" >
-                        <Photo onClick={e => setShowPhotoModal(true)} alt='User' className='SidebarUserPhoto' src={props.CurrentUser.PhotoUrl || props.TenantPhotos.MainLogo}></Photo>
-                    </Tooltip>
-                </div>
+                <Show Show={false}>
+                    <div className='SidebarUserPhotoContainer'>
+                        <Tooltip title="Ver/Alterar Foto de Perfil" position="bottom" >
+                            <Photo onClick={e => setShowPhotoModal(true)} alt='User' className='SidebarUserPhoto' src={props.CurrentUser.PhotoUrl || props.TenantPhotos.MainLogo}></Photo>
+                        </Tooltip>
+                    </div>
+                </Show>
 
                 <Show Show={!props.CurrentUser.Name}>
                     <Loading />
@@ -110,11 +112,14 @@ const Sidebar = (props) => {
 
 
                 <Show Show={props.CurrentUser.Name}>
-                    <Tooltip title="Acessar seu Perfil" position="bottom" >
-                        <div className='SidebarUserName' onClick={e => SetTabSidebar('Profile', '/Assets/Profile')}>
-                            <p> {(props.CurrentUser.Name ? props.CurrentUser.Name : 'Caregando...') + ' ' + props.CurrentUser.LastName}</p>
-                        </div>
-                    </Tooltip>
+
+                    <Show Show={false}>
+                        <Tooltip title="Acessar seu Perfil" position="bottom" >
+                            <div className='SidebarUserName' onClick={e => SetTabSidebar('Profile', '/Assets/Profile')}>
+                                <p> {(props.CurrentUser.Name ? props.CurrentUser.Name : 'Caregando...') + ' ' + props.CurrentUser.LastName}</p>
+                            </div>
+                        </Tooltip>
+                    </Show>
 
                     <Stack Gap={'.4rem'}>
                         <SidebarItem Active={IsActive('Dash')}

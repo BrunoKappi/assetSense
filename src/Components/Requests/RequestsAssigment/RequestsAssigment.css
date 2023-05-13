@@ -140,7 +140,14 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: .2rem;
 }
+
+
+.UserAssignedContainer-EmailEnabled {
+    color: green !important;
+}
+
 
 .UserAssignedContainer svg {
     width: 1rem;

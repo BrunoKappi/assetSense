@@ -40,9 +40,8 @@ const RequestModal = (props) => {
     //PERMISSOES
     const Type = props.RequestsTypes.find(S => S?.id === props.Request.Type?.id)
     const IsRequester = props.CurrentUser?.id === props.Request.CreatedBy
-    const [PermitToManageRequests, setPermitToManageRequests] = useState(Type?.Assigments?.includes(props.CurrentUser?.Email))
 
-
+    const [PermitToManageRequests, setPermitToManageRequests] = useState(Type?.Assigments?.some(objeto => objeto.Email === (props.CurrentUser?.Email)))
 
 
 
@@ -134,7 +133,7 @@ const RequestModal = (props) => {
             }
         }
 
-    }
+    } 
 
     return (
 

@@ -80,7 +80,7 @@ import moment from 'moment';
 const AssetModal = (props) => {
 
     //DEPENDENCIAS 
-    const StatusAsset = GetFromStoreWithId('AssetsStatus', props?.Asset?.Status?.id)
+    const StatusAsset = props.AssetsStatus.find(U => U.id === props?.Asset?.Status?.id)
     const [ProfileImageUrl, setProfileImageUrl] = useState('')
     const [AssetType, setAssetType] = useState({ ...DefaultAssetsType })
     //const [AssetTypeCustomFields, setAssetTypeCustomFields] = useState([])
@@ -131,7 +131,7 @@ const AssetModal = (props) => {
         switch (Info) {
             case 'Type':
                 newAsset.Type = { id: Value }
-                const GotAssetType = GetFromStoreWithId('AssetTypes', Value)
+                const GotAssetType = props.AssetTypes.find(U => U.id === Value)
                 setAssetType(GotAssetType)
                 break
             case 'Status':
@@ -160,7 +160,8 @@ const AssetModal = (props) => {
             setAsset({ ...DefaultAsset })
 
         if (!props.Asset?.Item) return
-        setAsset(GetFromStoreWithId('AssetsWithDeleted', props.Asset?.id))
+
+        setAsset({ ...props.Asset })
         setIsEdited(false)
         setTab('AssetInfo')
         if (props.Asset?.PhotoUrl) {
@@ -200,8 +201,8 @@ const AssetModal = (props) => {
 
     //QUANDO O ASSET TYPE MUDA, PEGA O NOVO TYPE
     useEffect(() => {
-        setAssetType(GetFromStoreWithId('AssetTypes', Asset?.Type?.id))
-        setAssetStorageLocation(GetFromStoreWithId('StorageLocations', Asset?.StorageLocation?.id))
+        setAssetType(props.AssetTypes.find(U => U.id === Asset?.Type?.id))
+        setAssetStorageLocation(props.StorageLocations.find(U => U.id === Asset?.StorageLocation?.id))
     }, [Asset, props.CurrentUser])
 
 
@@ -380,7 +381,17 @@ const AssetModal = (props) => {
 
 
         <>
-            <AssetPhotoModal Add={props.Function === 'Add'} CanEdit={PermitToEditAssets} OnChange={SetAssetUrl} Asset={props.Asset} show={ShowPhotoModal} onHide={() => setShowPhotoModal(false)} />
+
+            {props.Asset &&
+                <AssetPhotoModal
+                    Add={props.Function === 'Add'}
+                    CanEdit={PermitToEditAssets}
+                    OnChange={SetAssetUrl}
+                    Asset={props.Asset}
+                    show={ShowPhotoModal}
+                    onHide={() => setShowPhotoModal(false)}
+                />
+            }
 
             <Modal {...props} size="xl" aria-labelledby="contained-modal-title-vcenter" centered fullscreen={'md-down'} className={props.Tema === 'Dark' ? 'AssetModal-ModalDark AssetModal-Modal' : 'AssetModal-ModalLightTheme AssetModal-Modal'}>
 

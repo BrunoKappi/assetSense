@@ -226,10 +226,7 @@ const AssetTakeReturn = (props) => {
                         EditAssetOnStore(NewAsset)
                         SetQuantidadeRetirada(prev => prev + 1)
 
-
-                        const Lista = GetFromStore('RecordsAssets')
-
-                        const Records = [...Lista]
+                        const Records = [...props.RecordsAssets]
                         NewRecordToAdd.docID = Record?.id
                         Records.push(NewRecordToAdd)
                         SetRecordsOnStore(Records)

@@ -44,17 +44,17 @@ const RecordsFormFilter = (props) => {
 
 
     //STATES 
-    const [OrdenarPor, setOrdenarPor] = useState('')
+    const [OrdenarPor, setOrdenarPor] = useState('') 
     const [FiltroDeTexto, setFiltroDeTexto] = useState('')
     const [ResetFilters, setResetFilters] = useState(false);
     const [Filters, setFilters] = useState([]);
 
     const today = new Date();
-    const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-    const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    const InitDate = new Date(today.getTime() - (30 * 24 * 60 * 60 * 1000)); // subtrair 30 dias em milissegundos
+    const EndDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
-    const [startDate, setStartDate] = useState(firstDayOfMonth);
-    const [endDate, setEndDate] = useState(lastDayOfMonth);
+    const [startDate, setStartDate] = useState(InitDate);
+    const [endDate, setEndDate] = useState(EndDate);
 
     const CheckIncludes = (What) => {
         return What.toLowerCase().includes(FiltroDeTexto.trim().toLowerCase())
