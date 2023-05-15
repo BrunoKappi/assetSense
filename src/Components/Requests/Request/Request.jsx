@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import { DefaultTooltipStyles } from '../../../GlobalVars';
 
 
-const Request = ({ Request, Tema }) => {
+const Request = ({ Request, Tema, onClick }) => {
 
 
     const [RequestStatusColor] = useState(GetFromStoreWithId("RequestsStatus", Request.Status.id))
@@ -19,7 +19,7 @@ const Request = ({ Request, Tema }) => {
 
 
     return (
-        <div className={Tema === 'Dark' ? 'RequestContainerDark RequestContainer' : 'RequestContainerLightTheme RequestContainer'} >
+        <div className={Tema === 'Dark' ? 'RequestContainerDark RequestContainer' : 'RequestContainerLightTheme RequestContainer'} onClick={onClick}>
 
             <span className='RequestContainerColumn NameColumnContainer'>
                 <span className='TitleColumn'>

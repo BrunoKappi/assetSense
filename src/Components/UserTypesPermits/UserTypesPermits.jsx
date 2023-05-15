@@ -79,6 +79,50 @@ const UserTypesPermits = (props) => {
     }
 
 
+    const PermitTab = ({ TypeUser, IndexTypeUser }) =>
+        <div key={v4()} className='UserTypesPermits'>
+            <div className='UserTypesPermits-TypeContainer-Title2'>
+                <span>Permissões de {GetNameFromStoreWithId("UserTypes", TypeUserKey)}</span>
+
+                <Show Show={TypeUser.IsAdmin}>
+                    <Tooltip title="Possui permissões de Administrador" position="bottom" >
+                        <ImCheckboxChecked />
+                    </Tooltip>
+                </Show>
+
+                <Show Show={!TypeUser.IsAdmin}>
+                    <Tooltip title="Permissões de Administrador" position="bottom" >
+                        <ImCheckboxUnchecked onClick={e => CheckAdmin(IndexTypeUser)} />
+                    </Tooltip>
+                </Show>
+            </div>
+            <div className='NewPermitsList'>
+                {TypeUser.Permits.map((Permit, PermitIndex) =>
+                    <PermitItem PermitIndex={PermitIndex} Permit={Permit} IndexTypeUser={IndexTypeUser} />
+                )}
+            </div>
+        </div>
+
+
+
+
+    const PermitItem = (props) => {
+        if (PermitDesc[props.PermitIndex] && LoadingAction !== props.PermitIndex)
+            return <div key={v4()} onClick={e => handleChangePermit(props.IndexTypeUser, props.PermitIndex)} className='UserTypesPermits-TypeContainer-ListItem2'>
+                {props.Permit === true ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
+                <span> {PermitDesc[props.PermitIndex]}</span>
+            </div>
+        else if (PermitDesc[props.PermitIndex])
+            return <div key={v4()} onClick={e => handleChangePermit(props.IndexTypeUser, props.PermitIndex)} className='UserTypesPermits-TypeContainer-ListItem2'>
+                <RxUpdate className="spinner-icon" />
+                <span> {PermitDesc[props.PermitIndex]}</span>
+            </div>
+        else
+            return
+    }
+
+
+
     return (
         <div className='UserTypesPermitsOuterContainer'>
             <SectionTitle>Permissões por Tipo de Usuário</SectionTitle>
@@ -86,62 +130,26 @@ const UserTypesPermits = (props) => {
             <div className={props.Tema === 'Dark' ? 'UserTypesPermitsContainerDark UserTypesPermitsContainer' : 'UserTypesPermitsContainerLightTheme UserTypesPermitsContainer'}>
 
                 <Stack Gap={'.5rem'}>
-                    {props.UserTypes.map((TypeUser) => {
-                        return <SidebarItem Active={TypeUserKey === TypeUser.id}
+                    {props.UserTypes.map((TypeUser) =>
+                        <SidebarItem Active={TypeUserKey === TypeUser.id}
                             onClick={(k) => setTypeUserKey(TypeUser.id)}                    >
                             <UilLabel />
                             {TypeUser.Value}
-                        </SidebarItem>
-                    })}
+                        </SidebarItem> 
+                    )}
                 </Stack>
 
-
-
                 <Show Show={true} Width='100%'>
-                    {props.UserTypes.map((TypeUser, IndexTypeUser) => {
-                        return <Show Show={TypeUserKey === TypeUser.id} Width='100%'>
-                            <div key={v4()} className='UserTypesPermits'>
-                                <div className='UserTypesPermits-TypeContainer-Title2'>
-                                    <span>Permissões de {GetNameFromStoreWithId("UserTypes", TypeUserKey)}</span>
-
-                                    <Show Show={TypeUser.IsAdmin}>
-                                        <Tooltip title="Possui permissões de Administrador" position="bottom" >
-                                            <ImCheckboxChecked />
-                                        </Tooltip>
-                                    </Show>
-
-                                    <Show Show={!TypeUser.IsAdmin}>
-                                        <Tooltip title="Permissões de Administrador" position="bottom" >
-                                            <ImCheckboxUnchecked onClick={e => CheckAdmin(IndexTypeUser)} />
-                                        </Tooltip>
-                                    </Show>
-                                </div>
-                                <div className='NewPermitsList'>
-                                    {TypeUser.Permits.map((Permit, PermitIndex) => {
-                                        if (PermitDesc[PermitIndex] && LoadingAction !== PermitIndex)
-                                            return <div key={v4()} onClick={e => handleChangePermit(IndexTypeUser, PermitIndex)} className='UserTypesPermits-TypeContainer-ListItem2'>
-                                                {Permit === true ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
-                                                <span> {PermitDesc[PermitIndex]}</span>
-                                            </div>
-                                        else if (PermitDesc[PermitIndex])
-                                            return <div key={v4()} onClick={e => handleChangePermit(IndexTypeUser, PermitIndex)} className='UserTypesPermits-TypeContainer-ListItem2'>
-                                                <RxUpdate className="spinner-icon" />
-                                                <span> {PermitDesc[PermitIndex]}</span>
-                                            </div>
-                                        else
-                                            return
-
-                                    })}
-                                </div>
-                            </div>
+                    {props.UserTypes.map((TypeUser, IndexTypeUser) =>
+                        <Show Show={TypeUserKey === TypeUser.id} Width='100%'>
+                            <PermitTab TypeUser={TypeUser} IndexTypeUser={IndexTypeUser} />
                         </Show>
-                    })}
+                    )}
                 </Show>
 
                 <Show Show={false} Width='100%'>
                     <Loading />
                 </Show>
-
 
             </div >
         </div>
@@ -158,4 +166,11 @@ const ConnectedUserTypesPermits = connect((state) => {
     }
 })(UserTypesPermits)
 
-export default ConnectedUserTypesPermits 
+export default ConnectedUserTypesPermits
+
+
+
+
+
+
+

@@ -178,9 +178,7 @@ const Requests = (props) => {
 
                 <Show Show={Requests.length !== 0 || Loaded}>
                     {Requests.map((Item) =>
-                        <div key={v4()} onClick={e => handleRequestClick(Item)}>
-                            <Request Request={Item} key={v4()} />
-                        </div>
+                        <Request Request={Item} key={v4()} onClick={e => handleRequestClick(Item)} />
                     )}
                 </Show>
 
