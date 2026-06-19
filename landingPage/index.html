@@ -16,15 +16,110 @@
   <link rel="stylesheet" href="assets/css/animate.css" />
   <link rel="stylesheet" href="assets/css/main.css" />
   <style>
+    :root {
+      --bg-color: #0c0f1a;
+      --text-color: #abb8c3;
+      --heading-color: #ffffff;
+      --navbar-bg: rgba(12, 15, 26, 0.85);
+      --navbar-text: #ffffff;
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --section-extended-bg: rgba(88, 100, 255, 0.06);
+      --preloader-bg: #0c0f1a;
+      --shadow-color: rgba(0, 0, 0, 0.4);
+    }
+    
+    body[data-theme="light"] {
+      --bg-color: #f8fafc;
+      --text-color: #5B657E;
+      --heading-color: #162447;
+      --navbar-bg: rgba(255, 255, 255, 0.85);
+      --navbar-text: #162447;
+      --card-bg: #ffffff;
+      --card-border: rgba(0, 0, 0, 0.06);
+      --section-extended-bg: rgba(88, 100, 255, 0.05);
+      --preloader-bg: #ffffff;
+      --shadow-color: rgba(0, 0, 0, 0.06);
+    }
+
+    body {
+      background-color: var(--bg-color) !important;
+      color: var(--text-color) !important;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    h1, h2, h3, h4, h5, h6, .section-title h2, .section-title span {
+      color: var(--heading-color) !important;
+    }
+
+    p, .section-title p, .single-feature p, .single-feature-extended p {
+      color: var(--text-color) !important;
+    }
+
+    .navbar-area {
+      transition: all 0.3s ease;
+    }
+
+    .sticky {
+      background-color: var(--navbar-bg) !important;
+    }
+
+    .navbar-nav .nav-item a {
+      color: var(--navbar-text) !important;
+    }
+
+    .sticky .navbar-nav .nav-item a {
+      color: var(--heading-color) !important;
+    }
+
+    .navbar-toggler .toggler-icon {
+      background-color: var(--heading-color) !important;
+    }
+
+    .preloader {
+      background: var(--preloader-bg) !important;
+    }
+
+    .single-feature {
+      background: var(--card-bg) !important;
+      border: 1px solid var(--card-border) !important;
+      box-shadow: 0 10px 30px var(--shadow-color) !important;
+      border-radius: 12px;
+      padding: 35px 30px;
+      height: 100%;
+      transition: all 0.3s ease;
+    }
+    
+    .single-feature:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-extended-section .feature-extended-wrapper {
+      background: var(--section-extended-bg) !important;
+    }
+
+    .single-feature-extended {
+      background: var(--card-bg) !important;
+      border: 1px solid var(--card-border) !important;
+      box-shadow: 0 10px 30px var(--shadow-color) !important;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .single-feature-extended:hover {
+      transform: translateY(-5px);
+    }
+
     /* Premium mockups shadows and borders */
     .mockup-wrapper img, .about-img img, .about-img-2 img {
       border-radius: 12px;
-      border: 1px solid rgba(0,0,0,0.08);
+      border: 1px solid var(--card-border);
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
     .mockup-wrapper img:hover, .about-img img:hover, .about-img-2 img:hover {
       transform: translateY(-4px);
-      box-shadow: 0 20px 38px rgba(0,0,0,0.15) !important;
+      box-shadow: 0 20px 38px var(--shadow-color) !important;
     }
     
     /* Overlapping image layout responsive styling */
@@ -45,7 +140,7 @@
       bottom: -30px;
       right: 0;
       z-index: 5;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.2) !important;
+      box-shadow: 0 15px 35px var(--shadow-color) !important;
     }
     .about-img-fg-left {
       position: absolute;
@@ -53,9 +148,20 @@
       bottom: -30px;
       left: 0;
       z-index: 5;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.2) !important;
+      box-shadow: 0 15px 35px var(--shadow-color) !important;
     }
     
+    /* Fix about layout images and absolute positioning shapes */
+    .about-section .about-img, .about-section .about-img-2 {
+      position: relative;
+      z-index: 1;
+      padding: 40px 0;
+    }
+    
+    .about-section .about-img .shape, .about-section .about-img-2 .shape {
+      opacity: 0.15;
+    }
+
     /* Small screen fixes */
     @media (max-width: 991px) {
       .about-overlay-container {
@@ -65,6 +171,16 @@
       .about-img-fg, .about-img-fg-left {
         width: 50%;
         bottom: -20px;
+      }
+      .navbar-collapse {
+        background-color: var(--bg-color) !important;
+        border-top: 1px solid var(--card-border);
+      }
+      .navbar-nav .nav-item a {
+        color: var(--heading-color) !important;
+      }
+      .nav-item.d-flex {
+        padding: 8px 0;
       }
     }
     @media (max-width: 575px) {
@@ -76,23 +192,126 @@
         width: 90%;
         bottom: 0;
         margin-top: 15px;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.1) !important;
+        box-shadow: 0 8px 16px var(--shadow-color) !important;
       }
       .about-img-bg {
         width: 100%;
       }
     }
     
-    /* Theme toggle styles */
-    .theme-toggle-container {
-      background: rgba(0,0,0,0.04);
-      padding: 4px;
-      border-radius: 50px;
-      border: 1px solid rgba(0,0,0,0.06);
+    /* Theme toggle & language selector styles */
+    .lang-selector {
+      background: rgba(88, 100, 255, 0.08);
+      padding: 3px;
+      border-radius: 30px;
+      display: inline-flex;
+      border: 1px solid var(--card-border);
     }
     
-    .theme-btn.active {
-      box-shadow: 0 4px 10px rgba(88, 100, 255, 0.3) !important;
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-color);
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .lang-btn:hover {
+      color: #5864FF;
+    }
+    
+    .lang-btn.active {
+      background: #5864FF;
+      color: #ffffff !important;
+      box-shadow: 0 4px 10px rgba(88, 100, 255, 0.25);
+    }
+    
+    .theme-toggle-btn {
+      border: none;
+      background: rgba(88, 100, 255, 0.08);
+      color: #5864FF;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      border: 1px solid var(--card-border);
+    }
+    
+    .theme-toggle-btn:hover {
+      transform: scale(1.05);
+      background: #5864FF;
+      color: #ffffff;
+      box-shadow: 0 4px 10px rgba(88, 100, 255, 0.25);
+    }
+
+    /* Developer Section styling */
+    .developer-section {
+      padding: 120px 0;
+      background-color: var(--card-bg);
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .developer-card {
+      background: var(--bg-color);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 45px;
+      box-shadow: 0 20px 50px var(--shadow-color);
+      transition: all 0.3s ease;
+    }
+
+    .developer-img-wrapper {
+      width: 170px;
+      height: 170px;
+      margin: 0 auto 30px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid #5864FF;
+      box-shadow: 0 10px 25px rgba(88, 100, 255, 0.2);
+    }
+
+    .developer-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .developer-socials {
+      margin-top: 25px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .developer-socials a {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: rgba(88, 100, 255, 0.08);
+      color: #5864FF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      border: 1px solid var(--card-border);
+    }
+
+    .developer-socials a:hover {
+      background: #5864FF;
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(88, 100, 255, 0.25);
     }
   </style>
 </head>
@@ -146,16 +365,32 @@
               <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                 <ul id="nav" class="navbar-nav ms-auto">
                   <li class="nav-item">
-                    <a class="page-scroll active" href="#home">Início</a>
+                    <a class="page-scroll active" href="#home" data-i18n="nav_home">Início</a>
                   </li>
                   <li class="nav-item">
-                    <a class="page-scroll" href="#features">Funcionalidades</a>
+                    <a class="page-scroll" href="#features" data-i18n="nav_features">Funcionalidades</a>
                   </li>
                   <li class="nav-item">
-                    <a class="page-scroll" href="#about">Detalhes</a>
+                    <a class="page-scroll" href="#about" data-i18n="nav_details">Detalhes</a>
                   </li>
                   <li class="nav-item">
-                    <a class="page-scroll" href="#why">Por que nós</a>
+                    <a class="page-scroll" href="#why" data-i18n="nav_why">Por que nós</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="page-scroll" href="#developer" data-i18n="nav_dev">Desenvolvedor</a>
+                  </li>
+                  <!-- i18n & Theme buttons in navbar for mobile and desktop -->
+                  <li class="nav-item ms-lg-4 d-flex align-items-center">
+                    <div class="lang-selector">
+                      <button class="lang-btn" data-lang="en">EN</button>
+                      <button class="lang-btn" data-lang="pt">PT</button>
+                      <button class="lang-btn" data-lang="es">ES</button>
+                    </div>
+                  </li>
+                  <li class="nav-item ms-lg-3 d-flex align-items-center">
+                    <button class="theme-toggle-btn" id="themeToggle">
+                      <i class="lni lni-night" id="themeIcon"></i>
+                    </button>
                   </li>
                 </ul>
               </div>
@@ -178,34 +413,26 @@
       <div class="row align-items-center position-relative">
         <div class="col-lg-6">
           <div class="hero-content">
-            <h1 class="wow fadeInUp" data-wow-delay=".4s">
+            <h1 class="wow fadeInUp" data-wow-delay=".4s" data-i18n="hero_title">
               AssetSense - Gestão de Ativos
             </h1>
-            <p class="wow fadeInUp" data-wow-delay=".6s">
+            <p class="wow fadeInUp" data-wow-delay=".6s" data-i18n="hero_desc">
               Centralize o controle de Ativos, Solicitações, Retiradas, Devoluções e muito mais em uma plataforma integrada, simples e com altíssima visibilidade.
             </p>
             <div class="wow fadeInUp" data-wow-delay=".8s" style="margin-top: 30px;">
-              <a href="#features" class="main-btn btn-hover">Ver Funcionalidades</a>
+              <a href="#features" class="main-btn btn-hover" data-i18n="hero_btn">Ver Funcionalidades</a>
             </div>
           </div>
         </div>
         <div class="col-lg-6">
           <div class="hero-img wow fadeInUp text-center" data-wow-delay=".5s">
-            <div class="theme-toggle-container mb-3 d-inline-flex align-items-center p-1 rounded-pill bg-light shadow-sm">
-              <button class="btn btn-sm btn-primary active theme-btn rounded-pill px-3 py-1 me-1" data-theme="dark" style="font-size: 0.85rem; font-weight: 500;">
-                <i class="lni lni-night me-1"></i> Modo Escuro
-              </button>
-              <button class="btn btn-sm btn-outline-primary theme-btn rounded-pill px-3 py-1" data-theme="light" style="font-size: 0.85rem; font-weight: 500; border-color: transparent;">
-                <i class="lni lni-sun me-1"></i> Modo Claro
-              </button>
-            </div>
             <div class="mockup-wrapper position-relative">
               <img src="https://cdn.bkappi.com/ProjectsAssets/AssetSense/LandingPage/HomePageDashBoard_Dark.png" 
                    data-dark-src="https://cdn.bkappi.com/ProjectsAssets/AssetSense/LandingPage/HomePageDashBoard_Dark.png"
                    data-light-src="https://cdn.bkappi.com/ProjectsAssets/AssetSense/LandingPage/HomePageDashBoard_Light.png"
                    class="theme-dependent-mockup w-100 rounded shadow-lg img-fluid" 
                    alt="AssetSense Dashboard" 
-                   style="border-radius: 12px !important; border: 1px solid rgba(255,255,255,0.1) !important;" />
+                   style="border-radius: 12px !important; border: 1px solid var(--card-border) !important;" />
             </div>
           </div>
         </div>
@@ -224,8 +451,8 @@
               <i class="lni lni-cog"></i>
             </div>
             <div class="content">
-              <h3>Personalizável</h3>
-              <p>
+              <h3 data-i18n="feat_custom_title">Personalizável</h3>
+              <p data-i18n="feat_custom_desc">
                 O software AssetSense é altamente personalizável, adaptando-se às necessidades específicas de cada
                 empresa.
                 Com cadastro flexível de ativos, status e locais, o sistema se molda perfeitamente aos requisitos
@@ -234,14 +461,14 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-md-8 col-sm-10">
+        <div class="col-lg-4 col-md-8 col-sm-10 mt-30 mt-lg-0">
           <div class="single-feature">
             <div class="icon">
               <i class="lni lni-layout"></i>
             </div>
             <div class="content">
-              <h3>Design Simples</h3>
-              <p>
+              <h3 data-i18n="feat_simple_title">Design Simples</h3>
+              <p data-i18n="feat_simple_desc">
                 Com um design elegante e intuitivo, o AssetSense proporciona uma experiência de usuário simplificada.
                 Sua interface limpa e organizada facilita a navegação, tornando mais fácil encontrar as informações
                 desejadas. O design simples permite uma curva de aprendizado rápida.
@@ -249,14 +476,14 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-md-8 col-sm-10">
+        <div class="col-lg-4 col-md-8 col-sm-10 mt-30 mt-lg-0">
           <div class="single-feature">
             <div class="icon">
               <i class="lni lni-coffee-cup"></i>
             </div>
             <div class="content">
-              <h3>Fácil de Usar</h3>
-              <p>
+              <h3 data-i18n="feat_easy_title">Fácil de Usar</h3>
+              <p data-i18n="feat_easy_desc">
                 O AssetSense foi desenvolvido para ser fácil de usar. Com uma interface amigável e intuitiva, o
                 gerenciamento de ativos se torna simples e descomplicado. Desde o cadastro até a geração de relatórios,
                 todas as etapas são acessíveis, tornando o sistema adequado para usuários de todos os níveis de
@@ -268,6 +495,8 @@
       </div>
     </div>
   </section>
+  <!-- ======== feature-section end ======== -->
+
   <!-- ======== about-section start ======== -->
   <section id="about" class="about-section pt-150">
     <div class="container">
@@ -289,13 +518,13 @@
         <div class="col-xl-6 col-lg-6">
           <div class="about-content">
             <div class="section-title mb-30">
-              <h2 class="mb-25 wow fadeInUp" data-wow-delay=".2s">
+              <h2 class="mb-25 wow fadeInUp" data-wow-delay=".2s" data-i18n="about_assets_title">
                 Ativos - Listagem, Detalhes e Rastreamento
               </h2>
-              <p class="wow fadeInUp" data-wow-delay=".4s">
+              <p class="wow fadeInUp" data-wow-delay=".4s" data-i18n="about_assets_p1">
                 Tenha o controle completo e centralizado de todos os ativos da sua empresa. Nosso sistema oferece uma listagem detalhada e intuitiva de equipamentos com filtros inteligentes por localizações, status e categorias de ativos. 
               </p>
-              <p class="wow fadeInUp mt-3" data-wow-delay=".5s">
+              <p class="wow fadeInUp mt-3" data-wow-delay=".5s" data-i18n="about_assets_p2">
                 Acesse uma tela exclusiva de detalhes para cada ativo, onde é possível visualizar especificações técnicas completas, histórico completo de movimentações de custódia, logs de auditoria e solicitações associadas.
               </p>
             </div>
@@ -313,13 +542,13 @@
         <div class="col-xl-6 col-lg-6">
           <div class="about-content">
             <div class="section-title mb-30">
-              <h2 class="mb-25 wow fadeInUp" data-wow-delay=".2s">
+              <h2 class="mb-25 wow fadeInUp" data-wow-delay=".2s" data-i18n="about_moves_title">
                 Movimentações - Controle de Retiradas e Devoluções
               </h2>
-              <p class="wow fadeInUp" data-wow-delay=".4s">
+              <p class="wow fadeInUp" data-wow-delay=".4s" data-i18n="about_moves_p1">
                 Evite perdas e saiba exatamente com quem está cada ativo em tempo real. O AssetSense simplifica o registro físico de movimentações, permitindo realizar retiradas em segundos vinculadas diretamente ao colaborador responsável.
               </p>
-              <p class="wow fadeInUp mt-3" data-wow-delay=".5s">
+              <p class="wow fadeInUp mt-3" data-wow-delay=".5s" data-i18n="about_moves_p2">
                 Defina prazos esperados para devolução, registre assinaturas e termos de responsabilidade e avalie as condições físicas do equipamento no ato da devolução para um controle patrimonial rigoroso.
               </p>
             </div>
@@ -351,13 +580,13 @@
         <div class="col-xl-6 col-lg-6">
           <div class="about-content">
             <div class="section-title mb-30">
-              <h2 class="mb-25 wow fadeInUp" data-wow-delay=".2s">
+              <h2 class="mb-25 wow fadeInUp" data-wow-delay=".2s" data-i18n="about_reqs_title">
                 Solicitações - Fluxos Personalizados e Aprovações
               </h2>
-              <p class="wow fadeInUp" data-wow-delay=".4s">
+              <p class="wow fadeInUp" data-wow-delay=".4s" data-i18n="about_reqs_p1">
                 Ofereça um canal ágil para que seus colaboradores possam solicitar novos ativos e equipamentos diretamente pelo portal. Os gestores contam com uma interface integrada para revisar, aprovar, reprovar ou pedir esclarecimentos sobre as solicitações.
               </p>
-              <p class="wow fadeInUp mt-3" data-wow-delay=".5s">
+              <p class="wow fadeInUp mt-3" data-wow-delay=".5s" data-i18n="about_reqs_p2">
                 Configure regras e limites personalizados para solicitações automáticas de acordo com o setor, garantindo total conformidade com as políticas internas de TI e infraestrutura da organização.
               </p>
             </div>
@@ -375,13 +604,13 @@
         <div class="col-xl-6 col-lg-6">
           <div class="about-content">
             <div class="section-title mb-30">
-              <h2 class="mb-25 wow fadeInUp" data-wow-delay=".2s">
+              <h2 class="mb-25 wow fadeInUp" data-wow-delay=".2s" data-i18n="about_security_title">
                 Segurança, Perfis de Acesso e Parametrização
               </h2>
-              <p class="wow fadeInUp" data-wow-delay=".4s">
+              <p class="wow fadeInUp" data-wow-delay=".4s" data-i18n="about_security_p1">
                 Garanta que as informações da empresa estejam protegidas por meio de um controle de acesso granular de alto nível. Cada usuário possui um perfil detalhado com permissões de visualização, edição ou aprovação claramente parametrizadas.
               </p>
-              <p class="wow fadeInUp mt-3" data-wow-delay=".5s">
+              <p class="wow fadeInUp mt-3" data-wow-delay=".5s" data-i18n="about_security_p2">
                 Acesse a tela de configurações para customizar as categorias de ativos, status, locais físicos de armazenamento e dados do perfil corporativo de forma ágil e centralizada.
               </p>
             </div>
@@ -402,31 +631,19 @@
       </div>
     </div>
   </section>
-  <!-- ======== about4-section end ======== -->>
-      </div>
-    </div>
-  </section>
-  <!-- ======== about3-section end ======== -->
+  <!-- ======== about4-section end ======== -->
 
-
-
-
-
-
-
-
-
-  <!-- ======== feature-section start ======== -->
+  <!-- ======== why-choose-section start ======== -->
   <section id="why" class="feature-extended-section pt-100">
     <div class="feature-extended-wrapper">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-xxl-5 col-xl-6 col-lg-8 col-md-9">
             <div class="section-title text-center mb-60">
-              <h2 class="mb-25 wow fadeInUp" data-wow-delay=".2s">
+              <h2 class="mb-25 wow fadeInUp" data-wow-delay=".2s" data-i18n="why_title">
                 Por que escolher o AssetSense?
               </h2>
-              <p class="wow fadeInUp" data-wow-delay=".4s">
+              <p class="wow fadeInUp" data-wow-delay=".4s" data-i18n="why_subtitle">
                 Descubra por que o AssetSense é a escolha ideal para a gestão de ativos. Com recursos personalizáveis,
                 um design atraente e alto desempenho, nossa plataforma oferece uma solução completa e eficiente.
                 Experimente o AssetSense hoje e eleve sua gestão de ativos a um novo patamar
@@ -435,10 +652,6 @@
           </div>
         </div>
 
-
-
-
-
         <div class="row">
           <div class="col-lg-4 col-md-6">
             <div class="single-feature-extended">
@@ -446,8 +659,8 @@
                 <i class="lni lni-display"></i>
               </div>
               <div class="content">
-                <h3>Centrado em SaaS</h3>
-                <p>
+                <h3 data-i18n="why_saas_title">Centrado em SaaS</h3>
+                <p data-i18n="why_saas_desc">
                   O AssetSense é um software SaaS (Software como Serviço) acessível pela internet, permitindo que você
                   gerencie seus ativos de forma fácil e rápida, de qualquer lugar e a qualquer momento
                 </p>
@@ -460,8 +673,8 @@
                 <i class="lni lni-leaf"></i>
               </div>
               <div class="content">
-                <h3>Design Incrível</h3>
-                <p>
+                <h3 data-i18n="why_design_title">Design Incrível</h3>
+                <p data-i18n="why_design_desc">
                   Com um design atraente e intuitivo, o AssetSense oferece uma interface de usuário bonita e funcional,
                   proporcionando uma experiência agradável aos usuários
                 </p>
@@ -474,11 +687,11 @@
                 <i class="lni lni-grid-alt"></i>
               </div>
               <div class="content">
-                <h3>Pronto para usar</h3>
-                <p>
+                <h3 data-i18n="why_ready_title">Pronto para usar</h3>
+                <p data-i18n="why_ready_desc">
                   O AssetSense está pronto para uso assim que você se tornar nosso cliente. Não há necessidade de longas
                   implementações ou configurações complexas. Basta fazer login e começar a gerenciar seus ativos
-                  imediatamente. Com uma configuração inicial simplificada, você economiza tempo e esforço, aproveitando
+                  imediatamente. Com uma configuração inicial simplificada, você economiza tempo e effort, aproveitando
                   rapidamente todos os benefícios da nossa solução de gestão de ativos
                 </p>
               </div>
@@ -487,15 +700,15 @@
           <div class="col-lg-4 col-md-6">
             <div class="single-feature-extended">
               <div class="icon">
-                <i class="lni lni-cog""></i>
+                <i class="lni lni-cog"></i>
               </div>
-              <div class=" content">
-                  <h3>Personalizável</h3>
-                  <p>
-                    O AssetSense é altamente personalizável para atender às necessidades específicas da sua empresa.
-                    Adicione campos personalizados, crie categorias exclusivas e configure permissões de acesso para
-                    obter um sistema de gestão de ativos adaptado às suas preferências
-                  </p>
+              <div class="content">
+                <h3 data-i18n="why_custom_title">Personalizável</h3>
+                <p data-i18n="why_custom_desc">
+                  O AssetSense é altamente personalizável para atender às necessidades específicas da sua empresa.
+                  Adicione campos personalizados, crie categorias exclusivas e configure permissões de acesso para
+                  obter um sistema de gestão de ativos adaptado às suas preferências
+                </p>
               </div>
             </div>
           </div>
@@ -505,8 +718,8 @@
                 <i class="lni lni-layers"></i>
               </div>
               <div class="content">
-                <h3>Seções Essenciais</h3>
-                <p>
+                <h3 data-i18n="why_sections_title">Seções Essenciais</h3>
+                <p data-i18n="why_sections_desc">
                   O AssetSense possui seções dedicadas a cadastro de ativos, movimentações, solicitações e relatórios,
                   garantindo uma organização clara e acesso rápido às informações importantes
                 </p>
@@ -519,8 +732,8 @@
                 <i class="lni lni-rocket"></i>
               </div>
               <div class="content">
-                <h3>Altamente Otimizado</h3>
-                <p>
+                <h3 data-i18n="why_optimized_title">Altamente Otimizado</h3>
+                <p data-i18n="why_optimized_desc">
                   O AssetSense foi otimizado para um desempenho excepcional, permitindo que você gerencie um grande
                   número de ativos com rapidez e eficiência, sem atrasos ou problemas de desempenho. Você terá uma
                   experiência de uso fluida e eficaz
@@ -532,88 +745,72 @@
       </div>
     </div>
   </section>
-  <!-- ======== feature-section end ======== -->
+  <!-- ======== why-choose-section end ======== -->
 
-
+  <!-- ======== developer-section start ======== -->
+  <section id="developer" class="developer-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xxl-6 col-xl-7 col-lg-9">
+          <div class="section-title text-center mb-60">
+            <h2 class="mb-25 wow fadeInUp" data-wow-delay=".2s" data-i18n="dev_section_title">About the Developer</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="developer-card wow fadeInUp text-center" data-wow-delay=".3s">
+            <div class="developer-img-wrapper">
+              <img src="https://cdn.bkappi.com/BrunoKappi/Images/ProfilePicture.jpg" alt="Bruno Kappi" />
+            </div>
+            <h3 class="mb-2" data-i18n="dev_title">Bruno Kappi</h3>
+            <h5 class="mb-3 text-primary" data-i18n="dev_subtitle">Fullstack Developer & Systems Analyst</h5>
+            <p class="mb-4 text-muted"><i class="lni lni-map-marker me-1"></i> <span data-i18n="dev_location">Novo Hamburgo, Rio Grande do Sul, Brazil</span></p>
+            <div class="developer-bio px-md-4 mb-4">
+              <p class="mb-3" data-i18n="dev_bio1">With a background in both industrial automation and modern web development, Bruno brings a rare blend of technical depth and product vision to everything he builds.</p>
+              <p data-i18n="dev_bio2">He believes software should be elegant, efficient, and most of all, useful.</p>
+            </div>
+            <div class="developer-socials">
+              <a href="https://portfolio.bkappi.com" target="_blank" title="Portfolio"><i class="lni lni-world"></i></a>
+              <a href="https://www.linkedin.com/in/brunokappi/" target="_blank" title="LinkedIn"><i class="lni lni-linkedin-original"></i></a>
+              <a href="https://blog.bkappi.com" target="_blank" title="Blog"><i class="lni lni-pencil"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ======== developer-section end ======== -->
 
   <!-- ======== footer start ======== -->
   <footer class="footer">
     <div class="container">
       <div class="widget-wrapper">
         <div class="row">
-          <div class="col-xl-4 col-lg-4 col-md-6">
+          <div class="col-xl-12 text-center">
             <div class="footer-widget">
-              <div class="logo mb-30">
+              <div class="logo mb-30 justify-content-center d-flex">
                 <a href="index.html">
-                  <img src="assets/img/logo" alt="" />
+                  <img src="assets/img/logo/Logo.png" alt="Logo" style="max-width: 150px;" />
                 </a>
               </div>
-              <!--
-              <p class="desc mb-30 text-white">
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                dinonumy eirmod tempor invidunt.
+              <p class="desc mb-30 text-white" data-i18n="footer_desc" style="max-width: 500px; margin: 0 auto 30px;">
+                Plataforma moderna de gestão de ativos para empresas de todos os tamanhos.
               </p>
-              <ul class="socials">
+              <ul class="socials d-flex justify-content-center gap-3">
                 <li>
-                  <a href="jvascript:void(0)">
-                    <i class="lni lni-facebook-filled"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="jvascript:void(0)">
-                    <i class="lni lni-twitter-filled"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="jvascript:void(0)">
-                    <i class="lni lni-instagram-filled"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="jvascript:void(0)">
+                  <a href="https://www.linkedin.com/in/brunokappi/" target="_blank">
                     <i class="lni lni-linkedin-original"></i>
                   </a>
                 </li>
+                <li>
+                  <a href="https://portfolio.bkappi.com" target="_blank">
+                    <i class="lni lni-world"></i>
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
-
-          <div class="col-xl-2 col-lg-2 col-md-6">
-            <div class="footer-widget">
-              <h3>About Us</h3>
-              <ul class="links">
-                <li><a href="javascript:void(0)">Home</a></li>
-                <li><a href="javascript:void(0)">Feature</a></li>
-                <li><a href="javascript:void(0)">About</a></li>
-                <li><a href="javascript:void(0)">Testimonials</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="col-xl-3 col-lg-3 col-md-6">
-            <div class="footer-widget">
-              <h3>Features</h3>
-              <ul class="links">
-                <li><a href="javascript:void(0)">How it works</a></li>
-                <li><a href="javascript:void(0)">Privacy policy</a></li>
-                <li><a href="javascript:void(0)">Terms of service</a></li>
-                <li><a href="javascript:void(0)">Refund policy</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="col-xl-3 col-lg-3 col-md-6">
-            <div class="footer-widget">
-              <h3>Other Products</h3>
-              <ul class="links">
-                <li><a href="jvascript:void(0)">Accounting Software</a></li>
-                <li><a href="jvascript:void(0)">Billing Software</a></li>
-                <li><a href="jvascript:void(0)">Booking System</a></li>
-                <li><a href="jvascript:void(0)">Tracking System</a></li>
-              </ul>
-            </div>
-          </div>
-          -->
         </div>
       </div>
     </div>
