@@ -7,7 +7,8 @@ import { connect } from 'react-redux'
 import { Link } from "react-router-dom";
 import LogoutHeader from "../LogoutHeader/LogoutHeader";
 import { NotificationSucesso, NotificationErro } from "../../NotificationUtils";
-import { LoginUtil } from "../../Functions/AuthMiddleware";
+import { LoginUtil, LoginWithGoogleUtil } from "../../Functions/AuthMiddleware";
+import { FcGoogle } from "react-icons/fc";
 
 
 const Login = (props) => {
@@ -51,6 +52,21 @@ const Login = (props) => {
         }
     };
 
+    const handleGoogleLogin = () => {
+        setIsLoggin(true);
+        LoginWithGoogleUtil()
+            .then((message) => {
+                LoginSuccess(message);
+                setIsLoggin(false);
+                NotificationSucesso('Login', 'Login com Google realizado com sucesso!');
+                navigate('/Assets/Dash');
+            })
+            .catch((error) => {
+                setIsLoggin(false);
+                NotificationErro('Login', HandleFirebaseEmailPasswordLogin(error.toString()));
+            });
+    };
+
 
 
 
@@ -77,7 +93,7 @@ const Login = (props) => {
                     <Link to={'/Forget'}>Esqueci minha senha</Link>
                 </div>
                 <div className="LoginFormGroup">
-                    <button className="LoginButton" type="submit">
+                    <button className="LoginButton" type="submit" disabled={IsLogging}>
                         {IsLogging ? <Oval
                             height={18}
                             width={18}
@@ -88,6 +104,12 @@ const Login = (props) => {
                             strokeWidth={7}
                             strokeWidthSecondary={7}
                         /> : 'Entrar'}
+                    </button>
+                </div>
+                <div className="LoginSeparator">ou</div>
+                <div className="LoginFormGroup">
+                    <button type="button" className="GoogleLoginButton" onClick={handleGoogleLogin} disabled={IsLogging}>
+                        <FcGoogle /> Entrar com o Google
                     </button>
                 </div>
             </form >

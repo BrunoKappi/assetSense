@@ -210,3 +210,58 @@
 
 
 }
+
+
+.LoginSeparator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1rem 0;
+  color: #8c8c8c;
+  font-family: var(--Fonte);
+  font-size: 0.85rem;
+}
+
+.LoginSeparator::before,
+.LoginSeparator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.LoginSeparator:not(:empty)::before {
+  margin-right: .5em;
+}
+
+.LoginSeparator:not(:empty)::after {
+  margin-left: .5em;
+}
+
+.GoogleLoginButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: .7rem 1rem;
+  border-radius: .3rem;
+  border: 1px solid #dcdcdc;
+  background-color: white;
+  color: #3c4043;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  -webkit-box-shadow: 7px 8px 10px -9px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 7px 8px 10px -9px rgba(0, 0, 0, 0.75);
+  box-shadow: 7px 8px 10px -9px rgba(0, 0, 0, 0.75);
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.GoogleLoginButton:hover {
+  background-color: #f8f9fa;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.GoogleLoginButton svg {
+  margin-right: 10px;
+  font-size: 20px;
+}

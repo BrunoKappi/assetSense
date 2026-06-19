@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "./index";
 import { sendPasswordResetEmail, updatePassword } from "firebase/auth";
 import { DefaultLoggedUser } from "../../GlobalVars";
@@ -47,6 +47,11 @@ export const FIREBASE_LoginAuth = (email, password) => {
 
 export const FIREBASE_LogouyAuth = async () => {
   await signOut(auth);
+};
+
+export const FIREBASE_GoogleLoginAuth = () => {
+  const provider = new GoogleAuthProvider();
+  return signInWithPopup(auth, provider);
 };
 
 

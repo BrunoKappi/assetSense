@@ -3,7 +3,8 @@ import {
     FIREBASE_LoginAuth,
     FIREBASE_LogouyAuth,
     FIREBASE_RegisterUserAuth,
-    FIREBASE_SendEMailResetPassword
+    FIREBASE_SendEMailResetPassword,
+    FIREBASE_GoogleLoginAuth
 } from "../Config/firebase/auth"
 
 
@@ -24,4 +25,9 @@ export const FoprgetPasswordUtil = (email, password) => {
 
 export async function RegisterUser(Email) {
     return FIREBASE_RegisterUserAuth(Email)
+}
+
+//GOOGLE LOGIN IN FIREBASE
+export const LoginWithGoogleUtil = () => {
+    return FIREBASE_GoogleLoginAuth()
 }
