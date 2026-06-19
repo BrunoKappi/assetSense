@@ -150,8 +150,7 @@ const ConnectedUsersList = connect((state) => {
         Users: state.Users,
         Tema: state.Tema,
         CurrentUser: state.CurrentUser,
-        UserTypes: state.UserTypes,
-        Users: state.Users
+        UserTypes: state.UserTypes
     }
 })(UsersList)
 

@@ -10,6 +10,7 @@ import Config from '../Config/Config'
 import Dashboard from '../Dashboard/Dashboard';
 import Records from '../Records/Records'
 import Requests from '../Requests/Requests'
+import Reports from '../Reports/Reports'
 import NotFound from '../NotFound/NotFound'
 
 const Layout = () => {
@@ -27,6 +28,7 @@ const Layout = () => {
                     <Route path="/Users" element={<Users />} />
                     <Route path="/Records" element={<Records />} />
                     <Route path="/Requests" element={<Requests />} />
+                    <Route path="/Reports" element={<Reports />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
 

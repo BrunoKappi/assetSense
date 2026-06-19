@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import './UserPhotoModal.css'
 import Modal from 'react-bootstrap/Modal';
 import { connect } from 'react-redux'
+import { env } from '../../../../Config/env';
 
 import { UilTimes, UilTrashAlt, UilCheck, UilBackward, UilPen } from '@iconscout/react-unicons'
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
@@ -55,9 +56,9 @@ const UserPhotoModal = (props) => {
         const IdToUseToAdd = v4()
 
         if (props.Add) {
-            path = `${import.meta.env.VITE_REACT_TENANT_NAME}/${import.meta.env.VITE_REACT_USERS_PHOTOS_DIRECTORY}/${IdToUseToAdd}`
+            path = `${env.VITE_REACT_TENANT_NAME}/${env.VITE_REACT_USERS_PHOTOS_DIRECTORY}/${IdToUseToAdd}`
         } else {
-            path = `${import.meta.env.VITE_REACT_TENANT_NAME}/${import.meta.env.VITE_REACT_USERS_PHOTOS_DIRECTORY}/${props.User.id}`
+            path = `${env.VITE_REACT_TENANT_NAME}/${env.VITE_REACT_USERS_PHOTOS_DIRECTORY}/${props.User.id}`
         }
 
 
@@ -86,7 +87,7 @@ const UserPhotoModal = (props) => {
     const ApagarFotoDeUser = () => {
         setUploading(false)
         setLoading(true)
-        const path = `${import.meta.env.VITE_REACT_TENANT_NAME}/${import.meta.env.VITE_REACT_USERS_PHOTOS_DIRECTORY}/${props.User?.id}`
+        const path = `${env.VITE_REACT_TENANT_NAME}/${env.VITE_REACT_USERS_PHOTOS_DIRECTORY}/${props.User?.id}`
 
         DeleteFile(path).then(() => {
             setUploading(false)

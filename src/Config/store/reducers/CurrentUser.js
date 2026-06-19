@@ -1,3 +1,5 @@
+import { env } from '../../env';
+
 // DEFAULT USER 
 export const DefaultUser =
 {
@@ -53,8 +55,8 @@ export const DefaultUser =
         id: ''
     },
     Tenant: {
-        id: import.meta.env.VITE_REACT_TENANT_ID,
-        Name: import.meta.env.VITE_REACT_TENANT_NAME
+        id: env.VITE_REACT_TENANT_ID,
+        Name: env.VITE_REACT_TENANT_NAME
     }
 }
 

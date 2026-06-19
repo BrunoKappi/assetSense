@@ -26,3 +26,16 @@ dist-ssr
 *.sw?
 .env
 *.env?
+
+
+graphify-out/
+.agents/
+
+# Custom ignores
+configFiles
+.graphifyignore
+.geminiignore
+.claudeignore
+.antigravityignore
+agentsIgnore
+git

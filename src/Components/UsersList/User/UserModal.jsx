@@ -1,6 +1,7 @@
 
 //REACT
 import React, { useState, useEffect } from 'react'
+import { env } from '../../../Config/env';
 //CSS
 import './UserModal.css'
 //ICONS
@@ -202,8 +203,8 @@ const UserModal = (props) => {
 
             const NewUser = { ...User }
             NewUser.id = IdToUse ? IdToUse : v4()
-            NewUser.Tenant.id = import.meta.env.VITE_REACT_TENANT_ID
-            NewUser.Tenant.Name = import.meta.env.VITE_REACT_TENANT_NAME
+            NewUser.Tenant.id = env.VITE_REACT_TENANT_ID
+            NewUser.Tenant.Name = env.VITE_REACT_TENANT_NAME
 
 
             unsubscribe()
@@ -763,7 +764,7 @@ const UserModal = (props) => {
 
                                             <div className='MyPermitsContainer'>
 
-                                                {CurrentUserType.Permits.map((Permit, PermitIndex) => {
+                                                {CurrentUserType?.Permits?.map((Permit, PermitIndex) => {
                                                     if (Permit && PermitDesc[PermitIndex])
                                                         return <span className='MyPermitItem'>
                                                             <UilCheck />

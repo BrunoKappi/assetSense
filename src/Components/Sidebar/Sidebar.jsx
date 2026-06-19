@@ -47,7 +47,8 @@ const Sidebar = (props) => {
             SetTab(Tab)
             navigate(To)
         } else if (Tab === 'Reports' && Tab !== props.LoggedUser.CurrentSidebarTab) {
-            NotificationAlerta("Ainda Não...", "Esta tela ainda está em desenvolvimento, em breve estará disponível!")
+            SetTab(Tab)
+            navigate(To)
         } else if (Tab === 'Requests' && Tab !== props.LoggedUser.CurrentSidebarTab) {
             SetTab(Tab)
             navigate(To)
@@ -158,7 +159,8 @@ const Sidebar = (props) => {
                             <span>Solicitações</span>
                         </SidebarItem>
 
-                        <SidebarItem onClick={e => SetTabSidebar('Reports', '/Assets/Reports')} >
+                        <SidebarItem Active={IsActive('Reports')}
+                            onClick={e => SetTabSidebar('Reports', '/Assets/Reports')} >
                             <UilClipboardNotes />
                             <span>Relatórios</span>
                         </SidebarItem>

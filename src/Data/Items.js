@@ -1,5 +1,6 @@
 import { v4 } from 'uuid';
 import moment from 'moment';
+import { env } from '../Config/env';
 import { AddToFirebaseFunctions } from '../Functions/DatabaseMiddleware';
 import { FIREBASE_Add } from '../Config/firebase/metodos2';
 
@@ -291,8 +292,8 @@ export const DefaultUser =
         id: ''
     },
     Tenant: {
-        id: import.meta.env.VITE_REACT_TENANT_ID,
-        Name: import.meta.env.VITE_REACT_TENANT_NAME
+        id: env.VITE_REACT_TENANT_ID,
+        Name: env.VITE_REACT_TENANT_NAME
     }
 }
 

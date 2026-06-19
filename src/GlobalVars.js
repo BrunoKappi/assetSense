@@ -1,4 +1,4 @@
-
+import { env } from './Config/env';
 
 
 export const DefaultLoggedUser = {
@@ -64,8 +64,8 @@ export const DefaultLoggedUser = {
     id: ''
   },
   Tenant: {
-    id: import.meta.env.VITE_REACT_TENANT_ID,
-    Name: import.meta.env.VITE_REACT_TENANT_NAME
+    id: env.VITE_REACT_TENANT_ID,
+    Name: env.VITE_REACT_TENANT_NAME
   }
 };
 

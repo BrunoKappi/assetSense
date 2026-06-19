@@ -15,7 +15,7 @@ export const ImageUpload = (ImagePath, ImageToUpload) => {
 
 //GET IMG URL FROM FIREBASE STORAGE
 export const GetUserUrlImage = (path) => {
-    return getDownloadURL(ref(storage, path))
+    return getDownloadURL(ref(storage, path)).catch(() => "/Icon.ico")
 }
 
 //DELETE FILE FROM FIREBASE STORAGE

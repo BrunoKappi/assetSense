@@ -15,6 +15,86 @@
   <link rel="stylesheet" href="assets/css/lineicons.css" />
   <link rel="stylesheet" href="assets/css/animate.css" />
   <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    /* Premium mockups shadows and borders */
+    .mockup-wrapper img, .about-img img, .about-img-2 img {
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.08);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .mockup-wrapper img:hover, .about-img img:hover, .about-img-2 img:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 38px rgba(0,0,0,0.15) !important;
+    }
+    
+    /* Overlapping image layout responsive styling */
+    .about-overlay-container {
+      position: relative;
+      width: 100%;
+      height: auto;
+      min-height: 380px;
+    }
+    .about-img-bg {
+      width: 90%;
+      display: block;
+      margin-right: auto;
+    }
+    .about-img-fg {
+      position: absolute;
+      width: 60%;
+      bottom: -30px;
+      right: 0;
+      z-index: 5;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2) !important;
+    }
+    .about-img-fg-left {
+      position: absolute;
+      width: 60%;
+      bottom: -30px;
+      left: 0;
+      z-index: 5;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2) !important;
+    }
+    
+    /* Small screen fixes */
+    @media (max-width: 991px) {
+      .about-overlay-container {
+        min-height: auto;
+        padding-bottom: 50px;
+      }
+      .about-img-fg, .about-img-fg-left {
+        width: 50%;
+        bottom: -20px;
+      }
+    }
+    @media (max-width: 575px) {
+      .about-overlay-container {
+        padding-bottom: 20px;
+      }
+      .about-img-fg, .about-img-fg-left {
+        position: relative;
+        width: 90%;
+        bottom: 0;
+        margin-top: 15px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1) !important;
+      }
+      .about-img-bg {
+        width: 100%;
+      }
+    }
+    
+    /* Theme toggle styles */
+    .theme-toggle-container {
+      background: rgba(0,0,0,0.04);
+      padding: 4px;
+      border-radius: 50px;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    
+    .theme-btn.active {
+      box-shadow: 0 4px 10px rgba(88, 100, 255, 0.3) !important;
+    }
+  </style>
 </head>
 
 <body>
@@ -69,17 +149,14 @@
                     <a class="page-scroll active" href="#home">Início</a>
                   </li>
                   <li class="nav-item">
-                    <a class="page-scroll" href="#features">Características</a>
+                    <a class="page-scroll" href="#features">Funcionalidades</a>
                   </li>
                   <li class="nav-item">
-                    <a class="page-scroll" href="#about">Sobre</a>
+                    <a class="page-scroll" href="#about">Detalhes</a>
                   </li>
-
                   <li class="nav-item">
-                    <a class="page-scroll" href="#why">Motivos</a>
+                    <a class="page-scroll" href="#why">Por que nós</a>
                   </li>
-
-
                 </ul>
               </div>
               <!-- navbar collapse -->
@@ -105,23 +182,31 @@
               AssetSense - Gestão de Ativos
             </h1>
             <p class="wow fadeInUp" data-wow-delay=".6s">
-              Centralize o controle de Ativos, Solicitações, Retiradas, Devoluções e muito mais.
+              Centralize o controle de Ativos, Solicitações, Retiradas, Devoluções e muito mais em uma plataforma integrada, simples e com altíssima visibilidade.
             </p>
-            <!-- ======== hero-section start ======== 
-              <a
-                href="javascript:void(0)"
-                class="main-btn border-btn btn-hover wow fadeInUp"
-                data-wow-delay=".6s"
-                >Purchase Now</a
-                -->
-            >
-            <a href="#features" class="scroll-bottom">
-              <i class="lni lni-arrow-down"></i></a>
+            <div class="wow fadeInUp" data-wow-delay=".8s" style="margin-top: 30px;">
+              <a href="#features" class="main-btn btn-hover">Ver Funcionalidades</a>
+            </div>
           </div>
         </div>
         <div class="col-lg-6">
-          <div class="hero-img wow fadeInUp" data-wow-delay=".5s">
-            <img src="assets/img/hero/hero-img.png" id="firstImage" alt="" />
+          <div class="hero-img wow fadeInUp text-center" data-wow-delay=".5s">
+            <div class="theme-toggle-container mb-3 d-inline-flex align-items-center p-1 rounded-pill bg-light shadow-sm">
+              <button class="btn btn-sm btn-primary active theme-btn rounded-pill px-3 py-1 me-1" data-theme="dark" style="font-size: 0.85rem; font-weight: 500;">
+                <i class="lni lni-night me-1"></i> Modo Escuro
+              </button>
+              <button class="btn btn-sm btn-outline-primary theme-btn rounded-pill px-3 py-1" data-theme="light" style="font-size: 0.85rem; font-weight: 500; border-color: transparent;">
+                <i class="lni lni-sun me-1"></i> Modo Claro
+              </button>
+            </div>
+            <div class="mockup-wrapper position-relative">
+              <img src="https://cdn.bkappi.com/ProjectsAssets/AssetSense/LandingPage/HomePageDashBoard_Dark.png" 
+                   data-dark-src="https://cdn.bkappi.com/ProjectsAssets/AssetSense/LandingPage/HomePageDashBoard_Dark.png"
+                   data-light-src="https://cdn.bkappi.com/ProjectsAssets/AssetSense/LandingPage/HomePageDashBoard_Light.png"
+                   class="theme-dependent-mockup w-100 rounded shadow-lg img-fluid" 
+                   alt="AssetSense Dashboard" 
+                   style="border-radius: 12px !important; border: 1px solid rgba(255,255,255,0.1) !important;" />
+            </div>
           </div>
         </div>
       </div>
@@ -183,15 +268,20 @@
       </div>
     </div>
   </section>
-  <!-- ======== feature-section end ======== -->
-
   <!-- ======== about-section start ======== -->
   <section id="about" class="about-section pt-150">
     <div class="container">
       <div class="row align-items-center">
         <div class="col-xl-6 col-lg-6">
-          <div class="about-img">
-            <img src="assets/img/about/about-1.png" alt="" class="w-100 round" />
+          <div class="about-overlay-container">
+            <img src="https://cdn.bkappi.com/ProjectsAssets/AssetSense/LandingPage/TelaDeListagemDeAtivosDark.png" 
+                 data-dark-src="https://cdn.bkappi.com/ProjectsAssets/AssetSense/LandingPage/TelaDeListagemDeAtivosDark.png"
+                 data-light-src="https://cdn.bkappi.com/ProjectsAssets/AssetSense/LandingPage/TelaDeListagemDeAtivosLight.png"
+                 alt="Listagem de Ativos" 
+                 class="theme-dependent-mockup about-img-bg rounded shadow-lg img-fluid" />
+            <img src="https://cdn.bkappi.com/ProjectsAssets/AssetSense/LandingPage/TelaDeVisualizacaoDeAtivos.png" 
+                 alt="Visualização de Ativo" 
+                 class="about-img-fg rounded shadow-lg img-fluid" />
             <img src="assets/img/about/about-left-shape.svg" alt="" class="shape shape-1" />
             <img src="assets/img/about/left-dots.svg" alt="" class="shape shape-2" />
           </div>
@@ -200,19 +290,15 @@
           <div class="about-content">
             <div class="section-title mb-30">
               <h2 class="mb-25 wow fadeInUp" data-wow-delay=".2s">
-                A solução ideal para gestão de ativos
+                Ativos - Listagem, Detalhes e Rastreamento
               </h2>
               <p class="wow fadeInUp" data-wow-delay=".4s">
-                O AssetSense é a solução ideal para o controle completo e eficiente de ativos empresariais.
-                Com recursos altamente personalizáveis, gerencie diferentes tipos de ativos, defina status
-                personalizados e organize-os por locais de forma intuitiva. A plataforma simplifica suas operações com
-                um design fácil de usar e acesso rápido a recursos poderosos.
-                Tenha uma visão abrangente do desempenho dos ativos, usuários e utilização geral por meio de dashboards
-                informativos.
-                O AssetSense otimiza a gestão de ativos, melhora a utilização e simplifica suas operações.
-                Experimente hoje mesmo e eleve sua gestão de ativos a um novo patamar de excelência.</p>
+                Tenha o controle completo e centralizado de todos os ativos da sua empresa. Nosso sistema oferece uma listagem detalhada e intuitiva de equipamentos com filtros inteligentes por localizações, status e categorias de ativos. 
+              </p>
+              <p class="wow fadeInUp mt-3" data-wow-delay=".5s">
+                Acesse uma tela exclusiva de detalhes para cada ativo, onde é possível visualizar especificações técnicas completas, histórico completo de movimentações de custódia, logs de auditoria e solicitações associadas.
+              </p>
             </div>
-
           </div>
         </div>
       </div>
@@ -221,32 +307,27 @@
   <!-- ======== about-section end ======== -->
 
   <!-- ======== about2-section start ======== -->
-  <section id="about" class="about-section pt-150">
+  <section class="about-section pt-150">
     <div class="container">
       <div class="row align-items-center">
         <div class="col-xl-6 col-lg-6">
           <div class="about-content">
             <div class="section-title mb-30">
               <h2 class="mb-25 wow fadeInUp" data-wow-delay=".2s">
-                Diversas Funcionalidades. Uma aplicação.
+                Movimentações - Controle de Retiradas e Devoluções
               </h2>
               <p class="wow fadeInUp" data-wow-delay=".4s">
-                No AssetSense, há uma variedade de funcionalidades em uma única aplicação, proporcionando uma
-                experiência completa para a gestão de ativos. Veja algumas das principais características:
+                Evite perdas e saiba exatamente com quem está cada ativo em tempo real. O AssetSense simplifica o registro físico de movimentações, permitindo realizar retiradas em segundos vinculadas diretamente ao colaborador responsável.
+              </p>
+              <p class="wow fadeInUp mt-3" data-wow-delay=".5s">
+                Defina prazos esperados para devolução, registre assinaturas e termos de responsabilidade e avalie as condições físicas do equipamento no ato da devolução para um controle patrimonial rigoroso.
               </p>
             </div>
-            <ul>
-              <li>Gestão de Ativos</li>
-              <li>Controle de Retiradas e Devoluções</li>
-              <li>Gestão de Solicitações</li>
-              <li>Gestão de Usuários</li>
-            </ul>
-
           </div>
         </div>
         <div class="col-xl-6 col-lg-6 order-first order-lg-last">
           <div class="about-img-2">
-            <img src="assets/img/about/about-2.png" alt="" class="w-100 round" />
+            <img src="https://cdn.bkappi.com/ProjectsAssets/AssetSense/LandingPage/ModalDeRegistroDeRetiradaDeAtivo.png" alt="Registro de Retirada de Ativo" class="w-100 rounded shadow-lg img-fluid" />
             <img src="assets/img/about/about-right-shape.svg" alt="" class="shape shape-1" />
             <img src="assets/img/about/right-dots.svg" alt="" class="shape shape-2" />
           </div>
@@ -256,22 +337,13 @@
   </section>
   <!-- ======== about2-section end ======== -->
 
-
-
-
-
-
-
-
-
-
   <!-- ======== about3-section start ======== -->
-  <section id="about" class="about-section pt-150">
+  <section class="about-section pt-150">
     <div class="container">
       <div class="row align-items-center">
         <div class="col-xl-6 col-lg-6">
           <div class="about-img">
-            <img src="assets/img/about/about-3.png" alt="" class="w-100 round" />
+            <img src="https://cdn.bkappi.com/ProjectsAssets/AssetSense/LandingPage/ConfiguracoesDeSoliticoes.png" alt="Configurações de Solicitações" class="w-100 rounded shadow-lg img-fluid" />
             <img src="assets/img/about/about-left-shape.svg" alt="" class="shape shape-1" />
             <img src="assets/img/about/left-dots.svg" alt="" class="shape shape-2" />
           </div>
@@ -280,20 +352,57 @@
           <div class="about-content">
             <div class="section-title mb-30">
               <h2 class="mb-25 wow fadeInUp" data-wow-delay=".2s">
-                Personalizável da forma que precisar
+                Solicitações - Fluxos Personalizados e Aprovações
               </h2>
               <p class="wow fadeInUp" data-wow-delay=".4s">
-                O AssetSense se destaca por sua capacidade de ser totalmente personalizável, atendendo às necessidades
-                específicas da sua empresa. Com nosso software, você pode cadastrar diferentes tipos de ativos,
-                organizar locais de armazenamento, definir status personalizados, gerenciar solicitações, configurar
-                permissões de acesso e muito mais. Essa flexibilidade permite que você adapte o sistema de acordo com os
-                processos e requisitos do seu negócio, simplificando e otimizando a gestão de ativos de forma
-                personalizada. Descubra como o AssetSense pode ser moldado de acordo com as suas necessidades e eleve
-                sua eficiência na gestão de ativos.</p>
+                Ofereça um canal ágil para que seus colaboradores possam solicitar novos ativos e equipamentos diretamente pelo portal. Os gestores contam com uma interface integrada para revisar, aprovar, reprovar ou pedir esclarecimentos sobre as solicitações.
+              </p>
+              <p class="wow fadeInUp mt-3" data-wow-delay=".5s">
+                Configure regras e limites personalizados para solicitações automáticas de acordo com o setor, garantindo total conformidade com as políticas internas de TI e infraestrutura da organização.
+              </p>
             </div>
-
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+  <!-- ======== about3-section end ======== -->
+
+  <!-- ======== about4-section start ======== -->
+  <section class="about-section pt-150">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-xl-6 col-lg-6">
+          <div class="about-content">
+            <div class="section-title mb-30">
+              <h2 class="mb-25 wow fadeInUp" data-wow-delay=".2s">
+                Segurança, Perfis de Acesso e Parametrização
+              </h2>
+              <p class="wow fadeInUp" data-wow-delay=".4s">
+                Garanta que as informações da empresa estejam protegidas por meio de um controle de acesso granular de alto nível. Cada usuário possui um perfil detalhado com permissões de visualização, edição ou aprovação claramente parametrizadas.
+              </p>
+              <p class="wow fadeInUp mt-3" data-wow-delay=".5s">
+                Acesse a tela de configurações para customizar as categorias de ativos, status, locais físicos de armazenamento e dados do perfil corporativo de forma ágil e centralizada.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 order-first order-lg-last">
+          <div class="about-overlay-container">
+            <img src="https://cdn.bkappi.com/ProjectsAssets/AssetSense/LandingPage/TelaDeConfiguracoes.png" 
+                 alt="Configurações do Sistema" 
+                 class="about-img-bg rounded shadow-lg img-fluid" />
+            <img src="https://cdn.bkappi.com/ProjectsAssets/AssetSense/LandingPage/ModalDeMinhasPermissoes.png" 
+                 alt="Modal de Minhas Permissões" 
+                 class="about-img-fg-left rounded shadow-lg img-fluid" />
+            <img src="assets/img/about/about-right-shape.svg" alt="" class="shape shape-1" />
+            <img src="assets/img/about/right-dots.svg" alt="" class="shape shape-2" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ======== about4-section end ======== -->>
       </div>
     </div>
   </section>

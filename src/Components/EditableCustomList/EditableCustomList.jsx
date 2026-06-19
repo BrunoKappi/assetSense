@@ -5,7 +5,7 @@ import './EditableCustomList.css'
 import { UilLabel, UilPuzzlePiece, UilBox, UilPlay, UilPlus, UilTrashAlt, UilBackspace, UilPen } from '@iconscout/react-unicons'
 import ListGroup from 'react-bootstrap/ListGroup';
 import { v4 } from 'uuid';
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { DefaultAssetStatus, DefaultAssetsType, DefaultItemType, DefaultRequestStatus, DefaultRequestType } from '../../Data/Items';
 import { NotificationErro, NotificationSucesso } from '../../NotificationUtils';
 import { Tooltip } from 'react-tippy';

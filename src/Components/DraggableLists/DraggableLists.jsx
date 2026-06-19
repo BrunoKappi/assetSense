@@ -2,7 +2,7 @@ import './DraggableLists.css'
 import { useState } from 'react';
 import Lists from './List'
 import Masonry from "react-masonry-css";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext } from "@hello-pangea/dnd";
 import { v4 } from 'uuid';
 import { connect } from 'react-redux'
 import NumbersOfList from '../NumbersOfList/NumbersOfList';

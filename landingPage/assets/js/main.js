@@ -92,6 +92,40 @@
     navbarToggler.classList.toggle("active");
   });
 
+  // Mockup theme toggle
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', function () {
+      const theme = this.getAttribute('data-theme');
+      
+      // Update all mockup images with class 'theme-dependent-mockup'
+      document.querySelectorAll('.theme-dependent-mockup').forEach(img => {
+        const darkSrc = img.getAttribute('data-dark-src');
+        const lightSrc = img.getAttribute('data-light-src');
+        if (theme === 'dark' && darkSrc) {
+          img.src = darkSrc;
+        } else if (theme === 'light' && lightSrc) {
+          img.src = lightSrc;
+        }
+      });
+
+      // Update button classes
+      themeBtns.forEach(b => {
+        if (b.getAttribute('data-theme') === theme) {
+          b.classList.add('active');
+          b.classList.add('btn-primary');
+          b.classList.remove('btn-outline-primary');
+          b.style.borderColor = '';
+        } else {
+          b.classList.remove('active');
+          b.classList.remove('btn-primary');
+          b.classList.add('btn-outline-primary');
+          b.style.borderColor = 'transparent';
+        }
+      });
+    });
+  });
+
   // WOW active
   new WOW().init();
 })();

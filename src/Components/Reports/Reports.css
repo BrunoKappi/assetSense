@@ -1,0 +1,411 @@
+.ReportsContainerLightTheme {
+  --Reports-Background: transparent;
+  --Reports-Card-Bg: #ffffff;
+  --Reports-Card-Border: rgba(0, 0, 0, 0.08);
+  --Reports-Card-Shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --Reports-Text: #333333;
+  --Reports-Subtitle-Text: #666666;
+  --Reports-Table-Bg: #ffffff;
+  --Reports-Table-Header-Bg: #f5f7f9;
+  --Reports-Table-Header-Text: #4a5568;
+  --Reports-Table-Border: #e2e8f0;
+  --Reports-Table-Row-Hover: #f7fafc;
+  --Reports-Input-Bg: #ffffff;
+  --Reports-Input-Border: #d1d5db;
+  --Reports-Input-Text: #1f2937;
+}
+
+.ReportsContainerDark {
+  --Reports-Background: var(--BackgroundDark);
+  --Reports-Card-Bg: #1c1e22;
+  --Reports-Card-Border: rgba(255, 255, 255, 0.1);
+  --Reports-Card-Shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+  --Reports-Text: #f3f4f6;
+  --Reports-Subtitle-Text: #9ca3af;
+  --Reports-Table-Bg: #1c1e22;
+  --Reports-Table-Header-Bg: #262930;
+  --Reports-Table-Header-Text: #cbd5e1;
+  --Reports-Table-Border: #334155;
+  --Reports-Table-Row-Hover: #2d3139;
+  --Reports-Input-Bg: #22252a;
+  --Reports-Input-Border: #4b5563;
+  --Reports-Input-Text: #f3f4f6;
+}
+
+.ReportsContainer {
+  width: 100%;
+  padding: 2rem;
+  background-color: var(--Reports-Background);
+  color: var(--Reports-Text);
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  font-family: var(--Fonte), sans-serif;
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.Reports-Header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.Reports-Subtitle {
+  font-size: 0.95rem;
+  color: var(--Reports-Subtitle-Text);
+  margin: 0;
+}
+
+/* Action Bar */
+.Reports-ActionBar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.Reports-ActionButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--Fonte);
+  font-size: 0.9rem;
+}
+
+.CSVButton {
+  background-color: #107c41;
+  border: 1px solid #107c41;
+  color: white;
+}
+
+.CSVButton:hover {
+  background-color: #0b592e;
+  border-color: #0b592e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(16, 124, 65, 0.2);
+}
+
+.PrintButton {
+  background-color: var(--ComplementaryColor);
+  border: 1px solid var(--ComplementaryColor);
+  color: white;
+}
+
+.PrintButton:hover {
+  background-color: #006fa7;
+  border-color: #006fa7;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 133, 199, 0.2);
+}
+
+.Reports-ActionButton:active {
+  transform: translateY(0);
+}
+
+.Reports-ActionButton .icon {
+  font-size: 1rem;
+}
+
+/* Filters Layout */
+.Reports-Filters-Container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  background-color: var(--Reports-Card-Bg);
+  border: 1px solid var(--Reports-Card-Border);
+  box-shadow: var(--Reports-Card-Shadow);
+}
+
+.Reports-SearchGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.Reports-SearchInput {
+  padding: 0.55rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--Reports-Input-Border);
+  background-color: var(--Reports-Input-Bg);
+  color: var(--Reports-Input-Text);
+  font-size: 0.95rem;
+  outline: none;
+  font-family: var(--Fonte);
+  transition: border-color 0.2s;
+}
+
+.Reports-SearchInput:focus {
+  border-color: var(--ComplementaryColor);
+}
+
+.Reports-DateRangeGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.Reports-DateRangeContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.Reports-OrderFilterGroup {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.8rem;
+  margin-top: auto;
+}
+
+.Reports-OrderFilterGroup > div {
+  flex: 1;
+}
+
+/* Metrics Summary Cards */
+.Reports-SummaryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+.Reports-Card {
+  background-color: var(--Reports-Card-Bg);
+  border: 1px solid var(--Reports-Card-Border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: var(--Reports-Card-Shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.Reports-Card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.Reports-Card-Number {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--ComplementaryColor);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.Reports-Card-Label {
+  font-size: 0.85rem;
+  color: var(--Reports-Subtitle-Text);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Data Table Styles */
+.Reports-TableWrapper {
+  background-color: var(--Reports-Card-Bg);
+  border: 1px solid var(--Reports-Card-Border);
+  border-radius: 0.75rem;
+  box-shadow: var(--Reports-Card-Shadow);
+  overflow-x: auto;
+  margin-bottom: 2rem;
+}
+
+.Reports-Table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.Reports-Table th {
+  background-color: var(--Reports-Table-Header-Bg);
+  color: var(--Reports-Table-Header-Text);
+  font-weight: 600;
+  padding: 1rem;
+  border-bottom: 2px solid var(--Reports-Table-Border);
+}
+
+.Reports-Table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--Reports-Table-Border);
+  color: var(--Reports-Text);
+  vertical-align: middle;
+}
+
+.Reports-Table tr:hover {
+  background-color: var(--Reports-Table-Row-Hover);
+}
+
+.Reports-Table td.bold {
+  font-weight: 600;
+}
+
+/* Badges */
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Status variants */
+.status-disponivel, .status-ativo, .status-excelente {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.status-manutencao, .status-defeito, .status-alerta {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+}
+
+.status-baixado, .status-inativo {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+/* Record specific badges */
+.record-returned {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.record-pending {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+}
+
+/* Responsive adjustment */
+@media (max-width: 900px) {
+  .ReportsContainer {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  .Reports-Filters-Container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .Reports-DateRangeGroup {
+    grid-template-columns: 1fr;
+  }
+  
+  .Reports-OrderFilterGroup {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* Printing styles */
+@media print {
+  body {
+    background-color: white !important;
+    color: black !important;
+  }
+
+  /* Hide app sidebar, navbar, and print controls */
+  .no-print,
+  .SidebarContainer,
+  .SidebarContainerDark,
+  .SidebarContainerLightTheme,
+  .NavbarContainer,
+  .NavbarContainerLightTheme,
+  .NavbarContainerDark,
+  .Reports-ActionBar,
+  .Reports-Filters-Container,
+  .NavBarContainer {
+    display: none !important;
+  }
+
+  /* Full width container, no scrolling */
+  .LayoutContent,
+  .ReportsContainer,
+  .App {
+    width: 100% !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    background: white !important;
+  }
+
+  .Reports-PrintArea {
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .Reports-Header {
+    margin-bottom: 2rem !important;
+  }
+
+  .Reports-SummaryGrid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 1.5rem !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .Reports-Card {
+    border: 1px solid #ccc !important;
+    background: #fff !important;
+    box-shadow: none !important;
+    padding: 1rem !important;
+    border-radius: 4px !important;
+  }
+
+  .Reports-Card-Number {
+    color: #000 !important;
+  }
+
+  .Reports-TableWrapper {
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .Reports-Table {
+    width: 100% !important;
+    border: 1px solid #ddd !important;
+  }
+
+  .Reports-Table th {
+    background-color: #f2f2f2 !important;
+    color: black !important;
+    border-bottom: 2px solid #aaa !important;
+  }
+
+  .Reports-Table td {
+    color: black !important;
+    border-bottom: 1px solid #ddd !important;
+  }
+
+  .status-badge {
+    background-color: transparent !important;
+    border: 1px solid #555 !important;
+    color: black !important;
+  }
+}

@@ -1,4 +1,5 @@
 
+import { env } from "../Config/env"
 import moment from "moment"
 import {
     FIREBASE_Get, FIREBASE_Update,
@@ -13,19 +14,19 @@ import { Dispatch, GetFromStore, GetFromStoreWithId, SetRecordsOnStore } from ".
 
 //DATABASE COLLECTIONS
 const Collections = {
-    "AssetType": import.meta.env.VITE_REACT_ASSETTYPES_COLLECTIONNAME,
-    "Sector": import.meta.env.VITE_REACT_SECTORS_COLLECTIONNAME,
-    "UserType": import.meta.env.VITE_REACT_USERTYPES_COLLECTIONNAME,
-    "StorageLocation": import.meta.env.VITE_REACT_STORAGELOCATIONS_COLLECTIONNAME,
-    "AssetsStatus": import.meta.env.VITE_REACT_ASSETSTATUS_COLLECTIONNAME,
-    "UsageType": import.meta.env.VITE_REACT_USAGETYPES_COLLECTIONNAME,
-    "User": import.meta.env.VITE_REACT_USERS_COLLECTIONNAME,
-    "Asset": import.meta.env.VITE_REACT_ASSETS_COLLECTIONNAME,
-    "Record": import.meta.env.VITE_REACT_RECORDS_COLLECTIONNAME,
-    "Request": import.meta.env.VITE_REACT_REQUESTS_COLLECTIONNAME,
-    "Reques": import.meta.env.VITE_REACT_REQUESTS_COLLECTIONNAME,
-    "RequestsTypes": import.meta.env.VITE_REACT_REQUESTSTYPES_COLLECTIONNAME,
-    "RequestsStatus": import.meta.env.VITE_REACT_REQUESTSSTATUS_COLLECTIONNAME,
+    "AssetType": env.VITE_REACT_ASSETTYPES_COLLECTIONNAME,
+    "Sector": env.VITE_REACT_SECTORS_COLLECTIONNAME,
+    "UserType": env.VITE_REACT_USERTYPES_COLLECTIONNAME,
+    "StorageLocation": env.VITE_REACT_STORAGELOCATIONS_COLLECTIONNAME,
+    "AssetsStatus": env.VITE_REACT_ASSETSTATUS_COLLECTIONNAME,
+    "UsageType": env.VITE_REACT_USAGETYPES_COLLECTIONNAME,
+    "User": env.VITE_REACT_USERS_COLLECTIONNAME,
+    "Asset": env.VITE_REACT_ASSETS_COLLECTIONNAME,
+    "Record": env.VITE_REACT_RECORDS_COLLECTIONNAME,
+    "Request": env.VITE_REACT_REQUESTS_COLLECTIONNAME,
+    "Reques": env.VITE_REACT_REQUESTS_COLLECTIONNAME,
+    "RequestsTypes": env.VITE_REACT_REQUESTSTYPES_COLLECTIONNAME,
+    "RequestsStatus": env.VITE_REACT_REQUESTSSTATUS_COLLECTIONNAME,
 }
 
 

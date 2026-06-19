@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react'
 import './AssetPhotoModal.css'
 import Modal from 'react-bootstrap/Modal';
 import { connect } from 'react-redux'
+import { env } from '../../../../Config/env';
 import { NotificationErro, NotificationSucesso } from '../../../../NotificationUtils';
 import { UilTimes, UilTrashAlt, UilCheck, UilBackward, UilPen } from '@iconscout/react-unicons'
 import { DeleteFile, GetUserUrlImage, ImageUpload } from '../../../../Functions/StorageMiddleware';
@@ -43,9 +44,9 @@ const AssetPhotoModal = (props) => {
 
 
         if (props.Add) {
-            path = `${import.meta.env.VITE_REACT_TENANT_NAME}/${import.meta.env.VITE_REACT_ASSETS_PHOTOS_DIRECTORY}/${IdToUseToAdd}`
+            path = `${env.VITE_REACT_TENANT_NAME}/${env.VITE_REACT_ASSETS_PHOTOS_DIRECTORY}/${IdToUseToAdd}`
         } else {
-            path = `${import.meta.env.VITE_REACT_TENANT_NAME}/${import.meta.env.VITE_REACT_ASSETS_PHOTOS_DIRECTORY}/${props.Asset.id}`
+            path = `${env.VITE_REACT_TENANT_NAME}/${env.VITE_REACT_ASSETS_PHOTOS_DIRECTORY}/${props.Asset.id}`
         }
 
         //console.log(path)
@@ -81,7 +82,7 @@ const AssetPhotoModal = (props) => {
 
 
 
-        DeleteFile(`${import.meta.env.VITE_REACT_TENANT_NAME}/${import.meta.env.VITE_REACT_ASSETS_PHOTOS_DIRECTORY}/${props.Asset.id}`).then(() => {
+        DeleteFile(`${env.VITE_REACT_TENANT_NAME}/${env.VITE_REACT_ASSETS_PHOTOS_DIRECTORY}/${props.Asset.id}`).then(() => {
             SetAssetPhotoUrl('', props.Asset.id)
             NotificationSucesso("Exlusão", "Foto apagada com sucesso!")
             setLoading(false)

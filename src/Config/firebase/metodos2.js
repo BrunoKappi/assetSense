@@ -1,4 +1,5 @@
 
+import { env } from '../env';
 import { db } from '../firebase/index'
 import { collection, getDoc, query, setDoc } from "firebase/firestore";
 import { getDocs, addDoc, updateDoc, deleteDoc, doc, where } from "firebase/firestore";
@@ -24,7 +25,7 @@ export const CreateTenant = async (NameTenant, NameDatabase) => {
 
 //ADD   
 export const FIREBASE_Add = async (Collection, Item) => {
-  const ParentDocRef = doc(collection(db, import.meta.env.VITE_REACT_TENANT_NAME), import.meta.env.VITE_REACT_DATABASE_NAME
+  const ParentDocRef = doc(collection(db, env.VITE_REACT_TENANT_NAME), env.VITE_REACT_DATABASE_NAME
   );
   const NestedCollectionName = collection(ParentDocRef, Collection);
   return addDoc(NestedCollectionName, Item)
@@ -35,10 +36,10 @@ export const FIREBASE_Get = async (Collection) => {
 
   //OLD IN FRONT
   const TenantName = getTenantNameFromUrl()
-  const Tenant = collection(db, import.meta.env.VITE_REACT_TENANT_NAME)
+  const Tenant = collection(db, env.VITE_REACT_TENANT_NAME)
 
 
-  const DatabaseDoc = doc(Tenant, import.meta.env.VITE_REACT_DATABASE_NAME)
+  const DatabaseDoc = doc(Tenant, env.VITE_REACT_DATABASE_NAME)
   const CollectionRef = collection(DatabaseDoc, Collection)
   const data = await getDocs(CollectionRef)
   const DocsList = data.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
@@ -50,8 +51,8 @@ export const FIREBASE_Get = async (Collection) => {
 
 //GET   
 export const FIREBASE_GetUserByEmail = async (Collection, Email, TenantName) => {
-  const Tenant = collection(db, import.meta.env.VITE_REACT_TENANT_NAME)
-  const DatabaseDoc = doc(Tenant, import.meta.env.VITE_REACT_DATABASE_NAME)
+  const Tenant = collection(db, env.VITE_REACT_TENANT_NAME)
+  const DatabaseDoc = doc(Tenant, env.VITE_REACT_DATABASE_NAME)
   const CollectionRef = collection(DatabaseDoc, Collection)
   const querySnapshot = await getDocs(query(CollectionRef, where("Email", "==", Email)))
   const DocsList = querySnapshot.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
@@ -62,8 +63,8 @@ export const FIREBASE_GetUserByEmail = async (Collection, Email, TenantName) => 
 //UPDATE   
 export const FIREBASE_Update = async (Collection, Item) => {
 
-  const Tenant = collection(db, import.meta.env.VITE_REACT_TENANT_NAME)
-  const DatabaseDoc = doc(Tenant, import.meta.env.VITE_REACT_DATABASE_NAME
+  const Tenant = collection(db, env.VITE_REACT_TENANT_NAME)
+  const DatabaseDoc = doc(Tenant, env.VITE_REACT_DATABASE_NAME
   )
   const collectionRef = collection(DatabaseDoc, Collection)
 
@@ -84,8 +85,8 @@ export const FIREBASE_Update = async (Collection, Item) => {
 //DELETE   
 export const FIREBASE_Delete = async (Collection, Item) => {
 
-  const Tenant = collection(db, import.meta.env.VITE_REACT_TENANT_NAME)
-  const DatabaseDoc = doc(Tenant, import.meta.env.VITE_REACT_DATABASE_NAME
+  const Tenant = collection(db, env.VITE_REACT_TENANT_NAME)
+  const DatabaseDoc = doc(Tenant, env.VITE_REACT_DATABASE_NAME
   )
   const collectionRef = collection(DatabaseDoc, Collection)
 
@@ -104,8 +105,8 @@ export const FIREBASE_Delete = async (Collection, Item) => {
 
 
 export const FIREBASE_GetDocIDById = async (Collection, id) => {
-  const Tenant = collection(db, import.meta.env.VITE_REACT_TENANT_NAME)
-  const DatabaseDoc = doc(Tenant, import.meta.env.VITE_REACT_DATABASE_NAME
+  const Tenant = collection(db, env.VITE_REACT_TENANT_NAME)
+  const DatabaseDoc = doc(Tenant, env.VITE_REACT_DATABASE_NAME
   )
   const CollectionRef = collection(DatabaseDoc, Collection)
 
@@ -122,10 +123,10 @@ export const FIREBASE_GetDocIDById = async (Collection, id) => {
 
 export const FIREBASE_GetRecordsNotReturnByAsset = async (assetId) => {
 
-  const Tenant = collection(db, import.meta.env.VITE_REACT_TENANT_NAME)
-  const DatabaseDoc = doc(Tenant, import.meta.env.VITE_REACT_DATABASE_NAME
+  const Tenant = collection(db, env.VITE_REACT_TENANT_NAME)
+  const DatabaseDoc = doc(Tenant, env.VITE_REACT_DATABASE_NAME
   )
-  const CollectionRef = collection(DatabaseDoc, import.meta.env.VITE_REACT_RECORDS_COLLECTIONNAME)
+  const CollectionRef = collection(DatabaseDoc, env.VITE_REACT_RECORDS_COLLECTIONNAME)
 
   const Query = query(
     CollectionRef,

@@ -4,7 +4,7 @@ import { UilLabel, UilBox, UilPuzzlePiece,UilPlay } from '@iconscout/react-unico
 //LIBRARIES
 import ListGroup from 'react-bootstrap/ListGroup';
 import { v4 } from 'uuid';
-import { Draggable, Droppable } from "react-beautiful-dnd";
+import { Draggable, Droppable } from "@hello-pangea/dnd";
 import { Tooltip } from 'react-tippy';
 import { connect } from 'react-redux'
 //COMPONENTS 
