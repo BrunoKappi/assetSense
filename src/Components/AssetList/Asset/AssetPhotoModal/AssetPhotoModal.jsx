@@ -69,7 +69,6 @@ const AssetPhotoModal = (props) => {
 
     const PhotoRefs = {
         "SerranoLogo2.png": "NavLogo",
-        "AssetSenseIconWhite.png": "AssetSenseNavLogoName",
         "SerranoLogo.png": "LoginLogo",
         "SerranoLogoFuncoBranco.jpg": "MainLogo",
         "SerranoLogoBranco.png": "NavSidebarLogo",

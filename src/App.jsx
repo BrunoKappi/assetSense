@@ -23,19 +23,10 @@ const App = ({ LoggedUser }) => {
   useEffect(() => {
     const PhotoNames = [...Object.keys(DefaultTenantPhotos)]
     const TenantPhotos = { ...DefaultTenantPhotos }
-    const Promisses = []
-
     PhotoNames.forEach((PhotoName) => {
-      const promise = GetUserUrlImage(`${env.VITE_REACT_TENANT_NAME}/Assets/${PhotoName}`)
-      Promisses.push(promise)
+      TenantPhotos[PhotoName] = "https://cdn.bkappi.com/ProjectsAssets/BkappiGeneral/bkappiIcon.ico"
     })
-
-    Promise.all(Promisses).then((urls) => {
-      urls.forEach((url, index) => TenantPhotos[PhotoNames[index]] = url)
-      store.dispatch(setTenantPhotosAction(TenantPhotos))
-    }).catch((err) => {
-      console.error("Error fetching tenant photos:", err);
-    })
+    store.dispatch(setTenantPhotosAction(TenantPhotos))
   }, []);
 
   useEffect(() => {
