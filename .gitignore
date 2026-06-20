@@ -39,3 +39,7 @@ configFiles
 .antigravityignore
 agentsIgnore
 git
+
+.env
+.env.production
+.env.development

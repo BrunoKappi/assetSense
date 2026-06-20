@@ -1,6 +1,6 @@
 import React from 'react';
 import './TabButton.css'
-import { UilListUl, UilSitemap, UilShieldCheck, UilAsterisk, UilLabel, UilBox, UilUsersAlt, UilSetting, UilPlay } from '@iconscout/react-unicons'
+import { UilListUl, UilSitemap, UilShieldCheck, UilAsterisk, UilLabel, UilBox, UilUsersAlt, UilSetting, UilPlay, UilHistory } from '@iconscout/react-unicons'
 
 const TabButton = ({ children, onClick, className = '', ButtonName, Key, Text }) => {
 
@@ -229,6 +229,27 @@ export const RequestConfigTabTitle = () => {
     </div>
 }
 
+export const ReportsAssetsTabTitle = () => {
+    return <div className='TabsTitle'>
+        <UilListUl />
+        <span>Ativos</span>
+    </div>
+}
+
+export const ReportsUsersTabTitle = () => {
+    return <div className='TabsTitle'>
+        <UilUsersAlt />
+        <span>Usuários</span>
+    </div>
+}
+
+export const ReportsRecordsTabTitle = () => {
+    return <div className='TabsTitle'>
+        <UilHistory />
+        <span>Registros</span>
+    </div>
+}
+
 
 
 const Tabs = {
@@ -255,4 +276,7 @@ const Tabs = {
     "CustomAssets": CustomAssetTypes(),
     "CustomUserTypes": CustomUserTypes(),
     "UserType": CustomUserTypes(),
+    "ReportsAssets": ReportsAssetsTabTitle(),
+    "ReportsUsers": ReportsUsersTabTitle(),
+    "ReportsRecords": ReportsRecordsTabTitle(),
 }

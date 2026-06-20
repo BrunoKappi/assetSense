@@ -11,6 +11,7 @@ import LoadingSpiner from '../../../LoadingForTabs/Loading'
 import { v4 } from 'uuid';
 import Show from '../../../LayoutComponents/Show/Show';
 import { SetOtherUserPhotoUrl, SetLoggedUserPhotoUrl } from '../../../../Functions/DatabaseMiddleware';
+import { User as UserIcon } from "lucide-react";
 
 
 
@@ -162,7 +163,13 @@ const UserPhotoModal = (props) => {
                     <div className='UserPhotoModal'>
 
                         <div className='UserPhotoModal-ImageColumn'>
-                            <img src={ImageToShowUser || props.TenantPhotos.MainLogo} alt="User" />
+                            {ImageToShowUser ? (
+                                <img src={ImageToShowUser} alt="User" />
+                            ) : (
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '250px', height: '250px', borderRadius: '50%', backgroundColor: 'rgba(0,0,0,0.1)', boxShadow: '4px 6px 14px -5px rgba(0, 0, 0, 0.75)' }}>
+                                    <UserIcon size={120} color="var(--PrimaryColor)" />
+                                </div>
+                            )}
                         </div>
 
 

@@ -337,9 +337,9 @@ const Reports = (props) => {
       {/* Tab controls */}
       <div className="no-print">
         <TabsContainer Direction="row" Tema={props.Tema}>
-          <TabButton ButtonName="Ativos" Key={activeTab === 'ativos' ? 'Ativos' : ''} onClick={() => handleTabChange('ativos')} />
-          <TabButton ButtonName="Usuários" Key={activeTab === 'usuarios' ? 'Usuários' : ''} onClick={() => handleTabChange('usuarios')} />
-          <TabButton ButtonName="Registros" Key={activeTab === 'registros' ? 'Registros' : ''} onClick={() => handleTabChange('registros')} />
+          <TabButton ButtonName="ReportsAssets" Key={activeTab === 'ativos' ? 'ReportsAssets' : ''} onClick={() => handleTabChange('ativos')} />
+          <TabButton ButtonName="ReportsUsers" Key={activeTab === 'usuarios' ? 'ReportsUsers' : ''} onClick={() => handleTabChange('usuarios')} />
+          <TabButton ButtonName="ReportsRecords" Key={activeTab === 'registros' ? 'ReportsRecords' : ''} onClick={() => handleTabChange('registros')} />
         </TabsContainer>
       </div>
 

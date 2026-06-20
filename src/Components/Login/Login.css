@@ -25,12 +25,12 @@
 .LoginContainerDark {
   --LoginContainer-Background: var(--BackgroundDark);
 
-  --LoginContainer-Form-Background: white;
-  --LoginContainer-Form-Border: var(--PrimaryBackground);
+  --LoginContainer-Form-Background: #1a1d24;
+  --LoginContainer-Form-Border: #2b303b;
 
-  --LoginContainer-Input-Background: white;
-  --LoginContainer-Input-Border: #e5e5e5;
-  --LoginContainer-Input-Color: #424656;
+  --LoginContainer-Input-Background: #2b303b;
+  --LoginContainer-Input-Border: #2b303b;
+  --LoginContainer-Input-Color: white;
 
   --LoginContainer-Forget-Color: var(--PrimaryBackGroundFaded);
   --LoginContainer-Forget-Color-Hover: var(--PrimaryBackground);
@@ -172,8 +172,8 @@
   .LoginContainerDark {
     --LoginContainer-Background: var(--BackgroundDark);
 
-    --LoginContainer-Form-Background: white;
-    --LoginContainer-Form-Border: var(--PrimaryBackground);
+    --LoginContainer-Form-Background: transparent;
+    --LoginContainer-Form-Border: transparent;
 
     --LoginContainer-Input-Background: transparent;
     --LoginContainer-Input-Border: var(--PrimaryBackground);

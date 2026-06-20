@@ -6,6 +6,7 @@ import { env } from '../../../Config/env';
 import './UserModal.css'
 //ICONS
 import { UilUserCircle, UilClipboardNotes, UilEnvelope, UilPhone, UilShieldCheck, UilMap, UilMapMarker, UilPen, UilPuzzlePiece, UilLabel, UilListUl, UilSave, UilHistory, UilTimes, UilBuilding, UilKeySkeleton, UilCheck, UilBackward, UilTrash } from '@iconscout/react-unicons'
+import { User as UserIcon } from "lucide-react";
 //COMPONENTS
 import UserAssetRecords from './UserAssetsRecords/UserAssetsRecords';
 
@@ -408,7 +409,16 @@ const UserModal = (props) => {
                             <div className='UserModalHeader-Left'>
                                 <Tooltip title="Alterar Foto" position="bottom" >
                                     <div className='UserModalHeader-Left-Photo'>
-                                        <img onClick={handleShowPhotoModal} src={ProfileImageUrl || props.TenantPhotos.MainLogo} alt="User" />
+                                        {ProfileImageUrl ? (
+                                            <img onClick={handleShowPhotoModal} src={ProfileImageUrl} alt="User" />
+                                        ) : (
+                                            <div 
+                                                onClick={handleShowPhotoModal} 
+                                                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '8rem', height: '8rem', marginRight: '1rem', borderRadius: '50%', backgroundColor: 'rgba(0,0,0,0.1)', cursor: 'pointer', boxShadow: '3px 2px 7px 0px rgba(0, 0, 0, 0.75)' }}
+                                            >
+                                                <UserIcon size={50} color="var(--PrimaryColor)" />
+                                            </div>
+                                        )}
                                     </div>
                                 </Tooltip>
                             </div>

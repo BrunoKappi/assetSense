@@ -35,6 +35,7 @@ import {
 import { ToggleTema } from "../../Functions/StoreMiddleware";
 import UserPhotoModal from "../UsersList/User/UserPhotoModal/UserPhotoModal";
 import UserPhoto from "../UserProfilePhoto/UserPhoto";
+import { User as UserIcon } from "lucide-react";
 import {
   AssetsTela,
   ConfigTela,
@@ -109,7 +110,9 @@ const NavBar = (props) => {
               <UilBars className="NavBarToggleIcon" />
             </Navbar.Toggle>
             <Navbar.Brand>
-              <div className="LogoAndCollpse">
+              <div
+                className="LogoAndCollpse"
+                style={{ display: "flex", alignItems: "center" }}>
                 <Tooltip
                   title="Recolher/Expandir barra lateral"
                   position="bottom">
@@ -119,8 +122,29 @@ const NavBar = (props) => {
                 </Tooltip>
 
                 <Tooltip title="Inicio" position="bottom"></Tooltip>
+
+                <div
+                  className="d-flex align-items-center "
+                  style={{
+                    color: "white",
+                    fontWeight: "600",
+                    fontSize: "1.2rem",
+                    gap: "0.8rem",
+                  }}>
+                  <img
+                    src="https://cdn.bkappi.com/ProjectsAssets/BkappiGeneral/bkappiIcon.ico"
+                    alt="AssetSense Icon"
+                    style={{
+                      width: "25px",
+                      height: "25px",
+                      borderRadius: "5px",
+                    }}
+                  />
+                  <span>AssetSense</span>
+                </div>
               </div>
             </Navbar.Brand>
+
             <Navbar.Offcanvas id="sidebarOffCanvas" backdrop={true}>
               <Offcanvas.Header closeButton closeVariant="white">
                 <Offcanvas.Title>
@@ -260,23 +284,33 @@ const NavBar = (props) => {
                   <div
                     className="LastNavLogoIconContainer"
                     onClick={(e) => SetTabNavBar("Profile", "/Assets/Profile")}>
-                    <UserPhoto
-                      src={
-                        props.CurrentUser.PhotoUrl ||
-                        props.TenantPhotos.NavSidebarLogo
-                      }
-                    />
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "30px",
+                        height: "30px",
+                        borderRadius: "50%",
+                        backgroundColor: "rgba(255,255,255,0.2)",
+                      }}>
+                      <UserIcon color="white" size={20} />
+                    </div>
                   </div>
 
                   <div className="NavSidebarUserPhotoContainer">
-                    <img
+                    <div
                       onClick={(e) => setShowPhotoModal(true)}
-                      alt="User"
                       className="NavSidebarUserPhoto"
-                      src={
-                        props.CurrentUser.PhotoUrl ||
-                        props.TenantPhotos.NavSidebarLogo
-                      }></img>
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        backgroundColor: "rgba(255,255,255,0.2)",
+                        cursor: "pointer",
+                      }}>
+                      <UserIcon color="white" size={40} />
+                    </div>
                   </div>
 
                   <div
